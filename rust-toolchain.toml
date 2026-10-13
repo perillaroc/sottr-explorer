@@ -1,0 +1,5 @@
+# 工具链：stable 通道；SX-002 执行时验证版本 rustc 1.98.1 / cargo 1.98.1（2026-10-13，Windows x86_64-pc-windows-msvc）。
+# 依赖精确版本由 Cargo.lock 与 apps/desktop/pnpm-lock.yaml 固定。
+[toolchain]
+channel = "stable"
+components = ["clippy", "rustfmt"]

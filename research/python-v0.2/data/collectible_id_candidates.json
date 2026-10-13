@@ -1,0 +1,2610 @@
+{
+  "source": "https://github.com/arcusmaximus/TrRebootModTools/blob/a79c48b75f1ffaaf623dc73a625211bf98ff0504/Templates/010%20Editor/tr/tr11/lists/tr11collectibles.bt",
+  "warning": "Candidate internal names, not collection status. Duplicate IDs retained. No category or region guarantees.",
+  "license": "MIT; see THIRD_PARTY_LICENSE.txt",
+  "mapping": {
+    "0xF97006F6": [
+      "Hidden_City_Riddle"
+    ],
+    "0xBEC00A0C": [
+      "Hydra_Constellation"
+    ],
+    "0x5165F3B4": [
+      "Mayan_Calendar"
+    ],
+    "0x01A96640": [
+      "Key_Chak_Chel"
+    ],
+    "0x0DC43D80": [
+      "Path_Paititi"
+    ],
+    "0x1D7C0331": [
+      "Serpent_Key"
+    ],
+    "0xF41482BF": [
+      "Heart_Serpent"
+    ],
+    "0xB4D95866": [
+      "Silver_Box"
+    ],
+    "0xBA47343A": [
+      "Lopez_Chronicle_1"
+    ],
+    "0xD37AD539": [
+      "Lopez_Chronicle_2"
+    ],
+    "0x8FCFCADA": [
+      "Lopez_Enters_Cenote"
+    ],
+    "0xF4B46500": [
+      "Lopez_Rosary"
+    ],
+    "0xCAA74459": [
+      "Prayer_Book"
+    ],
+    "0x9847F367": [
+      "Processional_Crucifix"
+    ],
+    "0xC98FDFC1": [
+      "Secret_Charter"
+    ],
+    "0xE5EEB8F4": [
+      "Thoughts_On_Foreign_Religion"
+    ],
+    "0x3CD1C908": [
+      "a_Trinity_Badge"
+    ],
+    "0xC4F4FA41": [
+      "b_Doctor_Dominguez"
+    ],
+    "0x1A19B4E3": [
+      "c_Ixchel_chakchel"
+    ],
+    "0x3E97117B": [
+      "d_silver_box_ixchel"
+    ],
+    "0xCBE41351": [
+      "e_Cult_of_Kukulkan"
+    ],
+    "0xC65253E3": [
+      "f_queen_unuratu"
+    ],
+    "0x30DC3B0C": [
+      "g_Amaru"
+    ],
+    "0x34ED39BC": [
+      "h_Jonah"
+    ],
+    "0x94AA3CBF": [
+      "i_Commander_Rourke"
+    ],
+    "0xACE98451": [
+      "j_Crimson_Fire"
+    ],
+    "0xF9CDBC99": [
+      "k_Lopez"
+    ],
+    "0xBCCB866C": [
+      "Hungry_Demons"
+    ],
+    "0xCF99CA42": [
+      "Knights_Helmet"
+    ],
+    "0x3597BA77": [
+      "Lopez_Chronicle_4"
+    ],
+    "0x40673C84": [
+      "Lopez_Chronicle_4_2"
+    ],
+    "0xC8FCA6A1": [
+      "Test_Of_The_Cenote"
+    ],
+    "0x527EBACF": [
+      "Lopez_Chronicle_3"
+    ],
+    "0x164FB06D": [
+      "Lopez_Leaves"
+    ],
+    "0xEBA6791E": [
+      "Angels_Arrival"
+    ],
+    "0xFAC1CB6F": [
+      "Angels_Disappearance"
+    ],
+    "0x0E3859C1": [
+      "Lopez_Chronicle_5"
+    ],
+    "0x4571AB24": [
+      "Lopez_Chronicle_6"
+    ],
+    "0xB125462A": [
+      "Lopez_Chronicle_7"
+    ],
+    "0x26B79773": [
+      "Lopez_Chronicle_8"
+    ],
+    "0x668739AE": [
+      "Wheellock_Pistol"
+    ],
+    "0x1E84D6DF": [
+      "Lord_Croft_Note"
+    ],
+    "0xC9C48B41": [
+      "Construction_Letter"
+    ],
+    "0x259EDE27": [
+      "Map"
+    ],
+    "0x19977201": [
+      "Richard_Letter"
+    ],
+    "0xA0720AFF": [
+      "Treasure"
+    ],
+    "0xEBA544A4": [
+      "White_Lady"
+    ],
+    "0x09D5ABE6": [
+      "Winston_Letter"
+    ],
+    "0x23FB0D7E": [
+      "Bowl_Of_Cinnabar"
+    ],
+    "0xF18281A5": [
+      "Foot_Plough"
+    ],
+    "0x5C78EA34": [
+      "Llama_Figurine"
+    ],
+    "0x4AC568AC": [
+      "Preserved_Food"
+    ],
+    "0x12DABFF7": [
+      "Storage_Jar"
+    ],
+    "0x043E391D": [
+      "Textile_Bag"
+    ],
+    "0x07E76E24": [
+      "Animal_God_Mural"
+    ],
+    "0x489FB5F6": [
+      "Death_God_Monolith"
+    ],
+    "0x484AA8C8": [
+      "Earth_Goddess_Mural"
+    ],
+    "0x6741FDF6": [
+      "Grain_Goddess_Mural"
+    ],
+    "0xF96E3E50": [
+      "Sun_God_Mural"
+    ],
+    "0x52A30513": [
+      "Supreme_God_Monolith"
+    ],
+    "0x8B86224A": [
+      "Moon_God_Monolith"
+    ],
+    "0x5A58F5AB": [
+      "Rain_God_Mural"
+    ],
+    "0x02784A71": [
+      "Handkerchief"
+    ],
+    "0x371C81F4": [
+      "Journal_Page"
+    ],
+    "0x65E3935A": [
+      "Lost_Letter"
+    ],
+    "0xEDBA6F35": [
+      "Pistol_Grip"
+    ],
+    "0x96E1C872": [
+      "Sextant"
+    ],
+    "0x65321863": [
+      "Raleigh_Rimmel_Epitaph"
+    ],
+    "0x8712DACD": [
+      "Mayan_Proverb"
+    ],
+    "0x724B9CF7": [
+      "Crude_oil"
+    ],
+    "0x44ADFEB7": [
+      "Polished_Copal"
+    ],
+    "0x8412840E": [
+      "Trinity_Aid"
+    ],
+    "0x60BF8840": [
+      "Family_History"
+    ],
+    "0x7E613762": [
+      "Bloodletter"
+    ],
+    "0xD85F7B97": [
+      "Coatlicue"
+    ],
+    "0x4F8EE97C": [
+      "Gold_Mask_Of_Xipe_Totec"
+    ],
+    "0xE60DB5BB": [
+      "Mask_Of_Tezcatlipoca"
+    ],
+    "0x0D40E76F": [
+      "Quetzalcoatl"
+    ],
+    "0x22889CE2": [
+      "Sacrificial_Knife"
+    ],
+    "0x9D37D10B": [
+      "Tlaloc_Vase"
+    ],
+    "0x659672E5": [
+      "Death_Figurines"
+    ],
+    "0x2389359E": [
+      "First_Contact"
+    ],
+    "0x29B519FB": [
+      "Ransom"
+    ],
+    "0x783457B3": [
+      "Slave_Collar"
+    ],
+    "0xF9BA2199": [
+      "Disease_And_Death"
+    ],
+    "0x65B54978": [
+      "Galleon_Note"
+    ],
+    "0xC8B66BA8": [
+      "Infighting"
+    ],
+    "0xCC4A7C40": [
+      "Missionary_Work"
+    ],
+    "0xDBA47FC6": [
+      "Spanish_Sword"
+    ],
+    "0xEE8F45DD": [
+      "Aztec_Contract"
+    ],
+    "0xB7605AD5": [
+      "Aztec_Whistle"
+    ],
+    "0x462B1085": [
+      "Incense_Burner"
+    ],
+    "0x0095B5A7": [
+      "Patolli_Mat"
+    ],
+    "0x0322ED0C": [
+      "Gold_Ear_Spools"
+    ],
+    "0x69A11CF9": [
+      "Silver_Mirror"
+    ],
+    "0xE8794A7C": [
+      "Metatl"
+    ],
+    "0xEDACACC3": [
+      "Burial_Doll"
+    ],
+    "0xC6F2A6A0": [
+      "Company_Town"
+    ],
+    "0x6F328B11": [
+      "Oil_Derrick_Model"
+    ],
+    "0x80AFF5C0": [
+      "Tumi_Knife"
+    ],
+    "0x39551DDB": [
+      "Water_Quality_Report"
+    ],
+    "0x5F844AE1": [
+      "Iron_Mold"
+    ],
+    "0xDDAB23B2": [
+      "An_Empress_In_Name"
+    ],
+    "0x9865801A": [
+      "Disctinct_Culture"
+    ],
+    "0xC65BA16D": [
+      "Inti_Statuette"
+    ],
+    "0xE3539118": [
+      "Reconnaissance"
+    ],
+    "0x6E55AAF3": [
+      "Unuratu_Prophecy"
+    ],
+    "0xDE835BF6": [
+      "Unuratus_Bracelet"
+    ],
+    "0x93F50AAD": [
+      "Mama_Killa_Mask"
+    ],
+    "0xAA344AC4": [
+      "Stolen_Mummy"
+    ],
+    "0xDD657071": [
+      "Copper_Mace"
+    ],
+    "0x8E78816C": [
+      "Carved_Wooden_Bowl"
+    ],
+    "0x44DF69A7": [
+      "Journey_South"
+    ],
+    "0xA7FF8298": [
+      "Poison_Bottle"
+    ],
+    "0xF99B54F1": [
+      "Reasons_For_Exodus"
+    ],
+    "0x018F6D1C": [
+      "Temple_Of_Death"
+    ],
+    "0x6C489221": [
+      "Temple_Of_Life"
+    ],
+    "0x7117BC06": [
+      "Temple_Of_The_Moon"
+    ],
+    "0xF744CC5B": [
+      "Death_Of_The_Nobles"
+    ],
+    "0x56DB72EA": [
+      "Funerary_Mask"
+    ],
+    "0xE1751116": [
+      "Mountain_With_Crown_Of_Silver"
+    ],
+    "0x4128D9F2": [
+      "Skull_With_Inlaid_Teeth"
+    ],
+    "0x31FBC663": [
+      "The_Transformation"
+    ],
+    "0xDD726C24": [
+      "Temple_Of_The_Serpent"
+    ],
+    "0x9B746347": [
+      "Encroachment"
+    ],
+    "0x79BFDBD5": [
+      "Secret_Wind"
+    ],
+    "0x60649B7C": [
+      "Surprise_Witness"
+    ],
+    "0x8ED45A4D": [
+      "Awaiting_The_Return"
+    ],
+    "0x9C3AA4AF": [
+      "Homeward_Bound"
+    ],
+    "0x47154F56": [
+      "Local_Legends"
+    ],
+    "0xCEF8084E": [
+      "Kukulkan_On_A_Cross"
+    ],
+    "0x902F8AC3": [
+      "Demons_Repelled"
+    ],
+    "0xC7AAC40A": [
+      "Devils_In_The_Dark"
+    ],
+    "0xABD9B4C8": [
+      "Ancient_Airplane"
+    ],
+    "0x10889D70": [
+      "Flight_Log"
+    ],
+    "0xFC3A73B2": [
+      "Haunting"
+    ],
+    "0xDA615056": [
+      "Plastic_Penguin"
+    ],
+    "0xBA19BA13": [
+      "Sisimite"
+    ],
+    "0xE73BB718": [
+      "Tzitzimemeh"
+    ],
+    "0x5E6F0756": [
+      "Nahual_Mask"
+    ],
+    "0xFAA76BB3": [
+      "Elongated_Skull"
+    ],
+    "0xF23B3644": [
+      "Paititi_Founded"
+    ],
+    "0x4345EA40": [
+      "First_Emperor"
+    ],
+    "0x2B36100B": [
+      "Merging_Cultures"
+    ],
+    "0xEEE8EE49": [
+      "Paititi_Moved"
+    ],
+    "0x9F2D0D69": [
+      "Paititi_Troubles"
+    ],
+    "0xF2D25297": [
+      "Peace_And_Prosperity"
+    ],
+    "0xB574659B": [
+      "War"
+    ],
+    "0x7B95CAEA": [
+      "Aztec_Arrival"
+    ],
+    "0xD78E5B56": [
+      "Aztec_Rule"
+    ],
+    "0x472701B9": [
+      "Mobilize_And_Defend"
+    ],
+    "0x0EA8B2F4": [
+      "First_Sacrifice"
+    ],
+    "0x090D83BE": [
+      "Manko_Necklace"
+    ],
+    "0x90851695": [
+      "Manko_The_Savior"
+    ],
+    "0x9DFB313D": [
+      "Meeting_Lopez"
+    ],
+    "0x12B626FF": [
+      "The_Line_Of_Manko"
+    ],
+    "0xB931BAD2": [
+      "Famine"
+    ],
+    "0x29D696EC": [
+      "Unuratu_Rebellion"
+    ],
+    "0xF89DAA0F": [
+      "Unuratu_Coronation"
+    ],
+    "0x329459A4": [
+      "Amaru_Seizes_Control"
+    ],
+    "0x344A0F7A": [
+      "Eztli_Birth"
+    ],
+    "0xDF933EEC": [
+      "Recruiting_Amaru"
+    ],
+    "0x7D18BFDB": [
+      "El_Dorado"
+    ],
+    "0xA9A2B053": [
+      "Film_Camera"
+    ],
+    "0x403EEB8E": [
+      "Guardian"
+    ],
+    "0x6B6628FF": [
+      "Misdirection"
+    ],
+    "0xC384CBC3": [
+      "Vigilance"
+    ],
+    "0xBD971FD3": [
+      "Base_Camp"
+    ],
+    "0x62148211": [
+      "Explorer_Journal_1"
+    ],
+    "0xDDC1710D": [
+      "Explorer_Journal_2"
+    ],
+    "0xF1FAE49A": [
+      "Ceremonial_Torch"
+    ],
+    "0x89524837": [
+      "Closed_Border"
+    ],
+    "0x085A83D1": [
+      "Dismantled_Radio"
+    ],
+    "0xCE0734DD": [
+      "Isolated"
+    ],
+    "0x960A2A78": [
+      "Outsider_Sacrifice"
+    ],
+    "0xC14AD971": [
+      "Temple_Of_The_Sky"
+    ],
+    "0x9C9925D6": [
+      "Nahual_Carving"
+    ],
+    "0xBBFEEBDB": [
+      "Miracle_Club"
+    ],
+    "0xF0FEB3C5": [
+      "Mission_Founded"
+    ],
+    "0x42DE17F5": [
+      "Mission_Repairs"
+    ],
+    "0x2F1764FD": [
+      "Mission_Statement"
+    ],
+    "0x584E2E20": [
+      "Multiple_Miracles"
+    ],
+    "0xBC594CE9": [
+      "Saint_John"
+    ],
+    "0x74D6B48B": [
+      "Stations_Cross"
+    ],
+    "0x83D4065F": [
+      "Tapestry"
+    ],
+    "0x25A6AF2F": [
+      "A_Lost_World"
+    ],
+    "0xA3B16D2F": [
+      "Broken_Arrow"
+    ],
+    "0xA2F185C7": [
+      "Demons_Outside"
+    ],
+    "0xF50E7CCE": [
+      "Expedition_Report"
+    ],
+    "0x06D38407": [
+      "Wooden_Gun"
+    ],
+    "0x4A4C37BB": [
+      "Hardhat"
+    ],
+    "0xA2B5625F": [
+      "Intrepid_Adventurer"
+    ],
+    "0x0D6ADEF8": [
+      "End_Times"
+    ],
+    "0x37E6E210": [
+      "Hollow_Village_Operation"
+    ],
+    "0xB44239F9": [
+      "Lopez_Diary_1"
+    ],
+    "0xE0410A37": [
+      "Lopez_Diary_2"
+    ],
+    "0x78D55FD2": [
+      "Search_Map"
+    ],
+    "0x8E1F420B": [
+      "Trinity_Massacre"
+    ],
+    "0x101EBDED": [
+      "Trinity_Searches"
+    ],
+    "0x4F357588": [
+      "Trinity_Survey"
+    ],
+    "0x2F0F0683": [
+      "Croft_Report"
+    ],
+    "0xBF1247FD": [
+      "Sniper_Diary"
+    ],
+    "0x09A53C76": [
+      "Jack_Journal_1"
+    ],
+    "0x9E17CFFB": [
+      "Jack_Journal_2"
+    ],
+    "0xA59C602F": [
+      "Jack_Journal_3"
+    ],
+    "0xD03FC71A": [
+      "Jack_Journal_4"
+    ],
+    "0x7CDCD0DC": [
+      "Jack_Journal_5"
+    ],
+    "0x72A130AC": [
+      "Yaaxil_01"
+    ],
+    "0x743AA36A": [
+      "Yaaxil_02"
+    ],
+    "0x18155E52": [
+      "Yaaxil_03"
+    ],
+    "0xEF35DE29": [
+      "Yaaxil_04"
+    ],
+    "0xFE4F7B24": [
+      "Yaaxil_05"
+    ],
+    "0xE437D5D8": [
+      "Maya_God_1"
+    ],
+    "0xD80A5713": [
+      "Maya_God_2"
+    ],
+    "0xCCE614A4": [
+      "Maya_God_3"
+    ],
+    "0xF2B65ADD": [
+      "Maya_God_4"
+    ],
+    "0x24E6FFE5": [
+      "Maya_God_5"
+    ],
+    "0xE37CEF20": [
+      "Maya_God_6"
+    ],
+    "0x039F63E5": [
+      "Maya_God_7"
+    ],
+    "0x085190BF": [
+      "Aztec_Year_Bundle"
+    ],
+    "0x162D9BD8": [
+      "Broken_Macahuilt"
+    ],
+    "0xECFCF324": [
+      "Fire_Drill"
+    ],
+    "0x0D9C63E9": [
+      "Jade_Mask"
+    ],
+    "0x57447BC8": [
+      "Pipe"
+    ],
+    "0x08A8054E": [
+      "Warrior_Pendant"
+    ],
+    "0xC399ADA1": [
+      "Manko_Effigy"
+    ],
+    "0xA648BD25": [
+      "Trinity_Cult"
+    ],
+    "0xC6B98286": [
+      "Aztec_Laws"
+    ],
+    "0x2B2FC7E7": [
+      "Kukulkan_Warriors"
+    ],
+    "0x16C7C314": [
+      "Sun_Priest"
+    ],
+    "0x3327D835": [
+      "Death_Cult_1"
+    ],
+    "0x9118AD01": [
+      "Death_Cult_2"
+    ],
+    "0x83E53135": [
+      "Death_Cult_3"
+    ],
+    "0x5814FAFA": [
+      "Death_Cult_4"
+    ],
+    "0x5F17B019": [
+      "Death_Cult_5"
+    ],
+    "0xF285063D": [
+      "Death_Cult_6"
+    ],
+    "0x49B7C6F0": [
+      "Death_Cult_7"
+    ],
+    "0x24D0344D": [
+      "Alux"
+    ],
+    "0xEF19D1FF": [
+      "Balams"
+    ],
+    "0xCBDCD9FB": [
+      "Monkey_Twins"
+    ],
+    "0x62B5AB49": [
+      "Paddler_Gods"
+    ],
+    "0xCCD225DD": [
+      "Two_Trees"
+    ],
+    "0x937D3868": [
+      "Votan"
+    ],
+    "0x8834B6B2": [
+      "World_Tree"
+    ],
+    "0xB1629AF4": [
+      "Court_Death"
+    ],
+    "0xD656004F": [
+      "Flooded_Sanctuary"
+    ],
+    "0x56AB3FD1": [
+      "Gate_Xibalba"
+    ],
+    "0x6D914037": [
+      "Serpent_Hollow"
+    ],
+    "0x4F2135BC": [
+      "Sky_Temple"
+    ],
+    "0x9D56C3FE": [
+      "Tree_Life"
+    ],
+    "0x5DB360F6": [
+      "Warriors_Trial"
+    ],
+    "0xEF88D7ED": [
+      "Xolotl"
+    ],
+    "0x5D96F89C": [
+      "Memorial_1"
+    ],
+    "0xCB3F79FB": [
+      "Memorial_2"
+    ],
+    "0x6FA48E97": [
+      "Memorial_3"
+    ],
+    "0xB3E072E4": [
+      "Memorial_4"
+    ],
+    "0x22E3B207": [
+      "Memorial_5"
+    ],
+    "0xFF54AE20": [
+      "Memorial_6"
+    ],
+    "0xC0AF0E59": [
+      "Memorial_7"
+    ],
+    "0xDD9CA99B": [
+      "Memorial_8"
+    ],
+    "0xAACA9591": [
+      "DLC01_MARIANAS_MAP_STATE_01"
+    ],
+    "0x4A58B0D6": [
+      "DLC01_MARIANAS_MAP_STATE_02"
+    ],
+    "0xDAB1DD87": [
+      "DLC01_MARIANAS_MAP_STATE_03"
+    ],
+    "0x7DEC396C": [
+      "DLC01_CHAKANA_PIECE_01"
+    ],
+    "0x04F85CB9": [
+      "DLC01_CHAKANA_PIECE_02"
+    ],
+    "0x93436A24": [
+      "DLC01_CHAKANA_PIECE_03"
+    ],
+    "0x116D04CB": [
+      "DLC01_PORVENIR_FIELD_REPORT"
+    ],
+    "0x56FC59E0": [
+      "DLC01_MARIANAS_JOURNAL"
+    ],
+    "0xABC9E455": [
+      "DLC01_JOURNEY_FROM_MEXICO"
+    ],
+    "0x119E2BC2": [
+      "DLC01_PORVENIR_HARDHAT"
+    ],
+    "0x82A9C782": [
+      "DLC01_MARIANAS_CONFESSION"
+    ],
+    "0x92C8057E": [
+      "DLC01_FORGE_MURAL"
+    ],
+    "0x64B06DC0": [
+      "DLC02_QORIANKAS_ORDERS"
+    ],
+    "0x7666F866": [
+      "DLC02_RITUAL_BOOK"
+    ],
+    "0x07DCD3FE": [
+      "DLC02_AMARUS_DIARY_PAGE"
+    ],
+    "0x7828DF72": [
+      "DLC02_PILLARS_OF_HEAVEN"
+    ],
+    "0xBD6B77BF": [
+      "DLC02_LEGEND_OF_THE_SHIELD"
+    ],
+    "0x32F3A092": [
+      "DLC02_THE_SHIELDS_CRADLE"
+    ],
+    "0xE4E77A90": [
+      "DLC02_THE_SHIELD"
+    ],
+    "0x227327D9": [
+      "DLC02_LOPEZ_EULOGY"
+    ],
+    "0xA8615E3E": [
+      "DLC03_INSRUMENT_BLUEPRINT"
+    ],
+    "0xA0040AA7": [
+      "DLC03_EXILED_TWINS"
+    ],
+    "0xAB453584": [
+      "DLC03_GATHERING_FOLLOWERS"
+    ],
+    "0xBA280E1C": [
+      "DLC04_RELIC_01_Wheel_Pyramid_North"
+    ],
+    "0xCDC2FAF3": [
+      "DLC04_RELIC_02_Wheel_Yellow_South"
+    ],
+    "0x696CD437": [
+      "DLC04_RELIC_03_Red_Key_North"
+    ],
+    "0x01F16D6E": [
+      "DLC04_RELIC_04_Wheel_Red_North"
+    ],
+    "0x5B10D527": [
+      "DLC04_DOCUMENT_01_Letter_Food_Chest"
+    ],
+    "0xA687997B": [
+      "DLC04_MURAL_01_Tomb_End_Stele"
+    ],
+    "0xD2024132": [
+      "DLC04_DOCUMENT_02_Amaru_Journal"
+    ],
+    "0xA9066A63": [
+      "DLC04_DOCUMENT_03_Amaru_Eval"
+    ],
+    "0x5332F9D0": [
+      "DLC05_CODED_MESSAGE"
+    ],
+    "0xB869D6C6": [
+      "DLC05_DECODED_MESSAGE"
+    ],
+    "0x82770BFB": [
+      "DLC05_CHALLENGERS_TRIAL"
+    ],
+    "0xF60968A7": [
+      "DLC05_GODSLAYER_HISTORY"
+    ],
+    "0x153C563F": [
+      "DLC06_DOCUMENT_01_Trinity_Communications"
+    ],
+    "0x21F30738": [
+      "DLC06_DOCUMENT_02_Prayer_To_Zipacna"
+    ],
+    "0xCC7B3FA7": [
+      "DLC06_MURAL_01_Zipacna_Lore"
+    ],
+    "0x1CD89B7B": [
+      "DLC06_RELIC_01_Crab"
+    ],
+    "0xA6C0BB36": [
+      "DLC07_DOCUMENT_01_Lopez_Tunnels"
+    ],
+    "0x83DE3E3A": [
+      "DLC07_MURAL_01_Tomb_Of_Xquic"
+    ],
+    "0x053CAD08": [
+      "DLC07_MURAL_02_Gateway_To_Heavens"
+    ],
+    "0x9D636823": [
+      "CollectibleTypeDocument_Test_01"
+    ],
+    "0x9D636822": [
+      "CollectibleTypeDocument_Test_02"
+    ],
+    "0xD7F7674C": [
+      "CollectibleTypeMonolith_pa_hub_paititi_aztec_intermediate_1"
+    ],
+    "0xB47679E9": [
+      "CollectibleTypeMonolith_Lj_shrine_of_darkness"
+    ],
+    "0x33BAC64B": [
+      "CollectibleTypeMonolith_pa_hub_paititi_middle_island_aztec_intermediate_2"
+    ],
+    "0xE17A9FED": [
+      "CollectibleTypeMonolith_pa_hub_paititi_return_02_mayan_advanced_2"
+    ],
+    "0x5BBA136D": [
+      "CollectibleTypeMonolith_pa_hub_paititi_aztec_advanced_1"
+    ],
+    "0xC283486E": [
+      "CollectibleTypeMonolith_pa_hub_paititi_maya_advanced_1"
+    ],
+    "0x0EC13AE8": [
+      "CollectibleTypeMonolith_pa_hub_paititi_maya_intermediate_2"
+    ],
+    "0xAF9AD9D4": [
+      "CollectibleTypeMonolith_hv2_01_inca_advanced_1"
+    ],
+    "0xBEF19DB3": [
+      "CollectibleTypeMonolith_hv2_01_inca_intermediate_1"
+    ],
+    "0xB02F0961": [
+      "CollectibleTypeMonolith_hv_v2_03_mayan_intermediate_2"
+    ],
+    "0x439B19A6": [
+      "CollectibleTypeMonolith_spanish_mission_incan_advanced_2"
+    ],
+    "0x5BB0EF4C": [
+      "CollectibleTypeMonolith_pa_hub_paititi_maya_advanced_2"
+    ],
+    "0x570047BE": [
+      "collectible_chest_lockpick_tr11_ancient_02"
+    ],
+    "0xF3CF9536": [
+      "collectible_chest_lockpick_tr11_ancient_03"
+    ],
+    "0xF3CF9539": [
+      "collectible_chest_lockpick_tr11_ancient_04"
+    ],
+    "0xF3CF953A": [
+      "collectible_chest_lockpick_tr11_ancient_07"
+    ],
+    "0xF3CF94FD": [
+      "collectible_chest_lockpick_tr11_ancient_08"
+    ],
+    "0xF3CF953B": [
+      "collectible_chest_lockpick_tr11_ancient_06"
+    ],
+    "0xF3CF9538": [
+      "collectible_chest_lockpick_tr11_ancient_05"
+    ],
+    "0xF3CF9534": [
+      "collectible_chest_lockpick_tr11_ancient_01"
+    ],
+    "0x510A6E81": [
+      "CollectibleTypeExplorerSatchel_DotD_01"
+    ],
+    "0x5B5C79A2": [
+      "CollectibleTypeExplorerSatchel_LitJ_01"
+    ],
+    "0x5B5C79A1": [
+      "CollectibleTypeExplorerSatchel_LitJ_02"
+    ],
+    "0x27A828BB": [
+      "CollectibleTypeExplorerSatchel_HV_01"
+    ],
+    "0x27A828BA": [
+      "CollectibleTypeExplorerSatchel_HV_02"
+    ],
+    "0x4816C0A1": [
+      "CollectibleTypeExplorerSatchel_Paititi_01"
+    ],
+    "0x4816C0A2": [
+      "CollectibleTypeExplorerSatchel_Paititi_02"
+    ],
+    "0x4816C0A3": [
+      "CollectibleTypeExplorerSatchel_Paititi_03"
+    ],
+    "0x4816C0A4": [
+      "CollectibleTypeExplorerSatchel_Paititi_04"
+    ],
+    "0x6893C3B1": [
+      "CollectibleTypeExplorerSatchel_PaititiReturn_02"
+    ],
+    "0xEEDDEEF2": [
+      "CollectibleTypeExplorerSatchel_SpanishMission_01"
+    ],
+    "0xEEDDEEF0": [
+      "CollectibleTypeExplorerSatchel_SpanishMission_03"
+    ],
+    "0xEEDDEEF7": [
+      "CollectibleTypeExplorerSatchel_SpanishMission_04"
+    ],
+    "0x9BADF674": [
+      "CollectibleTypeExplorerSatchel_abandonned_village_01"
+    ],
+    "0x8374143B": [
+      "SypeExplorerSatchel_Ce_01"
+    ],
+    "0xDA196AFD": [
+      "CT_Flooded_Sanctuary"
+    ],
+    "0x8304AA4B": [
+      "CT_Serpents_Hollow"
+    ],
+    "0x49B8E76F": [
+      "CT_Sky_Temple"
+    ],
+    "0xAF194AE7": [
+      "CT_Warriors_Trial"
+    ],
+    "0x005E3069": [
+      "CT_Tree_Of_Life"
+    ],
+    "0x861E902E": [
+      "CT_Citadel_Of_Wind"
+    ],
+    "0x81D70069": [
+      "CT_Court_of_Death"
+    ],
+    "0xC9D62DEE": [
+      "CT_Pillars_Of_Heaven",
+      "CT_Gift_of_Immortality",
+      "CT_Gate_of_Xibalba",
+      "CT_Xolotl",
+      "CT_Fire_Mountain"
+    ],
+    "0x98564BA8": [
+      "gym_social_hub_codex01"
+    ],
+    "0x98564B9F": [
+      "gym_social_hub_codex02"
+    ],
+    "0x98564B9E": [
+      "gym_social_hub_codex03"
+    ],
+    "0x98564B9D": [
+      "gym_social_hub_codex04",
+      "gym_social_hub_codex05"
+    ],
+    "0x5A61ACA5": [
+      "CollectibleTypeArchivistMap_ApocalypseNow_01"
+    ],
+    "0xD1C49E0E": [
+      "pa_archivist_map_01"
+    ],
+    "0xD1C49E0D": [
+      "pa_archivist_map_02"
+    ],
+    "0xD1C49E0C": [
+      "pa_archivist_map_03"
+    ],
+    "0xD1C49E12": [
+      "pa_archivist_map_05"
+    ],
+    "0xD1C49E10": [
+      "pa_archivist_map_07"
+    ],
+    "0x0E60673F": [
+      "pa_return_archivist_map_03"
+    ],
+    "0x0E60673E": [
+      "pa_return_archivist_map_04"
+    ],
+    "0xDA3C8C8F": [
+      "spmision_archivist_map_04"
+    ],
+    "0xDA3C8C8E": [
+      "spmision_archivist_map_03"
+    ],
+    "0xDA3C8C91": [
+      "spmision_archivist_map_02"
+    ],
+    "0x09ACC02A": [
+      "spmission_archivist_map_01"
+    ],
+    "0x689D1BC3": [
+      "dd_day_of_the_dead_archivist_map_01"
+    ],
+    "0x298EFC7A": [
+      "litj_archivist_map_01"
+    ],
+    "0x298EFC78": [
+      "litj_archivist_map_03"
+    ],
+    "0x0651897A": [
+      "ce_archivist_map_01"
+    ],
+    "0xC31478F3": [
+      "hv_archivist_map_02"
+    ],
+    "0xC31478F2": [
+      "hv_archivist_map_03"
+    ],
+    "0xC31478F5": [
+      "hv_archivist_map_04"
+    ],
+    "0x0B3F2EC1": [
+      "RareResourceCacheCollectible_pa_hub_paititi_aztec_intermediate_1"
+    ],
+    "0xDC67D414": [
+      "RareResourceCacheCollectibleGym01"
+    ],
+    "0xDC67D417": [
+      "RareResourceCacheCollectibleGym02"
+    ],
+    "0xA3B42DAD": [
+      "RareResourceCacheCollectible_lj_shrine_of_darkness"
+    ],
+    "0xFAAECCB0": [
+      "RareResourceCacheCollectible_pa_hub_paititi_middle_island_aztec_intermediate_2"
+    ],
+    "0xCC47BB91": [
+      "RareResourceCacheCollectible_pa_hub_paititi_return_02_mayan_advanced_2"
+    ],
+    "0xBB000659": [
+      "RareResourceCacheCollectible_pa_hub_paititi_aztec_advanced_1"
+    ],
+    "0x72112A9C": [
+      "RareResourceCacheCollectible_pa_hub_paititi_incan_advanced_1"
+    ],
+    "0xA794E81D": [
+      "RareResourceCacheCollectible_pa_hub_paititi_incan_intermediate_2"
+    ],
+    "0x25EF128C": [
+      "RareResourceCacheCollectible_hv_v2_01_mayan_intermediate_1"
+    ],
+    "0xBB70E605": [
+      "RareResourceCacheCollectible_hv_v2_03_mayan_intermediate_2"
+    ],
+    "0x9FFEA926": [
+      "RareResourceCacheCollectible_hv_v2_01_mayan_advanced_1"
+    ],
+    "0xD8CD8257": [
+      "RareResourceCacheCollectible_spanish_mission_incan_advanced_2"
+    ],
+    "0xBB00065A": [
+      "RareResourceCacheCollectible_pa_hub_paititi_aztec_advanced_2"
+    ],
+    "0xFA680F25": [
+      "CollectibleTypeSurvivalCacheGymCollectible01"
+    ],
+    "0xFA680F2A": [
+      "CollectibleTypeSurvivalCacheGymCollectible02"
+    ],
+    "0x7D3D1069": [
+      "CollectibleTypeSurvivalCache_DotD_01"
+    ],
+    "0x7D3D1068": [
+      "CollectibleTypeSurvivalCache_DotD_02"
+    ],
+    "0x3672536F": [
+      "CollectibleTypeSurvivalCache_LitJ_02"
+    ],
+    "0x3672536E": [
+      "CollectibleTypeSurvivalCache_LitJ_03"
+    ],
+    "0x36725371": [
+      "CollectibleTypeSurvivalCache_LitJ_04"
+    ],
+    "0x36725370": [
+      "CollectibleTypeSurvivalCache_LitJ_05"
+    ],
+    "0x36725373": [
+      "CollectibleTypeSurvivalCache_LitJ_06"
+    ],
+    "0xC062C7B3": [
+      "CollectibleTypeSurvivalCache_CT_Gate_Of_Xibalba_02"
+    ],
+    "0x752CBB46": [
+      "CollectibleTypeSurvivalCache_HV_02"
+    ],
+    "0x752CBB47": [
+      "CollectibleTypeSurvivalCache_HV_03"
+    ],
+    "0x752CBB48": [
+      "CollectibleTypeSurvivalCache_HV_04"
+    ],
+    "0x752CBB49": [
+      "CollectibleTypeSurvivalCache_HV_05"
+    ],
+    "0x752CBB4A": [
+      "CollectibleTypeSurvivalCache_HV_06"
+    ],
+    "0x752CBB4C": [
+      "CollectibleTypeSurvivalCache_HV_08"
+    ],
+    "0xB47DDD90": [
+      "CollectibleTypeSurvivalCache_CT_Xolotl_01"
+    ],
+    "0x851B48F5": [
+      "CollectibleTypeSurvivalCache_Paititi_01"
+    ],
+    "0x851B48FA": [
+      "CollectibleTypeSurvivalCache_Paititi_02"
+    ],
+    "0x851B48FB": [
+      "CollectibleTypeSurvivalCache_Paititi_03"
+    ],
+    "0x851B48F8": [
+      "CollectibleTypeSurvivalCache_Paititi_04"
+    ],
+    "0x851B48F9": [
+      "CollectibleTypeSurvivalCache_Paititi_05"
+    ],
+    "0x851B48EE": [
+      "CollectibleTypeSurvivalCache_Paititi_06"
+    ],
+    "0x851B48EF": [
+      "CollectibleTypeSurvivalCache_Paititi_07"
+    ],
+    "0x851B48EC": [
+      "CollectibleTypeSurvivalCache_Paititi_08"
+    ],
+    "0x851B48ED": [
+      "CollectibleTypeSurvivalCache_Paititi_09"
+    ],
+    "0x851B4915": [
+      "CollectibleTypeSurvivalCache_Paititi_10"
+    ],
+    "0x851B491B": [
+      "CollectibleTypeSurvivalCache_Paititi_12"
+    ],
+    "0x851B4914": [
+      "CollectibleTypeSurvivalCache_Paititi_11"
+    ],
+    "0xFD9DCD84": [
+      "CollectibleTypeSurvivalCache_CT_Warrior_Trial_01"
+    ],
+    "0xFD9DCD87": [
+      "CollectibleTypeSurvivalCache_CT_Warrior_Trial_02"
+    ],
+    "0xA5F6A32F": [
+      "CollectibleTypeSurvivalCache_CT_Sky_Temple_01"
+    ],
+    "0xE871F8D6": [
+      "CollectibleTypeSurvivalCache_Cenote_01"
+    ],
+    "0xE871F8D5": [
+      "CollectibleTypeSurvivalCache_Cenote_02"
+    ],
+    "0xE871F8D4": [
+      "CollectibleTypeSurvivalCache_Cenote_03"
+    ],
+    "0xE871F8DA": [
+      "CollectibleTypeSurvivalCache_Cenote_05"
+    ],
+    "0xE871F8DB": [
+      "CollectibleTypeSurvivalCache_Cenote_04"
+    ],
+    "0xB419E702": [
+      "CollectibleTypeSurvivalCache_Paititi_Return_01"
+    ],
+    "0xB419E703": [
+      "CollectibleTypeSurvivalCache_Paititi_Return_02"
+    ],
+    "0xB419E6FE": [
+      "CollectibleTypeSurvivalCache_Paititi_Return_05"
+    ],
+    "0xB275438A": [
+      "CollectibleTypeSurvivalCache_CT_Citadel_Of_Wind_01"
+    ],
+    "0xDD26A1BC": [
+      "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_01"
+    ],
+    "0xDD26A1BD": [
+      "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_02"
+    ],
+    "0x0F28B6EC": [
+      "CollectibleTypeSurvivalCache_SpanishMission_03"
+    ],
+    "0x0F28B6ED": [
+      "CollectibleTypeSurvivalCache_SpanishMission_04"
+    ],
+    "0x0F28B6EE": [
+      "CollectibleTypeSurvivalCache_SpanishMission_05"
+    ],
+    "0x0F28B6EF": [
+      "CollectibleTypeSurvivalCache_SpanishMission_06"
+    ],
+    "0xAE1A2E7A": [
+      "CollectibleTypeSurvivalCache_CT_Tree_Of_Life_02"
+    ],
+    "0xFF9EAC79": [
+      "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_01"
+    ],
+    "0xFF9EAC6E": [
+      "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_02"
+    ],
+    "0xD2E4E3EE": [
+      "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_01"
+    ],
+    "0xD2E4E3F1": [
+      "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_02"
+    ],
+    "0x6FBA9596": [
+      "CollectibleTypeSurvivalCache_Crypt_Lastbreath_01"
+    ],
+    "0xD6992534": [
+      "CollectibleTypeSurvivalCache_Crypt_Eldorado_01"
+    ],
+    "0xC3DEB9BC": [
+      "CollectibleTypeSurvivalCache_abandonned_village_01"
+    ],
+    "0xC3DEB9C2": [
+      "CollectibleTypeSurvivalCache_abandonned_village_03"
+    ],
+    "0x5C4C9AC2": [
+      "CollectibleTypeSurvivalCache_Crypt_cr_04_01"
+    ],
+    "0x36725372": [
+      "CollectibleTypeSurvivalCache_LitJ_7"
+    ],
+    "0x752CBB45": [
+      "CollectibleTypeSurvivalCache_HV_01"
+    ],
+    "0xD6992537": [
+      "CollectibleTypeSurvivalCache_Crypt_Eldorado_02"
+    ],
+    "0x7D3D1067": [
+      "CollectibleTypeSurvivalCache_DotD_03"
+    ],
+    "0x752CBB4D": [
+      "CollectibleTypeSurvivalCache_HV_09"
+    ],
+    "0x752CBAE7": [
+      "CollectibleTypeSurvivalCache_HV_10"
+    ],
+    "0x752CBAE6": [
+      "CollectibleTypeSurvivalCache_HV_11"
+    ],
+    "0xE871F8D9": [
+      "CollectibleTypeSurvivalCache_Cenote_06"
+    ],
+    "0x851B491A": [
+      "CollectibleTypeSurvivalCache_Paititi_13"
+    ],
+    "0x851B4919": [
+      "CollectibleTypeSurvivalCache_Paititi_14"
+    ],
+    "0x64732AC8": [
+      "CollectibleTypeCrypt_01_cr_lastbreath"
+    ],
+    "0x9BFEBBFF": [
+      "CollectibleTypeCrypt_02_crypt_009"
+    ],
+    "0xD6C5375B": [
+      "CollectibleTypeCrypt_03_cr_nepenthes"
+    ],
+    "0x9A708439": [
+      "CollectibleTypeCrypt_04_cr_newfall_01"
+    ],
+    "0xB9211E1D": [
+      "CollectibleTypeCrypt_05_cr_el_dorado"
+    ],
+    "0x77B5868E": [
+      "CollectibleTypeCrypt_07_sm_spanish_mission_crypt_003"
+    ],
+    "0xBEF0D8BD": [
+      "CollectibleTypeCrypt_09_pa_hub_paititi_cr02"
+    ],
+    "0x606EF1AF": [
+      "CollectibleTypeCrypt_10_sm_spanish_mission_cr04"
+    ],
+    "0x5D1EDC8F": [
+      "CollectibleTypeCrypt_11_hv_hollow_village_v2_01_tr10"
+    ],
+    "0x32E820D8": [
+      "CollectibleTypeCryptTreasure_01_cr_lastbreath"
+    ],
+    "0xE66D0DA5": [
+      "CollectibleTypeCryptTreasure_02_crypt_009"
+    ],
+    "0x8A28E2C7": [
+      "CollectibleTypeCryptTreasure_03_cr_nepenthes"
+    ],
+    "0x7289AC8C": [
+      "CollectibleTypeCryptTreasure_04_cr_newfall_01"
+    ],
+    "0x02A67B91": [
+      "CollectibleTypeCryptTreasure_05_cr_el_dorado"
+    ],
+    "0xBA3B0D06": [
+      "CollectibleTypeCryptTreasure_07_sm_spanish_mission_crypt_003"
+    ],
+    "0xEE11B0D3": [
+      "CollectibleTypeCryptTreasure_09_pa_hub_paititi_cr02"
+    ],
+    "0x48C378CA": [
+      "CollectibleTypeCryptTreasure_10_sm_spanish_mission_cr04"
+    ],
+    "0xC508D278": [
+      "CollectibleTypeCryptTreasure_11_hv_hollow_village_v2_01_tr10"
+    ],
+    "0xBDE170C6": [
+      "CollectibleTypeCryptTreasure_SM04_SaviorsAmulet"
+    ],
+    "0xC1139117": [
+      "OutfitTest"
+    ],
+    "0xA5F66AB4": [
+      "Lara_Classic"
+    ],
+    "0xB4B24536": [
+      "Lara_Shaman"
+    ],
+    "0x33F7753F": [
+      "Lara_Explorer"
+    ],
+    "0xD57BB30A": [
+      "Lara_BlueTank"
+    ],
+    "0x9C4C2F24": [
+      "Lara_Outsider"
+    ],
+    "0x87170CB7": [
+      "Lara_WarriorPriest"
+    ],
+    "0x8F84F7D1": [
+      "Lara_Prologue_BandageLeg"
+    ],
+    "0x4959DEB4": [
+      "Lara_Prologue_CutLeg"
+    ],
+    "0x9A2BBEFC": [
+      "Lara_Prologue"
+    ],
+    "0x7CB51A10": [
+      "Lara_Loyalty_TR9_ShipwreckedSurvivor"
+    ],
+    "0x09BCC946": [
+      "Lara_Loyalty_TR10_RemnantJacket"
+    ],
+    "0xF20A9E58": [
+      "Lara_Loyalty_TR10_Commando"
+    ],
+    "0xBC04B6A8": [
+      "Lara_Loyalty_TR10_DesertTank"
+    ],
+    "0x15266E54": [
+      "Lara_Loyalty_TR10_Infiltrator"
+    ],
+    "0xA57EA800": [
+      "Lara_Loyalty_TR10_SiberianRanger"
+    ],
+    "0x78B370EC": [
+      "Lara_Loyalty_TR10_ShadowRunner"
+    ],
+    "0x97D75732": [
+      "Lara_Loyalty_TR10_Wraithskin"
+    ],
+    "0xA9272D8B": [
+      "Lara_Loyalty_TR10_ValiantExplorer"
+    ],
+    "0x3D21E06F": [
+      "Lara_Loyalty_TR10_LeatherJacket"
+    ],
+    "0xB1A644B1": [
+      "Lara_Loyalty_TR10_GrayHenley"
+    ],
+    "0x7647CD44": [
+      "Lara_Loyalty_TR10_BlueHenley"
+    ],
+    "0xF9D88B37": [
+      "Lara_Loyalty_AOD"
+    ],
+    "0xFA462717": [
+      "Lara_Loyalty_TR2"
+    ],
+    "0x87C78FE1": [
+      "Lara_Loyalty_TR2BomberJacket"
+    ],
+    "0x23E1A2EB": [
+      "Lara_CrimsonHuntress"
+    ],
+    "0xF4540AB9": [
+      "Assault_01"
+    ],
+    "0xF4540AAE": [
+      "Assault_02"
+    ],
+    "0xF4540AAF": [
+      "Assault_03"
+    ],
+    "0x5680EF61": [
+      "Stealth_01"
+    ],
+    "0x5680EF56": [
+      "Stealth_02"
+    ],
+    "0x5680EF57": [
+      "Stealth_03"
+    ],
+    "0x37AD4B74": [
+      "Exploration_01"
+    ],
+    "0x37AD4B75": [
+      "Exploration_02"
+    ],
+    "0x37AD4B62": [
+      "Exploration_03"
+    ],
+    "0x55E534D2": [
+      "Eagle_01"
+    ],
+    "0x5EAE659D": [
+      "Jaguar_01"
+    ],
+    "0x8DC54951": [
+      "Snake_01"
+    ],
+    "0x5DA9DAE8": [
+      "DLC_Outfit_01"
+    ],
+    "0x5DA9DAE9": [
+      "DLC_Outfit_02"
+    ],
+    "0x5DA9DAEA": [
+      "DLC_Outfit_03"
+    ],
+    "0x5DA9DAEB": [
+      "DLC_Outfit_04"
+    ],
+    "0x5DA9DAE4": [
+      "DLC_Outfit_05"
+    ],
+    "0x5DA9DAE5": [
+      "DLC_Outfit_06"
+    ],
+    "0x5DA9DAE6": [
+      "DLC_Outfit_07"
+    ],
+    "0x5DA9DAE7": [
+      "DLC_Outfit_08"
+    ],
+    "0x5DA9DAE0": [
+      "DLC_Outfit_09"
+    ],
+    "0x5DA9DACE": [
+      "DLC_Outfit_10"
+    ],
+    "0x5DA9DAC9": [
+      "DLC_Outfit_11"
+    ],
+    "0x5DA9DAC8": [
+      "DLC_Outfit_12"
+    ],
+    "0x5DA9DACB": [
+      "DLC_Outfit_13"
+    ],
+    "0x5DA9DACA": [
+      "DLC_Outfit_14"
+    ],
+    "0x5DA9DAC5": [
+      "DLC_Outfit_15"
+    ],
+    "0x5DA9DAC4": [
+      "DLC_Outfit_16"
+    ],
+    "0x5DA9DAC7": [
+      "DLC_Outfit_17"
+    ],
+    "0x5DA9DAC6": [
+      "DLC_Outfit_18"
+    ],
+    "0x5DA9DAC1": [
+      "DLC_Outfit_19"
+    ],
+    "0x5DA9DAAD": [
+      "DLC_Outfit_20"
+    ],
+    "0x5DA9DAAA": [
+      "DLC_Outfit_21"
+    ],
+    "0x5DA9DAAB": [
+      "DLC_Outfit_22"
+    ],
+    "0x5DA9DAA8": [
+      "DLC_Outfit_23"
+    ],
+    "0x5DA9DAA9": [
+      "DLC_Outfit_24"
+    ],
+    "0x5DA9DAA6": [
+      "DLC_Outfit_25"
+    ],
+    "0x5DA9DAA7": [
+      "DLC_Outfit_26"
+    ],
+    "0x5DA9DAA4": [
+      "DLC_Outfit_27"
+    ],
+    "0x5DA9DAA5": [
+      "DLC_Outfit_28"
+    ],
+    "0x5DA9DAA2": [
+      "DLC_Outfit_29"
+    ],
+    "0x5DA9DA8C": [
+      "DLC_Outfit_30"
+    ],
+    "0x5DA9DA8B": [
+      "DLC_Outfit_31"
+    ],
+    "0x5DA9DA8A": [
+      "DLC_Outfit_32"
+    ],
+    "0x5DA9DA89": [
+      "DLC_Outfit_33"
+    ],
+    "0x5DA9DA88": [
+      "DLC_Outfit_34"
+    ],
+    "0x5DA9DA87": [
+      "DLC_Outfit_35"
+    ],
+    "0x6916BDA5": [
+      "Kukulkan_01"
+    ],
+    "0xDDEC3FE0": [
+      "Trinity_01"
+    ],
+    "0x94549BD7": [
+      "Yaaxil_01"
+    ],
+    "0x13C93297": [
+      "Rebel_01"
+    ],
+    "0x6FDCE664": [
+      "Predator_01"
+    ],
+    "0xC5A97FBA": [
+      "Huntress_01"
+    ],
+    "0x85E8F5EE": [
+      "HighTech_01"
+    ],
+    "0xF3F70E39": [
+      "Assault_01_Torso"
+    ],
+    "0xD1FC0299": [
+      "Assault_02_Torso"
+    ],
+    "0xD09A002B": [
+      "Assault_03_Torso"
+    ],
+    "0x6133C501": [
+      "Assault_04_Torso"
+    ],
+    "0x56BA2343": [
+      "Assault_05_Torso"
+    ],
+    "0x071FED57": [
+      "Stealth_01_Torso"
+    ],
+    "0xCEC1C58F": [
+      "Stealth_02_Torso"
+    ],
+    "0xD2FBF197": [
+      "Stealth_03_Torso"
+    ],
+    "0xDACDAE2B": [
+      "Stealth_04_Torso"
+    ],
+    "0x026810D4": [
+      "Stealth_05_Torso"
+    ],
+    "0x867BD0F2": [
+      "Exploration_01_Torso"
+    ],
+    "0x6EF99224": [
+      "Exploration_02_Torso"
+    ],
+    "0x8CF6D6B2": [
+      "Exploration_03_Torso"
+    ],
+    "0x53BB398C": [
+      "Exploration_04_Torso"
+    ],
+    "0x6EA99E75": [
+      "Exploration_05_Torso"
+    ],
+    "0xBED9569F": [
+      "Eagle_01_Torso"
+    ],
+    "0x677FFCCA": [
+      "Jaguar_01_Torso"
+    ],
+    "0xF3ED823E": [
+      "Snake_01_Torso"
+    ],
+    "0xACFED5A4": [
+      "Assault_01_Legs"
+    ],
+    "0xF5932D13": [
+      "Assault_02_Legs"
+    ],
+    "0x063F4069": [
+      "Assault_03_Legs"
+    ],
+    "0xF1EB11C8": [
+      "Assault_04_Legs"
+    ],
+    "0xF21A753C": [
+      "Assault_05_Legs"
+    ],
+    "0xED3766D2": [
+      "Stealth_01_Legs"
+    ],
+    "0xEDC2865A": [
+      "Stealth_02_Legs"
+    ],
+    "0xED501F73": [
+      "Stealth_03_Legs"
+    ],
+    "0xED6E6591": [
+      "Stealth_04_Legs"
+    ],
+    "0xED726360": [
+      "Stealth_05_Legs"
+    ],
+    "0xA153754D": [
+      "Exploration_01_Legs"
+    ],
+    "0xA0B33C1F": [
+      "Exploration_02_Legs"
+    ],
+    "0xA084CB8C": [
+      "Exploration_03_Legs"
+    ],
+    "0x9FD62E10": [
+      "Exploration_04_Legs"
+    ],
+    "0xA0A76E93": [
+      "Exploration_05_Legs"
+    ],
+    "0xE49EA984": [
+      "Eagle_01_Legs"
+    ],
+    "0x97E775BB": [
+      "Jaguar_01_Legs"
+    ],
+    "0xFCBE73E9": [
+      "Snake_01_Legs"
+    ],
+    "0xB3BD595A": [
+      "Outfit_Test_Legs"
+    ],
+    "0xB36E19EC": [
+      "Outfit_Test_Head"
+    ],
+    "0xFBEA3D16": [
+      "Outfit_Test_Torso"
+    ],
+    "0x1B4AA138": [
+      "Lara_Prologue_Hair"
+    ],
+    "0x1B4A904E": [
+      "Lara_Prologue_Head"
+    ],
+    "0x76C56554": [
+      "Lara_Prologue_Torso"
+    ],
+    "0x59635DAE": [
+      "Lara_Prologue_Legs_Bandage"
+    ],
+    "0x2B75032B": [
+      "Lara_Prologue_Legs_Cut"
+    ],
+    "0x1B4441A3": [
+      "Lara_Prologue_Legs"
+    ],
+    "0xADEE7E6B": [
+      "Lara_HighPriest_Hair"
+    ],
+    "0xADEEADD6": [
+      "Lara_HighPriest_Head"
+    ],
+    "0xCCDB4F16": [
+      "Lara_HighPriest_Torso"
+    ],
+    "0xADF52763": [
+      "Lara_HighPriest_Legs"
+    ],
+    "0x08F63034": [
+      "Lara_Outsider_Hair"
+    ],
+    "0x08F74339": [
+      "Lara_Outsider_Head"
+    ],
+    "0x3E135087": [
+      "Lara_Outsider_Torso"
+    ],
+    "0x08F5919C": [
+      "Lara_Outsider_Legs"
+    ],
+    "0x3819F828": [
+      "Lara_BlueTank_Hair"
+    ],
+    "0x3819DA31": [
+      "Lara_BlueTank_Head"
+    ],
+    "0x8E7D6A07": [
+      "Lara_BlueTank_Torso"
+    ],
+    "0x3813BDA3": [
+      "Lara_BlueTank_Legs"
+    ],
+    "0x2AD7089E": [
+      "Lara_BlueTank_HoodHair"
+    ],
+    "0x2AD719CF": [
+      "Lara_BlueTank_HoodHead"
+    ],
+    "0x208FA13F": [
+      "Lara_BlueTank_Torso_LJ_Damaged"
+    ],
+    "0x68436ED5": [
+      "Lara_BlueTank_Legs_LJ_Damaged"
+    ],
+    "0x0731D70F": [
+      "Lara_Classic_Hair"
+    ],
+    "0x077BD46F": [
+      "Lara_Classic_Head"
+    ],
+    "0x2B8029FA": [
+      "Lara_Classic_Torso"
+    ],
+    "0x077A5AE9": [
+      "Lara_Classic_Legs"
+    ],
+    "0x63C443DA": [
+      "Lara_Shaman_Hair"
+    ],
+    "0x63C59058": [
+      "Lara_Shaman_Head"
+    ],
+    "0xF236EB3D": [
+      "Lara_Shaman_Torso"
+    ],
+    "0x62DFC69A": [
+      "Lara_Shaman_Legs"
+    ],
+    "0xA1D6298C": [
+      "Lara_Explorer_Hair"
+    ],
+    "0xA1D698BB": [
+      "Lara_Explorer_Head"
+    ],
+    "0x1C4EA266": [
+      "Lara_Explorer_Torso"
+    ],
+    "0xA1D3FA36": [
+      "Lara_Explorer_Legs"
+    ],
+    "0x7B7B0FBC": [
+      "Lara_Loyalty_EmptyHair"
+    ],
+    "0x7B7668F0": [
+      "Lara_Loyalty_EmptyHead"
+    ],
+    "0x3829F610": [
+      "Lara_Loyalty_TR2_Torso"
+    ],
+    "0xE825E750": [
+      "Lara_Loyalty_TR2_Legs"
+    ],
+    "0xC851CA1A": [
+      "Lara_Loyalty_AOD_Legs"
+    ],
+    "0x51361607": [
+      "Lara_Loyalty_AOD_Torso"
+    ],
+    "0x1B6FB8B9": [
+      "Lara_Loyalty_TR2BomberJacket_Torso"
+    ],
+    "0xDC61832D": [
+      "Lara_Loyalty_TR2BomberJacket_Legs"
+    ],
+    "0xEB1A5852": [
+      "Lara_Loyalty_TR9_Outfit01_Legs"
+    ],
+    "0x9A47793D": [
+      "Lara_Loyalty_TR9_Outfit01_Torso"
+    ],
+    "0xEB216EC4": [
+      "Lara_Loyalty_TR9_Outfit01_Head"
+    ],
+    "0x2AED2423": [
+      "Lara_Loyalty_TR10_Outfit01_Legs"
+    ],
+    "0x5FF645D7": [
+      "Lara_Loyalty_TR10_Commando_Legs"
+    ],
+    "0xDFD8DE03": [
+      "Lara_Loyalty_TR10_DesertTank_Legs"
+    ],
+    "0xD5B5111B": [
+      "Lara_Loyalty_TR10_Infiltrator_Legs"
+    ],
+    "0xE36EA9D1": [
+      "Lara_Loyalty_TR10_SiberianRanger_Legs"
+    ],
+    "0xE484A443": [
+      "Lara_Loyalty_TR10_ShadowRunner_Legs"
+    ],
+    "0x5E922EC4": [
+      "Lara_Loyalty_TR10_Wraithskin_Legs"
+    ],
+    "0x39E1E237": [
+      "Lara_Loyalty_TR10_ValiantExplorer_Legs"
+    ],
+    "0x87D67E25": [
+      "Lara_Loyalty_TR10_LeatherJacket_Legs"
+    ],
+    "0xA106247D": [
+      "Lara_Loyalty_TR10_GrayHenley_Legs"
+    ],
+    "0x6CC46005": [
+      "Lara_Loyalty_TR10_BlueHenley_Legs"
+    ],
+    "0x87B08CD0": [
+      "Lara_Loyalty_TR10_Outfit01_Torso"
+    ],
+    "0xA8C1A298": [
+      "Lara_Loyalty_TR10_Commando_Torso"
+    ],
+    "0x41E225B4": [
+      "Lara_Loyalty_TR10_DesertTank_Torso"
+    ],
+    "0xE690CFFE": [
+      "Lara_Loyalty_TR10_Infiltrator_Torso"
+    ],
+    "0x8DE5D5EB": [
+      "Lara_Loyalty_TR10_SiberianRanger_Torso"
+    ],
+    "0xB6ED03BB": [
+      "Lara_Loyalty_TR10_ShadowRunner_Torso"
+    ],
+    "0x5A5886DA": [
+      "Lara_Loyalty_TR10_Wraithskin_Torso"
+    ],
+    "0x7AB078A6": [
+      "Lara_Loyalty_TR10_ValiantExplorer_Torso"
+    ],
+    "0xC348F73B": [
+      "Lara_Loyalty_TR10_LeatherJacket_Torso"
+    ],
+    "0x7802D56D": [
+      "Lara_Loyalty_TR10_GrayHenley_Torso"
+    ],
+    "0x0328875E": [
+      "Lara_Loyalty_TR10_BlueHenley_Torso"
+    ],
+    "0x87D08D98": [
+      "Lara_Loyalty_TR10_LeatherJacket_Head"
+    ],
+    "0x87D11E27": [
+      "Lara_Loyalty_TR10_LeatherJacket_Hair"
+    ],
+    "0x597E2A9E": [
+      "Lara_CrimsonHuntress_Legs"
+    ],
+    "0xC1097E41": [
+      "Lara_CrimsonHuntress_Torso"
+    ],
+    "0x59734AB4": [
+      "Lara_CrimsonHuntress_Head"
+    ],
+    "0x597EBEF0": [
+      "Lara_CrimsonHuntress_Hair"
+    ],
+    "0x95A5DBC3": [
+      "DLC_Outfit_01_Legs"
+    ],
+    "0x99C99C5B": [
+      "DLC_Outfit_01_Torso"
+    ],
+    "0x95A74587": [
+      "DLC_Outfit_01_Head"
+    ],
+    "0x95A7AF0D": [
+      "DLC_Outfit_01_Hair"
+    ],
+    "0x9555C2C5": [
+      "DLC_Outfit_02_Hair"
+    ],
+    "0x95542799": [
+      "DLC_Outfit_02_Head"
+    ],
+    "0x930827BA": [
+      "DLC_Outfit_02_Torso"
+    ],
+    "0x956BF685": [
+      "DLC_Outfit_02_Legs"
+    ],
+    "0x95C39C86": [
+      "DLC_Outfit_03_Hair"
+    ],
+    "0x95C386AC": [
+      "DLC_Outfit_03_Head"
+    ],
+    "0xA51E66CE": [
+      "DLC_Outfit_03_Torso"
+    ],
+    "0x9599BA7A": [
+      "DLC_Outfit_03_Legs"
+    ],
+    "0x94F2B7F8": [
+      "DLC_Outfit_04_Hair"
+    ],
+    "0x950E621C": [
+      "DLC_Outfit_04_Head"
+    ],
+    "0x00C02A53": [
+      "DLC_Outfit_04_Torso"
+    ],
+    "0x94F00D66": [
+      "DLC_Outfit_04_Legs"
+    ],
+    "0x9529A5E7": [
+      "DLC_Outfit_05_Hair"
+    ],
+    "0x95299696": [
+      "DLC_Outfit_05_Head"
+    ],
+    "0x0819FCFC": [
+      "DLC_Outfit_05_Torso"
+    ],
+    "0x9524568D": [
+      "DLC_Outfit_05_Legs"
+    ],
+    "0x95172953": [
+      "DLC_Outfit_06_Hair"
+    ],
+    "0x95148D75": [
+      "DLC_Outfit_06_Head"
+    ],
+    "0x0AB3090A": [
+      "DLC_Outfit_06_Torso"
+    ],
+    "0x951A9B28": [
+      "DLC_Outfit_06_Legs"
+    ],
+    "0x90708D1C": [
+      "DLC_Outfit_07_Hair"
+    ],
+    "0x9070B9E3": [
+      "DLC_Outfit_07_Head"
+    ],
+    "0x742F5C8C": [
+      "DLC_Outfit_07_Torso"
+    ],
+    "0x908D4D18": [
+      "DLC_Outfit_07_Legs"
+    ],
+    "0x95B5FA86": [
+      "DLC_Outfit_08_Hair"
+    ],
+    "0x95B62C70": [
+      "DLC_Outfit_08_Head"
+    ],
+    "0x95DEBB79": [
+      "DLC_Outfit_08_Torso"
+    ],
+    "0x95B41B09": [
+      "DLC_Outfit_08_Legs"
+    ],
+    "0x94E9B0EF": [
+      "DLC_Outfit_09_Hair"
+    ],
+    "0x94EAB531": [
+      "DLC_Outfit_09_Head"
+    ],
+    "0x01673399": [
+      "DLC_Outfit_09_Torso"
+    ],
+    "0x94F928DF": [
+      "DLC_Outfit_09_Legs"
+    ],
+    "0x8F2EF4C5": [
+      "DLC_Outfit_10_Hair"
+    ],
+    "0x8F2EE3EF": [
+      "DLC_Outfit_10_Head"
+    ],
+    "0x5960070E": [
+      "DLC_Outfit_10_Torso"
+    ],
+    "0x8F9A57EC": [
+      "DLC_Outfit_10_Legs"
+    ],
+    "0x8F7D27DF": [
+      "DLC_Outfit_11_Hair"
+    ],
+    "0x8F7D737E": [
+      "DLC_Outfit_11_Head"
+    ],
+    "0xC0ADD21C": [
+      "DLC_Outfit_11_Torso"
+    ],
+    "0x8F83F015": [
+      "DLC_Outfit_11_Legs"
+    ],
+    "0x8F8F845A": [
+      "DLC_Outfit_12_Hair"
+    ],
+    "0x8F8E5579": [
+      "DLC_Outfit_12_Head"
+    ],
+    "0x51D41DC5": [
+      "DLC_Outfit_12_Torso"
+    ],
+    "0x8F5C1436": [
+      "DLC_Outfit_12_Legs"
+    ],
+    "0x8F5F5B04": [
+      "DLC_Outfit_13_Hair"
+    ],
+    "0x8F5FACB7": [
+      "DLC_Outfit_13_Head"
+    ],
+    "0x5667F370": [
+      "DLC_Outfit_13_Torso"
+    ],
+    "0x8F6DC8C4": [
+      "DLC_Outfit_13_Legs"
+    ],
+    "0x8EED98D9": [
+      "DLC_Outfit_14_Hair"
+    ],
+    "0x8EED863C": [
+      "DLC_Outfit_14_Head"
+    ],
+    "0x4EBD6025": [
+      "DLC_Outfit_14_Torso"
+    ],
+    "0x8F37DB7F": [
+      "DLC_Outfit_14_Legs"
+    ],
+    "0x8F47A7F2": [
+      "DLC_Outfit_15_Hair"
+    ],
+    "0x8F443B76": [
+      "DLC_Outfit_15_Head"
+    ],
+    "0x40B3C11D": [
+      "DLC_Outfit_15_Torso"
+    ],
+    "0x8F4A4700": [
+      "DLC_Outfit_15_Legs"
+    ],
+    "0x8F39E29E": [
+      "DLC_Outfit_16_Hair"
+    ],
+    "0x8F3E1760": [
+      "DLC_Outfit_16_Head"
+    ],
+    "0xB37FEA78": [
+      "DLC_Outfit_16_Torso"
+    ],
+    "0x8F14DED0": [
+      "DLC_Outfit_16_Legs"
+    ],
+    "0x8F484B9F": [
+      "DLC_Outfit_17_Hair"
+    ],
+    "0x8F49D287": [
+      "DLC_Outfit_17_Head"
+    ],
+    "0x544B104C": [
+      "DLC_Outfit_17_Torso"
+    ],
+    "0x8F25FDAF": [
+      "DLC_Outfit_17_Legs"
+    ],
+    "0xA25BA55D": [
+      "DLC_Outfit_18_Hair"
+    ],
+    "0xA25B9E8B": [
+      "DLC_Outfit_18_Head"
+    ],
+    "0xC95F3B4F": [
+      "DLC_Outfit_18_Torso"
+    ],
+    "0xA255D959": [
+      "DLC_Outfit_18_Legs"
+    ],
+    "0x8F773A65": [
+      "DLC_Outfit_19_Hair"
+    ],
+    "0x8F775040": [
+      "DLC_Outfit_19_Head"
+    ],
+    "0xB8D610D3": [
+      "DLC_Outfit_19_Torso"
+    ],
+    "0x8F01C61A": [
+      "DLC_Outfit_19_Legs"
+    ],
+    "0x99C79C7C": [
+      "DLC_Outfit_20_Hair"
+    ],
+    "0x99C78D7A": [
+      "DLC_Outfit_20_Head"
+    ],
+    "0x10B89961": [
+      "DLC_Outfit_20_Torso"
+    ],
+    "0x99C43F84": [
+      "DLC_Outfit_20_Legs"
+    ],
+    "0xA233514A": [
+      "DLC_Outfit_21_Hair"
+    ],
+    "0xA2331253": [
+      "DLC_Outfit_21_Head"
+    ],
+    "0x437DE29C": [
+      "DLC_Outfit_21_Torso"
+    ],
+    "0xA24946CD": [
+      "DLC_Outfit_21_Legs"
+    ],
+    "0x992301AB": [
+      "DLC_Outfit_22_Hair"
+    ],
+    "0x9923316D": [
+      "DLC_Outfit_22_Head"
+    ],
+    "0x84460D81": [
+      "DLC_Outfit_22_Torso"
+    ],
+    "0x993D2440": [
+      "DLC_Outfit_22_Legs"
+    ],
+    "0x992C00D1": [
+      "DLC_Outfit_23_Hair"
+    ],
+    "0x992C101E": [
+      "DLC_Outfit_23_Head"
+    ],
+    "0x7E240F61": [
+      "DLC_Outfit_23_Torso"
+    ],
+    "0x992E0AC2": [
+      "DLC_Outfit_23_Legs"
+    ],
+    "0x99871BD0": [
+      "DLC_Outfit_24_Hair"
+    ],
+    "0x9984F186": [
+      "DLC_Outfit_24_Head"
+    ],
+    "0x107ABDEF": [
+      "DLC_Outfit_24_Torso"
+    ],
+    "0x999AC553": [
+      "DLC_Outfit_24_Legs"
+    ],
+    "0x98F82BA8": [
+      "DLC_Outfit_25_Hair"
+    ],
+    "0x98F85879": [
+      "DLC_Outfit_25_Head"
+    ],
+    "0x810FCDFC": [
+      "DLC_Outfit_25_Torso"
+    ],
+    "0x98F63F07": [
+      "DLC_Outfit_25_Legs"
+    ],
+    "0x98E9AECC": [
+      "DLC_Outfit_26_Hair"
+    ],
+    "0x98EEDAC3": [
+      "DLC_Outfit_26_Head"
+    ],
+    "0x8CC49FAA": [
+      "DLC_Outfit_26_Torso"
+    ],
+    "0x98E03E6E": [
+      "DLC_Outfit_26_Legs"
+    ],
+    "0x98DB6F33": [
+      "DLC_Outfit_27_Hair"
+    ],
+    "0x98DB7EE4": [
+      "DLC_Outfit_27_Head"
+    ],
+    "0x86CCB6CD": [
+      "DLC_Outfit_27_Torso"
+    ],
+    "0x98D58CD8": [
+      "DLC_Outfit_27_Legs"
+    ],
+    "0x94DF48DD": [
+      "DLC_Outfit_28_Hair"
+    ],
+    "0x94DEAAB0": [
+      "DLC_Outfit_28_Head"
+    ],
+    "0xF6FBEF90": [
+      "DLC_Outfit_28_Torso"
+    ],
+    "0x94DCBF05": [
+      "DLC_Outfit_28_Legs"
+    ],
+    "0x99B910A0": [
+      "DLC_Outfit_29_Hair"
+    ],
+    "0x99B99135": [
+      "DLC_Outfit_29_Head"
+    ],
+    "0x29520C40": [
+      "DLC_Outfit_29_Torso"
+    ],
+    "0x99BF6076": [
+      "DLC_Outfit_29_Legs"
+    ],
+    "0x934E06B8": [
+      "DLC_Outfit_30_Hair"
+    ],
+    "0x934EF0C6": [
+      "DLC_Outfit_30_Head"
+    ],
+    "0x47D278C8": [
+      "DLC_Outfit_30_Torso"
+    ],
+    "0x931D18D5": [
+      "DLC_Outfit_30_Legs"
+    ],
+    "0x92D48915": [
+      "DLC_Outfit_31_Hair"
+    ],
+    "0x92D4B65C": [
+      "DLC_Outfit_31_Head"
+    ],
+    "0xDC703F51": [
+      "DLC_Outfit_31_Torso"
+    ],
+    "0x92D68206": [
+      "DLC_Outfit_31_Legs"
+    ],
+    "0x92E42713": [
+      "DLC_Outfit_32_Hair"
+    ],
+    "0x92E4334D": [
+      "DLC_Outfit_32_Head"
+    ],
+    "0x3F3E1396": [
+      "DLC_Outfit_32_Torso"
+    ],
+    "0x92E62303": [
+      "DLC_Outfit_32_Legs"
+    ],
+    "0x938FE3D0": [
+      "DLC_Outfit_33_Hair"
+    ],
+    "0x938C2C67": [
+      "DLC_Outfit_33_Head"
+    ],
+    "0xD8DA6C31": [
+      "DLC_Outfit_33_Torso"
+    ],
+    "0x937D2CAF": [
+      "DLC_Outfit_33_Legs"
+    ],
+    "0x935DC650": [
+      "DLC_Outfit_34_Hair"
+    ],
+    "0x935D1566": [
+      "DLC_Outfit_34_Head"
+    ],
+    "0xDAE1A447": [
+      "DLC_Outfit_34_Torso"
+    ],
+    "0x938249FE": [
+      "DLC_Outfit_34_Legs"
+    ],
+    "0x931AAB5E": [
+      "DLC_Outfit_35_Hair"
+    ],
+    "0x931B3A8F": [
+      "DLC_Outfit_35_Head"
+    ],
+    "0x40A9C3C6": [
+      "DLC_Outfit_35_Torso"
+    ],
+    "0x9314E6DC": [
+      "DLC_Outfit_35_Legs"
+    ],
+    "0x2F6DE61E": [
+      "Kukulkan_01_Torso"
+    ],
+    "0xE030C29A": [
+      "Kukulkan_01_Legs"
+    ],
+    "0xE04A9EE8": [
+      "Kukulkan_01_Hair"
+    ],
+    "0xE04AF5D7": [
+      "Kukulkan_01_Head"
+    ],
+    "0x8243D5C7": [
+      "Trinity_01_Torso"
+    ],
+    "0x14BA7A1C": [
+      "Trinity_01_Legs"
+    ],
+    "0x14BCE6D2": [
+      "Trinity_01_Hair"
+    ],
+    "0x14BCEEE4": [
+      "Trinity_01_Head"
+    ],
+    "0x656DD92D": [
+      "Yaaxil_01_Torso"
+    ],
+    "0x42D7B05A": [
+      "Yaaxil_01_Legs"
+    ],
+    "0x42EC5DCE": [
+      "Yaaxil_01_Hair"
+    ],
+    "0x42EC760B": [
+      "Yaaxil_01_Head"
+    ],
+    "0x2136A243": [
+      "Rebel_01_Torso"
+    ],
+    "0xFF80D3E5": [
+      "Rebel_01_Legs"
+    ],
+    "0xFF986D44": [
+      "Rebel_01_Hair"
+    ],
+    "0xFF9B0045": [
+      "Rebel_01_Head"
+    ],
+    "0xB5F27925": [
+      "Predator_01_Torso"
+    ],
+    "0x0AF20F8C": [
+      "Predator_01_Legs"
+    ],
+    "0x0AF9E51B": [
+      "Predator_01_Hair"
+    ],
+    "0x0AF9BE85": [
+      "Predator_01_Head"
+    ],
+    "0xCFC57729": [
+      "Huntress_01_Torso"
+    ],
+    "0xF51BABC7": [
+      "Huntress_01_Legs"
+    ],
+    "0xF5292499": [
+      "Huntress_01_Hair"
+    ],
+    "0xF52975AF": [
+      "Huntress_01_Head"
+    ],
+    "0x9561E317": [
+      "HighTech_01_Torso"
+    ],
+    "0x1070F078": [
+      "HighTech_01_Legs"
+    ],
+    "0x10AA54BF": [
+      "HighTech_01_Hair"
+    ],
+    "0x10AD9E6C": [
+      "HighTech_01_Head"
+    ],
+    "0xF33121BD": [
+      "Assault_01_Torso_Parts"
+    ],
+    "0x5FA25BCD": [
+      "Assault_02_Torso_Parts"
+    ],
+    "0xF80437BF": [
+      "Assault_03_Torso_Parts"
+    ],
+    "0x89119CE6": [
+      "Assault_04_Torso_Parts"
+    ],
+    "0x56B5E154": [
+      "Assault_05_Torso_Parts"
+    ],
+    "0x389BD358": [
+      "Stealth_01_Torso_Parts"
+    ],
+    "0x4E866F62": [
+      "Stealth_02_Torso_Parts"
+    ],
+    "0x49036EDA": [
+      "Stealth_03_Torso_Parts"
+    ],
+    "0x76E9E8F6": [
+      "Stealth_04_Torso_Parts"
+    ],
+    "0xF7473C7E": [
+      "Stealth_05_Torso_Parts"
+    ],
+    "0xD3C6B7B2": [
+      "Exploration_01_Torso_Parts"
+    ],
+    "0xCBC5B21D": [
+      "Exploration_02_Torso_Parts"
+    ],
+    "0x4A239C48": [
+      "Exploration_03_Torso_Parts"
+    ],
+    "0x477D0259": [
+      "Exploration_04_Torso_Parts"
+    ],
+    "0x93C42CE6": [
+      "Exploration_05_Torso_Parts"
+    ],
+    "0x4531E70F": [
+      "Eagle_01_Torso_Parts"
+    ],
+    "0xF48434E4": [
+      "Jaguar_01_Torso_Parts"
+    ],
+    "0xAFF7FB29": [
+      "Snake_01_Torso_Parts"
+    ],
+    "0xCE336D6E": [
+      "Assault_01_Legs_Parts"
+    ],
+    "0xB6D49F31": [
+      "Assault_02_Legs_Parts"
+    ],
+    "0xC93E16AE": [
+      "Assault_03_Legs_Parts"
+    ],
+    "0x6E1F5CB9": [
+      "Assault_04_Legs_Parts"
+    ],
+    "0x48EA2233": [
+      "Assault_05_Legs_Parts"
+    ],
+    "0x32719116": [
+      "Stealth_01_Legs_Parts"
+    ],
+    "0x43F591A8": [
+      "Stealth_02_Legs_Parts"
+    ],
+    "0x12ADF778": [
+      "Stealth_03_Legs_Parts"
+    ],
+    "0x3D5E64FF": [
+      "Stealth_04_Legs_Parts"
+    ],
+    "0x15C48942": [
+      "Stealth_05_Legs_Parts"
+    ],
+    "0x26991450": [
+      "Exploration_01_Legs_Parts"
+    ],
+    "0x70FCD9E1": [
+      "Exploration_02_Legs_Parts"
+    ],
+    "0x92367FD8": [
+      "Exploration_03_Legs_Parts"
+    ],
+    "0x7D0532F0": [
+      "Exploration_04_Legs_Parts"
+    ],
+    "0x599C2FAE": [
+      "Exploration_05_Legs_Parts"
+    ],
+    "0x7E494A77": [
+      "Eagle_01_Legs_Parts"
+    ],
+    "0x6AFD4F86": [
+      "Jaguar_01_Legs_Parts"
+    ],
+    "0xADE8EC4D": [
+      "Snake_01_Legs_Parts"
+    ]
+  }
+}

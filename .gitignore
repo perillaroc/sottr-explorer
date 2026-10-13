@@ -1,0 +1,25 @@
+# Rust 构建产物
+target/
+
+# Node 与前端构建产物
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# 日志与编辑器/系统文件
+logs/
+*.log
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.sw?
+
+# 私人材料：真实存档（*.dat）、样本目录、研究输出与私有工作区绝不入库
+*.dat
+samples/
+analysis*/
+private/
+
+# 以下内容刻意入库：Cargo.lock、pnpm-lock.yaml、tests 夹具（合成生成器产物遵循各自任务约定）

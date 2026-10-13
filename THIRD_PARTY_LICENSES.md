@@ -1,0 +1,42 @@
+# 第三方组件与许可清单
+
+> 状态说明：本清单记录仓库内第三方内容的来源与许可状态。产品自身许可证尚未选择（见文末）。
+
+## 1. 内部 ID 名称字典（TrRebootModTools）
+
+- 内容：`research/python-v0.2/data/collectible_id_candidates.json`（866 个不同 ID / 871 个名称）
+- 来源：<https://github.com/arcusmaximus/TrRebootModTools>
+- 固定提交：`a79c48b75f1ffaaf623dc73a625211bf98ff0504`
+- 许可：MIT。许可全文随数据保存：`research/python-v0.2/data/THIRD_PARTY_LICENSE.txt`
+
+## 2. 区域计数映射数据（社区来源、独立转录）
+
+- 内容：`research/python-v0.2/data/region_counter_candidates.json`、`research/python-v0.2/data/reference_category_ids.json`
+- 来源事实：Atorizil/ASL-SOTTR（社区自动分章脚本），固定提交 `b758ee890eac30d9e3b3477999a30f8f9e442f00`
+- 说明：仅独立转录的事实与本地交叉推导；未复制上游源代码；上游未声明许可证
+- 状态：**待处理（分发前复核）**——发布包（SX-018）不得包含该数据，直至再分发许可确认或数据替换为独立来源；本地开发与研究使用不受影响
+
+## 3. 公开参考存档（Stella 攻略站）
+
+- 未随本仓库分发；仅在本地只读研究中使用
+- 来源、下载归档与哈希见研究包 `tool/evidence/public_sources.json`（仓库外）
+
+## 4. Rust 与 JavaScript 依赖
+
+- 精确版本见 `Cargo.lock` 与 `apps/desktop/pnpm-lock.yaml`
+- 依赖许可审计与发布包许可通知在 SX-018 验证；当前不宣称已完成审计
+- `crates/sottr-core` 与 `crates/sottr-cli` 刻意保持零第三方依赖
+
+## 5. 脚手架模板与占位图标
+
+- 项目骨架由 create-tauri-app 4.7.5（Tauri Programme，MIT / Apache-2.0 双许可）生成
+- `apps/desktop/src-tauri/icons/` 为模板默认占位图标（Tauri 标识），仅用于本地脚手架；发布前（SX-018）必须替换为自行设计的应用图标
+
+## 6. 研究包与私人材料
+
+- 真实存档样本、私人分析输出、完整研究包与基线复跑输出均在仓库外私有目录
+- `research/python-v0.2/` 为授权交接包内程序的副本（SX-001 基线，见 `docs/baseline.md`）
+
+## 7. 产品许可证
+
+尚未选择。仓库暂不包含 `LICENSE` 文件；选择许可证与公开发布为单独决策，未获授权前不执行。

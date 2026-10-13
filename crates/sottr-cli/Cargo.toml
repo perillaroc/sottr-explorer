@@ -1,0 +1,16 @@
+[package]
+name = "sottr-cli"
+version = "0.1.0"
+edition = "2024"
+description = "SOTTR Explorer 命令行界面（analyze/导出，SX-009 起实现）"
+publish = false
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "sottr-cli"
+path = "src/main.rs"
+
+[dependencies]
+# 占位实现不引入依赖；analyze 命令在 SX-009 按 SX-003 契约实现。

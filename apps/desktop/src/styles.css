@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* 首版视觉令牌、明暗主题与对比度验收在 SX-015/SX-017 定义并实测；
+   此处仅保留最小排版基线，不构成已达标声明。 */
+:root {
+  color-scheme: light dark;
+  font-family: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}

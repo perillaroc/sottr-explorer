@@ -1,0 +1,12 @@
+[package]
+name = "sottr-core"
+version = "0.1.0"
+edition = "2024"
+description = "SOTTR 存档只读解析与领域评估核心库（纯库：不访问 UI、网络或文件系统）"
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+# 刻意保持零第三方依赖：核心只处理调用方提供的不可变字节。
