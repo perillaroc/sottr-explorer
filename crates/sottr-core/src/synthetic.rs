@@ -68,6 +68,11 @@ impl SampleBuilder {
         self
     }
 
+    /// 在小端偏移处写入 f32（用于构造浮点字段）。
+    pub fn write_f32_le(&mut self, offset: usize, value: f32) -> &mut Self {
+        self.write_u32_le(offset, value.to_bits())
+    }
+
     /// 写入前缀表的第 `index` 个 8 字节槽（内部 ID + 伴随字）。
     ///
     /// # Panics
