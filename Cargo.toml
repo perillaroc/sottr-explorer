@@ -19,6 +19,7 @@ tauri-build = "2"
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
 
 # 桌面端发行配置（workspace 级生效；桌面打包在 SX-018 验收）
 [profile.release]

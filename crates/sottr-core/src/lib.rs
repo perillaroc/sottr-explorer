@@ -7,18 +7,22 @@
 //! - observation 与 assessment 分离，证据等级可追溯（见开发方案 G1）。
 //!
 //! 模块划分（开发方案建议）：
+//! - [`limits`]：资源上限（有界解压、循环与列表）
 //! - [`container`]：zlib 容器与有界解压
 //! - [`sections`]：主区段流步进与边界检查
 //! - [`inventory`]：前缀与溢出记录恢复、完整性判定
 //! - [`domain`]：上下文、进度能力、参考差集与证据评估
 //! - [`metadata`]：版本化元数据加载与校验
-//! - [`report`]：报告结构、序列化与导出
+//! - [`report`]：报告契约类型、信封与序列化
+//! - [`synthetic`]：合成夹具生成器（测试专用）
 //!
-//! 当前状态：SX-002 骨架（仅模块占位）。各模块按任务顺序实现，见开发方案的 G1/G2。
+//! 当前状态：SX-004 已实现容器与区段步进；记录恢复、上下文与评估见 G1 后续任务。
 
 pub mod container;
 pub mod domain;
 pub mod inventory;
+pub mod limits;
 pub mod metadata;
 pub mod report;
 pub mod sections;
+pub mod synthetic;

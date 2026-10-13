@@ -16,7 +16,7 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 
 | 路径 | 说明 |
 | --- | --- |
-| `crates/sottr-core/` | 只读解析与领域核心（纯库：不访问 UI、网络或文件系统；零第三方依赖） |
+| `crates/sottr-core/` | 只读解析与领域核心（纯库：不访问 UI、网络或文件系统；依赖仅 serde 与 flate2） |
 | `crates/sottr-cli/` | 命令行入口（`analyze` 等命令在 SX-009 实现） |
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm） |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
@@ -31,7 +31,7 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 ```powershell
 cargo build                    # 默认成员：核心与 CLI（无 Tauri 依赖）
 cargo test
-cargo tree -p sottr-core       # 检查：核心依赖（仅 serde；无 Tauri/网络/文件发现）
+cargo tree -p sottr-core       # 检查：核心依赖（仅 serde、flate2；无 Tauri/网络/文件发现）
 cargo check -p sottr-desktop   # 桌面端后端（Tauri 2；首次编译较慢）
 
 cd apps/desktop
