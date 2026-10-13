@@ -7,10 +7,18 @@
 //! - 区域只读取元数据提供的稀疏映射（43 项），不补齐为 9×7 全表，不生成区域百分比；
 //! - 每项能力可独立降级；结构失败、模式未知或不适用时关闭相应收集推定。
 
+pub mod assessment;
 pub mod context;
+pub mod evidence;
 pub mod progress;
 
+pub use assessment::{
+    AssessmentInputs, AssessmentOutcome, AssessmentReason, CategoryDiff, CrossCheckInputs,
+    RULE_LIKELY_COLLECTED, RULE_LIKELY_MISSING, RULE_REGISTRY, ReferenceCategoryView,
+    ReferenceView, RuleDescriptor, rule_descriptor,
+};
 pub use context::{ContextAssessment, ContextFinding, DeclaredContext, assess};
+pub use evidence::{build_evidence, references_resolve};
 pub use progress::{
     OverallReadout, RegionCounterReadout, RegionCounterSpec, RegionCounterSpecError,
     overall_completion, region_counters,
@@ -34,6 +42,8 @@ pub struct CapabilityInputs<'a> {
     pub inventory: Option<&'a InventoryRecovery>,
     /// 区域计数读数；未评估为 `None`。
     pub region_counters: Option<&'a RegionCounterReadout>,
+    /// 参考差集评估结果；未评估为 `None`（SX-007 接线）。
+    pub reference_difference: Option<&'a AssessmentOutcome>,
 }
 
 /// 组装能力矩阵；每项独立降级，参考差集与定位在 SX-007/SX-008 接线前标记未评估。
@@ -111,7 +121,10 @@ pub fn capability_matrix(inputs: &CapabilityInputs<'_>) -> Capabilities {
         sections,
         inventory,
         counters,
-        reference_difference: unsupported("NOT_EVALUATED"),
+        reference_difference: inputs.reference_difference.map_or_else(
+            || unsupported("NOT_EVALUATED"),
+            |outcome| outcome.capability.clone(),
+        ),
         location: unsupported("NOT_EVALUATED"),
     }
 }
@@ -209,6 +222,7 @@ mod tests {
             campaign_applicable: assessment.campaign_applicable,
             inventory: Some(&evaluated.inventory),
             region_counters: Some(&evaluated.counters),
+            reference_difference: None,
         })
     }
 
