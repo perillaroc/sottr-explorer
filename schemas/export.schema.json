@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExportDocument",
+  "description": "SOTTR Explorer 导出信封。导出文件必须自带快照身份、freshness 与最近刷新错误码；不能只在界面贴“过期”而文件无标识。普通核心 JSON 与导出信封各自有 schema。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "document_kind",
+    "input_ref",
+    "snapshot_id",
+    "snapshot_time",
+    "freshness",
+    "last_refresh_error_code",
+    "input_digest",
+    "report"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "document_kind": { "const": "report_export" },
+    "input_ref": { "type": "string", "minLength": 1 },
+    "snapshot_id": { "type": "string", "minLength": 1 },
+    "snapshot_time": { "type": "string", "format": "date-time" },
+    "freshness": { "enum": ["current", "refreshing", "stale"] },
+    "last_refresh_error_code": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "input_digest": { "$ref": "report.schema.json#/$defs/InputDigest" },
+    "report": { "$ref": "report.schema.json#/$defs/Report" }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "note": "适配后的契约字段片段（输出侧形状）。适配规则见 docs/contracts.md『Python v0.2 适配』：candidate_* 只能进入 observation/CommunityCorrelated 层，禁止升级为 validated；无法映射的 warning 文本进入 limitations。",
+  "fragment": {
+    "observations": {
+      "overall_completion": {
+        "value": 66.20481872558594,
+        "unit": "percent",
+        "support_status": "supported",
+        "reason": null,
+        "evidence_level": "community_correlated",
+        "evidence_refs": ["ev:overall:0x28"],
+        "limitations": ["社区校准候选，未经游戏内独立核实"]
+      },
+      "region_counters": [
+        {
+          "counter_key": "counter:mission_of_san_juan:survival_caches",
+          "region_id": "mission_of_san_juan",
+          "category_id": "survival_caches",
+          "value": 0,
+          "unit": "count",
+          "support_status": "supported",
+          "reason": null,
+          "evidence_level": "community_correlated",
+          "evidence_refs": ["ev:counter:mission_of_san_juan:survival_caches"],
+          "limitations": ["来源目标来自社区脚本，未证明适用所有版本/DLC"],
+          "source_target": 8,
+          "within_source_target": true,
+          "raw_value": 0,
+          "raw_value_hex": "0x00000000"
+        }
+      ]
+    }
+  },
+  "mapping_rules": [
+    "candidate_percent → observations.overall_completion.value；status=community_correlated → evidence_level=community_correlated",
+    "candidate_count 为 null（超源目标）→ value=null 且 reason 必填；raw_u32_le → raw_value/raw_value_hex 原样保留",
+    "序列化 offset → evidence.offset/offset_hex；不得把 offset 写入界面主键",
+    "python warning 文本 → limitations 或 diagnostics.message，不改写业务状态",
+    "任何 candidate_* 不进入 verified_* 或 validated 语义"
+  ]
+}

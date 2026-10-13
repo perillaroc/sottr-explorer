@@ -1,0 +1,192 @@
+{
+  "schema_version": "1.0.0",
+  "results": [
+    {
+      "input_ref": "save1.dat",
+      "report": {
+        "schema_version": "1.0.0",
+        "tool_version": "0.1.0",
+        "parser_profile_id": "sottr-save-family-4mib-v1",
+        "metadata_version": "0.1.0",
+        "reference_set_version": "1.0.0",
+        "input_digest": {
+          "compressed_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expanded_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "compressed_bytes": 597590,
+          "expanded_bytes": 4194304
+        },
+        "context": {
+          "platform": "windows_steam",
+          "mode": "campaign",
+          "build": null,
+          "dlc": null,
+          "source": "user_declared",
+          "limitations": ["批量夹具：最小合法报告"]
+        },
+        "capabilities": {
+          "container": { "status": "supported", "reason_codes": [] },
+          "sections": { "status": "supported", "reason_codes": [] },
+          "inventory": { "status": "supported", "reason_codes": [] },
+          "counters": { "status": "supported", "reason_codes": [] },
+          "reference_difference": { "status": "supported", "reason_codes": [] },
+          "location": { "status": "unsupported", "reason_codes": ["LOCATION_UNVERIFIED"] }
+        },
+        "coverage": {
+          "supported_category_ids": ["survival_caches"],
+          "reference_category_ids": ["survival_caches"],
+          "supported_region_counter_keys": [],
+          "unavailable_reason_codes": [],
+          "evidence_refs": []
+        },
+        "observations": {
+          "container": {
+            "status": "supported",
+            "format": "zlib",
+            "valid": true,
+            "eof": true,
+            "compressed_bytes": 597590,
+            "expanded_bytes": 4194304,
+            "trailing_bytes": 0,
+            "error": null
+          },
+          "sections": {
+            "status": "supported",
+            "valid": true,
+            "byte_length": 11892,
+            "byte_length_hex": "0x2E74",
+            "start_offset": 49108,
+            "start_offset_hex": "0xBFD4",
+            "section_count": 27,
+            "error": null
+          },
+          "overall_completion": {
+            "value": 66.20481872558594,
+            "unit": "percent",
+            "support_status": "supported",
+            "reason": null,
+            "evidence_level": "community_correlated",
+            "evidence_refs": [],
+            "limitations": []
+          },
+          "inventory": {
+            "status": "supported",
+            "inventory_complete": true,
+            "completeness_scope": "parser_profile 表恢复完整",
+            "records": [],
+            "record_count": 0,
+            "unique_id_count": 0,
+            "duplicate_record_count": 0
+          },
+          "region_counters": []
+        },
+        "assessments": [],
+        "locations": [],
+        "evidence": [],
+        "diagnostics": []
+      },
+      "error": null
+    },
+    {
+      "input_ref": "save202.dat",
+      "report": {
+        "schema_version": "1.0.0",
+        "tool_version": "0.1.0",
+        "parser_profile_id": "sottr-save-family-4mib-v1",
+        "metadata_version": "0.1.0",
+        "reference_set_version": "1.0.0",
+        "input_digest": {
+          "compressed_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "expanded_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "compressed_bytes": 597593,
+          "expanded_bytes": 4194304
+        },
+        "context": {
+          "platform": "windows_steam",
+          "mode": "campaign",
+          "build": null,
+          "dlc": null,
+          "source": "user_declared",
+          "limitations": ["批量夹具：局部降级报告"]
+        },
+        "capabilities": {
+          "container": { "status": "supported", "reason_codes": [] },
+          "sections": { "status": "supported", "reason_codes": [] },
+          "inventory": { "status": "partial", "reason_codes": ["UNSUPPORTED_LAYOUT"] },
+          "counters": { "status": "supported", "reason_codes": [] },
+          "reference_difference": { "status": "unsupported", "reason_codes": ["REFERENCE_DIFFERENCE_REQUIRES_COMPLETE_TABLE"] },
+          "location": { "status": "unsupported", "reason_codes": ["INVENTORY_INCOMPLETE"] }
+        },
+        "coverage": {
+          "supported_category_ids": ["survival_caches"],
+          "reference_category_ids": [],
+          "supported_region_counter_keys": [],
+          "unavailable_reason_codes": ["REFERENCE_DIFFERENCE_REQUIRES_COMPLETE_TABLE"],
+          "evidence_refs": []
+        },
+        "observations": {
+          "container": {
+            "status": "supported",
+            "format": "zlib",
+            "valid": true,
+            "eof": true,
+            "compressed_bytes": 597593,
+            "expanded_bytes": 4194304,
+            "trailing_bytes": 0,
+            "error": null
+          },
+          "sections": {
+            "status": "supported",
+            "valid": true,
+            "byte_length": 11896,
+            "byte_length_hex": "0x2E78",
+            "start_offset": 49108,
+            "start_offset_hex": "0xBFD4",
+            "section_count": 27,
+            "error": null
+          },
+          "overall_completion": {
+            "value": null,
+            "unit": "percent",
+            "support_status": "unsupported",
+            "reason": "表恢复不完整，关闭语义解释",
+            "evidence_level": "observed",
+            "evidence_refs": [],
+            "limitations": []
+          },
+          "inventory": {
+            "status": "partial",
+            "inventory_complete": false,
+            "completeness_scope": "type28 长度异常，缺失推断关闭",
+            "records": [],
+            "record_count": 0,
+            "unique_id_count": 0,
+            "duplicate_record_count": 0
+          },
+          "region_counters": []
+        },
+        "assessments": [],
+        "locations": [],
+        "evidence": [],
+        "diagnostics": [
+          {
+            "code": "UNSUPPORTED_LAYOUT",
+            "severity": "warning",
+            "scope": "inventory",
+            "message": "type28 段长度异常；本文件不产生 likely_* 结论",
+            "evidence_refs": []
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "input_ref": "save204.dat",
+      "report": null,
+      "error": {
+        "code": "INPUT_CHANGED",
+        "message": "读取前后哈希不一致，可能文件正在保存；请稍后重试稳定副本",
+        "retryable": true
+      }
+    }
+  ]
+}

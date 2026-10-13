@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BatchReport",
+  "description": "SOTTR Explorer 批量分析外层。批量请求按文件返回结果；一个坏文件不吞掉其他文件输出。每文件结果固定为 input_ref + report/error，二者恰有一个非空；不得用空数组伪装解析失败。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "results"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "results": { "type": "array", "items": { "$ref": "#/$defs/BatchResult" } }
+  },
+  "$defs": {
+    "BatchResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input_ref", "report", "error"],
+      "properties": {
+        "input_ref": {
+          "type": "string",
+          "minLength": 1,
+          "description": "稳定引用（通常为文件名或脱敏标识）；个人绝对路径不属于必填字段"
+        },
+        "report": {
+          "anyOf": [{ "$ref": "report.schema.json#/$defs/Report" }, { "type": "null" }]
+        },
+        "error": {
+          "anyOf": [{ "$ref": "report.schema.json#/$defs/InputError" }, { "type": "null" }]
+        }
+      },
+      "allOf": [
+        {
+          "not": {
+            "required": ["report", "error"],
+            "properties": {
+              "report": { "type": "object" },
+              "error": { "type": "object" }
+            }
+          }
+        },
+        {
+          "anyOf": [
+            { "properties": { "report": { "type": "object" } } },
+            { "properties": { "error": { "type": "object" } } }
+          ]
+        }
+      ]
+    }
+  }
+}

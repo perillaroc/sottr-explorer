@@ -6,6 +6,7 @@
 pnpm install        # 安装依赖并生成/更新 pnpm-lock.yaml
 pnpm dev            # 仅前端开发服务器（http://localhost:1420）
 pnpm build          # vue-tsc 类型检查 + vite 构建
+pnpm contract:check # 契约夹具校验 + 由 schemas/ 生成 src/contract 类型 + 类型检查
 pnpm tauri dev      # 桌面调试（需要 WebView2 与 MSVC 工具链）
 ```
 

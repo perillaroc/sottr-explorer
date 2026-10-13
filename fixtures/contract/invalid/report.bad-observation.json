@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "tool_version": "0.1.0",
+  "parser_profile_id": "sottr-save-family-4mib-v1",
+  "metadata_version": null,
+  "reference_set_version": null,
+  "input_digest": {
+    "compressed_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "expanded_sha256": null,
+    "compressed_bytes": 1,
+    "expanded_bytes": null
+  },
+  "context": {
+    "platform": null,
+    "mode": "unknown",
+    "build": null,
+    "dlc": null,
+    "source": "unknown",
+    "limitations": ["非法夹具：未确立的 observation 枚举值"]
+  },
+  "capabilities": {
+    "container": { "status": "unsupported", "reason_codes": [] },
+    "sections": { "status": "unsupported", "reason_codes": [] },
+    "inventory": { "status": "unsupported", "reason_codes": [] },
+    "counters": { "status": "unsupported", "reason_codes": [] },
+    "reference_difference": { "status": "unsupported", "reason_codes": [] },
+    "location": { "status": "unsupported", "reason_codes": [] }
+  },
+  "coverage": {
+    "supported_category_ids": [],
+    "reference_category_ids": [],
+    "supported_region_counter_keys": [],
+    "unavailable_reason_codes": [],
+    "evidence_refs": []
+  },
+  "observations": {
+    "container": {
+      "status": "unsupported",
+      "format": "zlib",
+      "valid": false,
+      "eof": false,
+      "compressed_bytes": 1,
+      "expanded_bytes": null,
+      "trailing_bytes": 0,
+      "error": null
+    },
+    "sections": {
+      "status": "unsupported",
+      "valid": false,
+      "byte_length": 0,
+      "byte_length_hex": "0x0",
+      "start_offset": 0,
+      "start_offset_hex": "0x0",
+      "section_count": 0,
+      "error": null
+    },
+    "overall_completion": {
+      "value": null,
+      "unit": "percent",
+      "support_status": "unsupported",
+      "reason": "夹具内其他字段保持合法",
+      "evidence_level": "observed",
+      "evidence_refs": [],
+      "limitations": []
+    },
+    "inventory": {
+      "status": "unsupported",
+      "inventory_complete": false,
+      "completeness_scope": "未执行",
+      "records": [],
+      "record_count": 0,
+      "unique_id_count": 0,
+      "duplicate_record_count": 0
+    },
+    "region_counters": []
+  },
+  "assessments": [
+    {
+      "internal_id": "0x11111111",
+      "observation": "maybe",
+      "assessment": "unknown",
+      "rule_id": null,
+      "evidence_refs": [],
+      "limitations": []
+    }
+  ],
+  "locations": [],
+  "evidence": [],
+  "diagnostics": []
+}

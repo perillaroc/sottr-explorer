@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DesktopResult",
+  "description": "SOTTR Explorer 桌面请求结果信封。IPC 结果信封与核心 Report 分离：request_id/input_ref/snapshot 标识、freshness 与 report/error 分离携带。取消和晚到结果由 request_id 与当前选定请求比对识别，不混入报告业务值；freshness 只说明本应用最近分析/刷新状态，不声称与游戏实时同步。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "input_ref",
+    "snapshot_id",
+    "snapshot_time",
+    "freshness",
+    "last_refresh_error",
+    "report",
+    "error"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "request_id": { "type": "string", "minLength": 1 },
+    "input_ref": { "type": "string", "minLength": 1 },
+    "snapshot_id": { "type": ["string", "null"] },
+    "snapshot_time": { "type": ["string", "null"], "format": "date-time" },
+    "freshness": { "$ref": "report.schema.json#/$defs/Freshness" },
+    "last_refresh_error": {
+      "anyOf": [{ "$ref": "report.schema.json#/$defs/InputError" }, { "type": "null" }]
+    },
+    "report": {
+      "anyOf": [{ "$ref": "report.schema.json#/$defs/Report" }, { "type": "null" }]
+    },
+    "error": {
+      "anyOf": [{ "$ref": "report.schema.json#/$defs/InputError" }, { "type": "null" }]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "freshness": { "enum": ["current", "refreshing", "stale"] } },
+        "required": ["freshness"]
+      },
+      "then": {
+        "properties": {
+          "snapshot_id": { "type": "string", "minLength": 1 },
+          "snapshot_time": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "note": "Python v0.2 derived_candidates 示例片段（输入侧形状，供适配规则说明使用）",
+  "source": "private/baseline/analysis01/report.json (save1.dat, 2026-10-13 复跑)",
+  "python_shape": {
+    "derived_candidates": {
+      "overall_completion": {
+        "status": "community_correlated",
+        "offset": 40,
+        "encoding": "float32_le",
+        "raw_hex": "dc4f8442",
+        "candidate_percent": 66.20481872558594,
+        "source": "https://tombraiders.net/stella/savegame/TR11saves.html",
+        "warning": "Raw-only API requires caller-provided campaign-save context; ..."
+      },
+      "region_counters": {
+        "status": "community_correlated",
+        "entries": [
+          {
+            "serialized_offset": 4236,
+            "region": "Mission of San Juan",
+            "category": "Survival Caches",
+            "source_total": 8,
+            "raw_u32_le": 0,
+            "status": "community_correlated",
+            "candidate_count": 0,
+            "candidate_remaining_to_source_target": 8,
+            "within_source_target": true
+          }
+        ]
+      }
+    }
+  }
+}

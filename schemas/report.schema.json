@@ -1,0 +1,479 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Report",
+  "description": "SOTTR Explorer 分析报告。sottr-explorer 契约 schema_version 1.0.0。业务状态（observation/assessment）、证据来源等级（evidence_level）、上下文（context）与定位精度（location precision）为相互独立字段，禁止合并为单个徽标字段。所有对象均要求显式列出全部字段；可空字段用 null 表达，未知必须附原因或诊断。",
+  "$ref": "#/$defs/Report",
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+    "schema_version",
+    "tool_version",
+    "parser_profile_id",
+    "metadata_version",
+    "reference_set_version",
+    "input_digest",
+    "context",
+    "capabilities",
+    "coverage",
+    "observations",
+    "assessments",
+    "locations",
+    "evidence",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "tool_version": { "$ref": "#/$defs/NonEmptyString" },
+    "parser_profile_id": { "$ref": "#/$defs/NonEmptyString" },
+    "metadata_version": {
+      "type": ["string", "null"],
+      "description": "未知为 null；原因写入 diagnostics 的 METADATA_NOT_LOADED 等条目，不虚构版本号"
+    },
+    "reference_set_version": {
+      "type": ["string", "null"],
+      "description": "未知为 null；原因写入 diagnostics，不虚构版本号"
+    },
+    "input_digest": { "$ref": "#/$defs/InputDigest" },
+    "context": { "$ref": "#/$defs/Context" },
+    "capabilities": { "$ref": "#/$defs/Capabilities" },
+    "coverage": { "$ref": "#/$defs/Coverage" },
+    "observations": { "$ref": "#/$defs/Observations" },
+    "assessments": { "type": "array", "items": { "$ref": "#/$defs/AssessedItem" } },
+    "locations": { "type": "array", "items": { "$ref": "#/$defs/LocationHint" } },
+    "evidence": { "type": "array", "items": { "$ref": "#/$defs/Evidence" } },
+    "diagnostics": { "type": "array", "items": { "$ref": "#/$defs/Diagnostic" } }
+    }
+  },
+    "NonEmptyString": { "type": "string", "minLength": 1 },
+    "InternalId": {
+      "type": "string",
+      "pattern": "^0x[0-9A-F]{8}$",
+      "description": "u32 内部 ID，固定 0x 加 8 位大写十六进制"
+    },
+    "ResourceKey": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$|^0x[0-9A-Fa-f]{1,16}$",
+      "description": "u64 资源/本地化键，必须以十进制或十六进制字符串往返，禁止经 JavaScript Number"
+    },
+    "ReasonCode": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+    "HexOffset": { "type": "string", "pattern": "^0x[0-9A-F]+$" },
+    "Sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "SupportStatus": {
+      "type": "string",
+      "enum": ["supported", "partial", "unsupported"],
+      "description": "字段在当前报告上下文中的可用性；unsupported 时 value 必为 null 且 reason 必填"
+    },
+    "EvidenceLevel": {
+      "type": "string",
+      "enum": ["observed", "community_correlated", "game_validated"],
+      "description": "证据来源等级；禁止无依据概率分数"
+    },
+    "Mode": { "type": "string", "enum": ["campaign", "profile", "unknown", "unsupported"] },
+    "ContextSource": { "type": "string", "enum": ["user_declared", "fixture_provenance", "unknown"] },
+    "ObservationKind": { "type": "string", "enum": ["present", "reference_present_current_absent", "unknown"] },
+    "AssessmentKind": {
+      "type": "string",
+      "enum": ["likely_collected", "likely_missing", "unknown", "verified_collected", "verified_uncollected"],
+      "description": "首版无新游戏内证据时不产生 verified_*；likely_* 仅在对应规则全部满足时出现"
+    },
+    "Severity": { "type": "string", "enum": ["info", "warning", "error"] },
+    "DiagnosticScope": {
+      "type": "string",
+      "enum": ["input", "container", "sections", "inventory", "counters", "reference_difference", "location", "metadata"]
+    },
+    "InventoryTable": { "type": "string", "enum": ["prefix", "type28_overflow"] },
+    "LocationPrecision": { "type": "string", "enum": ["region", "guide_group", "guide_item", "verified_coordinates"] },
+    "MappingKind": {
+      "type": "string",
+      "enum": ["region_clue", "guide_group_membership", "exact_guide_item", "verified_coordinates", "none"]
+    },
+    "GroupActionKind": { "type": "string", "enum": ["whole_group_check", "general_reference", "unavailable"] },
+    "Freshness": {
+      "type": "string",
+      "enum": ["current", "refreshing", "stale", "none"],
+      "description": "仅说明本应用最近分析/刷新状态，不声称与游戏实时同步"
+    },
+    "InputError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "retryable"],
+      "properties": {
+        "code": { "$ref": "#/$defs/ReasonCode" },
+        "message": { "$ref": "#/$defs/NonEmptyString" },
+        "retryable": { "type": "boolean" }
+      }
+    },
+    "ProgressValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "support_status", "reason", "evidence_level", "evidence_refs", "limitations"],
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "unit": { "$ref": "#/$defs/NonEmptyString" },
+        "support_status": { "$ref": "#/$defs/SupportStatus" },
+        "reason": { "type": ["string", "null"] },
+        "evidence_level": { "$ref": "#/$defs/EvidenceLevel" },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "value": { "type": "null" } }, "required": ["value"] },
+          "then": { "properties": { "reason": { "type": "string", "minLength": 1 } } }
+        }
+      ],
+      "description": "未知值 value 为 null 且 reason 必填；合法零保留 0"
+    },
+    "InputDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["compressed_sha256", "expanded_sha256", "compressed_bytes", "expanded_bytes"],
+      "properties": {
+        "compressed_sha256": { "$ref": "#/$defs/Sha256" },
+        "expanded_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "compressed_bytes": { "type": "integer", "minimum": 0 },
+        "expanded_bytes": { "type": ["integer", "null"], "minimum": 0 }
+      },
+      "description": "个人绝对路径不属于契约字段"
+    },
+    "Context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform", "mode", "build", "dlc", "source", "limitations"],
+      "properties": {
+        "platform": { "type": ["string", "null"], "description": "如 windows_steam；未知为 null" },
+        "mode": { "$ref": "#/$defs/Mode" },
+        "build": { "type": ["string", "null"], "description": "未知为 null，不虚构构建号" },
+        "dlc": { "type": ["array", "null"], "items": { "type": "string" } },
+        "source": { "$ref": "#/$defs/ContextSource" },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      },
+      "description": "用户声明是上下文证据，不是格式识别证明"
+    },
+    "Capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason_codes"],
+      "properties": {
+        "status": { "$ref": "#/$defs/SupportStatus" },
+        "reason_codes": { "type": "array", "items": { "$ref": "#/$defs/ReasonCode" } }
+      }
+    },
+    "Capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["container", "sections", "inventory", "counters", "reference_difference", "location"],
+      "properties": {
+        "container": { "$ref": "#/$defs/Capability" },
+        "sections": { "$ref": "#/$defs/Capability" },
+        "inventory": { "$ref": "#/$defs/Capability" },
+        "counters": { "$ref": "#/$defs/Capability" },
+        "reference_difference": { "$ref": "#/$defs/Capability" },
+        "location": { "$ref": "#/$defs/Capability" }
+      }
+    },
+    "Coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "supported_category_ids",
+        "reference_category_ids",
+        "supported_region_counter_keys",
+        "unavailable_reason_codes",
+        "evidence_refs"
+      ],
+      "properties": {
+        "supported_category_ids": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "reference_category_ids": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "supported_region_counter_keys": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "unavailable_reason_codes": { "type": "array", "items": { "$ref": "#/$defs/ReasonCode" } },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } }
+      },
+      "description": "43 项稀疏计数不通过数组填充变成完整矩阵；汇总计数必须携带 scope 与支持状态"
+    },
+    "ContainerObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "format", "valid", "eof", "compressed_bytes", "expanded_bytes", "trailing_bytes", "error"],
+      "properties": {
+        "status": { "$ref": "#/$defs/SupportStatus" },
+        "format": { "$ref": "#/$defs/NonEmptyString" },
+        "valid": { "type": "boolean" },
+        "eof": { "type": "boolean" },
+        "compressed_bytes": { "type": "integer", "minimum": 0 },
+        "expanded_bytes": { "type": ["integer", "null"], "minimum": 0 },
+        "trailing_bytes": { "type": "integer", "minimum": 0 },
+        "error": { "type": ["string", "null"] }
+      }
+    },
+    "SectionsObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "valid", "byte_length", "byte_length_hex", "start_offset", "start_offset_hex", "section_count", "error"],
+      "properties": {
+        "status": { "$ref": "#/$defs/SupportStatus" },
+        "valid": { "type": "boolean" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "byte_length_hex": { "$ref": "#/$defs/HexOffset" },
+        "start_offset": { "type": "integer", "minimum": 0 },
+        "start_offset_hex": { "$ref": "#/$defs/HexOffset" },
+        "section_count": { "type": "integer", "minimum": 0 },
+        "error": { "type": ["string", "null"] }
+      }
+    },
+    "InventoryRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["table", "index", "internal_id", "raw_companion_u32", "raw_companion_hex", "raw_low_two_bits", "id_offset", "id_offset_hex"],
+      "properties": {
+        "table": { "$ref": "#/$defs/InventoryTable" },
+        "index": { "type": "integer", "minimum": 0 },
+        "internal_id": { "$ref": "#/$defs/InternalId" },
+        "raw_companion_u32": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+        "raw_companion_hex": { "type": "string", "pattern": "^0x[0-9A-F]{8}$" },
+        "raw_low_two_bits": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "id_offset": { "type": "integer", "minimum": 0 },
+        "id_offset_hex": { "$ref": "#/$defs/HexOffset" }
+      },
+      "description": "重复 ID 保留全部原始记录；未知非零 ID 不丢弃；伴随字含义未确立，不赋状态语义"
+    },
+    "InventoryObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "inventory_complete", "completeness_scope", "records", "record_count", "unique_id_count", "duplicate_record_count"],
+      "properties": {
+        "status": { "$ref": "#/$defs/SupportStatus" },
+        "inventory_complete": {
+          "type": "boolean",
+          "description": "仅指当前 parser profile 下表恢复完整，不代表全游戏全集完备"
+        },
+        "completeness_scope": { "$ref": "#/$defs/NonEmptyString" },
+        "records": { "type": "array", "items": { "$ref": "#/$defs/InventoryRecord" } },
+        "record_count": { "type": "integer", "minimum": 0 },
+        "unique_id_count": { "type": "integer", "minimum": 0 },
+        "duplicate_record_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "RegionCounter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "counter_key",
+        "region_id",
+        "category_id",
+        "value",
+        "unit",
+        "support_status",
+        "reason",
+        "evidence_level",
+        "evidence_refs",
+        "limitations",
+        "source_target",
+        "within_source_target",
+        "raw_value",
+        "raw_value_hex"
+      ],
+      "properties": {
+        "counter_key": { "$ref": "#/$defs/NonEmptyString" },
+        "region_id": { "type": ["string", "null"] },
+        "category_id": { "$ref": "#/$defs/NonEmptyString" },
+        "value": { "type": ["integer", "null"], "minimum": 0 },
+        "unit": { "$ref": "#/$defs/NonEmptyString" },
+        "support_status": { "$ref": "#/$defs/SupportStatus" },
+        "reason": { "type": ["string", "null"] },
+        "evidence_level": { "$ref": "#/$defs/EvidenceLevel" },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "source_target": { "type": ["integer", "null"], "minimum": 0 },
+        "within_source_target": { "type": "boolean" },
+        "raw_value": { "type": "integer", "minimum": 0, "maximum": 4294967295 },
+        "raw_value_hex": { "type": "string", "pattern": "^0x[0-9A-F]{8}$" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "value": { "type": "null" } }, "required": ["value"] },
+          "then": { "properties": { "reason": { "type": "string", "minLength": 1 } } }
+        }
+      ],
+      "description": "计数超过来源目标时保留 raw_value，value 与剩余置 null，不裁剪到目标值"
+    },
+    "Observations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["container", "sections", "overall_completion", "inventory", "region_counters"],
+      "properties": {
+        "container": { "$ref": "#/$defs/ContainerObservation" },
+        "sections": { "$ref": "#/$defs/SectionsObservation" },
+        "overall_completion": { "$ref": "#/$defs/ProgressValue" },
+        "inventory": { "$ref": "#/$defs/InventoryObservation" },
+        "region_counters": { "type": "array", "items": { "$ref": "#/$defs/RegionCounter" } }
+      }
+    },
+    "AssessedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["internal_id", "observation", "assessment", "rule_id", "evidence_refs", "limitations"],
+      "properties": {
+        "internal_id": { "$ref": "#/$defs/InternalId" },
+        "observation": { "$ref": "#/$defs/ObservationKind" },
+        "assessment": { "$ref": "#/$defs/AssessmentKind" },
+        "rule_id": { "type": ["string", "null"] },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "assessment": { "enum": ["likely_collected", "likely_missing", "verified_collected", "verified_uncollected"] }
+            },
+            "required": ["assessment"]
+          },
+          "then": { "properties": { "rule_id": { "type": "string", "minLength": 1 } } }
+        }
+      ],
+      "description": "身份不等于状态；原始 present 默认仅表示已观察"
+    },
+    "Coordinates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z", "coordinate_space", "unit", "level_id"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "z": { "type": "number" },
+        "coordinate_space": { "$ref": "#/$defs/NonEmptyString" },
+        "unit": { "$ref": "#/$defs/NonEmptyString" },
+        "level_id": { "$ref": "#/$defs/NonEmptyString" }
+      }
+    },
+    "MapTransform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["basemap_version", "transform_parameters", "control_points_source", "error_description"],
+      "properties": {
+        "basemap_version": { "$ref": "#/$defs/NonEmptyString" },
+        "transform_parameters": { "type": "string" },
+        "control_points_source": { "$ref": "#/$defs/NonEmptyString" },
+        "error_description": { "type": "string" }
+      },
+      "description": "底图版本、变换参数、控制点来源与误差描述；无验证变换时整体为 null"
+    },
+    "GroupActionability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "reason_codes", "evidence_refs", "evaluated_input_digest"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/GroupActionKind" },
+        "reason_codes": { "type": "array", "items": { "$ref": "#/$defs/ReasonCode" } },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "evaluated_input_digest": { "$ref": "#/$defs/InputDigest" }
+      },
+      "description": "whole_group_check 只在完整性、兼容计数、零当前计数、参考范围和组关联全部匹配时给出；非零、未知、冲突或变化时不得延用"
+    },
+    "LocationHint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "location_id",
+        "precision",
+        "region_id",
+        "guide_group_id",
+        "guide_item",
+        "member_ids",
+        "target_count",
+        "mapping_kind",
+        "source_refs",
+        "reference_set_version",
+        "applicable_mode",
+        "applicable_platform",
+        "coordinates",
+        "map_transform",
+        "group_actionability",
+        "limitations",
+        "reason"
+      ],
+      "properties": {
+        "location_id": { "$ref": "#/$defs/NonEmptyString" },
+        "precision": { "$ref": "#/$defs/LocationPrecision" },
+        "region_id": { "type": ["string", "null"] },
+        "guide_group_id": { "type": ["string", "null"] },
+        "guide_item": { "type": ["string", "null"] },
+        "member_ids": { "type": "array", "items": { "$ref": "#/$defs/InternalId" } },
+        "target_count": { "type": ["integer", "null"], "minimum": 0 },
+        "mapping_kind": { "$ref": "#/$defs/MappingKind" },
+        "source_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "reference_set_version": { "type": ["string", "null"] },
+        "applicable_mode": { "type": ["string", "null"], "enum": ["campaign", "profile", "unknown", "unsupported", null] },
+        "applicable_platform": { "type": ["string", "null"] },
+        "coordinates": {
+          "anyOf": [{ "$ref": "#/$defs/Coordinates" }, { "type": "null" }]
+        },
+        "map_transform": {
+          "anyOf": [{ "$ref": "#/$defs/MapTransform" }, { "type": "null" }]
+        },
+        "group_actionability": {
+          "anyOf": [{ "$ref": "#/$defs/GroupActionability" }, { "type": "null" }]
+        },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "reason": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "precision": { "const": "verified_coordinates" } }, "required": ["precision"] },
+          "then": { "properties": { "coordinates": { "$ref": "#/$defs/Coordinates" } } }
+        }
+      ],
+      "description": "成员关系（member_ids）与精确条目映射（guide_item）分开；无已验证映射时 coordinates 为 null 且不伪造精度"
+    },
+    "Evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "method",
+        "source_refs",
+        "sample_scope",
+        "limitations",
+        "offset",
+        "offset_hex",
+        "record_index",
+        "reference_set_id",
+        "cross_checks",
+        "source_versions"
+      ],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/NonEmptyString" },
+        "method": { "$ref": "#/$defs/NonEmptyString" },
+        "source_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } },
+        "sample_scope": { "$ref": "#/$defs/NonEmptyString" },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "offset": { "type": ["integer", "null"], "minimum": 0 },
+        "offset_hex": { "type": ["string", "null"], "pattern": "^0x[0-9A-F]+$" },
+        "record_index": { "type": ["integer", "null"], "minimum": 0 },
+        "reference_set_id": { "type": ["string", "null"] },
+        "cross_checks": { "type": "array", "items": { "type": "string" } },
+        "source_versions": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "来源版本表：来源标识到固定提交/文档版本；无则为空对象"
+        }
+      }
+    },
+    "Diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "scope", "message", "evidence_refs"],
+      "properties": {
+        "code": { "$ref": "#/$defs/ReasonCode" },
+        "severity": { "$ref": "#/$defs/Severity" },
+        "scope": { "$ref": "#/$defs/DiagnosticScope" },
+        "message": { "$ref": "#/$defs/NonEmptyString" },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/NonEmptyString" } }
+      },
+      "description": "UI 不依赖解析自然语言决定是否允许推定，只看 code/severity/scope"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0.0",
+  "request_id": "req-0003",
+  "input_ref": "save202.dat",
+  "snapshot_id": "snap-0002",
+  "snapshot_time": "2026-10-13T19:45:10+08:00",
+  "freshness": "current",
+  "last_refresh_error": null,
+  "report": {
+    "schema_version": "1.0.0",
+    "tool_version": "0.1.0",
+    "parser_profile_id": "sottr-save-family-4mib-v1",
+    "metadata_version": "0.1.0",
+    "reference_set_version": "1.0.0",
+    "input_digest": {
+      "compressed_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "expanded_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "compressed_bytes": 597590,
+      "expanded_bytes": 4194304
+    },
+    "context": {
+      "platform": "windows_steam",
+      "mode": "campaign",
+      "build": null,
+      "dlc": null,
+      "source": "user_declared",
+      "limitations": ["桌面信封夹具：另一槽位的晚返回结果，仅在其 request_id/snapshot 仍为当前选中时才能提交"]
+    },
+    "capabilities": {
+      "container": { "status": "supported", "reason_codes": [] },
+      "sections": { "status": "supported", "reason_codes": [] },
+      "inventory": { "status": "supported", "reason_codes": [] },
+      "counters": { "status": "supported", "reason_codes": [] },
+      "reference_difference": { "status": "supported", "reason_codes": [] },
+      "location": { "status": "unsupported", "reason_codes": ["LOCATION_UNVERIFIED"] }
+    },
+    "coverage": {
+      "supported_category_ids": ["survival_caches"],
+      "reference_category_ids": ["survival_caches"],
+      "supported_region_counter_keys": [],
+      "unavailable_reason_codes": [],
+      "evidence_refs": []
+    },
+    "observations": {
+      "container": {
+        "status": "supported",
+        "format": "zlib",
+        "valid": true,
+        "eof": true,
+        "compressed_bytes": 597590,
+        "expanded_bytes": 4194304,
+        "trailing_bytes": 0,
+        "error": null
+      },
+      "sections": {
+        "status": "supported",
+        "valid": true,
+        "byte_length": 11892,
+        "byte_length_hex": "0x2E74",
+        "start_offset": 49108,
+        "start_offset_hex": "0xBFD4",
+        "section_count": 27,
+        "error": null
+      },
+      "overall_completion": {
+        "value": 65.96385192871094,
+        "unit": "percent",
+        "support_status": "supported",
+        "reason": null,
+        "evidence_level": "community_correlated",
+        "evidence_refs": [],
+        "limitations": []
+      },
+      "inventory": {
+        "status": "supported",
+        "inventory_complete": true,
+        "completeness_scope": "parser_profile 表恢复完整",
+        "records": [],
+        "record_count": 0,
+        "unique_id_count": 0,
+        "duplicate_record_count": 0
+      },
+      "region_counters": []
+    },
+    "assessments": [],
+    "locations": [],
+    "evidence": [],
+    "diagnostics": []
+  },
+  "error": null
+}

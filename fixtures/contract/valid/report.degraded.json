@@ -1,0 +1,211 @@
+{
+  "schema_version": "1.0.0",
+  "tool_version": "0.1.0",
+  "parser_profile_id": "sottr-save-family-4mib-v1",
+  "metadata_version": "0.1.0",
+  "reference_set_version": "1.0.0",
+  "input_digest": {
+    "compressed_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "expanded_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "compressed_bytes": 597593,
+    "expanded_bytes": 4194304
+  },
+  "context": {
+    "platform": "windows_steam",
+    "mode": "campaign",
+    "build": null,
+    "dlc": null,
+    "source": "user_declared",
+    "limitations": ["模式为用户声明", "type28 段长度异常：完整性降级，关闭缺席推断"]
+  },
+  "capabilities": {
+    "container": { "status": "supported", "reason_codes": [] },
+    "sections": { "status": "supported", "reason_codes": [] },
+    "inventory": { "status": "partial", "reason_codes": ["UNSUPPORTED_LAYOUT"] },
+    "counters": { "status": "partial", "reason_codes": ["COUNTER_MISMATCH"] },
+    "reference_difference": { "status": "unsupported", "reason_codes": ["REFERENCE_DIFFERENCE_REQUIRES_COMPLETE_TABLE"] },
+    "location": { "status": "unsupported", "reason_codes": ["INVENTORY_INCOMPLETE"] }
+  },
+  "coverage": {
+    "supported_category_ids": ["survival_caches", "rare_resource_caches", "monoliths", "crypt_treasures"],
+    "reference_category_ids": [],
+    "supported_region_counter_keys": ["counter:mission_of_san_juan:survival_caches"],
+    "unavailable_reason_codes": ["REFERENCE_DIFFERENCE_REQUIRES_COMPLETE_TABLE", "INVENTORY_INCOMPLETE"],
+    "evidence_refs": ["ev:type28:malformed"]
+  },
+  "observations": {
+    "container": {
+      "status": "supported",
+      "format": "zlib",
+      "valid": true,
+      "eof": true,
+      "compressed_bytes": 597593,
+      "expanded_bytes": 4194304,
+      "trailing_bytes": 0,
+      "error": null
+    },
+    "sections": {
+      "status": "supported",
+      "valid": true,
+      "byte_length": 11896,
+      "byte_length_hex": "0x2E78",
+      "start_offset": 49108,
+      "start_offset_hex": "0xBFD4",
+      "section_count": 27,
+      "error": null
+    },
+    "overall_completion": {
+      "value": 65.96385192871094,
+      "unit": "percent",
+      "support_status": "supported",
+      "reason": null,
+      "evidence_level": "community_correlated",
+      "evidence_refs": ["ev:overall:0x28"],
+      "limitations": ["社区校准候选"]
+    },
+    "inventory": {
+      "status": "partial",
+      "inventory_complete": false,
+      "completeness_scope": "type28 段长度不符合已知布局；缺失推断一律关闭",
+      "records": [
+        {
+          "table": "prefix",
+          "index": 0,
+          "internal_id": "0x11111111",
+          "raw_companion_u32": 1,
+          "raw_companion_hex": "0x00000001",
+          "raw_low_two_bits": 1,
+          "id_offset": 68,
+          "id_offset_hex": "0x44"
+        }
+      ],
+      "record_count": 1,
+      "unique_id_count": 1,
+      "duplicate_record_count": 0
+    },
+    "region_counters": [
+      {
+        "counter_key": "counter:mission_of_san_juan:survival_caches",
+        "region_id": "mission_of_san_juan",
+        "category_id": "survival_caches",
+        "value": null,
+        "unit": "count",
+        "support_status": "partial",
+        "reason": "原始读数超过来源目标，候选计数与剩余置 null，不裁剪到目标值",
+        "evidence_level": "observed",
+        "evidence_refs": ["ev:counter:san-juan:caches"],
+        "limitations": ["来源目标为社区脚本值，可能不适用于当前版本"],
+        "source_target": 8,
+        "within_source_target": false,
+        "raw_value": 99,
+        "raw_value_hex": "0x00000063"
+      }
+    ]
+  },
+  "assessments": [
+    {
+      "internal_id": "0x11111111",
+      "observation": "present",
+      "assessment": "unknown",
+      "rule_id": null,
+      "evidence_refs": ["ev:record:prefix:0"],
+      "limitations": ["表不完整，关闭缺席推断"]
+    },
+    {
+      "internal_id": "0x0F28B6EC",
+      "observation": "unknown",
+      "assessment": "unknown",
+      "rule_id": null,
+      "evidence_refs": ["ev:type28:malformed"],
+      "limitations": ["表不完整，不产生 likely_missing"]
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "loc:stella:san-juan-caches",
+      "precision": "guide_group",
+      "region_id": "mission_of_san_juan",
+      "guide_group_id": "stella:san-juan-caches",
+      "guide_item": null,
+      "member_ids": ["0x0F28B6EC", "0x0F28B6ED"],
+      "target_count": 8,
+      "mapping_kind": "guide_group_membership",
+      "source_refs": ["src:stella-san-juan-caches"],
+      "reference_set_version": "1.0.0",
+      "applicable_mode": "campaign",
+      "applicable_platform": null,
+      "coordinates": null,
+      "map_transform": null,
+      "group_actionability": {
+        "kind": "unavailable",
+        "reason_codes": ["INVENTORY_INCOMPLETE", "GROUP_COUNT_UNKNOWN"],
+        "evidence_refs": ["ev:type28:malformed"],
+        "evaluated_input_digest": {
+          "compressed_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "expanded_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "compressed_bytes": 597593,
+          "expanded_bytes": 4194304
+        }
+      },
+      "limitations": ["表不完整或计数未知时不给整组遗漏行动结论"],
+      "reason": "当前表不完整，关闭整组检查提示"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev:overall:0x28",
+      "method": "float32_le read at fixed offset",
+      "source_refs": ["src:stella-saves"],
+      "sample_scope": "private_4mib_family_5_files",
+      "limitations": ["社区校准"],
+      "offset": 40,
+      "offset_hex": "0x28",
+      "record_index": null,
+      "reference_set_id": null,
+      "cross_checks": [],
+      "source_versions": {}
+    },
+    {
+      "evidence_id": "ev:record:prefix:0",
+      "method": "prefix u32 pair read",
+      "source_refs": ["src:stella-saves"],
+      "sample_scope": "private_4mib_family_5_files",
+      "limitations": [],
+      "offset": 68,
+      "offset_hex": "0x44",
+      "record_index": 0,
+      "reference_set_id": null,
+      "cross_checks": [],
+      "source_versions": {}
+    },
+    {
+      "evidence_id": "ev:type28:malformed",
+      "method": "type28 length check",
+      "source_refs": [],
+      "sample_scope": "current_input_only",
+      "limitations": ["该路径为新产品强化规则：异常 type28 使 inventory_complete=false 并阻断负向推断"],
+      "offset": 49108,
+      "offset_hex": "0xBFD4",
+      "record_index": null,
+      "reference_set_id": null,
+      "cross_checks": [],
+      "source_versions": {}
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "UNSUPPORTED_LAYOUT",
+      "severity": "warning",
+      "scope": "inventory",
+      "message": "type28 段存在但长度异常，表恢复不完整，缺席推断已关闭",
+      "evidence_refs": ["ev:type28:malformed"]
+    },
+    {
+      "code": "COUNTER_MISMATCH",
+      "severity": "warning",
+      "scope": "counters",
+      "message": "区域计数原始读数超过来源目标，保留原始值并降级候选",
+      "evidence_refs": ["ev:counter:san-juan:caches"]
+    }
+  ]
+}

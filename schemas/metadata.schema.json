@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MetadataDataset",
+  "description": "SOTTR Explorer 收集品元数据。独立版本化的本地 JSON 数据集：描述内部 ID、别名、类别、区域、显示名称、适用条件、来源与定位映射。元数据不执行脚本；中文名未知则 null；不把内部名片段伪装游戏名称。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "metadata_version", "namespace", "items", "categories", "regions", "guide_groups", "reference_sets", "sources"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "metadata_version": { "type": "string", "minLength": 1 },
+    "namespace": { "type": "string", "minLength": 1 },
+    "items": {
+      "type": "object",
+      "propertyNames": { "pattern": "^0x[0-9A-F]{8}$" },
+      "additionalProperties": { "$ref": "#/$defs/MetadataItem" },
+      "description": "键为内部 ID（0x 加 8 位大写十六进制），与条目的 internal_id 必须一致（由加载器校验）"
+    },
+    "categories": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/Category" }
+    },
+    "regions": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/Region" }
+    },
+    "guide_groups": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/GuideGroup" }
+    },
+    "reference_sets": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/ReferenceSet" }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/Source" }
+    }
+  },
+  "$defs": {
+    "NameKind": {
+      "type": "string",
+      "enum": ["source_localized", "curated_short", "machine_translated", "unknown"],
+      "description": "来源本地化名称 / 人工简名（不是正式游戏名称）/ 机器翻译 / 未知"
+    },
+    "ReviewState": { "type": "string", "enum": ["draft", "reviewed", "withdrawn"] },
+    "Redistributable": { "type": "string", "enum": ["yes", "no", "pending"] },
+    "Applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["game", "platform", "mode", "build_range", "dlc", "notes"],
+      "properties": {
+        "game": { "type": "string", "minLength": 1 },
+        "platform": { "type": ["string", "null"] },
+        "mode": {
+          "anyOf": [
+            { "$ref": "report.schema.json#/$defs/Mode" },
+            { "type": "null" }
+          ]
+        },
+        "build_range": { "type": ["string", "null"] },
+        "dlc": { "type": ["array", "null"], "items": { "type": "string" } },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "description": "未知信息显式 null 并写入 notes，不猜测"
+    },
+    "LocationMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mapping_kind",
+        "region_id",
+        "guide_group_id",
+        "guide_item",
+        "target_count",
+        "coordinates",
+        "map_transform",
+        "applicable_mode",
+        "applicable_platform",
+        "source_refs"
+      ],
+      "properties": {
+        "mapping_kind": { "$ref": "report.schema.json#/$defs/MappingKind" },
+        "region_id": { "type": ["string", "null"] },
+        "guide_group_id": { "type": ["string", "null"] },
+        "guide_item": { "type": ["string", "null"] },
+        "target_count": { "type": ["integer", "null"], "minimum": 0 },
+        "coordinates": {
+          "anyOf": [
+            { "$ref": "report.schema.json#/$defs/Coordinates" },
+            { "type": "null" }
+          ]
+        },
+        "map_transform": {
+          "anyOf": [
+            { "$ref": "report.schema.json#/$defs/MapTransform" },
+            { "type": "null" }
+          ]
+        },
+        "applicable_mode": {
+          "anyOf": [
+            { "$ref": "report.schema.json#/$defs/Mode" },
+            { "type": "null" }
+          ]
+        },
+        "applicable_platform": { "type": ["string", "null"] },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "description": "成员关系与精确条目映射分开；未确认时保留原始研究信息且不标为玩家可导航位置"
+    },
+    "Review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "note", "date"],
+      "properties": {
+        "state": { "$ref": "#/$defs/ReviewState" },
+        "note": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "MetadataItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "internal_id",
+        "aliases",
+        "display_name",
+        "display_language",
+        "name_source",
+        "name_kind",
+        "category_id",
+        "region_id",
+        "applicability",
+        "location_mappings",
+        "source_refs",
+        "review"
+      ],
+      "properties": {
+        "internal_id": { "$ref": "report.schema.json#/$defs/InternalId" },
+        "aliases": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "display_name": { "type": ["string", "null"] },
+        "display_language": { "type": ["string", "null"], "description": "BCP-47，如 zh-Hans；未知为 null" },
+        "name_source": { "type": ["string", "null"], "description": "名称来源引用或描述；未知为 null" },
+        "name_kind": { "$ref": "#/$defs/NameKind" },
+        "category_id": { "type": ["string", "null"] },
+        "region_id": { "type": ["string", "null"] },
+        "applicability": { "$ref": "#/$defs/Applicability" },
+        "location_mappings": { "type": "array", "items": { "$ref": "#/$defs/LocationMapping" } },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "review": {
+          "anyOf": [{ "$ref": "#/$defs/Review" }, { "type": "null" }]
+        }
+      },
+      "description": "全部别名保留；display_name 为 null 时前端使用带标识的类别加 ID 回退文案，不自造正式名称"
+    },
+    "Category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category_id", "display_name", "source_refs"],
+      "properties": {
+        "category_id": { "type": "string", "minLength": 1 },
+        "display_name": { "type": ["string", "null"] },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "Region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["region_id", "display_name", "source_refs"],
+      "properties": {
+        "region_id": { "type": "string", "minLength": 1 },
+        "display_name": { "type": ["string", "null"] },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "GuideGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["guide_group_id", "display_name", "region_id", "category_ids", "member_ids", "target_count", "mapping_kind", "source_refs"],
+      "properties": {
+        "guide_group_id": { "type": "string", "minLength": 1 },
+        "display_name": { "type": ["string", "null"] },
+        "region_id": { "type": ["string", "null"] },
+        "category_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "member_ids": { "type": "array", "items": { "$ref": "report.schema.json#/$defs/InternalId" } },
+        "target_count": { "type": ["integer", "null"], "minimum": 0 },
+        "mapping_kind": { "$ref": "report.schema.json#/$defs/MappingKind" },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "description": "稳定组 ID 关联成员与攻略来源；不生成 ID 到攻略编号的一对一对应"
+    },
+    "ReferenceSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_set_id", "version", "category_ids", "source_save_hashes", "dedup_rule", "source_refs"],
+      "properties": {
+        "reference_set_id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "category_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "source_save_hashes": {
+          "type": "array",
+          "items": { "$ref": "report.schema.json#/$defs/Sha256" }
+        },
+        "dedup_rule": { "type": "string", "minLength": 1 },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "fixed_revision", "accessed", "license", "redistributable", "method", "review"],
+      "properties": {
+        "url": {
+          "type": ["string", "null"],
+          "pattern": "^https?://",
+          "description": "仅允许 http/https；非法协议在加载器中被拒绝"
+        },
+        "fixed_revision": { "type": ["string", "null"] },
+        "accessed": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "license": { "type": ["string", "null"] },
+        "redistributable": { "$ref": "#/$defs/Redistributable" },
+        "method": { "type": ["string", "null"] },
+        "review": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

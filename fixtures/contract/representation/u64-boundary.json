@@ -1,0 +1,13 @@
+{
+  "note": "表示规则边界夹具：64 位资源键必须以字符串往返，禁止经 JavaScript Number",
+  "samples": [
+    {
+      "decimal": "18446744073709551615",
+      "hex": "0xFFFFFFFFFFFFFFFF"
+    },
+    {
+      "decimal": "9007199254740993",
+      "hex": "0x20000000000001"
+    }
+  ]
+}

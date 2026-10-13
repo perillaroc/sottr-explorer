@@ -9,4 +9,7 @@ publish = false
 workspace = true
 
 [dependencies]
-# 刻意保持零第三方依赖：核心只处理调用方提供的不可变字节。
+serde.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true

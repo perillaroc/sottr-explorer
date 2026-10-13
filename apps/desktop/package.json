@@ -8,7 +8,10 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "contract:validate": "node scripts/contract/validate.mjs",
+    "contract:types": "node scripts/contract/generate-types.mjs",
+    "contract:check": "node scripts/contract/validate.mjs && node scripts/contract/generate-types.mjs && vue-tsc --noEmit"
   },
   "dependencies": {
     "vue": "^3.5.13",
@@ -16,9 +19,13 @@
     "@tauri-apps/plugin-opener": "^2"
   },
   "devDependencies": {
+    "@apidevtools/json-schema-ref-parser": "^16.0.5",
     "@tailwindcss/vite": "^4.3.3",
     "@tauri-apps/cli": "^2",
     "@vitejs/plugin-vue": "^6.0.7",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "json-schema-to-typescript": "^16.0.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "vite": "^8.0.16",

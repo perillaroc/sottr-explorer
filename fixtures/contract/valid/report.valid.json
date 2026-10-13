@@ -1,0 +1,274 @@
+{
+  "schema_version": "1.0.0",
+  "tool_version": "0.1.0",
+  "parser_profile_id": "sottr-save-family-4mib-v1",
+  "metadata_version": "0.1.0",
+  "reference_set_version": "1.0.0",
+  "input_digest": {
+    "compressed_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "expanded_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "compressed_bytes": 597590,
+    "expanded_bytes": 4194304
+  },
+  "context": {
+    "platform": "windows_steam",
+    "mode": "campaign",
+    "build": null,
+    "dlc": null,
+    "source": "user_declared",
+    "limitations": ["模式为用户声明，不是格式识别证明", "构建号未知，不虚构版本"]
+  },
+  "capabilities": {
+    "container": { "status": "supported", "reason_codes": [] },
+    "sections": { "status": "supported", "reason_codes": [] },
+    "inventory": { "status": "supported", "reason_codes": [] },
+    "counters": { "status": "supported", "reason_codes": [] },
+    "reference_difference": { "status": "supported", "reason_codes": [] },
+    "location": { "status": "partial", "reason_codes": ["LOCATION_UNVERIFIED"] }
+  },
+  "coverage": {
+    "supported_category_ids": ["survival_caches", "rare_resource_caches", "monoliths", "crypt_treasures"],
+    "reference_category_ids": ["survival_caches", "rare_resource_caches", "monoliths", "crypt_treasures"],
+    "supported_region_counter_keys": ["counter:mission_of_san_juan:survival_caches", "counter:paititi:survival_caches"],
+    "unavailable_reason_codes": [],
+    "evidence_refs": ["ev:refset:rs:stella-100pct-common"]
+  },
+  "observations": {
+    "container": {
+      "status": "supported",
+      "format": "zlib",
+      "valid": true,
+      "eof": true,
+      "compressed_bytes": 597590,
+      "expanded_bytes": 4194304,
+      "trailing_bytes": 0,
+      "error": null
+    },
+    "sections": {
+      "status": "supported",
+      "valid": true,
+      "byte_length": 11892,
+      "byte_length_hex": "0x2E74",
+      "start_offset": 49108,
+      "start_offset_hex": "0xBFD4",
+      "section_count": 27,
+      "error": null
+    },
+    "overall_completion": {
+      "value": 66.20481872558594,
+      "unit": "percent",
+      "support_status": "supported",
+      "reason": null,
+      "evidence_level": "community_correlated",
+      "evidence_refs": ["ev:overall:0x28"],
+      "limitations": ["社区校准候选，未经游戏内独立核实"]
+    },
+    "inventory": {
+      "status": "supported",
+      "inventory_complete": true,
+      "completeness_scope": "parser_profile 前缀与有效 type28 恢复完整；不代表全游戏全集完备",
+      "records": [
+        {
+          "table": "prefix",
+          "index": 0,
+          "internal_id": "0x11111111",
+          "raw_companion_u32": 1,
+          "raw_companion_hex": "0x00000001",
+          "raw_low_two_bits": 1,
+          "id_offset": 68,
+          "id_offset_hex": "0x44"
+        },
+        {
+          "table": "prefix",
+          "index": 1,
+          "internal_id": "0x22222222",
+          "raw_companion_u32": 3,
+          "raw_companion_hex": "0x00000003",
+          "raw_low_two_bits": 3,
+          "id_offset": 76,
+          "id_offset_hex": "0x4C"
+        },
+        {
+          "table": "type28_overflow",
+          "index": 0,
+          "internal_id": "0x33333333",
+          "raw_companion_u32": 1,
+          "raw_companion_hex": "0x00000001",
+          "raw_low_two_bits": 1,
+          "id_offset": 49124,
+          "id_offset_hex": "0xBFE4"
+        }
+      ],
+      "record_count": 3,
+      "unique_id_count": 3,
+      "duplicate_record_count": 0
+    },
+    "region_counters": [
+      {
+        "counter_key": "counter:mission_of_san_juan:survival_caches",
+        "region_id": "mission_of_san_juan",
+        "category_id": "survival_caches",
+        "value": 0,
+        "unit": "count",
+        "support_status": "supported",
+        "reason": null,
+        "evidence_level": "community_correlated",
+        "evidence_refs": ["ev:counter:san-juan:caches"],
+        "limitations": ["来源目标来自社区脚本，未证明适用所有版本/DLC"],
+        "source_target": 8,
+        "within_source_target": true,
+        "raw_value": 0,
+        "raw_value_hex": "0x00000000"
+      },
+      {
+        "counter_key": "counter:paititi:survival_caches",
+        "region_id": "paititi",
+        "category_id": "survival_caches",
+        "value": 31,
+        "unit": "count",
+        "support_status": "supported",
+        "reason": null,
+        "evidence_level": "community_correlated",
+        "evidence_refs": ["ev:counter:paititi:caches"],
+        "limitations": ["来源目标来自社区脚本"],
+        "source_target": 34,
+        "within_source_target": true,
+        "raw_value": 31,
+        "raw_value_hex": "0x0000001F"
+      }
+    ]
+  },
+  "assessments": [
+    {
+      "internal_id": "0x11111111",
+      "observation": "present",
+      "assessment": "unknown",
+      "rule_id": null,
+      "evidence_refs": ["ev:record:prefix:0"],
+      "limitations": ["原始 present 默认仅表示已观察，不自动等于已收集"]
+    },
+    {
+      "internal_id": "0x0F28B6EC",
+      "observation": "reference_present_current_absent",
+      "assessment": "likely_missing",
+      "rule_id": "refdiff.v1.likely_missing",
+      "evidence_refs": ["ev:refdiff:rs:stella-100pct-common"],
+      "limitations": ["仅限四个内部参考类别；不等于全游戏遗漏清单"]
+    },
+    {
+      "internal_id": "0x439B19A6",
+      "observation": "reference_present_current_absent",
+      "assessment": "likely_missing",
+      "rule_id": "refdiff.v1.likely_missing",
+      "evidence_refs": ["ev:refdiff:rs:stella-100pct-common"],
+      "limitations": ["仅限四个内部参考类别"]
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "loc:stella:san-juan-caches",
+      "precision": "guide_group",
+      "region_id": "mission_of_san_juan",
+      "guide_group_id": "stella:san-juan-caches",
+      "guide_item": null,
+      "member_ids": ["0x0F28B6EC", "0x0F28B6ED", "0x0F28B6EE"],
+      "target_count": 8,
+      "mapping_kind": "guide_group_membership",
+      "source_refs": ["src:stella-san-juan-caches"],
+      "reference_set_version": "1.0.0",
+      "applicable_mode": "campaign",
+      "applicable_platform": null,
+      "coordinates": null,
+      "map_transform": null,
+      "group_actionability": {
+        "kind": "whole_group_check",
+        "reason_codes": ["COMPLETE_TABLE", "ZERO_GROUP_COUNT", "REFERENCE_MATCH"],
+        "evidence_refs": ["ev:counter:san-juan:caches"],
+        "evaluated_input_digest": {
+          "compressed_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "expanded_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "compressed_bytes": 597590,
+          "expanded_bytes": 4194304
+        }
+      },
+      "limitations": ["未建立内部 ID 与攻略编号的一对一映射，本组按攻略逐一检查基于整组计数为零"],
+      "reason": null
+    },
+    {
+      "location_id": "loc:region:paititi-caches",
+      "precision": "region",
+      "region_id": "paititi",
+      "guide_group_id": null,
+      "guide_item": null,
+      "member_ids": ["0x851B4915", "0xB419E6FE"],
+      "target_count": null,
+      "mapping_kind": "region_clue",
+      "source_refs": ["src:stella-san-juan-caches"],
+      "reference_set_version": null,
+      "applicable_mode": "campaign",
+      "applicable_platform": null,
+      "coordinates": null,
+      "map_transform": null,
+      "group_actionability": null,
+      "limitations": ["仅有区域线索，无攻略组或精确条目对应"],
+      "reason": null
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev:overall:0x28",
+      "method": "float32_le read at fixed offset",
+      "source_refs": ["src:stella-saves"],
+      "sample_scope": "private_4mib_family_5_files",
+      "limitations": ["社区校准；无游戏内独立核实"],
+      "offset": 40,
+      "offset_hex": "0x28",
+      "record_index": null,
+      "reference_set_id": null,
+      "cross_checks": ["公开 100% 存档在 0x28 处为 100.0"],
+      "source_versions": { "TrRebootModTools": "a79c48b75f1ffaaf623dc73a625211bf98ff0504" }
+    },
+    {
+      "evidence_id": "ev:record:prefix:0",
+      "method": "prefix u32 pair read",
+      "source_refs": ["src:stella-saves"],
+      "sample_scope": "private_4mib_family_5_files",
+      "limitations": ["ID 出现不等于拥有状态"],
+      "offset": 68,
+      "offset_hex": "0x44",
+      "record_index": 0,
+      "reference_set_id": null,
+      "cross_checks": [],
+      "source_versions": {}
+    },
+    {
+      "evidence_id": "ev:refdiff:rs:stella-100pct-common",
+      "method": "set difference against bounded reference set",
+      "source_refs": ["src:stella-saves"],
+      "sample_scope": "two_author_labeled_100pct_slots",
+      "limitations": ["仅四个内部参考类别", "差集为空不等于全游戏收集完成"],
+      "offset": null,
+      "offset_hex": null,
+      "record_index": null,
+      "reference_set_id": "rs:stella-100pct-common",
+      "cross_checks": ["集合差集不使用字典全集", "43 项区域计数与唯一 ID 数一致"],
+      "source_versions": { "stella": "2026-10-11", "ASL-SOTTR": "b758ee890eac30d9e3b3477999a30f8f9e442f00" }
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "LOCATION_UNVERIFIED",
+      "severity": "info",
+      "scope": "location",
+      "message": "已验证地图坐标 0 项，界面不得绘制精确点位",
+      "evidence_refs": ["ev:refdiff:rs:stella-100pct-common"]
+    },
+    {
+      "code": "MODE_USER_DECLARED",
+      "severity": "info",
+      "scope": "input",
+      "message": "普通战役上下文来自用户声明，不是格式识别证明",
+      "evidence_refs": []
+    }
+  ]
+}

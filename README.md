@@ -5,10 +5,11 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 
 ## 现状
 
-脚手架阶段：仓库骨架（SX-002）与研究基线（SX-001）已完成；版本化契约（SX-003）尚未冻结，
-当前不提供可用的分析功能，界面为占位骨架。
+契约阶段：研究基线（SX-001）、仓库骨架（SX-002）与版本化接口契约 1.0.0（SX-003）已完成；
+解析核心（G1）尚未实现，当前不提供可用的分析功能，界面为占位骨架。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
+- 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
 - 开发方案与任务状态在开发工作区 `plan/` 目录维护，不在本仓库
 
 ## 目录结构
@@ -19,8 +20,9 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 | `crates/sottr-cli/` | 命令行入口（`analyze` 等命令在 SX-009 实现） |
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm） |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
-| `docs/` | 基线记录与后续契约文档 |
-| `schemas/` | 报告与元数据 JSON Schema（SX-003 起） |
+| `schemas/` | 报告、批量、桌面信封、导出与元数据 JSON Schema（契约 1.0.0） |
+| `fixtures/contract/` | 契约夹具：合法 / 非法 / 表示规则 / Python 适配示例 |
+| `docs/` | 基线记录与契约文档 |
 
 ## 构建与检查
 
@@ -29,12 +31,15 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 ```powershell
 cargo build                    # 默认成员：核心与 CLI（无 Tauri 依赖）
 cargo test
-cargo tree -p sottr-core       # 检查：核心无第三方依赖
+cargo tree -p sottr-core       # 检查：核心依赖（仅 serde；无 Tauri/网络/文件发现）
 cargo check -p sottr-desktop   # 桌面端后端（Tauri 2；首次编译较慢）
 
 cd apps/desktop
 pnpm install
 pnpm build                     # vue-tsc 类型检查 + vite 构建
+pnpm contract:validate         # 契约夹具：合法通过 / 非法拒绝 / u64 表示边界
+pnpm contract:types            # 由 schemas/ 重新生成 src/contract/*.d.ts
+pnpm contract:check            # 上述校验 + 类型生成 + vue-tsc 联合检查
 ```
 
 Python 研究参照（仅标准库，Python 3.10+）：
