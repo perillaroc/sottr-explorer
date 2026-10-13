@@ -68,6 +68,23 @@ impl SampleBuilder {
         self
     }
 
+    /// 写入前缀表的第 `index` 个 8 字节槽（内部 ID + 伴随字）。
+    ///
+    /// # Panics
+    ///
+    /// `index` 超出 512 槽时 panic（测试构造用）。
+    pub fn write_prefix_slot(
+        &mut self,
+        index: usize,
+        internal_id: u32,
+        companion: u32,
+    ) -> &mut Self {
+        assert!(index < 512, "prefix slot index must be below 512");
+        let offset = crate::inventory::PREFIX_OFFSET + index * 8;
+        self.write_u32_le(offset, internal_id);
+        self.write_u32_le(offset + 4, companion)
+    }
+
     /// 追加一个合法区段：类型 + 负载字节数（负载须为 4 的倍数）。
     ///
     /// # Panics
