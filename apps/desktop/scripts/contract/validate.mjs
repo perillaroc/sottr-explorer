@@ -45,6 +45,10 @@ const validTargets = [
   ["desktop-result", "valid/desktop-result.stale.json"],
   ["desktop-result", "valid/desktop-result.other-slot.json"],
   ["export", "valid/export.stale.json"],
+  // SX-008：仓库内真实元数据文件同样由 metadata schema 校验（与 Rust 加载器互补）。
+  ["metadata", "../../data/metadata/collectibles.json"],
+  ["metadata", "../../data/metadata/region_counters.json"],
+  ["metadata", "../../data/metadata/reference_sets.json"],
 ];
 
 const invalidTargets = [

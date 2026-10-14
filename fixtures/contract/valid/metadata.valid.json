@@ -105,21 +105,25 @@
     "survival_caches": {
       "category_id": "survival_caches",
       "display_name": "贮藏点（内部类别）",
+      "name_kind": "curated_short",
       "source_refs": ["src:trrebootmodtools-dict"]
     },
     "rare_resource_caches": {
       "category_id": "rare_resource_caches",
       "display_name": null,
+      "name_kind": "unknown",
       "source_refs": ["src:trrebootmodtools-dict"]
     },
     "monoliths": {
       "category_id": "monoliths",
       "display_name": null,
+      "name_kind": "unknown",
       "source_refs": ["src:trrebootmodtools-dict"]
     },
     "crypt_treasures": {
       "category_id": "crypt_treasures",
       "display_name": null,
+      "name_kind": "unknown",
       "source_refs": ["src:trrebootmodtools-dict"]
     }
   },
@@ -127,11 +131,13 @@
     "mission_of_san_juan": {
       "region_id": "mission_of_san_juan",
       "display_name": "圣胡安教团任务",
+      "name_kind": "curated_short",
       "source_refs": ["src:plan-0.4-table"]
     },
     "paititi": {
       "region_id": "paititi",
       "display_name": null,
+      "name_kind": "unknown",
       "source_refs": ["src:plan-0.4-table"]
     }
   },
@@ -139,21 +145,27 @@
     "stella:san-juan-caches": {
       "guide_group_id": "stella:san-juan-caches",
       "display_name": "圣胡安贮藏点攻略组",
+      "name_kind": "curated_short",
       "region_id": "mission_of_san_juan",
       "category_ids": ["survival_caches", "rare_resource_caches"],
       "member_ids": ["0x0F28B6EC", "0x0F28B6ED", "0x0F28B6EE"],
       "target_count": 8,
       "mapping_kind": "guide_group_membership",
+      "reference_set_id": "rs:stella-100pct-common",
+      "counter_keys": ["counter:mission_of_san_juan:survival_caches"],
       "source_refs": ["src:stella-san-juan"]
     },
     "stella:san-juan-murals": {
       "guide_group_id": "stella:san-juan-murals",
       "display_name": "圣胡安石碑攻略组",
+      "name_kind": "curated_short",
       "region_id": "mission_of_san_juan",
       "category_ids": ["monoliths"],
       "member_ids": ["0x439B19A6"],
       "target_count": 1,
       "mapping_kind": "guide_group_membership",
+      "reference_set_id": "rs:stella-100pct-common",
+      "counter_keys": ["counter:mission_of_san_juan:monoliths"],
       "source_refs": ["src:stella-san-juan"]
     }
   },
@@ -162,12 +174,50 @@
       "reference_set_id": "rs:stella-100pct-common",
       "version": "1.0.0",
       "category_ids": ["survival_caches", "rare_resource_caches", "monoliths", "crypt_treasures"],
+      "reference_ids": {
+        "survival_caches": ["0x0F28B6EC", "0x0F28B6ED", "0x0F28B6EE"],
+        "rare_resource_caches": ["0xD8CD8257"],
+        "monoliths": ["0x439B19A6"],
+        "crypt_treasures": ["0xBA3B0D06"]
+      },
+      "applicability": {
+        "game": "sottr",
+        "platform": "windows_steam",
+        "mode": "campaign",
+        "build_range": null,
+        "dlc": null,
+        "notes": ["参考集合为两个作者标注 100% 槽位的共同且相等集合"]
+      },
       "source_save_hashes": [
         "1111111111111111111111111111111111111111111111111111111111111111",
         "2222222222222222222222222222222222222222222222222222222222222222"
       ],
       "dedup_rule": "集合去重；重复记录保留但只计一次唯一 ID",
       "source_refs": ["src:stella-saves"]
+    }
+  },
+  "region_counters": {
+    "counter:mission_of_san_juan:survival_caches": {
+      "counter_key": "counter:mission_of_san_juan:survival_caches",
+      "region_id": "mission_of_san_juan",
+      "category_id": "survival_caches",
+      "serialized_offset": 5336,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 12,
+      "source_total": 8,
+      "counts_toward": ["rare_resource_caches", "survival_caches"],
+      "source_refs": ["src:asl-sottr"]
+    },
+    "counter:paititi:survival_caches": {
+      "counter_key": "counter:paititi:survival_caches",
+      "region_id": "paititi",
+      "category_id": "survival_caches",
+      "serialized_offset": 4608,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 12,
+      "source_total": 34,
+      "counts_toward": ["rare_resource_caches", "survival_caches"],
+      "source_refs": ["src:asl-sottr"]
     }
   },
   "sources": {
@@ -179,6 +229,15 @@
       "redistributable": "yes",
       "method": "内部 ID 与名称字典转录",
       "review": "许可与固定提交已复核"
+    },
+    "src:asl-sottr": {
+      "url": "https://github.com/Atorizil/ASL-SOTTR",
+      "fixed_revision": "b758ee890eac30d9e3b3477999a30f8f9e442f00",
+      "accessed": "2026-10-11",
+      "license": null,
+      "redistributable": "pending",
+      "method": "区域计数目标与偏移的事实转录",
+      "review": "仅独立转录事实"
     },
     "src:stella-san-juan": {
       "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",

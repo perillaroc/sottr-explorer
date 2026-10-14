@@ -112,11 +112,56 @@
   `machine_translated`/`unknown`）、`category_id`、`region_id`、`applicability`、
   `location_mappings`、`source_refs`、`review`。
 - `display_name` 为 `null` 或 `name_kind = unknown` 时，前端使用带标识的“类别加 ID”回退文案，
-  不自造正式名称；人工简名必须标注不是游戏正式名称。
-- `categories`、`regions`、`guide_groups`（稳定组 ID、`member_ids`、`target_count`、来源）、
-  `reference_sets`（版本、类别范围、来源存档哈希、去重规则）、`sources`（URL 仅允许
-  http/https、固定提交、访问日期、许可、再分发状态、方法、审核）。
-- 许可状态为 `pending` 的来源数据不得进入发布包（SX-018 复核）；元数据不执行脚本、不自动联网更新。
+  不自造正式名称；人工简名必须标注不是游戏正式名称。`categories`、`regions`、
+  `guide_groups` 同样携带 `name_kind` 以区分来源本地化名称与人工简名。
+- `guide_groups`（稳定组 ID、`member_ids`、`target_count`、`reference_set_id`、
+  `counter_keys`、来源）：成员关系与精确条目映射分开；`counter_keys` 是整组判断所需的
+  计数证据，`group_actionability` 由领域层按当前报告评估（见下），元数据不写死静态 true。
+- `reference_sets`：`category_ids` 与 `reference_ids` 逐类别参考 ID（键集合必须一致），
+  `applicability`（游戏/平台/模式/构建范围/DLC 与备注）、来源存档哈希（压缩文件小写
+  十六进制 SHA-256）、去重规则。
+- `region_counters`：43 项稀疏计数映射，键为 `counter:<region>:<category>`；条目含
+  `serialized_offset`、行号、相对偏移、`source_total` 与 `counts_toward`（该计数对应的
+  参考类别合并口径，如贮藏点计数同时对应普通与稀有贮藏点）。缺项不是 0；偏移必须满足
+  `0x10BC + 行号 × 104 + 相对偏移` 恒等式且在 4 MiB 战役家族内（加载器强制）。
+- `sources`（URL 仅允许 http/https、固定提交、访问日期、许可、再分发状态、方法、审核）。
+- 许可状态非 `yes` 的来源数据不得进入发布包（SX-018 复核）；元数据不执行脚本、不自动联网更新。
+
+### 元数据加载与校验（SX-008）
+
+加载器位于 `crates/sottr-core/src/metadata.rs`，只处理不可变字节、不访问文件系统；
+仓库内数据集在 `data/metadata/`（三个文件作为一组加载，说明见该目录 README）。
+
+- 严格 JSON：拒绝重复键、`NaN`/`Infinity`、非 http/https 链接、映射键与条目 ID
+  不一致、计数偏移恒等式不符与跨文件同名条目冲突；空输入返回空元数据包。
+- 限制（`MetadataLimits` 默认，可按调用方评审调整）：单文件 4 MiB、单字符串 4096 B、
+  单数组 8192 项、单对象 8192 条、嵌套 64 层。
+- 稳定错误码：`METADATA_TOO_LARGE`、`METADATA_INVALID_JSON`、
+  `METADATA_NON_STANDARD_NUMBER`、`METADATA_DUPLICATE_KEY`、`METADATA_LIMIT_EXCEEDED`、
+  `METADATA_INVALID_VALUE`（含越界 ID）、`METADATA_INVALID_URL`、`METADATA_KEY_MISMATCH`、
+  `METADATA_COUNTER_MAPPING_INVALID`、`METADATA_UNRESOLVED_REFERENCE`、
+  `METADATA_VERSION_CONFLICT`、`METADATA_ENTRY_CONFLICT`。
+- 合并规则：多个文件必须有相同的 `metadata_version` 与命名空间；相同条目去重，
+  冲突条目报错。引用（来源、类别、区域、组、参考集合、计数键）必须可解析。
+- 内容哈希：加载结果记录每个文件的小写十六进制 SHA-256；`data/metadata/manifest.json`
+  记录同一组哈希，Rust 测试对照防漂移。
+- 无兜底：缺少目录/空输入时计数规格为空（能力矩阵按 `COUNTER_MAPPING_UNAVAILABLE`
+  降级）、参考视图不存在、条目与攻略组为空；没有任何内置字典或偏移回退。
+- 领域视图转换：`region_counter_specs()`（按偏移排序）、`reference_view()`（按当前
+  上下文计算适用性：平台/构建/DLC 未知时保留限制文本，明确不匹配时 `applicable = false`）、
+  `classify_ids()`（仅按内部 ID 分类）、`counter_scope_totals()`（按 `counts_toward`
+  作用域汇总，供交叉检查组装层使用）。
+
+### 组级定位门禁（`domain/location.rs`）
+
+`whole_group_check` 只在快照为 `current`、普通战役上下文、表恢复完整、参考集合适用、
+组成员落于参考范围、计数键解析且来源目标之和等于组目标数、组计数为零时给出。
+稳定原因码：`COMPLETE_TABLE`、`ZERO_GROUP_COUNT`、`REFERENCE_MATCH`（整组可查）；
+`GROUP_COUNT_NONZERO`、`GROUP_COUNT_UNKNOWN`、`GROUP_COUNT_CONFLICT`、
+`REFERENCE_NOT_APPLICABLE`、`GROUP_ASSOCIATION_UNCONFIRMED`（降为 `general_reference`）；
+`INVENTORY_INCOMPLETE`、`INVENTORY_UNAVAILABLE`、`CONTEXT_NOT_CAMPAIGN`、
+`SNAPSHOT_NOT_CURRENT`（`unavailable`，关闭行动摘要）。输出绑定
+`evaluated_input_digest`，每次刷新/切槽必须重新评估。
 
 ## Python v0.2 适配（显式、不升级语义）
 
@@ -138,28 +183,37 @@
 | `valid/report.valid.json` | 完整合法：本地化名、圣胡安 0/8 `whole_group_check`、组多 ID、`likely_missing` |
 | `valid/report.degraded.json` | 局部降级：表不完整、超目标计数、`general_reference`→`unavailable`、缺席推断关闭 |
 | `valid/report.nonzero-group.json` | 圣胡安非零 3/8 → `general_reference`，撤销整组检查 |
-| `valid/metadata.valid.json` | 本地化名 / 仅别名（`unknown`）/ `region_id` 为空 / 同组多 ID / 许可 `pending` |
+| `valid/metadata.valid.json` | 本地化名 / 仅别名（`unknown`）/ `region_id` 为空 / 同组多 ID / 许可 `pending` / 稀疏计数与参考 ID |
 | `valid/batch.mixed.json` | 合法 + 降级 + 输入错误三结果并存的批量外层 |
 | `valid/desktop-result.{current,stale,other-slot}.json` | 当前快照 / 旧快照（`stale` + 刷新错误）/ 跨槽晚返回 |
 | `valid/export.stale.json` | 过期导出信封（stale + 最近刷新错误码） |
 | `invalid/*` | 未确立枚举值、`null` 缺原因、`verified_coordinates` 缺坐标、非法链接协议 |
 | `representation/u64-boundary.json`、`u64-as-number.json` | u64 仅字符串往返；数字形式必须被拒绝 |
 | `adapted/*` | Python v0.2 适配输入与输出形状示例 |
+| `data/metadata/*.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/metadata.schema.json` 校验；Rust 加载测试另行核对数量、哈希与交叉一致性 |
 
 ## 版本策略
 
 - 变更字段含义、状态枚举或单位 → 升级 `schema_version` 并保留适配说明与迁移段落。
 - 新增字段：本契约为“全字段显式 + 禁止额外字段”，因此新增字段同样属于版本变更；
-  先评审，再升级。
+  先评审，再升级。SX-008 在契约发布前补全了 `metadata.schema.json` 的
+  `region_counters`、名称种类与参考/组字段（未发布版本内的补齐，`schema_version`
+  保持 `1.0.0`）；此后对元数据 schema 的字段增删同样受本策略约束。
 - 适配旧 Python 输出必须通过显式适配器；原始报告可并存以便追溯差异。
-- 未决事项：`map_transform.transform_parameters` 序列化形式（SX-020）、
-  重复键与 `NaN`/`Infinity` 的解析级拒绝落点（SX-004/008/011，T10）、
-  真实元数据内容与来源许可（SX-008）。
+- 未决事项：`map_transform.transform_parameters` 序列化形式（SX-020）；
+  报告与导出 JSON 的重复键与 `NaN`/`Infinity` 解析级拒绝落点（SX-004/011，T10；
+  元数据侧已由 SX-008 加载器执行）。
+- 元数据内容与来源许可已由 SX-008 落地（`data/metadata/`）；`redistributable`
+  非 `yes` 的来源在 SX-018 发布复核前不得直接打包。
 
 ## 已知限制（本任务未宣称）
 
 - 未运行 `pnpm tauri dev` 实机界面；前端仅以类型检查与构建验证可消费性。
 - schema 校验与 Rust 反序列化双层校验为互补证据，而非形式化证明；夹具覆盖的用例见上表，
   未出现在夹具中的字段组合仍可能在后续任务中暴露问题（发现即修正并升级契约）。
-- `metadata.bad-url.json` 的 URL 协议规则由 JSON Schema 与 SX-008 加载器执行；
-  Rust 类型层当前不校验 URL 协议（SX-008 补齐）。
+- `metadata.bad-url.json` 的 URL 协议规则由 JSON Schema 与 SX-008 加载器双层执行
+  （加载器另校验主机名、空白与长度）。
+- SX-008 加载器按“一组文件”校验引用完整性；单独加载三个数据文件之一会因跨文件引用
+  未解析而失败（见 `data/metadata/README.md`）。
+- 元数据计数作用域合计（`counter_scope_totals`）只提供组装层输入；SX-007 的交叉检查
+  仍需由 SX-009 的组装逻辑接线，本契约不声称该接线已完成。

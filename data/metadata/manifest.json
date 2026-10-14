@@ -1,0 +1,35 @@
+{
+  "metadata_version": "0.1.0",
+  "converter": "data/metadata/build_metadata.py",
+  "source_inputs": [
+    {
+      "file": "research/python-v0.2/data/collectible_id_candidates.json",
+      "sha256": "5d165b440a2687938358adecc0268e7f1518f7856e56069b5219f1216934e05c"
+    },
+    {
+      "file": "research/python-v0.2/data/region_counter_candidates.json",
+      "sha256": "e0cceadca422e1ea3997dfd1340658f76c088be8c0b890c84785913c9cae925f"
+    },
+    {
+      "file": "research/python-v0.2/data/reference_category_ids.json",
+      "sha256": "1e7eafecf04bd67bf4902f2b29fe3284991686dd6bb06250ca4408005bd6e665"
+    }
+  ],
+  "files": [
+    {
+      "file_id": "collectibles.json",
+      "sha256": "4d3101a03c8f935a60214a5b0cc44df79653ac29f1dcc1a8c083b8d1dff42fa8",
+      "bytes": 534970
+    },
+    {
+      "file_id": "region_counters.json",
+      "sha256": "99ae973626f987d2f52f82b18dcc0bb25bc7ef5c76bad52228e9b1a4e0cd8a43",
+      "bytes": 22780
+    },
+    {
+      "file_id": "reference_sets.json",
+      "sha256": "365523d3ad5233f5fea234545b7b3b389433dc6a3e6492fe6c9722b008dc03fd",
+      "bytes": 9600
+    }
+  ]
+}

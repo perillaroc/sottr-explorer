@@ -21,22 +21,34 @@
 - 未随本仓库分发；仅在本地只读研究中使用
 - 来源、下载归档与哈希见研究包 `tool/evidence/public_sources.json`（仓库外）
 
-## 4. Rust 与 JavaScript 依赖
+## 4. 元数据数据集（`data/metadata/`，SX-008）
+
+- 内容：866 个内部 ID 条目、43 项区域计数映射、参考集合与攻略组（详见 `data/metadata/README.md`）
+- 来源与状态：
+  - TrRebootModTools 字典转录：MIT（许可全文随 `research/python-v0.2/data/THIRD_PARTY_LICENSE.txt`）
+  - ASL-SOTTR 计数事实（独立转录与比对）：**待处理**——上游未声明许可证；发布包含需 SX-018 再分发复核
+  - Stella 参考存档哈希与攻略组链接：**待处理**——仅引用链接与哈希，不打包存档或攻略内容
+  - 开发方案文档与内部研究记录：仅转录事实结论，`redistributable: no`，不随产品分发
+- 加载器拒绝执行元数据中的任何脚本或命令；数据文件不包含私人路径、原始存档或商业资源
+
+## 5. Rust 与 JavaScript 依赖
 
 - 精确版本见 `Cargo.lock` 与 `apps/desktop/pnpm-lock.yaml`
 - 依赖许可审计与发布包许可通知在 SX-018 验证；当前不宣称已完成审计
-- `crates/sottr-core` 与 `crates/sottr-cli` 刻意保持零第三方依赖
+- `crates/sottr-core` 发布依赖仅 serde、serde_json 与 flate2（MIT/Apache-2.0 许可族）；
+  `serde_json` 自 SX-008 起用于元数据加载（此前为 dev-dependency，无新增第三方包）
+- 元数据内容哈希使用核心内置的最小 SHA-256 实现（无第三方哈希依赖）
 
-## 5. 脚手架模板与占位图标
+## 6. 脚手架模板与占位图标
 
 - 项目骨架由 create-tauri-app 4.7.5（Tauri Programme，MIT / Apache-2.0 双许可）生成
 - `apps/desktop/src-tauri/icons/` 为模板默认占位图标（Tauri 标识），仅用于本地脚手架；发布前（SX-018）必须替换为自行设计的应用图标
 
-## 6. 研究包与私人材料
+## 7. 研究包与私人材料
 
 - 真实存档样本、私人分析输出、完整研究包与基线复跑输出均在仓库外私有目录
 - `research/python-v0.2/` 为授权交接包内程序的副本（SX-001 基线，见 `docs/baseline.md`）
 
-## 7. 产品许可证
+## 8. 产品许可证
 
 尚未选择。仓库暂不包含 `LICENSE` 文件；选择许可证与公开发布为单独决策，未获授权前不执行。

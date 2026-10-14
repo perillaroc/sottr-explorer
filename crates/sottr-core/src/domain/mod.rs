@@ -10,6 +10,7 @@
 pub mod assessment;
 pub mod context;
 pub mod evidence;
+pub mod location;
 pub mod progress;
 
 pub use assessment::{
@@ -19,6 +20,7 @@ pub use assessment::{
 };
 pub use context::{ContextAssessment, ContextFinding, DeclaredContext, assess};
 pub use evidence::{build_evidence, references_resolve};
+pub use location::{GroupGateInputs, evaluate_group_gate};
 pub use progress::{
     OverallReadout, RegionCounterReadout, RegionCounterSpec, RegionCounterSpecError,
     overall_completion, region_counters,

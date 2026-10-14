@@ -10,7 +10,8 @@ workspace = true
 
 [dependencies]
 serde.workspace = true
+serde_json.workspace = true
 flate2.workspace = true
 
-[dev-dependencies]
-serde_json.workspace = true
+# serde_json 自 SX-008 起为发布依赖（元数据加载与严格 JSON 校验）；
+# 此前仅用于测试，无新增第三方包。

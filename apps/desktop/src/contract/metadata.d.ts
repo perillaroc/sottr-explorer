@@ -8,7 +8,7 @@ export type ReviewState = "draft" | "reviewed" | "withdrawn";
 export type Redistributable = "yes" | "no" | "pending";
 
 /**
- * SOTTR Explorer 收集品元数据。独立版本化的本地 JSON 数据集：描述内部 ID、别名、类别、区域、显示名称、适用条件、来源与定位映射。元数据不执行脚本；中文名未知则 null；不把内部名片段伪装游戏名称。
+ * SOTTR Explorer 收集品元数据。独立版本化的本地 JSON 数据集：描述内部 ID、别名、类别、区域、显示名称、适用条件、来源、定位映射与稀疏区域计数映射。元数据不执行脚本；中文名未知则 null；不把内部名片段伪装游戏名称；坐标映射为空时不产生假点。
  */
 export interface MetadataDataset {
   schema_version: "1.0.0";
@@ -31,6 +31,12 @@ export interface MetadataDataset {
   };
   reference_sets: {
     [k: string]: ReferenceSet;
+  };
+  /**
+   * 稀疏区域计数映射；缺项不是 0（由加载器校验偏移恒等式）
+   */
+  region_counters: {
+    [k: string]: RegionCounterEntry;
   };
   sources: {
     [k: string]: Source;
@@ -105,22 +111,31 @@ export interface Review {
   note: string | null;
   date: string | null;
 }
+/**
+ * name_kind 标明来源本地化名称或人工简名；未知名称不伪装游戏名称
+ */
 export interface Category {
   category_id: string;
   display_name: string | null;
-  source_refs: string[];
-}
-export interface Region {
-  region_id: string;
-  display_name: string | null;
+  name_kind: NameKind;
   source_refs: string[];
 }
 /**
- * 稳定组 ID 关联成员与攻略来源；不生成 ID 到攻略编号的一对一对应
+ * name_kind 标明来源本地化名称或人工简名；中文名未知为 null
+ */
+export interface Region {
+  region_id: string;
+  display_name: string | null;
+  name_kind: NameKind;
+  source_refs: string[];
+}
+/**
+ * 稳定组 ID 关联成员、攻略来源与整组判断计数证据；不生成 ID 到攻略编号的一对一对应；group_actionability 由领域层按当前报告评估
  */
 export interface GuideGroup {
   guide_group_id: string;
   display_name: string | null;
+  name_kind: NameKind;
   region_id: string | null;
   category_ids: string[];
   /**
@@ -129,14 +144,46 @@ export interface GuideGroup {
   member_ids: string[];
   target_count: number | null;
   mapping_kind: "region_clue" | "guide_group_membership" | "exact_guide_item" | "verified_coordinates" | "none";
+  /**
+   * 支撑本组的参考集合；未关联为 null
+   */
+  reference_set_id: string | null;
+  counter_keys: string[];
   source_refs: string[];
 }
 export interface ReferenceSet {
   reference_set_id: string;
   version: string;
   category_ids: string[];
+  /**
+   * 逐类别参考 ID；键集合必须与 category_ids 一致（由加载器校验）
+   */
+  reference_ids: {
+    /**
+     * Items: u32 内部 ID，固定 0x 加 8 位大写十六进制
+     */
+    [k: string]: string[];
+  };
+  applicability: Applicability;
   source_save_hashes: string[];
   dedup_rule: string;
+  source_refs: string[];
+}
+/**
+ * 稀疏计数映射；偏移恒等式与家族尺寸由加载器校验；缺项不是 0
+ */
+export interface RegionCounterEntry {
+  counter_key: string;
+  region_id: string;
+  category_id: string;
+  serialized_offset: number;
+  serialized_row_index: number;
+  serialized_relative_offset: number;
+  source_total: number;
+  /**
+   * 该计数对应的参考类别（合并口径）；无对应为空数组
+   */
+  counts_toward: string[];
   source_refs: string[];
 }
 export interface Source {

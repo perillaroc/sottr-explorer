@@ -1,0 +1,758 @@
+{
+  "schema_version": "1.0.0",
+  "metadata_version": "0.1.0",
+  "namespace": "sottr",
+  "items": {},
+  "categories": {},
+  "regions": {
+    "cenote": {
+      "region_id": "cenote",
+      "display_name": null,
+      "name_kind": "unknown",
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "cozumel": {
+      "region_id": "cozumel",
+      "display_name": "科苏梅尔",
+      "name_kind": "curated_short",
+      "source_refs": [
+        "src:plan-doc",
+        "src:asl-sottr"
+      ]
+    },
+    "head_of_the_serpent": {
+      "region_id": "head_of_the_serpent",
+      "display_name": null,
+      "name_kind": "unknown",
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "kuwaq_yaku": {
+      "region_id": "kuwaq_yaku",
+      "display_name": null,
+      "name_kind": "unknown",
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "mission_of_san_juan": {
+      "region_id": "mission_of_san_juan",
+      "display_name": "圣胡安",
+      "name_kind": "curated_short",
+      "source_refs": [
+        "src:plan-doc",
+        "src:asl-sottr"
+      ]
+    },
+    "paititi": {
+      "region_id": "paititi",
+      "display_name": "帕伊提提",
+      "name_kind": "curated_short",
+      "source_refs": [
+        "src:plan-doc",
+        "src:asl-sottr"
+      ]
+    },
+    "peruvian_jungle": {
+      "region_id": "peruvian_jungle",
+      "display_name": null,
+      "name_kind": "unknown",
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "porvenir_oil_fields": {
+      "region_id": "porvenir_oil_fields",
+      "display_name": null,
+      "name_kind": "unknown",
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "trial_of_the_eagle": {
+      "region_id": "trial_of_the_eagle",
+      "display_name": null,
+      "name_kind": "unknown",
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    }
+  },
+  "guide_groups": {},
+  "reference_sets": {},
+  "region_counters": {
+    "counter:paititi:relics": {
+      "counter_key": "counter:paititi:relics",
+      "region_id": "paititi",
+      "category_id": "relics",
+      "serialized_offset": 4600,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 4,
+      "source_total": 28,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:paititi:documents": {
+      "counter_key": "counter:paititi:documents",
+      "region_id": "paititi",
+      "category_id": "documents",
+      "serialized_offset": 4604,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 8,
+      "source_total": 42,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:paititi:survival_caches": {
+      "counter_key": "counter:paititi:survival_caches",
+      "region_id": "paititi",
+      "category_id": "survival_caches",
+      "serialized_offset": 4608,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 12,
+      "source_total": 34,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:paititi:murals": {
+      "counter_key": "counter:paititi:murals",
+      "region_id": "paititi",
+      "category_id": "murals",
+      "serialized_offset": 4612,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 16,
+      "source_total": 23,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:paititi:monoliths": {
+      "counter_key": "counter:paititi:monoliths",
+      "region_id": "paititi",
+      "category_id": "monoliths",
+      "serialized_offset": 4616,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 20,
+      "source_total": 7,
+      "counts_toward": [
+        "monoliths"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:paititi:crypts": {
+      "counter_key": "counter:paititi:crypts",
+      "region_id": "paititi",
+      "category_id": "crypts",
+      "serialized_offset": 4624,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 28,
+      "source_total": 5,
+      "counts_toward": [
+        "crypt_treasures"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:paititi:strongboxes": {
+      "counter_key": "counter:paititi:strongboxes",
+      "region_id": "paititi",
+      "category_id": "strongboxes",
+      "serialized_offset": 4632,
+      "serialized_row_index": 3,
+      "serialized_relative_offset": 36,
+      "source_total": 3,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:relics": {
+      "counter_key": "counter:kuwaq_yaku:relics",
+      "region_id": "kuwaq_yaku",
+      "category_id": "relics",
+      "serialized_offset": 4704,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 4,
+      "source_total": 4,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:documents": {
+      "counter_key": "counter:kuwaq_yaku:documents",
+      "region_id": "kuwaq_yaku",
+      "category_id": "documents",
+      "serialized_offset": 4708,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 8,
+      "source_total": 18,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:survival_caches": {
+      "counter_key": "counter:kuwaq_yaku:survival_caches",
+      "region_id": "kuwaq_yaku",
+      "category_id": "survival_caches",
+      "serialized_offset": 4712,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 12,
+      "source_total": 14,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:murals": {
+      "counter_key": "counter:kuwaq_yaku:murals",
+      "region_id": "kuwaq_yaku",
+      "category_id": "murals",
+      "serialized_offset": 4716,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 16,
+      "source_total": 10,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:monoliths": {
+      "counter_key": "counter:kuwaq_yaku:monoliths",
+      "region_id": "kuwaq_yaku",
+      "category_id": "monoliths",
+      "serialized_offset": 4720,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 20,
+      "source_total": 3,
+      "counts_toward": [
+        "monoliths"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:crypts": {
+      "counter_key": "counter:kuwaq_yaku:crypts",
+      "region_id": "kuwaq_yaku",
+      "category_id": "crypts",
+      "serialized_offset": 4728,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 28,
+      "source_total": 2,
+      "counts_toward": [
+        "crypt_treasures"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:kuwaq_yaku:strongboxes": {
+      "counter_key": "counter:kuwaq_yaku:strongboxes",
+      "region_id": "kuwaq_yaku",
+      "category_id": "strongboxes",
+      "serialized_offset": 4736,
+      "serialized_row_index": 4,
+      "serialized_relative_offset": 36,
+      "source_total": 2,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:porvenir_oil_fields:relics": {
+      "counter_key": "counter:porvenir_oil_fields:relics",
+      "region_id": "porvenir_oil_fields",
+      "category_id": "relics",
+      "serialized_offset": 4808,
+      "serialized_row_index": 5,
+      "serialized_relative_offset": 4,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:porvenir_oil_fields:documents": {
+      "counter_key": "counter:porvenir_oil_fields:documents",
+      "region_id": "porvenir_oil_fields",
+      "category_id": "documents",
+      "serialized_offset": 4812,
+      "serialized_row_index": 5,
+      "serialized_relative_offset": 8,
+      "source_total": 4,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:porvenir_oil_fields:murals": {
+      "counter_key": "counter:porvenir_oil_fields:murals",
+      "region_id": "porvenir_oil_fields",
+      "category_id": "murals",
+      "serialized_offset": 4820,
+      "serialized_row_index": 5,
+      "serialized_relative_offset": 16,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cozumel:relics": {
+      "counter_key": "counter:cozumel:relics",
+      "region_id": "cozumel",
+      "category_id": "relics",
+      "serialized_offset": 4912,
+      "serialized_row_index": 6,
+      "serialized_relative_offset": 4,
+      "source_total": 2,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cozumel:documents": {
+      "counter_key": "counter:cozumel:documents",
+      "region_id": "cozumel",
+      "category_id": "documents",
+      "serialized_offset": 4916,
+      "serialized_row_index": 6,
+      "serialized_relative_offset": 8,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cozumel:survival_caches": {
+      "counter_key": "counter:cozumel:survival_caches",
+      "region_id": "cozumel",
+      "category_id": "survival_caches",
+      "serialized_offset": 4920,
+      "serialized_row_index": 6,
+      "serialized_relative_offset": 12,
+      "source_total": 3,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cozumel:murals": {
+      "counter_key": "counter:cozumel:murals",
+      "region_id": "cozumel",
+      "category_id": "murals",
+      "serialized_offset": 4924,
+      "serialized_row_index": 6,
+      "serialized_relative_offset": 16,
+      "source_total": 2,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cozumel:strongboxes": {
+      "counter_key": "counter:cozumel:strongboxes",
+      "region_id": "cozumel",
+      "category_id": "strongboxes",
+      "serialized_offset": 4944,
+      "serialized_row_index": 6,
+      "serialized_relative_offset": 36,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cenote:relics": {
+      "counter_key": "counter:cenote:relics",
+      "region_id": "cenote",
+      "category_id": "relics",
+      "serialized_offset": 5224,
+      "serialized_row_index": 9,
+      "serialized_relative_offset": 4,
+      "source_total": 5,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cenote:documents": {
+      "counter_key": "counter:cenote:documents",
+      "region_id": "cenote",
+      "category_id": "documents",
+      "serialized_offset": 5228,
+      "serialized_row_index": 9,
+      "serialized_relative_offset": 8,
+      "source_total": 6,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:cenote:survival_caches": {
+      "counter_key": "counter:cenote:survival_caches",
+      "region_id": "cenote",
+      "category_id": "survival_caches",
+      "serialized_offset": 5232,
+      "serialized_row_index": 9,
+      "serialized_relative_offset": 12,
+      "source_total": 8,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:relics": {
+      "counter_key": "counter:mission_of_san_juan:relics",
+      "region_id": "mission_of_san_juan",
+      "category_id": "relics",
+      "serialized_offset": 5328,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 4,
+      "source_total": 9,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:documents": {
+      "counter_key": "counter:mission_of_san_juan:documents",
+      "region_id": "mission_of_san_juan",
+      "category_id": "documents",
+      "serialized_offset": 5332,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 8,
+      "source_total": 27,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:survival_caches": {
+      "counter_key": "counter:mission_of_san_juan:survival_caches",
+      "region_id": "mission_of_san_juan",
+      "category_id": "survival_caches",
+      "serialized_offset": 5336,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 12,
+      "source_total": 8,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:murals": {
+      "counter_key": "counter:mission_of_san_juan:murals",
+      "region_id": "mission_of_san_juan",
+      "category_id": "murals",
+      "serialized_offset": 5340,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 16,
+      "source_total": 4,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:monoliths": {
+      "counter_key": "counter:mission_of_san_juan:monoliths",
+      "region_id": "mission_of_san_juan",
+      "category_id": "monoliths",
+      "serialized_offset": 5344,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 20,
+      "source_total": 1,
+      "counts_toward": [
+        "monoliths"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:crypts": {
+      "counter_key": "counter:mission_of_san_juan:crypts",
+      "region_id": "mission_of_san_juan",
+      "category_id": "crypts",
+      "serialized_offset": 5352,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 28,
+      "source_total": 1,
+      "counts_toward": [
+        "crypt_treasures"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:mission_of_san_juan:strongboxes": {
+      "counter_key": "counter:mission_of_san_juan:strongboxes",
+      "region_id": "mission_of_san_juan",
+      "category_id": "strongboxes",
+      "serialized_offset": 5360,
+      "serialized_row_index": 10,
+      "serialized_relative_offset": 36,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:relics": {
+      "counter_key": "counter:peruvian_jungle:relics",
+      "region_id": "peruvian_jungle",
+      "category_id": "relics",
+      "serialized_offset": 5536,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 4,
+      "source_total": 9,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:documents": {
+      "counter_key": "counter:peruvian_jungle:documents",
+      "region_id": "peruvian_jungle",
+      "category_id": "documents",
+      "serialized_offset": 5540,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 8,
+      "source_total": 13,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:survival_caches": {
+      "counter_key": "counter:peruvian_jungle:survival_caches",
+      "region_id": "peruvian_jungle",
+      "category_id": "survival_caches",
+      "serialized_offset": 5544,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 12,
+      "source_total": 9,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:murals": {
+      "counter_key": "counter:peruvian_jungle:murals",
+      "region_id": "peruvian_jungle",
+      "category_id": "murals",
+      "serialized_offset": 5548,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 16,
+      "source_total": 7,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:monoliths": {
+      "counter_key": "counter:peruvian_jungle:monoliths",
+      "region_id": "peruvian_jungle",
+      "category_id": "monoliths",
+      "serialized_offset": 5552,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 20,
+      "source_total": 1,
+      "counts_toward": [
+        "monoliths"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:crypts": {
+      "counter_key": "counter:peruvian_jungle:crypts",
+      "region_id": "peruvian_jungle",
+      "category_id": "crypts",
+      "serialized_offset": 5560,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 28,
+      "source_total": 2,
+      "counts_toward": [
+        "crypt_treasures"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:peruvian_jungle:strongboxes": {
+      "counter_key": "counter:peruvian_jungle:strongboxes",
+      "region_id": "peruvian_jungle",
+      "category_id": "strongboxes",
+      "serialized_offset": 5568,
+      "serialized_row_index": 12,
+      "serialized_relative_offset": 36,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:trial_of_the_eagle:documents": {
+      "counter_key": "counter:trial_of_the_eagle:documents",
+      "region_id": "trial_of_the_eagle",
+      "category_id": "documents",
+      "serialized_offset": 5748,
+      "serialized_row_index": 14,
+      "serialized_relative_offset": 8,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:trial_of_the_eagle:survival_caches": {
+      "counter_key": "counter:trial_of_the_eagle:survival_caches",
+      "region_id": "trial_of_the_eagle",
+      "category_id": "survival_caches",
+      "serialized_offset": 5752,
+      "serialized_row_index": 14,
+      "serialized_relative_offset": 12,
+      "source_total": 1,
+      "counts_toward": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:trial_of_the_eagle:murals": {
+      "counter_key": "counter:trial_of_the_eagle:murals",
+      "region_id": "trial_of_the_eagle",
+      "category_id": "murals",
+      "serialized_offset": 5756,
+      "serialized_row_index": 14,
+      "serialized_relative_offset": 16,
+      "source_total": 2,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    },
+    "counter:head_of_the_serpent:murals": {
+      "counter_key": "counter:head_of_the_serpent:murals",
+      "region_id": "head_of_the_serpent",
+      "category_id": "murals",
+      "serialized_offset": 6068,
+      "serialized_row_index": 17,
+      "serialized_relative_offset": 16,
+      "source_total": 1,
+      "counts_toward": [],
+      "source_refs": [
+        "src:asl-sottr"
+      ]
+    }
+  },
+  "sources": {
+    "src:trrebootmodtools-dict": {
+      "url": "https://github.com/arcusmaximus/TrRebootModTools",
+      "fixed_revision": "a79c48b75f1ffaaf623dc73a625211bf98ff0504",
+      "accessed": "2026-10-11",
+      "license": "MIT",
+      "redistributable": "yes",
+      "method": "内部 ID 与候选名称字典转录（研究包 tool/data/collectible_id_candidates.json）",
+      "review": "许可与固定提交已复核；候选名称不等于游戏显示名称"
+    },
+    "src:asl-sottr": {
+      "url": "https://github.com/Atorizil/ASL-SOTTR",
+      "fixed_revision": "b758ee890eac30d9e3b3477999a30f8f9e442f00",
+      "accessed": "2026-10-11",
+      "license": null,
+      "redistributable": "pending",
+      "method": "区域/类别计数目标与磁盘偏移的事实转录及独立比对",
+      "review": "上游未声明许可证；仅独立转录事实，发布包含需 SX-018 再分发复核"
+    },
+    "src:stella-saves": {
+      "url": "https://tombraiders.net/stella/savegame/TR11saves.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-13",
+      "license": null,
+      "redistributable": "pending",
+      "method": "公开参考存档来源与压缩文件 SHA-256（两个作者标注 100% 槽位）",
+      "review": "公开存档不随产品分发；仅记录来源与哈希"
+    },
+    "src:stella-san-juan": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
+      "fixed_revision": "page updated 2021-10-31",
+      "accessed": "2026-10-14",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安贮藏点/石碑的区域、总数与位置描述引用",
+      "review": "不打包攻略内容；组级线索不冒充精确条目映射"
+    },
+    "src:stella-san-juan-monolith": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/san-juan-8.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-14",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安石碑位置细节引用",
+      "review": "仅链接引用"
+    },
+    "src:stella-san-juan-crypt": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/san-juan-4.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-14",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安墓穴（Crypt of Huascar）位置线索引用",
+      "review": "墓穴宝藏条目未逐一核对；仅组级线索"
+    },
+    "src:plan-doc": {
+      "url": null,
+      "fixed_revision": "sottr-explorer_开发方案.md v0.4（2026-10-11）",
+      "accessed": "2026-10-13",
+      "license": null,
+      "redistributable": "pending",
+      "method": "已确认方案中的区域/类别/组级线索转录（人工简名，不是游戏正式名称）",
+      "review": "人工简名与组级线索；不冒充精确条目映射"
+    },
+    "src:research-evidence": {
+      "url": null,
+      "fixed_revision": "SOTTR_Save_Research v0.2（evidence/progress/FINDINGS.md、tool/evidence/public_sources.json）",
+      "accessed": "2026-10-13",
+      "license": "内部研究记录；不随产品分发",
+      "redistributable": "no",
+      "method": "独立计数交叉比对、参考集合共同性与公开样本哈希结论",
+      "review": "仅转录事实结论；私人存档字节与绝对路径不进入任何数据文件"
+    }
+  }
+}

@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MetadataDataset",
-  "description": "SOTTR Explorer 收集品元数据。独立版本化的本地 JSON 数据集：描述内部 ID、别名、类别、区域、显示名称、适用条件、来源与定位映射。元数据不执行脚本；中文名未知则 null；不把内部名片段伪装游戏名称。",
+  "description": "SOTTR Explorer 收集品元数据。独立版本化的本地 JSON 数据集：描述内部 ID、别名、类别、区域、显示名称、适用条件、来源、定位映射与稀疏区域计数映射。元数据不执行脚本；中文名未知则 null；不把内部名片段伪装游戏名称；坐标映射为空时不产生假点。",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "metadata_version", "namespace", "items", "categories", "regions", "guide_groups", "reference_sets", "sources"],
+  "required": ["schema_version", "metadata_version", "namespace", "items", "categories", "regions", "guide_groups", "reference_sets", "region_counters", "sources"],
   "properties": {
     "schema_version": { "const": "1.0.0" },
     "metadata_version": { "type": "string", "minLength": 1 },
@@ -30,6 +30,12 @@
     "reference_sets": {
       "type": "object",
       "additionalProperties": { "$ref": "#/$defs/ReferenceSet" }
+    },
+    "region_counters": {
+      "type": "object",
+      "propertyNames": { "pattern": "^counter:[0-9a-z_]+:[0-9a-z_]+$" },
+      "additionalProperties": { "$ref": "#/$defs/RegionCounterEntry" },
+      "description": "稀疏区域计数映射；缺项不是 0（由加载器校验偏移恒等式）"
     },
     "sources": {
       "type": "object",
@@ -155,47 +161,63 @@
     "Category": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["category_id", "display_name", "source_refs"],
+      "required": ["category_id", "display_name", "name_kind", "source_refs"],
       "properties": {
         "category_id": { "type": "string", "minLength": 1 },
         "display_name": { "type": ["string", "null"] },
+        "name_kind": { "$ref": "#/$defs/NameKind" },
         "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-      }
+      },
+      "description": "name_kind 标明来源本地化名称或人工简名；未知名称不伪装游戏名称"
     },
     "Region": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["region_id", "display_name", "source_refs"],
+      "required": ["region_id", "display_name", "name_kind", "source_refs"],
       "properties": {
         "region_id": { "type": "string", "minLength": 1 },
         "display_name": { "type": ["string", "null"] },
+        "name_kind": { "$ref": "#/$defs/NameKind" },
         "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-      }
+      },
+      "description": "name_kind 标明来源本地化名称或人工简名；中文名未知为 null"
     },
     "GuideGroup": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["guide_group_id", "display_name", "region_id", "category_ids", "member_ids", "target_count", "mapping_kind", "source_refs"],
+      "required": ["guide_group_id", "display_name", "name_kind", "region_id", "category_ids", "member_ids", "target_count", "mapping_kind", "reference_set_id", "counter_keys", "source_refs"],
       "properties": {
         "guide_group_id": { "type": "string", "minLength": 1 },
         "display_name": { "type": ["string", "null"] },
+        "name_kind": { "$ref": "#/$defs/NameKind" },
         "region_id": { "type": ["string", "null"] },
         "category_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
         "member_ids": { "type": "array", "items": { "$ref": "report.schema.json#/$defs/InternalId" } },
         "target_count": { "type": ["integer", "null"], "minimum": 0 },
         "mapping_kind": { "$ref": "report.schema.json#/$defs/MappingKind" },
+        "reference_set_id": { "type": ["string", "null"], "description": "支撑本组的参考集合；未关联为 null" },
+        "counter_keys": { "type": "array", "items": { "type": "string", "minLength": 1 } },
         "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
       },
-      "description": "稳定组 ID 关联成员与攻略来源；不生成 ID 到攻略编号的一对一对应"
+      "description": "稳定组 ID 关联成员、攻略来源与整组判断计数证据；不生成 ID 到攻略编号的一对一对应；group_actionability 由领域层按当前报告评估"
     },
     "ReferenceSet": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["reference_set_id", "version", "category_ids", "source_save_hashes", "dedup_rule", "source_refs"],
+      "required": ["reference_set_id", "version", "category_ids", "reference_ids", "applicability", "source_save_hashes", "dedup_rule", "source_refs"],
       "properties": {
         "reference_set_id": { "type": "string", "minLength": 1 },
         "version": { "type": "string", "minLength": 1 },
         "category_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "reference_ids": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "report.schema.json#/$defs/InternalId" }
+          },
+          "description": "逐类别参考 ID；键集合必须与 category_ids 一致（由加载器校验）"
+        },
+        "applicability": { "$ref": "#/$defs/Applicability" },
         "source_save_hashes": {
           "type": "array",
           "items": { "$ref": "report.schema.json#/$defs/Sha256" }
@@ -203,6 +225,27 @@
         "dedup_rule": { "type": "string", "minLength": 1 },
         "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
       }
+    },
+    "RegionCounterEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["counter_key", "region_id", "category_id", "serialized_offset", "serialized_row_index", "serialized_relative_offset", "source_total", "counts_toward", "source_refs"],
+      "properties": {
+        "counter_key": { "type": "string", "minLength": 1 },
+        "region_id": { "type": "string", "minLength": 1 },
+        "category_id": { "type": "string", "minLength": 1 },
+        "serialized_offset": { "type": "integer", "minimum": 0 },
+        "serialized_row_index": { "type": "integer", "minimum": 0 },
+        "serialized_relative_offset": { "type": "integer", "minimum": 0 },
+        "source_total": { "type": "integer", "minimum": 1 },
+        "counts_toward": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "该计数对应的参考类别（合并口径）；无对应为空数组"
+        },
+        "source_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "description": "稀疏计数映射；偏移恒等式与家族尺寸由加载器校验；缺项不是 0"
     },
     "Source": {
       "type": "object",

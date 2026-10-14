@@ -7,6 +7,7 @@
   "regions": {},
   "guide_groups": {},
   "reference_sets": {},
+  "region_counters": {},
   "sources": {
     "src:bad-scheme": {
       "url": "javascript:alert(1)",

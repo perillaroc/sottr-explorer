@@ -1,0 +1,305 @@
+{
+  "schema_version": "1.0.0",
+  "metadata_version": "0.1.0",
+  "namespace": "sottr",
+  "items": {},
+  "categories": {},
+  "regions": {},
+  "guide_groups": {
+    "stella:san-juan-caches": {
+      "guide_group_id": "stella:san-juan-caches",
+      "display_name": "圣胡安贮藏点组",
+      "name_kind": "curated_short",
+      "region_id": "mission_of_san_juan",
+      "category_ids": [
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "member_ids": [
+        "0x0F28B6EC",
+        "0x0F28B6ED",
+        "0x0F28B6EE",
+        "0x0F28B6EF",
+        "0xAE1A2E7A",
+        "0xD8CD8257",
+        "0xFF9EAC6E",
+        "0xFF9EAC79"
+      ],
+      "target_count": 8,
+      "mapping_kind": "guide_group_membership",
+      "reference_set_id": "rs:stella-100pct-common",
+      "counter_keys": [
+        "counter:mission_of_san_juan:survival_caches"
+      ],
+      "source_refs": [
+        "src:stella-san-juan",
+        "src:plan-doc",
+        "src:asl-sottr",
+        "src:research-evidence"
+      ]
+    },
+    "stella:san-juan-monolith": {
+      "guide_group_id": "stella:san-juan-monolith",
+      "display_name": "圣胡安石碑组",
+      "name_kind": "curated_short",
+      "region_id": "mission_of_san_juan",
+      "category_ids": [
+        "monoliths"
+      ],
+      "member_ids": [
+        "0x439B19A6"
+      ],
+      "target_count": 1,
+      "mapping_kind": "guide_group_membership",
+      "reference_set_id": "rs:stella-100pct-common",
+      "counter_keys": [
+        "counter:mission_of_san_juan:monoliths"
+      ],
+      "source_refs": [
+        "src:stella-san-juan",
+        "src:stella-san-juan-monolith",
+        "src:plan-doc",
+        "src:asl-sottr"
+      ]
+    },
+    "stella:san-juan-crypt": {
+      "guide_group_id": "stella:san-juan-crypt",
+      "display_name": "圣胡安墓穴宝藏组",
+      "name_kind": "curated_short",
+      "region_id": "mission_of_san_juan",
+      "category_ids": [
+        "crypt_treasures"
+      ],
+      "member_ids": [
+        "0xBA3B0D06"
+      ],
+      "target_count": 1,
+      "mapping_kind": "guide_group_membership",
+      "reference_set_id": "rs:stella-100pct-common",
+      "counter_keys": [
+        "counter:mission_of_san_juan:crypts"
+      ],
+      "source_refs": [
+        "src:stella-san-juan-crypt",
+        "src:plan-doc",
+        "src:asl-sottr"
+      ]
+    }
+  },
+  "reference_sets": {
+    "rs:stella-100pct-common": {
+      "reference_set_id": "rs:stella-100pct-common",
+      "version": "1.0.0",
+      "category_ids": [
+        "crypt_treasures",
+        "monoliths",
+        "rare_resource_caches",
+        "survival_caches"
+      ],
+      "reference_ids": {
+        "crypt_treasures": [
+          "0x02A67B91",
+          "0x32E820D8",
+          "0x48C378CA",
+          "0x7289AC8C",
+          "0x8A28E2C7",
+          "0xBA3B0D06",
+          "0xBDE170C6",
+          "0xC508D278",
+          "0xE66D0DA5",
+          "0xEE11B0D3"
+        ],
+        "monoliths": [
+          "0x0EC13AE8",
+          "0x33BAC64B",
+          "0x439B19A6",
+          "0x5BB0EF4C",
+          "0x5BBA136D",
+          "0xAF9AD9D4",
+          "0xB02F0961",
+          "0xB47679E9",
+          "0xBEF19DB3",
+          "0xC283486E",
+          "0xD7F7674C",
+          "0xE17A9FED"
+        ],
+        "rare_resource_caches": [
+          "0x0B3F2EC1",
+          "0x25EF128C",
+          "0x72112A9C",
+          "0x9FFEA926",
+          "0xA3B42DAD",
+          "0xA794E81D",
+          "0xBB000659",
+          "0xBB00065A",
+          "0xBB70E605",
+          "0xCC47BB91",
+          "0xD8CD8257",
+          "0xFAAECCB0"
+        ],
+        "survival_caches": [
+          "0x0F28B6EC",
+          "0x0F28B6ED",
+          "0x0F28B6EE",
+          "0x0F28B6EF",
+          "0x3672536E",
+          "0x3672536F",
+          "0x36725370",
+          "0x36725371",
+          "0x36725372",
+          "0x36725373",
+          "0x5C4C9AC2",
+          "0x6FBA9596",
+          "0x752CBAE6",
+          "0x752CBAE7",
+          "0x752CBB45",
+          "0x752CBB46",
+          "0x752CBB47",
+          "0x752CBB48",
+          "0x752CBB49",
+          "0x752CBB4A",
+          "0x752CBB4C",
+          "0x752CBB4D",
+          "0x7D3D1067",
+          "0x7D3D1068",
+          "0x7D3D1069",
+          "0x851B48EC",
+          "0x851B48ED",
+          "0x851B48EE",
+          "0x851B48EF",
+          "0x851B48F5",
+          "0x851B48F8",
+          "0x851B48F9",
+          "0x851B48FA",
+          "0x851B48FB",
+          "0x851B4914",
+          "0x851B4915",
+          "0x851B4919",
+          "0x851B491A",
+          "0x851B491B",
+          "0xA5F6A32F",
+          "0xAE1A2E7A",
+          "0xB275438A",
+          "0xB419E6FE",
+          "0xB419E702",
+          "0xB419E703",
+          "0xB47DDD90",
+          "0xC062C7B3",
+          "0xC3DEB9BC",
+          "0xC3DEB9C2",
+          "0xD2E4E3EE",
+          "0xD2E4E3F1",
+          "0xD6992534",
+          "0xD6992537",
+          "0xDD26A1BC",
+          "0xDD26A1BD",
+          "0xE871F8D4",
+          "0xE871F8D5",
+          "0xE871F8D6",
+          "0xE871F8D9",
+          "0xE871F8DA",
+          "0xE871F8DB",
+          "0xFD9DCD84",
+          "0xFD9DCD87",
+          "0xFF9EAC6E",
+          "0xFF9EAC79"
+        ]
+      },
+      "applicability": {
+        "game": "sottr",
+        "platform": "windows_steam",
+        "mode": "campaign",
+        "build_range": null,
+        "dlc": null,
+        "notes": [
+          "参考集合为两个作者标注 100% 参考槽位的共同且相等集合；不证明全 DLC/全版本/全模式适用",
+          "差集为空不等于全游戏收集完成"
+        ]
+      },
+      "source_save_hashes": [
+        "e57947b199677baecb312134aa23b01c6260e42cd8c38ae113ce1d49912cd813",
+        "6d9b468e51317025bdabb8ffeb91e789d4461547c2edb3786de5326d6c644ba2"
+      ],
+      "dedup_rule": "集合去重：重复记录保留但只按唯一 ID 计一次；仅使用两份参考槽位共同且相等的类别集合",
+      "source_refs": [
+        "src:stella-saves",
+        "src:research-evidence"
+      ]
+    }
+  },
+  "region_counters": {},
+  "sources": {
+    "src:trrebootmodtools-dict": {
+      "url": "https://github.com/arcusmaximus/TrRebootModTools",
+      "fixed_revision": "a79c48b75f1ffaaf623dc73a625211bf98ff0504",
+      "accessed": "2026-10-11",
+      "license": "MIT",
+      "redistributable": "yes",
+      "method": "内部 ID 与候选名称字典转录（研究包 tool/data/collectible_id_candidates.json）",
+      "review": "许可与固定提交已复核；候选名称不等于游戏显示名称"
+    },
+    "src:asl-sottr": {
+      "url": "https://github.com/Atorizil/ASL-SOTTR",
+      "fixed_revision": "b758ee890eac30d9e3b3477999a30f8f9e442f00",
+      "accessed": "2026-10-11",
+      "license": null,
+      "redistributable": "pending",
+      "method": "区域/类别计数目标与磁盘偏移的事实转录及独立比对",
+      "review": "上游未声明许可证；仅独立转录事实，发布包含需 SX-018 再分发复核"
+    },
+    "src:stella-saves": {
+      "url": "https://tombraiders.net/stella/savegame/TR11saves.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-13",
+      "license": null,
+      "redistributable": "pending",
+      "method": "公开参考存档来源与压缩文件 SHA-256（两个作者标注 100% 槽位）",
+      "review": "公开存档不随产品分发；仅记录来源与哈希"
+    },
+    "src:stella-san-juan": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
+      "fixed_revision": "page updated 2021-10-31",
+      "accessed": "2026-10-14",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安贮藏点/石碑的区域、总数与位置描述引用",
+      "review": "不打包攻略内容；组级线索不冒充精确条目映射"
+    },
+    "src:stella-san-juan-monolith": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/san-juan-8.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-14",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安石碑位置细节引用",
+      "review": "仅链接引用"
+    },
+    "src:stella-san-juan-crypt": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/san-juan-4.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-14",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安墓穴（Crypt of Huascar）位置线索引用",
+      "review": "墓穴宝藏条目未逐一核对；仅组级线索"
+    },
+    "src:plan-doc": {
+      "url": null,
+      "fixed_revision": "sottr-explorer_开发方案.md v0.4（2026-10-11）",
+      "accessed": "2026-10-13",
+      "license": null,
+      "redistributable": "pending",
+      "method": "已确认方案中的区域/类别/组级线索转录（人工简名，不是游戏正式名称）",
+      "review": "人工简名与组级线索；不冒充精确条目映射"
+    },
+    "src:research-evidence": {
+      "url": null,
+      "fixed_revision": "SOTTR_Save_Research v0.2（evidence/progress/FINDINGS.md、tool/evidence/public_sources.json）",
+      "accessed": "2026-10-13",
+      "license": "内部研究记录；不随产品分发",
+      "redistributable": "no",
+      "method": "独立计数交叉比对、参考集合共同性与公开样本哈希结论",
+      "review": "仅转录事实结论；私人存档字节与绝对路径不进入任何数据文件"
+    }
+  }
+}
