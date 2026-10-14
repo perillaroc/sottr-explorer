@@ -22,7 +22,10 @@ pub use enums::{
     AssessmentKind, ContextSource, DiagnosticScope, EvidenceLevel, Freshness, GroupActionKind,
     InventoryTable, LocationPrecision, MappingKind, Mode, ObservationKind, Severity, SupportStatus,
 };
-pub use envelope::{BatchReport, BatchResult, DesktopResult, ExportDocument, InputError};
+pub use envelope::{
+    BatchReport, BatchResult, DECOMPRESSION_FAILED, DesktopResult, ExportDocument, INPUT_CHANGED,
+    INPUT_UNREADABLE, InputError, RESOURCE_LIMIT,
+};
 pub use ids::{ExportDocumentKind, InternalId, ResourceKey, SchemaVersion};
 pub use model::{
     AssessedItem, Capabilities, Capability, ContainerObservation, Context, ContractError,

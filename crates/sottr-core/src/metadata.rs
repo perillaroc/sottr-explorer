@@ -961,6 +961,18 @@ impl MetadataBundle {
         self.dataset.as_ref()?.reference_sets.get(reference_set_id)
     }
 
+    /// 报告使用的参考集合 ID：当前规则为“恰好一个”。
+    ///
+    /// 零个或多个参考集合都返回 `None`（不猜选择规则；组装层在诊断中说明原因）。
+    pub fn primary_reference_set_id(&self) -> Option<&str> {
+        let dataset = self.dataset.as_ref()?;
+        if dataset.reference_sets.len() == 1 {
+            dataset.reference_sets.keys().next().map(String::as_str)
+        } else {
+            None
+        }
+    }
+
     /// 区域计数映射规格（按偏移、键排序）；空包为空列表。
     pub fn region_counter_specs(&self) -> Vec<RegionCounterSpec> {
         let Some(dataset) = &self.dataset else {

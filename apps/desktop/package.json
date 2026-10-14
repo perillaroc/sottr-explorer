@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "contract:validate": "node scripts/contract/validate.mjs",
+    "contract:document": "node scripts/contract/validate-document.mjs",
     "contract:types": "node scripts/contract/generate-types.mjs",
     "contract:check": "node scripts/contract/validate.mjs && node scripts/contract/generate-types.mjs && vue-tsc --noEmit"
   },

@@ -8,7 +8,7 @@ use sottr_core::domain::assessment::{
     assess as assess_reference,
 };
 use sottr_core::domain::context::{DeclaredContext, assess as assess_context};
-use sottr_core::domain::evidence::{build_evidence, references_resolve};
+use sottr_core::domain::evidence::{EvidenceSources, build_evidence, references_resolve};
 use sottr_core::domain::progress::{
     OVERALL_OFFSET, REGION_COUNTER_BASE, RegionCounterSpec, overall_completion, region_counters,
 };
@@ -89,6 +89,7 @@ fn full_pipeline_yields_likely_states_evidence_and_supported_matrix() {
         .collect(),
         counter_totals_degraded: false,
         metadata_conflicts: Vec::new(),
+        counter_scope_checks: Vec::new(),
     };
 
     let context = assess_context(&DeclaredContext {
@@ -140,6 +141,7 @@ fn full_pipeline_yields_likely_states_evidence_and_supported_matrix() {
         &inventory,
         Some((&counters, &specs)),
         Some(&reference),
+        &EvidenceSources::default(),
     );
     assert!(references_resolve(&outcome.items, &evidence));
 
@@ -150,6 +152,7 @@ fn full_pipeline_yields_likely_states_evidence_and_supported_matrix() {
         inventory: Some(&inventory),
         region_counters: Some(&counters),
         reference_difference: Some(&outcome),
+        location: None,
     });
     assert_eq!(matrix.reference_difference.status, SupportStatus::Supported);
     assert!(matrix.reference_difference.reason_codes.is_empty());

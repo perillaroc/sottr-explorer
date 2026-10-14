@@ -56,6 +56,7 @@ fn campaign_flow_keeps_declaration_limits_and_community_candidates() {
         inventory: Some(&inventory),
         region_counters: Some(&counters),
         reference_difference: None,
+        location: None,
     });
     assert_eq!(matrix.container.status, SupportStatus::Supported);
     assert_eq!(matrix.sections.status, SupportStatus::Supported);
@@ -98,6 +99,7 @@ fn challenge_tomb_like_input_without_declaration_closes_collection_semantics() {
         inventory: Some(&inventory),
         region_counters: Some(&counters),
         reference_difference: None,
+        location: None,
     });
     assert_eq!(matrix.container.status, SupportStatus::Supported);
     assert_eq!(matrix.sections.status, SupportStatus::Supported);

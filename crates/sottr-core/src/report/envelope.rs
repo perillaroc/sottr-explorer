@@ -21,6 +21,46 @@ pub struct InputError {
     pub retryable: bool,
 }
 
+/// 输入不可读（路径、权限或文件类型问题；不尝试提权）。
+pub const INPUT_UNREADABLE: &str = "INPUT_UNREADABLE";
+/// 读取前后不一致（文件可能在保存）；要求稳定副本或重试。
+pub const INPUT_CHANGED: &str = "INPUT_CHANGED";
+/// 解压失败（无效 zlib 或不完整流）；禁止语义解释。
+pub const DECOMPRESSION_FAILED: &str = "DECOMPRESSION_FAILED";
+/// 尺寸或数量超过限制；停止并说明限制。
+pub const RESOURCE_LIMIT: &str = "RESOURCE_LIMIT";
+
+impl InputError {
+    /// 构造输入级错误。
+    pub fn new(code: impl Into<String>, message: impl Into<String>, retryable: bool) -> Self {
+        Self {
+            code: code.into(),
+            message: message.into(),
+            retryable,
+        }
+    }
+
+    /// 路径、权限或文件类型问题（可重试：用户可另选文件或修复权限）。
+    pub fn unreadable(message: impl Into<String>) -> Self {
+        Self::new(INPUT_UNREADABLE, message, true)
+    }
+
+    /// 读取前后不一致（可重试：等待保存完成或选稳定副本）。
+    pub fn changed(message: impl Into<String>) -> Self {
+        Self::new(INPUT_CHANGED, message, true)
+    }
+
+    /// 解压失败（不可重试：同一字节再试不会成功）。
+    pub fn decompression_failed(message: impl Into<String>) -> Self {
+        Self::new(DECOMPRESSION_FAILED, message, false)
+    }
+
+    /// 资源超限（不可重试：同一输入不会变小）。
+    pub fn resource_limit(message: impl Into<String>) -> Self {
+        Self::new(RESOURCE_LIMIT, message, false)
+    }
+}
+
 /// 批量分析外层。
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]

@@ -9,7 +9,7 @@
 | 契约夹具 | `fixtures/contract/{valid,invalid,representation,adapted}/` |
 | Rust 类型 | `crates/sottr-core/src/report/`（Report、信封）、`crates/sottr-core/src/metadata.rs` |
 | 前端类型 | `apps/desktop/src/contract/*.d.ts`（由 schema 生成，勿手改） |
-| 验证命令 | `cargo test -p sottr-core`；`cd apps/desktop && pnpm contract:check` |
+| 验证命令 | `cargo test`；`cd apps/desktop && pnpm contract:check`；CLI 输出复核见“分析管线与命令行” |
 
 `schema_version` 固定字符串 `"1.0.0"`。它与 Python v0.2 研究报告的 `schema_version: 2`
 无关；`tool_version`、`parser_profile_id`、`metadata_version`、`reference_set_version`
@@ -163,6 +163,49 @@
 `SNAPSHOT_NOT_CURRENT`（`unavailable`，关闭行动摘要）。输出绑定
 `evaluated_input_digest`，每次刷新/切槽必须重新评估。
 
+## 分析管线与命令行（SX-009）
+
+`crates/sottr-core/src/analyze.rs` 提供同核心分析管线：
+
+- `analyze_bytes(bytes, declared, metadata, limits) -> Result<Report, InputError>`：
+  只接收不可变字节；容器无效或超出资源限制返回输入级错误
+  （`DECOMPRESSION_FAILED` / `RESOURCE_LIMIT`，`retryable = false`），不产生报告、
+  不做语义解释；局部失败留在报告能力矩阵与 `diagnostics`。
+- 报告装配顺序：容器 → 区段 → 记录 → 上下文 → 整体候选/43 项计数 → 参考视图与
+  分类 → 交叉检查 → 参考评估 → 定位（组门禁按当前快照评估）→ 证据（计数与参考集合
+  来源接线）→ 覆盖范围 → 诊断。上下文不适用时整体候选与区域计数按 `unsupported` +
+  原因关闭，原始身份观测保留。
+- 参考集合选择：当前规则为“恰好一个”（`MetadataBundle::primary_reference_set_id`）；
+  零个或多个时不猜选择规则，只保留原始身份观测并给出 `METADATA_UNAVAILABLE` /
+  `METADATA_CONFLICT` 诊断。
+- 计数交叉检查：`counts_toward` 为单类别的作用域按 `category_counter_totals`
+  逐类别比较；多类别合并作用域（如贮藏点计数同时覆盖普通与稀有类别）按
+  `counter_scope_checks` 比较观察并集；任一处不一致即 `COUNTER_MISMATCH` 降级，
+  不给 `likely_*`。贮藏点合并口径的对照关系为 77 = 65 + 12。
+- 分析器诊断码：上下文发现（`MODE_*`/`BUILD_UNKNOWN_*`/`DLC_UNKNOWN_*`）、
+  `CONTAINER_TRAILING_BYTES`、`COUNTER_MAPPING_INVALID`、`METADATA_UNAVAILABLE`，
+  以及既有 `UNSUPPORTED_LAYOUT`/`UNSUPPORTED_CONTEXT`/`COUNTER_MISMATCH`/
+  `METADATA_CONFLICT`/`LOCATION_UNVERIFIED`；同一（code, scope, message）去重。
+
+CLI（`crates/sottr-cli`，最终语法）：
+
+```text
+sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
+    --output <新目录> --metadata <元数据目录>
+```
+
+- 目录输入收集 `*.dat`（≤128 个，按名称排序）；单个文件输入等价于单文件批量。
+- `profile.dat` 始终按资料文件处理（仅容器观察），批量 `--context` 不覆盖该排除；
+  `--context campaign` 是用户声明，不是格式识别证明。
+- 输出写入必须尚不存在的目录中的 `analysis.json`（`schemas/batch.schema.json`）。
+  单文件输入级错误（`INPUT_UNREADABLE`、`DECOMPRESSION_FAILED`、`RESOURCE_LIMIT`；
+  适配层对明显超限的文件先做大小预检，避免整份读入）写入对应结果条目，
+  不影响其他文件的输出。
+- 退出码：全部成功 `0`；至少一个输入级错误 `1`（批量 JSON 仍写出全部结果）；
+  用法或配置错误 `2`。纯分析不做全文件两两比较。
+- 输出 JSON 的独立复核：`node apps/desktop/scripts/contract/validate-document.mjs
+  --schema batch --file <路径>`（或 `pnpm contract:document -- --schema batch --file <路径>`）。
+
 ## Python v0.2 适配（显式、不升级语义）
 
 `derived_candidates` 通过显式适配器进入契约的观测层（实现于 SX-010），示例见
@@ -215,5 +258,10 @@
   （加载器另校验主机名、空白与长度）。
 - SX-008 加载器按“一组文件”校验引用完整性；单独加载三个数据文件之一会因跨文件引用
   未解析而失败（见 `data/metadata/README.md`）。
-- 元数据计数作用域合计（`counter_scope_totals`）只提供组装层输入；SX-007 的交叉检查
-  仍需由 SX-009 的组装逻辑接线，本契约不声称该接线已完成。
+- 元数据计数作用域合计（`counter_scope_totals`）的交叉检查接线已由 SX-009 的组装逻辑
+  完成（见“分析管线与命令行”一节）；作用域比较依赖元数据 `counts_toward` 定义，
+  新增或变更合并口径必须重新评审。
+- CLI 的 Windows 路径安全（ACL、符号链接/重解析点、读取竞态与稳定快照）仍按
+  SX-012/SX-013 验收；当前实现为单次读取 + 超限预检，不产生 `INPUT_CHANGED`，
+  不声称平台保护已完成。资源上限为默认值（压缩/解压 64 MiB、128 个批量文件），
+  可按 SX-012/SX-013 评审调整。

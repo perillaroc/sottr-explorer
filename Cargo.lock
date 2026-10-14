@@ -3164,6 +3164,10 @@ dependencies = [
 [[package]]
 name = "sottr-cli"
 version = "0.1.0"
+dependencies = [
+ "serde_json",
+ "sottr-core",
+]
 
 [[package]]
 name = "sottr-core"

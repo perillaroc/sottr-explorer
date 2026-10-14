@@ -88,6 +88,20 @@ pub struct CrossCheckInputs {
     pub counter_totals_degraded: bool,
     /// 元数据冲突说明（SX-008 提供；非空即降级）。
     pub metadata_conflicts: Vec<String>,
+    /// 合并口径计数作用域（多类别共用同一计数时使用，如贮藏点同时覆盖普通与稀有类别；
+    /// 类别必须位于当前参考集合内；空表示不做该项检查）。
+    pub counter_scope_checks: Vec<CounterScopeCheck>,
+}
+
+/// 合并口径计数作用域检查（由组装层提供）。
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CounterScopeCheck {
+    /// 作用域覆盖的参考类别（已排序去重）。
+    pub category_ids: Vec<String>,
+    /// 计数汇总（作用域内读出值之和）。
+    pub counter_total: u32,
+    /// 计数不可用（缺失、超目标或冲突）。
+    pub degraded: bool,
 }
 
 /// 评估输入。
@@ -149,6 +163,15 @@ pub enum AssessmentReason {
         /// 计数器汇总。
         counter_total: u32,
     },
+    /// 合并口径计数与观察集合不一致（如贮藏点计数覆盖普通与稀有类别）。
+    CounterScopeMismatch {
+        /// 作用域覆盖的类别。
+        category_ids: Vec<String>,
+        /// 观察到的类别 ID 数合计。
+        observed: u32,
+        /// 计数汇总。
+        counter_total: u32,
+    },
     /// 计数汇总包含不可用计数。
     CounterTotalsDegraded,
     /// 元数据冲突。
@@ -169,6 +192,7 @@ impl AssessmentReason {
             AssessmentReason::ReferenceNotApplicable { .. } => "METADATA_CONFLICT",
             AssessmentReason::ExtraCategoryIdsOutsideReference { .. }
             | AssessmentReason::CounterMismatch { .. }
+            | AssessmentReason::CounterScopeMismatch { .. }
             | AssessmentReason::CounterTotalsDegraded => "COUNTER_MISMATCH",
             AssessmentReason::MetadataConflict { .. } => "METADATA_CONFLICT",
         }
@@ -207,6 +231,16 @@ impl AssessmentReason {
             } => {
                 format!(
                     "类别 {category_id} 计数不一致（观察 {observed}，计数汇总 {counter_total}）：差集降级为原始观察"
+                )
+            }
+            AssessmentReason::CounterScopeMismatch {
+                category_ids,
+                observed,
+                counter_total,
+            } => {
+                format!(
+                    "类别 {} 合并计数与观察集合不一致（观察 {observed}，计数汇总 {counter_total}）：差集降级为原始观察",
+                    category_ids.join("+")
                 )
             }
             AssessmentReason::CounterTotalsDegraded => {
@@ -281,6 +315,26 @@ pub fn assess(inputs: &AssessmentInputs<'_>) -> AssessmentOutcome {
                 detail: detail.clone(),
             });
             likely_blocked = true;
+        }
+        for scope in &inputs.cross_checks.counter_scope_checks {
+            let observed_union: u32 = scope
+                .category_ids
+                .iter()
+                .map(|category_id| {
+                    inputs
+                        .observed_category_ids
+                        .get(category_id)
+                        .map_or(0, |ids| ids.len() as u32)
+                })
+                .sum();
+            if scope.degraded || scope.counter_total != observed_union {
+                reasons.push(AssessmentReason::CounterScopeMismatch {
+                    category_ids: scope.category_ids.clone(),
+                    observed: observed_union,
+                    counter_total: scope.counter_total,
+                });
+                likely_blocked = true;
+            }
         }
         for category in &inputs.reference.categories {
             let empty = BTreeSet::new();
@@ -894,6 +948,7 @@ mod tests {
             category_counter_totals: [("survival_caches".to_string(), 5)].into_iter().collect(),
             counter_totals_degraded: false,
             metadata_conflicts: Vec::new(),
+            counter_scope_checks: Vec::new(),
         };
         let outcome = evaluate(&campaign(), &inventory, &reference, &observed, &cross);
 
@@ -914,6 +969,82 @@ mod tests {
     }
 
     #[test]
+    fn merged_scope_counter_check_blocks_likely_missing_when_inconsistent() {
+        let inventory = inventory(&[0xAA01, 0xAA02, 0xAB01], true);
+        let reference = ReferenceView {
+            reference_set_id: "rs:test".to_string(),
+            version: "1.0.0".to_string(),
+            applicable: true,
+            applicability_limits: Vec::new(),
+            categories: vec![
+                ReferenceCategoryView {
+                    category_id: "survival_caches".to_string(),
+                    reference_ids: [0xAA01, 0xAA02, 0xAA03].into_iter().map(id).collect(),
+                },
+                ReferenceCategoryView {
+                    category_id: "rare_resource_caches".to_string(),
+                    reference_ids: [0xAB01].into_iter().map(id).collect(),
+                },
+            ],
+        };
+        let observed = classification(&[
+            ("survival_caches", &[0xAA01, 0xAA02]),
+            ("rare_resource_caches", &[0xAB01]),
+        ]);
+        let scope = |counter_total: u32| CounterScopeCheck {
+            category_ids: vec![
+                "rare_resource_caches".to_string(),
+                "survival_caches".to_string(),
+            ],
+            counter_total,
+            degraded: false,
+        };
+
+        // 合并作用域一致（3 == 2 + 1）：正常给出 likely_missing。
+        let cross = CrossCheckInputs {
+            counter_scope_checks: vec![scope(3)],
+            ..CrossCheckInputs::default()
+        };
+        let outcome = evaluate(&campaign(), &inventory, &reference, &observed, &cross);
+        assert_eq!(outcome.capability.status, SupportStatus::Supported);
+        assert_eq!(
+            item(&outcome, 0xAA03).assessment,
+            AssessmentKind::LikelyMissing
+        );
+
+        // 合并作用域不一致（2 != 3）：COUNTER_MISMATCH 且不给 likely_missing。
+        let cross = CrossCheckInputs {
+            counter_scope_checks: vec![scope(2)],
+            ..CrossCheckInputs::default()
+        };
+        let outcome = evaluate(&campaign(), &inventory, &reference, &observed, &cross);
+        assert!(
+            outcome
+                .reasons
+                .iter()
+                .any(|reason| matches!(reason, AssessmentReason::CounterScopeMismatch { .. }))
+        );
+        assert_eq!(outcome.capability.status, SupportStatus::Partial);
+        assert_eq!(outcome.capability.reason_codes, vec!["COUNTER_MISMATCH"]);
+        assert_eq!(item(&outcome, 0xAA03).assessment, AssessmentKind::Unknown);
+
+        // 标记不可用的作用域同样降级。
+        let cross = CrossCheckInputs {
+            counter_scope_checks: vec![CounterScopeCheck {
+                category_ids: vec![
+                    "rare_resource_caches".to_string(),
+                    "survival_caches".to_string(),
+                ],
+                counter_total: 0,
+                degraded: true,
+            }],
+            ..CrossCheckInputs::default()
+        };
+        let outcome = evaluate(&campaign(), &inventory, &reference, &observed, &cross);
+        assert_eq!(item(&outcome, 0xAA03).assessment, AssessmentKind::Unknown);
+    }
+
+    #[test]
     fn counter_totals_degraded_blocks_likely_missing() {
         let inventory = inventory(&[0xAA01], true);
         let reference = reference(true);
@@ -922,6 +1053,7 @@ mod tests {
             category_counter_totals: BTreeMap::new(),
             counter_totals_degraded: true,
             metadata_conflicts: Vec::new(),
+            counter_scope_checks: Vec::new(),
         };
         let outcome = evaluate(&campaign(), &inventory, &reference, &observed, &cross);
 
@@ -944,6 +1076,7 @@ mod tests {
             category_counter_totals: BTreeMap::new(),
             counter_totals_degraded: false,
             metadata_conflicts: vec!["别名与类别冲突".to_string()],
+            counter_scope_checks: Vec::new(),
         };
         let outcome = evaluate(&campaign(), &inventory, &reference, &observed, &cross);
 

@@ -14,12 +14,12 @@ pub mod location;
 pub mod progress;
 
 pub use assessment::{
-    AssessmentInputs, AssessmentOutcome, AssessmentReason, CategoryDiff, CrossCheckInputs,
-    RULE_LIKELY_COLLECTED, RULE_LIKELY_MISSING, RULE_REGISTRY, ReferenceCategoryView,
-    ReferenceView, RuleDescriptor, rule_descriptor,
+    AssessmentInputs, AssessmentOutcome, AssessmentReason, CategoryDiff, CounterScopeCheck,
+    CrossCheckInputs, RULE_LIKELY_COLLECTED, RULE_LIKELY_MISSING, RULE_REGISTRY,
+    ReferenceCategoryView, ReferenceView, RuleDescriptor, rule_descriptor,
 };
 pub use context::{ContextAssessment, ContextFinding, DeclaredContext, assess};
-pub use evidence::{build_evidence, references_resolve};
+pub use evidence::{EvidenceSources, build_evidence, references_resolve};
 pub use location::{GroupGateInputs, evaluate_group_gate};
 pub use progress::{
     OverallReadout, RegionCounterReadout, RegionCounterSpec, RegionCounterSpecError,
@@ -44,11 +44,13 @@ pub struct CapabilityInputs<'a> {
     pub inventory: Option<&'a InventoryRecovery>,
     /// 区域计数读数；未评估为 `None`。
     pub region_counters: Option<&'a RegionCounterReadout>,
-    /// 参考差集评估结果；未评估为 `None`（SX-007 接线）。
+    /// 参考差集评估结果；未评估为 `None`（SX-007/SX-009 接线）。
     pub reference_difference: Option<&'a AssessmentOutcome>,
+    /// 定位能力；未评估为 `None`（SX-009 接线）。
+    pub location: Option<Capability>,
 }
 
-/// 组装能力矩阵；每项独立降级，参考差集与定位在 SX-007/SX-008 接线前标记未评估。
+/// 组装能力矩阵；每项独立降级，未提供的层标记未评估。
 pub fn capability_matrix(inputs: &CapabilityInputs<'_>) -> Capabilities {
     let container_failure_code = inputs
         .decompression
@@ -127,7 +129,10 @@ pub fn capability_matrix(inputs: &CapabilityInputs<'_>) -> Capabilities {
             || unsupported("NOT_EVALUATED"),
             |outcome| outcome.capability.clone(),
         ),
-        location: unsupported("NOT_EVALUATED"),
+        location: inputs
+            .location
+            .clone()
+            .unwrap_or_else(|| unsupported("NOT_EVALUATED")),
     }
 }
 
@@ -225,6 +230,7 @@ mod tests {
             inventory: Some(&evaluated.inventory),
             region_counters: Some(&evaluated.counters),
             reference_difference: None,
+            location: None,
         })
     }
 

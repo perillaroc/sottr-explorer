@@ -1,4 +1,4 @@
-//! 证据构造器（SX-007）：把各层观测装配为契约证据条目。
+//! 证据构造器（SX-007，SX-009 接线来源）：把各层观测装配为契约证据条目。
 //!
 //! 稳定证据 ID 约定（与观测层写入的 `evidence_refs` 一致）：
 //! - `ev:sections:main`：主区段流步进；
@@ -9,7 +9,9 @@
 //! - `ev:counter:…`：区域计数读数；
 //! - `ev:refdiff:<reference_set_id>`：参考集合差集。
 //!
-//! 来源引用（`source_refs`）在 SX-008 元数据接线前为空数组，不虚构来源。
+//! 来源引用（`source_refs`）只填写元数据中可精确映射的部分（计数与参考集合）；
+//! 原始观察类证据（区段、前缀、整体候选的字段级来源映射）在元数据中未建立，
+//! 保持空数组，不虚构来源。
 
 use std::collections::BTreeMap;
 
@@ -32,13 +34,23 @@ pub const EVIDENCE_PREFIX: &str = "ev:inventory:prefix";
 /// type28 溢出表证据 ID。
 pub const EVIDENCE_TYPE28: &str = "ev:inventory:type28";
 
-/// 构造证据列表（按证据 ID 排序；不虚构来源）。
+/// 证据来源接线（SX-009 组装层提供）；默认全部为空。
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct EvidenceSources {
+    /// 计数证据的来源引用：`counter_key` → 元数据来源引用。
+    pub counter_sources: BTreeMap<String, Vec<String>>,
+    /// 参考集合证据的来源引用。
+    pub reference_sources: Vec<String>,
+}
+
+/// 构造证据列表（按证据 ID 排序；只填写可精确映射的来源）。
 pub fn build_evidence(
     overall: Option<&OverallReadout>,
     sections: &SectionStream,
     inventory: &InventoryRecovery,
     counters: Option<(&RegionCounterReadout, &[RegionCounterSpec])>,
     reference: Option<&ReferenceView>,
+    sources: &EvidenceSources,
 ) -> Vec<Evidence> {
     let mut evidence: Vec<Evidence> = Vec::new();
 
@@ -142,10 +154,15 @@ pub fn build_evidence(
                 .iter()
                 .find(|spec| spec.counter_key == counter.counter_key)
                 .map(|spec| spec.serialized_offset);
+            let source_refs = sources
+                .counter_sources
+                .get(&counter.counter_key)
+                .cloned()
+                .unwrap_or_default();
             evidence.push(Evidence {
                 evidence_id: format!("ev:{}", counter.counter_key),
                 method: "u32_le read at mapped offset".to_string(),
-                source_refs: Vec::new(),
+                source_refs,
                 sample_scope: "campaign_family_4mib".to_string(),
                 limitations: counter.limitations.clone(),
                 offset,
@@ -178,7 +195,7 @@ pub fn build_evidence(
         evidence.push(Evidence {
             evidence_id: format!("ev:refdiff:{}", reference.reference_set_id),
             method: "set difference against bounded reference set".to_string(),
-            source_refs: Vec::new(),
+            source_refs: sources.reference_sources.clone(),
             sample_scope: "two_author_labeled_100pct_slots".to_string(),
             limitations: vec!["仅限共同参考类别；差集为空不等于全游戏收集完成".to_string()],
             offset: None,
@@ -266,12 +283,22 @@ mod tests {
             ],
         };
 
+        let wiring = EvidenceSources {
+            counter_sources: [(
+                "counter:mission_of_san_juan:survival_caches".to_string(),
+                vec!["src:asl-sottr".to_string()],
+            )]
+            .into_iter()
+            .collect(),
+            reference_sources: vec!["src:stella-saves".to_string()],
+        };
         let evidence = build_evidence(
             Some(&overall),
             &sections,
             &inventory,
             Some((&counters, &specs)),
             Some(&reference),
+            &wiring,
         );
         let ids: Vec<&str> = evidence
             .iter()
@@ -302,9 +329,26 @@ mod tests {
             .unwrap();
         assert_eq!(refdiff.reference_set_id.as_deref(), Some("rs:test"));
         assert_eq!(
+            refdiff.source_refs,
+            vec!["src:stella-saves".to_string()],
+            "参考集合来源可精确映射"
+        );
+        assert_eq!(
             refdiff.source_versions.get("rs:test").map(String::as_str),
             Some("1.0.0")
         );
+        let counter = evidence
+            .iter()
+            .find(|entry| entry.evidence_id == "ev:counter:mission_of_san_juan:survival_caches")
+            .unwrap();
+        assert_eq!(counter.source_refs, vec!["src:asl-sottr".to_string()]);
+        // 原始观察类证据不虚构来源。
+        assert!(prefix.source_refs.is_empty());
+        let overall_entry = evidence
+            .iter()
+            .find(|entry| entry.evidence_id == EVIDENCE_OVERALL)
+            .unwrap();
+        assert!(overall_entry.source_refs.is_empty());
 
         let context = assess_context(&DeclaredContext {
             mode: Mode::Campaign,
@@ -350,7 +394,14 @@ mod tests {
         let decompression = decompress(&compress(&raw), &Limits::default());
         let sections = SectionStream::walk(&decompression.data, &Limits::default());
         let inventory = crate::inventory::recover(&decompression.data, &sections);
-        let evidence = build_evidence(None, &sections, &inventory, None, None);
+        let evidence = build_evidence(
+            None,
+            &sections,
+            &inventory,
+            None,
+            None,
+            &EvidenceSources::default(),
+        );
 
         let mismatch = evidence
             .iter()
