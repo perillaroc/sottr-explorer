@@ -219,6 +219,31 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
 | `reference_presence_differences` | `assessments[]`（`reference_present_current_absent`） | assessment 是否为 `likely_missing` 由规则决定；差集本身不构成评估 |
 | `validated` 旧模型层 | 不映射 | 任何 `candidate_*` 都不得因改名升级为 `validated` / `verified_*` |
 
+## 差分回归（SX-010）
+
+`cargo test -p sottr-core --test parity`：Python v0.2（`research/python-v0.2/` 参照副本）
+作为正常已知输入的参照，其原始输出保留在输出目录（`report.json`、CSV、日志）；
+规范化适配器（`crates/sottr-core/tests/parity/adapter.rs`）逐层对照，差异与判定写入
+`parity_report.json`（附 `parity_summary.txt`）。
+
+- 环境变量：`SOTTR_SAMPLE_DIR`（私有五文件）、`SOTTR_PUBLIC_DIR`（按来源恢复的公开样本）、
+  `SOTTR_PARITY_OUT_DIR`（报告与原始输出基目录；默认 `target/tmp/parity`；私有回归应指向
+  仓库外目录）、`SOTTR_PYTHON`（解释器；默认探测 `py -3`/`python3`/`python`）。
+  夹具变量未设置时安静跳过（不记为通过）并说明覆盖缺口。
+- 对照范围：战役夹具比容器、哈希与原始观察、区段、记录序列与伴随字、唯一集合、43 项计数、
+  整体候选（float32 精确值 + 位模式，不是两位小数）、参考差集与跨文件重复组；profile 只比
+  容器、哈希与原始观察，并断言双方都不产生战役语义。
+- 规范化只处理路径（报告不含绝对路径）、键顺序与展示精度；任何状态/完整性差异都记录为差异，
+  范围外字段必须在 `scope.excluded` 中有原因（如 `ascii_strings`、两两比较、候选数值解释、
+  元数据侧候选名称）。
+- 设计内强化行为（异常 type28 的表不完整与缺席推断阻断，SX-005）以带 `adjudication` 的差异
+  记录；未解释差异使回归失败，不要求复制旧不安全输出。
+- 夹具清单：`tests/parity/fixtures/public_samples.json`（20 个公开战役样本 + 额外条目；由
+  `build_public_inventory.py` 从研究包公开证据生成，`--check` 复核）与
+  `tests/parity/fixtures/private_samples.json`（五文件期望值；不含哈希，哈希等式由回归断言）。
+- 对照在核心观测层进行（区段流、记录恢复、计数读数、整体读数、参考集合）；SX-009 报告装配
+  的对应字段由 `analyze_pipeline` 测试另行固定。
+
 ## 夹具清单
 
 | 夹具 | 覆盖点 |
@@ -233,6 +258,7 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
 | `invalid/*` | 未确立枚举值、`null` 缺原因、`verified_coordinates` 缺坐标、非法链接协议 |
 | `representation/u64-boundary.json`、`u64-as-number.json` | u64 仅字符串往返；数字形式必须被拒绝 |
 | `adapted/*` | Python v0.2 适配输入与输出形状示例 |
+| `crates/sottr-core/tests/parity/fixtures/*.json` | 差分回归夹具清单（SX-010）：私有五文件期望值（不含哈希）与公开 20 样本来源/哈希清单 |
 | `data/metadata/*.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/metadata.schema.json` 校验；Rust 加载测试另行核对数量、哈希与交叉一致性 |
 
 ## 版本策略
@@ -265,3 +291,7 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
   SX-012/SX-013 验收；当前实现为单次读取 + 超限预检，不产生 `INPUT_CHANGED`，
   不声称平台保护已完成。资源上限为默认值（压缩/解压 64 MiB、128 个批量文件），
   可按 SX-012/SX-013 评审调整。
+- 差分回归（SX-010）的样本不随仓库分发：公开 20 样本需按来源恢复（清单与 ZIP/文件哈希
+  见 `tests/parity/fixtures/public_samples.json`），私有五文件仅存在于开发工作站；
+  夹具缺失时回归 skip 并记录覆盖缺口，不记为通过。恢复或归档公开样本时保持来源核对，
+  不把样本字节提交进仓库。

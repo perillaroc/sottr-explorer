@@ -1,0 +1,76 @@
+{
+  "schema_note": "SX-010 私有夹具清单：五文件来自研究包 samples/（不随仓库分发）；本文件不含样本哈希（实现间哈希等式在回归中核对），期望值来自 docs/baseline.md（SX-001 基线，已公开）。",
+  "samples": [
+    {
+      "name": "profile.dat",
+      "kind": "profile",
+      "expect": {
+        "expanded_bytes": 25600
+      }
+    },
+    {
+      "name": "save1.dat",
+      "kind": "campaign",
+      "expect": {
+        "record_count": 517,
+        "unique_id_count": 517,
+        "overall_f32": 66.20481872558594,
+        "absent_total": 12,
+        "absent_by_category": {
+          "survival_caches": 9,
+          "rare_resource_caches": 1,
+          "monoliths": 1,
+          "crypt_treasures": 1
+        }
+      }
+    },
+    {
+      "name": "save202.dat",
+      "kind": "campaign",
+      "expect": {
+        "record_count": 517,
+        "unique_id_count": 517,
+        "overall_f32": 66.20481872558594,
+        "absent_total": 12,
+        "absent_by_category": {
+          "survival_caches": 9,
+          "rare_resource_caches": 1,
+          "monoliths": 1,
+          "crypt_treasures": 1
+        }
+      }
+    },
+    {
+      "name": "save204.dat",
+      "kind": "campaign",
+      "expect": {
+        "record_count": 516,
+        "unique_id_count": 516,
+        "overall_f32": 65.96385192871094,
+        "absent_total": 13,
+        "absent_by_category": {
+          "survival_caches": 10,
+          "rare_resource_caches": 1,
+          "monoliths": 1,
+          "crypt_treasures": 1
+        }
+      }
+    },
+    {
+      "name": "save206.dat",
+      "kind": "campaign",
+      "expect": {
+        "record_count": 516,
+        "unique_id_count": 516,
+        "overall_f32": 65.96385192871094,
+        "absent_total": 13,
+        "absent_by_category": {
+          "survival_caches": 10,
+          "rare_resource_caches": 1,
+          "monoliths": 1,
+          "crypt_treasures": 1
+        }
+      }
+    }
+  ]
+}

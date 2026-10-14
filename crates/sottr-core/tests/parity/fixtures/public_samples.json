@@ -1,0 +1,352 @@
+{
+  "schema_note": "SX-010 公开夹具清单：仅公开数据（来源 URL、ZIP 哈希、逐样本压缩/解压 SHA-256 与前缀计数）；存档字节不随仓库分发。",
+  "generated_from": {
+    "sources": {
+      "file": "evidence/public_samples/sources.json",
+      "sha256": "5325214e871f8de12ecc0cb776096c9f2c92cd7271b9542ef532ad7e6c889c96"
+    },
+    "analysis": {
+      "file": "evidence/public_samples/public_analysis.json",
+      "sha256": "ac63a5a04707ce6a101c5fec9606f5195d6afd6d35cf36912ae83158b4742d1d"
+    },
+    "generator": "crates/sottr-core/tests/parity/fixtures/build_public_inventory.py"
+  },
+  "archives": [
+    {
+      "name": "SOTTR-01-cozumel",
+      "url": "https://tombraiders.net/stella/files/pcsaves/pctr11/SOTTR-01-cozumel.zip",
+      "sha256": "cab4b49c8624df1c0865de3580c4acb9c79eb133cea09c19f860f75131cb1254",
+      "bytes": 795126,
+      "members": [
+        "save1.dat",
+        "save10.dat",
+        "save11.dat",
+        "save12.dat",
+        "save13.dat",
+        "save14.dat",
+        "save2.dat",
+        "save3.dat",
+        "save4.dat",
+        "save5.dat",
+        "save6.dat",
+        "save7.dat",
+        "save8.dat",
+        "save9.dat",
+        "readme.txt"
+      ]
+    },
+    {
+      "name": "SOTTR-100-percent-medium",
+      "url": "https://tombraiders.net/stella/files/pcsaves/pctr11/SOTTR-100-percent-medium.zip",
+      "sha256": "c1ff51c05ddb6746355cec148d2e5df7c591128db830c8ad303ab2c6b40305fd",
+      "bytes": 750024,
+      "members": [
+        "save1.dat",
+        "readme.txt"
+      ]
+    },
+    {
+      "name": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "url": "https://tombraiders.net/stella/files/pcsaves/pctr11/SOTTR_NGPlus_DeadlyObsession_100pct_allDLC.zip",
+      "sha256": "406fe6cfa593945ca96f5ded015a33092bcd92c3afa5d927cac40a58c2bd20d5",
+      "bytes": 4308739,
+      "members": [
+        "challengetomb.dat",
+        "profile.dat",
+        "save1.dat",
+        "save2.dat",
+        "save202.dat",
+        "save204.dat",
+        "save206.dat"
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save1.dat",
+      "name": "save1.dat",
+      "kind": "campaign",
+      "compressed_sha256": "498709f0f23e74689cc60c57b9aecf600515fb89225a154fe746f60e2fa45659",
+      "raw_sha256": "cd92172a4d34b62d9202e56ab89dca6d26fd9822ca26f10520e2e349322700de",
+      "raw_length": 4194304,
+      "completion_candidate": 0.7142857313156128,
+      "prefix_known": 28,
+      "prefix_nonzero": 28,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save2.dat",
+      "name": "save2.dat",
+      "kind": "campaign",
+      "compressed_sha256": "ad785b4728db61143afbe3897b9ecb9490e200705917e8c926b358a02b3b092e",
+      "raw_sha256": "25c2133017c027cba923257e23aba707846f83718d9d1c87e29dabb69168f7b4",
+      "raw_length": 4194304,
+      "completion_candidate": 1.7857143878936768,
+      "prefix_known": 31,
+      "prefix_nonzero": 31,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save3.dat",
+      "name": "save3.dat",
+      "kind": "campaign",
+      "compressed_sha256": "7e456698c6bf4633cda8a572b71fbf4f5e54811731cebe898ec89c8f48c2c166",
+      "raw_sha256": "e0ef2ca72f9f442d8e287501521d328e7b615619a8600fa6079a0043ca434dfa",
+      "raw_length": 4194304,
+      "completion_candidate": 1.7857143878936768,
+      "prefix_known": 32,
+      "prefix_nonzero": 32,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save4.dat",
+      "name": "save4.dat",
+      "kind": "campaign",
+      "compressed_sha256": "27f8ea7f83b724377dda3fb81a0ac65402d00c180c64f0fbaf338c0b85bc764c",
+      "raw_sha256": "4f2dea591bdf6e06902633901c3e4f417f8069010e782e386f459c8f737de3a0",
+      "raw_length": 4194304,
+      "completion_candidate": 1.7857143878936768,
+      "prefix_known": 33,
+      "prefix_nonzero": 33,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save5.dat",
+      "name": "save5.dat",
+      "kind": "campaign",
+      "compressed_sha256": "03ec5437e7ea927e767a0c50379686df2372c211a57f790885c65ccfd93d09be",
+      "raw_sha256": "093e6cd522e24c89cec0e43cea881e9d3c8350fca8a1fd1b4995af679a1902b4",
+      "raw_length": 4194304,
+      "completion_candidate": 1.7857143878936768,
+      "prefix_known": 33,
+      "prefix_nonzero": 33,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save6.dat",
+      "name": "save6.dat",
+      "kind": "campaign",
+      "compressed_sha256": "db0b75a149bcf60bf23b952f8b27368ff31c82bfeca5cf2212e3383029ab9c63",
+      "raw_sha256": "03c0bfd0ec4d668ea364dfa241b3d5cdb6d4bf6c535729b4747eee08aa3a1878",
+      "raw_length": 4194304,
+      "completion_candidate": 2.6290879249572754,
+      "prefix_known": 38,
+      "prefix_nonzero": 38,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save7.dat",
+      "name": "save7.dat",
+      "kind": "campaign",
+      "compressed_sha256": "b20c20ef361b8044d65545145e9d7450ae59edf1e969ebbba0e1afb75f7a2e64",
+      "raw_sha256": "623d5aaea4e4df0eb5a4b4459ed6e8968d2ec0e5550ca1550514b87f3de1b7e5",
+      "raw_length": 4194304,
+      "completion_candidate": 2.6290879249572754,
+      "prefix_known": 38,
+      "prefix_nonzero": 38,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save8.dat",
+      "name": "save8.dat",
+      "kind": "campaign",
+      "compressed_sha256": "7176b1107f5f9f0b18e6ef42dad115a81091a179b56bff51ddf193e58e79a1b7",
+      "raw_sha256": "fcf795942c86dd043dc61a281cd56ca1ade34e7c2106a5228b9353d74ef78d58",
+      "raw_length": 4194304,
+      "completion_candidate": 2.7495696544647217,
+      "prefix_known": 39,
+      "prefix_nonzero": 39,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save9.dat",
+      "name": "save9.dat",
+      "kind": "campaign",
+      "compressed_sha256": "5ec5e005bc1ae1272a4f0fc0e4cfdead48a0d2ba186766d7b39afde12662c891",
+      "raw_sha256": "92a2bb753c2d0efce2b5e34e081a292ecf169c99c0c9b8129bd6d79edd51cf9e",
+      "raw_length": 4194304,
+      "completion_candidate": 3.3519797325134277,
+      "prefix_known": 43,
+      "prefix_nonzero": 43,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save10.dat",
+      "name": "save10.dat",
+      "kind": "campaign",
+      "compressed_sha256": "e7e493b52d908538b3dfcc10fe8a17f97577c52f88eae95027127537feddd200",
+      "raw_sha256": "18c88e29f0a5e13cabf9dfee7ee0eece8ec178163c54d9713807c795b37d04e5",
+      "raw_length": 4194304,
+      "completion_candidate": 3.3519797325134277,
+      "prefix_known": 44,
+      "prefix_nonzero": 44,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save11.dat",
+      "name": "save11.dat",
+      "kind": "campaign",
+      "compressed_sha256": "c4c34a10d42057926ac44982409bc67c9e8051544b133345ad4d6c03990a4769",
+      "raw_sha256": "c7e38cd8cd9888a284b0659590f0d80201f3f757ac0ea47655c192cb2a36ac0b",
+      "raw_length": 4194304,
+      "completion_candidate": 3.709122657775879,
+      "prefix_known": 44,
+      "prefix_nonzero": 44,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save12.dat",
+      "name": "save12.dat",
+      "kind": "campaign",
+      "compressed_sha256": "8fda431a328dfae239c897df98ca0f01a043d5ed285374152377af1cb412900e",
+      "raw_sha256": "8c6bff93e19d0e91635bb7c28439710953e6468480f0eed54cb8714b92a76999",
+      "raw_length": 4194304,
+      "completion_candidate": 3.709122657775879,
+      "prefix_known": 44,
+      "prefix_nonzero": 44,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save13.dat",
+      "name": "save13.dat",
+      "kind": "campaign",
+      "compressed_sha256": "6e60b617ca3593b814cb4f28be0a43408e7269d07e5b56baefdfcc80eb02dd4b",
+      "raw_sha256": "3e37060b3908cdd074d0e0689048d0548559c3c18521bf0de86a326affe4c9b3",
+      "raw_length": 4194304,
+      "completion_candidate": 5.137693881988525,
+      "prefix_known": 44,
+      "prefix_nonzero": 44,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-01-cozumel",
+      "relative_path": "SOTTR-01-cozumel/save14.dat",
+      "name": "save14.dat",
+      "kind": "campaign",
+      "compressed_sha256": "2d6c9f7696815b33a3c84e4da1aaea7e46d6c2767807aee2b03519b1cf8ace26",
+      "raw_sha256": "e42ef9d565f6856b899772b9f4616919b25e0feb11b885f15a8b16bf0dad3caf",
+      "raw_length": 4194304,
+      "completion_candidate": 5.137693881988525,
+      "prefix_known": 44,
+      "prefix_nonzero": 44,
+      "note": null
+    },
+    {
+      "archive": "SOTTR-100-percent-medium",
+      "relative_path": "SOTTR-100-percent-medium/save1.dat",
+      "name": "save1.dat",
+      "kind": "campaign",
+      "compressed_sha256": "e57947b199677baecb312134aa23b01c6260e42cd8c38ae113ce1d49912cd813",
+      "raw_sha256": "601889d4817679deb973f47d5bbc9923beeaacff01a9f37dc17622ecf232b232",
+      "raw_length": 4194304,
+      "completion_candidate": 100.0,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": null
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/challengetomb.dat",
+      "name": "challengetomb.dat",
+      "kind": "challenge_tomb",
+      "compressed_sha256": "7657703392b2f7fa955ee0686428e4d260ed180bac50091ed61def81a71af864",
+      "raw_sha256": "2f2407f73678055e789c411221f9b549a91f28513c2e3f6b4bd99cce29c853cd",
+      "raw_length": 4194304,
+      "completion_candidate": 0.0,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": "挑战古墓文件：Python v0.2 名称模式只识别 profile/save<number>，因此该文件不在差分对照中（不是 20 个战役样本之一）。"
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/profile.dat",
+      "name": "profile.dat",
+      "kind": "profile",
+      "compressed_sha256": null,
+      "raw_sha256": null,
+      "raw_length": null,
+      "completion_candidate": null,
+      "prefix_known": null,
+      "prefix_nonzero": null,
+      "note": "公开 NG+ 归档的资料文件：公开分析证据未单列其哈希；仅按名称匹配做容器/哈希原始观察对照，不计入 20 个战役样本。"
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/save1.dat",
+      "name": "save1.dat",
+      "kind": "campaign",
+      "compressed_sha256": "6d9b468e51317025bdabb8ffeb91e789d4461547c2edb3786de5326d6c644ba2",
+      "raw_sha256": "40c4806bcf16d965626238c8b83a0faf95b4dc92a28ff5fed0445070906cec1d",
+      "raw_length": 4194304,
+      "completion_candidate": 100.0,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": null
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/save2.dat",
+      "name": "save2.dat",
+      "kind": "campaign",
+      "compressed_sha256": "10eecd3ff74db48e24000fb5edc2f0feb362c0416ee3c00b30555a9487948d09",
+      "raw_sha256": "db640a821a3d7fe4848b126c01f61dbf85e526fb381f54d2305e72ce80df49de",
+      "raw_length": 4194304,
+      "completion_candidate": 100.0,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": null
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/save202.dat",
+      "name": "save202.dat",
+      "kind": "campaign",
+      "compressed_sha256": "10eecd3ff74db48e24000fb5edc2f0feb362c0416ee3c00b30555a9487948d09",
+      "raw_sha256": "db640a821a3d7fe4848b126c01f61dbf85e526fb381f54d2305e72ce80df49de",
+      "raw_length": 4194304,
+      "completion_candidate": 100.0,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": null
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/save204.dat",
+      "name": "save204.dat",
+      "kind": "campaign",
+      "compressed_sha256": "a63a017155ec5ffd4c14fc6611c7e3181f8401cc82139b9e9404e30dd22033a4",
+      "raw_sha256": "9e947b0ea00148f34d80dd1a7551f290498c66230e1af9478f04cfdb58cf2560",
+      "raw_length": 4194304,
+      "completion_candidate": 92.3752212524414,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": null
+    },
+    {
+      "archive": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC",
+      "relative_path": "SOTTR_NGPlus_DeadlyObsession_100pct_allDLC/save206.dat",
+      "name": "save206.dat",
+      "kind": "campaign",
+      "compressed_sha256": "10eecd3ff74db48e24000fb5edc2f0feb362c0416ee3c00b30555a9487948d09",
+      "raw_sha256": "db640a821a3d7fe4848b126c01f61dbf85e526fb381f54d2305e72ce80df49de",
+      "raw_length": 4194304,
+      "completion_candidate": 100.0,
+      "prefix_known": 512,
+      "prefix_nonzero": 512,
+      "note": null
+    }
+  ]
+}
