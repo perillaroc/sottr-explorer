@@ -103,7 +103,7 @@
 - **导出信封** `ExportDocument`：`document_kind = "report_export"`、快照身份、
   `freshness`（不含 `none`）、`last_refresh_error_code`、`input_digest` 与 `report`。
   过期导出的 JSON 文件本身带 stale 标识；CSV 导出以明确列保留同样的快照身份与刷新错误码
-  （列定义在 SX-011 实现并验收）。普通核心 JSON 与导出信封各自有 schema。
+  （列定义见“导出与分享（SX-011）”，已实现并验收）。普通核心 JSON 与导出信封各自有 schema。
 
 ## MetadataDataset（`schemas/metadata.schema.json`）
 
@@ -243,6 +243,43 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
   `tests/parity/fixtures/private_samples.json`（五文件期望值；不含哈希，哈希等式由回归断言）。
 - 对照在核心观测层进行（区段流、记录恢复、计数读数、整体读数、参考集合）；SX-009 报告装配
   的对应字段由 `analyze_pipeline` 测试另行固定。
+
+## 导出与分享（SX-011）
+
+核心导出实现于 `crates/sottr-core/src/report/export.rs`（不访问文件系统）；CLI 负责
+目标校验、快照时钟与两阶段写盘。
+
+```text
+sottr-cli export --input <文件> --context <campaign|unknown> \
+    --output <新目录> --metadata <元数据目录> \
+    [--format json|csv|both] [--share] [--snapshot-id <ID>] \
+    [--snapshot-time <RFC3339>] [--stale --refresh-error <CODE>]
+```
+
+- **JSON**：`report.json` 是导出信封（`ExportDocument`，schema 见 `export.schema.json`），
+  `input_digest` 从报告复制，导出与屏幕报告不可能分叉。
+- **CSV**：`report.csv` 的列固定为 `snapshot_id`、`snapshot_time`、`freshness`、
+  `last_refresh_error_code`、`input_ref`、`input_sha256`、`id`、`candidate_names`、
+  `observation`、`assessment`、`evidence_level`、`rule_id`、`rule_description`、
+  `location_id`、`location_precision`；每行对应一项评估。`candidate_names` 为 JSON 数组
+  （逐字保留全部候选名称）；ID 输出 `0x`+8 位大写十六进制；数值不经浮点改写。
+- **CSV 安全**：以 `=`、`+`、`-`、`@`、制表或回车等危险前缀开头的外部文本（含前导空白
+  绕过，如 `" =1+1"`）在 RFC 4180 引号之前加 `'` 转义标记；安全文本不改写。JSON 数组
+  编码的候选名称单元格以 `[` 开头，两层防护叠加。
+- **分享模式**（`--share`）：`input_ref` 去目录；所有字符串中的路径样片段（盘符、UNC、
+  `file://`、含分隔符的 `.dat` 引用）替换为文件名并保留其后紧邻文本；业务状态、证据、
+  定位精度与 schema 不变；导出文本必须通过 `scan_private_material` 自检（零命中）。
+  产品报告不携带存档原始字符串；分享脱敏是防御层，不把脱敏等同于全部内容可公开。
+- **严格序列化**：拒绝 `NaN`/`Infinity`（信封内浮点必须有限）；u64 资源键只经字符串
+  往返（`ResourceKey`，禁止 JSON 数字）；导出内所有整数字面量在 JS 安全范围内。
+- **旧结果导出**：`--stale` 必须携带 `--refresh-error <CODE>`（形如
+  `^[A-Z][A-Z0-9_]*$`）；信封与 CSV 的明确列同时携带 stale 与错误码，不依赖文件名
+  或截图传达过期。
+- **写盘安全**：输出目录必须不存在且与输入不重叠（输出不得位于输入文件或输入所在
+  目录内；按规范路径比较）；产物先写 `<名称>.tmp`，全部成功后再逐一改名提交；失败或
+  取消（未提交即丢弃）清理临时文件与本次创建的目录，不留下“完整报告”假象；
+  `--format` 控制是否写出 JSON/CSV。输入级错误（不可读/无法分析）退出码 1，
+  用法与配置错误退出码 2。
 
 ## 夹具清单
 

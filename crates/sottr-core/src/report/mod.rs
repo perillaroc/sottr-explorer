@@ -15,6 +15,7 @@
 
 mod enums;
 mod envelope;
+mod export;
 mod ids;
 mod model;
 
@@ -25,6 +26,11 @@ pub use enums::{
 pub use envelope::{
     BatchReport, BatchResult, DECOMPRESSION_FAILED, DesktopResult, ExportDocument, INPUT_CHANGED,
     INPUT_UNREADABLE, InputError, RESOURCE_LIMIT,
+};
+pub use export::{
+    CSV_COLUMNS, ExportSnapshot, csv_escape, csv_text_is_unsafe, export_document, is_reason_code,
+    render_export_csv, render_export_json, sanitize_csv_text, scan_private_material,
+    share_export_document,
 };
 pub use ids::{ExportDocumentKind, InternalId, ResourceKey, SchemaVersion};
 pub use model::{

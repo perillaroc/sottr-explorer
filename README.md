@@ -7,8 +7,8 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 
 契约阶段：研究基线（SX-001）、仓库骨架（SX-002）与版本化接口契约 1.0.0（SX-003）已完成；
 解析核心（G1：SX-004 至 SX-007）、版本化元数据（G2：SX-008）、同核心分析 CLI
-（G2：SX-009）与 Python v0.2 差分回归（G2：SX-010）已实现；导出（SX-011）待执行，
-界面为占位骨架。
+（G2：SX-009）、Python v0.2 差分回归（G2：SX-010）与 JSON/CSV 导出及分享脱敏
+（G2：SX-011）已实现；G2 出口与界面仍为占位骨架，待后续任务评审/接入。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
@@ -21,7 +21,7 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 | --- | --- |
 | `crates/sottr-core/` | 只读解析与领域核心（纯库：不访问 UI、网络或文件系统；依赖 serde、serde_json 与 flate2） |
 | `crates/sottr-core/tests/parity/` | Python v0.2 差分回归（SX-010）：规范化适配器、私有/公开夹具清单与差异报告 |
-| `crates/sottr-cli/` | 命令行入口（`analyze`：只读批量分析 → 新目录 `analysis.json`） |
+| `crates/sottr-cli/` | 命令行入口（`analyze` 批量分析；`export` 导出信封与 CSV，支持分享脱敏） |
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
@@ -42,6 +42,10 @@ cargo check -p sottr-desktop   # 桌面端后端（Tauri 2；首次编译较慢�
 # 只读批量分析（输出目录必须不存在；profile.dat 自动按资料文件处理）
 cargo run -p sottr-cli -- analyze --input <样本目录> --context campaign `
     --output <新目录> --metadata data/metadata
+
+# 单文件导出（导出信封 report.json + 逐项 report.csv；--share 去除绝对路径）
+cargo run -p sottr-cli -- export --input <存档文件> --context campaign `
+    --output <新目录> --metadata data/metadata --format both --share
 
 # Python v0.2 差分回归（可选夹具；未设置时安静跳过并记录覆盖缺口）
 $env:SOTTR_SAMPLE_DIR = "<私有五文件目录>"     # profile.dat + save1/save202/save204/save206
