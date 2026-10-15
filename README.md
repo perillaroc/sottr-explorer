@@ -6,9 +6,10 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 ## 现状
 
 契约阶段：研究基线（SX-001）、仓库骨架（SX-002）与版本化接口契约 1.0.0（SX-003）已完成；
-解析核心（G1：SX-004 至 SX-007）、版本化元数据（G2：SX-008）、同核心分析 CLI
-（G2：SX-009）、Python v0.2 差分回归（G2：SX-010）与 JSON/CSV 导出及分享脱敏
-（G2：SX-011）已实现；G2 出口与界面仍为占位骨架，待后续任务评审/接入。
+解析核心（G1：SX-004 至 SX-007）与 G2（SX-008 至 SX-011：版本化元数据、同核心分析 CLI、
+Python v0.2 差分回归、JSON/CSV 导出与分享脱敏）已实现；**G2 出口已于 2026-10-15 评审满足**
+（附交接限制：稳定快照与竞态保护按 SX-013、Windows 路径策略按 SX-012、桌面接线按 SX-014）。
+界面为占位骨架，后续任务（SX-012 起）待执行。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
