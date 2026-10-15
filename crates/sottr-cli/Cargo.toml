@@ -14,4 +14,5 @@ path = "src/main.rs"
 
 [dependencies]
 sottr-core = { path = "../sottr-core" }
+sottr-platform = { path = "../sottr-platform" }
 serde_json.workspace = true

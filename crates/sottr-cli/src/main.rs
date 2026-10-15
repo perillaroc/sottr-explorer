@@ -13,6 +13,9 @@
 //! 边界与行为：
 //! - 目录读取、文件读取与输出写入由本适配层承担；核心只接收字节
 //!   （`sottr_core::analyze::analyze_bytes`）；
+//! - 输入/输出路径策略与桌面后端共用 `sottr_platform::path_policy`（SX-012）：
+//!   只支持本地卷（UNC/设备命名空间明确拒绝），输出必须是不存在的新目录，
+//!   与输入不得相等或互为父子（按规范路径逐组件比较，不用字符串前缀）；
 //! - 批量最多 128 个文件；一个坏文件保留自己的输入级错误，不影响其他文件；
 //! - `profile.dat` 始终按资料文件处理（仅容器观察），不受 `--context` 影响；
 //! - `--context campaign` 是用户声明，不是格式识别证明；
@@ -40,6 +43,7 @@ use sottr_core::report::{
     SchemaVersion, export_document, is_reason_code, render_export_csv, render_export_json,
     scan_private_material, share_export_document,
 };
+use sottr_platform::path_policy;
 
 mod export_io;
 
@@ -160,18 +164,13 @@ fn set_once<T>(slot: &mut Option<T>, value: T, name: &str) -> Result<(), String>
 }
 
 fn run_analyze(args: &AnalyzeArgs) -> Result<u8, String> {
-    if !args.input.exists() {
-        return Err(format!("输入路径不存在：{}", args.input.display()));
-    }
+    // 路径策略与桌面后端共用（SX-012）：本地位置、存在性与输入/输出重叠校验。
+    path_policy::validate_input(&args.input).map_err(|error| error.message)?;
     if !args.metadata.is_dir() {
         return Err(format!("元数据路径不是目录：{}", args.metadata.display()));
     }
-    if args.output.exists() {
-        return Err(format!(
-            "输出目录已存在，必须使用新目录：{}",
-            args.output.display()
-        ));
-    }
+    path_policy::validate_output(&args.output, &[args.input.as_path()])
+        .map_err(|error| error.message)?;
 
     let metadata = load_metadata(&args.metadata)?;
     let files = collect_inputs(&args.input)?;
@@ -515,7 +514,10 @@ fn parse_export_args(args: &[String]) -> Result<ExportArgs, String> {
 }
 
 fn run_export(args: &ExportArgs) -> Result<u8, String> {
-    if !args.input.is_file() {
+    // 路径策略与桌面后端共用（SX-012）：输入本地位置校验 + 输出重叠校验。
+    let canonical_input =
+        path_policy::validate_input(&args.input).map_err(|error| error.message)?;
+    if !canonical_input.is_file() {
         return Err(format!(
             "export 只接受单个存档文件：{}",
             args.input.display()
@@ -524,7 +526,8 @@ fn run_export(args: &ExportArgs) -> Result<u8, String> {
     if !args.metadata.is_dir() {
         return Err(format!("元数据路径不是目录：{}", args.metadata.display()));
     }
-    export_io::validate_export_target(&args.output, &args.input)?;
+    path_policy::validate_output(&args.output, &[args.input.as_path()])
+        .map_err(|error| error.message)?;
 
     let metadata = load_metadata(&args.metadata)?;
     let limits = Limits::default();
@@ -679,6 +682,9 @@ sottr-cli — SOTTR Explorer 命令行（只读分析 / 导出）
 说明：
   - analyze 读取输入目录中的 *.dat（最多 128 个）或单个文件；
     输出写入必须尚不存在的目录，文件名为 analysis.json（批量 JSON）。
+  - 输入与输出只支持本地卷；网络（UNC）与设备命名空间路径明确拒绝；
+    输出不得与输入相等、包含输入或位于输入（或输入文件所在目录）之内，
+    比较按规范路径（解析链接与真实大小写），不使用字符串前缀。
   - profile.dat 始终按资料文件处理（仅容器观察），不受 --context 影响。
   - --context campaign 是用户声明，不是格式识别证明；构建号与 DLC 未声明时
     保留适用限制，区域计数与参考差集按社区证据带限制展示。

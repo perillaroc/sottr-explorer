@@ -1,8 +1,9 @@
 //! 导出适配（SX-011）：目标校验、快照时钟与两阶段提交。
 //!
 //! 核心报告不接触文件系统；本模块承担 CLI 侧的写盘边界：
-//! - 目标必须不存在；输入与输出不得重叠（输出不得位于输入所在的目录树内，
-//!   也不得包含输入文件），比较使用规范路径而非字符串前缀；
+//! - 目标与输入的重叠校验委托给 `sottr_platform::path_policy`（SX-012，
+//!   与桌面后端共用）：目标必须不存在，与输入不得相等或互为父子，
+//!   比较使用规范路径而非字符串前缀；
 //! - 所有产物先写 `<名称>.tmp`，全部成功后再逐一改名提交；任何失败或取消
 //!   （未提交即丢弃）都会清理临时文件与本次创建的目录，不留下“完整报告”假象；
 //! - 快照时间由本模块生成（RFC 3339 UTC，毫秒精度）；核心只接收字符串。
@@ -125,64 +126,6 @@ pub fn validate_rfc3339(text: &str) -> Result<(), String> {
             Ok(())
         }
         _ => Err(format!("时间必须为 RFC 3339（收到 {text:?}）")),
-    }
-}
-
-/// 校验导出目标：目录必须不存在，且与输入不存在重叠（按规范路径比较）。
-///
-/// 规则：输出不得位于输入文件的目录树内（含输入目录本身），输出路径的
-/// 已存在祖先必须是目录且不与输入文件重叠；比较使用规范路径，不用字符串前缀。
-pub fn validate_export_target(output: &Path, input: &Path) -> Result<(), String> {
-    if output.exists() {
-        return Err(format!(
-            "输出目录已存在，必须使用新目录：{}",
-            output.display()
-        ));
-    }
-    let input_canonical = fs::canonicalize(input)
-        .map_err(|error| format!("输入路径无法解析（{}）：{error}", input.display()))?;
-    let input_dir = input_canonical
-        .parent()
-        .ok_or_else(|| format!("输入路径没有父目录：{}", input.display()))?
-        .to_path_buf();
-    let existing = deepest_existing_ancestor(output)
-        .ok_or_else(|| format!("输出路径没有可用的父目录：{}", output.display()))?;
-    let existing_canonical = fs::canonicalize(&existing)
-        .map_err(|error| format!("输出父路径无法解析（{}）：{error}", existing.display()))?;
-    if existing_canonical == input_canonical || existing_canonical.starts_with(&input_canonical) {
-        return Err(format!(
-            "输出不能位于输入文件之内（重叠）：{}",
-            output.display()
-        ));
-    }
-    if fs::metadata(&existing_canonical)
-        .map(|metadata| metadata.is_file())
-        .unwrap_or(false)
-    {
-        return Err(format!(
-            "输出父路径不是目录：{}；请选择新的目录路径",
-            existing.display()
-        ));
-    }
-    if existing_canonical == input_dir || existing_canonical.starts_with(&input_dir) {
-        return Err(format!(
-            "输出不能位于输入所在目录内（重叠）：{}；请选择输入存档目录之外的新目录",
-            output.display()
-        ));
-    }
-    Ok(())
-}
-
-fn deepest_existing_ancestor(path: &Path) -> Option<PathBuf> {
-    let mut current = path.to_path_buf();
-    loop {
-        if current.exists() {
-            return Some(current);
-        }
-        match current.parent() {
-            Some(parent) if !parent.as_os_str().is_empty() => current = parent.to_path_buf(),
-            _ => return None,
-        }
     }
 }
 
@@ -313,47 +256,6 @@ mod tests {
         ] {
             assert!(validate_rfc3339(invalid).is_err(), "{invalid}");
         }
-    }
-
-    #[test]
-    fn target_validation_rejects_overlap_and_existing() {
-        let root = temp_dir("target");
-        fs::create_dir_all(&root).unwrap();
-        let input = root.join("save1.dat");
-        fs::write(&input, b"x").unwrap();
-
-        // 输出在输入目录内：重叠。
-        let inside = root.join("out");
-        assert!(validate_export_target(&inside, &input).is_err());
-        // 输出目录已存在。
-        let existing = root.join("existing");
-        fs::create_dir_all(&existing).unwrap();
-        assert!(
-            validate_export_target(&existing, &input)
-                .unwrap_err()
-                .contains("已存在")
-        );
-        // 输入文件之下：重叠。
-        let under_input = input.join("child");
-        assert!(validate_export_target(&under_input, &input).is_err());
-        // 输出父路径是文件：拒绝。
-        let under_file = std::env::current_dir()
-            .unwrap()
-            .join(format!("sottr-export-io-file-{}", std::process::id()));
-        fs::write(&under_file, b"x").unwrap();
-        assert!(
-            validate_export_target(&under_file.join("out"), &input)
-                .unwrap_err()
-                .contains("不是目录")
-        );
-        let _ = fs::remove_file(&under_file);
-        // 输入目录之外的新目录树：允许。
-        let outside = std::env::current_dir()
-            .unwrap()
-            .join("target")
-            .join(format!("sottr-export-io-outside-{}", std::process::id()));
-        assert!(validate_export_target(&outside, &input).is_ok());
-        fs::remove_dir_all(&root).unwrap();
     }
 
     #[test]

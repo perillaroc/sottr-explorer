@@ -3,11 +3,12 @@ resolver = "3"
 members = [
     "crates/sottr-core",
     "crates/sottr-cli",
+    "crates/sottr-platform",
     "apps/desktop/src-tauri",
 ]
-# 默认只构建核心与 CLI（无 Tauri 依赖）；桌面端按需显式构建：
+# 默认只构建核心、CLI 与平台适配层（无 Tauri 依赖）；桌面端按需显式构建：
 #   cargo check -p sottr-desktop
-default-members = ["crates/sottr-core", "crates/sottr-cli"]
+default-members = ["crates/sottr-core", "crates/sottr-cli", "crates/sottr-platform"]
 
 [workspace.package]
 version = "0.1.0"

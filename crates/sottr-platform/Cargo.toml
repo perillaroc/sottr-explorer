@@ -1,0 +1,17 @@
+[package]
+name = "sottr-platform"
+version.workspace = true
+edition.workspace = true
+description = "SOTTR Explorer 平台适配层（Windows 目录发现与路径策略；CLI 与桌面后端共用，SX-012）"
+publish = false
+
+# 本 crate 不继承 workspace lints：workspace 的 `unsafe_code = "forbid"` 无法用于
+# Windows Known Folder 的最小 FFI（SHGetKnownFolderPath 必须通过 unsafe 调用）。
+# 改为 crate 级 `unsafe_code = "deny"` + 单个 FFI 模块显式 `allow`，并以
+# clippy::undocumented_unsafe_blocks 强制 SAFETY 注释；其余 lint 与 workspace 一致。
+[lints.rust]
+missing_docs = "deny"
+unsafe_code = "deny"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "deny"

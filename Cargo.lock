@@ -3167,6 +3167,7 @@ version = "0.1.0"
 dependencies = [
  "serde_json",
  "sottr-core",
+ "sottr-platform",
 ]
 
 [[package]]
@@ -3186,6 +3187,10 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-opener",
 ]
+
+[[package]]
+name = "sottr-platform"
+version = "0.1.0"
 
 [[package]]
 name = "soup3"
