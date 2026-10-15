@@ -3191,6 +3191,9 @@ dependencies = [
 [[package]]
 name = "sottr-platform"
 version = "0.1.0"
+dependencies = [
+ "sottr-core",
+]
 
 [[package]]
 name = "soup3"

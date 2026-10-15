@@ -16,6 +16,10 @@
 //! - 输入/输出路径策略与桌面后端共用 `sottr_platform::path_policy`（SX-012）：
 //!   只支持本地卷（UNC/设备命名空间明确拒绝），输出必须是不存在的新目录，
 //!   与输入不得相等或互为父子（按规范路径逐组件比较，不用字符串前缀）；
+//! - 输入以稳定快照读取（SX-013，`sottr_platform::read_snapshot`）：句柄约束下
+//!   读取并做读取前后指纹/摘要复核，被占用返回 INPUT_UNREADABLE（可重试）、
+//!   读取中变化返回 INPUT_CHANGED；输出用独占新目标与受控临时文件提交
+//!   （`sottr_platform::output_commit`），失败/取消不留“完整报告”假象；
 //! - 批量最多 128 个文件；一个坏文件保留自己的输入级错误，不影响其他文件；
 //! - `profile.dat` 始终按资料文件处理（仅容器观察），不受 `--context` 影响；
 //! - `--context campaign` 是用户声明，不是格式识别证明；
@@ -30,7 +34,6 @@
 //! - `2`：用法或配置错误（参数、路径、输出已存在、重叠、批量超限、元数据加载失败）。
 
 use std::fs;
-use std::io::Write as _;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
@@ -43,7 +46,7 @@ use sottr_core::report::{
     SchemaVersion, export_document, is_reason_code, render_export_csv, render_export_json,
     scan_private_material, share_export_document,
 };
-use sottr_platform::path_policy;
+use sottr_platform::{output_commit, path_policy, read_snapshot};
 
 mod export_io;
 
@@ -197,20 +200,21 @@ fn run_analyze(args: &AnalyzeArgs) -> Result<u8, String> {
         }
     }
 
-    fs::create_dir_all(&args.output)
-        .map_err(|error| format!("创建输出目录失败（{}）：{error}", args.output.display()))?;
-    let output_path = args.output.join(OUTPUT_FILE_NAME);
     let batch = BatchReport {
         schema_version: SchemaVersion,
         results,
     };
-    let mut json = serde_json::to_vec_pretty(&batch)
+    let mut json = serde_json::to_string_pretty(&batch)
         .map_err(|error| format!("序列化批量报告失败：{error}"))?;
-    json.push(b'\n');
-    let mut file = fs::File::create(&output_path)
-        .map_err(|error| format!("创建输出文件失败（{}）：{error}", output_path.display()))?;
-    file.write_all(&json)
-        .map_err(|error| format!("写入输出文件失败（{}）：{error}", output_path.display()))?;
+    json.push('\n');
+    // 输出用独占新目录与受控临时文件提交（SX-013）：失败或取消不留部分结果。
+    let staging = output_commit::prepare(&args.output, &[(OUTPUT_FILE_NAME.to_string(), json)])
+        .map_err(|error| error.message)?;
+    let files = staging.commit().map_err(|error| error.message)?;
+    let output_path = files
+        .into_iter()
+        .next()
+        .unwrap_or_else(|| args.output.join(OUTPUT_FILE_NAME));
 
     let total = batch.results.len();
     println!("输入：{}", args.input.display());
@@ -327,20 +331,11 @@ fn analyze_file(
     limits: &Limits,
 ) -> Result<sottr_core::report::Report, InputError> {
     let name = file_name(path);
-    // 适配层预检：明显超过压缩上限的输入不整份读入内存（核心仍会复核）。
-    if let Ok(metadata_of_file) = fs::metadata(path)
-        && metadata_of_file.len() > limits.max_compressed_bytes
-    {
-        return Err(InputError::resource_limit(format!(
-            "文件 {name} 为 {} 字节，超过压缩上限 {}（compressed_size_limit_exceeded）",
-            metadata_of_file.len(),
-            limits.max_compressed_bytes
-        )));
-    }
-    let bytes = fs::read(path)
-        .map_err(|error| InputError::unreadable(format!("读取 {name} 失败：{error}")))?;
+    // 稳定快照（SX-013）：句柄约束读取（Windows 读取期间拒绝写入/删除/改名）、
+    // 读取前后指纹与内容摘要复核、路径身份复核；超限在被读取前拒绝。
+    let snapshot = read_snapshot::read_stable(path, limits)?;
     let declared = declared_context(&name, args.context);
-    analyze_bytes(&bytes, &declared, metadata, limits)
+    analyze_bytes(&snapshot.bytes, &declared, metadata, limits)
 }
 
 /// 逐文件上下文：`profile.dat` 始终按资料文件处理（批量 --context 不得覆盖该排除）。
@@ -532,25 +527,17 @@ fn run_export(args: &ExportArgs) -> Result<u8, String> {
     let metadata = load_metadata(&args.metadata)?;
     let limits = Limits::default();
     let name = file_name(&args.input);
-    if let Ok(metadata_of_file) = fs::metadata(&args.input)
-        && metadata_of_file.len() > limits.max_compressed_bytes
-    {
-        eprintln!(
-            "错误：文件 {name} 为 {} 字节，超过压缩上限 {}（compressed_size_limit_exceeded）",
-            metadata_of_file.len(),
-            limits.max_compressed_bytes
-        );
-        return Ok(EXIT_INPUT_ERROR);
-    }
-    let bytes = match fs::read(&args.input) {
-        Ok(bytes) => bytes,
+    // 稳定快照（SX-013）：被占用返回 INPUT_UNREADABLE（可重试）、读取中变化返回
+    // INPUT_CHANGED、超限返回 RESOURCE_LIMIT；不产生部分结果。
+    let snapshot = match read_snapshot::read_stable(&args.input, &limits) {
+        Ok(snapshot) => snapshot,
         Err(error) => {
-            eprintln!("错误：读取 {name} 失败：{error}（INPUT_UNREADABLE）");
+            eprintln!("错误：{name} 无法读取：{}（{}）", error.message, error.code);
             return Ok(EXIT_INPUT_ERROR);
         }
     };
     let declared = declared_context(&name, args.context);
-    let report = match analyze_bytes(&bytes, &declared, &metadata, &limits) {
+    let report = match analyze_bytes(&snapshot.bytes, &declared, &metadata, &limits) {
         Ok(report) => report,
         Err(error) => {
             eprintln!("错误：{name} 无法分析：{}（{}）", error.message, error.code);
@@ -632,8 +619,9 @@ fn run_export(args: &ExportArgs) -> Result<u8, String> {
         }
     }
 
-    let pending = export_io::PendingExport::prepare(&args.output, &artifacts)?;
-    let files = pending.commit()?;
+    let staging =
+        output_commit::prepare(&args.output, &artifacts).map_err(|error| error.message)?;
+    let files = staging.commit().map_err(|error| error.message)?;
     for path in &files {
         let size = fs::metadata(path)
             .map(|metadata| metadata.len())
@@ -685,6 +673,10 @@ sottr-cli — SOTTR Explorer 命令行（只读分析 / 导出）
   - 输入与输出只支持本地卷；网络（UNC）与设备命名空间路径明确拒绝；
     输出不得与输入相等、包含输入或位于输入（或输入文件所在目录）之内，
     比较按规范路径（解析链接与真实大小写），不使用字符串前缀。
+  - 输入以稳定快照读取：文件被占用或正在保存时拒绝并提示稍后重试
+    （INPUT_UNREADABLE，可重试）；读取期间文件变化或路径被替换时返回
+    INPUT_CHANGED，不产生部分结果。输出用独占新目录与受控临时文件提交，
+    失败或取消不留“完整报告”假象。
   - profile.dat 始终按资料文件处理（仅容器观察），不受 --context 影响。
   - --context campaign 是用户声明，不是格式识别证明；构建号与 DLC 未声明时
     保留适用限制，区域计数与参考差集按社区证据带限制展示。

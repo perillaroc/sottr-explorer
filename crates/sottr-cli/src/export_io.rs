@@ -1,15 +1,11 @@
-//! 导出适配（SX-011）：目标校验、快照时钟与两阶段提交。
+//! 导出适配（SX-011 / SX-013）：快照时钟。
 //!
-//! 核心报告不接触文件系统；本模块承担 CLI 侧的写盘边界：
-//! - 目标与输入的重叠校验委托给 `sottr_platform::path_policy`（SX-012，
-//!   与桌面后端共用）：目标必须不存在，与输入不得相等或互为父子，
-//!   比较使用规范路径而非字符串前缀；
-//! - 所有产物先写 `<名称>.tmp`，全部成功后再逐一改名提交；任何失败或取消
-//!   （未提交即丢弃）都会清理临时文件与本次创建的目录，不留下“完整报告”假象；
-//! - 快照时间由本模块生成（RFC 3339 UTC，毫秒精度）；核心只接收字符串。
+//! 核心报告不接触文件系统；本模块只保留 CLI 侧的快照时钟（RFC 3339 UTC）。
+//! 目标与输入的重叠校验在 `sottr_platform::path_policy`（SX-012），独占新目标
+//! 与受控临时文件提交在 `sottr_platform::output_commit`（SX-013），二者与桌面
+//! 后端共用；稳定快照读取在 `sottr_platform::read_snapshot`（SX-013）。
+//! 本模块不再包含写盘逻辑。
 
-use std::fs;
-use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 /// 当前 Unix 毫秒（时钟异常时回退 0）。
@@ -129,84 +125,9 @@ pub fn validate_rfc3339(text: &str) -> Result<(), String> {
     }
 }
 
-/// 两阶段导出：先写全部临时文件，再提交；未提交即丢弃会清理现场。
-#[derive(Debug)]
-pub struct PendingExport {
-    dir: PathBuf,
-    temps: Vec<(PathBuf, PathBuf)>,
-    committed: bool,
-}
-
-impl PendingExport {
-    /// 准备导出：目录必须不存在；所有产物写到 `<名称>.tmp`。
-    pub fn prepare(dir: &Path, artifacts: &[(String, String)]) -> Result<Self, String> {
-        if dir.exists() {
-            return Err(format!("输出目录已存在，必须使用新目录：{}", dir.display()));
-        }
-        fs::create_dir_all(dir)
-            .map_err(|error| format!("创建输出目录失败（{}）：{error}", dir.display()))?;
-        let mut pending = PendingExport {
-            dir: dir.to_path_buf(),
-            temps: Vec::new(),
-            committed: false,
-        };
-        for (name, contents) in artifacts {
-            let temp = dir.join(format!("{name}.tmp"));
-            if let Err(error) = fs::write(&temp, contents.as_bytes()) {
-                return Err(format!("写入临时文件失败（{}）：{error}", temp.display()));
-            }
-            pending.temps.push((temp, dir.join(name)));
-        }
-        Ok(pending)
-    }
-
-    /// 提交：逐一改名到目标名称；改名失败回滚已提交文件并清理，不留假象。
-    pub fn commit(mut self) -> Result<Vec<PathBuf>, String> {
-        let mut committed_files: Vec<PathBuf> = Vec::new();
-        for (temp, target) in &self.temps {
-            if let Err(error) = fs::rename(temp, target) {
-                for committed in &committed_files {
-                    let _ = fs::remove_file(committed);
-                }
-                return Err(format!("提交导出失败（{}）：{error}", target.display()));
-            }
-            committed_files.push(target.clone());
-        }
-        self.committed = true;
-        Ok(committed_files)
-    }
-
-    /// 取消（等价于丢弃）：清理临时文件与本次创建的目录（测试显式调用；
-    /// 生产路径由 Drop 承担同一语义）。
-    #[cfg(test)]
-    pub fn cancel(self) {
-        drop(self);
-    }
-}
-
-impl Drop for PendingExport {
-    fn drop(&mut self) {
-        if self.committed {
-            return;
-        }
-        for (temp, _) in &self.temps {
-            let _ = fs::remove_file(temp);
-        }
-        // 仅当目录空时移除；best-effort，不掩盖调用方错误。
-        let _ = fs::remove_dir(&self.dir);
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn temp_dir(tag: &str) -> PathBuf {
-        let dir =
-            std::env::temp_dir().join(format!("sottr-export-io-{tag}-{}", std::process::id()));
-        let _ = fs::remove_dir_all(&dir);
-        dir
-    }
 
     #[test]
     fn utc_formatting_matches_known_instants() {
@@ -256,52 +177,5 @@ mod tests {
         ] {
             assert!(validate_rfc3339(invalid).is_err(), "{invalid}");
         }
-    }
-
-    #[test]
-    fn pending_export_commits_and_cancels_without_leftovers() {
-        let dir = temp_dir("commit");
-        let artifacts = vec![
-            ("report.json".to_string(), "{\"a\":1}\n".to_string()),
-            ("report.csv".to_string(), "h\r\n1\r\n".to_string()),
-        ];
-        let pending = PendingExport::prepare(&dir, &artifacts).unwrap();
-        let files = pending.commit().unwrap();
-        assert_eq!(files.len(), 2);
-        assert_eq!(
-            fs::read_to_string(dir.join("report.json")).unwrap(),
-            "{\"a\":1}\n"
-        );
-        assert!(dir.join("report.csv").is_file());
-        assert!(!dir.join("report.json.tmp").exists());
-        fs::remove_dir_all(&dir).unwrap();
-
-        // 取消（丢弃）：目录与临时文件都被清理。
-        let dir = temp_dir("cancel");
-        let pending = PendingExport::prepare(&dir, &artifacts).unwrap();
-        pending.cancel();
-        assert!(!dir.exists(), "取消后不应留下任何报告文件或目录");
-    }
-
-    #[test]
-    fn pending_export_write_failure_leaves_no_scene() {
-        let dir = temp_dir("fail");
-        let artifacts = vec![
-            ("report.json".to_string(), "{}".to_string()),
-            ("sub/evil".to_string(), "x".to_string()),
-        ];
-        let error = PendingExport::prepare(&dir, &artifacts).unwrap_err();
-        assert!(error.contains("写入临时文件失败"), "{error}");
-        assert!(!dir.exists(), "写盘失败后不应留下输出目录");
-    }
-
-    #[test]
-    fn pending_export_refuses_existing_directory() {
-        let dir = temp_dir("exists");
-        fs::create_dir_all(&dir).unwrap();
-        let error =
-            PendingExport::prepare(&dir, &[("a".to_string(), "b".to_string())]).unwrap_err();
-        assert!(error.contains("已存在"), "{error}");
-        fs::remove_dir_all(&dir).unwrap();
     }
 }
