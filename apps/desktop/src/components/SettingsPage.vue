@@ -39,7 +39,7 @@ const shortcuts = [
             v-for="option in themeOptions"
             :key="option.value"
             class="inline-flex cursor-pointer items-center gap-2 rounded-[6px] border px-3 py-1.5 text-[13px]"
-            :class="store.state.theme === option.value ? 'border-accent bg-accent-bg text-accent' : 'border-line bg-surface text-ink'"
+            :class="store.state.theme === option.value ? 'border-accent bg-accent-bg text-accent-strong' : 'border-line bg-surface text-ink'"
           >
             <input
               type="radio"

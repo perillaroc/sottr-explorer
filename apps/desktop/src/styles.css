@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
-/* SOTTR Explorer 视觉令牌（SX-015）。
-   明暗主题由 <html data-theme="light|dark"> 控制；"跟随系统" 在 JS 中解析为具体主题。
-   对比度目标见开发方案（普通文字 ≥ 4.5:1、大号 ≥ 3:1），实际 Windows DPI/对比度/
+/* SOTTR Explorer 视觉令牌（SX-015；SX-016 增加强调文字锚定点 accent-strong）。
+   明暗主题由 <html data-theme="light|dark"> 控制；“跟随系统” 在 JS 中解析为具体主题。
+   对比度：accent（#087F8C）用于填充/边框/大号文字；作为 13px 正文颜色时改用
+   accent-strong（浅色 #066A75）以满足 ≥4.5:1。实际 Windows DPI/对比度/
    高对比度验收由 SX-017 实测记录；本文件不声称已达标。 */
 
 :root,

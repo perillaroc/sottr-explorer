@@ -6,10 +6,13 @@ import { ArrowLeft, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
 import { rowById } from "./app/catalog";
+import { productionMetadata } from "./data/metadata";
 import { createDemoSource } from "./data/mock";
+import { TauriDataSource, isTauriRuntime } from "./data/tauri";
 import type { DataSource } from "./data/source";
 import AppSidebar from "./components/AppSidebar.vue";
 import AppTopBar from "./components/AppTopBar.vue";
+import ExportDialog from "./components/ExportDialog.vue";
 import MockBanner from "./components/MockBanner.vue";
 import SlotPicker from "./components/SlotPicker.vue";
 import OverviewPage from "./components/OverviewPage.vue";
@@ -32,8 +35,29 @@ const props = withDefaults(
   { source: undefined, store: undefined, layoutWidth: undefined },
 );
 
-const source = props.source ?? createDemoSource();
-const store = props.store ?? createAppStore(source, { layoutWidth: props.layoutWidth });
+/**
+ * 选择数据源（SX-016）：
+ * - Tauri WebView 内 → `TauriDataSource`（真实命令）与生产元数据；
+ * - `?mock=1`（仅开发/演示）强制模拟数据源，界面常驻“模拟数据”横幅；
+ * - 纯浏览器（`pnpm dev` 直接打开）没有 IPC，退化为模拟数据源。
+ */
+function createDefaultSource(): DataSource {
+  const params =
+    typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const forceMock = params.get("mock") === "1";
+  if (isTauriRuntime() && !forceMock) {
+    return new TauriDataSource();
+  }
+  return createDemoSource({ failGuideOpen: params.get("mockLinkFail") === "1" });
+}
+
+const source = props.source ?? createDefaultSource();
+const store =
+  props.store ??
+  createAppStore(source, {
+    layoutWidth: props.layoutWidth,
+    metadata: source.kind === "tauri" ? productionMetadata : undefined,
+  });
 provideStore(store);
 
 const root = ref<HTMLElement | null>(null);
@@ -112,7 +136,7 @@ function onKeydown(event: KeyboardEvent): void {
     target !== null && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "o") {
     event.preventDefault();
-    void store.actions.pickInput("file");
+    void store.actions.pickInput("save-file");
     return;
   }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "f") {
@@ -245,5 +269,8 @@ onBeforeUnmount(() => {
     >
       <ItemDetail :row="selectedRow" mode="drawer" />
     </UiDrawer>
+
+    <!-- 导出对话框（SX-016）：任何视图/布局下都可打开；模态焦点规则同抽屉 -->
+    <ExportDialog />
   </div>
 </template>

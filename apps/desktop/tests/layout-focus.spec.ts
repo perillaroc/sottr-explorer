@@ -158,7 +158,7 @@ describe("键盘快捷键（可发现、不与系统冲突）", () => {
 
     const pickSpy = vi.spyOn(store.actions, "pickInput");
     press("o", { ctrlKey: true });
-    expect(pickSpy).toHaveBeenCalledWith("file");
+    expect(pickSpy).toHaveBeenCalledWith("save-file");
     await flushPromises();
     expect(store.state.view).toBe("import");
     expect(wrapper.text()).toContain("打开存档");

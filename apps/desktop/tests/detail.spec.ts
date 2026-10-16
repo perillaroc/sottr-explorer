@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 import ItemDetail from "../src/components/ItemDetail.vue";
 import { rowById } from "../src/app/catalog";
 import { createTestStore, analyzeCandidate, mountWithStore } from "./helpers";
+import { MockDataSource } from "../src/data/mock";
+import { flushPromises } from "@vue/test-utils";
 import type { AppStore } from "../src/app/store";
 
 function rowOf(store: AppStore, id: string) {
@@ -99,15 +101,24 @@ describe("详情面板", () => {
     expect(wrapper.get('[data-testid="open-source"]').attributes("title")).toContain("仅作一般来源阅读");
   });
 
-  it("打开来源为模拟说明（不加载 WebView、不附加存档内容）", async () => {
-    const { store } = await createTestStore();
+  it("打开来源经数据源校验后交给系统浏览器（不加载 WebView、不附加存档内容）", async () => {
+    const { store, source } = await createTestStore();
     await analyzeCandidate(store, "save1.dat");
     const row = rowOf(store, "loc:stella:san-juan-caches");
     const wrapper = mountWithStore(ItemDetail, store, { row, mode: "pane" });
     await wrapper.get('[data-testid="open-source"]').trigger("click");
-    const notice = store.state.notice;
-    expect(notice?.text).toContain("模拟数据");
-    expect(notice?.text).toContain("系统浏览器");
-    expect(notice?.text).toContain("不附加存档内容或私人路径");
+    await flushPromises();
+    // 链接来自元数据来源（不是前端拼接），交给“系统浏览器”而非 WebView。
+    const opened = (source as MockDataSource).openedUrls;
+    expect(opened).toHaveLength(1);
+    expect(opened[0]).toBe(
+      "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
+    );
+    expect(store.state.linkAction?.status).toBe("opened");
+    expect(store.state.notice?.text).toContain("系统浏览器");
+    const openedNotice = wrapper.get('[data-testid="link-opened"]').text();
+    expect(openedNotice).toContain("WebView 不加载网页");
+    expect(openedNotice).toContain("https://tombraiders.net/");
+    expect(openedNotice).not.toContain("演示用户");
   });
 });

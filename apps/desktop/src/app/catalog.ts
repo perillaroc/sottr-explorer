@@ -502,9 +502,67 @@ export function filterCounts(
 /** 状态标签便捷导出（组件与测试共用）。 */
 export { businessStatus };
 
+/** 条目在物品表中的原始记录（同一 ID 可能有多条；未观察到为空数组）。 */
+export function inventoryRecordsFor(report: Report, id: string): InventoryRecord[] {
+  return report.observations.inventory.records.filter((record) => record.internal_id === id);
+}
+
+/** 条目命中的参考集合（ID/版本/类别）；未命中为空数组（仅原始观察）。 */
+export function referenceSetsFor(
+  metadata: MetadataDataset,
+  id: string,
+): { id: string; version: string; categories: string[] }[] {
+  const matches: { id: string; version: string; categories: string[] }[] = [];
+  for (const [setId, set] of Object.entries(metadata.reference_sets)) {
+    const categories = Object.entries(set.reference_ids)
+      .filter(([, ids]) => ids.includes(id))
+      .map(([category]) => category);
+    if (categories.length > 0) {
+      matches.push({ id: setId, version: set.version, categories });
+    }
+  }
+  return matches;
+}
+
+/** 攻略组对应的区域计数读数（详情“当前计数”行；无映射读数为 null）。 */
+export interface GroupCounterReading {
+  counterKey: string;
+  label: string;
+  value: number | null;
+  target: number | null;
+  withinSourceTarget: boolean;
+  rawValue: number | null;
+}
+
+export function counterReadingForGroup(
+  metadata: MetadataDataset,
+  report: Report,
+  guideGroupId: string | null,
+): GroupCounterReading | null {
+  if (!guideGroupId) {
+    return null;
+  }
+  const group = metadata.guide_groups[guideGroupId];
+  if (!group || group.counter_keys.length === 0) {
+    return null;
+  }
+  const counter =
+    report.observations.region_counters.find((entry) => group.counter_keys.includes(entry.counter_key)) ?? null;
+  if (!counter) {
+    return null;
+  }
+  return {
+    counterKey: counter.counter_key,
+    label: categoryLabel(counter.category_id, metadata.categories[counter.category_id]?.display_name ?? null),
+    value: counter.value,
+    target: counter.source_target,
+    withinSourceTarget: counter.within_source_target,
+    rawValue: counter.raw_value,
+  };
+}
+
 /** 按稳定 ID 取行（详情面板在筛选变化后仍可保持选中条目）。 */
-export function rowById(metadata: MetadataDataset, report: Report, id: string): CollectibleRow | null {
-  const locations = locationsByMember(report);
+export function rowById(metadata: MetadataDataset, report: Report, id: string): CollectibleRow | null {  const locations = locationsByMember(report);
   const item = report.assessments.find((entry) => entry.internal_id === id) ?? null;
   if (item) {
     return {

@@ -15,6 +15,9 @@ const documents = "C:\\Users\\演示用户\\Documents";
 const onedriveDocuments = "C:\\Users\\演示用户\\OneDrive\\Documents";
 export const MOCK_ROOT_A = `${documents}\\Shadow of the Tomb Raider`;
 export const MOCK_ROOT_B = `${onedriveDocuments}\\Shadow of the Tomb Raider`;
+/** 模拟文件系统已知的 Documents 目录（导出目标父级校验用）。 */
+export const MOCK_DOCUMENTS = documents;
+export const MOCK_ONEDRIVE_DOCUMENTS = onedriveDocuments;
 
 const gameDirName = "Shadow of the Tomb Raider";
 
@@ -120,7 +123,9 @@ export function mockCandidates(root: string): CandidatesOutcomeDto | null {
 
 /** 模拟“手动选择文件/文件夹”的返回值（浏览器演示固定返回第一个候选）。 */
 export const mockPickedFile = `${MOCK_ROOT_A}\\save1.dat`;
-export const mockPickedFolder = MOCK_ROOT_A;
+export const mockPickedDirectory = MOCK_ROOT_A;
+/** 模拟“导出目标位置”：Documents 根目录（目标为新子目录，不覆盖任何内容）。 */
+export const mockPickedExportParent = documents;
 
 /** 供界面显示的模拟说明：候选目录里发生了什么。 */
 export const mockRootLabels: Record<string, string> = {

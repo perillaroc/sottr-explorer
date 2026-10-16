@@ -39,19 +39,46 @@ const collectibles = collectiblesJson as unknown as MetadataDataset;
 const counters = countersJson as unknown as MetadataDataset;
 const referenceSets = referenceSetsJson as unknown as MetadataDataset;
 
-/** 合并后的元数据集（模拟数据源与界面共享；不可变使用）。 */
-export const demoMetadata: MetadataDataset = {
-  schema_version: collectibles.schema_version,
-  metadata_version: collectibles.metadata_version,
-  namespace: collectibles.namespace,
+interface MetadataSections {
+  items: MetadataDataset["items"];
+  categories: MetadataDataset["categories"];
+  regions: MetadataDataset["regions"];
+}
+
+function mergedDataset(sections: MetadataSections): MetadataDataset {
+  return {
+    schema_version: collectibles.schema_version,
+    metadata_version: collectibles.metadata_version,
+    namespace: collectibles.namespace,
+    items: sections.items,
+    categories: sections.categories,
+    regions: sections.regions,
+    guide_groups: { ...referenceSets.guide_groups },
+    reference_sets: { ...referenceSets.reference_sets },
+    region_counters: { ...counters.region_counters },
+    sources: { ...collectibles.sources },
+  };
+}
+
+/**
+ * 真实模式（`TauriDataSource`）使用的元数据：**只**包含仓库真实数据集，
+ * 不叠加夹单元的“人工简名”（与内嵌到桌面后端的文件一致；见 data/metadata/manifest.json）。
+ */
+export const productionMetadata: MetadataDataset = mergedDataset({
+  items: { ...collectibles.items },
+  categories: { ...collectibles.categories },
+  regions: { ...counters.regions },
+});
+
+/**
+ * 模拟数据源的元数据：真实数据集 + 契约夹具中有来源的名称（人工简名），
+ * 用于演示“显示名回退”路径；界面在模拟模式显著标注“模拟数据”。
+ */
+export const demoMetadata: MetadataDataset = mergedDataset({
   items: mergeItems(collectibles.items, metadataFixture.items),
   categories: { ...collectibles.categories, ...metadataFixture.categories },
   regions: mergeRegions(counters.regions, metadataFixture.regions),
-  guide_groups: { ...referenceSets.guide_groups },
-  reference_sets: { ...referenceSets.reference_sets },
-  region_counters: { ...counters.region_counters },
-  sources: { ...collectibles.sources },
-};
+});
 
 /** 界面支持的逐项参考类别（参考差集范围；顺序即显示顺序）。 */
 export const REFERENCE_CATEGORY_ORDER = [

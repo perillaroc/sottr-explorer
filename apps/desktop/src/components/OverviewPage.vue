@@ -118,7 +118,7 @@ const locationStatus = computed(() => report.value?.capabilities.location.status
           </span>
           <span v-else class="flex items-center gap-1 text-xs text-muted">
             <Info :size="14" aria-hidden="true" />
-            未分类原始记录请在诊断页查看。
+            未分类记录，不计入收集品数；请在诊断页查看。
           </span>
         </section>
       </template>

@@ -28,7 +28,7 @@ const emit = defineEmits<{
       class="inline-flex h-8 cursor-pointer items-center gap-1 rounded-[6px] border px-2.5 text-[13px] disabled:cursor-not-allowed disabled:opacity-60"
       :class="
         props.modelValue === option.value
-          ? 'border-accent bg-accent-bg text-accent'
+          ? 'border-accent bg-accent-bg text-accent-strong'
           : 'border-line bg-surface text-ink hover:bg-raised'
       "
       @click="emit('update:modelValue', option.value)"

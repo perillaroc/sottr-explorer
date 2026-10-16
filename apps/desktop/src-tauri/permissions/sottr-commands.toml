@@ -40,6 +40,11 @@ description = "允许 export_report：把当前快照导出为新目录中的 JS
 commands.allow = ["export_report"]
 
 [[permission]]
+identifier = "allow-resolve-guide-link"
+description = "允许 resolve_guide_link：按稳定 ID 解析元数据来源链接（仅 http/https，不打开浏览器；供“复制已核验链接”）"
+commands.allow = ["resolve_guide_link"]
+
+[[permission]]
 identifier = "allow-open-guide-link"
 description = "允许 open_guide_link：按稳定 ID 解析元数据来源链接（仅 http/https），交给系统外部浏览器"
 commands.allow = ["open_guide_link"]

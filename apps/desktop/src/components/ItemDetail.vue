@@ -4,6 +4,8 @@
 import { computed, nextTick, onMounted, ref } from "vue";
 import { Copy, ExternalLink } from "@lucide/vue";
 import { useStore } from "../app/inject";
+import { copyText } from "../app/clipboard";
+import { recoveryHint } from "../data/errors";
 import {
   businessStatus,
   categoryLabel,
@@ -17,7 +19,15 @@ import {
   sourceLabel,
 } from "../app/labels";
 import { formatSnapshotTime, shortId } from "../app/format";
-import { displayNameOf, type CollectibleRow, type GroupRow, type ItemRow } from "../app/catalog";
+import {
+  counterReadingForGroup,
+  displayNameOf,
+  inventoryRecordsFor,
+  referenceSetsFor,
+  type CollectibleRow,
+  type GroupRow,
+  type ItemRow,
+} from "../app/catalog";
 import UiBadge from "./ui/UiBadge.vue";
 import UiButton from "./ui/UiButton.vue";
 import UiEvidenceDetails from "./ui/UiEvidenceDetails.vue";
@@ -140,6 +150,21 @@ const evidenceEntries = computed(() => {
 
 const evaluatedDigest = computed(() => groupActionability.value?.evaluated_input_digest.compressed_sha256 ?? null);
 
+/** 表位置：全部原始记录（同一 ID 的多条记录不去重、不合并）。 */
+const records = computed(() => (props.row.kind === "item" && report.value ? inventoryRecordsFor(report.value, props.row.id) : []));
+
+/** 参考集合命中（未命中不推断“非参考条目”）。 */
+const refSets = computed(() =>
+  props.row.kind === "item" ? referenceSetsFor(store.metadata, props.row.id) : [],
+);
+
+/** 组对应的区域计数读数（“当前计数”行；无映射为 null）。 */
+const groupCounter = computed(() =>
+  props.row.kind === "group" && report.value
+    ? counterReadingForGroup(store.metadata, report.value, props.row.location.guide_group_id)
+    : null,
+);
+
 /** 攻略动作文案：旧快照/门禁关闭时一律降级为一般来源阅读。 */
 const sourceActionLabel = computed(() => {
   if (actionClosed.value) {
@@ -161,19 +186,45 @@ function copyLead(): void {
   ];
   const text = lines.filter((line) => line.length > 0).join("\n");
   leadText.value = text;
-  void navigator.clipboard?.writeText?.(text).catch(() => undefined);
+  void copyText(text);
 }
+
+/** 当前行所属定位线索（组行用自身；单项用其线索）。 */
+const locationId = computed(() => props.row.kind === "group" ? props.row.location.location_id : (props.row.location?.location_id ?? null));
+
+/** 链接动作状态（解析/打开/复制；含错误与已核验 URL）。 */
+const linkAction = computed(() => {
+  if (!locationId.value || !primarySource.value) {
+    return null;
+  }
+  return store.linkActionFor(locationId.value, primarySource.value.id);
+});
+
+const linkBusy = computed(
+  () => linkAction.value?.status === "opening" || linkAction.value?.status === "resolving",
+);
 
 function openSource(): void {
   const source = primarySource.value;
-  if (!source) {
+  if (!source || !locationId.value) {
     return;
   }
-  // 模拟数据源：不真正打开浏览器；说明真实接线后的行为（后端校验 + 系统外部浏览器）。
-  store.state.notice = {
-    kind: "info",
-    text: `模拟数据：真实接线后（SX-016）将把已校验链接交给系统浏览器打开——${source.label}（${source.url ?? "无链接"}）；链接不附加存档内容或私人路径。`,
-  };
+  void store.actions.openGuideLink(locationId.value, source.id, source.label);
+}
+
+function copyVerifiedLink(): void {
+  const source = primarySource.value;
+  if (!source || !locationId.value) {
+    return;
+  }
+  void store.actions.copyGuideLink(locationId.value, source.id);
+}
+
+function copySourceLink(sourceRef: string): void {
+  if (!locationId.value) {
+    return;
+  }
+  void store.actions.copyGuideLink(locationId.value, sourceRef);
 }
 </script>
 
@@ -222,7 +273,7 @@ function openSource(): void {
       <div class="flex flex-wrap items-center gap-2 pt-1">
         <UiButton
           size="sm"
-          :disabled="!primarySource"
+          :disabled="!primarySource || linkBusy"
           :title="
             actionClosed
               ? '旧快照/门禁关闭：仅作一般来源阅读'
@@ -234,13 +285,44 @@ function openSource(): void {
           @click="openSource"
         >
           <ExternalLink :size="16" aria-hidden="true" />
-          {{ sourceActionLabel }}
+          {{ linkBusy ? "正在处理…" : sourceActionLabel }}
+        </UiButton>
+        <UiButton
+          size="sm"
+          variant="ghost"
+          :disabled="!primarySource || linkBusy"
+          :title="primarySource ? `复制已核验链接：${primarySource.label}` : '没有可用来源'"
+          data-testid="copy-verified-link"
+          @click="copyVerifiedLink"
+        >
+          <Copy :size="16" aria-hidden="true" />
+          复制已核验链接
         </UiButton>
         <UiButton size="sm" variant="ghost" data-testid="copy-lead" @click="copyLead">
           <Copy :size="16" aria-hidden="true" />
           复制可用线索
         </UiButton>
       </div>
+
+      <p v-if="linkAction && linkAction.status === 'opened'" class="text-[13px] text-success" data-testid="link-opened">
+        已在系统浏览器打开（WebView 不加载网页）。
+        <span class="mono break-all">{{ linkAction.url }}</span>
+      </p>
+      <p v-else-if="linkAction && linkAction.status === 'copied'" class="text-[13px] text-success" data-testid="link-copied">
+        已复制已核验链接：
+        <span class="mono break-all">{{ linkAction.url }}</span>
+      </p>
+      <CoverageNotice
+        v-else-if="linkAction && linkAction.status === 'error' && linkAction.error"
+        tone="danger"
+        test-id="link-error"
+        :title="`链接操作失败：${linkAction.error.code}`"
+        :lines="[linkAction.error.message, recoveryHint(linkAction.error) ?? '可重试或复制可用线索。']"
+      >
+        <UiButton size="sm" :disabled="linkBusy" @click="openSource">重试打开</UiButton>
+        <UiButton size="sm" variant="ghost" :disabled="linkBusy" @click="copyVerifiedLink">复制已核验链接</UiButton>
+      </CoverageNotice>
+
       <p class="text-xs text-muted">
         说明：未建立内部 ID 与攻略编号的一对一映射，当前无已验证坐标；链接不附加存档内容或私人路径。
       </p>
@@ -289,7 +371,7 @@ function openSource(): void {
       </ul>
     </section>
 
-    <UiEvidenceDetails summary="原始证据与来源" hint="全部候选名/记录/偏移/来源版本">
+    <UiEvidenceDetails summary="原始证据与来源" hint="全部候选名/记录/偏移/规则/参考集/来源版本">
       <p>ID：<span class="mono">{{ props.row.kind === "group" ? props.row.location.guide_group_id : props.row.id }}</span></p>
       <p v-if="props.row.kind === 'item'">
         候选内部名：<span class="mono">{{ store.metadata.items[props.row.id]?.aliases.join("；") || "（无）" }}</span>
@@ -301,6 +383,39 @@ function openSource(): void {
       <p v-if="props.row.kind === 'group' && props.row.location.target_count !== null">
         组目标数：{{ props.row.location.target_count }}
       </p>
+      <p v-if="groupCounter" data-testid="detail-group-counter">
+        当前区域计数：{{ groupCounter.label }} {{ groupCounter.value ?? "未知" }}/{{ groupCounter.target ?? "未知" }}
+        <span class="mono">（{{ groupCounter.counterKey }}）</span>
+        <span v-if="!groupCounter.withinSourceTarget" class="text-caution">
+          · 计数待核对（原始读数 {{ groupCounter.rawValue }}）
+        </span>
+      </p>
+
+      <!-- 表位置：保留全部原始记录（重复 ID 不去重） -->
+      <p v-if="props.row.kind === 'item'" data-testid="detail-table-position">
+        <template v-if="records.length > 0">
+          表位置：
+          <span v-for="(record, index) in records" :key="`${record.table}-${record.index}`"
+            ><span v-if="index > 0">；</span>表 <span class="mono">{{ record.table }}</span> #{{ record.index }} ·
+            偏移 <span class="mono">{{ record.id_offset_hex }}</span> · 伴随字
+            <span class="mono">{{ record.raw_companion_hex }}</span></span
+          >
+        </template>
+        <template v-else>表位置：当前物品表中无该 ID 的记录（未观察到）</template>
+      </p>
+
+      <!-- 参考集：命中集合与类别；未命中不推断“非参考条目” -->
+      <p v-if="props.row.kind === 'item'" data-testid="detail-reference-sets">
+        <template v-if="refSets.length > 0">
+          参考集合：
+          <span v-for="(set, index) in refSets" :key="set.id"
+            ><span v-if="index > 0">；</span><span class="mono">{{ set.id }}</span>（版本 {{ set.version }}；类别
+            {{ set.categories.join("、") }}）</span
+          >
+        </template>
+        <template v-else>参考集合：未命中任何内部参考类别（仅保留原始观察）</template>
+      </p>
+
       <ul class="space-y-0.5">
         <li v-for="entry in evidenceEntries" :key="entry.evidence_id">
           <span class="mono">{{ entry.evidence_id }}</span>：{{ entry.method }}
@@ -310,8 +425,19 @@ function openSource(): void {
         </li>
       </ul>
       <p v-if="sources.length">
-        来源：<span v-for="(source, index) in sources" :key="source.id"
-          ><span v-if="index > 0">；</span>{{ source.label }} <span class="mono">{{ source.url ?? "（无链接，仅书面记录）" }}</span></span
+        来源：
+        <span v-for="(source, index) in sources" :key="source.id"
+          ><span v-if="index > 0">；</span>{{ source.label }}
+          <span class="mono">{{ source.url ?? "（无链接，仅书面记录）" }}</span>
+          <button
+            v-if="source.url"
+            type="button"
+            class="ml-1 cursor-pointer text-accent-strong hover:underline"
+            :aria-label="`复制已核验链接：${source.label}`"
+            @click="copySourceLink(source.id)"
+          >
+            复制链接
+          </button></span
         >
       </p>
       <p v-if="report">

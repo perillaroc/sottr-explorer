@@ -303,6 +303,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `analyze_file` | 稳定快照读取 + 同核心分析 | 返回 `DesktopResult`；见下“请求与快照语义” |
 | `cancel_analysis` | 取消在飞请求 | 已完成/未知返回 `cancelled=false`；取消不产生成功报告 |
 | `export_report` | 导出当前快照（JSON/CSV） | 目标必须是新目录且与输入不重叠；默认分享脱敏；旧结果携带 `stale` 与刷新错误码 |
+| `resolve_guide_link` | 仅解析/校验攻略来源链接（不打开） | 与 `open_guide_link` 同一校验路径；供“复制已核验链接”等无副作用操作 |
 | `open_guide_link` | 打开攻略来源链接 | 只接受 `snapshot_id`/`location_id`/`source_ref` 稳定 ID；URL 从元数据解析并校验 http/https 后交给系统外部浏览器 |
 
 请求与快照语义（开发方案 SX-014 的“界面接线补充”）：

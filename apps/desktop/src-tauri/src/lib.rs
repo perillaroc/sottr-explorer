@@ -6,7 +6,7 @@
 //!
 //! 边界（开发方案 SX-014 与「只读安全与隐私设计」）：
 //!
-//! - 仅开放选择输入、列候选、分析、取消、导出、打开核验链接所需命令；
+//! - 仅开放选择输入、列候选、分析、取消、导出、解析/打开核验链接所需命令；
 //!   不开放任意文件读写、shell 执行或外部页面加载；
 //! - 分析调用 `sottr_core::analyze::analyze_bytes`（与 CLI 同一核心），返回
 //!   SX-003 契约的 [`sottr_core::report::DesktopResult`] 信封；
@@ -50,6 +50,7 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             commands::analyze_file,
             commands::cancel_analysis,
             commands::export_report,
+            commands::resolve_guide_link,
             commands::open_guide_link
         ])
         .setup(|app| {

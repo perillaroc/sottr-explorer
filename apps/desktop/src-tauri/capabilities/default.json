@@ -14,6 +14,7 @@
     "allow-analyze-file",
     "allow-cancel-analysis",
     "allow-export-report",
+    "allow-resolve-guide-link",
     "allow-open-guide-link"
   ]
 }

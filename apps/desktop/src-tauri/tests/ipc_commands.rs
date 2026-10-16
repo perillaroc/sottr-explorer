@@ -872,6 +872,99 @@ fn guide_links_are_metadata_verified_and_never_carry_private_paths() {
 }
 
 #[test]
+fn resolve_guide_link_verifies_without_opening() {
+    let temp = TempDir::new("resolve-guide");
+    let path = temp.join("save1.dat");
+    write_campaign_fixture(&path, &[0x0F28B6EC]);
+    let app = build_app();
+
+    let result = analyze(&app.webview, "req-resolve", &path, "campaign");
+    let snapshot_id = result.snapshot_id.expect("快照标识");
+    let location_id = "loc:stella:san-juan-caches";
+
+    // 成功解析：返回已校验 URL 与时效，但不触发系统浏览器。
+    let value = invoke(
+        &app.webview,
+        "resolve_guide_link",
+        json!({
+            "snapshotId": snapshot_id,
+            "locationId": location_id,
+            "sourceRef": "src:stella-san-juan",
+        }),
+    )
+    .expect("元数据来源链接应可解析");
+    let url = value["url"].as_str().expect("url 字段");
+    assert!(url.starts_with("https://"), "只允许 http/https：{url}");
+    assert_eq!(value["freshness"], json!("current"));
+    assert!(!url.contains(&temp.display()), "链接不得携带私人路径");
+    assert_eq!(
+        app.opened_urls
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .len(),
+        0,
+        "仅解析不得打开系统浏览器"
+    );
+
+    // 错误语义与 open_guide_link 一致（未知定位/来源/无 URL/未知快照）。
+    let error = invoke(
+        &app.webview,
+        "resolve_guide_link",
+        json!({
+            "snapshotId": snapshot_id,
+            "locationId": "loc:not-exist",
+            "sourceRef": "src:stella-san-juan",
+        }),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_LINK_LOCATION_UNKNOWN);
+    let error = invoke(
+        &app.webview,
+        "resolve_guide_link",
+        json!({
+            "snapshotId": snapshot_id,
+            "locationId": location_id,
+            "sourceRef": "src:trrebootmodtools-dict",
+        }),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_LINK_SOURCE_UNKNOWN);
+    let error = invoke(
+        &app.webview,
+        "resolve_guide_link",
+        json!({
+            "snapshotId": snapshot_id,
+            "locationId": location_id,
+            "sourceRef": "src:plan-doc",
+        }),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_LINK_URL_UNSUPPORTED);
+    let error = invoke(
+        &app.webview,
+        "resolve_guide_link",
+        json!({"snapshotId": "snap-unknown", "locationId": location_id, "sourceRef": "src:stella-san-juan"}),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_SNAPSHOT_UNKNOWN);
+    let error = invoke(
+        &app.webview,
+        "resolve_guide_link",
+        json!({"snapshotId": snapshot_id, "locationId": " ", "sourceRef": " "}),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_INVALID_PARAMS);
+    assert_eq!(
+        app.opened_urls
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .len(),
+        0,
+        "解析失败也不得打开系统浏览器"
+    );
+}
+
+#[test]
 fn list_candidates_maps_files_and_rejects_bad_roots() {
     let temp = TempDir::new("list");
     std::fs::write(temp.join("save3.dat"), b"x").expect("save3");
@@ -971,7 +1064,12 @@ fn select_input_rejects_invalid_kind() {
 /// （结果 JSON 路径）时，经 IPC 分析该文件并把 `DesktopResult` 写入输出文件，
 /// 供与 CLI 的 `analysis.json` 逐字段对照；未设置时安静跳过（不记为通过）。
 ///
-/// 可选环境变量：`SOTTR_DESKTOP_E2E_CONTEXT`（默认 `campaign`）。
+/// 可选环境变量：
+/// - `SOTTR_DESKTOP_E2E_CONTEXT`（默认 `campaign`）；
+/// - `SOTTR_DESKTOP_E2E_EXPORT_DIR`（尚不存在的新目录）：在分析之后走
+///   `export_report`（JSON+CSV、分享脱敏），并断言产物落盘且不含私人路径；
+/// - `SOTTR_DESKTOP_E2E_RESOLVE_SOURCE`：在分析之后走 `resolve_guide_link`
+///   校验来源链接（默认尝试 `src:stella-san-juan` 的圣胡安攻略组线索）。
 #[test]
 fn real_fixture_end_to_end_writes_contract_result() {
     let Ok(input) = std::env::var("SOTTR_DESKTOP_E2E_INPUT") else {
@@ -994,6 +1092,86 @@ fn real_fixture_end_to_end_writes_contract_result() {
     let text = serde_json::to_string_pretty(&value).expect("序列化端到端结果");
     std::fs::write(&out, text).expect("写端到端结果");
     eprintln!("真实夹具端到端结果已写入：{out}");
+
+    // 端到端导出（可选）：同一快照 → 新目录 → 产物落盘且分享脱敏。
+    if let Ok(export_dir) = std::env::var("SOTTR_DESKTOP_E2E_EXPORT_DIR") {
+        let snapshot_id = result.snapshot_id.clone().expect("成功结果必须有快照标识");
+        let input_ref = result.input_ref.clone();
+        let export = invoke(
+            &app.webview,
+            "export_report",
+            json!({
+                "snapshotId": snapshot_id,
+                "inputRef": input_ref,
+                "outputDir": export_dir,
+                "format": "both",
+                "share": true,
+            }),
+        )
+        .expect("真实快照应可导出");
+        assert_eq!(export["share"], json!(true));
+        let artifacts = export["artifacts"].as_array().expect("artifacts 数组");
+        assert_eq!(artifacts.len(), 2, "JSON+CSV 两个产物");
+        for artifact in artifacts {
+            let name = artifact["name"].as_str().expect("产物名");
+            let path = PathBuf::from(artifact["path"].as_str().expect("产物路径"));
+            assert!(path.is_file(), "产物必须落盘：{}", path.display());
+            let contents = std::fs::read_to_string(&path).expect("读取产物");
+            assert!(
+                !contents.contains(&input),
+                "{name} 分享导出不得包含输入的绝对路径"
+            );
+            if let Some(parent) = Path::new(&input).parent() {
+                let parent_text = parent.to_string_lossy().into_owned();
+                assert!(
+                    !contents.contains(&parent_text),
+                    "{name} 分享导出不得包含输入所在目录（{parent_text}）"
+                );
+            }
+        }
+        eprintln!("真实夹具端到端导出已写入：{export_dir}");
+    }
+
+    // 端到端链接解析（可选）：解析后 URL 已校验、打开器未被触发。
+    let resolve_source = std::env::var("SOTTR_DESKTOP_E2E_RESOLVE_SOURCE")
+        .unwrap_or_else(|_| "src:stella-san-juan".to_string());
+    if let Some(report) = result.report.as_ref() {
+        let location = report.locations.iter().find(|location| {
+            location
+                .source_refs
+                .iter()
+                .any(|source| source == &resolve_source)
+        });
+        if let Some(location) = location {
+            let snapshot_id = result.snapshot_id.clone().expect("成功结果必须有快照标识");
+            let opened_before = app
+                .opened_urls
+                .lock()
+                .unwrap_or_else(|poisoned| poisoned.into_inner())
+                .len();
+            let link = invoke(
+                &app.webview,
+                "resolve_guide_link",
+                json!({
+                    "snapshotId": snapshot_id,
+                    "locationId": location.location_id,
+                    "sourceRef": resolve_source,
+                }),
+            )
+            .expect("真实报告的攻略来源应可解析");
+            let url = link["url"].as_str().expect("url 字段");
+            assert!(url.starts_with("https://"), "只允许 http/https：{url}");
+            let opened_after = app
+                .opened_urls
+                .lock()
+                .unwrap_or_else(|poisoned| poisoned.into_inner())
+                .len();
+            assert_eq!(opened_after, opened_before, "仅解析不得打开系统浏览器");
+            eprintln!("真实夹具链接解析：{} -> {url}", location.location_id);
+        } else {
+            eprintln!("真实报告中未找到含 {resolve_source} 的定位线索，跳过链接解析对照");
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

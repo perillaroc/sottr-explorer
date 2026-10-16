@@ -40,7 +40,7 @@ const classes = computed(() => {
     case "danger":
       return `${base} border-danger/40 bg-danger-bg text-danger`;
     case "accent":
-      return `${base} border-accent/40 bg-accent-bg text-accent`;
+      return `${base} border-accent/40 bg-accent-bg text-accent-strong`;
     default:
       return `${base} border-line bg-raised text-muted`;
   }

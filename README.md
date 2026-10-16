@@ -12,10 +12,13 @@ Python v0.2 差分回归、JSON/CSV 导出与分享脱敏）已实现；**G2 出
 G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`：Known Folder/OneDrive
 目录发现与路径策略，CLI 已接线，Windows 实机测试通过）；**SX-013 完成**（稳定快照读取与
 输出提交：句柄约束读取、读取前后指纹/摘要复核、独占新目标与受控临时文件，CLI 已接线）；
-**SX-014 完成**（Tauri 最小权限命令层：选择输入、列候选、分析、取消、导出、打开核验链接；
+**SX-014 完成**（Tauri 最小权限命令层：选择输入、列候选、分析、取消、导出、解析/打开核验链接；
 权限清单与 CSP、IPC 集成测试与权限/CSP 静态审查）；**SX-015 完成**（契约驱动的界面外壳：
 槽位选择、概览、区域与收集、详情、诊断、设置；视觉令牌与明暗主题；加载/空/错误/降级/过期/
-取消状态；模拟数据演示与交互验收记录）。真实分析与界面接线、物品证据与端到端流程在 SX-016。
+取消状态；模拟数据演示与交互验收记录）；**SX-016 完成**（真实接线与端到端：前端改用
+`TauriDataSource` 调用真实命令；导出对话框（JSON/CSV、分享脱敏、目标新目录、过期标记）；
+攻略链接解析/打开与失败恢复（复制已核验链接）；详情补齐表位置/参考集/组计数与来源链接；
+端到端测试（假后端 IPC 全流程 + Rust 真实夹具分析→导出→链接解析 + 真实输出绑定界面）。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
@@ -30,7 +33,7 @@ G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`
 | `crates/sottr-core/tests/parity/` | Python v0.2 差分回归（SX-010）：规范化适配器、私有/公开夹具清单与差异报告 |
 | `crates/sottr-cli/` | 命令行入口（`analyze` 批量分析；`export` 导出信封与 CSV，支持分享脱敏） |
 | `crates/sottr-platform/` | 平台适配层（SX-012/SX-013/SX-014）：Windows Known Folder/OneDrive 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）、输出提交（独占新目标/受控临时文件）与快照时钟；CLI 与桌面后端共用，零第三方依赖 |
-| `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 模拟数据源（`src/data/`）与组件测试（`tests/`，55 项） |
+| `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`resolve_guide_link`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015/SX-016）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 真实数据源 `TauriDataSource`（`src/data/tauri.ts`）与模拟数据源；导出对话框与攻略链接动作；组件/状态/端到端测试（`tests/`，80 项 + 1 项真实输出绑定（需环境变量）） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
 | `schemas/` | 报告、批量、桌面信封、导出与元数据 JSON Schema（契约 1.0.0） |
@@ -67,13 +70,15 @@ py -3 data/metadata/build_metadata.py --check   # 元数据与 manifest 哈希�
 cd apps/desktop
 pnpm install
 pnpm build                     # vue-tsc 类型检查（含 tests/）+ vite 构建
-pnpm test                      # 组件/状态测试：Vitest + jsdom（SX-015；键盘、焦点、宽度、状态隔离）
+pnpm test                      # 组件/状态/端到端测试：Vitest + jsdom（SX-015/SX-016：键盘、焦点、宽度、状态隔离、导出与链接流程、假后端 IPC 全流程）
+#   真实输出绑定（可选）：$env:SOTTR_DESKTOP_E2E_RESULT = "<Rust 端到端 DesktopResult JSON>" 后重跑
 pnpm contract:validate         # 契约夹具与 data/metadata 真实数据：合法通过 / 非法拒绝 / u64 表示边界
 pnpm contract:document -- --schema batch --file <analysis.json>   # 复核 CLI 输出
 pnpm contract:types            # 由 schemas/ 重新生成 src/contract/*.d.ts
 pnpm contract:check            # 上述校验 + 类型生成 + vue-tsc 联合检查
-pnpm dev                       # 前端开发服务器（http://127.0.0.1:1420；模拟数据演示）
-#   ?mockWidth=800..1440 可模拟“有效内容宽度”做宽度验收（仅模拟模式）
+pnpm dev                       # 前端开发服务器（http://127.0.0.1:1420；浏览器内为模拟数据演示）
+#   ?mock=1 可在 Tauri 内强制模拟数据源；?mockWidth=800..1440 模拟“有效内容宽度”；
+#   ?mockLinkFail=1 演示“系统浏览器打开失败”的恢复路径（均仅模拟模式）
 ```
 
 Python 研究参照（仅标准库，Python 3.10+）：

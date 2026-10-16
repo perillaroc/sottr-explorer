@@ -83,6 +83,19 @@ export class ControlledSource implements DataSource {
     this.cancelledIds.push(requestId);
   }
 
+  /** 受控源不提供导出/链接（SX-016 的端到端用例使用 MockDataSource 或 Tauri 桩）。 */
+  async exportReport(): Promise<never> {
+    throw new Error("ControlledSource 不支持导出");
+  }
+
+  async resolveGuideLink(): Promise<never> {
+    throw new Error("ControlledSource 不支持链接解析");
+  }
+
+  async openGuideLink(): Promise<never> {
+    throw new Error("ControlledSource 不支持链接打开");
+  }
+
   get pendingCount(): number {
     return this.pending.length;
   }

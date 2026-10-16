@@ -852,6 +852,20 @@ pub async fn export_report(
 // 命令：攻略链接
 // ---------------------------------------------------------------------------
 
+/// 解析当前报告的攻略来源链接（只校验与解析，不打开系统浏览器）。
+///
+/// 供“复制已核验链接”等无副作用路径使用：返回已校验的 http/https 地址与
+/// 快照时效、组门禁结论；打开失败与解析失败因此在界面上可分别处理。
+#[tauri::command]
+pub fn resolve_guide_link(
+    state: State<'_, DesktopState>,
+    snapshot_id: String,
+    location_id: String,
+    source_ref: String,
+) -> Result<GuideLink, CommandError> {
+    resolve_link(&state, &snapshot_id, &location_id, &source_ref)
+}
+
 /// 打开当前报告的攻略来源链接（只允许元数据来源中的 http/https 地址）。
 ///
 /// 前端提交 `snapshot_id`/`location_id`/`source_ref` 稳定 ID；后端从该快照的
@@ -864,6 +878,18 @@ pub fn open_guide_link(
     location_id: String,
     source_ref: String,
 ) -> Result<GuideLink, CommandError> {
+    let link = resolve_link(&state, &snapshot_id, &location_id, &source_ref)?;
+    state.open_url(&link.url)?;
+    Ok(link)
+}
+
+/// 攻略链接的公共校验与解析（打开与仅解析命令共用）。
+fn resolve_link(
+    state: &DesktopState,
+    snapshot_id: &str,
+    location_id: &str,
+    source_ref: &str,
+) -> Result<GuideLink, CommandError> {
     if snapshot_id.trim().is_empty()
         || location_id.trim().is_empty()
         || source_ref.trim().is_empty()
@@ -872,11 +898,7 @@ pub fn open_guide_link(
             "snapshot_id、location_id 与 source_ref 都不能为空",
         ));
     }
-    let link = state.with_session(|session| {
-        session.resolve_guide_link(&snapshot_id, &location_id, &source_ref)
-    })?;
-    state.open_url(&link.url)?;
-    Ok(link)
+    state.with_session(|session| session.resolve_guide_link(snapshot_id, location_id, source_ref))
 }
 
 #[cfg(test)]

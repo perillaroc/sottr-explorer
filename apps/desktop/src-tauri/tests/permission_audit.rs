@@ -15,6 +15,7 @@ const EXPECTED_COMMANDS: &[&str] = &[
     "analyze_file",
     "cancel_analysis",
     "export_report",
+    "resolve_guide_link",
     "open_guide_link",
 ];
 

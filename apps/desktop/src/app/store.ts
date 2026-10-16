@@ -14,11 +14,17 @@ import type { MetadataDataset } from "../contract/metadata";
 import type {
   AnalyzeRequest,
   CandidateFileDto,
+  CommandErrorDto,
   DataSource,
   DiscoverOutcomeDto,
+  ExportFormat,
+  ExportOutcomeDto,
   InputError,
+  PickKind,
   Purpose,
 } from "../data/source";
+import { toCommandError } from "../data/errors";
+import { copyText } from "./clipboard";
 import { demoMetadata } from "../data/metadata";
 import {
   buildRows,
@@ -59,6 +65,32 @@ export interface AnalysisState {
   startedAt: number;
 }
 
+/** 导出对话框状态（SX-016）：JSON/CSV、分享脱敏、目标新目录与结果/错误。 */
+export interface ExportState {
+  open: boolean;
+  format: ExportFormat;
+  share: boolean;
+  /** 目标位置的父目录（用户选择或手动输入）。 */
+  parent: string | null;
+  /** 目标新目录名（导出不覆盖：同名目录已存在时报 OUTPUT_EXISTS）。 */
+  folder: string;
+  status: "edit" | "exporting" | "success" | "error";
+  outcome: ExportOutcomeDto | null;
+  error: CommandErrorDto | null;
+  /** 失败后可一键采用的替代目录名（如 OUTPUT_EXISTS）。 */
+  suggestedFolder: string | null;
+}
+
+/** 攻略链接动作状态（解析/打开/复制；错误保留位置便于重试）。 */
+export interface LinkActionState {
+  locationId: string;
+  sourceRef: string;
+  kind: "open" | "copy";
+  status: "resolving" | "opening" | "opened" | "copied" | "error";
+  url: string | null;
+  error: CommandErrorDto | null;
+}
+
 export interface AppState {
   booted: boolean;
   /** 数据源类型：mock 时界面显著标注模拟数据。 */
@@ -91,6 +123,10 @@ export interface AppState {
   listScrollTop: number;
   /** Ctrl+F 焦点请求计数：区域页监听并聚焦搜索框。 */
   searchFocusToken: number;
+  /** 导出对话框（SX-016）。 */
+  exportState: ExportState;
+  /** 详情内的攻略链接动作（SX-016；null 表示无进行中的动作）。 */
+  linkAction: LinkActionState | null;
 }
 
 export interface CreateStoreOptions {
@@ -147,6 +183,18 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     mockWidth: null,
     listScrollTop: 0,
     searchFocusToken: 0,
+    exportState: {
+      open: false,
+      format: "both",
+      share: true,
+      parent: null,
+      folder: "",
+      status: "edit",
+      outcome: null,
+      error: null,
+      suggestedFolder: null,
+    },
+    linkAction: null,
   });
 
   let requestCounter = 0;
@@ -355,13 +403,13 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.purpose = purpose;
   }
 
-  async function pickInput(kind: "file" | "directory"): Promise<void> {
+  async function pickInput(kind: PickKind): Promise<void> {
     const picked = await source.pick(kind);
     if (!picked) {
       // 取消系统文件选择器：返回原页，不显示错误。
       return;
     }
-    if (kind === "directory") {
+    if (kind === "save-directory") {
       await openRoot(picked);
       state.view = "import";
       return;
@@ -450,6 +498,231 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
 
   function openImport(): void {
     state.view = "import";
+  }
+
+  // -------------------------------------------------------------------------
+  // 导出（SX-016）：JSON/CSV、分享脱敏、目标新目录；绑定当前快照
+  // -------------------------------------------------------------------------
+
+  /** 导出是否可用：必须有当前报告且没有在飞分析（报告未完成不能导出）。 */
+  const canExport = computed<boolean>(
+    () => (currentSlot.value?.result ?? null) !== null && state.analysis === null,
+  );
+
+  /** 目标完整路径（父目录 + 新目录名）。 */
+  const exportTargetPath = computed<string | null>(() => {
+    const { parent, folder } = state.exportState;
+    if (!parent || folder.trim().length === 0) {
+      return null;
+    }
+    return `${parent.replace(/[\\/]+$/, "")}\\${folder.trim()}`;
+  });
+
+  /** 默认目录名：本地时间戳，避免与既有导出目录同名。 */
+  function defaultExportFolder(): string {
+    const now = new Date();
+    const pad = (value: number) => String(value).padStart(2, "0");
+    const stamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    return `sottr-explorer-${stamp}`;
+  }
+
+  function openExportDialog(): void {
+    if (!state.selectedPath || !currentSlot.value?.result) {
+      notify("warning", "没有可导出的报告：请先分析当前槽位。");
+      return;
+    }
+    if (state.analysis) {
+      notify("warning", "分析/刷新进行中：完成后再导出，避免导出与快照不一致。");
+      return;
+    }
+    state.exportState = {
+      open: true,
+      format: "both",
+      // 默认分享脱敏；用户取消勾选才导出完整本地信息。
+      share: true,
+      parent: state.exportState.parent,
+      folder: state.exportState.folder || defaultExportFolder(),
+      status: "edit",
+      outcome: null,
+      error: null,
+      suggestedFolder: null,
+    };
+  }
+
+  function closeExportDialog(): void {
+    // 取消导出：静默返回，不改动任何已有产物。
+    state.exportState.open = false;
+  }
+
+  function setExportFormat(format: ExportFormat): void {
+    state.exportState.format = format;
+  }
+
+  function setExportShare(share: boolean): void {
+    state.exportState.share = share;
+  }
+
+  function setExportFolder(folder: string): void {
+    state.exportState.folder = folder;
+  }
+
+  function setExportParent(parent: string | null): void {
+    state.exportState.parent = parent;
+  }
+
+  async function pickExportParent(): Promise<void> {
+    const picked = await source.pick("export-directory");
+    if (picked) {
+      state.exportState.parent = picked;
+    }
+    // 用户取消选择器：静默返回，不改动表单。
+  }
+
+  async function runExport(): Promise<void> {
+    const slot = currentSlot.value;
+    const result = slot?.result ?? null;
+    if (!result || !result.snapshot_id) {
+      notify("warning", "没有可导出的报告：请先分析当前槽位。");
+      return;
+    }
+    if (state.analysis) {
+      notify("warning", "分析/刷新进行中，暂不能导出。");
+      return;
+    }
+    const target = exportTargetPath.value;
+    if (!target) {
+      state.exportState.status = "error";
+      state.exportState.error = {
+        code: "INVALID_PARAMS",
+        message: "请先选择目标位置并填写新目录名",
+      };
+      return;
+    }
+    state.exportState.status = "exporting";
+    state.exportState.error = null;
+    state.exportState.outcome = null;
+    try {
+      const outcome = await source.exportReport({
+        snapshotId: result.snapshot_id,
+        inputRef: result.input_ref,
+        outputDir: target,
+        format: state.exportState.format,
+        share: state.exportState.share,
+      });
+      state.exportState.status = "success";
+      state.exportState.outcome = outcome;
+      state.exportState.suggestedFolder = null;
+      notify(
+        outcome.freshness === "stale" ? "warning" : "success",
+        outcome.freshness === "stale"
+          ? `已导出旧快照（含过期标记）：${outcome.artifacts.map((artifact) => artifact.path).join("；")}`
+          : `已导出：${outcome.artifacts.map((artifact) => artifact.path).join("；")}`,
+      );
+    } catch (error) {
+      const commandError = toCommandError(error);
+      state.exportState.status = "error";
+      state.exportState.error = commandError;
+      if (commandError.code === "OUTPUT_EXISTS") {
+        state.exportState.suggestedFolder = defaultExportFolder();
+      }
+    }
+  }
+
+  /** 采用建议的新目录名后回到编辑状态（重试路径）。 */
+  function applySuggestedExportFolder(): void {
+    if (!state.exportState.suggestedFolder) {
+      return;
+    }
+    state.exportState.folder = state.exportState.suggestedFolder;
+    state.exportState.suggestedFolder = null;
+    state.exportState.error = null;
+    state.exportState.status = "edit";
+  }
+
+  // -------------------------------------------------------------------------
+  // 攻略链接（SX-016）：解析/打开绑定当前快照；失败保留位置以便重试
+  // -------------------------------------------------------------------------
+
+  const linkActionFor = (locationId: string, sourceRef: string): LinkActionState | null => {
+    const action = state.linkAction;
+    if (!action || action.locationId !== locationId || action.sourceRef !== sourceRef) {
+      return null;
+    }
+    return action;
+  };
+
+  async function runLinkAction(
+    kind: "open" | "copy",
+    locationId: string,
+    sourceRef: string,
+    label: string,
+  ): Promise<void> {
+    const result = currentSlot.value?.result ?? null;
+    if (!result || !result.snapshot_id || !result.report) {
+      notify("warning", "没有可用的报告：请先分析当前槽位。");
+      return;
+    }
+    const request = { snapshotId: result.snapshot_id, locationId, sourceRef };
+    state.linkAction = {
+      locationId,
+      sourceRef,
+      kind,
+      status: kind === "open" ? "opening" : "resolving",
+      url: null,
+      error: null,
+    };
+    try {
+      if (kind === "open") {
+        const link = await source.openGuideLink(request);
+        state.linkAction = {
+          locationId,
+          sourceRef,
+          kind,
+          status: "opened",
+          url: link.url,
+          error: null,
+        };
+        notify("success", `已在系统浏览器打开：${label}（WebView 不加载网页）`);
+      } else {
+        const link = await source.resolveGuideLink(request);
+        const copied = await copyText(link.url);
+        state.linkAction = {
+          locationId,
+          sourceRef,
+          kind,
+          status: "copied",
+          url: link.url,
+          error: null,
+        };
+        notify(
+          copied ? "success" : "warning",
+          copied
+            ? "已复制已核验链接（不含存档内容或私人路径）"
+            : "复制失败：可在下方选择链接文本手动复制",
+        );
+      }
+    } catch (error) {
+      state.linkAction = {
+        locationId,
+        sourceRef,
+        kind,
+        status: "error",
+        url: null,
+        error: toCommandError(error),
+      };
+    }
+  }
+
+  function openGuideLink(locationId: string, sourceRef: string, label: string): Promise<void> {
+    return runLinkAction("open", locationId, sourceRef, label);
+  }
+
+  function copyGuideLink(locationId: string, sourceRef: string): Promise<void> {
+    return runLinkAction("copy", locationId, sourceRef, sourceRef);
+  }
+
+  function clearLinkAction(): void {
+    state.linkAction = null;
   }
 
   // -------------------------------------------------------------------------
@@ -589,6 +862,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     observedTotal,
     unknownTotal,
     metadataVersion: metadata.metadata_version,
+    canExport,
+    exportTargetPath,
+    /** 某定位来源当前的链接动作（无则 null）。 */
+    linkActionFor,
     actions: {
       boot,
       rescan,
@@ -601,6 +878,18 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       refresh,
       switchSlot,
       openImport,
+      openExportDialog,
+      closeExportDialog,
+      setExportFormat,
+      setExportShare,
+      setExportFolder,
+      setExportParent,
+      pickExportParent,
+      runExport,
+      applySuggestedExportFolder,
+      openGuideLink,
+      copyGuideLink,
+      clearLinkAction,
       setView,
       setRegion,
       setStatusFilter,

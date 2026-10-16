@@ -23,7 +23,7 @@ const baseItem =
   "flex w-full items-center gap-2 rounded-[6px] px-2 py-[7px] text-left text-[13px] disabled:cursor-not-allowed disabled:opacity-60";
 
 function itemClass(active: boolean): string {
-  return `${baseItem} ${active ? "bg-accent-bg text-accent" : "text-ink hover:bg-raised"}`;
+  return `${baseItem} ${active ? "bg-accent-bg text-accent-strong" : "text-ink hover:bg-raised"}`;
 }
 
 function go(view: "import" | "overview" | "regions" | "diagnostics" | "settings"): void {

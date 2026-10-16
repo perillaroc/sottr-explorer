@@ -31,12 +31,29 @@ const regionOptions = computed(() =>
   })),
 );
 
-const statusOptions = computed<ChipOption[]>(() => [
-  { value: "missing", label: "参考遗漏推定", count: counts.value.missing },
-  { value: "observed", label: "已观察", count: counts.value.observed },
-  { value: "unknown", label: "状态未知", count: counts.value.unknown },
-  { value: "all", label: "全部", count: counts.value.all, title: "“全部”仅指本页当前支持的收集品集合" },
-]);
+const statusOptions = computed<ChipOption[]>(() => {
+  const missingAvailable = store.missingAvailable.value;
+  return [
+    {
+      value: "missing",
+      label: "参考遗漏推定",
+      count: counts.value.missing,
+      // 表不完整/参考差集不可用时禁用入口并就地说明（不用空清单冒充“没有遗漏”）。
+      disabled: !missingAvailable,
+      title: missingAvailable
+        ? "在适用参考集合中存在、当前完整物品表未观察到"
+        : "本次无法判断遗漏：表不完整或参考差集不可用（当前报告能力）",
+    },
+    { value: "observed", label: "已观察", count: counts.value.observed },
+    { value: "unknown", label: "状态未知", count: counts.value.unknown },
+    {
+      value: "all",
+      label: "全部",
+      count: counts.value.all,
+      title: "“全部”仅指本页当前支持的收集品集合",
+    },
+  ];
+});
 
 const categoryOptions = computed<ChipOption[]>(() => {
   const base: ChipOption[] = [{ value: "", label: "全部类别" }];
@@ -262,7 +279,7 @@ watch(
 
         <p v-if="remainingHint" class="mt-3 text-xs text-muted" data-testid="remaining-hint">
           {{ remainingHint }}
-          <button type="button" class="cursor-pointer text-accent hover:underline" @click="store.actions.setRegion('all')">查看全部区域</button>
+          <button type="button" class="cursor-pointer text-accent-strong hover:underline" @click="store.actions.setRegion('all')">查看全部区域</button>
         </p>
       </template>
     </div>

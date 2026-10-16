@@ -155,11 +155,11 @@ function rowSummary(candidate: CandidateFileDto) {
       </header>
 
       <div class="flex flex-wrap items-center gap-2">
-        <UiButton variant="primary" @click="store.actions.pickInput('file')">
+        <UiButton variant="primary" @click="store.actions.pickInput('save-file')">
           <FolderOpen :size="16" aria-hidden="true" />
           选择文件
         </UiButton>
-        <UiButton @click="store.actions.pickInput('directory')">
+        <UiButton @click="store.actions.pickInput('save-directory')">
           <Search :size="16" aria-hidden="true" />
           选择文件夹
         </UiButton>
@@ -185,7 +185,7 @@ function rowSummary(candidate: CandidateFileDto) {
               class="flex w-full flex-wrap items-center gap-2 rounded-[8px] border px-3 py-2 text-left text-[13px]"
               :class="
                 isActiveCandidate(candidate) && candidate.status === 'game_found'
-                  ? 'border-accent bg-accent-bg text-accent'
+                  ? 'border-accent bg-accent-bg text-accent-strong'
                   : candidate.status === 'game_found'
                     ? 'cursor-pointer border-line bg-surface text-ink hover:bg-raised'
                     : 'cursor-not-allowed border-line bg-raised text-muted'

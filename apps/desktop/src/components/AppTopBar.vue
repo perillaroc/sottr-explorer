@@ -2,8 +2,7 @@
 // 顶栏（SX-015）：应用名、当前文件与切换、全局分析状态、手动刷新、更多菜单。
 // 全局分析状态靠近文件选择器，明确“正在分析哪个文件”。
 import { computed } from "vue";
-import { ChevronDown, Menu, RefreshCw } from "@lucide/vue";
-import { useStore } from "../app/inject";
+import { ChevronDown, Menu, RefreshCw } from "@lucide/vue";import { useStore } from "../app/inject";
 import { copy } from "../app/labels";
 import { fileNameOf, formatSnapshotTime } from "../app/format";
 import UiButton from "./ui/UiButton.vue";
@@ -42,16 +41,27 @@ const statusText = computed(() => {
   return "尚未分析";
 });
 
-const moreItems: MenuItem[] = [
-  { id: "export-json", label: "导出 JSON（未接线）", disabled: true, reason: "导出接线在 SX-016；当前为模拟数据" },
-  { id: "export-csv", label: "导出 CSV（未接线）", disabled: true, reason: "导出接线在 SX-016；当前为模拟数据" },
+const moreItems = computed<MenuItem[]>(() => [
+  store.canExport.value
+    ? { id: "export", label: "导出当前快照（JSON/CSV）…" }
+    : {
+        id: "export",
+        label: "导出当前快照（JSON/CSV）…",
+        disabled: true,
+        reason: store.state.analysis
+          ? "分析/刷新进行中：完成后再导出"
+          : "没有可导出的报告：请先分析当前槽位",
+      },
   { id: "rescan", label: "重新查找默认目录" },
   { id: "diagnostics", label: "诊断" },
   { id: "settings", label: "设置与关于" },
-];
+]);
 
 function onMore(id: string): void {
   switch (id) {
+    case "export":
+      store.actions.openExportDialog();
+      break;
     case "rescan":
       void store.actions.rescan();
       break;
