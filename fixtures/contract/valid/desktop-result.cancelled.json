@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "request_id": "req-cancelled",
+  "input_ref": "save1.dat",
+  "snapshot_id": null,
+  "snapshot_time": null,
+  "freshness": "none",
+  "last_refresh_error": null,
+  "report": null,
+  "error": null
+}

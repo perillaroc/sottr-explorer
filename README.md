@@ -12,7 +12,8 @@ Python v0.2 差分回归、JSON/CSV 导出与分享脱敏）已实现；**G2 出
 G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`：Known Folder/OneDrive
 目录发现与路径策略，CLI 已接线，Windows 实机测试通过）；**SX-013 完成**（稳定快照读取与
 输出提交：句柄约束读取、读取前后指纹/摘要复核、独占新目标与受控临时文件，CLI 已接线）；
-界面仍为占位骨架，后续任务（SX-014 起）待执行。
+**SX-014 完成**（Tauri 最小权限命令层：选择输入、列候选、分析、取消、导出、打开核验链接；
+权限清单与 CSP、IPC 集成测试与权限/CSP 静态审查）；界面（SX-015 起）待实现。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
@@ -26,8 +27,8 @@ G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`
 | `crates/sottr-core/` | 只读解析与领域核心（纯库：不访问 UI、网络或文件系统；依赖 serde、serde_json 与 flate2） |
 | `crates/sottr-core/tests/parity/` | Python v0.2 差分回归（SX-010）：规范化适配器、私有/公开夹具清单与差异报告 |
 | `crates/sottr-cli/` | 命令行入口（`analyze` 批量分析；`export` 导出信封与 CSV，支持分享脱敏） |
-| `crates/sottr-platform/` | 平台适配层（SX-012/SX-013）：Windows Known Folder/OneDrive 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）与输出提交（独占新目标/受控临时文件）；CLI 与桌面后端共用，零第三方依赖 |
-| `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm） |
+| `crates/sottr-platform/` | 平台适配层（SX-012/SX-013/SX-014）：Windows Known Folder/OneDrive 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）、输出提交（独占新目标/受控临时文件）与快照时钟；CLI 与桌面后端共用，零第三方依赖 |
+| `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs` |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
 | `schemas/` | 报告、批量、桌面信封、导出与元数据 JSON Schema（契约 1.0.0） |
@@ -44,6 +45,7 @@ cargo test
 cargo tree -p sottr-core       # 检查：核心依赖（serde、serde_json、flate2；无 Tauri/网络/文件发现）
 cargo check -p sottr-desktop   # 桌面端后端（Tauri 2；首次编译较慢）
 cargo test -p sottr-platform   # 平台适配层：目录发现/路径策略/稳定快照/输出提交（含 Windows 实机：Known Folder、链接与重解析点、ACL、长路径、占用与路径替换）
+cargo test -p sottr-desktop    # 桌面命令层：IPC 集成测试（MockRuntime）+ 权限/CSP 静态审查（SX-014）
 
 # 只读批量分析（输出目录必须不存在；profile.dat 自动按资料文件处理）
 cargo run -p sottr-cli -- analyze --input <样本目录> --context campaign `
@@ -84,6 +86,7 @@ py -3 -m unittest discover -s tests -v
 - 输入以稳定快照读取：Windows 读取期间由系统拒绝其他写入/删除/改名，读取前后校验指纹与内容摘要；被占用返回可重试的 `INPUT_UNREADABLE`，读取中变化返回 `INPUT_CHANGED`（手动词刷新，不监视文件）
 - 输入与输出只支持本地卷；UNC 与设备命名空间路径明确拒绝；输出必须是不存在的新目录且与输入不重叠（规范路径比较）；输出用独占新目标与受控临时文件提交，符号链接/重解析点被拒绝，失败或取消不留“完整报告”假象
 - 未知状态显式 `unknown`，能力不适用显式 `unsupported`；不用 0 或空清单冒充结论
+- 桌面命令层（SX-014）只开放完成“选择输入 → 列候选 → 分析 → 取消 → 导出 → 打开核验链接”所需命令；前端权限为显式最小集（`core:app/event/path/window` 默认权限 + 7 条应用命令，未开放 opener/dialog/shell/文件系统/图像/菜单/托盘/资源/WebView 查询），WebView 不加载外部攻略页面（CSP + 导航门禁），攻略链接由后端校验 http/https 后交给系统外部浏览器
 - 私人存档、私人输出与完整研究包不在本仓库；见 `.gitignore` 的私人材料规则
 
 ## 许可与来源

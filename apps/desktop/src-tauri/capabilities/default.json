@@ -1,10 +1,19 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Capability for the main window",
+  "description": "主窗口最小权限（SX-014）：仅本应用命令与未使用的核心权限被移除（图像加载、菜单、托盘、资源、WebView 查询不开放）；不向前端开放 opener/dialog/shell/文件系统直调权限（外部链接与原生选择器由 Rust 命令内部调用）",
   "windows": ["main"],
   "permissions": [
-    "core:default",
-    "opener:default"
+    "core:app:default",
+    "core:event:default",
+    "core:path:default",
+    "core:window:default",
+    "allow-discover-saves",
+    "allow-list-candidates",
+    "allow-select-input",
+    "allow-analyze-file",
+    "allow-cancel-analysis",
+    "allow-export-report",
+    "allow-open-guide-link"
   ]
 }

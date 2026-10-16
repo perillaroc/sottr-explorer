@@ -1,0 +1,45 @@
+# SOTTR Explorer 应用命令权限清单（SX-014）。
+#
+# 规则：任何新增 IPC 命令都必须在这里显式加入 `commands.allow`，并同步
+# `capabilities/default.json` 与 `tests/permission_audit.rs` 的审查清单；
+# 本文件存在即启用应用 ACL 门禁，未列入的命令会被 Tauri 拒绝（本地来源亦然）。
+#
+# 前端不获得 opener/dialog/shell/文件系统插件权限：外部攻略链接与原生
+# 文件/目录选择器都由 Rust 命令在进程内校验后调用（见 src/lib.rs 的 setup）。
+# 核心权限同样取显式最小集（core:app/event/path/window），未使用的
+# 图像加载、菜单、托盘、资源与 WebView 查询不开放。
+
+[[permission]]
+identifier = "allow-discover-saves"
+description = "允许 discover_saves：在受限位置（Known Folder/OneDrive/%USERPROFILE%）发现游戏目录；只读、有界、不做全盘扫描"
+commands.allow = ["discover_saves"]
+
+[[permission]]
+identifier = "allow-list-candidates"
+description = "允许 list_candidates：有界枚举候选存档（深度/数量/大小上限，跳过符号链接与重解析点，不读取内容）"
+commands.allow = ["list_candidates"]
+
+[[permission]]
+identifier = "allow-select-input"
+description = "允许 select_input：由用户主动打开系统文件/目录选择器；取消不算错误"
+commands.allow = ["select_input"]
+
+[[permission]]
+identifier = "allow-analyze-file"
+description = "允许 analyze_file：稳定快照读取 + 同核心分析，返回 SX-003 契约信封（含 request_id 与快照身份）"
+commands.allow = ["analyze_file"]
+
+[[permission]]
+identifier = "allow-cancel-analysis"
+description = "允许 cancel_analysis：取消在飞分析请求（被取消的请求不返回成功报告）"
+commands.allow = ["cancel_analysis"]
+
+[[permission]]
+identifier = "allow-export-report"
+description = "允许 export_report：把当前快照导出为新目录中的 JSON/CSV（默认分享脱敏，不覆盖存档或既有报告）"
+commands.allow = ["export_report"]
+
+[[permission]]
+identifier = "allow-open-guide-link"
+description = "允许 open_guide_link：按稳定 ID 解析元数据来源链接（仅 http/https），交给系统外部浏览器"
+commands.allow = ["open_guide_link"]

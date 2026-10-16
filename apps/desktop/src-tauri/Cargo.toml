@@ -2,7 +2,7 @@
 name = "sottr-desktop"
 version.workspace = true
 edition.workspace = true
-description = "SOTTR Explorer 桌面端后端（Tauri；最小权限命令层，SX-014 实现）"
+description = "SOTTR Explorer 桌面后端（Tauri 最小权限命令层，SX-014 实现）"
 publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -18,5 +18,15 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build.workspace = true
 
 [dependencies]
+# 桌面后端复用同一核心与平台适配层（SX-014：不复制解析/路径规则）。
+sottr-core = { path = "../../../crates/sottr-core" }
+sottr-platform = { path = "../../../crates/sottr-platform" }
 tauri.workspace = true
 tauri-plugin-opener.workspace = true
+tauri-plugin-dialog.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+# IPC 集成测试：MockRuntime 与 get_ipc_response（仅测试目标启用）。
+tauri = { workspace = true, features = ["test"] }

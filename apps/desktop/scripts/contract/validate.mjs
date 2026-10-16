@@ -43,6 +43,7 @@ const validTargets = [
   ["batch", "valid/batch.mixed.json"],
   ["desktop-result", "valid/desktop-result.current.json"],
   ["desktop-result", "valid/desktop-result.stale.json"],
+  ["desktop-result", "valid/desktop-result.cancelled.json"],
   ["desktop-result", "valid/desktop-result.other-slot.json"],
   ["export", "valid/export.stale.json"],
   // SX-008：仓库内真实元数据文件同样由 metadata schema 校验（与 Rust 加载器互补）。

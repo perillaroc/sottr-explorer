@@ -15,6 +15,7 @@
 //!   读取前后指纹与摘要复核、路径身份复核；输出不可变内存快照。
 //! - [`output_commit`]：独占新目标与受控临时文件、提交前链接/覆盖复核、
 //!   失败或取消清理，绝不回退为不受控写入。
+//! - [`time`]：快照时钟（Unix 毫秒与 RFC 3339 UTC），CLI 导出与桌面信封共用。
 //!
 //! 本层只读输入、只写调用方指定的新输出目录；不写回、不修改权限、不提权。
 //! 默认手动刷新，不监视文件；未来加入文件监视必须复用 [`read_snapshot`] 门禁。
@@ -23,6 +24,7 @@ pub mod discovery;
 pub mod output_commit;
 pub mod path_policy;
 pub mod read_snapshot;
+pub mod time;
 
 // 唯一允许 unsafe 的模块：Windows Known Folder 与文件身份的最小 FFI
 // （见各模块文档与 crate Cargo.toml 的 lints 说明；代码块均带 SAFETY 注释）。

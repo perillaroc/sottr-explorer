@@ -100,6 +100,10 @@
     不声称与游戏实时同步；非 `none` 时必须携带快照身份。
   - 取消与晚到结果由 `request_id` 与当前选定请求比对识别，不混入报告业务值；
     旧快照必须标 `stale` 并保留 `last_refresh_error`。
+  - 取消的请求返回“无结果信封”（`freshness = none`，`report` 与 `error` 均为 `null`，
+    见 `valid/desktop-result.cancelled.json`）：不产生成功报告，也不冒充输入错误。
+  - 失败刷新（`INPUT_CHANGED`/`INPUT_UNREADABLE` 等）：若该输入已有旧快照，信封同时
+    携带旧报告（`stale` + `last_refresh_error`）；没有旧快照时为 `none` + `error`。
 - **导出信封** `ExportDocument`：`document_kind = "report_export"`、快照身份、
   `freshness`（不含 `none`）、`last_refresh_error_code`、`input_digest` 与 `report`。
   过期导出的 JSON 文件本身带 stale 标识；CSV 导出以明确列保留同样的快照身份与刷新错误码
@@ -281,6 +285,46 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
   `--format` 控制是否写出 JSON/CSV。输入级错误（不可读/无法分析）退出码 1，
   用法与配置错误退出码 2。
 
+## 桌面后端命令（SX-014）
+
+`apps/desktop/src-tauri` 实现 Tauri 最小权限命令层：分析复用
+`analyze_bytes`（同核心）、读取与写盘复用 `sottr-platform`（稳定快照、路径策略、
+受控输出提交与快照时钟），不因界面需要放宽核心或路径规则。
+
+命令参数按 Tauri 约定使用 camelCase（如 `requestId`）；返回值使用 snake_case
+字段（与契约 JSON 一致）；错误对象为 `{"code","message"}`（稳定码，界面不解析
+自然语言）。
+
+| 命令 | 作用 | 要点 |
+| --- | --- | --- |
+| `discover_saves` | 在受限位置发现游戏目录（Known Folder/OneDrive/`%USERPROFILE%`） | 只读、有界、不做全盘扫描；候选状态为稳定字符串 |
+| `list_candidates` | 有界枚举候选存档 | 深度/数量/大小上限；跳过符号链接与重解析点；不读取内容 |
+| `select_input` | 由用户主动打开系统文件/目录选择器 | 取消返回 `null`；前端无 `dialog:*` 权限 |
+| `analyze_file` | 稳定快照读取 + 同核心分析 | 返回 `DesktopResult`；见下“请求与快照语义” |
+| `cancel_analysis` | 取消在飞请求 | 已完成/未知返回 `cancelled=false`；取消不产生成功报告 |
+| `export_report` | 导出当前快照（JSON/CSV） | 目标必须是新目录且与输入不重叠；默认分享脱敏；旧结果携带 `stale` 与刷新错误码 |
+| `open_guide_link` | 打开攻略来源链接 | 只接受 `snapshot_id`/`location_id`/`source_ref` 稳定 ID；URL 从元数据解析并校验 http/https 后交给系统外部浏览器 |
+
+请求与快照语义（开发方案 SX-014 的“界面接线补充”）：
+
+- 每个分析请求以 `request_id` 隔离；同一输入后发起的请求序号更大，晚到的旧结果
+  不写入快照存储；前端只提交当前选定请求的结果（按 `request_id` 比对）。
+- 取消标记与结果提交在同一把会话锁内判定：取消先到绝不产生成功报告；提交先到
+  则 `cancel_analysis` 返回 `cancelled=false`。
+- 内存中每个输入保留最近一次成功快照（上限 16 个输入）；失败刷新把它标记为
+  `stale` 并记录刷新错误码；被取消的请求只返回无结果信封。
+- 输入路径只用于路径策略、去重与输出重叠校验，不出现在信封、分享导出与外部
+  链接中；打开攻略链接不附加存档内容或账户信息。
+- 未列入 `permissions/sottr-commands.toml` 与 `capabilities/default.json` 的命令
+  会被 ACL 拒绝；前端权限为显式最小集（`core:app/event/path/window` 默认权限 +
+  7 条应用命令），未开放 `opener`/`dialog`/`shell`/文件系统/图像/菜单/托盘/资源/
+  WebView 查询权限；WebView 导航只允许应用自身来源（CSP + 导航门禁），外部页面
+  不进入 WebView。
+- 命令错误码：`INVALID_PARAMS`、`INTERNAL`、`METADATA_UNAVAILABLE`、
+  `SNAPSHOT_UNKNOWN`、`SNAPSHOT_MISMATCH`、`LINK_LOCATION_UNKNOWN`、
+  `LINK_SOURCE_UNKNOWN`、`LINK_URL_UNSUPPORTED`、`LINK_OPEN_FAILED`、
+  `UNSUPPORTED_LOCATION`、`DISCOVERY_*`、`PATH_*`、`OUTPUT_*`。
+
 ## 夹具清单
 
 | 夹具 | 覆盖点 |
@@ -291,6 +335,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `valid/metadata.valid.json` | 本地化名 / 仅别名（`unknown`）/ `region_id` 为空 / 同组多 ID / 许可 `pending` / 稀疏计数与参考 ID |
 | `valid/batch.mixed.json` | 合法 + 降级 + 输入错误三结果并存的批量外层 |
 | `valid/desktop-result.{current,stale,other-slot}.json` | 当前快照 / 旧快照（`stale` + 刷新错误）/ 跨槽晚返回 |
+| `valid/desktop-result.cancelled.json` | 取消的无结果信封（`none`，`report`/`error` 均 `null`；SX-014 补齐） |
 | `valid/export.stale.json` | 过期导出信封（stale + 最近刷新错误码） |
 | `invalid/*` | 未确立枚举值、`null` 缺原因、`verified_coordinates` 缺坐标、非法链接协议 |
 | `representation/u64-boundary.json`、`u64-as-number.json` | u64 仅字符串往返；数字形式必须被拒绝 |
@@ -324,10 +369,15 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 - 元数据计数作用域合计（`counter_scope_totals`）的交叉检查接线已由 SX-009 的组装逻辑
   完成（见“分析管线与命令行”一节）；作用域比较依赖元数据 `counts_toward` 定义，
   新增或变更合并口径必须重新评审。
-- CLI 的 Windows 路径安全（ACL、符号链接/重解析点、读取竞态与稳定快照）仍按
-  SX-012/SX-013 验收；当前实现为单次读取 + 超限预检，不产生 `INPUT_CHANGED`，
-  不声称平台保护已完成。资源上限为默认值（压缩/解压 64 MiB、128 个批量文件），
-  可按 SX-012/SX-013 评审调整。
+- CLI 的 Windows 路径安全（ACL、符号链接/重解析点、读取竞态与稳定快照）已按
+  SX-012/SX-013 验收（路径策略、稳定快照与受控输出提交见“平台适配层”；
+  桌面后端与 CLI 共用同一实现）。资源上限为默认值（压缩/解压 64 MiB、
+  128 个批量文件），可按后续任务评审调整。
+- 桌面命令层（SX-014）通过 MockRuntime IPC 集成测试
+  （`apps/desktop/src-tauri/tests/{ipc_commands,permission_audit}.rs`）；
+  真实 WebView2 启动、CSP 强制、原生选择器与真实浏览器打开留待 SX-017 实机验收。
+- 桌面元数据以内嵌 `data/metadata` 三文件（编译期）加载，`manifest.json` 哈希由
+  测试对照；CLI 仍通过 `--metadata` 指定目录。运行时替换/独立升级未在 SX-014 开放。
 - 差分回归（SX-010）的样本不随仓库分发：公开 20 样本需按来源恢复（清单与 ZIP/文件哈希
   见 `tests/parity/fixtures/public_samples.json`），私有五文件仅存在于开发工作站；
   夹具缺失时回归 skip 并记录覆盖缺口，不记为通过。恢复或归档公开样本时保持来源核对，
