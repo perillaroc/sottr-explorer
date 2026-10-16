@@ -1,12 +1,81 @@
 @import "tailwindcss";
 
-/* 首版视觉令牌、明暗主题与对比度验收在 SX-015/SX-017 定义并实测；
-   此处仅保留最小排版基线，不构成已达标声明。 */
-:root {
-  color-scheme: light dark;
-  font-family: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
+/* SOTTR Explorer 视觉令牌（SX-015）。
+   明暗主题由 <html data-theme="light|dark"> 控制；"跟随系统" 在 JS 中解析为具体主题。
+   对比度目标见开发方案（普通文字 ≥ 4.5:1、大号 ≥ 3:1），实际 Windows DPI/对比度/
+   高对比度验收由 SX-017 实测记录；本文件不声称已达标。 */
+
+:root,
+[data-theme="light"] {
+  --canvas: #f5f7f9;
+  --surface: #ffffff;
+  --raised: #eef2f5;
+  --text: #18232d;
+  --muted: #526171;
+  --border: #cfd8e1;
+  --accent: #087f8c;
+  --accent-strong: #066a75;
+  --accent-contrast: #ffffff;
+  --info: #145f9c;
+  --caution: #855400;
+  --danger: #b42318;
+  --success: #167047;
+  --focus: #005fcc;
+  --accent-bg: #e3f1f2;
+  --info-bg: #e8f0f8;
+  --caution-bg: #fdf3dd;
+  --danger-bg: #fbeae8;
+  --success-bg: #e6f4ec;
+  --overlay: rgba(24, 35, 45, 0.45);
+  --shadow: 0 8px 24px rgba(24, 35, 45, 0.18);
+}
+
+[data-theme="dark"] {
+  --canvas: #11171c;
+  --surface: #182128;
+  --raised: #202b34;
+  --text: #e8eef4;
+  --muted: #a7b4c2;
+  --border: #3b4b59;
+  --accent: #67d8e4;
+  --accent-strong: #8ce4ee;
+  --accent-contrast: #082b2f;
+  --info: #8bc4ff;
+  --caution: #f3c873;
+  --danger: #ff9b95;
+  --success: #85d6ab;
+  --focus: #9accff;
+  --accent-bg: #14333a;
+  --info-bg: #1b2b3a;
+  --caution-bg: #352d1c;
+  --danger-bg: #3a2220;
+  --success-bg: #1c3128;
+  --overlay: rgba(0, 0, 0, 0.55);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-info: var(--info);
+  --color-caution: var(--caution);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-focus: var(--focus);
+  --color-accent-bg: var(--accent-bg);
+  --color-info-bg: var(--info-bg);
+  --color-caution-bg: var(--caution-bg);
+  --color-danger-bg: var(--danger-bg);
+  --color-success-bg: var(--success-bg);
+  --font-sans: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, "Courier New", monospace;
 }
 
 html,
@@ -14,4 +83,51 @@ body,
 #app {
   height: 100%;
   margin: 0;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* 焦点环：2px、2px 外偏移，不依赖阴影；高对比度下仍可见。 */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* 主清单与详情各自滚动；隐藏滚动条样式保持克制。 */
+.scroll-area {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* 抽屉/对话框遮罩进入动画（尊重 reduced-motion）。 */
+.overlay-enter-active,
+.overlay-leave-active {
+  transition: opacity 120ms ease;
+}
+
+.overlay-enter-from,
+.overlay-leave-to {
+  opacity: 0;
 }
