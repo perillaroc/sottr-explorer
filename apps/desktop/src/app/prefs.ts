@@ -6,7 +6,7 @@ import type { FilterState } from "./catalog";
 import { DEFAULT_FILTERS, type RegionScope, type StatusFilter } from "./catalog";
 import type { ThemePreference } from "./theme";
 
-export type ViewId = "import" | "overview" | "regions" | "diagnostics" | "settings";
+export type ViewId = "import" | "overview" | "full" | "regions" | "diagnostics" | "settings";
 
 export interface UiPreferences {
   theme: ThemePreference;

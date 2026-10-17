@@ -2,7 +2,7 @@
 // 侧栏（SX-015）：“概览 / 区域与收集 / 区域段 / 诊断 / 设置与关于”在同一侧栏，
 // 不做四列；折叠时只显示图标（aria-label 保留），区域选择移到正文或浮层。
 import { computed } from "vue";
-import { Activity, FolderOpen, LayoutDashboard, ListTree, Settings } from "@lucide/vue";
+import { Activity, FolderOpen, LayoutDashboard, ListTree, Settings, Trophy } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { regionsOf } from "../data/metadata";
 import { regionLabel } from "../app/labels";
@@ -26,7 +26,7 @@ function itemClass(active: boolean): string {
   return `${baseItem} ${active ? "bg-accent-bg text-accent-strong" : "text-ink hover:bg-raised"}`;
 }
 
-function go(view: "import" | "overview" | "regions" | "diagnostics" | "settings"): void {
+function go(view: "import" | "overview" | "full" | "regions" | "diagnostics" | "settings"): void {
   store.actions.setView(view);
 }
 
@@ -69,6 +69,20 @@ function goRegion(region: string): void {
           <LayoutDashboard :size="16" aria-hidden="true" />
           <span v-if="props.expanded">概览</span>
           <span v-else class="sr-only">概览</span>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          :class="itemClass(store.state.view === 'full')"
+          :disabled="!hasResult"
+          :title="hasResult ? '全收集（100%）' : '全收集（100%）：先分析一个存档文件'"
+          :aria-current="store.state.view === 'full' ? 'page' : undefined"
+          @click="go('full')"
+        >
+          <Trophy :size="16" aria-hidden="true" />
+          <span v-if="props.expanded">全收集（100%）</span>
+          <span v-else class="sr-only">全收集（100%）</span>
         </button>
       </li>
       <li>

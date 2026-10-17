@@ -16,6 +16,7 @@ import ExportDialog from "./components/ExportDialog.vue";
 import MockBanner from "./components/MockBanner.vue";
 import SlotPicker from "./components/SlotPicker.vue";
 import OverviewPage from "./components/OverviewPage.vue";
+import FullCollectionPage from "./components/FullCollectionPage.vue";
 import RegionPage from "./components/RegionPage.vue";
 import DiagnosticsPage from "./components/DiagnosticsPage.vue";
 import SettingsPage from "./components/SettingsPage.vue";
@@ -68,6 +69,8 @@ const pageComponent = computed(() => {
   switch (store.state.view) {
     case "overview":
       return OverviewPage;
+    case "full":
+      return FullCollectionPage;
     case "regions":
       return RegionPage;
     case "diagnostics":
