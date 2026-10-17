@@ -22,7 +22,9 @@ G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`
 G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品 168 唯一 ID、26 区域、94 单位地图，
 与私有存档观察 129/168 交叉验证；DTP 文本键关联未闭合项已记录；见 `research/s019/`）；
 **SX-020 完成**（全收集口径对账：故事 260+42/DLC、挑战古墓 9、挑战 15+1 收敛；
-整体完成度否定“纯收集计数”假设；约束交付 SX-021；见 `research/s020/`）。
+整体完成度否定“纯收集计数”假设；约束交付 SX-021；见 `research/s020/`）；
+**SX-021 完成**（全收集目录与缺失清单：目录源数据 A、核心加载 B、CLI `missing` C1、
+界面页 C2a/C2b 与跨实现黄金一致性、T22 验收 D；见 `data/catalog/`）。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
