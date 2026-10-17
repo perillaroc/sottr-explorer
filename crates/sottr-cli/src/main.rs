@@ -33,14 +33,17 @@
 //! - `1`：分析完成但至少一个输入级错误（批量 JSON 仍含全部结果）；或导出的输入不可分析；
 //! - `2`：用法或配置错误（参数、路径、输出已存在、重叠、批量超限、元数据加载失败）。
 
+use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 use sottr_core::analyze::analyze_bytes;
+use sottr_core::catalog::Catalog;
 use sottr_core::domain::context::DeclaredContext;
 use sottr_core::limits::Limits;
 use sottr_core::metadata::{MetadataBundle, MetadataFileInput, MetadataLimits};
+use sottr_core::missing::compute_missing;
 use sottr_core::report::{
     BatchReport, BatchResult, ContextSource, ExportSnapshot, Freshness, InputError, Mode,
     SchemaVersion, export_document, is_reason_code, render_export_csv, render_export_json,
@@ -103,7 +106,17 @@ fn run(args: &[String]) -> Result<u8, String> {
             let parsed = parse_export_args(&args[1..])?;
             run_export(&parsed)
         }
-        other => Err(format!("未知命令 {other:?}（当前支持 analyze 与 export）")),
+        "missing" => {
+            if args[1..].iter().any(|arg| arg == "--help" || arg == "-h") {
+                println!("{USAGE}");
+                return Ok(EXIT_OK);
+            }
+            let parsed = parse_missing_args(&args[1..])?;
+            run_missing(&parsed)
+        }
+        other => Err(format!(
+            "未知命令 {other:?}（当前支持 analyze、export 与 missing）"
+        )),
     }
 }
 
@@ -655,6 +668,171 @@ fn file_name(path: &Path) -> String {
         .unwrap_or_else(|| path.display().to_string())
 }
 
+/// missing 命令参数。
+#[derive(Debug, Clone, PartialEq)]
+struct MissingArgs {
+    catalog: PathBuf,
+    analysis: PathBuf,
+    input: Option<String>,
+    output: PathBuf,
+}
+
+/// analysis.json 读取上限（批量报告可能较大，独立于元数据上限）。
+const ANALYSIS_FILE_LIMIT_BYTES: u64 = 256 * 1024 * 1024;
+/// missing 输出文件名。
+const MISSING_FILE_NAME: &str = "missing.json";
+
+fn parse_missing_args(args: &[String]) -> Result<MissingArgs, String> {
+    let mut catalog: Option<PathBuf> = None;
+    let mut analysis: Option<PathBuf> = None;
+    let mut input: Option<String> = None;
+    let mut output: Option<PathBuf> = None;
+
+    let mut index = 0;
+    while index < args.len() {
+        let flag = args[index].as_str();
+        let value = args
+            .get(index + 1)
+            .filter(|value| !value.starts_with("--"))
+            .ok_or_else(|| format!("参数 {flag} 缺少取值"))?;
+        match flag {
+            "--catalog" => set_once(&mut catalog, PathBuf::from(value), "--catalog")?,
+            "--analysis" => set_once(&mut analysis, PathBuf::from(value), "--analysis")?,
+            "--input" => set_once(&mut input, value.to_string(), "--input")?,
+            "--output" => set_once(&mut output, PathBuf::from(value), "--output")?,
+            other => return Err(format!("未知参数 {other:?}")),
+        }
+        index += 2;
+    }
+
+    Ok(MissingArgs {
+        catalog: catalog.ok_or("缺少 --catalog")?,
+        analysis: analysis.ok_or("缺少 --analysis")?,
+        input,
+        output: output.ok_or("缺少 --output")?,
+    })
+}
+
+fn run_missing(args: &MissingArgs) -> Result<u8, String> {
+    path_policy::validate_input(&args.catalog).map_err(|error| error.message)?;
+    path_policy::validate_input(&args.analysis).map_err(|error| error.message)?;
+    if !args.catalog.is_file() {
+        return Err(format!("目录 JSON 不是文件：{}", args.catalog.display()));
+    }
+    if !args.analysis.is_file() {
+        return Err(format!(
+            "analysis.json 不是文件：{}",
+            args.analysis.display()
+        ));
+    }
+    path_policy::validate_output(
+        &args.output,
+        &[args.catalog.as_path(), args.analysis.as_path()],
+    )
+    .map_err(|error| error.message)?;
+
+    let catalog_bytes =
+        fs::read(&args.catalog).map_err(|error| format!("读取目录 JSON 失败：{error}"))?;
+    let catalog = Catalog::from_json(&catalog_bytes, &MetadataLimits::default())
+        .map_err(|error| format!("目录加载失败（{}）：{}", error.code(), error.message()))?;
+
+    let analysis_size = fs::metadata(&args.analysis)
+        .map_err(|error| format!("读取 analysis.json 信息失败：{error}"))?
+        .len();
+    if analysis_size > ANALYSIS_FILE_LIMIT_BYTES {
+        return Err(format!(
+            "analysis.json 为 {analysis_size} 字节，超过上限 {ANALYSIS_FILE_LIMIT_BYTES}"
+        ));
+    }
+    let analysis_bytes =
+        fs::read(&args.analysis).map_err(|error| format!("读取 analysis.json 失败：{error}"))?;
+    let analysis: serde_json::Value = serde_json::from_slice(&analysis_bytes)
+        .map_err(|error| format!("解析 analysis.json 失败：{error}"))?;
+    let results = analysis
+        .get("results")
+        .and_then(|value| value.as_array())
+        .ok_or("analysis.json 缺少 results 数组（需为 analyze 输出的批量报告）")?;
+    let with_report: Vec<&serde_json::Value> = results
+        .iter()
+        .filter(|result| result.get("report").is_some_and(|report| !report.is_null()))
+        .collect();
+
+    let chosen = match &args.input {
+        Some(name) => with_report
+            .iter()
+            .copied()
+            .find(|result| {
+                result.get("input_ref").and_then(|value| value.as_str()) == Some(name.as_str())
+            })
+            .ok_or_else(|| format!("在 analysis.json 中找不到带报告的输入 {name:?}"))?,
+        None => match with_report.as_slice() {
+            [only] => only,
+            [] => return Err("analysis.json 中没有可用报告".to_string()),
+            _ => return Err("analysis.json 含多个输入报告，请用 --input 指定".to_string()),
+        },
+    };
+    let input_ref = chosen
+        .get("input_ref")
+        .and_then(|value| value.as_str())
+        .unwrap_or("")
+        .to_string();
+    let records = chosen
+        .pointer("/report/observations/inventory/records")
+        .and_then(|value| value.as_array())
+        .ok_or("报告缺少 observations.inventory.records")?;
+    let mut observed: BTreeSet<String> = BTreeSet::new();
+    for record in records {
+        let id = record
+            .get("internal_id")
+            .and_then(|value| value.as_str())
+            .ok_or("观察记录缺少 internal_id")?;
+        observed.insert(id.to_string());
+    }
+
+    let missing = compute_missing(&catalog, &observed);
+    let mut document =
+        serde_json::to_value(&missing).map_err(|error| format!("序列化缺失报告失败：{error}"))?;
+    document["input_ref"] = serde_json::Value::String(input_ref.clone());
+    let mut json = serde_json::to_string_pretty(&document)
+        .map_err(|error| format!("序列化缺失报告失败：{error}"))?;
+    json.push('\n');
+    let staging = output_commit::prepare(&args.output, &[(MISSING_FILE_NAME.to_string(), json)])
+        .map_err(|error| error.message)?;
+    let files = staging.commit().map_err(|error| error.message)?;
+    let output_path = files
+        .into_iter()
+        .next()
+        .unwrap_or_else(|| args.output.join(MISSING_FILE_NAME));
+
+    println!(
+        "输入：{input_ref}（观察到目录条目 {} 个，未知 {} 个）",
+        missing.observed_items,
+        missing.observed_not_in_catalog.len()
+    );
+    for category in &missing.categories {
+        match category.required_for_100 {
+            Some(true) => println!(
+                "  {:<22} {}/{} 已观察，缺失 {}",
+                category.id,
+                category.observed,
+                category.total,
+                category.missing.unwrap_or(0)
+            ),
+            Some(false) => println!(
+                "  {:<22} {}/{} 已观察（可选，无清单）",
+                category.id, category.observed, category.total
+            ),
+            None => println!(
+                "  {:<22} {}/{} 已观察（未闭合，无缺失结论）",
+                category.id, category.observed, category.total
+            ),
+        }
+    }
+    println!("输出：{}", output_path.display());
+
+    Ok(EXIT_OK)
+}
+
 const USAGE: &str = "\
 sottr-cli — SOTTR Explorer 命令行（只读分析 / 导出）
 
@@ -665,6 +843,8 @@ sottr-cli — SOTTR Explorer 命令行（只读分析 / 导出）
       --output <新目录> --metadata <元数据目录> \\
       [--format json|csv|both] [--share] [--snapshot-id <ID>] \\
       [--snapshot-time <RFC3339>] [--stale --refresh-error <CODE>]
+  sottr-cli missing --catalog <全收集目录 JSON> --analysis <analysis.json> \\
+      --output <新目录> [--input <input_ref>]
   sottr-cli --help
 
 说明：
@@ -688,6 +868,10 @@ sottr-cli — SOTTR Explorer 命令行（只读分析 / 导出）
     制表或回车等危险前缀开头的外部文本统一转义为安全文本。
   - 旧结果导出用 --stale --refresh-error <CODE> 明确标记过期原因；
     产物先写临时文件再提交，失败或取消不留下“完整报告”假象；输出目录必须新目录。
+  - missing 依据全收集目录（data/catalog）与 analyze 批量报告计算按类别进度与逐项缺失：
+    必收类别给出清单（缺失=未在所选存档观察集合中出现）、可选类别只给计数、
+    未闭合类别（如挑战古墓）不出缺失结论；共用同一 ID 的条目按 ID 计数并附全部名称；
+    观察集合中不在目录的 ID 单列，不混入缺失；报告多于一个时用 --input 指定。
   - 退出码：成功 0；输入级错误（不可读/无法分析）1；用法或配置错误 2。
 
 示例：

@@ -25,6 +25,24 @@ py -3 data/catalog/build_catalog.py <work_dir> --check  # 校验与现有文件�
 自检（生成器内置）：故事 302、非故事 168、故事必收 253；输出需通过
 `schemas/catalog.schema.json` 契约。
 
+核心加载（阶段 B 已完成）：`sottr_core::catalog::Catalog::from_json` 以严格模式加载并校验
+（拒绝未知字段；稳定错误码；`crates/sottr-core/tests/catalog_dataset.rs` 覆盖真实数据与
+非法输入）。目录作为**独立版本化数据集**（`catalog_version`）随产品数据分发，
+不并入 `data/metadata/` 三文件组（冻结契约保持不变）。
+
+## CLI 用法（阶段 C1 已完成）
+
+```powershell
+sottr-cli analyze --input <存档目录> --context campaign --output <分析目录> --metadata data/metadata
+sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
+    --analysis <分析目录>/analysis.json --output <新目录> [--input save1.dat]
+```
+
+输出 `missing.json`：按类别进度与逐项缺失。规则（与 T22 一致）：必收类别给逐项清单
+（缺失=未在所选存档观察集合中出现；**计数与清单均按必收子集，DLC 与非必收条目不混入**）；
+可选类别只给计数；未闭合类别（如挑战古墓）不出缺失结论；共用同一 ID 的条目按 ID
+计数并附全部名称；观察集合中不在目录的 ID 单列。
+
 ## 已知未闭合项（按 T22 不进入缺失结论）
 
 1. **挑战古墓 ID 共用**：12 个古墓名共享 9 个唯一 ID，其中 5 个名共用占位 ID

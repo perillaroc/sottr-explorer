@@ -23,12 +23,14 @@
 //! 已实现；CLI 命令与导出见 SX-009/SX-011。
 
 pub mod analyze;
+pub mod catalog;
 pub mod container;
 pub mod domain;
 pub mod hash;
 pub mod inventory;
 pub mod limits;
 pub mod metadata;
+pub mod missing;
 pub mod report;
 pub mod sections;
 pub mod synthetic;
