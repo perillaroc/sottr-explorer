@@ -24,7 +24,9 @@ G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品
 **SX-020 完成**（全收集口径对账：故事 260+42/DLC、挑战古墓 9、挑战 15+1 收敛；
 整体完成度否定“纯收集计数”假设；约束交付 SX-021；见 `research/s020/`）；
 **SX-021 完成**（全收集目录与缺失清单：目录源数据 A、核心加载 B、CLI `missing` C1、
-界面页 C2a/C2b 与跨实现黄金一致性、T22 验收 D；见 `data/catalog/`）。
+界面页 C2a/C2b 与跨实现黄金一致性、T22 验收 D；见 `data/catalog/`）；
+**SX-017 完成**（跨层验收与回归：自动化全绿、单机实测性能记录；DPI/WebView2 手工项
+保持待验证；见 `private/s017_acceptance.log`）。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
