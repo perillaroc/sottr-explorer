@@ -7,23 +7,29 @@ use sottr_core::metadata::MetadataLimits;
 use sottr_core::missing::{REASON_OPTIONAL, REASON_UNRESOLVED, compute_missing};
 
 const CATALOG: &str = r#"{
-  "catalog_schema_version": "1.0.0",
-  "catalog_version": "1.0.0",
+  "catalog_schema_version": "2.0.0",
+  "catalog_version": "2.0.0",
   "generated_from": {},
-  "totals": {"items": 5, "story": 0, "nonstory": 5, "required_for_100": 2, "dlc": 1},
+  "totals": {"items": 5, "story": 0, "nonstory": 5, "required_for_100": 2, "dlc": 1, "with_position": 0, "with_region": 0},
+  "acquisition_rules": {
+    "monolith": {"text_zh": "解读石碑", "text_en": "Read the monolith", "source": "curated"},
+    "explorer_backpack": {"text_zh": "拾取背包", "text_en": "Pick up the backpack", "source": "curated"},
+    "challenge_tomb": {"text_zh": "完成古墓", "text_en": "Finish the tomb", "source": "curated"}
+  },
   "categories": [
-    {"id": "monoliths", "name": "石碑", "count": 3, "required_for_100": true, "required_count": 2},
-    {"id": "explorer_backpacks", "name": "背包", "count": 1, "required_for_100": false, "required_count": 0},
-    {"id": "challenge_tombs", "name": "挑战古墓", "count": 1, "required_for_100": null, "required_count": 0, "note": "未闭合"}
+    {"id": "monoliths", "name": "石碑", "count": 3, "required_for_100": true, "required_count": 2, "acquisition_rule_key": "monolith"},
+    {"id": "explorer_backpacks", "name": "背包", "count": 1, "required_for_100": false, "required_count": 0, "acquisition_rule_key": "explorer_backpack"},
+    {"id": "challenge_tombs", "name": "挑战古墓", "count": 1, "required_for_100": null, "required_count": 0, "acquisition_rule_key": "challenge_tomb", "note": "未闭合"}
   ],
   "collections": [],
+  "units": {},
   "regions": [],
   "items": {
-    "0x00000001": {"kind": "nonstory", "name": "One", "is_dlc": false, "required_for_100": true, "category": "monoliths"},
-    "0x00000002": {"kind": "nonstory", "name": "Two", "is_dlc": false, "required_for_100": true, "category": "monoliths", "shared_id": true, "shared_names": ["Two", "TwoAlt"]},
-    "0x00000003": {"kind": "nonstory", "name": "Three", "is_dlc": false, "required_for_100": false, "category": "explorer_backpacks"},
-    "0x00000004": {"kind": "nonstory", "name": "Tomb", "is_dlc": false, "required_for_100": null, "category": "challenge_tombs"},
-    "0x00000005": {"kind": "nonstory", "name": "DlcRelic", "is_dlc": true, "required_for_100": false, "category": "monoliths"}
+    "0x00000001": {"kind": "nonstory", "name": "One", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": true, "region_hash": null, "region_slug": null, "category": "monoliths", "subcategory": null, "unit": null, "position": null, "acquisition_note": null},
+    "0x00000002": {"kind": "nonstory", "name": "Two", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": true, "region_hash": null, "region_slug": null, "category": "monoliths", "subcategory": null, "unit": null, "position": null, "acquisition_note": null, "shared_id": true, "shared_names": ["Two", "TwoAlt"]},
+    "0x00000003": {"kind": "nonstory", "name": "Three", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": false, "region_hash": null, "region_slug": null, "category": "explorer_backpacks", "subcategory": null, "unit": null, "position": null, "acquisition_note": null},
+    "0x00000004": {"kind": "nonstory", "name": "Tomb", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": null, "region_hash": null, "region_slug": null, "category": "challenge_tombs", "subcategory": null, "unit": null, "position": null, "acquisition_note": null},
+    "0x00000005": {"kind": "nonstory", "name": "DlcRelic", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": true, "required_for_100": false, "region_hash": null, "region_slug": null, "category": "monoliths", "subcategory": null, "unit": null, "position": null, "acquisition_note": null}
   }
 }"#;
 
@@ -38,7 +44,7 @@ fn observed(ids: &[&str]) -> BTreeSet<String> {
 #[test]
 fn required_category_lists_missing_with_shared_names() {
     let report = compute_missing(&load(), &observed(&["0x00000001", "0xDEADBEEF", "bad"]));
-    assert_eq!(report.catalog_version, "1.0.0");
+    assert_eq!(report.catalog_version, "2.0.0");
     assert_eq!(report.observed_items, 1);
     assert!(
         report

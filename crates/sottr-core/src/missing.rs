@@ -166,7 +166,8 @@ pub fn compute_missing(catalog: &Catalog, observed: &BTreeSet<String>) -> Missin
     }
 }
 
-fn normalize_observed(id: &str) -> Option<String> {
+/// 规范化为目录键形式（`0x` + 8 位大写十六进制）；非法返回 `None`。
+pub fn normalize_observed(id: &str) -> Option<String> {
     let trimmed = id.trim();
     let body = trimmed
         .strip_prefix("0x")

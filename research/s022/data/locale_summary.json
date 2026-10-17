@@ -1,0 +1,27 @@
+{
+  "locals": {
+    "english_entries": 39661,
+    "chinese_entries": 39661,
+    "aligned_keys": 37625,
+    "key_mismatch": 0,
+    "text_pairs": 24926
+  },
+  "units": {
+    "total": 65,
+    "zone_resolved": 65,
+    "zone_missing": []
+  },
+  "story_names": {
+    "by_key_prefix": 302,
+    "by_text": 0,
+    "unresolved": 0
+  },
+  "regions": {
+    "bound": 9,
+    "special": [
+      "26694CD8",
+      "29E50C12",
+      "669D3CB3"
+    ]
+  }
+}

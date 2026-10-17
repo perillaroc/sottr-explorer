@@ -4,8 +4,7 @@
 import { computed } from "vue";
 import { Activity, FolderOpen, LayoutDashboard, ListTree, Settings, Trophy } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { regionsOf } from "../data/metadata";
-import { regionLabel } from "../app/labels";
+import { regionName } from "../app/collection";
 
 const props = withDefaults(defineProps<{ expanded: boolean }>(), { expanded: true });
 
@@ -13,9 +12,12 @@ const store = useStore();
 
 const hasResult = computed(() => store.currentSlot.value?.result !== null);
 const regions = computed(() =>
-  regionsOf(store.metadata).map((region) => ({
-    id: region.region_id,
-    label: regionLabel(region.region_id, region.display_name),
+  store.plan.value.regions.map((region) => ({
+    id: region.slug,
+    label: regionName(region),
+    collected: region.collected,
+    total: region.total,
+    kind: region.kind,
   })),
 );
 
@@ -117,12 +119,15 @@ function goRegion(region: string): void {
           <li v-for="region in regions" :key="region.id">
             <button
               type="button"
+              class="flex w-full items-center gap-2"
               :class="itemClass(store.state.view === 'regions' && store.state.region === region.id)"
               :disabled="!hasResult"
-              :title="hasResult ? region.label : '区域列表：先分析一个存档文件'"
+              :title="hasResult ? `${region.label}：已收集 ${region.collected}/${region.total}` : '区域列表：先分析一个存档文件'"
               @click="goRegion(region.id)"
             >
-              {{ region.label }}
+              <span class="min-w-0 flex-1 truncate text-left">{{ region.label }}</span>
+              <span class="shrink-0 tabular-nums text-xs text-muted">{{ region.collected }}/{{ region.total }}</span>
+              <span v-if="region.kind === 'special'" class="shrink-0 text-[10px] text-muted">特殊</span>
             </button>
           </li>
           <li>
@@ -130,10 +135,10 @@ function goRegion(region: string): void {
               type="button"
               :class="itemClass(store.state.view === 'regions' && store.state.region === 'unknown')"
               :disabled="!hasResult"
-              :title="hasResult ? '区域未知' : '区域列表：先分析一个存档文件'"
+              :title="hasResult ? '目录外观察记录（服装 / 技能等，不计入收集品）' : '区域列表：先分析一个存档文件'"
               @click="goRegion('unknown')"
             >
-              区域未知
+              目录外记录（{{ store.plan.value.observed_not_in_catalog.length }}）
             </button>
           </li>
         </ul>

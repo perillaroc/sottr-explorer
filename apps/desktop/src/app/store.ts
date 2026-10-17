@@ -26,19 +26,26 @@ import type {
 import { toCommandError } from "../data/errors";
 import { copyText } from "./clipboard";
 import { demoMetadata } from "../data/metadata";
+import type { FilterState, RegionScope, StatusFilter } from "./catalog";
 import {
-  buildRows,
-  filterCounts as computeFilterCounts,
-  missingCapabilityAvailable,
-  missingCount as computeMissingCount,
-  observedCount as computeObservedCount,
-  unknownCount as computeUnknownCount,
-  type CollectibleRow,
-  type FilterState,
-  type RegionScope,
-  type StatusFilter,
-} from "./catalog";
-import { fileNameOf, shortId } from "./format";
+  buildPlan,
+  demoObservedIds,
+  findPlanItem,
+  productionAtlas,
+  type Atlas,
+  type CollectionPlan,
+  type PlanGroup,
+  type PlanItem,
+  type PlanRegion,
+} from "../data/atlas";
+import {
+  countPlan,
+  countRegion,
+  filterRegionGroups,
+  groupFilters,
+  type CollectionCounts,
+} from "./collection";
+import { fileNameOf } from "./format";
 import { applyTheme, onSystemThemeChange, type ThemePreference } from "./theme";
 import { loadPreferences, savePreferences, type UiPreferences, type ViewId } from "./prefs";
 
@@ -131,6 +138,13 @@ export interface AppState {
 
 export interface CreateStoreOptions {
   metadata?: MetadataDataset;
+  /** 图鉴数据集（默认为仓库生产数据集）。 */
+  atlas?: Atlas;
+  /**
+   * 观察集合来源：默认读取当前报告的物品表。
+   * 模拟模式与测试可传入固定集合，使演示与断言可复现。
+   */
+  observedIds?: () => string[] | null;
   /** 是否读写 localStorage（测试传 false）。 */
   persist?: boolean;
   /** 初始视口宽度（测试直接指定，避免依赖窗口尺寸）。 */
@@ -247,29 +261,97 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   const refreshing = computed<boolean>(
     () => state.analysis?.kind === "refresh" && state.analysis.path === state.selectedPath,
   );
-  const missingAvailable = computed<boolean>(() => (report.value ? missingCapabilityAvailable(report.value) : false));
 
-  const rows = computed<CollectibleRow[]>(() => {
-    if (!report.value) {
+  // -------------------------------------------------------------------------
+  // 收集图鉴与按区域计划（SX-022）
+  // -------------------------------------------------------------------------
+
+  const atlas = options.atlas ?? productionAtlas;
+  // 模拟模式使用固定观察集合：演示与测试可复现；真实模式读取当前报告的物品表。
+  const observedSource = options.observedIds ?? (source.kind === "mock" ? () => demoObservedIds : undefined);
+
+  const observedIds = computed<string[]>(() => {
+    if (!report.value || report.value.context.mode === "profile") {
       return [];
     }
-    return buildRows({
-      report: report.value,
-      metadata,
-      region: state.region,
-      filters: state.filters,
-      search: state.search,
-      shortIdOf: shortId,
-    });
+    const injected = observedSource?.();
+    if (injected) {
+      return injected;
+    }
+    return (report.value?.observations.inventory.records ?? []).map((record) => record.internal_id);
   });
 
-  const filterCounts = computed<Record<StatusFilter, number>>(() =>
-    report.value ? computeFilterCounts(metadata, report.value, state.region) : { missing: 0, observed: 0, unknown: 0, all: 0 },
+  /** 资料文件（profile.dat）没有物品表：不产生收集状态，界面显示“不适用”。 */
+  const planAvailable = computed(() => report.value !== null && report.value.context.mode !== "profile");
+
+  const plan = computed<CollectionPlan>(() =>
+    planAvailable.value
+      ? buildPlan(atlas, observedIds.value)
+      : {
+          catalog_version: atlas.catalog_version,
+          main_collected: 0,
+          main_total: 0,
+          regions: [],
+          observed_not_in_catalog: [],
+        },
   );
 
-  const missingTotal = computed(() => (report.value ? computeMissingCount(report.value) : 0));
-  const observedTotal = computed(() => (report.value ? computeObservedCount(report.value) : 0));
-  const unknownTotal = computed(() => (report.value ? computeUnknownCount(report.value) : 0));
+  const planCounts = computed<CollectionCounts>(() => countPlan(plan.value));
+  /** 主区域合计（不含特殊区域），用于“全部区域”摘要。 */
+  const planMainCounts = computed<CollectionCounts>(() => countPlan(plan.value, "main"));
+
+  const planRegion = computed<PlanRegion | null>(() => {
+    if (state.region === "all" || state.region === "unknown") {
+      return null;
+    }
+    return plan.value.regions.find((region) => region.slug === state.region) ?? null;
+  });
+
+  const planGroups = computed<PlanGroup[]>(() => {
+    const region = planRegion.value;
+    if (!region) {
+      return [];
+    }
+    return filterRegionGroups(region, groupFilters(state.filters, state.search));
+  });
+
+  const planCountsForRegion = computed<CollectionCounts>(() =>
+    planRegion.value ? countRegion(planRegion.value) : planCounts.value,
+  );
+
+  const planFilterCounts = computed<Record<StatusFilter, number>>(() => {
+    if (state.region === "all" || state.region === "unknown") {
+      return {
+        missing: planCounts.value.uncollected,
+        observed: planCounts.value.collected,
+        unknown: 0,
+        all: planCounts.value.all,
+      };
+    }
+    const region = planRegion.value;
+    if (!region) {
+      return { missing: 0, observed: 0, unknown: 0, all: 0 };
+    }
+    const source: PlanItem[] = region.groups.flatMap((group) => group.items);
+    return {
+      missing: source.filter((item) => item.status === "not_collected").length,
+      observed: source.filter((item) => item.status === "collected").length,
+      unknown: 0,
+      all: source.length,
+    };
+  });
+
+  /** 当前选中的计划条目（详情面板数据源）。 */
+  const selectedEntry = computed(() => {
+    const id = state.selectedRowId;
+    if (!id) {
+      return null;
+    }
+    return findPlanItem(plan.value, id);
+  });
+
+  /** 计划内条目总数（用于说明“全部”的范围）。 */
+  const planItemCount = computed(() => planCounts.value.all);
 
   // -------------------------------------------------------------------------
   // 请求隔离与提交
@@ -329,16 +411,14 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     }
   }
 
-  /** 无效筛选回退（如参考差集不可用时“参考遗漏推定”不可用）。 */
+  /** 切槽/分析后重新校验偏好：区域 slug 必须仍存在于图鉴；无效值回退到“全部区域”。 */
   function ensureFilterValid(): void {
-    if (!report.value) {
-      return;
+    if (state.region !== "all" && state.region !== "unknown"
+      && !plan.value.regions.some((region) => region.slug === state.region)) {
+      state.region = "all";
+      notify("info", "原区域在当前图鉴中不存在，已切换到“全部区域”。");
     }
-    if (state.filters.status === "missing" && !missingCapabilityAvailable(report.value)) {
-      state.filters.status = "all";
-      notify("warning", "本次无法判断遗漏：参考差集能力不可用，已切换到“全部”条目。");
-    }
-    if (state.selectedRowId && !rows.value.some((row) => row.id === state.selectedRowId)) {
+    if (state.selectedRowId && !selectedEntry.value) {
       state.selectedRowId = null;
     }
   }
@@ -850,17 +930,22 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   const store = {
     state,
     metadata,
+    atlas,
     layout,
     currentSlot,
     report,
     isStale,
     refreshing,
-    missingAvailable,
-    rows,
-    filterCounts,
-    missingTotal,
-    observedTotal,
-    unknownTotal,
+    plan,
+    planAvailable,
+    planCounts,
+    planMainCounts,
+    planRegion,
+    planGroups,
+    planCountsForRegion,
+    planFilterCounts,
+    planItemCount,
+    selectedEntry,
     metadataVersion: metadata.metadata_version,
     canExport,
     exportTargetPath,

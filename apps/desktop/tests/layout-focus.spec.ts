@@ -5,9 +5,16 @@ import { flushPromises } from "@vue/test-utils";
 import App from "../src/App.vue";
 import { createTestStore, analyzeCandidate, mountWithStore } from "./helpers";
 
+// 一个带官方中文名的故事条目（圣胡安文献），用于详情与焦点断言。
+const ROW_ID = "0xCAA74459";
+const ROW_TESTID = `row-${ROW_ID}`;
+
 async function mountApp(width: number) {
   const { store } = await createTestStore({ width });
   await analyzeCandidate(store, "save1.dat");
+  // 区域页需要选定区域才显示逐项清单；详情/焦点用例需要条目可见。
+  store.actions.setRegion("mission_of_san_juan");
+  store.actions.setStatusFilter("all");
   store.actions.setView("regions");
   const wrapper = mountWithStore(App, store, { store, layoutWidth: width });
   await flushPromises();
@@ -34,10 +41,10 @@ describe("布局档位（有效内容宽度）", () => {
 
   it("≥1440：详情常驻（非模态，无焦点陷阱）", async () => {
     const { store, wrapper } = await mountApp(1440);
-    store.actions.openRow("loc:stella:san-juan-caches");
+    store.actions.openRow(ROW_ID);
     await flushPromises();
     const pane = wrapper.get('[data-testid="detail-pane"]');
-    expect(pane.text()).toContain("圣胡安贮藏点组");
+    expect(pane.text()).toContain("古老典籍");
     // 常驻详情不是对话框：没有 aria-modal，Tab 不被拦截。
     expect(pane.find('[role="dialog"]').exists()).toBe(false);
     const outside = wrapper.get("header button");
@@ -48,12 +55,12 @@ describe("布局档位（有效内容宽度）", () => {
 
   it("1100–1439：右侧模态抽屉；Esc 关闭并恢复焦点到触发条目", async () => {
     const { store } = await mountApp(1280);
-    const row = document.querySelector('[data-testid="row-loc:stella:san-juan-caches"]') as HTMLElement | null;
-    store.actions.openRow("loc:stella:san-juan-caches");
+    const row = document.querySelector(`[data-testid="${ROW_TESTID}"]`) as HTMLElement | null;
+    store.actions.openRow(ROW_ID);
     await flushPromises();
     const drawer = document.querySelector('[role="dialog"]') as HTMLElement | null;
     expect(drawer).not.toBeNull();
-    expect(drawer?.textContent).toContain("圣胡安贮藏点组");
+    expect(drawer?.textContent).toContain("古老典籍");
     // 打开后焦点进入抽屉。
     expect(drawer?.contains(document.activeElement)).toBe(true);
 
@@ -74,7 +81,7 @@ describe("布局档位（有效内容宽度）", () => {
 
   it("模态抽屉关闭后焦点回到原触发条目", async () => {
     const { wrapper, store } = await mountApp(1280);
-    const row = wrapper.get('[data-testid="row-loc:stella:san-juan-caches"]');
+    const row = wrapper.get(`[data-testid="${ROW_TESTID}"]`);
     (row.element as HTMLElement).focus();
     await row.trigger("click");
     await flushPromises();
@@ -88,7 +95,7 @@ describe("布局档位（有效内容宽度）", () => {
 
   it("800–1099：近全宽抽屉（不挤成三列）", async () => {
     const { store } = await mountApp(1000);
-    store.actions.openRow("loc:stella:san-juan-caches");
+    store.actions.openRow(ROW_ID);
     await flushPromises();
     const drawer = document.querySelector('[role="dialog"]') as HTMLElement | null;
     expect(drawer?.className ?? "").toContain("min(720px");
@@ -100,7 +107,7 @@ describe("布局档位（有效内容宽度）", () => {
     const list = wrapper.get('[data-testid="region-list"]');
     (list.element as HTMLElement).scrollTop = 120;
 
-    const row = wrapper.get('[data-testid="row-loc:stella:san-juan-caches"]');
+    const row = wrapper.get(`[data-testid="${ROW_TESTID}"]`);
     await row.trigger("click");
     await flushPromises();
     // 无模态抽屉：是页面替换。
@@ -114,12 +121,12 @@ describe("布局档位（有效内容宽度）", () => {
     await flushPromises();
     const restored = wrapper.get('[data-testid="region-list"]');
     expect((restored.element as HTMLElement).scrollTop).toBe(120);
-    expect(wrapper.find('[data-testid="row-loc:stella:san-juan-caches"]').exists()).toBe(true);
+    expect(wrapper.find(`[data-testid="${ROW_TESTID}"]`).exists()).toBe(true);
   });
 
   it("<800：Esc 从详情返回清单", async () => {
     const { store, wrapper } = await mountApp(799);
-    store.actions.openRow("loc:stella:san-juan-caches");
+    store.actions.openRow(ROW_ID);
     await flushPromises();
     expect(wrapper.find('[data-testid="detail-back"]').exists()).toBe(true);
     press("Escape");

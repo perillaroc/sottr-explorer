@@ -15,8 +15,9 @@ vi.mock("@tauri-apps/api/core", () => ({ invoke: invokeMock }));
 import App from "../src/App.vue";
 import { TauriDataSource } from "../src/data/tauri";
 import { createAppStore } from "../src/app/store";
+import { demoObservedIds } from "../src/data/atlas";
 import { buildCompleteReport, buildDegradedReport, buildNonzeroReport, buildProfileReport } from "../src/data/mockReports";
-import { mockCandidates, mockDiscovery, MOCK_ROOT_A, MOCK_ROOT_B } from "../src/data/mockInputs";
+import { mockCandidates, mockDiscovery, MOCK_ROOT_A } from "../src/data/mockInputs";
 import { mount } from "@vue/test-utils";
 import type { DesktopResult } from "../src/contract/desktop-result";
 import type { Report } from "../src/contract/report";
@@ -214,7 +215,12 @@ class FakeDesktopBackend {
 
 function mountApp(width = 1280) {
   const source = new TauriDataSource();
-  const store = createAppStore(source, { persist: false, layoutWidth: width });
+  // 演示观察集合：让区域/详情流程可复现（真实运行读取当前报告）。
+  const store = createAppStore(source, {
+    persist: false,
+    layoutWidth: width,
+    observedIds: () => demoObservedIds,
+  });
   const wrapper = mount(App, {
     props: { source, store, layoutWidth: width } as never,
     attachTo: document.body,
@@ -252,7 +258,7 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     });
   });
 
-  it("主流程：选择副本→分析→查漏→组线索→打开来源→复制链接", async () => {
+  it("主流程：选择副本→分析→按区域查漏→查看位置与获取方式→复制线索", async () => {
     const { wrapper, store } = mountApp();
     await flushPromises();
     await flushPromises();
@@ -260,7 +266,7 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     // 1) 发现与候选（真实命令）
     expect(callsOf(backend, "discover_saves")).toHaveLength(1);
     expect(callsOf(backend, "list_candidates")[0].args).toEqual({ rootPath: MOCK_ROOT_A });
-    expect(wrapper.find('[data-testid="mock-banner"]').exists()).toBe(false); // 真实模式无模拟横幅
+    expect(wrapper.find('[data-testid="mock-banner"]').exists()).toBe(false);
     expect(wrapper.text()).toContain("save1.dat");
 
     // 2) 选择稳定副本 + 用途 → 开始分析
@@ -273,92 +279,62 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     await flushPromises();
     await flushPromises();
 
-    const analyzeCall = lastCall(backend, "analyze_file");
-    expect(analyzeCall?.args.context).toBe("campaign");
+    expect(lastCall(backend, "analyze_file")?.args.context).toBe("campaign");
     expect(store.state.view).toBe("overview");
     expect(wrapper.get('[data-testid="overall-value"]').text()).toContain("66.20%");
-    expect(wrapper.get('[data-testid="missing-value"]').text()).toContain("12 项");
-    // 无假点位：没有地图/定位针元素或“导航到此点”文案。
+    // 无假点位：没有地图元素或“导航到此点”文案。
     expect(wrapper.find('[data-testid*="map"]').exists()).toBe(false);
     expect(wrapper.text()).not.toContain("导航到此点");
-    expect(wrapper.text()).not.toContain("在地图");
 
-    // 3) 查看参考遗漏 → 组行（同组多 ID 折叠，不复制 8 个精确条目）
+    // 3) 查看未收集 → 全部区域卡片
     await wrapper.get('[data-testid="view-missing"]').trigger("click");
     await flushPromises();
-    const groupRow = wrapper.get('[data-testid="row-loc:stella:san-juan-caches"]');
-    expect(groupRow.text()).toContain("本组 8 项参考遗漏推定");
-    expect(groupRow.text()).toContain("攻略组线索，不复制为精确点位");
-    expect(wrapper.findAll('[data-testid^="row-loc:"]').length).toBe(3);
+    expect(wrapper.get('[data-testid="region-overview"]').text()).toContain("帕依提提");
 
-    // 4) 组详情：门禁措辞 + 组人数 + 去向（文字线索）
-    await groupRow.trigger("click");
+    // 4) 进入区域 → 逐项清单
+    store.actions.setRegion("mission_of_san_juan");
+    store.actions.setStatusFilter("all");
+    await flushPromises();
+    const row = wrapper.get('[data-testid="row-0xCAA74459"]');
+    expect(row.text()).toContain("古老典籍");
+
+    // 5) 详情：官方中文名 + 位置线索 + 获取方式
+    await row.trigger("click");
     await flushPromises();
     const detail = document.querySelector('[data-testid="item-detail"]');
-    expect(detail?.textContent).toContain("可按攻略整组检查");
-    expect(detail?.textContent).toContain("圣胡安贮藏点组");
+    expect(detail?.textContent).toContain("古老典籍");
+    expect(detail?.textContent).toContain("去哪里找");
+    expect(detail?.textContent).toContain("怎么拿");
+    expect(detail?.textContent).toContain("未校准");
 
-    // 5) 打开来源：命令参数绑定当前快照；系统浏览器（记录）而非 WebView
-    document.querySelector<HTMLElement>('[data-testid="open-source"]')?.click();
+    // 6) 复制线索：前端组合文本，不含存档路径
+    document.querySelector<HTMLElement>('[data-testid="copy-lead"]')?.click();
     await flushPromises();
-    const openCall = lastCall(backend, "open_guide_link");
-    const snapshotId = store.currentSlot.value?.result?.snapshot_id;
-    expect(openCall?.args).toEqual({
-      snapshotId,
-      locationId: "loc:stella:san-juan-caches",
-      sourceRef: "src:stella-san-juan",
-    });
-    expect(backend.openedUrls).toEqual([STELLA_URL]);
-    expect(store.state.linkAction?.status).toBe("opened");
-    expect(document.querySelector('[data-testid="link-opened"]')?.textContent).toContain(
-      "WebView 不加载网页",
-    );
-
-    // 6) 复制已核验链接：走 resolve 命令（无副作用），复制到剪贴板
-    document.querySelector<HTMLElement>('[data-testid="copy-verified-link"]')?.click();
-    await flushPromises();
-    const resolveCall = lastCall(backend, "resolve_guide_link");
-    expect(resolveCall?.args.sourceRef).toBe("src:stella-san-juan");
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(STELLA_URL);
-    expect(document.querySelector('[data-testid="link-copied"]')?.textContent).toContain(
-      "https://tombraiders.net/",
-    );
-    expect(backend.openedUrls).toHaveLength(1); // 复制不触发打开
+    expect(navigator.clipboard.writeText).toHaveBeenCalled();
+    const lead = document.querySelector('[data-testid="lead-text"]')?.textContent ?? "";
+    expect(lead).toContain("古老典籍");
+    expect(lead).not.toContain("C:\\");
   });
 
-  it("外链打开失败：保留位置给重试与复制已核验链接；离线不伪造缓存攻略", async () => {
-    const { store } = mountApp();
+  it("有位置的条目显示关卡内相对位置散点，并明确标注未校准", async () => {
+    const { wrapper, store } = mountApp();
     await flushPromises();
     await flushPromises();
-    store.actions.selectCandidate(`${MOCK_ROOT_A}\\save1.dat`);
+    store.actions.selectCandidate(`${MOCK_ROOT_A}\save1.dat`);
     store.actions.setPurpose("campaign");
     await store.actions.startAnalysis();
     store.actions.setView("regions");
-    store.actions.openRow("loc:stella:san-juan-caches");
+    store.actions.setRegion("paititi");
+    store.actions.setStatusFilter("all");
     await flushPromises();
 
-    backend.failOpen = true;
-    document.querySelector<HTMLElement>('[data-testid="open-source"]')?.click();
+    store.actions.openRow("0xF1FAE49A");
     await flushPromises();
-    const errorBox = document.querySelector('[data-testid="link-error"]');
-    expect(errorBox?.textContent).toContain("LINK_OPEN_FAILED");
-    expect(errorBox?.textContent).toContain("可重试");
-    const retry = errorBox?.querySelector("button");
-    expect(retry?.textContent).toContain("重试打开");
-
-    // 仍可复制已核验链接（解析路径与打开无关）。
-    const copyButton = Array.from(errorBox?.querySelectorAll("button") ?? []).find((button) =>
-      button.textContent?.includes("复制已核验链接"),
-    );
-    copyButton?.click();
-    await flushPromises();
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(STELLA_URL);
-
-    // 重试成功。
-    backend.failOpen = false;
-    document.querySelector<HTMLElement>('[data-testid="open-source"]')?.click();
-    await flushPromises();
-    expect(store.state.linkAction?.status).toBe("opened");
+    const detail = document.querySelector('[data-testid="item-detail"]');
+    expect(detail?.querySelector('[data-testid="position-scatter"]')).not.toBeNull();
+    expect(detail?.textContent).toContain("未校准");
+    expect(detail?.textContent).toContain("不是导航点位");
+    expect(wrapper.text()).not.toContain("导航到此点");
   });
 
   it("刷新失败：旧快照标记 + 行动摘要关闭；再次刷新恢复；导出带过期标记", async () => {
@@ -445,13 +421,13 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     expect(store.state.exportState.status).toBe("success");
   });
 
-  it("异常 type28/unknown 模式/非零组/未知 ID：筛选禁用、上下文不冒充战役、组门禁撤销", async () => {
+  it("unknown 模式与表不完整：上下文不冒充战役，收集清单仍可用", async () => {
     const { wrapper, store } = mountApp();
     await flushPromises();
     await flushPromises();
 
-    // unknown 模式：不显示 66.20%，保留可用观察并在诊断显示 mode=unknown。
-    store.actions.selectCandidate(`${MOCK_ROOT_A}\\save1.dat`);
+    // unknown 模式：不显示 66.20%，报告仍可读。
+    store.actions.selectCandidate(`${MOCK_ROOT_A}\save1.dat`);
     store.actions.setPurpose("unknown");
     await store.actions.startAnalysis();
     await flushPromises();
@@ -459,69 +435,46 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     expect(wrapper.get('[data-testid="overall-value"]').text()).toContain("不可用");
     expect(lastCall(backend, "analyze_file")?.args.context).toBe("unknown");
 
-    // 表不完整（type28 降级）：遗漏筛选项禁用并解释，可用观察保留。
-    store.actions.switchSlot(`${MOCK_ROOT_A}\\save206.dat`);
+    // 表不完整（type28 降级）：区域与收集仍可用，状态来自观察集合。
+    store.actions.switchSlot(`${MOCK_ROOT_A}\save206.dat`);
     store.actions.setPurpose("campaign");
     await store.actions.startAnalysis();
     await flushPromises();
     store.actions.setView("regions");
     await flushPromises();
-    const missingChip = wrapper
-      .findAll("button[aria-pressed]")
-      .find((button) => button.text().includes("参考遗漏推定"));
-    expect(missingChip?.attributes("disabled")).toBeDefined();
-    expect(missingChip?.attributes("title")).toContain("本次无法判断遗漏");
-    expect(store.state.filters.status).toBe("all"); // 自动回退到可用观察
-
-    // 非零计数组：组门禁撤销“整组均待查”，但保留查看攻略（仅作全组参考）。
-    store.actions.switchSlot(`${MOCK_ROOT_B}\\save204.dat`);
-    store.actions.setPurpose("campaign");
-    await store.actions.startAnalysis();
-    await flushPromises();
-    store.actions.setView("regions");
+    expect(wrapper.find('[data-testid="region-overview"]').exists()).toBe(true);
+    store.actions.setRegion("paititi");
     store.actions.setStatusFilter("all");
     await flushPromises();
-    store.actions.openRow("0x0F28B6EC");
-    await flushPromises();
-    const detail = document.querySelector('[data-testid="item-detail"]');
-    expect(detail?.textContent).toContain("仅作全组参考");
-    expect(detail?.textContent).not.toContain("本组 8 个条目的攻略");
-    expect(detail?.textContent).toContain("定位：攻略组");
+    expect(wrapper.findAll('[data-testid^="row-"]').length).toBeGreaterThan(0);
   });
 
-  it("原始 present 只称已观察（不显示为已收集）；未分类 ID 经诊断进入", async () => {
+  it("状态只有已收集/未收集；未分类 ID 经诊断进入且不计入收集品", async () => {
     const { wrapper, store } = mountApp();
     await flushPromises();
     await flushPromises();
-    store.actions.selectCandidate(`${MOCK_ROOT_A}\\save1.dat`);
+    store.actions.selectCandidate(`${MOCK_ROOT_A}\save1.dat`);
     store.actions.setPurpose("campaign");
     await store.actions.startAnalysis();
     store.actions.setView("regions");
+    store.actions.setRegion("mission_of_san_juan");
     store.actions.setStatusFilter("observed");
     await flushPromises();
 
-    const observedRow = wrapper.findAll('[data-testid^="row-"]').find((row) => row.text().includes("0x3672536E"));
-    expect(observedRow?.text()).toContain("已观察");
-    expect(observedRow?.text()).not.toContain("已收集");
-    await observedRow?.trigger("click");
-    await flushPromises();
-    const detail = document.querySelector('[data-testid="item-detail"]');
-    expect(detail?.textContent).toContain("原始 present 仅表示记录中出现");
-    expect(detail?.textContent).not.toContain("确定已收集");
-    expect(detail?.textContent).not.toContain("已验证已收集");
+    const rows = wrapper.findAll('[data-testid^="row-"]');
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows[0].text()).toContain("已收集");
 
-    // 未分类 ID 不在“全部”计数里；诊断页可见完整 ID。
-    store.actions.setStatusFilter("all");
+    store.actions.setStatusFilter("missing");
     await flushPromises();
-    expect(store.filterCounts.value.all).toBeLessThan(517);
+    const missingRows = wrapper.findAll('[data-testid^="row-"]');
+    expect(missingRows.length).toBeGreaterThan(0);
+    expect(missingRows[0].text()).toContain("未收集");
+
+    // 未分类观察 ID 不属于图鉴，不计入收集品。
+    expect(store.planCounts.value.all).toBe(470);
     store.actions.setView("diagnostics");
     await flushPromises();
-    expect(wrapper.text()).toContain("0x11111111");
     expect(wrapper.text()).toContain("不计入收集品数");
-
-    // 概览提供带标注的诊断入口。
-    store.actions.setView("overview");
-    await flushPromises();
-    expect(wrapper.text()).toContain("未分类记录，不计入收集品数");
   });
 });

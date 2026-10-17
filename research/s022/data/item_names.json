@@ -1,0 +1,1512 @@
+{
+  "0xF97006F6": {
+    "name_en": "HIDDEN CITY RIDDLE",
+    "name_zh": "隐秘之城的谜团",
+    "name_source": "game_locale"
+  },
+  "0xBEC00A0C": {
+    "name_en": "HYDRA CONSTELLATION",
+    "name_zh": "长蛇座",
+    "name_source": "game_locale"
+  },
+  "0x5165F3B4": {
+    "name_en": "MAYA DATE",
+    "name_zh": "玛雅日期",
+    "name_source": "game_locale"
+  },
+  "0x01A96640": {
+    "name_en": "KEY OF CHAK CHEL",
+    "name_zh": "查克切尔的钥匙",
+    "name_source": "game_locale"
+  },
+  "0x0DC43D80": {
+    "name_en": "PATH TO THE HIDDEN CITY",
+    "name_zh": "通往隐秘之城的道路",
+    "name_source": "game_locale"
+  },
+  "0x1D7C0331": {
+    "name_en": "SILVER STATUETTE",
+    "name_zh": "银雕像",
+    "name_source": "game_locale"
+  },
+  "0xF41482BF": {
+    "name_en": "STONE CUP",
+    "name_zh": "石杯",
+    "name_source": "game_locale"
+  },
+  "0xB4D95866": {
+    "name_en": "SILVER BOX OF IX CHEL",
+    "name_zh": "伊希切尔的银盒子",
+    "name_source": "game_locale"
+  },
+  "0xBA47343A": {
+    "name_en": "JOURNAL OF T. SERRANO",
+    "name_zh": "特洛斯·赛拉诺的日志",
+    "name_source": "game_locale"
+  },
+  "0xD37AD539": {
+    "name_en": "JOURNAL OF T. SERRANO 3",
+    "name_zh": "特洛斯·赛拉诺的日志 3",
+    "name_source": "game_locale"
+  },
+  "0x8FCFCADA": {
+    "name_en": "JOURNAL OF T. SERRANO 2",
+    "name_zh": "特洛斯·赛拉诺的日志 2",
+    "name_source": "game_locale"
+  },
+  "0xF4B46500": {
+    "name_en": "BRIGITTINE ROSARY",
+    "name_zh": "布里吉庭念珠",
+    "name_source": "game_locale"
+  },
+  "0xCAA74459": {
+    "name_en": "OLD TOME",
+    "name_zh": "古老典籍",
+    "name_source": "game_locale"
+  },
+  "0x9847F367": {
+    "name_en": "DECORATED CRUCIFIX",
+    "name_zh": "带装饰的十字架",
+    "name_source": "game_locale"
+  },
+  "0xC98FDFC1": {
+    "name_en": "FADED WRITING",
+    "name_zh": "褪色的书文",
+    "name_source": "game_locale"
+  },
+  "0xE5EEB8F4": {
+    "name_en": "JOURNAL OF T. SERRANO 4",
+    "name_zh": "特洛斯·赛拉诺的日志 4",
+    "name_source": "game_locale"
+  },
+  "0x3CD1C908": {
+    "name_en": "TRINITY BADGE",
+    "name_zh": "圣三一徽章",
+    "name_source": "game_locale"
+  },
+  "0xC4F4FA41": {
+    "name_en": "DOCTOR DOMINGUEZ",
+    "name_zh": "多米格斯博士",
+    "name_source": "game_locale"
+  },
+  "0x1A19B4E3": {
+    "name_en": "IX CHEL AND CHAK CHEL",
+    "name_zh": "伊希切尔和查克切尔",
+    "name_source": "game_locale"
+  },
+  "0x3E97117B": {
+    "name_en": "THE SILVER BOX OF IX CHEL",
+    "name_zh": "伊希切尔的银盒子",
+    "name_source": "game_locale"
+  },
+  "0xCBE41351": {
+    "name_en": "THE CULT OF KUKULKAN",
+    "name_zh": "库库尔坎教团",
+    "name_source": "game_locale"
+  },
+  "0xC65253E3": {
+    "name_en": "QUEEN UNURATU",
+    "name_zh": "皇后乌努拉图",
+    "name_source": "game_locale"
+  },
+  "0x30DC3B0C": {
+    "name_en": "AMARU",
+    "name_zh": "阿玛鲁",
+    "name_source": "game_locale"
+  },
+  "0x34ED39BC": {
+    "name_en": "JONAH MAIAVA",
+    "name_zh": "约拿·玛依阿瓦",
+    "name_source": "game_locale"
+  },
+  "0x94AA3CBF": {
+    "name_en": "COMMANDER ROURKE",
+    "name_zh": "指挥官鲁尔克",
+    "name_source": "game_locale"
+  },
+  "0xACE98451": {
+    "name_en": "THE CRIMSON FIRE",
+    "name_zh": "猩红之火",
+    "name_source": "game_locale"
+  },
+  "0xF9CDBC99": {
+    "name_en": "ANDRES LOPEZ",
+    "name_zh": "安德烈斯·洛佩斯",
+    "name_source": "game_locale"
+  },
+  "0xBCCB866C": {
+    "name_en": "A WARNING",
+    "name_zh": "警告",
+    "name_source": "game_locale"
+  },
+  "0xCF99CA42": {
+    "name_en": "KNIGHT'S MORION",
+    "name_zh": "骑士的无面盔",
+    "name_source": "game_locale"
+  },
+  "0x3597BA77": {
+    "name_en": "JOURNAL OF T. SERRANO 6",
+    "name_zh": "特洛斯·赛拉诺的日志 6",
+    "name_source": "game_locale"
+  },
+  "0x40673C84": {
+    "name_en": "JOURNAL OF T. SERRANO 7",
+    "name_zh": "特洛斯·赛拉诺的日志 7",
+    "name_source": "game_locale"
+  },
+  "0xC8FCA6A1": {
+    "name_en": "JOURNAL OF T. SERRANO 8",
+    "name_zh": "特洛斯·赛拉诺的日志 8",
+    "name_source": "game_locale"
+  },
+  "0x527EBACF": {
+    "name_en": "JOURNAL OF T. SERRANO 5",
+    "name_zh": "特洛斯·赛拉诺的日志 5",
+    "name_source": "game_locale"
+  },
+  "0x164FB06D": {
+    "name_en": "JOURNAL OF T. SERRANO 9",
+    "name_zh": "特洛斯·赛拉诺的日志 9",
+    "name_source": "game_locale"
+  },
+  "0xEBA6791E": {
+    "name_en": "DE LA CRUZ ARRIVES",
+    "name_zh": "德拉克鲁兹的到来",
+    "name_source": "game_locale"
+  },
+  "0xFAC1CB6F": {
+    "name_en": "DE LA CRUZ LEAVES",
+    "name_zh": "德拉克鲁兹的离去",
+    "name_source": "game_locale"
+  },
+  "0x0E3859C1": {
+    "name_en": "JOURNAL OF T. SERRANO 10",
+    "name_zh": "特洛斯·赛拉诺的日志 10",
+    "name_source": "game_locale"
+  },
+  "0x4571AB24": {
+    "name_en": "JOURNAL OF T. SERRANO 11",
+    "name_zh": "特洛斯·赛拉诺的日志 11",
+    "name_source": "game_locale"
+  },
+  "0xB125462A": {
+    "name_en": "JOURNAL OF T. SERRANO 12",
+    "name_zh": "特洛斯·赛拉诺的日志 12",
+    "name_source": "game_locale"
+  },
+  "0x26B79773": {
+    "name_en": "JOURNAL OF T. SERRANO 13",
+    "name_zh": "特洛斯·赛拉诺的日志 13",
+    "name_source": "game_locale"
+  },
+  "0x668739AE": {
+    "name_en": "WHEEL-LOCK PISTOL",
+    "name_zh": "轮锁手枪",
+    "name_source": "game_locale"
+  },
+  "0x1E84D6DF": {
+    "name_en": "ENIGMATIC CLUES",
+    "name_zh": "神秘的线索",
+    "name_source": "game_locale"
+  },
+  "0xC9C48B41": {
+    "name_en": "LETTER TO CONTRACTOR",
+    "name_zh": "给承包人的信",
+    "name_source": "game_locale"
+  },
+  "0x259EDE27": {
+    "name_en": "HAND DRAWN MAP",
+    "name_zh": "手绘地图",
+    "name_source": "game_locale"
+  },
+  "0x19977201": {
+    "name_en": "LETTER TO WINSTON",
+    "name_zh": "给温斯顿的信",
+    "name_source": "game_locale"
+  },
+  "0xA0720AFF": {
+    "name_en": "FAMILY PHOTO",
+    "name_zh": "全家福相片",
+    "name_source": "game_locale"
+  },
+  "0xEBA544A4": {
+    "name_en": "WHITE QUEEN",
+    "name_zh": "白皇后",
+    "name_source": "game_locale"
+  },
+  "0x09D5ABE6": {
+    "name_en": "LETTER FROM WINSTON",
+    "name_zh": "温斯顿的来信",
+    "name_source": "game_locale"
+  },
+  "0x23FB0D7E": {
+    "name_en": "BOWL OF POWDER",
+    "name_zh": "一碗粉末",
+    "name_source": "game_locale"
+  },
+  "0xF18281A5": {
+    "name_en": "CHAKI TAKLLA",
+    "name_zh": "脚犁",
+    "name_source": "game_locale"
+  },
+  "0x5C78EA34": {
+    "name_en": "LLAMA FIGURINE",
+    "name_zh": "羊驼雕像",
+    "name_source": "game_locale"
+  },
+  "0x4AC568AC": {
+    "name_en": "CH'ARKI AND CHUNOS",
+    "name_zh": "盐肉干和土豆干",
+    "name_source": "game_locale"
+  },
+  "0x12DABFF7": {
+    "name_en": "URPU",
+    "name_zh": "瓮",
+    "name_source": "game_locale"
+  },
+  "0x043E391D": {
+    "name_en": "CHUSPAS",
+    "name_zh": "编织袋",
+    "name_source": "game_locale"
+  },
+  "0x07E76E24": {
+    "name_en": "URCUCHILLAY",
+    "name_zh": "尤克莱奇",
+    "name_source": "game_locale"
+  },
+  "0x489FB5F6": {
+    "name_en": "SUPPAY",
+    "name_zh": "冥主",
+    "name_source": "game_locale"
+  },
+  "0x484AA8C8": {
+    "name_en": "PACHAMAMA",
+    "name_zh": "帕查玛玛",
+    "name_source": "game_locale"
+  },
+  "0x6741FDF6": {
+    "name_en": "MAMA ZARA",
+    "name_zh": "扎拉母亲",
+    "name_source": "game_locale"
+  },
+  "0xF96E3E50": {
+    "name_en": "INTI",
+    "name_zh": "印蒂",
+    "name_source": "game_locale"
+  },
+  "0x52A30513": {
+    "name_en": "VIRACOCHA",
+    "name_zh": "维拉科查",
+    "name_source": "game_locale"
+  },
+  "0x8B86224A": {
+    "name_en": "CONIRAYA",
+    "name_zh": "月神孔蒂拉雅",
+    "name_source": "game_locale"
+  },
+  "0x5A58F5AB": {
+    "name_en": "KON",
+    "name_zh": "康恩",
+    "name_source": "game_locale"
+  },
+  "0x02784A71": {
+    "name_en": "HANDKERCHIEF",
+    "name_zh": "手帕",
+    "name_source": "game_locale"
+  },
+  "0x371C81F4": {
+    "name_en": "JACK'S JOURNAL 6",
+    "name_zh": "杰克的日记6",
+    "name_source": "game_locale"
+  },
+  "0x65E3935A": {
+    "name_en": "FAWCETT'S LAST LETTER",
+    "name_zh": "福西特的最后信件",
+    "name_source": "game_locale"
+  },
+  "0xEDBA6F35": {
+    "name_en": "PISTOL PARTS",
+    "name_zh": "手枪零件",
+    "name_source": "game_locale"
+  },
+  "0x96E1C872": {
+    "name_en": "SEXTANT",
+    "name_zh": "六分仪",
+    "name_source": "game_locale"
+  },
+  "0x65321863": {
+    "name_en": "GRAVE MARKER",
+    "name_zh": "墓志铭",
+    "name_source": "game_locale"
+  },
+  "0x8712DACD": {
+    "name_en": "A PROVERB",
+    "name_zh": "谚语",
+    "name_source": "game_locale"
+  },
+  "0x724B9CF7": {
+    "name_en": "FUEL FOR THE FUTURE",
+    "name_zh": "未来的燃料",
+    "name_source": "game_locale"
+  },
+  "0x44ADFEB7": {
+    "name_en": "COPAL",
+    "name_zh": "珂巴脂",
+    "name_source": "game_locale"
+  },
+  "0x8412840E": {
+    "name_en": "TRINITY'S OFFER",
+    "name_zh": "圣三一的提议",
+    "name_source": "game_locale"
+  },
+  "0x60BF8840": {
+    "name_en": "FAMILY TREE",
+    "name_zh": "家谱",
+    "name_source": "game_locale"
+  },
+  "0x7E613762": {
+    "name_en": "BLOODLETTER",
+    "name_zh": "血书",
+    "name_source": "game_locale"
+  },
+  "0xD85F7B97": {
+    "name_en": "DEADLY EARTH MOTHER",
+    "name_zh": "致命的大地之母",
+    "name_source": "game_locale"
+  },
+  "0x4F8EE97C": {
+    "name_en": "GOLD MASK",
+    "name_zh": "金面具",
+    "name_source": "game_locale"
+  },
+  "0xE60DB5BB": {
+    "name_en": "MASK OF TEZCATLIPOCA",
+    "name_zh": "特斯卡特利波卡面具",
+    "name_source": "game_locale"
+  },
+  "0x0D40E76F": {
+    "name_en": "THE WINGED SERPENT",
+    "name_zh": "展翅的巨蛇",
+    "name_source": "game_locale"
+  },
+  "0x22889CE2": {
+    "name_en": "ANTIQUE KNIFE",
+    "name_zh": "古董匕首",
+    "name_source": "game_locale"
+  },
+  "0x9D37D10B": {
+    "name_en": "TLALOC VASE",
+    "name_zh": "特拉洛克花瓶",
+    "name_source": "game_locale"
+  },
+  "0x659672E5": {
+    "name_en": "LORD AND LADY OF THE DEAD",
+    "name_zh": "死神夫妇",
+    "name_source": "game_locale"
+  },
+  "0x2389359E": {
+    "name_en": "FIRST CONTACT",
+    "name_zh": "初次接触",
+    "name_source": "game_locale"
+  },
+  "0x29B519FB": {
+    "name_en": "A KING'S RANSOM",
+    "name_zh": "国王的赎身",
+    "name_source": "game_locale"
+  },
+  "0x783457B3": {
+    "name_en": "SLAVE COLLAR",
+    "name_zh": "奴隶项圈",
+    "name_source": "game_locale"
+  },
+  "0xF9BA2199": {
+    "name_en": "EPIDEMIC",
+    "name_zh": "传染病",
+    "name_source": "game_locale"
+  },
+  "0x65B54978": {
+    "name_en": "CAPTAIN'S NOTE",
+    "name_zh": "船长的笔记",
+    "name_source": "game_locale"
+  },
+  "0xC8B66BA8": {
+    "name_en": "STRUGGLE FOR POWER",
+    "name_zh": "权力的斗争",
+    "name_source": "game_locale"
+  },
+  "0xCC4A7C40": {
+    "name_en": "MISSIONARY WORK",
+    "name_zh": "传教工作",
+    "name_source": "game_locale"
+  },
+  "0xDBA47FC6": {
+    "name_en": "RUSTY SWORD",
+    "name_zh": "锈剑",
+    "name_source": "game_locale"
+  },
+  "0xEE8F45DD": {
+    "name_en": "CONTRACT",
+    "name_zh": "契约",
+    "name_source": "game_locale"
+  },
+  "0xB7605AD5": {
+    "name_en": "WHISTLE",
+    "name_zh": "哨子",
+    "name_source": "game_locale"
+  },
+  "0x462B1085": {
+    "name_en": "INCENSE BURNER",
+    "name_zh": "香炉",
+    "name_source": "game_locale"
+  },
+  "0x0095B5A7": {
+    "name_en": "PATOLLI MAT",
+    "name_zh": "十字戏垫子",
+    "name_source": "game_locale"
+  },
+  "0x0322ED0C": {
+    "name_en": "EAR SPOOLS",
+    "name_zh": "耳缠",
+    "name_source": "game_locale"
+  },
+  "0x69A11CF9": {
+    "name_en": "SILVER MIRROR",
+    "name_zh": "银镜子",
+    "name_source": "game_locale"
+  },
+  "0xE8794A7C": {
+    "name_en": "METATL",
+    "name_zh": "玉米磨石",
+    "name_source": "game_locale"
+  },
+  "0xEDACACC3": {
+    "name_en": "BURIAL DOLL REPLICA",
+    "name_zh": "陪葬玩偶复制品",
+    "name_source": "game_locale"
+  },
+  "0xC6F2A6A0": {
+    "name_en": "COMPANY TOWN",
+    "name_zh": "公司小镇",
+    "name_source": "game_locale"
+  },
+  "0x6F328B11": {
+    "name_en": "PROMOTIONAL TOY",
+    "name_zh": "推广玩具",
+    "name_source": "game_locale"
+  },
+  "0x80AFF5C0": {
+    "name_en": "TUMI KNIFE",
+    "name_zh": "图米匕首",
+    "name_source": "game_locale"
+  },
+  "0x39551DDB": {
+    "name_en": "WATER QUALITY REPORT",
+    "name_zh": "水质报告",
+    "name_source": "game_locale"
+  },
+  "0x5F844AE1": {
+    "name_en": "CONE MOLD",
+    "name_zh": "锥形模具",
+    "name_source": "game_locale"
+  },
+  "0xDDAB23B2": {
+    "name_en": "IN NAME ONLY",
+    "name_zh": "有名无实",
+    "name_source": "game_locale"
+  },
+  "0x9865801A": {
+    "name_en": "RESIST!",
+    "name_zh": "抵抗！",
+    "name_source": "game_locale"
+  },
+  "0xC65BA16D": {
+    "name_en": "INTI STATUETTE",
+    "name_zh": "太阳神印蒂像",
+    "name_source": "game_locale"
+  },
+  "0xE3539118": {
+    "name_en": "RECONNAISSANCE",
+    "name_zh": "侦察",
+    "name_source": "game_locale"
+  },
+  "0x6E55AAF3": {
+    "name_en": "THE PROPHECY",
+    "name_zh": "预言",
+    "name_source": "game_locale"
+  },
+  "0xDE835BF6": {
+    "name_en": "UNURATU'S AMULET",
+    "name_zh": "乌努拉图的护符",
+    "name_source": "game_locale"
+  },
+  "0x93F50AAD": {
+    "name_en": "MAMA QUILLA MASK",
+    "name_zh": "奎拉母亲的面具",
+    "name_source": "game_locale"
+  },
+  "0xAA344AC4": {
+    "name_en": "PROTECTION",
+    "name_zh": "保护措施",
+    "name_source": "game_locale"
+  },
+  "0xDD657071": {
+    "name_en": "COPPER MACE",
+    "name_zh": "铜锤",
+    "name_source": "game_locale"
+  },
+  "0x8E78816C": {
+    "name_en": "CARVED BOWL",
+    "name_zh": "雕碗",
+    "name_source": "game_locale"
+  },
+  "0x44DF69A7": {
+    "name_en": "HEART OF THE SERPENT",
+    "name_zh": "巨蛇之心",
+    "name_source": "game_locale"
+  },
+  "0xA7FF8298": {
+    "name_en": "CERAMIC JAR",
+    "name_zh": "陶瓷罐",
+    "name_source": "game_locale"
+  },
+  "0xF99B54F1": {
+    "name_en": "CRUMBLING",
+    "name_zh": "崩塌",
+    "name_source": "game_locale"
+  },
+  "0x018F6D1C": {
+    "name_en": "TEMPLE OF DEATH",
+    "name_zh": "死亡神庙",
+    "name_source": "game_locale"
+  },
+  "0x6C489221": {
+    "name_en": "TEMPLE OF LIFE",
+    "name_zh": "生命神庙",
+    "name_source": "game_locale"
+  },
+  "0x7117BC06": {
+    "name_en": "TEMPLE OF THE MOON",
+    "name_zh": "月亮神庙",
+    "name_source": "game_locale"
+  },
+  "0xF744CC5B": {
+    "name_en": "MERCHANT SACRIFICE",
+    "name_zh": "商人的献祭",
+    "name_source": "game_locale"
+  },
+  "0x56DB72EA": {
+    "name_en": "BURIAL MASK",
+    "name_zh": "陪葬面具",
+    "name_source": "game_locale"
+  },
+  "0xE1751116": {
+    "name_en": "SILVER-CROWNED MOUNTAIN",
+    "name_zh": "戴着银冠的高山",
+    "name_source": "game_locale"
+  },
+  "0x4128D9F2": {
+    "name_en": "SKULL",
+    "name_zh": "头骨",
+    "name_source": "game_locale"
+  },
+  "0x31FBC663": {
+    "name_en": "REARGUARD REPORT",
+    "name_zh": "后方报告",
+    "name_source": "game_locale"
+  },
+  "0xDD726C24": {
+    "name_en": "BIRTHING THE SERPENT",
+    "name_zh": "巨蛇降生",
+    "name_source": "game_locale"
+  },
+  "0x9B746347": {
+    "name_en": "SHIELDING THE SERPENT",
+    "name_zh": "守卫巨蛇",
+    "name_source": "game_locale"
+  },
+  "0x79BFDBD5": {
+    "name_en": "SECRET WINDS",
+    "name_zh": "神秘的风",
+    "name_source": "game_locale"
+  },
+  "0x60649B7C": {
+    "name_en": "SURPRISE WITNESS",
+    "name_zh": "出人意料的证人",
+    "name_source": "game_locale"
+  },
+  "0x8ED45A4D": {
+    "name_en": "AWAITS",
+    "name_zh": "等待",
+    "name_source": "game_locale"
+  },
+  "0x9C3AA4AF": {
+    "name_en": "BOUND TO WANDER",
+    "name_zh": "注定流浪",
+    "name_source": "game_locale"
+  },
+  "0x47154F56": {
+    "name_en": "THE HILLS ARE ALIVE",
+    "name_zh": "山丘是活的",
+    "name_source": "game_locale"
+  },
+  "0xCEF8084E": {
+    "name_en": "CRUCIFIED FIGURE",
+    "name_zh": "十字架人像",
+    "name_source": "game_locale"
+  },
+  "0x902F8AC3": {
+    "name_en": "REPELLING THE DEMONS",
+    "name_zh": "驱除恶魔",
+    "name_source": "game_locale"
+  },
+  "0xC7AAC40A": {
+    "name_en": "DEVILS IN THE DARK",
+    "name_zh": "暗中的恶鬼",
+    "name_source": "game_locale"
+  },
+  "0xABD9B4C8": {
+    "name_en": "AIRPLANE",
+    "name_zh": "飞机",
+    "name_source": "game_locale"
+  },
+  "0x10889D70": {
+    "name_en": "FLIGHT LOG",
+    "name_zh": "飞行日志",
+    "name_source": "game_locale"
+  },
+  "0xFC3A73B2": {
+    "name_en": "A HAUNTING",
+    "name_zh": "闹鬼",
+    "name_source": "game_locale"
+  },
+  "0xDA615056": {
+    "name_en": "PLASTIC PENGUIN",
+    "name_zh": "塑料企鹅",
+    "name_source": "game_locale"
+  },
+  "0xBA19BA13": {
+    "name_en": "SISIMITE",
+    "name_zh": "西斯迈特",
+    "name_source": "game_locale"
+  },
+  "0xE73BB718": {
+    "name_en": "YAAXIL",
+    "name_zh": "亚希尔",
+    "name_source": "game_locale"
+  },
+  "0x5E6F0756": {
+    "name_en": "MASK OF THE NAHUAL",
+    "name_zh": "纳瓦尔面具",
+    "name_source": "game_locale"
+  },
+  "0xFAA76BB3": {
+    "name_en": "ELONGATED SKULL",
+    "name_zh": "狭长的头骨",
+    "name_source": "game_locale"
+  },
+  "0xF23B3644": {
+    "name_en": "FOUNDING OF PAITITI",
+    "name_zh": "帕依提提的建立",
+    "name_source": "game_locale"
+  },
+  "0x4345EA40": {
+    "name_en": "THE FIRST EMPEROR",
+    "name_zh": "第一位大帝",
+    "name_source": "game_locale"
+  },
+  "0x2B36100B": {
+    "name_en": "TWO PEOPLES AS ONE",
+    "name_zh": "合二为一",
+    "name_source": "game_locale"
+  },
+  "0xEEE8EE49": {
+    "name_en": "REBIRTH AND RESETTLEMENT",
+    "name_zh": "移居与重生",
+    "name_source": "game_locale"
+  },
+  "0x9F2D0D69": {
+    "name_en": "TROUBLED LANDS",
+    "name_zh": "麻烦之地",
+    "name_source": "game_locale"
+  },
+  "0xF2D25297": {
+    "name_en": "GOLDEN DAYS",
+    "name_zh": "黄金时代",
+    "name_source": "game_locale"
+  },
+  "0xB574659B": {
+    "name_en": "CIVIL WAR",
+    "name_zh": "内战",
+    "name_source": "game_locale"
+  },
+  "0x7B95CAEA": {
+    "name_en": "TRINITY ARRIVES",
+    "name_zh": "圣三一的到来",
+    "name_source": "game_locale"
+  },
+  "0xD78E5B56": {
+    "name_en": "DISEASE AND DEATH",
+    "name_zh": "疾病与死亡",
+    "name_source": "game_locale"
+  },
+  "0x472701B9": {
+    "name_en": "THE CULT'S PROMISE",
+    "name_zh": "教团的承诺",
+    "name_source": "game_locale"
+  },
+  "0x0EA8B2F4": {
+    "name_en": "A KING SACRIFICED",
+    "name_zh": "王的牺牲",
+    "name_source": "game_locale"
+  },
+  "0x090D83BE": {
+    "name_en": "THE SAVIOR'S AMULET",
+    "name_zh": "救星护符",
+    "name_source": "game_locale"
+  },
+  "0x90851695": {
+    "name_en": "THE PEASANT SAVIOR",
+    "name_zh": "农民救星",
+    "name_source": "game_locale"
+  },
+  "0x9DFB313D": {
+    "name_en": "LOPEZ'S ARRIVAL",
+    "name_zh": "洛佩斯的到来",
+    "name_source": "game_locale"
+  },
+  "0x12B626FF": {
+    "name_en": "THE CULT'S CONTROL",
+    "name_zh": "教团的控制",
+    "name_source": "game_locale"
+  },
+  "0xB931BAD2": {
+    "name_en": "FAMINE",
+    "name_zh": "饥荒",
+    "name_source": "game_locale"
+  },
+  "0x29D696EC": {
+    "name_en": "UNURATU'S UPRISING",
+    "name_zh": "乌努拉图的起义",
+    "name_source": "game_locale"
+  },
+  "0xF89DAA0F": {
+    "name_en": "UNURATU'S CORONATION",
+    "name_zh": "乌努拉图的加冕仪式",
+    "name_source": "game_locale"
+  },
+  "0x329459A4": {
+    "name_en": "AMARU'S GRIP",
+    "name_zh": "阿玛鲁之治",
+    "name_source": "game_locale"
+  },
+  "0x344A0F7A": {
+    "name_en": "BIRTH",
+    "name_zh": "诞生",
+    "name_source": "game_locale"
+  },
+  "0xDF933EEC": {
+    "name_en": "TRINITY RECRUITS AMARU",
+    "name_zh": "圣三一招募阿玛鲁",
+    "name_source": "game_locale"
+  },
+  "0x7D18BFDB": {
+    "name_en": "EL DORADO",
+    "name_zh": "黄金国",
+    "name_source": "game_locale"
+  },
+  "0xA9A2B053": {
+    "name_en": "VIDEO CAMERA",
+    "name_zh": "摄像机",
+    "name_source": "game_locale"
+  },
+  "0x403EEB8E": {
+    "name_en": "FAWCETT'S LEGACY",
+    "name_zh": "福西特的遗物",
+    "name_source": "game_locale"
+  },
+  "0x6B6628FF": {
+    "name_en": "MISDIRECTION",
+    "name_zh": "误导",
+    "name_source": "game_locale"
+  },
+  "0xC384CBC3": {
+    "name_en": "COVERING THE TRACKS",
+    "name_zh": "掩盖痕迹",
+    "name_source": "game_locale"
+  },
+  "0xBD971FD3": {
+    "name_en": "FEVER DREAMS",
+    "name_zh": "高烧病梦",
+    "name_source": "game_locale"
+  },
+  "0x62148211": {
+    "name_en": "AT THE GATE",
+    "name_zh": "在门口",
+    "name_source": "game_locale"
+  },
+  "0xDDC1710D": {
+    "name_en": "FINGER LENGTH AWAY",
+    "name_zh": "咫尺之遥",
+    "name_source": "game_locale"
+  },
+  "0xF1FAE49A": {
+    "name_en": "CEREMONIAL TORCH",
+    "name_zh": "庆典火把",
+    "name_source": "game_locale"
+  },
+  "0x89524837": {
+    "name_en": "NO ONE IN, NO ONE OUT",
+    "name_zh": "禁止出入",
+    "name_source": "game_locale"
+  },
+  "0x085A83D1": {
+    "name_en": "DISMANTLED RADIO",
+    "name_zh": "被拆解的无线电",
+    "name_source": "game_locale"
+  },
+  "0xCE0734DD": {
+    "name_en": "CONSPIRACY",
+    "name_zh": "阴谋",
+    "name_source": "game_locale"
+  },
+  "0x960A2A78": {
+    "name_en": "GUIDELINES",
+    "name_zh": "指导方针",
+    "name_source": "game_locale"
+  },
+  "0xC14AD971": {
+    "name_en": "MIRRORS",
+    "name_zh": "镜子",
+    "name_source": "game_locale"
+  },
+  "0x9C9925D6": {
+    "name_en": "BEAST EFFIGY",
+    "name_zh": "野兽雕像",
+    "name_source": "game_locale"
+  },
+  "0xBBFEEBDB": {
+    "name_en": "THE MIRACLE CLUB",
+    "name_zh": "奇迹俱乐部",
+    "name_source": "game_locale"
+  },
+  "0xF0FEB3C5": {
+    "name_en": "ON THIS SPOT",
+    "name_zh": "就在此处",
+    "name_source": "game_locale"
+  },
+  "0x42DE17F5": {
+    "name_en": "DAMAGE REPAIR",
+    "name_zh": "修复损伤",
+    "name_source": "game_locale"
+  },
+  "0x2F1764FD": {
+    "name_en": "MISSION OF SAINT JOHN",
+    "name_zh": "圣约翰传教所",
+    "name_source": "game_locale"
+  },
+  "0x584E2E20": {
+    "name_en": "DISASTER UPON DISASTER",
+    "name_zh": "祸不单行",
+    "name_source": "game_locale"
+  },
+  "0xBC594CE9": {
+    "name_en": "JOHN THE APOSTLE",
+    "name_zh": "使徒约翰",
+    "name_source": "game_locale"
+  },
+  "0x74D6B48B": {
+    "name_en": "SEVEN STEPS CLOSER TO GOD",
+    "name_zh": "七步接近神",
+    "name_source": "game_locale"
+  },
+  "0x83D4065F": {
+    "name_en": "MISSION SAN JUAN",
+    "name_zh": "圣胡安传教所",
+    "name_source": "game_locale"
+  },
+  "0x25A6AF2F": {
+    "name_en": "A LOST WORLD",
+    "name_zh": "失落的世界",
+    "name_source": "game_locale"
+  },
+  "0xA3B16D2F": {
+    "name_en": "ARROW",
+    "name_zh": "箭",
+    "name_source": "game_locale"
+  },
+  "0xA2F185C7": {
+    "name_en": "WARNING",
+    "name_zh": "警告",
+    "name_source": "game_locale"
+  },
+  "0xF50E7CCE": {
+    "name_en": "EXPEDITION REPORT",
+    "name_zh": "探险队汇报",
+    "name_source": "game_locale"
+  },
+  "0x06D38407": {
+    "name_en": "WOODEN RIFLE",
+    "name_zh": "木头步枪",
+    "name_source": "game_locale"
+  },
+  "0x4A4C37BB": {
+    "name_en": "HARDHAT",
+    "name_zh": "安全帽",
+    "name_source": "game_locale"
+  },
+  "0xA2B5625F": {
+    "name_en": "MORE QUESTIONS",
+    "name_zh": "更多疑问",
+    "name_source": "game_locale"
+  },
+  "0x0D6ADEF8": {
+    "name_en": "END TIMES",
+    "name_zh": "终结之时",
+    "name_source": "game_locale"
+  },
+  "0x37E6E210": {
+    "name_en": "OPERATION UPDATE",
+    "name_zh": "行动新情况",
+    "name_source": "game_locale"
+  },
+  "0xB44239F9": {
+    "name_en": "THE TRUTH",
+    "name_zh": "真相",
+    "name_source": "game_locale"
+  },
+  "0xE0410A37": {
+    "name_en": "RANTING",
+    "name_zh": "气话",
+    "name_source": "game_locale"
+  },
+  "0x78D55FD2": {
+    "name_en": "MAP OF SEARCH AREAS",
+    "name_zh": "搜寻区域的地图",
+    "name_source": "game_locale"
+  },
+  "0x8E1F420B": {
+    "name_en": "SITE SCRUBBED",
+    "name_zh": "抹消地点",
+    "name_source": "game_locale"
+  },
+  "0x101EBDED": {
+    "name_en": "SCOURING THE GLOBE",
+    "name_zh": "全球汇报",
+    "name_source": "game_locale"
+  },
+  "0x4F357588": {
+    "name_en": "TEMPLE SURVEY",
+    "name_zh": "神庙调查",
+    "name_source": "game_locale"
+  },
+  "0x2F0F0683": {
+    "name_en": "CROFT REPORT",
+    "name_zh": "克劳馥的报告",
+    "name_source": "game_locale"
+  },
+  "0xBF1247FD": {
+    "name_en": "NOT YET?",
+    "name_zh": "还没到时候？",
+    "name_source": "game_locale"
+  },
+  "0x09A53C76": {
+    "name_en": "JACK'S JOURNAL",
+    "name_zh": "杰克的日记",
+    "name_source": "game_locale"
+  },
+  "0x9E17CFFB": {
+    "name_en": "JACK'S JOURNAL 2",
+    "name_zh": "杰克的日记 2",
+    "name_source": "game_locale"
+  },
+  "0xA59C602F": {
+    "name_en": "JACK'S JOURNAL 3",
+    "name_zh": "杰克的日记 3",
+    "name_source": "game_locale"
+  },
+  "0xD03FC71A": {
+    "name_en": "JACK'S JOURNAL 4",
+    "name_zh": "杰克的日记 4",
+    "name_source": "game_locale"
+  },
+  "0x7CDCD0DC": {
+    "name_en": "JACK'S JOURNAL 5",
+    "name_zh": "杰克的日记 5",
+    "name_source": "game_locale"
+  },
+  "0x72A130AC": {
+    "name_en": "PRIMITIVE DOLL",
+    "name_zh": "原始人偶",
+    "name_source": "game_locale"
+  },
+  "0x743AA36A": {
+    "name_en": "PRIMITIVE DOLL",
+    "name_zh": "原始人偶",
+    "name_source": "game_locale"
+  },
+  "0x18155E52": {
+    "name_en": "PRIMITIVE DOLL",
+    "name_zh": "原始人偶",
+    "name_source": "game_locale"
+  },
+  "0xEF35DE29": {
+    "name_en": "PRIMITIVE DOLL",
+    "name_zh": "原始人偶",
+    "name_source": "game_locale"
+  },
+  "0xFE4F7B24": {
+    "name_en": "PRIMITIVE DOLL",
+    "name_zh": "原始人偶",
+    "name_source": "game_locale"
+  },
+  "0xE437D5D8": {
+    "name_en": "DEATH LORDS",
+    "name_zh": "死亡之主",
+    "name_source": "game_locale"
+  },
+  "0xD80A5713": {
+    "name_en": "MOTHER DEITY",
+    "name_zh": "母神",
+    "name_source": "game_locale"
+  },
+  "0xCCE614A4": {
+    "name_en": "FERTILITY GOD",
+    "name_zh": "丰饶之神",
+    "name_source": "game_locale"
+  },
+  "0xF2B65ADD": {
+    "name_en": "GOD OF DEATH",
+    "name_zh": "死亡之神",
+    "name_source": "game_locale"
+  },
+  "0x24E6FFE5": {
+    "name_en": "GOD OF LEARNING",
+    "name_zh": "知识之神",
+    "name_source": "game_locale"
+  },
+  "0xE37CEF20": {
+    "name_en": "GOD OF COCOA",
+    "name_zh": "可可之神",
+    "name_source": "game_locale"
+  },
+  "0x039F63E5": {
+    "name_en": "GOD OF SUICIDES",
+    "name_zh": "自裁之神",
+    "name_source": "game_locale"
+  },
+  "0x085190BF": {
+    "name_en": "YEAR BUNDLE",
+    "name_zh": "年卷",
+    "name_source": "game_locale"
+  },
+  "0x162D9BD8": {
+    "name_en": "MACUAHUITL",
+    "name_zh": "马克胡特",
+    "name_source": "game_locale"
+  },
+  "0xECFCF324": {
+    "name_en": "CEREMONIAL FIRE DRILL",
+    "name_zh": "仪式火钻",
+    "name_source": "game_locale"
+  },
+  "0x0D9C63E9": {
+    "name_en": "MASK OF THE FIRE GOD",
+    "name_zh": "火神面具",
+    "name_source": "game_locale"
+  },
+  "0x57447BC8": {
+    "name_en": "CEREMONIAL PIPE",
+    "name_zh": "仪式烟斗",
+    "name_source": "game_locale"
+  },
+  "0x08A8054E": {
+    "name_en": "WARRIOR PENDANT",
+    "name_zh": "勇士吊坠",
+    "name_source": "game_locale"
+  },
+  "0xC399ADA1": {
+    "name_en": "GOLDEN EFFIGY",
+    "name_zh": "金色雕像",
+    "name_source": "game_locale"
+  },
+  "0xA648BD25": {
+    "name_en": "CULT OF KUKULKAN",
+    "name_zh": "库库尔坎教团",
+    "name_source": "game_locale"
+  },
+  "0xC6B98286": {
+    "name_en": "CRIME AND PUNISHMENT",
+    "name_zh": "罪行与惩罚",
+    "name_source": "game_locale"
+  },
+  "0x2B2FC7E7": {
+    "name_en": "WARRIORS OF KUKULKAN",
+    "name_zh": "库库尔坎战士",
+    "name_source": "game_locale"
+  },
+  "0x16C7C314": {
+    "name_en": "PRIESTS OF THE SUN",
+    "name_zh": "太阳祭司",
+    "name_source": "game_locale"
+  },
+  "0x3327D835": {
+    "name_en": "THE CHOSEN ONE",
+    "name_zh": "天选之人",
+    "name_source": "game_locale"
+  },
+  "0x9118AD01": {
+    "name_en": "BELIEVER'S JOURNAL",
+    "name_zh": "信徒的日志",
+    "name_source": "game_locale"
+  },
+  "0x83E53135": {
+    "name_en": "LAST WORDS",
+    "name_zh": "遗言",
+    "name_source": "game_locale"
+  },
+  "0x5814FAFA": {
+    "name_en": "PURE OF HEART",
+    "name_zh": "纯洁之心",
+    "name_source": "game_locale"
+  },
+  "0x5F17B019": {
+    "name_en": "HUBRIS",
+    "name_zh": "狂妄自大",
+    "name_source": "game_locale"
+  },
+  "0xF285063D": {
+    "name_en": "DEMONS",
+    "name_zh": "恶魔",
+    "name_source": "game_locale"
+  },
+  "0x49B7C6F0": {
+    "name_en": "TESTAMENT OF T. SERRANO",
+    "name_zh": "特洛斯·赛拉诺的遗嘱",
+    "name_source": "game_locale"
+  },
+  "0x24D0344D": {
+    "name_en": "ALUX",
+    "name_zh": "阿鲁克斯",
+    "name_source": "game_locale"
+  },
+  "0xEF19D1FF": {
+    "name_en": "BALAMS",
+    "name_zh": "巴拉姆",
+    "name_source": "game_locale"
+  },
+  "0xCBDCD9FB": {
+    "name_en": "THE MONKEY TWINS",
+    "name_zh": "猴子双胞胎",
+    "name_source": "game_locale"
+  },
+  "0x62B5AB49": {
+    "name_en": "THE PADDLER GODS",
+    "name_zh": "渡神",
+    "name_source": "game_locale"
+  },
+  "0xCCD225DD": {
+    "name_en": "CHECHEN AND CHACA TREES",
+    "name_zh": "辰辰和查卡树",
+    "name_source": "game_locale"
+  },
+  "0x937D3868": {
+    "name_en": "VOTAN",
+    "name_zh": "沃坦",
+    "name_source": "game_locale"
+  },
+  "0x8834B6B2": {
+    "name_en": "WORLD TREE",
+    "name_zh": "世界之树",
+    "name_source": "game_locale"
+  },
+  "0xB1629AF4": {
+    "name_en": "JUDGES' GAZE",
+    "name_zh": "法官的凝视",
+    "name_source": "game_locale"
+  },
+  "0xD656004F": {
+    "name_en": "THIRSTY GODS",
+    "name_zh": "渴望诸神",
+    "name_source": "game_locale"
+  },
+  "0x56AB3FD1": {
+    "name_en": "UNDERWORLD GATE",
+    "name_zh": "冥界之门",
+    "name_source": "game_locale"
+  },
+  "0x6D914037": {
+    "name_en": "ANCIENT AQUEDUCT",
+    "name_zh": "古老水道",
+    "name_source": "game_locale"
+  },
+  "0x4F2135BC": {
+    "name_en": "TEMPLE OF THE SUN",
+    "name_zh": "太阳神庙",
+    "name_source": "game_locale"
+  },
+  "0x9D56C3FE": {
+    "name_en": "TREE OF LIFE",
+    "name_zh": "生命之树",
+    "name_source": "game_locale"
+  },
+  "0x5DB360F6": {
+    "name_en": "PATH OF BATTLE",
+    "name_zh": "战斗之路",
+    "name_source": "game_locale"
+  },
+  "0xEF88D7ED": {
+    "name_en": "HOWLING CAVES",
+    "name_zh": "呼啸洞穴",
+    "name_source": "game_locale"
+  },
+  "0x5D96F89C": {
+    "name_en": "URQU, THE SCOUT",
+    "name_zh": "侦察者乌求",
+    "name_source": "game_locale"
+  },
+  "0xCB3F79FB": {
+    "name_en": "RIMAK, THE STORYTELLER",
+    "name_zh": "说书人里马克",
+    "name_source": "game_locale"
+  },
+  "0x6FA48E97": {
+    "name_en": "WAYTA, THE TYRANT",
+    "name_zh": "暴君维塔",
+    "name_source": "game_locale"
+  },
+  "0xB3E072E4": {
+    "name_en": "CHUKI, THE WEAVER",
+    "name_zh": "织工恰吉",
+    "name_source": "game_locale"
+  },
+  "0x22E3B207": {
+    "name_en": "QISPI, THE MERCHANT",
+    "name_zh": "商人奇斯皮",
+    "name_source": "game_locale"
+  },
+  "0xFF54AE20": {
+    "name_en": "OLLANTA, THE POTTER",
+    "name_zh": "陶工奥兰塔",
+    "name_source": "game_locale"
+  },
+  "0xC0AF0E59": {
+    "name_en": "UTURUNKU, THE FERRYMAN",
+    "name_zh": "摆渡人乌图兰卡",
+    "name_source": "game_locale"
+  },
+  "0xDD9CA99B": {
+    "name_en": "HUASCAR, THE SYNCRETIST",
+    "name_zh": "汇合论者华斯卡尔",
+    "name_source": "game_locale"
+  },
+  "0xAACA9591": {
+    "name_en": "MARIANA'S MAP",
+    "name_zh": "玛丽安娜的地图",
+    "name_source": "game_locale"
+  },
+  "0x4A58B0D6": {
+    "name_en": "MARKS ON THE MAP",
+    "name_zh": "地图上的标记",
+    "name_source": "game_locale"
+  },
+  "0xDAB1DD87": {
+    "name_en": "MARIANA'S LOCATION REVEALED",
+    "name_zh": "玛丽安娜的地点揭露",
+    "name_source": "game_locale"
+  },
+  "0x7DEC396C": {
+    "name_en": "A PIECE OF THE CHAKANA",
+    "name_zh": "一块查卡纳碎片",
+    "name_source": "game_locale"
+  },
+  "0x04F85CB9": {
+    "name_en": "MORE OF THE CHAKANA",
+    "name_zh": "更多查卡纳碎片",
+    "name_source": "game_locale"
+  },
+  "0x93436A24": {
+    "name_en": "THE FINAL PIECE",
+    "name_zh": "最后一块碎片",
+    "name_source": "game_locale"
+  },
+  "0x116D04CB": {
+    "name_en": "PORVENIR FIELD REPORT",
+    "name_zh": "波维尼尔实地报告",
+    "name_source": "game_locale"
+  },
+  "0x56FC59E0": {
+    "name_en": "MARIANA'S JOURNAL",
+    "name_zh": "玛丽安娜的日记",
+    "name_source": "game_locale"
+  },
+  "0xABC9E455": {
+    "name_en": "EXODUS OF HOPE",
+    "name_zh": "满怀希望的大迁徙",
+    "name_source": "game_locale"
+  },
+  "0x119E2BC2": {
+    "name_en": "PORVENIR HARDHAT",
+    "name_zh": "波维尼尔安全帽",
+    "name_source": "game_locale"
+  },
+  "0x82A9C782": {
+    "name_en": "MARIANA'S CONFESSION",
+    "name_zh": "玛丽安娜的忏悔",
+    "name_source": "game_locale"
+  },
+  "0x92C8057E": {
+    "name_en": "ANCIENT FORGE",
+    "name_zh": "古代锻炉",
+    "name_source": "game_locale"
+  },
+  "0x64B06DC0": {
+    "name_en": "Q'ORIANKA'S ORDERS",
+    "name_zh": "给科里安卡的命令",
+    "name_source": "game_locale"
+  },
+  "0x7666F866": {
+    "name_en": "RITUAL BOOK",
+    "name_zh": "仪式古籍",
+    "name_source": "game_locale"
+  },
+  "0x07DCD3FE": {
+    "name_en": "AMARU'S DIARY PAGE",
+    "name_zh": "阿玛鲁日记残页",
+    "name_source": "game_locale"
+  },
+  "0x7828DF72": {
+    "name_en": "PILLARS OF HEAVEN",
+    "name_zh": "天堂之柱",
+    "name_source": "game_locale"
+  },
+  "0xBD6B77BF": {
+    "name_en": "LEGEND OF THE SHIELD",
+    "name_zh": "传奇之盾",
+    "name_source": "game_locale"
+  },
+  "0x32F3A092": {
+    "name_en": "THE SHIELD'S CRADLE",
+    "name_zh": "盾牌支架",
+    "name_source": "game_locale"
+  },
+  "0xE4E77A90": {
+    "name_en": "THE SHIELD OF THE AGE MAKER",
+    "name_zh": "纪元开创者之盾",
+    "name_source": "game_locale"
+  },
+  "0x227327D9": {
+    "name_en": "PRAYER FOR THE LOYAL DEAD",
+    "name_zh": "忠魂祈祷文",
+    "name_source": "game_locale"
+  },
+  "0xA8615E3E": {
+    "name_en": "INSTRUMENT BLUEPRINT",
+    "name_zh": "乐器蓝图",
+    "name_source": "game_locale"
+  },
+  "0xA0040AA7": {
+    "name_en": "EXILED TWINS",
+    "name_zh": "被放逐的双胞胎",
+    "name_source": "game_locale"
+  },
+  "0xAB453584": {
+    "name_en": "GATHERING FOLLOWERS",
+    "name_zh": "收集花朵",
+    "name_source": "game_locale"
+  },
+  "0xBA280E1C": {
+    "name_en": "CYPHER WHEEL POSITION 1",
+    "name_zh": "密码盘位置 1",
+    "name_source": "game_locale"
+  },
+  "0xCDC2FAF3": {
+    "name_en": "CYPHER WHEEL POSITION 2",
+    "name_zh": "密码盘位置 2",
+    "name_source": "game_locale"
+  },
+  "0x696CD437": {
+    "name_en": "HIDDEN CLUE",
+    "name_zh": "隐藏线索",
+    "name_source": "game_locale"
+  },
+  "0x01F16D6E": {
+    "name_en": "CYPHER WHEEL POSITION 3",
+    "name_zh": "密码盘位置 3",
+    "name_source": "game_locale"
+  },
+  "0x5B10D527": {
+    "name_en": "SOURCE OF THE FOOD",
+    "name_zh": "食物来源",
+    "name_source": "game_locale"
+  },
+  "0xA687997B": {
+    "name_en": "TRIAL REWARD",
+    "name_zh": "试炼奖励",
+    "name_source": "game_locale"
+  },
+  "0xD2024132": {
+    "name_en": "AMARU'S NOTE",
+    "name_zh": "阿玛鲁的笔记",
+    "name_source": "game_locale"
+  },
+  "0xA9066A63": {
+    "name_en": "EVALUATION",
+    "name_zh": "评价",
+    "name_source": "game_locale"
+  },
+  "0x5332F9D0": {
+    "name_en": "CODED MESSAGE",
+    "name_zh": "加密信息",
+    "name_source": "game_locale"
+  },
+  "0xB869D6C6": {
+    "name_en": "DECODED MESSAGE",
+    "name_zh": "解密信息",
+    "name_source": "game_locale"
+  },
+  "0x82770BFB": {
+    "name_en": "THE CHALLENGERS' TRIAL",
+    "name_zh": "挑战者们的试炼",
+    "name_source": "game_locale"
+  },
+  "0xF60968A7": {
+    "name_en": "HISTORY OF THE GODSLAYER",
+    "name_zh": "弑神者历史",
+    "name_source": "game_locale"
+  },
+  "0x153C563F": {
+    "name_en": "TRINITY LOG",
+    "name_zh": "圣三一日志",
+    "name_source": "game_locale"
+  },
+  "0x21F30738": {
+    "name_en": "HANDWRITTEN SHEET",
+    "name_zh": "手写纸条",
+    "name_source": "game_locale"
+  },
+  "0xCC7B3FA7": {
+    "name_en": "IN HONOR OF ZIPACNA",
+    "name_zh": "以兹帕纳之名",
+    "name_source": "game_locale"
+  },
+  "0x1CD89B7B": {
+    "name_en": "CRAB RELIC",
+    "name_zh": "螃蟹祭品",
+    "name_source": "game_locale"
+  },
+  "0xA6C0BB36": {
+    "name_en": "TRINITY'S DIRECTIONS",
+    "name_zh": "圣三一的指引",
+    "name_source": "game_locale"
+  },
+  "0x83DE3E3A": {
+    "name_en": "IN HONOR OF XQUIC",
+    "name_zh": "西轲的荣耀",
+    "name_source": "game_locale"
+  },
+  "0x053CAD08": {
+    "name_en": "FATE OF THE YAAXIL",
+    "name_zh": "亚希尔的命运",
+    "name_source": "game_locale"
+  }
+}

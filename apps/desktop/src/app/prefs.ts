@@ -80,5 +80,5 @@ export function clearPreferences(): void {
 }
 
 function isViewId(value: unknown): value is ViewId {
-  return value === "import" || value === "overview" || value === "regions" || value === "diagnostics" || value === "settings";
+  return value === "import" || value === "overview" || value === "full" || value === "regions" || value === "diagnostics" || value === "settings";
 }

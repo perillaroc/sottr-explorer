@@ -1,12 +1,11 @@
 <script setup lang="ts">
-// 概览（SX-015）：一行摘要 + 区域入口；推论标签不丢失；覆盖提示固定可见。
+// 概览（SX-022）：收集进度摘要 + 各区域进度 + 入口。
+// 区域进度是图鉴条目数之比，不是游戏内地图百分比（口径未闭合，见 research/s020）。
 import { computed } from "vue";
-import { AlertTriangle, Info } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { copy, evidenceLabel } from "../app/labels";
+import { copy } from "../app/labels";
 import { formatPercent, formatSnapshotTime } from "../app/format";
-import { supportedCategories, verifiedCoordinateCount } from "../app/catalog";
-import RegionCounts from "./RegionCounts.vue";
+import { countPlan, regionName } from "../app/collection";
 import CoverageNotice from "./CoverageNotice.vue";
 import UiBadge from "./ui/UiBadge.vue";
 import UiButton from "./ui/UiButton.vue";
@@ -16,12 +15,32 @@ const store = useStore();
 
 const report = computed(() => store.report.value);
 const slot = computed(() => store.currentSlot.value);
+const plan = computed(() => store.plan.value);
+const counts = computed(() => store.planMainCounts.value);
+const specialCounts = computed(() => countPlan(store.plan.value, "special"));
 const overall = computed(() => report.value?.observations.overall_completion ?? null);
-const overallText = computed(() => (overall.value?.value === null || overall.value === null ? null : formatPercent(overall.value.value)));
-const missingAvailable = computed(() => store.missingAvailable.value);
-const coordinateCount = computed(() => (report.value ? verifiedCoordinateCount(report.value) : 0));
-const categories = computed(() => (report.value ? supportedCategories(store.metadata, report.value) : []));
-const locationStatus = computed(() => report.value?.capabilities.location.status ?? "unsupported");
+const overallText = computed(() =>
+  overall.value?.value === null || overall.value === null ? null : formatPercent(overall.value.value),
+);
+
+const mainRegions = computed(() => plan.value.regions.filter((region) => region.kind === "main"));
+const specialRegions = computed(() => plan.value.regions.filter((region) => region.kind === "special"));
+
+function percent(collected: number, total: number): number {
+  return total === 0 ? 0 : Math.round((collected / total) * 100);
+}
+
+function openRegion(slug: string): void {
+  store.actions.setRegion(slug);
+  store.actions.setStatusFilter("missing");
+  store.actions.setView("regions");
+}
+
+function openAllUncollected(): void {
+  store.actions.setRegion("all");
+  store.actions.setStatusFilter("missing");
+  store.actions.setView("regions");
+}
 </script>
 
 <template>
@@ -44,29 +63,35 @@ const locationStatus = computed(() => report.value?.capabilities.location.status
       <template v-else>
         <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
           <div class="rounded-[8px] border border-line bg-surface px-3 py-2">
-            <p class="text-xs text-muted">整体进度推定</p>
-            <p class="mt-0.5 flex flex-wrap items-baseline gap-1.5" data-testid="overall-summary">
+            <p class="text-xs text-muted">主区域收集品</p>
+            <p v-if="store.planAvailable.value" class="mt-0.5 flex flex-wrap items-baseline gap-1.5" data-testid="collection-summary">
+              <span class="text-lg font-semibold tabular-nums">{{ counts.collected }}/{{ counts.all }}</span>
+              <span class="text-[13px] text-muted">已收集</span>
+            </p>
+            <p v-else class="mt-0.5 text-[13px] text-muted" data-testid="collection-summary">
+              不适用（资料文件没有收集品清单）
+            </p>
+            <p class="mt-0.5 text-xs text-muted">9 个主区域合计（不含特殊区域）；含可选与未闭合类别。</p>
+          </div>
+          <div class="rounded-[8px] border border-line bg-surface px-3 py-2">
+            <p class="text-xs text-muted">未收集</p>
+            <p class="mt-0.5 flex flex-wrap items-baseline gap-1.5">
+              <span v-if="store.planAvailable.value" class="text-lg font-semibold tabular-nums" data-testid="uncollected-value">{{ counts.uncollected }} 项</span>
+              <span v-else class="text-[13px] text-muted" data-testid="uncollected-value">不适用</span>
+              <UiBadge tone="caution" kind-label="状态">待收集</UiBadge>
+            </p>
+            <p class="mt-0.5 text-xs text-muted">按区域与类别分组，见「区域与收集」；特殊区域另计 {{ specialCounts.uncollected }} 项。</p>
+          </div>
+          <div class="rounded-[8px] border border-line bg-surface px-3 py-2">
+            <p class="text-xs text-muted">游戏内整体完成度字段</p>
+            <p class="mt-0.5 flex flex-wrap items-baseline gap-1.5">
               <span v-if="overallText" class="text-lg font-semibold tabular-nums" data-testid="overall-value">{{ overallText }}</span>
               <span v-else class="text-[13px]" data-testid="overall-value">不可用（{{ overall?.reason ?? "原因见诊断" }}）</span>
               <UiBadge tone="caution" kind-label="证据">推定</UiBadge>
-              <UiBadge tone="neutral" kind-label="依据">{{ overall ? evidenceLabel(overall.evidence_level) : "未知" }}</UiBadge>
             </p>
-            <p class="mt-0.5 text-xs text-muted">全局字段的社区校准候选；未反映剩余比例构成。</p>
-          </div>
-          <div class="rounded-[8px] border border-line bg-surface px-3 py-2">
-            <p class="text-xs text-muted">支持范围内参考遗漏</p>
-            <p class="mt-0.5 flex flex-wrap items-baseline gap-1.5">
-              <span class="text-lg font-semibold tabular-nums" data-testid="missing-value">{{ store.missingTotal.value }} 项</span>
-              <UiBadge tone="caution" kind-label="状态">推定</UiBadge>
+            <p class="mt-0.5 text-xs text-muted">
+              社区校准候选，与本工具的收集品计数口径不同，不能互相换算。
             </p>
-            <p class="mt-0.5 text-xs text-muted">仅四个内部参考类别；不是“全游戏还差 N 项”。</p>
-          </div>
-          <div class="rounded-[8px] border border-line bg-surface px-3 py-2">
-            <p class="text-xs text-muted">定位能力</p>
-            <p class="mt-0.5 text-[13px]" data-testid="location-value">
-              已验证坐标 {{ coordinateCount }} 项；区域/攻略组线索{{ locationStatus === "supported" ? "可用" : locationStatus === "partial" ? "部分可用" : "不可用" }}
-            </p>
-            <p class="mt-0.5 text-xs text-muted">不绘制精确点位；攻略组线索不冒充条目编号。</p>
           </div>
         </div>
 
@@ -77,49 +102,68 @@ const locationStatus = computed(() => report.value?.capabilities.location.status
           :title="copy.stale"
           :lines="[
             `快照时间：${formatSnapshotTime(slot?.result?.snapshot_time ?? null)}`,
-            `刷新错误：${slot?.result?.last_refresh_error?.code ?? '未知'}：${slot?.result?.last_refresh_error?.message ?? ''}`,
-            '旧证据可读，但不能当作当前遗漏；旧结果导出必须携带过期标记。',
+            `刷新错误：${slot?.result?.last_refresh_error?.code ?? '未知'}`,
+            '旧结果只反映上一次读取；请刷新后再核对收集状态。',
           ]"
         />
-        <CoverageNotice
-          v-else-if="!missingAvailable"
-          tone="warning"
-          test-id="degraded-banner"
-          :title="copy.missingUnavailable"
-          :lines="[copy.missingUnavailableHelp, `原因码：${(report.coverage.unavailable_reason_codes ?? []).join('、') || '见诊断'}`]"
-        />
 
-        <!-- 覆盖提示在主流程中始终可见（与状态提示并存，不互相替代）。 -->
-        <CoverageNotice tone="info" test-id="coverage-banner" :title="copy.coverage" :lines="[copy.coverageScope]">
-          <span class="text-xs">受支持类别：{{ categories.map((category) => category.label).join("、") || "无" }}</span>
+        <CoverageNotice tone="info" test-id="coverage-banner" title="收集状态口径" :lines="[copy.coverageScope]">
+          <span class="text-xs">
+            图鉴 {{ plan.catalog_version }} · 共 {{ plan.main_total }} 项主区域收集品 ·
+            目录外观察记录 {{ plan.observed_not_in_catalog.length }} 个（不计入收集品）
+          </span>
         </CoverageNotice>
 
-        <section class="space-y-2">
-          <h2 class="text-base font-medium">区域入口</h2>
-          <RegionCounts :region="null" compact />
+        <section v-if="store.planAvailable.value" class="space-y-2">
+          <h2 class="text-base font-medium">区域进度</h2>
+          <p class="text-xs text-muted">
+            进度 = 本区域已收集 / 图鉴条目数；不是游戏内地图完成度百分比。
+          </p>
+          <ul class="space-y-1.5" data-testid="region-progress">
+            <li v-for="region in mainRegions" :key="region.slug">
+              <button
+                type="button"
+                class="w-full cursor-pointer rounded-[6px] border border-line bg-surface px-3 py-1.5 text-left hover:bg-raised"
+                :data-testid="`overview-region-${region.slug}`"
+                @click="openRegion(region.slug)"
+              >
+                <div class="flex items-baseline justify-between gap-2 text-[13px]">
+                  <span class="text-ink">{{ regionName(region) }}</span>
+                  <span class="tabular-nums text-muted">{{ region.collected }}/{{ region.total }}</span>
+                </div>
+                <div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-raised">
+                  <div class="h-full rounded-full bg-accent-strong" :style="{ width: `${percent(region.collected, region.total)}%` }" />
+                </div>
+              </button>
+            </li>
+          </ul>
+
+          <details class="pt-1">
+            <summary class="cursor-pointer text-[13px] text-muted">
+              特殊区域（{{ specialRegions.length }}）：跨区域挑战古墓 / 全局区域 / 庄园
+            </summary>
+            <ul class="mt-1 space-y-1">
+              <li v-for="region in specialRegions" :key="region.slug" class="flex items-baseline gap-2 text-[13px]">
+                <button
+                  type="button"
+                  class="cursor-pointer text-accent-strong hover:underline"
+                  @click="openRegion(region.slug)"
+                >
+                  {{ regionName(region) }}
+                </button>
+                <span class="tabular-nums text-muted">{{ region.collected }}/{{ region.total }}</span>
+              </li>
+            </ul>
+          </details>
         </section>
 
         <section class="flex flex-wrap items-center gap-2">
-          <UiButton
-            variant="primary"
-            :disabled="!missingAvailable"
-            :title="missingAvailable ? '查看参考遗漏（应用遗漏筛选）' : `${copy.missingUnavailable}：${copy.missingUnavailableHelp}`"
-            data-testid="view-missing"
-            @click="store.actions.setStatusFilter('missing'); store.actions.setView('regions')"
-          >
-            查看参考遗漏
+          <UiButton variant="primary" data-testid="view-missing" @click="openAllUncollected">
+            查看未收集清单
           </UiButton>
           <UiButton @click="store.actions.setStatusFilter('all'); store.actions.setView('regions')">
-            浏览受支持的收集品
+            浏览全部收集品
           </UiButton>
-          <span v-if="!missingAvailable" class="flex items-center gap-1 text-xs text-caution">
-            <AlertTriangle :size="14" aria-hidden="true" />
-            遗漏入口已禁用：{{ copy.missingUnavailableHelp }}
-          </span>
-          <span v-else class="flex items-center gap-1 text-xs text-muted">
-            <Info :size="14" aria-hidden="true" />
-            未分类记录，不计入收集品数；请在诊断页查看。
-          </span>
         </section>
       </template>
     </div>

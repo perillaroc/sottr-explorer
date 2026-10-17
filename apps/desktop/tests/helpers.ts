@@ -17,6 +17,11 @@ export interface TestStoreOptions {
   width?: number;
   source?: DataSource;
   boot?: boolean;
+  /**
+   * 覆盖观察集合；返回 `null` 表示改用当前报告的物品表。
+   * 默认：模拟模式使用 demoObservedIds，真实模式读取报告。
+   */
+  observedIds?: () => string[] | null;
 }
 
 /** 创建测试 store（默认持久化关闭、MockDataSource 无延迟）。 */
@@ -24,7 +29,11 @@ export async function createTestStore(
   options: TestStoreOptions = {},
 ): Promise<{ store: AppStore; source: DataSource }> {
   const source = options.source ?? new MockDataSource({ delayMs: 0 });
-  const store = createAppStore(source, { persist: false, layoutWidth: options.width ?? 1280 });
+  const store = createAppStore(source, {
+    persist: false,
+    layoutWidth: options.width ?? 1280,
+    observedIds: options.observedIds,
+  });
   if (options.boot !== false) {
     await store.actions.boot();
   }

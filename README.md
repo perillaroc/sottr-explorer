@@ -27,10 +27,17 @@ G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品
 界面页 C2a/C2b 与跨实现黄金一致性、T22 验收 D；见 `data/catalog/`）；
 **SX-017 完成**（跨层验收与回归：自动化全绿、单机实测性能记录；DPI/WebView2 手工项
 保持待验证；见 `private/s017_acceptance.log`）。
+**SX-022 完成**（图鉴数据基础与按区域收集计划：故事条目全字段与子类别、区域哈希→ASL slug
+唯一绑定（签名距离 0）、65 个子关卡命名、302/302 故事条目官方中文名（locals 双表下标对齐）、
+关卡内相对位置、类别获取方式；`catalog` 升到 schema 2.0.0；新增 `sottr-core::atlas` 与
+CLI `plan`；区域页/详情/概览/全收集页改为消费图鉴。端到端验收：图鉴「区域×子类别」
+与存档自带区域计数器 **43/43 行完全吻合**；见 `research/s022/README.md`）。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
 - 元数据数据集（来源、生成与许可状态）：[data/metadata/README.md](data/metadata/README.md)
+- 全收集图鉴（区域 / 子关卡 / 中英名 / 相对位置 / 获取方式）：[data/catalog/README.md](data/catalog/README.md)
+- 图鉴数据基础研究（区域绑定、本地化对齐与验收）：[research/s022/README.md](research/s022/README.md)
 - 开发方案与任务状态在开发工作区 `plan/` 目录维护，不在本仓库
 
 ## 目录结构
@@ -43,7 +50,8 @@ G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品
 | `crates/sottr-platform/` | 平台适配层（SX-012/SX-013/SX-014）：Windows Known Folder/OneDrive 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）、输出提交（独占新目标/受控临时文件）与快照时钟；CLI 与桌面后端共用，零第三方依赖 |
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`resolve_guide_link`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015/SX-016）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 真实数据源 `TauriDataSource`（`src/data/tauri.ts`）与模拟数据源；导出对话框与攻略链接动作；组件/状态/端到端测试（`tests/`，80 项 + 1 项真实输出绑定（需环境变量）） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
-| `data/catalog/` | 全收集目录源数据（SX-021 阶段 A）：生成脚本、契约与说明（接入元数据管道前为独立数据集） |
+| `data/catalog/` | 全收集图鉴（SX-021 建目录；SX-022 schema 2.0.0：区域 / 子关卡 / 中英名 / 相对位置 / 获取方式）：生成脚本、契约与说明 |
+| `research/s022/` | 图鉴数据基础研究（SX-022）：区域绑定、子关卡命名、本地化对齐与验收脚本（无商业数据转储） |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
 | `research/s019/` | G4 研究记录（SX-019）：游戏资源与本地化关联的独立提取脚本及发现（无商业数据转储） |
 | `research/s020/` | G4 验证记录（SX-020）：全收集口径逐类对账、否定结果与 SX-021 约束（含脚本） |
@@ -70,6 +78,10 @@ cargo run -p sottr-cli -- analyze --input <样本目录> --context campaign `
 # 单文件导出（导出信封 report.json + 逐项 report.csv；--share 去除绝对路径）
 cargo run -p sottr-cli -- export --input <存档文件> --context campaign `
     --output <新目录> --metadata data/metadata --format both --share
+
+# 按区域的收集计划（图鉴 + 存档观察集合 → 逐区域/逐项状态、子关卡、相对位置与获取方式）
+cargo run -p sottr-cli -- plan --catalog data/catalog/collectibles_catalog.json `
+    --analysis <分析目录>/analysis.json --output <新目录> [--input save1.dat]
 
 # Python v0.2 差分回归（可选夹具；未设置时安静跳过并记录覆盖缺口）
 $env:SOTTR_SAMPLE_DIR = "<私有五文件目录>"     # profile.dat + save1/save202/save204/save206

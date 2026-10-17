@@ -1,0 +1,221 @@
+{
+  "source": "SX-022 区域绑定：目录区域×类别计数 vs 存档区域计数器来源目标（L1 最近邻）",
+  "dimensions": [
+    "relics",
+    "documents",
+    "murals",
+    "survival_caches",
+    "monoliths",
+    "crypt_treasures",
+    "strongboxes"
+  ],
+  "bindings": {
+    "838BAE8C": {
+      "region_slug": "kuwaq_yaku",
+      "signature_distance": 0,
+      "runner_up_distance": 21,
+      "signature": {
+        "relics": 4,
+        "documents": 18,
+        "murals": 10,
+        "survival_caches": 14,
+        "monoliths": 3,
+        "crypt_treasures": 2,
+        "strongboxes": 2
+      },
+      "targets": {
+        "relics": 4,
+        "documents": 18,
+        "murals": 10,
+        "survival_caches": 14,
+        "monoliths": 3,
+        "crypt_treasures": 2,
+        "strongboxes": 2
+      }
+    },
+    "8C0D7019": {
+      "region_slug": "trial_of_the_eagle",
+      "signature_distance": 0,
+      "runner_up_distance": 3,
+      "signature": {
+        "relics": 0,
+        "documents": 1,
+        "murals": 2,
+        "survival_caches": 1,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      },
+      "targets": {
+        "relics": 0,
+        "documents": 1,
+        "murals": 2,
+        "survival_caches": 1,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      }
+    },
+    "8D2E7B5C": {
+      "region_slug": "mission_of_san_juan",
+      "signature_distance": 0,
+      "runner_up_distance": 19,
+      "signature": {
+        "relics": 9,
+        "documents": 27,
+        "murals": 4,
+        "survival_caches": 8,
+        "monoliths": 1,
+        "crypt_treasures": 1,
+        "strongboxes": 1
+      },
+      "targets": {
+        "relics": 9,
+        "documents": 27,
+        "murals": 4,
+        "survival_caches": 8,
+        "monoliths": 1,
+        "crypt_treasures": 1,
+        "strongboxes": 1
+      }
+    },
+    "96135833": {
+      "region_slug": "head_of_the_serpent",
+      "signature_distance": 0,
+      "runner_up_distance": 3,
+      "signature": {
+        "relics": 0,
+        "documents": 0,
+        "murals": 1,
+        "survival_caches": 0,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      },
+      "targets": {
+        "relics": 0,
+        "documents": 0,
+        "murals": 1,
+        "survival_caches": 0,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      }
+    },
+    "B02CF2FD": {
+      "region_slug": "cozumel",
+      "signature_distance": 0,
+      "runner_up_distance": 5,
+      "signature": {
+        "relics": 2,
+        "documents": 1,
+        "murals": 2,
+        "survival_caches": 3,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 1
+      },
+      "targets": {
+        "relics": 2,
+        "documents": 1,
+        "murals": 2,
+        "survival_caches": 3,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 1
+      }
+    },
+    "B06345B4": {
+      "region_slug": "cenote",
+      "signature_distance": 0,
+      "runner_up_distance": 15,
+      "signature": {
+        "relics": 5,
+        "documents": 6,
+        "murals": 0,
+        "survival_caches": 8,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      },
+      "targets": {
+        "relics": 5,
+        "documents": 6,
+        "murals": 0,
+        "survival_caches": 8,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      }
+    },
+    "C5B30CDB": {
+      "region_slug": "paititi",
+      "signature_distance": 0,
+      "runner_up_distance": 89,
+      "signature": {
+        "relics": 28,
+        "documents": 42,
+        "murals": 23,
+        "survival_caches": 34,
+        "monoliths": 7,
+        "crypt_treasures": 5,
+        "strongboxes": 3
+      },
+      "targets": {
+        "relics": 28,
+        "documents": 42,
+        "murals": 23,
+        "survival_caches": 34,
+        "monoliths": 7,
+        "crypt_treasures": 5,
+        "strongboxes": 3
+      }
+    },
+    "C92877A7": {
+      "region_slug": "porvenir_oil_fields",
+      "signature_distance": 0,
+      "runner_up_distance": 5,
+      "signature": {
+        "relics": 1,
+        "documents": 4,
+        "murals": 1,
+        "survival_caches": 0,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      },
+      "targets": {
+        "relics": 1,
+        "documents": 4,
+        "murals": 1,
+        "survival_caches": 0,
+        "monoliths": 0,
+        "crypt_treasures": 0,
+        "strongboxes": 0
+      }
+    },
+    "D65AE5D8": {
+      "region_slug": "peruvian_jungle",
+      "signature_distance": 0,
+      "runner_up_distance": 19,
+      "signature": {
+        "relics": 9,
+        "documents": 13,
+        "murals": 7,
+        "survival_caches": 9,
+        "monoliths": 1,
+        "crypt_treasures": 2,
+        "strongboxes": 1
+      },
+      "targets": {
+        "relics": 9,
+        "documents": 13,
+        "murals": 7,
+        "survival_caches": 9,
+        "monoliths": 1,
+        "crypt_treasures": 2,
+        "strongboxes": 1
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@
 //   共用同一 ID 的条目按 ID 计数并列出全部名称；目录外观察 ID 单列。
 import { computed } from "vue";
 import { useStore } from "../app/inject";
+import { regionName } from "../app/collection";
 import {
   computeMissing,
   productionCatalog,
@@ -14,6 +15,43 @@ import {
 } from "../data/catalog";
 
 const store = useStore();
+
+/** 必收类别（100% 口径）在计划里的区域分布。 */
+const requiredRegionRows = computed(() => {
+  const rows: { slug: string; label: string; kind: "main" | "special"; cells: { id: string; label: string; collected: number; total: number }[]; collected: number; total: number }[] = [];
+  for (const region of store.plan.value.regions) {
+    const cells = region.groups
+      .filter((group) => group.required_for_100 === true)
+      .map((group) => ({
+        id: `${group.category}:${group.subcategory ?? ""}`,
+        label: group.name,
+        collected: group.collected,
+        total: group.total,
+      }));
+    if (cells.length === 0) {
+      continue;
+    }
+    const collected = cells.reduce((sum, cell) => sum + cell.collected, 0);
+    const total = cells.reduce((sum, cell) => sum + cell.total, 0);
+    rows.push({ slug: region.slug, label: regionName(region), kind: region.kind, cells, collected, total });
+  }
+  return rows;
+});
+
+const requiredRegionTotals = computed(() => {
+  const rows = requiredRegionRows.value.filter((row) => row.kind === "main");
+  return {
+    collected: rows.reduce((sum, row) => sum + row.collected, 0),
+    total: rows.reduce((sum, row) => sum + row.total, 0),
+  };
+});
+
+function openRegion(slug: string, category: string): void {
+  store.actions.setRegion(slug);
+  store.actions.setCategory(category.split(":")[0]);
+  store.actions.setStatusFilter("missing");
+  store.actions.setView("regions");
+}
 
 const missing = computed(() => {
   const report = store.report.value;
@@ -70,6 +108,49 @@ function missingLabel(item: MissingItem): string {
         <span v-if="missing.observed_not_in_catalog.length > 0" class="text-muted">
           目录外未知 ID：{{ missing.observed_not_in_catalog.length }}（单列，不混入缺失）
         </span>
+      </div>
+
+      <h2 class="mb-2 text-[16px] font-medium text-ink">必收类别 · 按区域</h2>
+      <p class="mb-2 text-xs text-muted">
+        主区域必收 {{ requiredRegionTotals.collected }}/{{ requiredRegionTotals.total }}。
+        点击类别进入该区域的逐项清单（已在「区域与收集」里按未收集过滤）。
+      </p>
+      <div class="mb-5 overflow-x-auto">
+        <table class="w-full min-w-[640px] border-collapse text-[12px]" data-testid="required-region-matrix">
+          <thead>
+            <tr class="border-b border-line text-left text-muted">
+              <th class="py-1 pr-2 font-medium">区域</th>
+              <th class="py-1 pr-2 font-medium">必收进度</th>
+              <th class="py-1 font-medium">类别（已收集/总数）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="row in requiredRegionRows"
+              :key="row.slug"
+              class="border-b border-line/60 align-top"
+              :data-testid="`required-region-${row.slug}`"
+            >
+              <td class="py-1 pr-2">
+                <span class="text-ink">{{ row.label }}</span>
+                <span v-if="row.kind === 'special'" class="ml-1 text-[10px] text-muted">特殊</span>
+              </td>
+              <td class="py-1 pr-2 tabular-nums text-muted">{{ row.collected }}/{{ row.total }}</td>
+              <td class="py-1">
+                <span v-for="(cell, index) in row.cells" :key="cell.id">
+                  <span v-if="index > 0" class="text-muted"> · </span>
+                  <button
+                    type="button"
+                    class="cursor-pointer text-accent-strong hover:underline"
+                    @click="openRegion(row.slug, cell.id)"
+                  >
+                    {{ cell.label }} {{ cell.collected }}/{{ cell.total }}
+                  </button>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <h2 class="mb-2 text-[16px] font-medium text-ink">必收类别</h2>

@@ -1,0 +1,457 @@
+{
+  "198": {
+    "zone": "an_apocalypse_now_v2_01",
+    "display_en": "RIVER BANK",
+    "display_zh": "河岸",
+    "name_source": "curated",
+    "region_slug": "porvenir_oil_fields"
+  },
+  "222": {
+    "zone": "an_apocalypse_now_v2_03",
+    "display_en": "RIVER BANK",
+    "display_zh": "河岸",
+    "name_source": "curated",
+    "region_slug": "porvenir_oil_fields"
+  },
+  "241": {
+    "zone": "pa_hub_paititi_return_02",
+    "display_en": "PAITITI RETURN",
+    "display_zh": "帕依提提 · 归途",
+    "name_source": "curated",
+    "region_slug": "paititi"
+  },
+  "243": {
+    "zone": "pa_hub_paititi",
+    "display_en": "PAITITI HUB",
+    "display_zh": "帕依提提主城",
+    "name_source": "curated",
+    "region_slug": "paititi"
+  },
+  "245": {
+    "zone": "cm_croft_manor",
+    "display_en": "CROFT MANOR",
+    "display_zh": "克劳馥庄园",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "318": {
+    "zone": "sm_spanish_mission_village",
+    "display_en": "SAN JUAN VILLAGE",
+    "display_zh": "圣胡安村庄",
+    "name_source": "curated",
+    "region_slug": "mission_of_san_juan"
+  },
+  "638": {
+    "zone": "ce_030_den",
+    "display_en": "CENOTE DEN",
+    "display_zh": "灰岩坑 · 兽穴",
+    "name_source": "curated",
+    "region_slug": "cenote"
+  },
+  "648": {
+    "zone": "dd_day_of_the_dead_030",
+    "display_en": "COZUMEL",
+    "display_zh": "科祖梅尔",
+    "name_source": "curated",
+    "region_slug": "cozumel"
+  },
+  "667": {
+    "zone": "lj_lost_in_the_jungle_v2_connector_out",
+    "display_en": "JUNGLE PASSAGE",
+    "display_zh": "丛林通道",
+    "name_source": "curated",
+    "region_slug": "peruvian_jungle"
+  },
+  "672": {
+    "zone": "lj_lost_in_the_jungle_v2_03",
+    "display_en": "PERUVIAN JUNGLE",
+    "display_zh": "秘鲁丛林",
+    "name_source": "curated",
+    "region_slug": "peruvian_jungle"
+  },
+  "682": {
+    "zone": "lj_lost_in_the_jungle_v2_02",
+    "display_en": "PERUVIAN JUNGLE",
+    "display_zh": "秘鲁丛林",
+    "name_source": "curated",
+    "region_slug": "peruvian_jungle"
+  },
+  "931": {
+    "zone": "ce_010_fall",
+    "display_en": "CENOTE FALLS",
+    "display_zh": "灰岩坑 · 瀑布",
+    "name_source": "curated",
+    "region_slug": "cenote"
+  },
+  "949": {
+    "zone": "ce_040_tomb",
+    "display_en": "CENOTE TOMB",
+    "display_zh": "灰岩坑 · 墓室",
+    "name_source": "curated",
+    "region_slug": "cenote"
+  },
+  "980": {
+    "zone": "ct_citadel_of_wind",
+    "display_en": "TRIAL OF THE EAGLE",
+    "display_zh": "猎鹰的试炼",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "982": {
+    "zone": "dd_day_of_the_dead_040",
+    "display_en": "COZUMEL",
+    "display_zh": "科祖梅尔",
+    "name_source": "curated",
+    "region_slug": "cozumel"
+  },
+  "1060": {
+    "zone": "av_abandonned_village",
+    "display_en": "ABANDONED VILLAGE",
+    "display_zh": "荒废村庄",
+    "name_source": "curated",
+    "region_slug": "peruvian_jungle"
+  },
+  "1070": {
+    "zone": "pa_hub_paititi_wilderness",
+    "display_en": "PAITITI WILDERNESS",
+    "display_zh": "帕依提提荒野",
+    "name_source": "curated",
+    "region_slug": "paititi"
+  },
+  "1071": {
+    "zone": "cr_el_dorado",
+    "display_en": "EL DORADO",
+    "display_zh": "黄金城",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "1294": {
+    "zone": "ce_020_camp",
+    "display_en": "CENOTE CAMP",
+    "display_zh": "灰岩坑 · 营地",
+    "name_source": "curated",
+    "region_slug": "cenote"
+  },
+  "1308": {
+    "zone": "ct_spanish_galleon_connector",
+    "display_en": "SAN CORDOBA PASSAGE",
+    "display_zh": "圣科尔多瓦通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "1367": {
+    "zone": "ct_spanish_galleon",
+    "display_en": "SAN CORDOBA",
+    "display_zh": "圣科尔多瓦",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "1597": {
+    "zone": "hv_hollow_village_v2_02",
+    "display_en": "KUWAQ YAKU",
+    "display_zh": "库阿克雅库",
+    "name_source": "curated",
+    "region_slug": "kuwaq_yaku"
+  },
+  "2284": {
+    "zone": "cr_lastbreath",
+    "display_en": "LAST BREATH",
+    "display_zh": "最后之息",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2287": {
+    "zone": "hv_hollow_village_v2_01",
+    "display_en": "KUWAQ YAKU",
+    "display_zh": "库阿克雅库",
+    "name_source": "curated",
+    "region_slug": "kuwaq_yaku"
+  },
+  "2288": {
+    "zone": "cr_newfall_01",
+    "display_en": "NEWFALL",
+    "display_zh": "新生",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2289": {
+    "zone": "sm_spanish_mission_cr04",
+    "display_en": "SAN JUAN CRYPT 04",
+    "display_zh": "圣胡安墓穴 04",
+    "name_source": "curated",
+    "region_slug": "mission_of_san_juan"
+  },
+  "2301": {
+    "zone": "cr_nepenthes",
+    "display_en": "NEPENTHES",
+    "display_zh": "猪笼草",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2302": {
+    "zone": "crypt_009",
+    "display_en": "CRYPT 09",
+    "display_zh": "墓穴 09",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2306": {
+    "zone": "pa_hub_paititi_middle_island",
+    "display_en": "MIDDLE ISLAND",
+    "display_zh": "帕依提提 · 中岛",
+    "name_source": "curated",
+    "region_slug": "paititi"
+  },
+  "2468": {
+    "zone": "ct_serpents_hollow",
+    "display_en": "ANCIENT AQUEDUCT",
+    "display_zh": "古老水道",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "2486": {
+    "zone": "lj_lost_in_the_jungle_v2_04",
+    "display_en": "PERUVIAN JUNGLE",
+    "display_zh": "秘鲁丛林",
+    "name_source": "curated",
+    "region_slug": "peruvian_jungle"
+  },
+  "2487": {
+    "zone": "ct_court_of_death_connector",
+    "display_en": "JUDGE'S GAZE PASSAGE",
+    "display_zh": "审判凝视通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2514": {
+    "zone": "ct_court_of_death",
+    "display_en": "JUDGE'S GAZE",
+    "display_zh": "审判凝视",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "2567": {
+    "zone": "ct_coop_firemountain",
+    "display_en": "CO-OP TOMB: FIRE MOUNTAIN",
+    "display_zh": "联机古墓 · 火之山",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2589": {
+    "zone": "ct_coop_giant_statue",
+    "display_en": "CO-OP TOMB: GIANT STATUE",
+    "display_zh": "联机古墓 · 巨像",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2616": {
+    "zone": "ct_coop_music_box",
+    "display_en": "CO-OP TOMB: MUSIC BOX",
+    "display_zh": "联机古墓 · 八音盒",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2680": {
+    "zone": "ct_coop_the_caiman",
+    "display_en": "CO-OP TOMB: THE CAIMAN",
+    "display_zh": "联机古墓 · 凯门鳄",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2785": {
+    "zone": "ct_coop_water_ride",
+    "display_en": "CO-OP TOMB: WATER RIDE",
+    "display_zh": "联机古墓 · 水道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2919": {
+    "zone": "ct_gate_of_xibalba",
+    "display_en": "UNDERWORLD GATE",
+    "display_zh": "冥界之门",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "2922": {
+    "zone": "ct_flooded_sanctuary_connector",
+    "display_en": "THIRSTY GODS PASSAGE",
+    "display_zh": "诸神之欲念通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "2924": {
+    "zone": "ct_flooded_sanctuary",
+    "display_en": "THIRSTY GODS",
+    "display_zh": "诸神之欲念",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "3004": {
+    "zone": "ct_gate_of_xibalba_connector",
+    "display_en": "UNDERWORLD GATE PASSAGE",
+    "display_zh": "冥界之门通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3045": {
+    "zone": "ct_gift_of_immortality",
+    "display_en": "GIFT OF IMMORTALITY",
+    "display_zh": "不朽之礼",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3087": {
+    "zone": "ct_gift_of_immortality_connector",
+    "display_en": "GIFT OF IMMORTALITY PASSAGE",
+    "display_zh": "不朽之礼通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3200": {
+    "zone": "ct_pillars_of_heaven_connector",
+    "display_en": "PILLARS OF HEAVEN PASSAGE",
+    "display_zh": "天柱通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3201": {
+    "zone": "ct_pillars_of_heaven",
+    "display_en": "PILLARS OF HEAVEN",
+    "display_zh": "天柱",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3246": {
+    "zone": "ct_xolotl_connector",
+    "display_en": "HOWLING CAVES PASSAGE",
+    "display_zh": "呼啸洞穴通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3267": {
+    "zone": "ct_serpents_hollow_connector",
+    "display_en": "ANCIENT AQUEDUCT PASSAGE",
+    "display_zh": "古老水道通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3317": {
+    "zone": "ct_sky_temple_v2",
+    "display_en": "TEMPLE OF THE SUN",
+    "display_zh": "太阳神庙",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "3417": {
+    "zone": "ct_tree_of_life",
+    "display_en": "TREE OF LIFE",
+    "display_zh": "生命之树",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "3418": {
+    "zone": "ct_tree_of_life_connector",
+    "display_en": "TREE OF LIFE PASSAGE",
+    "display_zh": "生命之树通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3427": {
+    "zone": "ct_warriors_trial_connector",
+    "display_en": "PATH OF BATTLE PASSAGE",
+    "display_zh": "战斗之路通道",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "3428": {
+    "zone": "ct_warriors_trial",
+    "display_en": "PATH OF BATTLE",
+    "display_zh": "战斗之路",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "3495": {
+    "zone": "ct_xolotl",
+    "display_en": "HOWLING CAVES",
+    "display_zh": "呼啸洞穴",
+    "name_source": "game_locale",
+    "region_slug": null
+  },
+  "3744": {
+    "zone": "dd_day_of_the_dead_020",
+    "display_en": "COZUMEL",
+    "display_zh": "科祖梅尔",
+    "name_source": "curated",
+    "region_slug": "cozumel"
+  },
+  "4024": {
+    "zone": "sm_spanish_mission_crypt_003",
+    "display_en": "SAN JUAN CRYPT 003",
+    "display_zh": "圣胡安墓穴 003",
+    "name_source": "curated",
+    "region_slug": "mission_of_san_juan"
+  },
+  "4026": {
+    "zone": "hv_hollow_village_v2_03",
+    "display_en": "KUWAQ YAKU",
+    "display_zh": "库阿克雅库",
+    "name_source": "curated",
+    "region_slug": "kuwaq_yaku"
+  },
+  "4028": {
+    "zone": "dm_devils_maw",
+    "display_en": "DEVIL'S MAW",
+    "display_zh": "巨蛇之首",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "4906": {
+    "zone": "pa_hub_paititi_cr02",
+    "display_en": "PAITITI CRYPT 02",
+    "display_zh": "帕依提提墓穴 02",
+    "name_source": "curated",
+    "region_slug": "paititi"
+  },
+  "4907": {
+    "zone": "gym_outcasts",
+    "display_en": "GYM: OUTCASTS",
+    "display_zh": "训练场 · 流放者",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "4908": {
+    "zone": "gym_social_hub",
+    "display_en": "GYM: SOCIAL HUB",
+    "display_zh": "训练场 · 社交中心",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "4909": {
+    "zone": "gym_collectibles",
+    "display_en": "GYM: COLLECTIBLES",
+    "display_zh": "训练场 · 收集品",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "10541": {
+    "zone": "pa_hub_paititi_kings_tomb_dlc2",
+    "display_en": "KING'S TOMB (DLC2)",
+    "display_zh": "王之墓（DLC2）",
+    "name_source": "curated",
+    "region_slug": "paititi"
+  },
+  "10921": {
+    "zone": "cr_dlc06_desecrated_site",
+    "display_en": "DESECRATED SITE (DLC6)",
+    "display_zh": "亵渎之地（DLC6）",
+    "name_source": "curated",
+    "region_slug": null
+  },
+  "11470": {
+    "zone": "dlc07_spanish_mission_village",
+    "display_en": "SAN JUAN VILLAGE (DLC7)",
+    "display_zh": "圣胡安村庄（DLC7）",
+    "name_source": "curated",
+    "region_slug": null
+  }
+}

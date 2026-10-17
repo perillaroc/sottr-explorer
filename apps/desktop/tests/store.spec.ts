@@ -11,7 +11,10 @@ describe("store：请求隔离与状态流", () => {
     expect(store.state.view).toBe("overview");
     expect(store.currentSlot.value?.result?.freshness).toBe("current");
     expect(store.report.value?.observations.overall_completion.value).toBeCloseTo(66.20481872558594, 6);
-    expect(store.missingTotal.value).toBe(12);
+    // 模拟模式使用固定观察集合（demoObservedIds）：计划可复现。
+    expect(store.planAvailable.value).toBe(true);
+    expect(store.planCounts.value.all).toBe(470);
+    expect(store.planCounts.value.uncollected).toBe(157);
   });
 
   it("未确认用途时不能开始分析", async () => {
@@ -90,12 +93,13 @@ describe("store：请求隔离与状态流", () => {
     expect(store.isStale.value).toBe(false);
   });
 
-  it("参考差集不可用时回退到“全部”并说明原因", async () => {
+  it("无效的区域偏好回退到全部区域并说明原因", async () => {
     const { store } = await createTestStore();
-    await analyzeCandidate(store, "save206.dat"); // 表不完整（降级夹具）
-    expect(store.missingAvailable.value).toBe(false);
-    expect(store.state.filters.status).toBe("all");
-    expect(store.state.notice?.text).toContain("本次无法判断遗漏");
+    await analyzeCandidate(store, "save1.dat");
+    store.actions.setRegion("no_such_region");
+    await analyzeCandidate(store, "save204.dat");
+    expect(store.state.region).toBe("all");
+    expect(store.state.notice?.text).toContain("已切换到“全部区域”");
   });
 
   it("资料文件不产生进度推定（不显示 0%）", async () => {
@@ -105,6 +109,7 @@ describe("store：请求隔离与状态流", () => {
     expect(report?.context.mode).toBe("profile");
     expect(report?.observations.overall_completion.value).toBeNull();
     expect(report?.observations.overall_completion.reason).toBeTruthy();
-    expect(store.missingTotal.value).toBe(0);
+    expect(store.planAvailable.value).toBe(false);
+    expect(store.planCounts.value.all).toBe(0);
   });
 });

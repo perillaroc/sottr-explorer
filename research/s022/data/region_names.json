@@ -1,0 +1,90 @@
+{
+  "kuwaq_yaku": {
+    "region_hash": "838BAE8C",
+    "name_en": "KUWAQ YAKU",
+    "name_zh": "库阿克雅库",
+    "name_source": "game_locale",
+    "locale_key": "regionname_hv_hollow_village"
+  },
+  "trial_of_the_eagle": {
+    "region_hash": "8C0D7019",
+    "name_en": "TRIAL OF THE EAGLE",
+    "name_zh": "猎鹰的试炼",
+    "name_source": "game_locale",
+    "locale_key": "regionname_ct_citadel_of_wind"
+  },
+  "mission_of_san_juan": {
+    "region_hash": "8D2E7B5C",
+    "name_en": "MISSION OF SAN JUAN",
+    "name_zh": "圣胡安教会",
+    "name_source": "game_locale",
+    "locale_key": "regionname_sm_spanish_mission"
+  },
+  "head_of_the_serpent": {
+    "region_hash": "96135833",
+    "name_en": "HEAD OF THE SERPENT",
+    "name_zh": "巨蛇之首",
+    "name_source": "game_locale",
+    "locale_key": "regionname_ct_devil_maw"
+  },
+  "cozumel": {
+    "region_hash": "B02CF2FD",
+    "name_en": "COZUMEL",
+    "name_zh": "科祖梅尔",
+    "name_source": "game_locale",
+    "locale_key": "regionname_dd_day_of_dead"
+  },
+  "cenote": {
+    "region_hash": "B06345B4",
+    "name_en": "CENOTE",
+    "name_zh": "灰岩坑",
+    "name_source": "game_locale",
+    "locale_key": "regionname_ce_cenotes"
+  },
+  "paititi": {
+    "region_hash": "C5B30CDB",
+    "name_en": "PAITITI",
+    "name_zh": "帕依提提",
+    "name_source": "game_locale",
+    "locale_key": "regionname_pa_paititi02"
+  },
+  "porvenir_oil_fields": {
+    "region_hash": "C92877A7",
+    "name_en": "PORVENIR OIL FIELDS",
+    "name_zh": "波文尼尔石油田",
+    "name_source": "game_locale",
+    "locale_key": "regionname_an_apocalypse_2"
+  },
+  "peruvian_jungle": {
+    "region_hash": "D65AE5D8",
+    "name_en": "PERUVIAN JUNGLE",
+    "name_zh": "秘鲁丛林",
+    "name_source": "game_locale",
+    "locale_key": "regionname_lj_lost_in_the_jungle"
+  },
+  "_challenge_tombs": {
+    "slug": "_challenge_tombs",
+    "name_en": "CHALLENGE TOMBS",
+    "name_zh": "挑战古墓",
+    "name_source": "curated",
+    "note": "游戏数据里的挑战古墓聚合区域（regionProgressionIndex=999、hideOnMap=1）；不带存档区域计数器，按子关卡（各古墓）展示",
+    "region_hash": "26694CD8"
+  },
+  "_special": {
+    "slug": "_special",
+    "name_en": "SPECIAL / CROSS-REGION",
+    "name_zh": "特殊 / 跨区域",
+    "name_source": "curated",
+    "note": "游戏数据里的特殊区域（不在 26 区主表内）；含 Path of the Stars、Lara's Notebook 等跨区域条目",
+    "region_hash": "29E50C12"
+  },
+  "croft_manor": {
+    "slug": "croft_manor",
+    "name_en": "CROFT MANOR",
+    "name_zh": "克劳馥庄园",
+    "name_source": "game_locale",
+    "locale_key": "regionname_cm_croftmanor",
+    "note": "Prologue 庄园区域，不参与 100%",
+    "region_hash": "669D3CB3"
+  }
+}

@@ -20,20 +20,25 @@ fn unique_dir(tag: &str) -> PathBuf {
 }
 
 const CATALOG: &str = r#"{
-  "catalog_schema_version": "1.0.0",
-  "catalog_version": "1.0.0",
+  "catalog_schema_version": "2.0.0",
+  "catalog_version": "2.0.0",
   "generated_from": {},
-  "totals": {"items": 3, "story": 0, "nonstory": 3, "required_for_100": 2, "dlc": 0},
+  "totals": {"items": 3, "story": 0, "nonstory": 3, "required_for_100": 2, "dlc": 0, "with_position": 0, "with_region": 0},
+  "acquisition_rules": {
+    "monolith": {"text_zh": "解读石碑", "text_en": "Read the monolith", "source": "curated"},
+    "explorer_backpack": {"text_zh": "拾取背包", "text_en": "Pick up the backpack", "source": "curated"}
+  },
   "categories": [
-    {"id": "monoliths", "name": "石碑", "count": 2, "required_for_100": true, "required_count": 2},
-    {"id": "explorer_backpacks", "name": "背包", "count": 1, "required_for_100": false, "required_count": 0}
+    {"id": "monoliths", "name": "石碑", "count": 2, "required_for_100": true, "required_count": 2, "acquisition_rule_key": "monolith"},
+    {"id": "explorer_backpacks", "name": "背包", "count": 1, "required_for_100": false, "required_count": 0, "acquisition_rule_key": "explorer_backpack"}
   ],
   "collections": [],
+  "units": {},
   "regions": [],
   "items": {
-    "0x00000001": {"kind": "nonstory", "name": "One", "is_dlc": false, "required_for_100": true, "category": "monoliths"},
-    "0x00000002": {"kind": "nonstory", "name": "Two", "is_dlc": false, "required_for_100": true, "category": "monoliths", "shared_id": true, "shared_names": ["Two", "TwoAlt"]},
-    "0x00000003": {"kind": "nonstory", "name": "Three", "is_dlc": false, "required_for_100": false, "category": "explorer_backpacks"}
+    "0x00000001": {"kind": "nonstory", "name": "One", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": true, "region_hash": null, "region_slug": null, "category": "monoliths", "subcategory": null, "unit": null, "position": null, "acquisition_note": null},
+    "0x00000002": {"kind": "nonstory", "name": "Two", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": true, "region_hash": null, "region_slug": null, "category": "monoliths", "subcategory": null, "unit": null, "position": null, "acquisition_note": null, "shared_id": true, "shared_names": ["Two", "TwoAlt"]},
+    "0x00000003": {"kind": "nonstory", "name": "Three", "name_en": null, "name_zh": null, "name_source": null, "is_dlc": false, "required_for_100": false, "region_hash": null, "region_slug": null, "category": "explorer_backpacks", "subcategory": null, "unit": null, "position": null, "acquisition_note": null}
   }
 }"#;
 
@@ -89,7 +94,7 @@ fn missing_command_writes_category_progress_and_protected_list() {
     let document: serde_json::Value =
         serde_json::from_slice(&fs::read(output.join("missing.json")).unwrap()).unwrap();
     assert_eq!(document["input_ref"], "save1.dat");
-    assert_eq!(document["catalog_version"], "1.0.0");
+    assert_eq!(document["catalog_version"], "2.0.0");
     assert_eq!(document["observed_items"], 1);
     assert_eq!(document["observed_not_in_catalog"][0], "0x9A2BBEFC");
 

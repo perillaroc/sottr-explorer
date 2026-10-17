@@ -4,7 +4,8 @@
 //! 同时更新两处，否则测试失败。
 
 use sottr_core::catalog::{
-    CODE_CATALOG_ID_INVALID, CODE_CATALOG_REQUIRED_CONFLICT, CODE_CATALOG_SHARED_ID_INVALID,
+    CODE_CATALOG_ID_INVALID, CODE_CATALOG_POSITION_INVALID, CODE_CATALOG_REGION_INVALID,
+    CODE_CATALOG_REQUIRED_CONFLICT, CODE_CATALOG_RULE_MISSING, CODE_CATALOG_SHARED_ID_INVALID,
     CODE_CATALOG_TOTALS_MISMATCH, Catalog,
 };
 use sottr_core::metadata::MetadataLimits;
@@ -19,7 +20,7 @@ fn load() -> Catalog {
 fn real_catalog_totals_match_reconciliation() {
     let catalog = load();
     let totals = catalog.totals;
-    assert_eq!(catalog.version(), "1.0.0");
+    assert_eq!(catalog.version(), "2.0.0");
     assert_eq!(
         (
             totals.items,
@@ -84,19 +85,28 @@ fn unresolved_and_optional_categories_are_not_required() {
 }
 
 const SYNTHETIC: &str = r#"{
-  "catalog_schema_version": "1.0.0",
-  "catalog_version": "1.0.0",
+  "catalog_schema_version": "2.0.0",
+  "catalog_version": "2.0.0",
   "generated_from": {},
-  "totals": {"items": 1, "story": 0, "nonstory": 1, "required_for_100": 1, "dlc": 0},
+  "totals": {"items": 1, "story": 0, "nonstory": 1, "required_for_100": 1, "dlc": 0, "with_position": 0, "with_region": 1},
+  "acquisition_rules": {
+    "monolith": {"text_zh": "靠近石碑解读", "text_en": "Read the monolith", "source": "curated"}
+  },
   "categories": [
-    {"id": "monoliths", "name": "M", "count": 1, "required_for_100": true, "required_count": 1}
+    {"id": "monoliths", "name": "M", "count": 1, "required_for_100": true, "required_count": 1, "acquisition_rule_key": "monolith"}
   ],
   "collections": [],
-  "regions": [],
+  "units": {
+    "243": {"zone": "pa_hub_paititi", "display_en": "PAITITI HUB", "display_zh": "帕依提提主城", "name_source": "curated", "region_slug": "paititi"}
+  },
+  "regions": [
+    {"region_hash": "C5B30CDB", "slug": "paititi", "name_en": "PAITITI", "name_zh": "帕依提提", "name_source": "game_locale", "is_dlc": false, "counts_toward_percent": true, "item_count": 1, "binding": null, "challenge_tombs": [], "campsites": [], "challenges": [], "missions": []}
+  ],
   "items": {
     "0x00000001": {
-      "kind": "nonstory", "name": "X", "is_dlc": false,
-      "required_for_100": true, "category": "monoliths"
+      "kind": "nonstory", "name": "X", "name_en": null, "name_zh": null, "name_source": null,
+      "is_dlc": false, "required_for_100": true, "region_hash": "C5B30CDB", "region_slug": "paititi",
+      "category": "monoliths", "subcategory": null, "unit": 243, "position": null, "acquisition_note": null
     }
   }
 }"#;
@@ -143,4 +153,73 @@ fn rejects_shared_id_without_names() {
         ),
         CODE_CATALOG_SHARED_ID_INVALID,
     );
+}
+
+#[test]
+fn rejects_undeclared_region_slug() {
+    expect_code(
+        &SYNTHETIC.replace(
+            "\"region_slug\": \"paititi\"",
+            "\"region_slug\": \"nowhere\"",
+        ),
+        CODE_CATALOG_REGION_INVALID,
+    );
+}
+
+#[test]
+fn rejects_position_out_of_range() {
+    expect_code(
+        &SYNTHETIC.replace(
+            "\"position\": null",
+            "\"position\": {\"x\": 1.4, \"y\": 0.2, \"space\": \"unit_normalized_unverified\"}",
+        ),
+        CODE_CATALOG_POSITION_INVALID,
+    );
+}
+
+#[test]
+fn rejects_missing_acquisition_rule() {
+    expect_code(
+        &SYNTHETIC.replace(
+            "\"acquisition_rule_key\": \"monolith\"",
+            "\"acquisition_rule_key\": \"unknown_rule\"",
+        ),
+        CODE_CATALOG_RULE_MISSING,
+    );
+}
+
+#[test]
+fn rejects_region_item_count_mismatch() {
+    expect_code(
+        &SYNTHETIC.replace("\"item_count\": 1", "\"item_count\": 2"),
+        CODE_CATALOG_REGION_INVALID,
+    );
+}
+
+#[test]
+fn accepts_valid_position_with_unit() {
+    let json = SYNTHETIC
+        .replace(
+            "\"position\": null",
+            "\"position\": {\"x\": 0.4, \"y\": 0.2, \"space\": \"unit_normalized_unverified\"}",
+        )
+        .replace("\"with_position\": 0", "\"with_position\": 1");
+    let catalog =
+        Catalog::from_json(json.as_bytes(), &MetadataLimits::default()).expect("带位置应可加载");
+    let item = catalog.items.get("0x00000001").expect("条目");
+    let position = item.position.as_ref().expect("位置");
+    assert!((position.x - 0.4).abs() < 1e-9);
+    assert_eq!(position.space, "unit_normalized_unverified");
+}
+
+#[test]
+fn rejects_position_without_unit() {
+    let json = SYNTHETIC
+        .replace(
+            "\"position\": null",
+            "\"position\": {\"x\": 0.4, \"y\": 0.2, \"space\": \"unit_normalized_unverified\"}",
+        )
+        .replace("\"with_position\": 0", "\"with_position\": 1")
+        .replace("\"unit\": 243", "\"unit\": 0");
+    expect_code(&json, CODE_CATALOG_POSITION_INVALID);
 }

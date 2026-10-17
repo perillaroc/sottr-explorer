@@ -5,8 +5,8 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { ArrowLeft, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
-import { rowById } from "./app/catalog";
 import { productionMetadata } from "./data/metadata";
+import { demoObservedIds } from "./data/atlas";
 import { createDemoSource } from "./data/mock";
 import { TauriDataSource, isTauriRuntime } from "./data/tauri";
 import type { DataSource } from "./data/source";
@@ -17,10 +17,10 @@ import MockBanner from "./components/MockBanner.vue";
 import SlotPicker from "./components/SlotPicker.vue";
 import OverviewPage from "./components/OverviewPage.vue";
 import FullCollectionPage from "./components/FullCollectionPage.vue";
-import RegionPage from "./components/RegionPage.vue";
+import CollectionPage from "./components/CollectionPage.vue";
 import DiagnosticsPage from "./components/DiagnosticsPage.vue";
 import SettingsPage from "./components/SettingsPage.vue";
-import ItemDetail from "./components/ItemDetail.vue";
+import CollectionDetail from "./components/CollectionDetail.vue";
 import UiButton from "./components/ui/UiButton.vue";
 import UiDrawer from "./components/ui/UiDrawer.vue";
 import UiIconButton from "./components/ui/UiIconButton.vue";
@@ -58,6 +58,8 @@ const store =
   createAppStore(source, {
     layoutWidth: props.layoutWidth,
     metadata: source.kind === "tauri" ? productionMetadata : undefined,
+    // 模拟模式使用固定观察集合，让演示与测试可复现；真实模式读取当前报告。
+    observedIds: source.kind === "mock" ? () => demoObservedIds : undefined,
   });
 provideStore(store);
 
@@ -72,7 +74,7 @@ const pageComponent = computed(() => {
     case "full":
       return FullCollectionPage;
     case "regions":
-      return RegionPage;
+      return CollectionPage;
     case "diagnostics":
       return DiagnosticsPage;
     case "settings":
@@ -82,27 +84,20 @@ const pageComponent = computed(() => {
   }
 });
 
-const selectedRow = computed(() => {
-  const id = store.state.selectedRowId;
-  const report = store.report.value;
-  if (!id || !report) {
-    return null;
-  }
-  return rowById(store.metadata, report, id);
-});
+const selectedEntry = computed(() => store.selectedEntry.value);
 
 const showPersistentPane = computed(
-  () => layout.value === "wide" && store.state.detailOpen && selectedRow.value !== null && store.state.view !== "import",
+  () => layout.value === "wide" && store.state.detailOpen && selectedEntry.value !== null && store.state.view !== "import",
 );
 const showDrawer = computed(
   () =>
     (layout.value === "medium" || layout.value === "compact") &&
     store.state.detailOpen &&
-    selectedRow.value !== null &&
+    selectedEntry.value !== null &&
     store.state.view !== "import",
 );
 const showNarrowDetail = computed(
-  () => layout.value === "narrow" && store.state.detailOpen && selectedRow.value !== null && store.state.view !== "import",
+  () => layout.value === "narrow" && store.state.detailOpen && selectedEntry.value !== null && store.state.view !== "import",
 );
 
 const drawerWidthClass = computed(() =>
@@ -228,7 +223,7 @@ onBeforeUnmount(() => {
             </UiIconButton>
           </div>
 
-          <template v-if="showNarrowDetail && selectedRow">
+          <template v-if="showNarrowDetail && selectedEntry">
             <header class="flex h-12 shrink-0 items-center gap-2 border-b border-line px-3">
               <UiButton size="sm" variant="ghost" data-testid="detail-back" @click="store.actions.closeDetail()">
                 <ArrowLeft :size="16" aria-hidden="true" />
@@ -237,20 +232,30 @@ onBeforeUnmount(() => {
               <span class="truncate text-xs text-muted">{{ store.currentSlot.value?.name ?? "" }}</span>
             </header>
             <div class="scroll-area min-h-0 flex-1 px-4 py-3">
-              <ItemDetail :row="selectedRow" mode="page" />
+              <CollectionDetail
+                :region="selectedEntry.region"
+                :group="selectedEntry.group"
+                :item="selectedEntry.item"
+                mode="page"
+              />
             </div>
           </template>
           <component v-else :is="pageComponent" />
         </main>
 
         <aside
-          v-if="showPersistentPane && selectedRow"
+          v-if="showPersistentPane && selectedEntry"
           class="w-[400px] shrink-0 border-l border-line bg-surface"
           aria-label="条目详情"
           data-testid="detail-pane"
         >
           <div class="scroll-area h-full px-4 py-3">
-            <ItemDetail :row="selectedRow" mode="pane" />
+            <CollectionDetail
+              :region="selectedEntry.region"
+              :group="selectedEntry.group"
+              :item="selectedEntry.item"
+              mode="pane"
+            />
           </div>
         </aside>
       </div>
@@ -264,13 +269,18 @@ onBeforeUnmount(() => {
     </div>
 
     <UiDrawer
-      v-if="showDrawer && selectedRow"
+      v-if="showDrawer && selectedEntry"
       :open="true"
       :title="store.currentSlot.value?.name ? `详情 · ${store.currentSlot.value.name}` : '详情'"
       :width-class="drawerWidthClass"
       @close="store.actions.closeDetail()"
     >
-      <ItemDetail :row="selectedRow" mode="drawer" />
+      <CollectionDetail
+        :region="selectedEntry.region"
+        :group="selectedEntry.group"
+        :item="selectedEntry.item"
+        mode="drawer"
+      />
     </UiDrawer>
 
     <!-- 导出对话框（SX-016）：任何视图/布局下都可打开；模态焦点规则同抽屉 -->

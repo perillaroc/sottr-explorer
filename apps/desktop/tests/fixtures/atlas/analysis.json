@@ -1,0 +1,224 @@
+{
+  "schema_version": "1.0.0",
+  "results": [
+    {
+      "input_ref": "fixture.dat",
+      "report": {
+        "observations": {
+          "inventory": {
+            "records": [
+              {
+                "internal_id": "0x005E3069"
+              },
+              {
+                "internal_id": "0x0322ED0C"
+              },
+              {
+                "internal_id": "0x07DCD3FE"
+              },
+              {
+                "internal_id": "0x09ACC02A"
+              },
+              {
+                "internal_id": "0x0E3859C1"
+              },
+              {
+                "internal_id": "0x0F28B6EE"
+              },
+              {
+                "internal_id": "0x12DABFF7"
+              },
+              {
+                "internal_id": "0x1A19B4E3"
+              },
+              {
+                "internal_id": "0x22E3B207"
+              },
+              {
+                "internal_id": "0x25EF128C"
+              },
+              {
+                "internal_id": "0x29D696EC"
+              },
+              {
+                "internal_id": "0x329459A4"
+              },
+              {
+                "internal_id": "0x3597BA77"
+              },
+              {
+                "internal_id": "0x371C81F4"
+              },
+              {
+                "internal_id": "0x4128D9F2"
+              },
+              {
+                "internal_id": "0x462B1085"
+              },
+              {
+                "internal_id": "0x484AA8C8"
+              },
+              {
+                "internal_id": "0x4AC568AC"
+              },
+              {
+                "internal_id": "0x52A30513"
+              },
+              {
+                "internal_id": "0x5814FAFA"
+              },
+              {
+                "internal_id": "0x5BB0EF4C"
+              },
+              {
+                "internal_id": "0x5E6F0756"
+              },
+              {
+                "internal_id": "0x62B5AB49"
+              },
+              {
+                "internal_id": "0x668739AE"
+              },
+              {
+                "internal_id": "0x6C489221"
+              },
+              {
+                "internal_id": "0x72112A9C"
+              },
+              {
+                "internal_id": "0x752CBAE7"
+              },
+              {
+                "internal_id": "0x752CBB4C"
+              },
+              {
+                "internal_id": "0x79BFDBD5"
+              },
+              {
+                "internal_id": "0x7DEC396C"
+              },
+              {
+                "internal_id": "0x8374143B"
+              },
+              {
+                "internal_id": "0x851B48EE"
+              },
+              {
+                "internal_id": "0x851B4914"
+              },
+              {
+                "internal_id": "0x8834B6B2"
+              },
+              {
+                "internal_id": "0x8FCFCADA"
+              },
+              {
+                "internal_id": "0x93F50AAD"
+              },
+              {
+                "internal_id": "0x98564B9F"
+              },
+              {
+                "internal_id": "0x9C3AA4AF"
+              },
+              {
+                "internal_id": "0x9E17CFFB"
+              },
+              {
+                "internal_id": "0xA3B16D2F"
+              },
+              {
+                "internal_id": "0xA794E81D"
+              },
+              {
+                "internal_id": "0xAB453584"
+              },
+              {
+                "internal_id": "0xB02F0961"
+              },
+              {
+                "internal_id": "0xB419E703"
+              },
+              {
+                "internal_id": "0xB869D6C6"
+              },
+              {
+                "internal_id": "0xBB000659"
+              },
+              {
+                "internal_id": "0xBD971FD3"
+              },
+              {
+                "internal_id": "0xC0AF0E59"
+              },
+              {
+                "internal_id": "0xC399ADA1"
+              },
+              {
+                "internal_id": "0xC6B98286"
+              },
+              {
+                "internal_id": "0xC9D62DEE"
+              },
+              {
+                "internal_id": "0xCC7B3FA7"
+              },
+              {
+                "internal_id": "0xD03FC71A"
+              },
+              {
+                "internal_id": "0xD2E4E3EE"
+              },
+              {
+                "internal_id": "0xD78E5B56"
+              },
+              {
+                "internal_id": "0xDA3C8C8F"
+              },
+              {
+                "internal_id": "0xDD26A1BC"
+              },
+              {
+                "internal_id": "0xDE835BF6"
+              },
+              {
+                "internal_id": "0xE437D5D8"
+              },
+              {
+                "internal_id": "0xE871F8D5"
+              },
+              {
+                "internal_id": "0xEBA6791E"
+              },
+              {
+                "internal_id": "0xEEDDEEF2"
+              },
+              {
+                "internal_id": "0xF18281A5"
+              },
+              {
+                "internal_id": "0xF3CF9534"
+              },
+              {
+                "internal_id": "0xF4B46500"
+              },
+              {
+                "internal_id": "0xF99B54F1"
+              },
+              {
+                "internal_id": "0xFAC1CB6F"
+              },
+              {
+                "internal_id": "0xFF9EAC79"
+              },
+              {
+                "internal_id": "0xDEADBEEF"
+              }
+            ]
+          }
+        }
+      },
+      "error": null
+    }
+  ]
+}
