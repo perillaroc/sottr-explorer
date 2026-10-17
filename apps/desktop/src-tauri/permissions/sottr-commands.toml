@@ -11,7 +11,7 @@
 
 [[permission]]
 identifier = "allow-discover-saves"
-description = "允许 discover_saves：在受限位置（Known Folder/OneDrive/%USERPROFILE%）发现游戏目录；只读、有界、不做全盘扫描"
+description = "允许 discover_saves：在受限位置（Known Folder/%USERPROFILE%）发现游戏目录；只读、有界、不做全盘扫描"
 commands.allow = ["discover_saves"]
 
 [[permission]]

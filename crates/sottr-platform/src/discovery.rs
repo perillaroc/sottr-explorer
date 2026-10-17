@@ -3,15 +3,12 @@
 //! 默认候选顺序：
 //!
 //! 1. Windows Known Folder 的 Documents（`SHGetKnownFolderPath(FOLDERID_Documents)`，
-//!    已包含 OneDrive 重定向与中文路径）；
-//! 2. `%USERPROFILE%\Documents` 回退；
-//! 3. OneDrive 环境变量（`OneDrive`、`OneDriveConsumer`、`OneDriveCommercial`）
-//!    下的 `Documents`。
+//!    含中文路径与系统文档重定向）；
+//! 2. `%USERPROFILE%\Documents` 回退。
 //!
 //! 只在候选 Documents 目录下的 [`GAME_DIR_NAME`] 子目录发现候选，**不做全盘扫描**；
-//! 枚举限制深度、文件数与单文件大小，跳过符号链接与重解析点（避免越出受限范围；
-//! OneDrive 云占位文件不受影响），按名称稳定排序。发现逻辑接受显式候选列表，
-//! 测试可注入根目录（[`scan_documents`]）。
+//! 枚举限制深度、文件数与单文件大小，跳过符号链接与重解析点（避免越出受限范围），
+//! 按名称稳定排序。发现逻辑接受显式候选列表，测试可注入根目录（[`scan_documents`]）。
 //!
 //! 只读：本模块只列目录与读元数据，不打开文件内容、不写回、不修改权限、不提权。
 //! 修改时间以原始 UTC 毫秒返回，本地时区显示与“系统本地时间”文案由界面承担。
@@ -58,25 +55,18 @@ impl Default for DiscoveryLimits {
 /// Documents 候选目录的来源（证据标签，供界面与诊断说明）。
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum DocumentsSource {
-    /// Windows Known Folder（已包含 OneDrive 重定向）。
+    /// Windows Known Folder 的 Documents。
     KnownFolder,
     /// `%USERPROFILE%\Documents` 回退候选。
     UserProfile,
-    /// OneDrive 环境变量（变量名随附）。
-    OneDriveEnv(String),
 }
 
 impl DocumentsSource {
     /// 供界面显示的中文来源标签。
     pub fn label(&self) -> String {
         match self {
-            DocumentsSource::KnownFolder => {
-                "Windows 文档位置（Known Folder，含 OneDrive 重定向）".to_string()
-            }
+            DocumentsSource::KnownFolder => "Windows 文档位置（Known Folder）".to_string(),
             DocumentsSource::UserProfile => "%USERPROFILE%\\Documents（回退候选）".to_string(),
-            DocumentsSource::OneDriveEnv(variable) => {
-                format!("OneDrive 环境变量 {variable}（\\Documents）")
-            }
         }
     }
 }
@@ -109,14 +99,6 @@ pub fn default_documents_dirs() -> Vec<DocumentsDir> {
             path: PathBuf::from(profile).join("Documents"),
             source: DocumentsSource::UserProfile,
         });
-    }
-    for variable in ["OneDrive", "OneDriveConsumer", "OneDriveCommercial"] {
-        if let Some(value) = non_empty_env(variable) {
-            candidates.push(DocumentsDir {
-                path: PathBuf::from(value).join("Documents"),
-                source: DocumentsSource::OneDriveEnv(variable.to_string()),
-            });
-        }
     }
     candidates
 }
@@ -171,7 +153,7 @@ pub fn scan_documents(candidates: &[DocumentsDir]) -> Vec<DocumentsScan> {
     scans
 }
 
-/// 使用默认候选扫描（Known Folder → `%USERPROFILE%\Documents` → OneDrive 环境变量）。
+/// 使用默认候选扫描（Known Folder → `%USERPROFILE%\Documents`）。
 pub fn scan_default_documents() -> Vec<DocumentsScan> {
     scan_documents(&default_documents_dirs())
 }
@@ -608,7 +590,7 @@ mod tests {
             },
             DocumentsDir {
                 path: missing.clone(),
-                source: DocumentsSource::OneDriveEnv("OneDrive".to_string()),
+                source: DocumentsSource::UserProfile,
             },
             DocumentsDir {
                 path: file_instead.clone(),
@@ -645,7 +627,7 @@ mod tests {
             },
             DocumentsDir {
                 path: root.join("docs"),
-                source: DocumentsSource::OneDriveEnv("OneDrive".to_string()),
+                source: DocumentsSource::UserProfile,
             },
         ];
         let scans = scan_documents(&candidates);

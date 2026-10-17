@@ -297,7 +297,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 
 | 命令 | 作用 | 要点 |
 | --- | --- | --- |
-| `discover_saves` | 在受限位置发现游戏目录（Known Folder/OneDrive/`%USERPROFILE%`） | 只读、有界、不做全盘扫描；候选状态为稳定字符串 |
+| `discover_saves` | 在受限位置发现游戏目录（Known Folder/`%USERPROFILE%`） | 只读、有界、不做全盘扫描；候选状态为稳定字符串 |
 | `list_candidates` | 有界枚举候选存档 | 深度/数量/大小上限；跳过符号链接与重解析点；不读取内容 |
 | `select_input` | 由用户主动打开系统文件/目录选择器 | 取消返回 `null`；前端无 `dialog:*` 权限 |
 | `analyze_file` | 稳定快照读取 + 同核心分析 | 返回 `DesktopResult`；见下“请求与快照语义” |

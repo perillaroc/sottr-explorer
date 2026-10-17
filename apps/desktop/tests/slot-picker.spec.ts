@@ -108,7 +108,7 @@ describe("导入与槽位选择", () => {
 
   it("被占用（可重试）场景：首次失败提示稍后重试，重试成功", async () => {
     const { store } = await createTestStore();
-    // 点击第二个候选目录（OneDrive）：应列出其游戏目录下的文件而不是空清单。
+    // 点击第二个候选目录（Documents 回退候选）：应列出其游戏目录下的文件而不是空清单。
     const wrapper = mountWithStore(SlotPicker, store);
     await wrapper.get('[data-testid="root-1"]').trigger("click");
     await flushPromises();

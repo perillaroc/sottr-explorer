@@ -267,9 +267,6 @@ def discover_roots() -> list[Path]:
     known = windows_documents()
     if known:
         documents.insert(0, known)
-    for variable in ("OneDrive", "OneDriveConsumer", "OneDriveCommercial"):
-        if os.environ.get(variable):
-            documents.append(Path(os.environ[variable]) / "Documents")
     roots = []
     for document in documents:
         game = document / "Shadow of the Tomb Raider"
@@ -561,7 +558,7 @@ def run_analysis(roots: list[Path], output: Path, maximum: int = MAX_EXPANDED,
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Offline read-only SOTTR save observations. This does not decode game progress.")
-    parser.add_argument("--input", type=Path, action="append", help="Input directory; repeat for multiple roots. Omit for Windows Documents/OneDrive discovery.")
+    parser.add_argument("--input", type=Path, action="append", help="Input directory; repeat for multiple roots. Omit for Windows Documents discovery.")
     parser.add_argument("--output", type=Path, required=True, help="New output directory separate from inputs; existing directories are rejected.")
     parser.add_argument("--max-expanded-mib", type=int, default=64, choices=range(1, 65), metavar="1..64")
     parser.add_argument("--max-pairs", type=int, default=64, choices=range(65), metavar="0..64")

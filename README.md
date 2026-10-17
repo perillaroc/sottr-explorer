@@ -9,7 +9,7 @@ Shadow of the Tomb Raider（Windows Steam 普通战役存档）本地只读分�
 解析核心（G1：SX-004 至 SX-007）与 G2（SX-008 至 SX-011：版本化元数据、同核心分析 CLI、
 Python v0.2 差分回归、JSON/CSV 导出与分享脱敏）已实现；**G2 出口已于 2026-10-15 评审满足**
 （附交接限制：稳定快照与竞态保护按 SX-013、Windows 路径策略按 SX-012、桌面接线按 SX-014）。
-G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`：Known Folder/OneDrive
+G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`：Known Folder
 目录发现与路径策略，CLI 已接线，Windows 实机测试通过）；**SX-013 完成**（稳定快照读取与
 输出提交：句柄约束读取、读取前后指纹/摘要复核、独占新目标与受控临时文件，CLI 已接线）；
 **SX-014 完成**（Tauri 最小权限命令层：选择输入、列候选、分析、取消、导出、解析/打开核验链接；
@@ -47,7 +47,7 @@ CLI `plan`；区域页/详情/概览/全收集页改为消费图鉴。端到端�
 | `crates/sottr-core/` | 只读解析与领域核心（纯库：不访问 UI、网络或文件系统；依赖 serde、serde_json 与 flate2） |
 | `crates/sottr-core/tests/parity/` | Python v0.2 差分回归（SX-010）：规范化适配器、私有/公开夹具清单与差异报告 |
 | `crates/sottr-cli/` | 命令行入口（`analyze` 批量分析；`export` 导出信封与 CSV，支持分享脱敏） |
-| `crates/sottr-platform/` | 平台适配层（SX-012/SX-013/SX-014）：Windows Known Folder/OneDrive 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）、输出提交（独占新目标/受控临时文件）与快照时钟；CLI 与桌面后端共用，零第三方依赖 |
+| `crates/sottr-platform/` | 平台适配层（SX-012/SX-013/SX-014）：Windows Known Folder 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）、输出提交（独占新目标/受控临时文件）与快照时钟；CLI 与桌面后端共用，零第三方依赖 |
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`resolve_guide_link`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015/SX-016）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 真实数据源 `TauriDataSource`（`src/data/tauri.ts`）与模拟数据源；导出对话框与攻略链接动作；组件/状态/端到端测试（`tests/`，80 项 + 1 项真实输出绑定（需环境变量）） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
 | `data/catalog/` | 全收集图鉴（SX-021 建目录；SX-022 schema 2.0.0：区域 / 子关卡 / 中英名 / 相对位置 / 获取方式）：生成脚本、契约与说明 |

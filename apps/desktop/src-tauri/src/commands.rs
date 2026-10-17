@@ -281,9 +281,9 @@ fn declared_context(name: &str, mode: Mode) -> DeclaredContext {
 pub struct DocumentsCandidate {
     /// 候选目录路径（原样显示）。
     pub path: String,
-    /// 来源稳定标识（`known_folder` / `user_profile` / `onedrive_env:<变量名>`）。
+    /// 来源稳定标识（`known_folder` / `user_profile`）。
     pub source: String,
-    /// 来源中文标签（含 OneDrive 重定向说明）。
+    /// 来源中文标签。
     pub source_label: String,
     /// 扫描状态：`game_found` / `no_game_dir` / `link_not_followed` /
     /// `missing` / `not_directory` / `unreadable` / `unsupported_location`。
@@ -324,9 +324,6 @@ pub fn discover_outcome(scans: &[discovery::DocumentsScan]) -> DiscoverOutcome {
                 source: match &scan.dir.source {
                     discovery::DocumentsSource::KnownFolder => "known_folder".to_string(),
                     discovery::DocumentsSource::UserProfile => "user_profile".to_string(),
-                    discovery::DocumentsSource::OneDriveEnv(variable) => {
-                        format!("onedrive_env:{variable}")
-                    }
                 },
                 source_label: scan.dir.source.label(),
                 status: status.to_string(),
@@ -343,8 +340,8 @@ pub fn discover_outcome(scans: &[discovery::DocumentsScan]) -> DiscoverOutcome {
     }
 }
 
-/// 发现候选目录：只在受限位置（Known Folder Documents、`%USERPROFILE%\Documents`、
-/// OneDrive 环境变量）查找游戏目录，不做全盘扫描；不读取文件内容。
+/// 发现候选目录：只在受限位置（Known Folder Documents、`%USERPROFILE%\Documents`）
+/// 查找游戏目录，不做全盘扫描；不读取文件内容。
 #[tauri::command]
 pub async fn discover_saves() -> Result<DiscoverOutcome, CommandError> {
     let scans = discovery::scan_default_documents();

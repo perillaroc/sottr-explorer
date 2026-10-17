@@ -12,12 +12,12 @@ import type {
 export type { CandidateFileDto, CandidatesOutcomeDto, DiscoverOutcomeDto };
 
 const documents = "C:\\Users\\演示用户\\Documents";
-const onedriveDocuments = "C:\\Users\\演示用户\\OneDrive\\Documents";
+const fallbackDocuments = "D:\\Games\\Documents";
 export const MOCK_ROOT_A = `${documents}\\Shadow of the Tomb Raider`;
-export const MOCK_ROOT_B = `${onedriveDocuments}\\Shadow of the Tomb Raider`;
+export const MOCK_ROOT_B = `${fallbackDocuments}\\Shadow of the Tomb Raider`;
 /** 模拟文件系统已知的 Documents 目录（导出目标父级校验用）。 */
 export const MOCK_DOCUMENTS = documents;
-export const MOCK_ONEDRIVE_DOCUMENTS = onedriveDocuments;
+export const MOCK_FALLBACK_DOCUMENTS = fallbackDocuments;
 
 const gameDirName = "Shadow of the Tomb Raider";
 
@@ -30,19 +30,19 @@ export const mockDiscovery: DiscoverOutcomeDto = {
     {
       path: documents,
       source: "known_folder",
-      source_label: "Windows 文档位置（Known Folder，含 OneDrive 重定向）",
+      source_label: "Windows 文档位置（Known Folder）",
       status: "game_found",
       detail: null,
     },
     {
-      path: onedriveDocuments,
-      source: "onedrive_env:OneDrive",
-      source_label: "OneDrive 环境变量 OneDrive（\\Documents）",
+      path: fallbackDocuments,
+      source: "user_profile",
+      source_label: "%USERPROFILE%\\Documents（回退候选）",
       status: "game_found",
       detail: null,
     },
     {
-      path: "D:\\Games\\Documents",
+      path: "E:\\Games\\Documents",
       source: "user_profile",
       source_label: "%USERPROFILE%\\Documents（回退候选）",
       status: "missing",
@@ -54,13 +54,6 @@ export const mockDiscovery: DiscoverOutcomeDto = {
       source_label: "%USERPROFILE%\\Documents（回退候选）",
       status: "unreadable",
       detail: "拒绝访问（不会提权或修改权限；请用文件选择器手动选择可读位置）",
-    },
-    {
-      path: `${onedriveDocuments}\\游戏备份\\Documents`,
-      source: "onedrive_env:OneDrive",
-      source_label: "OneDrive 环境变量 OneDrive（\\Documents）",
-      status: "no_game_dir",
-      detail: null,
     },
   ],
   game_roots: [MOCK_ROOT_A, MOCK_ROOT_B],
@@ -130,5 +123,5 @@ export const mockPickedExportParent = documents;
 /** 供界面显示的模拟说明：候选目录里发生了什么。 */
 export const mockRootLabels: Record<string, string> = {
   [MOCK_ROOT_A]: `Known Folder Documents → ${gameDirName}`,
-  [MOCK_ROOT_B]: `OneDrive 环境变量 → ${gameDirName}`,
+  [MOCK_ROOT_B]: `Documents 回退候选 → ${gameDirName}`,
 };

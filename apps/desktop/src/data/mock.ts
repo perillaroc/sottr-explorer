@@ -11,7 +11,7 @@ import type { DesktopResult } from "../contract/desktop-result";
 import { demoMetadata } from "./metadata";
 import {
   MOCK_DOCUMENTS,
-  MOCK_ONEDRIVE_DOCUMENTS,
+  MOCK_FALLBACK_DOCUMENTS,
   MOCK_ROOT_A,
   MOCK_ROOT_B,
   mockCandidates,
@@ -79,7 +79,7 @@ function seedOf(path: string): FileSeed {
 }
 
 /** 模拟文件系统：候选文件所在目录、候选文件本身，以及本次会话创建过的导出目录。 */
-const MOCK_DIRECTORIES: string[] = [MOCK_DOCUMENTS, MOCK_ONEDRIVE_DOCUMENTS, MOCK_ROOT_A, MOCK_ROOT_B];
+const MOCK_DIRECTORIES: string[] = [MOCK_DOCUMENTS, MOCK_FALLBACK_DOCUMENTS, MOCK_ROOT_A, MOCK_ROOT_B];
 const MOCK_FILES: string[] = [...(mockCandidates(MOCK_ROOT_A)?.files ?? []), ...(mockCandidates(MOCK_ROOT_B)?.files ?? [])].map(
   (file) => file.path,
 );

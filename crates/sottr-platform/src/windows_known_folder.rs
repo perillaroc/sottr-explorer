@@ -1,7 +1,7 @@
 //! Windows Known Folder 的最小 FFI 封装（SX-012）。
 //!
 //! 只封装 `SHGetKnownFolderPath(FOLDERID_Documents)` 与 `CoTaskMemFree`：
-//! `Documents` 是唯一需要的 Known Folder，OneDrive 重定向后的路径由该 API 直接返回，
+//! `Documents` 是唯一需要的 Known Folder，系统重定向后的路径由该 API 直接返回，
 //! 与 Python v0.2 研究参照（`research/python-v0.2/sottr_inspect.py::windows_documents`）
 //! 使用同一 API 与同一 GUID（其 ctypes 版本作为交叉核对证据）。
 //!
@@ -53,9 +53,9 @@ unsafe extern "system" {
     fn CoTaskMemFree(pv: *mut core::ffi::c_void);
 }
 
-/// Windows Known Folder 的 Documents 路径（已包含 OneDrive 等重定向）。
+/// Windows Known Folder 的 Documents 路径（系统重定向后的实际位置）。
 ///
-/// 失败时返回 `None`（不 panic、不重试）：由调用方回退到 OneDrive 环境变量与
+/// 失败时返回 `None`（不 panic、不重试）：由调用方回退到
 /// `%USERPROFILE%\Documents` 候选。非 Windows 目标恒为 `None`。
 pub fn documents() -> Option<PathBuf> {
     #[cfg(windows)]

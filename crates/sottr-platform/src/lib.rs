@@ -5,8 +5,8 @@
 //! 桌面后端（SX-014 起）**共用同一实现**，避免出现“桌面安全、CLI 绕过”的差异；
 //! 操作系统差异止于本层。
 //!
-//! - [`discovery`]：Windows Known Folder 的 Documents（支持 OneDrive 重定向与
-//!   中文路径）、OneDrive 环境变量与 `%USERPROFILE%\Documents` 回退；只在
+//! - [`discovery`]：Windows Known Folder 的 Documents（含中文路径与系统文档
+//!   重定向）与 `%USERPROFILE%\Documents` 回退；只在
 //!   `Documents\Shadow of the Tomb Raider` 下发现候选，枚举受深度/数量/大小限制，
 //!   跳过符号链接与重解析点，不做全盘扫描；候选列表可注入测试根目录。
 //! - [`path_policy`]：路径分类（本地 / 逐字本地 / UNC / 设备命名空间）与
