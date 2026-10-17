@@ -52,3 +52,17 @@
 ## 8. 产品许可证
 
 尚未选择。仓库暂不包含 `LICENSE` 文件；选择许可证与公开发布为单独决策，未获授权前不执行。
+
+## 9. SX-019 研究来源（游戏资源提取，2026-10-17）
+
+- TrRebootModTools（<https://github.com/arcusmaximus/TrRebootModTools>），固定提交
+  `a79c48b75f1ffaaf623dc73a625211bf98ff0504`：其二进制模板与列表模板（`tr11zones`、
+  `tr11collectibles`）用作对象布局与单位命名的格式参考（MIT，字典来源见第 1 节同源仓库）；
+  未复制源码进入本仓库
+- CDCE.TIGER.Tool（<https://github.com/Ekey/CDCE.TIGER.Tool>），固定提交
+  `4c02ae12d83894b348f49d094bbdee7fbf45526d`：仅作容器格式交叉核对（源码阅读）；
+  **上游未声明许可证**，未复制源码，不进入产品与发布包
+- 本地游戏资源（tiger/drm/locals.bin）提取结果：原始数据与映射候选表留在仓库外私有目录；
+  事实性映射（ID→区域/单位/放置/坐标）是否随交付版发布按方案 G4 出口的
+  “证据与再分发门禁逐类复核”执行，当前不声明已完成
+- 方法与发现详见 `research/s019/README.md`、`research/s019/findings.md`

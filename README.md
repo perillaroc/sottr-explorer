@@ -19,6 +19,8 @@ G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`
 `TauriDataSource` 调用真实命令；导出对话框（JSON/CSV、分享脱敏、目标新目录、过期标记）；
 攻略链接解析/打开与失败恢复（复制已核验链接）；详情补齐表位置/参考集/组计数与来源链接；
 端到端测试（假后端 IPC 全流程 + Rust 真实夹具分析→导出→链接解析 + 真实输出绑定界面）。
+G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品 168 唯一 ID、26 区域、94 单位地图，
+与私有存档观察 129/168 交叉验证；DTP 文本键关联未闭合项已记录；见 `research/s019/`）。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
@@ -36,6 +38,7 @@ G3 已开始：**SX-012 完成**（共享平台适配层 `crates/sottr-platform`
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`resolve_guide_link`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015/SX-016）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 真实数据源 `TauriDataSource`（`src/data/tauri.ts`）与模拟数据源；导出对话框与攻略链接动作；组件/状态/端到端测试（`tests/`，80 项 + 1 项真实输出绑定（需环境变量）） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
+| `research/s019/` | G4 研究记录（SX-019）：游戏资源与本地化关联的独立提取脚本及发现（无商业数据转储） |
 | `schemas/` | 报告、批量、桌面信封、导出与元数据 JSON Schema（契约 1.0.0） |
 | `fixtures/contract/` | 契约夹具：合法 / 非法 / 表示规则 / Python 适配示例 |
 | `docs/` | 基线记录与契约文档 |
