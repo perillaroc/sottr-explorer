@@ -43,6 +43,10 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 可选类别只给计数；未闭合类别（如挑战古墓）不出缺失结论；共用同一 ID 的条目按 ID
 计数并附全部名称；观察集合中不在目录的 ID 单列。
 
+前端接入（阶段 C2a 已完成）：`apps/desktop/src/data/catalog.ts` 内嵌本目录并由
+`computeMissing` 计算缺失（与 `sottr-core::missing` 规则一致；`tests/catalog-missing.spec.ts`
+以 CLI 黄金输出 `tests/fixtures/missing/expected.json` 对照）。界面组件接入见阶段 C2b。
+
 ## 已知未闭合项（按 T22 不进入缺失结论）
 
 1. **挑战古墓 ID 共用**：12 个古墓名共享 9 个唯一 ID，其中 5 个名共用占位 ID

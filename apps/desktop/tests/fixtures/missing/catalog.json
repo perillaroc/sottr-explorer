@@ -1,0 +1,18 @@
+{
+  "catalog_schema_version": "1.0.0",
+  "catalog_version": "1.0.0",
+  "generated_from": {},
+  "totals": { "items": 4, "story": 0, "nonstory": 4, "required_for_100": 2, "dlc": 1 },
+  "categories": [
+    { "id": "monoliths", "name": "石碑", "count": 3, "required_for_100": true, "required_count": 2 },
+    { "id": "explorer_backpacks", "name": "背包", "count": 1, "required_for_100": false, "required_count": 0 }
+  ],
+  "collections": [],
+  "regions": [],
+  "items": {
+    "0x00000001": { "kind": "nonstory", "name": "One", "is_dlc": false, "required_for_100": true, "category": "monoliths" },
+    "0x00000002": { "kind": "nonstory", "name": "Two", "is_dlc": false, "required_for_100": true, "category": "monoliths", "shared_id": true, "shared_names": ["Two", "TwoAlt"] },
+    "0x00000003": { "kind": "nonstory", "name": "Three", "is_dlc": false, "required_for_100": false, "category": "explorer_backpacks" },
+    "0x00000005": { "kind": "nonstory", "name": "DlcRelic", "is_dlc": true, "required_for_100": false, "category": "monoliths" }
+  }
+}

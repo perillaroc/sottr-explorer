@@ -1,0 +1,37 @@
+{
+  "catalog_version": "1.0.0",
+  "categories": [
+    {
+      "id": "monoliths",
+      "items": [
+        {
+          "id": "0x00000002",
+          "name": "Two",
+          "shared_names": [
+            "Two",
+            "TwoAlt"
+          ]
+        }
+      ],
+      "missing": 1,
+      "name": "石碑",
+      "observed": 1,
+      "required_for_100": true,
+      "total": 2
+    },
+    {
+      "id": "explorer_backpacks",
+      "missing": 1,
+      "name": "背包",
+      "observed": 0,
+      "reason": "可选类别：不在 100% 必需范围，不生成逐项清单",
+      "required_for_100": false,
+      "total": 1
+    }
+  ],
+  "input_ref": "save1.dat",
+  "observed_items": 2,
+  "observed_not_in_catalog": [
+    "0x9A2BBEFC"
+  ]
+}
