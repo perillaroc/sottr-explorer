@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "sottr-explorer 全收集目录（SX-021 阶段 A）",
+  "description": "由 data/catalog/build_catalog.py 生成；事实来源与门禁说明见 data/catalog/README.md",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalog_schema_version", "catalog_version", "generated_from", "totals", "categories", "collections", "regions", "items"],
+  "properties": {
+    "catalog_schema_version": { "type": "string" },
+    "catalog_version": { "type": "string" },
+    "generated_from": { "type": "object" },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["items", "story", "nonstory", "required_for_100", "dlc"],
+      "properties": {
+        "items": { "type": "integer" },
+        "story": { "type": "integer" },
+        "nonstory": { "type": "integer" },
+        "required_for_100": { "type": "integer" },
+        "dlc": { "type": "integer" }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "count", "required_for_100", "required_count"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "count": { "type": "integer" },
+          "required_for_100": { "type": ["boolean", "null"] },
+          "required_count": { "type": "integer" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "collections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "is_dlc", "count", "required_for_100"],
+        "properties": {
+          "name": { "type": "string" },
+          "is_dlc": { "type": "boolean" },
+          "count": { "type": "integer" },
+          "required_for_100": { "type": "boolean" }
+        }
+      }
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["region_hash", "is_dlc", "counts_toward_percent", "challenge_tombs", "campsites", "challenges", "missions"],
+        "properties": {
+          "region_hash": { "type": "string", "pattern": "^[0-9A-F]{8}$" },
+          "is_dlc": { "type": "boolean" },
+          "counts_toward_percent": { "type": "boolean" },
+          "challenge_tombs": { "type": "array", "items": { "type": "integer" } },
+          "campsites": { "type": "array", "items": { "type": "integer" } },
+          "challenges": { "type": "array", "items": { "type": "integer" } },
+          "missions": { "type": "array", "items": { "type": "integer" } }
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "propertyNames": { "pattern": "^0x[0-9A-F]{8}$" },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["kind", "name", "is_dlc", "required_for_100", "category"],
+        "properties": {
+          "kind": { "enum": ["story", "nonstory"] },
+          "name": { "type": ["string", "null"] },
+          "collection": { "type": "string" },
+          "type": { "type": "integer" },
+          "marker": { "type": ["string", "null"] },
+          "is_dlc": { "type": "boolean" },
+          "required_for_100": { "type": ["boolean", "null"] },
+          "region_hash": { "type": "string" },
+          "unit": { "type": "integer" },
+          "category": { "type": "string" },
+          "shared_id": { "type": "boolean" },
+          "shared_names": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

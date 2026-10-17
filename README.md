@@ -39,6 +39,7 @@ G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品
 | `crates/sottr-platform/` | 平台适配层（SX-012/SX-013/SX-014）：Windows Known Folder/OneDrive 目录发现、有界枚举、路径策略、稳定快照读取（句柄约束与读取前后校验）、输出提交（独占新目标/受控临时文件）与快照时钟；CLI 与桌面后端共用，零第三方依赖 |
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`resolve_guide_link`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015/SX-016）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 真实数据源 `TauriDataSource`（`src/data/tauri.ts`）与模拟数据源；导出对话框与攻略链接动作；组件/状态/端到端测试（`tests/`，80 项 + 1 项真实输出绑定（需环境变量）） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
+| `data/catalog/` | 全收集目录源数据（SX-021 阶段 A）：生成脚本、契约与说明（接入元数据管道前为独立数据集） |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
 | `research/s019/` | G4 研究记录（SX-019）：游戏资源与本地化关联的独立提取脚本及发现（无商业数据转储） |
 | `research/s020/` | G4 验证记录（SX-020）：全收集口径逐类对账、否定结果与 SX-021 约束（含脚本） |

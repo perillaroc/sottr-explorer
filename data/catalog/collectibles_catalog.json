@@ -1,0 +1,5300 @@
+{
+  "catalog_schema_version": "1.0.0",
+  "catalog_version": "1.0.0",
+  "generated_from": {
+    "game": {
+      "product": "Shadow of the Tomb Raider",
+      "steam_appid": 750920,
+      "data": "bigfile.update3.002（最高优先级）"
+    },
+    "extraction": {
+      "collectibleinfo_dtp_sha256_16": "44e224bc7f2128aa",
+      "gameflow_dtp_sha256_16": "29668ca153789ae8"
+    },
+    "name_source": "TrRebootModTools tr11collectibles.bt（MIT，见 THIRD_PARTY_LICENSES.md）",
+    "date": "2026-10-17",
+    "license_decision": "用户已确认商业游戏数据可随交付版发布（2026-10-17）"
+  },
+  "totals": {
+    "items": 470,
+    "story": 302,
+    "nonstory": 168,
+    "required_for_100": 352,
+    "dlc": 42
+  },
+  "categories": [
+    {
+      "id": "archivist_maps",
+      "name": "Archivist Maps（档案图，可选）",
+      "count": 19,
+      "required_for_100": false,
+      "required_count": 0
+    },
+    {
+      "id": "artifacts",
+      "name": "Artifacts（故事收藏）",
+      "count": 295,
+      "required_for_100": true,
+      "required_count": 253
+    },
+    {
+      "id": "challenge_tombs",
+      "name": "Challenge Tombs（挑战古墓）",
+      "count": 8,
+      "required_for_100": null,
+      "required_count": 0,
+      "note": "未闭合（12 名/9 对象/9 唯一 ID，5 个共用占位 ID）；按 T22 不进入缺失结论"
+    },
+    {
+      "id": "croft_manor_extra",
+      "name": "克劳馥庄园（Prologue，不要求）",
+      "count": 7,
+      "required_for_100": false,
+      "required_count": 0
+    },
+    {
+      "id": "crypt_entrances",
+      "name": "Crypt Entrances（墓穴入口，可选）",
+      "count": 9,
+      "required_for_100": false,
+      "required_count": 0
+    },
+    {
+      "id": "crypt_treasures",
+      "name": "Crypt Treasures（墓穴宝藏）",
+      "count": 10,
+      "required_for_100": true,
+      "required_count": 10
+    },
+    {
+      "id": "explorer_backpacks",
+      "name": "Explorer Backpacks（探险者背包，可选）",
+      "count": 15,
+      "required_for_100": false,
+      "required_count": 0
+    },
+    {
+      "id": "gym_training",
+      "name": "训练场（gym，不要求）",
+      "count": 8,
+      "required_for_100": false,
+      "required_count": 0
+    },
+    {
+      "id": "monoliths",
+      "name": "Monoliths（石碑）",
+      "count": 12,
+      "required_for_100": true,
+      "required_count": 12
+    },
+    {
+      "id": "strongboxes",
+      "name": "Strongboxes（保险箱，可选）",
+      "count": 8,
+      "required_for_100": false,
+      "required_count": 0
+    },
+    {
+      "id": "survival_caches",
+      "name": "Survival Caches（生存贮藏点）",
+      "count": 77,
+      "required_for_100": true,
+      "required_count": 77
+    },
+    {
+      "id": "test_items",
+      "name": "测试项（不要求）",
+      "count": 2,
+      "required_for_100": false,
+      "required_count": 0
+    }
+  ],
+  "collections": [
+    {
+      "name": "Path_of_the_Stars",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "count": 11,
+      "required_for_100": true
+    },
+    {
+      "name": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Prologue",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": false
+    },
+    {
+      "name": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "count": 6,
+      "required_for_100": true
+    },
+    {
+      "name": "Inca_Gods",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "count": 6,
+      "required_for_100": true
+    },
+    {
+      "name": "A_Community_In_Need",
+      "is_dlc": false,
+      "count": 5,
+      "required_for_100": true
+    },
+    {
+      "name": "Aztec_Gods",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Conquerors",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Fortune_And_Glory",
+      "is_dlc": false,
+      "count": 6,
+      "required_for_100": true
+    },
+    {
+      "name": "Inca_Rebels",
+      "is_dlc": false,
+      "count": 9,
+      "required_for_100": true
+    },
+    {
+      "name": "Mayan_History_1",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Mayan_History_2",
+      "is_dlc": false,
+      "count": 9,
+      "required_for_100": true
+    },
+    {
+      "name": "Mayan_History_3",
+      "is_dlc": false,
+      "count": 6,
+      "required_for_100": true
+    },
+    {
+      "name": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Paititi_History_1",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Paititi_History_2",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Paititi_History_3",
+      "is_dlc": false,
+      "count": 6,
+      "required_for_100": true
+    },
+    {
+      "name": "Search_For_Lost_City",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Secrets_And_Lies",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Spanish_Mission",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "The_Outside_World",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Trinity_Story",
+      "is_dlc": false,
+      "count": 10,
+      "required_for_100": true
+    },
+    {
+      "name": "The_Fawcett_Expedition_02",
+      "is_dlc": false,
+      "count": 5,
+      "required_for_100": true
+    },
+    {
+      "name": "Yaaxil_Story",
+      "is_dlc": false,
+      "count": 5,
+      "required_for_100": true
+    },
+    {
+      "name": "Maya_Gods",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Cult_Story_1",
+      "is_dlc": false,
+      "count": 11,
+      "required_for_100": true
+    },
+    {
+      "name": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Maya_Legends",
+      "is_dlc": false,
+      "count": 7,
+      "required_for_100": true
+    },
+    {
+      "name": "Challenge_Tombs",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Cult_Story_2",
+      "is_dlc": false,
+      "count": 0,
+      "required_for_100": true
+    },
+    {
+      "name": "Crypts",
+      "is_dlc": false,
+      "count": 8,
+      "required_for_100": true
+    },
+    {
+      "name": "Hero_Twins_Disc_Murals",
+      "is_dlc": false,
+      "count": 0,
+      "required_for_100": true
+    },
+    {
+      "name": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 12,
+      "required_for_100": false
+    },
+    {
+      "name": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 8,
+      "required_for_100": false
+    },
+    {
+      "name": "DLC03_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 3,
+      "required_for_100": false
+    },
+    {
+      "name": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 8,
+      "required_for_100": false
+    },
+    {
+      "name": "DLC05_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 4,
+      "required_for_100": false
+    },
+    {
+      "name": "DLC06_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 4,
+      "required_for_100": false
+    },
+    {
+      "name": "DLC07_COLLECT_STORY",
+      "is_dlc": true,
+      "count": 3,
+      "required_for_100": false
+    }
+  ],
+  "regions": [
+    {
+      "region_hash": "26694CD8",
+      "is_dlc": false,
+      "counts_toward_percent": false,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "52D96DC1",
+      "is_dlc": false,
+      "counts_toward_percent": false,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "C5B30CDB",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [
+        3459351269,
+        1396456150,
+        924075389
+      ],
+      "campsites": [
+        956148713,
+        3581456162,
+        3870891803,
+        4242032244,
+        1096437078,
+        3909164751,
+        3531007222,
+        3346108512,
+        3135625596,
+        1367118368,
+        1333391075
+      ],
+      "challenges": [
+        3201554162,
+        4097675419,
+        2422951908,
+        2037770343,
+        3362447207,
+        1774518564
+      ],
+      "missions": [
+        3098968012,
+        3998942313,
+        409134252,
+        3488214904,
+        410174688,
+        4003363035,
+        3351654300,
+        2870764695,
+        1512520322,
+        3915504876,
+        2069890238,
+        1317638084,
+        3512574539,
+        1365786821,
+        2796834748
+      ]
+    },
+    {
+      "region_hash": "838BAE8C",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [
+        2872929431
+      ],
+      "campsites": [
+        1858168568,
+        519804637,
+        1541436088,
+        2345277714,
+        2236809995
+      ],
+      "challenges": [
+        1898854673,
+        1113166354,
+        100752143
+      ],
+      "missions": [
+        503748791,
+        2884731919
+      ]
+    },
+    {
+      "region_hash": "C92877A7",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [
+        2607453794
+      ],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "B02CF2FD",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [
+        3928384927
+      ],
+      "missions": []
+    },
+    {
+      "region_hash": "10F652C5",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [
+        3870891803
+      ],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "29673FB7",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "B06345B4",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [
+        3422967619
+      ],
+      "campsites": [
+        2031057316,
+        3921937030,
+        2530553842
+      ],
+      "challenges": [
+        1018073612,
+        176465541
+      ],
+      "missions": []
+    },
+    {
+      "region_hash": "8D2E7B5C",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [
+        3496687674,
+        1508879894
+      ],
+      "campsites": [
+        565650581,
+        1776019444,
+        2887184474,
+        886500552
+      ],
+      "challenges": [
+        3676310597
+      ],
+      "missions": [
+        1692558291,
+        95062019,
+        138405222
+      ]
+    },
+    {
+      "region_hash": "AE053A8F",
+      "is_dlc": false,
+      "counts_toward_percent": false,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "D65AE5D8",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [
+        294456851,
+        599521150
+      ],
+      "campsites": [
+        2050666256,
+        2822802993,
+        617891136,
+        3583213740
+      ],
+      "challenges": [
+        266899525,
+        3371498978
+      ],
+      "missions": []
+    },
+    {
+      "region_hash": "669D3CB3",
+      "is_dlc": false,
+      "counts_toward_percent": false,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [
+        2767982400
+      ],
+      "missions": []
+    },
+    {
+      "region_hash": "8C0D7019",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [
+        3563918088
+      ],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "A95DDDB5",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "F9420B65",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "96135833",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "3177F7A9",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [
+        3610116350,
+        1934355815
+      ],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "51A215C0",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "DA434CA5",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "DD81AF54",
+      "is_dlc": false,
+      "counts_toward_percent": false,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "54CDFAB5",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [
+        1396456150
+      ],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "DE73F55B",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "C1257504",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "BDB7AA97",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [
+        3339485957
+      ],
+      "challenges": [],
+      "missions": []
+    },
+    {
+      "region_hash": "68E6CEA8",
+      "is_dlc": false,
+      "counts_toward_percent": true,
+      "challenge_tombs": [],
+      "campsites": [],
+      "challenges": [],
+      "missions": []
+    }
+  ],
+  "items": {
+    "0xF97006F6": {
+      "kind": "story",
+      "name": "Hidden_City_Riddle",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xBEC00A0C": {
+      "kind": "story",
+      "name": "Hydra_Constellation",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x5165F3B4": {
+      "kind": "story",
+      "name": "Mayan_Calendar",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x01A96640": {
+      "kind": "story",
+      "name": "Key_Chak_Chel",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x0DC43D80": {
+      "kind": "story",
+      "name": "Path_Paititi",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x1D7C0331": {
+      "kind": "story",
+      "name": "Serpent_Key",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xF41482BF": {
+      "kind": "story",
+      "name": "Heart_Serpent",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xB4D95866": {
+      "kind": "story",
+      "name": "Silver_Box",
+      "collection": "Path_of_the_Stars",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xBA47343A": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_1",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xD37AD539": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_2",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x8FCFCADA": {
+      "kind": "story",
+      "name": "Lopez_Enters_Cenote",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0xF4B46500": {
+      "kind": "story",
+      "name": "Lopez_Rosary",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0xCAA74459": {
+      "kind": "story",
+      "name": "Prayer_Book",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x9847F367": {
+      "kind": "story",
+      "name": "Processional_Crucifix",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xC98FDFC1": {
+      "kind": "story",
+      "name": "Secret_Charter",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xE5EEB8F4": {
+      "kind": "story",
+      "name": "Thoughts_On_Foreign_Religion",
+      "collection": "Andrea_Lopez_Journal",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x3CD1C908": {
+      "kind": "story",
+      "name": "a_Trinity_Badge",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xC4F4FA41": {
+      "kind": "story",
+      "name": "b_Doctor_Dominguez",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x1A19B4E3": {
+      "kind": "story",
+      "name": "c_Ixchel_chakchel",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x3E97117B": {
+      "kind": "story",
+      "name": "d_silver_box_ixchel",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xCBE41351": {
+      "kind": "story",
+      "name": "e_Cult_of_Kukulkan",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xC65253E3": {
+      "kind": "story",
+      "name": "f_queen_unuratu",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x30DC3B0C": {
+      "kind": "story",
+      "name": "g_Amaru",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x34ED39BC": {
+      "kind": "story",
+      "name": "h_Jonah",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x94AA3CBF": {
+      "kind": "story",
+      "name": "i_Commander_Rourke",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xACE98451": {
+      "kind": "story",
+      "name": "j_Crimson_Fire",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xF9CDBC99": {
+      "kind": "story",
+      "name": "k_Lopez",
+      "collection": "aa_Laras_Notebook",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xBCCB866C": {
+      "kind": "story",
+      "name": "Hungry_Demons",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0xCF99CA42": {
+      "kind": "story",
+      "name": "Knights_Helmet",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0x3597BA77": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_4",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0x40673C84": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_4_2",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0xC8FCA6A1": {
+      "kind": "story",
+      "name": "Test_Of_The_Cenote",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x527EBACF": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_3",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0x164FB06D": {
+      "kind": "story",
+      "name": "Lopez_Leaves",
+      "collection": "Andrea_Lopez_Journal_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C92877A7",
+      "category": "artifacts"
+    },
+    "0xEBA6791E": {
+      "kind": "story",
+      "name": "Angels_Arrival",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xFAC1CB6F": {
+      "kind": "story",
+      "name": "Angels_Disappearance",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x0E3859C1": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_5",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x4571AB24": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_6",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xB125462A": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_7",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x26B79773": {
+      "kind": "story",
+      "name": "Lopez_Chronicle_8",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x668739AE": {
+      "kind": "story",
+      "name": "Wheellock_Pistol",
+      "collection": "Andrea_Lopez_Journal_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x1E84D6DF": {
+      "kind": "story",
+      "name": "Lord_Croft_Note",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "croft_manor_extra"
+    },
+    "0xC9C48B41": {
+      "kind": "story",
+      "name": "Construction_Letter",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "669D3CB3",
+      "category": "croft_manor_extra"
+    },
+    "0x259EDE27": {
+      "kind": "story",
+      "name": "Map",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "croft_manor_extra"
+    },
+    "0x19977201": {
+      "kind": "story",
+      "name": "Richard_Letter",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "669D3CB3",
+      "category": "croft_manor_extra"
+    },
+    "0xA0720AFF": {
+      "kind": "story",
+      "name": "Treasure",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "669D3CB3",
+      "category": "croft_manor_extra"
+    },
+    "0xEBA544A4": {
+      "kind": "story",
+      "name": "White_Lady",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "669D3CB3",
+      "category": "croft_manor_extra"
+    },
+    "0x09D5ABE6": {
+      "kind": "story",
+      "name": "Winston_Letter",
+      "collection": "Prologue",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "669D3CB3",
+      "category": "croft_manor_extra"
+    },
+    "0x23FB0D7E": {
+      "kind": "story",
+      "name": "Bowl_Of_Cinnabar",
+      "collection": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xF18281A5": {
+      "kind": "story",
+      "name": "Foot_Plough",
+      "collection": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x5C78EA34": {
+      "kind": "story",
+      "name": "Llama_Figurine",
+      "collection": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x4AC568AC": {
+      "kind": "story",
+      "name": "Preserved_Food",
+      "collection": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x12DABFF7": {
+      "kind": "story",
+      "name": "Storage_Jar",
+      "collection": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x043E391D": {
+      "kind": "story",
+      "name": "Textile_Bag",
+      "collection": "Day_In_The_Life_Of_The_Inca",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x07E76E24": {
+      "kind": "story",
+      "name": "Animal_God_Mural",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x489FB5F6": {
+      "kind": "story",
+      "name": "Death_God_Monolith",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x484AA8C8": {
+      "kind": "story",
+      "name": "Earth_Goddess_Mural",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x6741FDF6": {
+      "kind": "story",
+      "name": "Grain_Goddess_Mural",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C92877A7",
+      "category": "artifacts"
+    },
+    "0xF96E3E50": {
+      "kind": "story",
+      "name": "Sun_God_Mural",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x52A30513": {
+      "kind": "story",
+      "name": "Supreme_God_Monolith",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x8B86224A": {
+      "kind": "story",
+      "name": "Moon_God_Monolith",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x5A58F5AB": {
+      "kind": "story",
+      "name": "Rain_God_Mural",
+      "collection": "Inca_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x02784A71": {
+      "kind": "story",
+      "name": "Handkerchief",
+      "collection": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x371C81F4": {
+      "kind": "story",
+      "name": "Journal_Page",
+      "collection": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x65E3935A": {
+      "kind": "story",
+      "name": "Lost_Letter",
+      "collection": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xEDBA6F35": {
+      "kind": "story",
+      "name": "Pistol_Grip",
+      "collection": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x96E1C872": {
+      "kind": "story",
+      "name": "Sextant",
+      "collection": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x65321863": {
+      "kind": "story",
+      "name": "Raleigh_Rimmel_Epitaph",
+      "collection": "The_Fawcett_Expedition",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x8712DACD": {
+      "kind": "story",
+      "name": "Mayan_Proverb",
+      "collection": "A_Community_In_Need",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8C0D7019",
+      "category": "artifacts"
+    },
+    "0x724B9CF7": {
+      "kind": "story",
+      "name": "Crude_oil",
+      "collection": "A_Community_In_Need",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x44ADFEB7": {
+      "kind": "story",
+      "name": "Polished_Copal",
+      "collection": "A_Community_In_Need",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x8412840E": {
+      "kind": "story",
+      "name": "Trinity_Aid",
+      "collection": "A_Community_In_Need",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x60BF8840": {
+      "kind": "story",
+      "name": "Family_History",
+      "collection": "A_Community_In_Need",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x7E613762": {
+      "kind": "story",
+      "name": "Bloodletter",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xD85F7B97": {
+      "kind": "story",
+      "name": "Coatlicue",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x4F8EE97C": {
+      "kind": "story",
+      "name": "Gold_Mask_Of_Xipe_Totec",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xE60DB5BB": {
+      "kind": "story",
+      "name": "Mask_Of_Tezcatlipoca",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x0D40E76F": {
+      "kind": "story",
+      "name": "Quetzalcoatl",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x22889CE2": {
+      "kind": "story",
+      "name": "Sacrificial_Knife",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x9D37D10B": {
+      "kind": "story",
+      "name": "Tlaloc_Vase",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x659672E5": {
+      "kind": "story",
+      "name": "Death_Figurines",
+      "collection": "Aztec_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x2389359E": {
+      "kind": "story",
+      "name": "First_Contact",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x29B519FB": {
+      "kind": "story",
+      "name": "Ransom",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x783457B3": {
+      "kind": "story",
+      "name": "Slave_Collar",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xF9BA2199": {
+      "kind": "story",
+      "name": "Disease_And_Death",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x65B54978": {
+      "kind": "story",
+      "name": "Galleon_Note",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0xC8B66BA8": {
+      "kind": "story",
+      "name": "Infighting",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xCC4A7C40": {
+      "kind": "story",
+      "name": "Missionary_Work",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xDBA47FC6": {
+      "kind": "story",
+      "name": "Spanish_Sword",
+      "collection": "Conquerors",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0xEE8F45DD": {
+      "kind": "story",
+      "name": "Aztec_Contract",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xB7605AD5": {
+      "kind": "story",
+      "name": "Aztec_Whistle",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x462B1085": {
+      "kind": "story",
+      "name": "Incense_Burner",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x0095B5A7": {
+      "kind": "story",
+      "name": "Patolli_Mat",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x0322ED0C": {
+      "kind": "story",
+      "name": "Gold_Ear_Spools",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x69A11CF9": {
+      "kind": "story",
+      "name": "Silver_Mirror",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xE8794A7C": {
+      "kind": "story",
+      "name": "Metatl",
+      "collection": "Day_In_The_Life_Of_The_Aztec",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xEDACACC3": {
+      "kind": "story",
+      "name": "Burial_Doll",
+      "collection": "Fortune_And_Glory",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xC6F2A6A0": {
+      "kind": "story",
+      "name": "Company_Town",
+      "collection": "Fortune_And_Glory",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x6F328B11": {
+      "kind": "story",
+      "name": "Oil_Derrick_Model",
+      "collection": "Fortune_And_Glory",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x80AFF5C0": {
+      "kind": "story",
+      "name": "Tumi_Knife",
+      "collection": "Fortune_And_Glory",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x39551DDB": {
+      "kind": "story",
+      "name": "Water_Quality_Report",
+      "collection": "Fortune_And_Glory",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x5F844AE1": {
+      "kind": "story",
+      "name": "Iron_Mold",
+      "collection": "Fortune_And_Glory",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xDDAB23B2": {
+      "kind": "story",
+      "name": "An_Empress_In_Name",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x9865801A": {
+      "kind": "story",
+      "name": "Disctinct_Culture",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xC65BA16D": {
+      "kind": "story",
+      "name": "Inti_Statuette",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xE3539118": {
+      "kind": "story",
+      "name": "Reconnaissance",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x6E55AAF3": {
+      "kind": "story",
+      "name": "Unuratu_Prophecy",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xDE835BF6": {
+      "kind": "story",
+      "name": "Unuratus_Bracelet",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x93F50AAD": {
+      "kind": "story",
+      "name": "Mama_Killa_Mask",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xAA344AC4": {
+      "kind": "story",
+      "name": "Stolen_Mummy",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xDD657071": {
+      "kind": "story",
+      "name": "Copper_Mace",
+      "collection": "Inca_Rebels",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x8E78816C": {
+      "kind": "story",
+      "name": "Carved_Wooden_Bowl",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "category": "artifacts"
+    },
+    "0x44DF69A7": {
+      "kind": "story",
+      "name": "Journey_South",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "category": "artifacts"
+    },
+    "0xA7FF8298": {
+      "kind": "story",
+      "name": "Poison_Bottle",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "category": "artifacts"
+    },
+    "0xF99B54F1": {
+      "kind": "story",
+      "name": "Reasons_For_Exodus",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8C0D7019",
+      "category": "artifacts"
+    },
+    "0x018F6D1C": {
+      "kind": "story",
+      "name": "Temple_Of_Death",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x6C489221": {
+      "kind": "story",
+      "name": "Temple_Of_Life",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x7117BC06": {
+      "kind": "story",
+      "name": "Temple_Of_The_Moon",
+      "collection": "Mayan_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "category": "artifacts"
+    },
+    "0xF744CC5B": {
+      "kind": "story",
+      "name": "Death_Of_The_Nobles",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x56DB72EA": {
+      "kind": "story",
+      "name": "Funerary_Mask",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xE1751116": {
+      "kind": "story",
+      "name": "Mountain_With_Crown_Of_Silver",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x4128D9F2": {
+      "kind": "story",
+      "name": "Skull_With_Inlaid_Teeth",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x31FBC663": {
+      "kind": "story",
+      "name": "The_Transformation",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "category": "artifacts"
+    },
+    "0xDD726C24": {
+      "kind": "story",
+      "name": "Temple_Of_The_Serpent",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x9B746347": {
+      "kind": "story",
+      "name": "Encroachment",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x79BFDBD5": {
+      "kind": "story",
+      "name": "Secret_Wind",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x60649B7C": {
+      "kind": "story",
+      "name": "Surprise_Witness",
+      "collection": "Mayan_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x8ED45A4D": {
+      "kind": "story",
+      "name": "Awaiting_The_Return",
+      "collection": "Mayan_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "96135833",
+      "category": "artifacts"
+    },
+    "0x9C3AA4AF": {
+      "kind": "story",
+      "name": "Homeward_Bound",
+      "collection": "Mayan_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x47154F56": {
+      "kind": "story",
+      "name": "Local_Legends",
+      "collection": "Mayan_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xCEF8084E": {
+      "kind": "story",
+      "name": "Kukulkan_On_A_Cross",
+      "collection": "Mayan_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0x902F8AC3": {
+      "kind": "story",
+      "name": "Demons_Repelled",
+      "collection": "Mayan_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xC7AAC40A": {
+      "kind": "story",
+      "name": "Devils_In_The_Dark",
+      "collection": "Mayan_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xABD9B4C8": {
+      "kind": "story",
+      "name": "Ancient_Airplane",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x10889D70": {
+      "kind": "story",
+      "name": "Flight_Log",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xFC3A73B2": {
+      "kind": "story",
+      "name": "Haunting",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xDA615056": {
+      "kind": "story",
+      "name": "Plastic_Penguin",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xBA19BA13": {
+      "kind": "story",
+      "name": "Sisimite",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xE73BB718": {
+      "kind": "story",
+      "name": "Tzitzimemeh",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x5E6F0756": {
+      "kind": "story",
+      "name": "Nahual_Mask",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xFAA76BB3": {
+      "kind": "story",
+      "name": "Elongated_Skull",
+      "collection": "Myths_Magic_And_Monsters",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xF23B3644": {
+      "kind": "story",
+      "name": "Paititi_Founded",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x4345EA40": {
+      "kind": "story",
+      "name": "First_Emperor",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x2B36100B": {
+      "kind": "story",
+      "name": "Merging_Cultures",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xEEE8EE49": {
+      "kind": "story",
+      "name": "Paititi_Moved",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x9F2D0D69": {
+      "kind": "story",
+      "name": "Paititi_Troubles",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xF2D25297": {
+      "kind": "story",
+      "name": "Peace_And_Prosperity",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8C0D7019",
+      "category": "artifacts"
+    },
+    "0xB574659B": {
+      "kind": "story",
+      "name": "War",
+      "collection": "Paititi_History_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x7B95CAEA": {
+      "kind": "story",
+      "name": "Aztec_Arrival",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xD78E5B56": {
+      "kind": "story",
+      "name": "Aztec_Rule",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x472701B9": {
+      "kind": "story",
+      "name": "Mobilize_And_Defend",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x0EA8B2F4": {
+      "kind": "story",
+      "name": "First_Sacrifice",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x090D83BE": {
+      "kind": "story",
+      "name": "Manko_Necklace",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x90851695": {
+      "kind": "story",
+      "name": "Manko_The_Savior",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x9DFB313D": {
+      "kind": "story",
+      "name": "Meeting_Lopez",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x12B626FF": {
+      "kind": "story",
+      "name": "The_Line_Of_Manko",
+      "collection": "Paititi_History_2",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xB931BAD2": {
+      "kind": "story",
+      "name": "Famine",
+      "collection": "Paititi_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x29D696EC": {
+      "kind": "story",
+      "name": "Unuratu_Rebellion",
+      "collection": "Paititi_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xF89DAA0F": {
+      "kind": "story",
+      "name": "Unuratu_Coronation",
+      "collection": "Paititi_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x329459A4": {
+      "kind": "story",
+      "name": "Amaru_Seizes_Control",
+      "collection": "Paititi_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x344A0F7A": {
+      "kind": "story",
+      "name": "Eztli_Birth",
+      "collection": "Paititi_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xDF933EEC": {
+      "kind": "story",
+      "name": "Recruiting_Amaru",
+      "collection": "Paititi_History_3",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x7D18BFDB": {
+      "kind": "story",
+      "name": "El_Dorado",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xA9A2B053": {
+      "kind": "story",
+      "name": "Film_Camera",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x403EEB8E": {
+      "kind": "story",
+      "name": "Guardian",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x6B6628FF": {
+      "kind": "story",
+      "name": "Misdirection",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xC384CBC3": {
+      "kind": "story",
+      "name": "Vigilance",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xBD971FD3": {
+      "kind": "story",
+      "name": "Base_Camp",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x62148211": {
+      "kind": "story",
+      "name": "Explorer_Journal_1",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xDDC1710D": {
+      "kind": "story",
+      "name": "Explorer_Journal_2",
+      "collection": "Search_For_Lost_City",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xF1FAE49A": {
+      "kind": "story",
+      "name": "Ceremonial_Torch",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x89524837": {
+      "kind": "story",
+      "name": "Closed_Border",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x085A83D1": {
+      "kind": "story",
+      "name": "Dismantled_Radio",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xCE0734DD": {
+      "kind": "story",
+      "name": "Isolated",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x960A2A78": {
+      "kind": "story",
+      "name": "Outsider_Sacrifice",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xC14AD971": {
+      "kind": "story",
+      "name": "Temple_Of_The_Sky",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x9C9925D6": {
+      "kind": "story",
+      "name": "Nahual_Carving",
+      "collection": "Secrets_And_Lies",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xBBFEEBDB": {
+      "kind": "story",
+      "name": "Miracle_Club",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xF0FEB3C5": {
+      "kind": "story",
+      "name": "Mission_Founded",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x42DE17F5": {
+      "kind": "story",
+      "name": "Mission_Repairs",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x2F1764FD": {
+      "kind": "story",
+      "name": "Mission_Statement",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x584E2E20": {
+      "kind": "story",
+      "name": "Multiple_Miracles",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xBC594CE9": {
+      "kind": "story",
+      "name": "Saint_John",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x74D6B48B": {
+      "kind": "story",
+      "name": "Stations_Cross",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x83D4065F": {
+      "kind": "story",
+      "name": "Tapestry",
+      "collection": "Spanish_Mission",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x25A6AF2F": {
+      "kind": "story",
+      "name": "A_Lost_World",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C92877A7",
+      "category": "artifacts"
+    },
+    "0xA3B16D2F": {
+      "kind": "story",
+      "name": "Broken_Arrow",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xA2F185C7": {
+      "kind": "story",
+      "name": "Demons_Outside",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xF50E7CCE": {
+      "kind": "story",
+      "name": "Expedition_Report",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x06D38407": {
+      "kind": "story",
+      "name": "Wooden_Gun",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x4A4C37BB": {
+      "kind": "story",
+      "name": "Hardhat",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C92877A7",
+      "category": "artifacts"
+    },
+    "0xA2B5625F": {
+      "kind": "story",
+      "name": "Intrepid_Adventurer",
+      "collection": "The_Outside_World",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x0D6ADEF8": {
+      "kind": "story",
+      "name": "End_Times",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x37E6E210": {
+      "kind": "story",
+      "name": "Hollow_Village_Operation",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xB44239F9": {
+      "kind": "story",
+      "name": "Lopez_Diary_1",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C92877A7",
+      "category": "artifacts"
+    },
+    "0xE0410A37": {
+      "kind": "story",
+      "name": "Lopez_Diary_2",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x78D55FD2": {
+      "kind": "story",
+      "name": "Search_Map",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x8E1F420B": {
+      "kind": "story",
+      "name": "Trinity_Massacre",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x101EBDED": {
+      "kind": "story",
+      "name": "Trinity_Searches",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x4F357588": {
+      "kind": "story",
+      "name": "Trinity_Survey",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x2F0F0683": {
+      "kind": "story",
+      "name": "Croft_Report",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xBF1247FD": {
+      "kind": "story",
+      "name": "Sniper_Diary",
+      "collection": "Trinity_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C92877A7",
+      "category": "artifacts"
+    },
+    "0x09A53C76": {
+      "kind": "story",
+      "name": "Jack_Journal_1",
+      "collection": "The_Fawcett_Expedition_02",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x9E17CFFB": {
+      "kind": "story",
+      "name": "Jack_Journal_2",
+      "collection": "The_Fawcett_Expedition_02",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xA59C602F": {
+      "kind": "story",
+      "name": "Jack_Journal_3",
+      "collection": "The_Fawcett_Expedition_02",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xD03FC71A": {
+      "kind": "story",
+      "name": "Jack_Journal_4",
+      "collection": "The_Fawcett_Expedition_02",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x7CDCD0DC": {
+      "kind": "story",
+      "name": "Jack_Journal_5",
+      "collection": "The_Fawcett_Expedition_02",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x72A130AC": {
+      "kind": "story",
+      "name": "Yaaxil_01",
+      "collection": "Yaaxil_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x743AA36A": {
+      "kind": "story",
+      "name": "Yaaxil_02",
+      "collection": "Yaaxil_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "category": "artifacts"
+    },
+    "0x18155E52": {
+      "kind": "story",
+      "name": "Yaaxil_03",
+      "collection": "Yaaxil_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xEF35DE29": {
+      "kind": "story",
+      "name": "Yaaxil_04",
+      "collection": "Yaaxil_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xFE4F7B24": {
+      "kind": "story",
+      "name": "Yaaxil_05",
+      "collection": "Yaaxil_Story",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xE437D5D8": {
+      "kind": "story",
+      "name": "Maya_God_1",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xD80A5713": {
+      "kind": "story",
+      "name": "Maya_God_2",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xCCE614A4": {
+      "kind": "story",
+      "name": "Maya_God_3",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xF2B65ADD": {
+      "kind": "story",
+      "name": "Maya_God_4",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x24E6FFE5": {
+      "kind": "story",
+      "name": "Maya_God_5",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xE37CEF20": {
+      "kind": "story",
+      "name": "Maya_God_6",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x039F63E5": {
+      "kind": "story",
+      "name": "Maya_God_7",
+      "collection": "Maya_Gods",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x085190BF": {
+      "kind": "story",
+      "name": "Aztec_Year_Bundle",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x162D9BD8": {
+      "kind": "story",
+      "name": "Broken_Macahuilt",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xECFCF324": {
+      "kind": "story",
+      "name": "Fire_Drill",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x0D9C63E9": {
+      "kind": "story",
+      "name": "Jade_Mask",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x57447BC8": {
+      "kind": "story",
+      "name": "Pipe",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x08A8054E": {
+      "kind": "story",
+      "name": "Warrior_Pendant",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xC399ADA1": {
+      "kind": "story",
+      "name": "Manko_Effigy",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xA648BD25": {
+      "kind": "story",
+      "name": "Trinity_Cult",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xC6B98286": {
+      "kind": "story",
+      "name": "Aztec_Laws",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x2B2FC7E7": {
+      "kind": "story",
+      "name": "Kukulkan_Warriors",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x16C7C314": {
+      "kind": "story",
+      "name": "Sun_Priest",
+      "collection": "Cult_Story_1",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x3327D835": {
+      "kind": "story",
+      "name": "Death_Cult_1",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x9118AD01": {
+      "kind": "story",
+      "name": "Death_Cult_2",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x83E53135": {
+      "kind": "story",
+      "name": "Death_Cult_3",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x5814FAFA": {
+      "kind": "story",
+      "name": "Death_Cult_4",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x5F17B019": {
+      "kind": "story",
+      "name": "Death_Cult_5",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xF285063D": {
+      "kind": "story",
+      "name": "Death_Cult_6",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x49B7C6F0": {
+      "kind": "story",
+      "name": "Death_Cult_7",
+      "collection": "Lopez_Death_Cult",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x24D0344D": {
+      "kind": "story",
+      "name": "Alux",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xEF19D1FF": {
+      "kind": "story",
+      "name": "Balams",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xCBDCD9FB": {
+      "kind": "story",
+      "name": "Monkey_Twins",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x62B5AB49": {
+      "kind": "story",
+      "name": "Paddler_Gods",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xCCD225DD": {
+      "kind": "story",
+      "name": "Two_Trees",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x937D3868": {
+      "kind": "story",
+      "name": "Votan",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x8834B6B2": {
+      "kind": "story",
+      "name": "World_Tree",
+      "collection": "Maya_Legends",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xB1629AF4": {
+      "kind": "story",
+      "name": "Court_Death",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xD656004F": {
+      "kind": "story",
+      "name": "Flooded_Sanctuary",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x56AB3FD1": {
+      "kind": "story",
+      "name": "Gate_Xibalba",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x6D914037": {
+      "kind": "story",
+      "name": "Serpent_Hollow",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x4F2135BC": {
+      "kind": "story",
+      "name": "Sky_Temple",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x9D56C3FE": {
+      "kind": "story",
+      "name": "Tree_Life",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0x5DB360F6": {
+      "kind": "story",
+      "name": "Warriors_Trial",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xEF88D7ED": {
+      "kind": "story",
+      "name": "Xolotl",
+      "collection": "Challenge_Tombs",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0x5D96F89C": {
+      "kind": "story",
+      "name": "Memorial_1",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0xCB3F79FB": {
+      "kind": "story",
+      "name": "Memorial_2",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "category": "artifacts"
+    },
+    "0x6FA48E97": {
+      "kind": "story",
+      "name": "Memorial_3",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "category": "artifacts"
+    },
+    "0xB3E072E4": {
+      "kind": "story",
+      "name": "Memorial_4",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0x22E3B207": {
+      "kind": "story",
+      "name": "Memorial_5",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xFF54AE20": {
+      "kind": "story",
+      "name": "Memorial_6",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xC0AF0E59": {
+      "kind": "story",
+      "name": "Memorial_7",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "category": "artifacts"
+    },
+    "0xDD9CA99B": {
+      "kind": "story",
+      "name": "Memorial_8",
+      "collection": "Crypts",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "category": "artifacts"
+    },
+    "0xAACA9591": {
+      "kind": "story",
+      "name": "DLC01_MARIANAS_MAP_STATE_01",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x4A58B0D6": {
+      "kind": "story",
+      "name": "DLC01_MARIANAS_MAP_STATE_02",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xDAB1DD87": {
+      "kind": "story",
+      "name": "DLC01_MARIANAS_MAP_STATE_03",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x7DEC396C": {
+      "kind": "story",
+      "name": "DLC01_CHAKANA_PIECE_01",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x04F85CB9": {
+      "kind": "story",
+      "name": "DLC01_CHAKANA_PIECE_02",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x93436A24": {
+      "kind": "story",
+      "name": "DLC01_CHAKANA_PIECE_03",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x116D04CB": {
+      "kind": "story",
+      "name": "DLC01_PORVENIR_FIELD_REPORT",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x56FC59E0": {
+      "kind": "story",
+      "name": "DLC01_MARIANAS_JOURNAL",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xABC9E455": {
+      "kind": "story",
+      "name": "DLC01_JOURNEY_FROM_MEXICO",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x119E2BC2": {
+      "kind": "story",
+      "name": "DLC01_PORVENIR_HARDHAT",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x82A9C782": {
+      "kind": "story",
+      "name": "DLC01_MARIANAS_CONFESSION",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x92C8057E": {
+      "kind": "story",
+      "name": "DLC01_FORGE_MURAL",
+      "collection": "DLC01_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x64B06DC0": {
+      "kind": "story",
+      "name": "DLC02_QORIANKAS_ORDERS",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x7666F866": {
+      "kind": "story",
+      "name": "DLC02_RITUAL_BOOK",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x07DCD3FE": {
+      "kind": "story",
+      "name": "DLC02_AMARUS_DIARY_PAGE",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x7828DF72": {
+      "kind": "story",
+      "name": "DLC02_PILLARS_OF_HEAVEN",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xBD6B77BF": {
+      "kind": "story",
+      "name": "DLC02_LEGEND_OF_THE_SHIELD",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x32F3A092": {
+      "kind": "story",
+      "name": "DLC02_THE_SHIELDS_CRADLE",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xE4E77A90": {
+      "kind": "story",
+      "name": "DLC02_THE_SHIELD",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x227327D9": {
+      "kind": "story",
+      "name": "DLC02_LOPEZ_EULOGY",
+      "collection": "DLC02_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xA8615E3E": {
+      "kind": "story",
+      "name": "DLC03_INSRUMENT_BLUEPRINT",
+      "collection": "DLC03_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xA0040AA7": {
+      "kind": "story",
+      "name": "DLC03_EXILED_TWINS",
+      "collection": "DLC03_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xAB453584": {
+      "kind": "story",
+      "name": "DLC03_GATHERING_FOLLOWERS",
+      "collection": "DLC03_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xBA280E1C": {
+      "kind": "story",
+      "name": "DLC04_RELIC_01_Wheel_Pyramid_North",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xCDC2FAF3": {
+      "kind": "story",
+      "name": "DLC04_RELIC_02_Wheel_Yellow_South",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x696CD437": {
+      "kind": "story",
+      "name": "DLC04_RELIC_03_Red_Key_North",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x01F16D6E": {
+      "kind": "story",
+      "name": "DLC04_RELIC_04_Wheel_Red_North",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x5B10D527": {
+      "kind": "story",
+      "name": "DLC04_DOCUMENT_01_Letter_Food_Chest",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xA687997B": {
+      "kind": "story",
+      "name": "DLC04_MURAL_01_Tomb_End_Stele",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xD2024132": {
+      "kind": "story",
+      "name": "DLC04_DOCUMENT_02_Amaru_Journal",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xA9066A63": {
+      "kind": "story",
+      "name": "DLC04_DOCUMENT_03_Amaru_Eval",
+      "collection": "DLC04_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x5332F9D0": {
+      "kind": "story",
+      "name": "DLC05_CODED_MESSAGE",
+      "collection": "DLC05_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xB869D6C6": {
+      "kind": "story",
+      "name": "DLC05_DECODED_MESSAGE",
+      "collection": "DLC05_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x82770BFB": {
+      "kind": "story",
+      "name": "DLC05_CHALLENGERS_TRIAL",
+      "collection": "DLC05_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0xF60968A7": {
+      "kind": "story",
+      "name": "DLC05_GODSLAYER_HISTORY",
+      "collection": "DLC05_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x153C563F": {
+      "kind": "story",
+      "name": "DLC06_DOCUMENT_01_Trinity_Communications",
+      "collection": "DLC06_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x21F30738": {
+      "kind": "story",
+      "name": "DLC06_DOCUMENT_02_Prayer_To_Zipacna",
+      "collection": "DLC06_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xCC7B3FA7": {
+      "kind": "story",
+      "name": "DLC06_MURAL_01_Zipacna_Lore",
+      "collection": "DLC06_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x1CD89B7B": {
+      "kind": "story",
+      "name": "DLC06_RELIC_01_Crab",
+      "collection": "DLC06_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0xA6C0BB36": {
+      "kind": "story",
+      "name": "DLC07_DOCUMENT_01_Lopez_Tunnels",
+      "collection": "DLC07_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x83DE3E3A": {
+      "kind": "story",
+      "name": "DLC07_MURAL_01_Tomb_Of_Xquic",
+      "collection": "DLC07_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "29E50C12",
+      "category": "artifacts"
+    },
+    "0x053CAD08": {
+      "kind": "story",
+      "name": "DLC07_MURAL_02_Gateway_To_Heavens",
+      "collection": "DLC07_COLLECT_STORY",
+      "is_dlc": true,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "category": "artifacts"
+    },
+    "0x9D636823": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeDocument_Test_01",
+      "type": 1,
+      "marker": "Document",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4907,
+      "category": "test_items"
+    },
+    "0x9D636822": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeDocument_Test_02",
+      "type": 1,
+      "marker": "Document",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4907,
+      "category": "test_items"
+    },
+    "0xD7F7674C": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_aztec_intermediate_1",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "monoliths"
+    },
+    "0xB47679E9": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_Lj_shrine_of_darkness",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 2486,
+      "category": "monoliths"
+    },
+    "0x33BAC64B": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_middle_island_aztec_intermediate_2",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "monoliths"
+    },
+    "0xE17A9FED": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_return_02_mayan_advanced_2",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "monoliths"
+    },
+    "0x5BBA136D": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_aztec_advanced_1",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "monoliths"
+    },
+    "0xC283486E": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_maya_advanced_1",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "monoliths"
+    },
+    "0x0EC13AE8": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_maya_intermediate_2",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "monoliths"
+    },
+    "0xAF9AD9D4": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_hv2_01_inca_advanced_1",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "monoliths"
+    },
+    "0xBEF19DB3": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_hv2_01_inca_intermediate_1",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "monoliths"
+    },
+    "0xB02F0961": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_hv_v2_03_mayan_intermediate_2",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 4026,
+      "category": "monoliths"
+    },
+    "0x439B19A6": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_spanish_mission_incan_advanced_2",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "monoliths"
+    },
+    "0x5BB0EF4C": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeMonolith_pa_hub_paititi_maya_advanced_2",
+      "type": 4,
+      "marker": "Monoliths",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "monoliths"
+    },
+    "0x570047BE": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_02",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 682,
+      "category": "strongboxes"
+    },
+    "0xF3CF9536": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_03",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "strongboxes"
+    },
+    "0xF3CF9539": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_04",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 4026,
+      "category": "strongboxes"
+    },
+    "0xF3CF953A": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_07",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 2306,
+      "category": "strongboxes"
+    },
+    "0xF3CF94FD": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_08",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "strongboxes"
+    },
+    "0xF3CF953B": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_06",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "strongboxes"
+    },
+    "0xF3CF9538": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_05",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "strongboxes"
+    },
+    "0xF3CF9534": {
+      "kind": "nonstory",
+      "name": "collectible_chest_lockpick_tr11_ancient_01",
+      "type": 8,
+      "marker": "Strongbox",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "B02CF2FD",
+      "unit": 982,
+      "category": "strongboxes"
+    },
+    "0x510A6E81": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_DotD_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "B02CF2FD",
+      "unit": 982,
+      "category": "explorer_backpacks"
+    },
+    "0x5B5C79A2": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_LitJ_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 672,
+      "category": "explorer_backpacks"
+    },
+    "0x5B5C79A1": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_LitJ_02",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 3004,
+      "category": "explorer_backpacks"
+    },
+    "0x27A828BB": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_HV_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "explorer_backpacks"
+    },
+    "0x27A828BA": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_HV_02",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "explorer_backpacks"
+    },
+    "0x4816C0A1": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_Paititi_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "explorer_backpacks"
+    },
+    "0x4816C0A2": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_Paititi_02",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "explorer_backpacks"
+    },
+    "0x4816C0A3": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_Paititi_03",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "explorer_backpacks"
+    },
+    "0x4816C0A4": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_Paititi_04",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 1070,
+      "category": "explorer_backpacks"
+    },
+    "0x6893C3B1": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_PaititiReturn_02",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "explorer_backpacks"
+    },
+    "0xEEDDEEF2": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_SpanishMission_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "explorer_backpacks"
+    },
+    "0xEEDDEEF0": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_SpanishMission_03",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "explorer_backpacks"
+    },
+    "0xEEDDEEF7": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_SpanishMission_04",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "explorer_backpacks"
+    },
+    "0x9BADF674": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeExplorerSatchel_abandonned_village_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 1060,
+      "category": "explorer_backpacks"
+    },
+    "0x8374143B": {
+      "kind": "nonstory",
+      "name": "SypeExplorerSatchel_Ce_01",
+      "type": 5,
+      "marker": "ExplorerCorpse",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "B06345B4",
+      "unit": 931,
+      "category": "explorer_backpacks"
+    },
+    "0xDA196AFD": {
+      "kind": "nonstory",
+      "name": "CT_Flooded_Sanctuary",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 2924,
+      "category": "challenge_tombs"
+    },
+    "0x8304AA4B": {
+      "kind": "nonstory",
+      "name": "CT_Serpents_Hollow",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 2468,
+      "category": "challenge_tombs"
+    },
+    "0x49B8E76F": {
+      "kind": "nonstory",
+      "name": "CT_Sky_Temple",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 3317,
+      "category": "challenge_tombs"
+    },
+    "0xAF194AE7": {
+      "kind": "nonstory",
+      "name": "CT_Warriors_Trial",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 3428,
+      "category": "challenge_tombs"
+    },
+    "0x005E3069": {
+      "kind": "nonstory",
+      "name": "CT_Tree_Of_Life",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 3417,
+      "category": "challenge_tombs"
+    },
+    "0x861E902E": {
+      "kind": "nonstory",
+      "name": "CT_Citadel_Of_Wind",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 980,
+      "category": "challenge_tombs"
+    },
+    "0x81D70069": {
+      "kind": "nonstory",
+      "name": "CT_Court_of_Death",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 2514,
+      "category": "challenge_tombs"
+    },
+    "0xC9D62DEE": {
+      "kind": "nonstory",
+      "name": "CT_Pillars_Of_Heaven",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": null,
+      "region_hash": "26694CD8",
+      "unit": 3201,
+      "category": "challenge_tombs",
+      "shared_id": true,
+      "shared_names": [
+        "CT_Pillars_Of_Heaven",
+        "CT_Gift_of_Immortality",
+        "CT_Gate_of_Xibalba",
+        "CT_Xolotl",
+        "CT_Fire_Mountain"
+      ]
+    },
+    "0x98564BA8": {
+      "kind": "nonstory",
+      "name": "gym_social_hub_codex01",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4908,
+      "category": "gym_training"
+    },
+    "0x98564B9F": {
+      "kind": "nonstory",
+      "name": "gym_social_hub_codex02",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4908,
+      "category": "gym_training"
+    },
+    "0x98564B9E": {
+      "kind": "nonstory",
+      "name": "gym_social_hub_codex03",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4908,
+      "category": "gym_training"
+    },
+    "0x98564B9D": {
+      "kind": "nonstory",
+      "name": "gym_social_hub_codex04",
+      "type": 9,
+      "marker": "Codex",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4908,
+      "category": "gym_training",
+      "shared_id": true,
+      "shared_names": [
+        "gym_social_hub_codex04",
+        "gym_social_hub_codex05"
+      ]
+    },
+    "0x5A61ACA5": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeArchivistMap_ApocalypseNow_01",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C92877A7",
+      "unit": 222,
+      "category": "archivist_maps"
+    },
+    "0xD1C49E0E": {
+      "kind": "nonstory",
+      "name": "pa_archivist_map_01",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 4906,
+      "category": "archivist_maps"
+    },
+    "0xD1C49E0D": {
+      "kind": "nonstory",
+      "name": "pa_archivist_map_02",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 1060,
+      "category": "archivist_maps"
+    },
+    "0xD1C49E0C": {
+      "kind": "nonstory",
+      "name": "pa_archivist_map_03",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "archivist_maps"
+    },
+    "0xD1C49E12": {
+      "kind": "nonstory",
+      "name": "pa_archivist_map_05",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "archivist_maps"
+    },
+    "0xD1C49E10": {
+      "kind": "nonstory",
+      "name": "pa_archivist_map_07",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 1071,
+      "category": "archivist_maps"
+    },
+    "0x0E60673F": {
+      "kind": "nonstory",
+      "name": "pa_return_archivist_map_03",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "archivist_maps"
+    },
+    "0x0E60673E": {
+      "kind": "nonstory",
+      "name": "pa_return_archivist_map_04",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 2306,
+      "category": "archivist_maps"
+    },
+    "0xDA3C8C8F": {
+      "kind": "nonstory",
+      "name": "spmision_archivist_map_04",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "archivist_maps"
+    },
+    "0xDA3C8C8E": {
+      "kind": "nonstory",
+      "name": "spmision_archivist_map_03",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "archivist_maps"
+    },
+    "0xDA3C8C91": {
+      "kind": "nonstory",
+      "name": "spmision_archivist_map_02",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "archivist_maps"
+    },
+    "0x09ACC02A": {
+      "kind": "nonstory",
+      "name": "spmission_archivist_map_01",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "archivist_maps"
+    },
+    "0x689D1BC3": {
+      "kind": "nonstory",
+      "name": "dd_day_of_the_dead_archivist_map_01",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "B02CF2FD",
+      "unit": 648,
+      "category": "archivist_maps"
+    },
+    "0x298EFC7A": {
+      "kind": "nonstory",
+      "name": "litj_archivist_map_01",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 2302,
+      "category": "archivist_maps"
+    },
+    "0x298EFC78": {
+      "kind": "nonstory",
+      "name": "litj_archivist_map_03",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 667,
+      "category": "archivist_maps"
+    },
+    "0x0651897A": {
+      "kind": "nonstory",
+      "name": "ce_archivist_map_01",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "B06345B4",
+      "unit": 931,
+      "category": "archivist_maps"
+    },
+    "0xC31478F3": {
+      "kind": "nonstory",
+      "name": "hv_archivist_map_02",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "archivist_maps"
+    },
+    "0xC31478F2": {
+      "kind": "nonstory",
+      "name": "hv_archivist_map_03",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2288,
+      "category": "archivist_maps"
+    },
+    "0xC31478F5": {
+      "kind": "nonstory",
+      "name": "hv_archivist_map_04",
+      "type": 7,
+      "marker": "DocumentChest",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 4026,
+      "category": "archivist_maps"
+    },
+    "0x0B3F2EC1": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_aztec_intermediate_1",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0xDC67D414": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectibleGym01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4909,
+      "category": "gym_training"
+    },
+    "0xDC67D417": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectibleGym02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4909,
+      "category": "gym_training"
+    },
+    "0xA3B42DAD": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_lj_shrine_of_darkness",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 2486,
+      "category": "survival_caches"
+    },
+    "0xFAAECCB0": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_middle_island_aztec_intermediate_2",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0xCC47BB91": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_return_02_mayan_advanced_2",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "survival_caches"
+    },
+    "0xBB000659": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_aztec_advanced_1",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x72112A9C": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_incan_advanced_1",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0xA794E81D": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_incan_intermediate_2",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x25EF128C": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_hv_v2_01_mayan_intermediate_1",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0xBB70E605": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_hv_v2_03_mayan_intermediate_2",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 4026,
+      "category": "survival_caches"
+    },
+    "0x9FFEA926": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_hv_v2_01_mayan_advanced_1",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0xD8CD8257": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_spanish_mission_incan_advanced_2",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "survival_caches"
+    },
+    "0xBB00065A": {
+      "kind": "nonstory",
+      "name": "RareResourceCacheCollectible_pa_hub_paititi_aztec_advanced_2",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0xFA680F25": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCacheGymCollectible01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4909,
+      "category": "gym_training"
+    },
+    "0xFA680F2A": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCacheGymCollectible02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "26694CD8",
+      "unit": 4909,
+      "category": "gym_training"
+    },
+    "0x7D3D1069": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_DotD_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "unit": 648,
+      "category": "survival_caches"
+    },
+    "0x7D3D1068": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_DotD_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "unit": 982,
+      "category": "survival_caches"
+    },
+    "0x3672536F": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_LitJ_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 682,
+      "category": "survival_caches"
+    },
+    "0x3672536E": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_LitJ_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 682,
+      "category": "survival_caches"
+    },
+    "0x36725371": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_LitJ_04",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 672,
+      "category": "survival_caches"
+    },
+    "0x36725370": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_LitJ_05",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 2486,
+      "category": "survival_caches"
+    },
+    "0x36725373": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_LitJ_06",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 672,
+      "category": "survival_caches"
+    },
+    "0xC062C7B3": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Gate_Of_Xibalba_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 2919,
+      "category": "survival_caches"
+    },
+    "0x752CBB46": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0x752CBB47": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0x752CBB48": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_04",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0x752CBB49": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_05",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 1597,
+      "category": "survival_caches"
+    },
+    "0x752CBB4A": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_06",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 1597,
+      "category": "survival_caches"
+    },
+    "0x752CBB4C": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_08",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 4026,
+      "category": "survival_caches"
+    },
+    "0xB47DDD90": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Xolotl_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 3246,
+      "category": "survival_caches"
+    },
+    "0x851B48F5": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48FA": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48FB": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48F8": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_04",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48F9": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_05",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48EE": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_06",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48EF": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_07",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48EC": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_08",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B48ED": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_09",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B4915": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_10",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1070,
+      "category": "survival_caches"
+    },
+    "0x851B491B": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_12",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B4914": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_11",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1070,
+      "category": "survival_caches"
+    },
+    "0xFD9DCD84": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Warrior_Trial_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 3427,
+      "category": "survival_caches"
+    },
+    "0xFD9DCD87": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Warrior_Trial_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 3428,
+      "category": "survival_caches"
+    },
+    "0xA5F6A32F": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Sky_Temple_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 3317,
+      "category": "survival_caches"
+    },
+    "0xE871F8D6": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Cenote_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 638,
+      "category": "survival_caches"
+    },
+    "0xE871F8D5": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Cenote_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 949,
+      "category": "survival_caches"
+    },
+    "0xE871F8D4": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Cenote_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 1294,
+      "category": "survival_caches"
+    },
+    "0xE871F8DA": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Cenote_05",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 1294,
+      "category": "survival_caches"
+    },
+    "0xE871F8DB": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Cenote_04",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 931,
+      "category": "survival_caches"
+    },
+    "0xB419E702": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_Return_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "survival_caches"
+    },
+    "0xB419E703": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_Return_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "survival_caches"
+    },
+    "0xB419E6FE": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_Return_05",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 2306,
+      "category": "survival_caches"
+    },
+    "0xB275438A": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Citadel_Of_Wind_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8C0D7019",
+      "unit": 980,
+      "category": "survival_caches"
+    },
+    "0xDD26A1BC": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 2468,
+      "category": "survival_caches"
+    },
+    "0xDD26A1BD": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 3267,
+      "category": "survival_caches"
+    },
+    "0x0F28B6EC": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_SpanishMission_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "survival_caches"
+    },
+    "0x0F28B6ED": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_SpanishMission_04",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "survival_caches"
+    },
+    "0x0F28B6EE": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_SpanishMission_05",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "survival_caches"
+    },
+    "0x0F28B6EF": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_SpanishMission_06",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "survival_caches"
+    },
+    "0xAE1A2E7A": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Tree_Of_Life_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 3418,
+      "category": "survival_caches"
+    },
+    "0xFF9EAC79": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 2924,
+      "category": "survival_caches"
+    },
+    "0xFF9EAC6E": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 2924,
+      "category": "survival_caches"
+    },
+    "0xD2E4E3EE": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 1308,
+      "category": "survival_caches"
+    },
+    "0xD2E4E3F1": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 1367,
+      "category": "survival_caches"
+    },
+    "0x6FBA9596": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Crypt_Lastbreath_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 672,
+      "category": "survival_caches"
+    },
+    "0xD6992534": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Crypt_Eldorado_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1071,
+      "category": "survival_caches"
+    },
+    "0xC3DEB9BC": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_abandonned_village_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1060,
+      "category": "survival_caches"
+    },
+    "0xC3DEB9C2": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_abandonned_village_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1060,
+      "category": "survival_caches"
+    },
+    "0x5C4C9AC2": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Crypt_cr_04_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 2289,
+      "category": "survival_caches"
+    },
+    "0x36725372": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_LitJ_7",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 682,
+      "category": "survival_caches"
+    },
+    "0x752CBB45": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_01",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0xD6992537": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Crypt_Eldorado_02",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1071,
+      "category": "survival_caches"
+    },
+    "0x7D3D1067": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_DotD_03",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B02CF2FD",
+      "unit": 648,
+      "category": "survival_caches"
+    },
+    "0x752CBB4D": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_09",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0x752CBAE7": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_10",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0x752CBAE6": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_HV_11",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "survival_caches"
+    },
+    "0xE871F8D9": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Cenote_06",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "B06345B4",
+      "unit": 931,
+      "category": "survival_caches"
+    },
+    "0x851B491A": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_13",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x851B4919": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeSurvivalCache_Paititi_14",
+      "type": 2,
+      "marker": "SurvivalCache",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "survival_caches"
+    },
+    "0x64732AC8": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_01_cr_lastbreath",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 672,
+      "category": "crypt_entrances"
+    },
+    "0x9BFEBBFF": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_02_crypt_009",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "D65AE5D8",
+      "unit": 682,
+      "category": "crypt_entrances"
+    },
+    "0xD6C5375B": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_03_cr_nepenthes",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "crypt_entrances"
+    },
+    "0x9A708439": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_04_cr_newfall_01",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "crypt_entrances"
+    },
+    "0xB9211E1D": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_05_cr_el_dorado",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 1060,
+      "category": "crypt_entrances"
+    },
+    "0x77B5868E": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_07_sm_spanish_mission_crypt_003",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "8D2E7B5C",
+      "unit": 318,
+      "category": "crypt_entrances"
+    },
+    "0xBEF0D8BD": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_09_pa_hub_paititi_cr02",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 1070,
+      "category": "crypt_entrances"
+    },
+    "0x606EF1AF": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_10_sm_spanish_mission_cr04",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "C5B30CDB",
+      "unit": 241,
+      "category": "crypt_entrances"
+    },
+    "0x5D1EDC8F": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCrypt_11_hv_hollow_village_v2_01_tr10",
+      "type": 11,
+      "marker": "CryptEntrance",
+      "is_dlc": false,
+      "required_for_100": false,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "crypt_entrances"
+    },
+    "0x32E820D8": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_01_cr_lastbreath",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 2284,
+      "category": "crypt_treasures"
+    },
+    "0xE66D0DA5": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_02_crypt_009",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "D65AE5D8",
+      "unit": 2302,
+      "category": "crypt_treasures"
+    },
+    "0x8A28E2C7": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_03_cr_nepenthes",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 2301,
+      "category": "crypt_treasures"
+    },
+    "0x7289AC8C": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_04_cr_newfall_01",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2288,
+      "category": "crypt_treasures"
+    },
+    "0x02A67B91": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_05_cr_el_dorado",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 1071,
+      "category": "crypt_treasures"
+    },
+    "0xBA3B0D06": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_07_sm_spanish_mission_crypt_003",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "8D2E7B5C",
+      "unit": 4024,
+      "category": "crypt_treasures"
+    },
+    "0xEE11B0D3": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_09_pa_hub_paititi_cr02",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 4906,
+      "category": "crypt_treasures"
+    },
+    "0x48C378CA": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_10_sm_spanish_mission_cr04",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 2289,
+      "category": "crypt_treasures"
+    },
+    "0xC508D278": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_11_hv_hollow_village_v2_01_tr10",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "838BAE8C",
+      "unit": 2287,
+      "category": "crypt_treasures"
+    },
+    "0xBDE170C6": {
+      "kind": "nonstory",
+      "name": "CollectibleTypeCryptTreasure_SM04_SaviorsAmulet",
+      "type": 6,
+      "marker": "LostItem",
+      "is_dlc": false,
+      "required_for_100": true,
+      "region_hash": "C5B30CDB",
+      "unit": 243,
+      "category": "crypt_treasures"
+    }
+  }
+}
