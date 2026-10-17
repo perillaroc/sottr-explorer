@@ -6,6 +6,8 @@ import { copy } from "../app/labels";
 import { supportedCategories } from "../app/catalog";
 import type { ThemePreference } from "../app/theme";
 import UiButton from "./ui/UiButton.vue";
+// SX-018：许可通知全文随前端内嵌（构建期内嵌，离线可读）。
+import noticesText from "../../../../THIRD_PARTY_NOTICES.txt?raw";
 
 const store = useStore();
 
@@ -78,6 +80,27 @@ const shortcuts = [
         <p class="rounded-[6px] border border-caution/40 bg-caution-bg px-3 py-2 text-xs text-caution">
           {{ copy.mockBanner }}
         </p>
+      </section>
+
+      <section class="space-y-2" data-testid="about-notices">
+        <h2 class="text-base font-medium">关于与许可</h2>
+        <ul class="space-y-1 text-[13px]">
+          <li>
+            交付形态：单文件免安装 exe（Windows）；运行依赖系统 WebView2 Runtime
+            （Windows 11 与多数 Windows 10 已预装，缺失时从 Microsoft 官方获取）。
+          </li>
+          <li>本构建未做代码签名：SmartScreen 可能提示“未知发布者”；未声称已通过 SmartScreen。</li>
+          <li>
+            产品许可证尚未选择；商业游戏数据与社区来源的再分发复核按 2026-10-17 用户决定豁免，
+            记录见下方离线通知全文。
+          </li>
+        </ul>
+        <details class="rounded-[6px] border border-line bg-surface px-3 py-2">
+          <summary class="cursor-pointer text-[13px] text-accent-strong">
+            第三方组件与许可通知（离线全文）
+          </summary>
+          <pre class="mt-2 max-h-80 overflow-auto whitespace-pre-wrap text-[11px] leading-4 text-muted">{{ noticesText }}</pre>
+        </details>
       </section>
 
       <section class="space-y-2">
