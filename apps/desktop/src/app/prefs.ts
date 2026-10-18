@@ -8,12 +8,20 @@ import type { ThemePreference } from "./theme";
 
 export type ViewId = "import" | "overview" | "full" | "regions" | "diagnostics" | "settings";
 
+/** 外部搜索链接使用的搜索引擎（默认 Bing）。 */
+export type SearchEngine = "bing" | "google" | "baidu";
+
+/** 外链的打开方式：交给系统浏览器，或只复制链接。 */
+export type LinkOpenMode = "open" | "copy";
+
 export interface UiPreferences {
   theme: ThemePreference;
   navCollapsed: boolean;
   view: ViewId;
   region: RegionScope;
   filters: FilterState;
+  searchEngine: SearchEngine;
+  linkOpenMode: LinkOpenMode;
 }
 
 const STORAGE_KEY = "sottr-explorer.ui.v1";
@@ -24,6 +32,8 @@ const DEFAULT_PREFERENCES: UiPreferences = {
   view: "import",
   region: "all",
   filters: { ...DEFAULT_FILTERS },
+  searchEngine: "bing",
+  linkOpenMode: "open",
 };
 
 function storage(): Storage | null {
@@ -57,6 +67,12 @@ export function loadPreferences(): UiPreferences {
       view: isViewId(parsed.view) ? parsed.view : DEFAULT_PREFERENCES.view,
       region: typeof parsed.region === "string" && parsed.region.length > 0 ? parsed.region : "all",
       filters,
+      searchEngine: isSearchEngine(parsed.searchEngine)
+        ? parsed.searchEngine
+        : DEFAULT_PREFERENCES.searchEngine,
+      linkOpenMode: isLinkOpenMode(parsed.linkOpenMode)
+        ? parsed.linkOpenMode
+        : DEFAULT_PREFERENCES.linkOpenMode,
     };
   } catch {
     return { ...DEFAULT_PREFERENCES, filters: { ...DEFAULT_PREFERENCES.filters } };
@@ -81,4 +97,12 @@ export function clearPreferences(): void {
 
 function isViewId(value: unknown): value is ViewId {
   return value === "import" || value === "overview" || value === "full" || value === "regions" || value === "diagnostics" || value === "settings";
+}
+
+function isSearchEngine(value: unknown): value is SearchEngine {
+  return value === "bing" || value === "google" || value === "baidu";
+}
+
+function isLinkOpenMode(value: unknown): value is LinkOpenMode {
+  return value === "open" || value === "copy";
 }

@@ -47,7 +47,14 @@ import {
 } from "./collection";
 import { fileNameOf } from "./format";
 import { applyTheme, onSystemThemeChange, type ThemePreference } from "./theme";
-import { loadPreferences, savePreferences, type UiPreferences, type ViewId } from "./prefs";
+import {
+  loadPreferences,
+  savePreferences,
+  type LinkOpenMode,
+  type SearchEngine,
+  type UiPreferences,
+  type ViewId,
+} from "./prefs";
 
 export type LayoutMode = "wide" | "medium" | "compact" | "narrow";
 
@@ -124,6 +131,10 @@ export interface AppState {
   navOverlayOpen: boolean;
   detailOpen: boolean;
   theme: ThemePreference;
+  /** 外部搜索链接使用的搜索引擎。 */
+  searchEngine: SearchEngine;
+  /** 外链打开方式：交给系统浏览器或只复制链接。 */
+  linkOpenMode: LinkOpenMode;
   notice: Notice | null;
   /** 模拟模式下的演示视口宽度（?mockWidth=800），用于宽度验收；null 为跟随窗口。 */
   mockWidth: number | null;
@@ -193,6 +204,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     navOverlayOpen: false,
     detailOpen: true,
     theme: preferences?.theme ?? "system",
+    searchEngine: preferences?.searchEngine ?? "bing",
+    linkOpenMode: preferences?.linkOpenMode ?? "open",
     notice: null,
     mockWidth: null,
     listScrollTop: 0,
@@ -224,6 +237,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       view: state.view,
       region: state.region,
       filters: { ...state.filters },
+      searchEngine: state.searchEngine,
+      linkOpenMode: state.linkOpenMode,
     };
     savePreferences(snapshot);
   }
@@ -894,6 +909,16 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     persistNow();
   }
 
+  function setSearchEngine(engine: SearchEngine): void {
+    state.searchEngine = engine;
+    persistNow();
+  }
+
+  function setLinkOpenMode(mode: LinkOpenMode): void {
+    state.linkOpenMode = mode;
+    persistNow();
+  }
+
   function resetLayout(): void {
     state.navCollapsed = false;
     state.detailOpen = true;
@@ -989,6 +1014,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       toggleNav,
       setNavOverlay,
       setTheme,
+      setSearchEngine,
+      setLinkOpenMode,
       resetLayout,
       setLayoutWidth,
       setListScrollTop,

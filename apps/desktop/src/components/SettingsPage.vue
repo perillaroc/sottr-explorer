@@ -4,6 +4,7 @@ import { computed } from "vue";
 import { useStore } from "../app/inject";
 import { copy } from "../app/labels";
 import { supportedCategories } from "../app/catalog";
+import type { LinkOpenMode, SearchEngine } from "../app/prefs";
 import type { ThemePreference } from "../app/theme";
 import UiButton from "./ui/UiButton.vue";
 // SX-018：许可通知全文随前端内嵌（构建期内嵌，离线可读）。
@@ -16,6 +17,23 @@ const themeOptions: { value: ThemePreference; label: string }[] = [
   { value: "light", label: "浅色" },
   { value: "dark", label: "深色" },
 ];
+
+const searchEngineOptions: { value: SearchEngine; label: string }[] = [
+  { value: "bing", label: "Bing" },
+  { value: "google", label: "Google" },
+  { value: "baidu", label: "百度" },
+];
+
+const linkOpenModeOptions: { value: LinkOpenMode; label: string; hint: string }[] = [
+  { value: "open", label: "打开浏览器", hint: "交给系统默认浏览器打开" },
+  { value: "copy", label: "仅复制链接", hint: "只把地址复制到剪贴板，不打开浏览器" },
+];
+
+/** 单选组样式（与主题组同一套令牌）。 */
+function radioClass(active: boolean): string {
+  const base = "inline-flex cursor-pointer items-center gap-2 rounded-[6px] border px-3 py-1.5 text-[13px]";
+  return active ? `${base} border-accent bg-accent-bg text-accent-strong` : `${base} border-line bg-surface text-ink`;
+}
 
 const report = computed(() => store.report.value);
 const categories = computed(() => (report.value ? supportedCategories(store.metadata, report.value) : []));
@@ -40,8 +58,7 @@ const shortcuts = [
           <label
             v-for="option in themeOptions"
             :key="option.value"
-            class="inline-flex cursor-pointer items-center gap-2 rounded-[6px] border px-3 py-1.5 text-[13px]"
-            :class="store.state.theme === option.value ? 'border-accent bg-accent-bg text-accent-strong' : 'border-line bg-surface text-ink'"
+            :class="radioClass(store.state.theme === option.value)"
           >
             <input
               type="radio"
@@ -63,6 +80,48 @@ const shortcuts = [
           <UiButton size="sm" @click="store.actions.resetLayout()">恢复默认布局</UiButton>
           <span class="text-xs text-muted">导航展开、详情常驻；首版不提供窗格拖拽调宽。</span>
         </div>
+      </section>
+
+      <section class="space-y-2" data-testid="external-links-settings">
+        <h2 class="text-base font-medium">外部链接</h2>
+        <div class="flex flex-wrap items-center gap-2" role="radiogroup" aria-label="搜索引擎">
+          <label
+            v-for="option in searchEngineOptions"
+            :key="option.value"
+            :class="radioClass(store.state.searchEngine === option.value)"
+          >
+            <input
+              type="radio"
+              name="search-engine"
+              :value="option.value"
+              :checked="store.state.searchEngine === option.value"
+              :data-testid="`search-engine-${option.value}`"
+              @change="store.actions.setSearchEngine(option.value)"
+            />
+            {{ option.label }}
+          </label>
+        </div>
+        <div class="flex flex-wrap items-center gap-2" role="radiogroup" aria-label="打开方式">
+          <label
+            v-for="option in linkOpenModeOptions"
+            :key="option.value"
+            :class="radioClass(store.state.linkOpenMode === option.value)"
+            :title="option.hint"
+          >
+            <input
+              type="radio"
+              name="link-open-mode"
+              :value="option.value"
+              :checked="store.state.linkOpenMode === option.value"
+              :data-testid="`link-open-${option.value}`"
+              @change="store.actions.setLinkOpenMode(option.value)"
+            />
+            {{ option.label }}
+          </label>
+        </div>
+        <p class="text-xs text-muted">
+          详情页的攻略/搜索链接按此设置处理；「仅复制链接」时不会唤起浏览器。应用内始终不加载网页。
+        </p>
       </section>
 
       <section class="space-y-2">
