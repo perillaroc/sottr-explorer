@@ -25,7 +25,8 @@ import type {
 } from "../data/source";
 import { toCommandError } from "../data/errors";
 import { copyText } from "./clipboard";
-import { demoMetadata } from "../data/metadata";
+import { mediumOfUrl, type LinkMedium } from "./external-links";
+import { demoMetadata, productionMetadata } from "../data/metadata";
 import type { FilterState, RegionScope, StatusFilter } from "./catalog";
 import {
   buildPlan,
@@ -95,14 +96,46 @@ export interface ExportState {
   suggestedFolder: string | null;
 }
 
-/** 攻略链接动作状态（解析/打开/复制；错误保留位置便于重试）。 */
+/**
+ * 外链动作状态（解析/打开/复制；错误保留目标便于重试）。
+ *
+ * `key` 标识发起动作的按钮：直链为 `guideLinkKey`，合成外链为 `externalLinkKey`。
+ */
 export interface LinkActionState {
-  locationId: string;
-  sourceRef: string;
+  key: string;
   kind: "open" | "copy";
   status: "resolving" | "opening" | "opened" | "copied" | "error";
   url: string | null;
   error: CommandErrorDto | null;
+}
+
+/** 直链按钮的目标标识（定位线索 + 来源）。 */
+export function guideLinkKey(locationId: string, sourceRef: string): string {
+  return `guide:${locationId}:${sourceRef}`;
+}
+
+/** 合成外链按钮的目标标识（地址本身）。 */
+export function externalLinkKey(url: string): string {
+  return `url:${url}`;
+}
+
+/** 动作目标：直链（定位 + 来源，URL 由后端从元数据解析）或合成地址（界面已算出）。 */
+type LinkTarget =
+  | { kind: "guide"; label: string; snapshotId: string; locationId: string; sourceRef: string }
+  | { kind: "url"; label: string; url: string };
+
+function linkTargetKey(target: LinkTarget): string {
+  return target.kind === "guide"
+    ? guideLinkKey(target.locationId, target.sourceRef)
+    : externalLinkKey(target.url);
+}
+
+/** 可直接打开的参考链接（来自报告的位置线索 + 元数据来源）。 */
+export interface DirectLink {
+  locationId: string;
+  sourceRef: string;
+  url: string;
+  medium: LinkMedium;
 }
 
 export interface AppState {
@@ -735,85 +768,110 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   }
 
   // -------------------------------------------------------------------------
-  // 攻略链接（SX-016）：解析/打开绑定当前快照；失败保留位置以便重试
+  // 外部链接：直链绑定当前快照（后端按定位 + 来源解析 URL），合成外链直接用地址；
+  // 动作按 `state.linkOpenMode` 分派打开或仅复制，失败保留目标以便重试
   // -------------------------------------------------------------------------
 
-  const linkActionFor = (locationId: string, sourceRef: string): LinkActionState | null => {
+  const linkActionFor = (key: string): LinkActionState | null => {
     const action = state.linkAction;
-    if (!action || action.locationId !== locationId || action.sourceRef !== sourceRef) {
+    if (!action || action.key !== key) {
       return null;
     }
     return action;
   };
 
-  async function runLinkAction(
-    kind: "open" | "copy",
-    locationId: string,
-    sourceRef: string,
-    label: string,
-  ): Promise<void> {
-    const result = currentSlot.value?.result ?? null;
-    if (!result || !result.snapshot_id || !result.report) {
-      notify("warning", "没有可用的报告：请先分析当前槽位。");
-      return;
-    }
-    const request = { snapshotId: result.snapshot_id, locationId, sourceRef };
+  async function runLinkAction(target: LinkTarget): Promise<void> {
+    const key = linkTargetKey(target);
+    const mode = state.linkOpenMode;
     state.linkAction = {
-      locationId,
-      sourceRef,
-      kind,
-      status: kind === "open" ? "opening" : "resolving",
-      url: null,
+      key,
+      kind: mode,
+      status: mode === "open" ? "opening" : "resolving",
+      url: target.kind === "url" ? target.url : null,
       error: null,
     };
     try {
-      if (kind === "open") {
-        const link = await source.openGuideLink(request);
-        state.linkAction = {
-          locationId,
-          sourceRef,
-          kind,
-          status: "opened",
-          url: link.url,
-          error: null,
+      let url: string;
+      if (target.kind === "guide") {
+        const request = {
+          snapshotId: target.snapshotId,
+          locationId: target.locationId,
+          sourceRef: target.sourceRef,
         };
-        notify("success", `已在系统浏览器打开：${label}（WebView 不加载网页）`);
+        url =
+          mode === "open"
+            ? (await source.openGuideLink(request)).url
+            : (await source.resolveGuideLink(request)).url;
+      } else if (mode === "open") {
+        await source.openExternalUrl(target.url);
+        url = target.url;
       } else {
-        const link = await source.resolveGuideLink(request);
-        const copied = await copyText(link.url);
-        state.linkAction = {
-          locationId,
-          sourceRef,
-          kind,
-          status: "copied",
-          url: link.url,
-          error: null,
-        };
+        url = target.url;
+      }
+      if (mode === "open") {
+        state.linkAction = { key, kind: mode, status: "opened", url, error: null };
+        notify("success", `已在系统浏览器打开：${target.label}（WebView 不加载网页）`);
+      } else {
+        const copied = await copyText(url);
+        state.linkAction = { key, kind: mode, status: "copied", url, error: null };
         notify(
           copied ? "success" : "warning",
           copied
-            ? "已复制已核验链接（不含存档内容或私人路径）"
+            ? `已复制链接：${target.label}（不含存档内容或私人路径）`
             : "复制失败：可在下方选择链接文本手动复制",
         );
       }
     } catch (error) {
-      state.linkAction = {
-        locationId,
-        sourceRef,
-        kind,
-        status: "error",
-        url: null,
-        error: toCommandError(error),
-      };
+      state.linkAction = { key, kind: mode, status: "error", url: null, error: toCommandError(error) };
     }
   }
 
+  /**
+   * 打开/复制某条定位来源的直链（按钮标识为 `guideLinkKey`）。
+   * 需要当前报告的快照：URL 由后端从该快照的元数据解析，前端不提交地址。
+   */
   function openGuideLink(locationId: string, sourceRef: string, label: string): Promise<void> {
-    return runLinkAction("open", locationId, sourceRef, label);
+    const result = currentSlot.value?.result ?? null;
+    if (!result?.snapshot_id || !result.report) {
+      notify("warning", "没有可用的报告：请先分析当前槽位。");
+      return Promise.resolve();
+    }
+    return runLinkAction({
+      kind: "guide",
+      label,
+      snapshotId: result.snapshot_id,
+      locationId,
+      sourceRef,
+    });
   }
 
-  function copyGuideLink(locationId: string, sourceRef: string): Promise<void> {
-    return runLinkAction("copy", locationId, sourceRef, sourceRef);
+  /** 打开/复制界面合成的外链（按钮标识为 `externalLinkKey`）；不绑定快照。 */
+  function openExternalLink(url: string, label: string): Promise<void> {
+    return runLinkAction({ kind: "url", label, url });
+  }
+
+  /**
+   * 当前条目可用的直链候选：报告里成员含该条目的位置线索 × 其来源中**有 URL** 的那些。
+   * 没有 URL 的来源（如书面记录）不产生候选——界面据此隐藏对应按钮，不置灰。
+   */
+  function directLinksForItem(item: PlanItem): DirectLink[] {
+    const locations = report.value?.locations ?? [];
+    const links: DirectLink[] = [];
+    const seen = new Set<string>();
+    for (const location of locations) {
+      if (!location.member_ids.includes(item.id)) {
+        continue;
+      }
+      for (const sourceRef of location.source_refs) {
+        const url = productionMetadata.sources[sourceRef]?.url ?? null;
+        if (!url || seen.has(url)) {
+          continue;
+        }
+        seen.add(url);
+        links.push({ locationId: location.location_id, sourceRef, url, medium: mediumOfUrl(url) });
+      }
+    }
+    return links;
   }
 
   function clearLinkAction(): void {
@@ -974,8 +1032,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     metadataVersion: metadata.metadata_version,
     canExport,
     exportTargetPath,
-    /** 某定位来源当前的链接动作（无则 null）。 */
+    /** 某外链按钮当前的动作状态（无则 null）；键由 `guideLinkKey` / `externalLinkKey` 给出。 */
     linkActionFor,
+    /** 某条目可用的直链候选（无地址的来源不出现）。 */
+    directLinksForItem,
     actions: {
       boot,
       rescan,
@@ -998,7 +1058,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       runExport,
       applySuggestedExportFolder,
       openGuideLink,
-      copyGuideLink,
+      openExternalLink,
       clearLinkAction,
       setView,
       setRegion,
