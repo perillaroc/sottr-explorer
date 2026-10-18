@@ -363,7 +363,7 @@ impl Session {
                     "来源 {source_ref:?} 没有可打开链接（未提供 URL 或来源未知）"
                 ))
             })?;
-        if !is_supported_guide_url(&url) {
+        if !is_supported_external_url(&url) {
             return Err(CommandError::link_url_unsupported(format!(
                 "来源链接协议不受支持（仅允许 http/https）：{url}"
             )));
@@ -490,9 +490,9 @@ pub(crate) fn lock<T>(mutex: &Mutex<T>) -> MutexGuard<'_, T> {
     }
 }
 
-/// 攻略链接白名单：仅 http/https 且主机非空、不含空白（与元数据加载器同口径，
-/// 此处作为链接出口的独立防御层）。
-pub fn is_supported_guide_url(url: &str) -> bool {
+/// 外链白名单：仅 http/https 且主机非空、不含空白（与元数据加载器同口径，
+/// 此处作为链接出口的独立防御层）。攻略直链与前端合成的搜索链接共用。
+pub fn is_supported_external_url(url: &str) -> bool {
     let scheme_ok = url
         .get(..7)
         .is_some_and(|prefix| prefix.eq_ignore_ascii_case("http://"))
@@ -523,12 +523,13 @@ mod tests {
     }
 
     #[test]
-    fn guide_url_whitelist_accepts_only_http_https_with_host() {
+    fn external_url_whitelist_accepts_only_http_https_with_host() {
         for allowed in [
             "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
             "http://example.com/",
+            "https://www.bing.com/search?q=%E5%8F%A4%E5%A2%93%E4%B8%BD%E5%BD%B1",
         ] {
-            assert!(is_supported_guide_url(allowed), "{allowed}");
+            assert!(is_supported_external_url(allowed), "{allowed}");
         }
         for denied in [
             "",
@@ -540,7 +541,7 @@ mod tests {
             "https://example.com/has space",
             "ftp://example.com/x",
         ] {
-            assert!(!is_supported_guide_url(denied), "{denied}");
+            assert!(!is_supported_external_url(denied), "{denied}");
         }
     }
 }

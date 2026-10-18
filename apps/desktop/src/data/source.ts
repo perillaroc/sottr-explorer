@@ -147,4 +147,9 @@ export interface DataSource {
   resolveGuideLink(request: GuideLinkRequest): Promise<GuideLinkDto>;
   /** 解析并交给系统外部浏览器（WebView 不加载网页）。 */
   openGuideLink(request: GuideLinkRequest): Promise<GuideLinkDto>;
+  /**
+   * 打开界面合成的外部链接（搜索地址等）：不绑定快照，只做 http/https 白名单校验
+   * 后交给系统外部浏览器。拒绝时以 `LINK_URL_UNSUPPORTED` / `LINK_OPEN_FAILED` 拒绝。
+   */
+  openExternalUrl(url: string): Promise<void>;
 }

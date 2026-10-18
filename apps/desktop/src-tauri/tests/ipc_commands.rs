@@ -965,6 +965,46 @@ fn resolve_guide_link_verifies_without_opening() {
 }
 
 #[test]
+fn open_external_url_opens_synthesized_urls_and_rejects_invalid_ones() {
+    let app = build_app();
+
+    // 合成地址（不绑定快照）经白名单校验后交给系统浏览器。
+    invoke(
+        &app.webview,
+        "open_external_url",
+        json!({"url": "https://www.bing.com/search?q=%E5%8F%A4%E5%A2%93%E4%B8%BD%E5%BD%B1%20%E6%94%BB%E7%95%A5"}),
+    )
+    .expect("合成链接应可打开");
+    let opened = app
+        .opened_urls
+        .lock()
+        .unwrap_or_else(|poisoned| poisoned.into_inner())
+        .clone();
+    assert_eq!(opened.len(), 1);
+    assert!(opened[0].starts_with("https://"), "只允许 http/https");
+
+    // 非法地址在产生任何副作用前被拒绝。
+    for invalid in [
+        "",
+        "https://",
+        "javascript:alert(1)",
+        "file:///C:/secret.dat",
+        "https://example.com/has space",
+    ] {
+        let error = invoke(&app.webview, "open_external_url", json!({"url": invalid})).unwrap_err();
+        assert_eq!(error_code(&error), CODE_LINK_URL_UNSUPPORTED, "{invalid}");
+    }
+    assert_eq!(
+        app.opened_urls
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .len(),
+        1,
+        "被拒绝的地址不得触发打开"
+    );
+}
+
+#[test]
 fn list_candidates_maps_files_and_rejects_bad_roots() {
     let temp = TempDir::new("list");
     std::fs::write(temp.join("save3.dat"), b"x").expect("save3");

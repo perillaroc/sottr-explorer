@@ -111,6 +111,13 @@ describe("TauriDataSource：命令映射", () => {
     });
   });
 
+  it("合成外链：映射到 open_external_url（只带 url，不带快照）", async () => {
+    await source.openExternalUrl("https://www.bing.com/search?q=%E5%8F%A4%E5%A2%93%E4%B8%BD%E5%BD%B1");
+    expect(invokeMock).toHaveBeenCalledWith("open_external_url", {
+      url: "https://www.bing.com/search?q=%E5%8F%A4%E5%A2%93%E4%B8%BD%E5%BD%B1",
+    });
+  });
+
   it("命令错误原样拒绝（{code,message}）；归一化后保留稳定错误码", async () => {
     invokeMock.mockRejectedValueOnce({ code: "LINK_OPEN_FAILED", message: "系统浏览器打开失败" });
     await expect(

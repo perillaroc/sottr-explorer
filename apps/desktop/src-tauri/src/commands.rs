@@ -1,8 +1,9 @@
 //! Tauri 最小权限命令层（SX-014）。
 //!
-//! 仅暴露界面完成“选择输入 → 列候选 → 分析 → 取消 → 导出 → 打开核验链接”
-//! 所需命令；每条命令都复用 `sottr-core`（同核心分析）与 `sottr-platform`
-//! （路径策略、稳定快照、受控输出提交），不因界面需要放宽核心或路径规则。
+//! 仅暴露界面完成“选择输入 → 列候选 → 分析 → 取消 → 导出 → 打开核验链接 /
+//! 合成外链”所需命令；每条命令都复用 `sottr-core`（同核心分析）与
+//! `sottr-platform`（路径策略、稳定快照、受控输出提交），不因界面需要放宽
+//! 核心或路径规则。
 //!
 //! IPC 约定：
 //!
@@ -12,7 +13,8 @@
 //! - 其余命令返回结构化 JSON 或稳定错误对象 `{ code, message }`（界面不解析
 //!   自然语言）；命令参数按 Tauri 约定使用 camelCase（如 `requestId`）；
 //! - 攻略链接只接受稳定 ID（快照/定位/来源），URL 由后端从元数据解析并校验
-//!   http/https 后交给系统外部浏览器；WebView 不加载外部页面（见 crate 根）。
+//!   http/https 后交给系统外部浏览器；界面合成的搜索链接走 `open_external_url`，
+//!   共用同一白名单；WebView 不加载外部页面（见 crate 根）。
 
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -34,7 +36,7 @@ use sottr_platform::{discovery, output_commit, path_policy, read_snapshot, time}
 
 use crate::session::{
     CommitOutcome, DesktopState, FailureOutcome, GuideLink, Session, StoredSnapshot,
-    new_snapshot_id,
+    is_supported_external_url, new_snapshot_id,
 };
 
 // ---------------------------------------------------------------------------
@@ -898,6 +900,27 @@ fn resolve_link(
     state.with_session(|session| session.resolve_guide_link(snapshot_id, location_id, source_ref))
 }
 
+/// 打开界面合成的外部链接（搜索引擎地址等）。
+///
+/// 与攻略直链不同，地址由前端合成而非来自元数据，因此不绑定快照；这里只做
+/// 与攻略直链同一层白名单校验（仅 http/https + 主机非空 + 无空白）后交给系统
+/// 外部浏览器。WebView 仍不加载任何页面（见 crate 根）。
+#[tauri::command]
+pub fn open_external_url(state: State<'_, DesktopState>, url: String) -> Result<(), CommandError> {
+    validate_external_url(&url)?;
+    state.open_url(&url)
+}
+
+/// 合成外链的白名单校验（拒绝时映射 `LINK_URL_UNSUPPORTED`）。
+fn validate_external_url(url: &str) -> Result<(), CommandError> {
+    if !is_supported_external_url(url) {
+        return Err(CommandError::link_url_unsupported(format!(
+            "链接协议不受支持（仅允许 http/https，且需带主机名、不含空白）：{url}"
+        )));
+    }
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -922,6 +945,26 @@ mod tests {
         ] {
             let error = validate_request_id(invalid).unwrap_err();
             assert_eq!(error.code, CODE_INVALID_PARAMS);
+        }
+    }
+
+    #[test]
+    fn open_external_url_rejects_urls_outside_the_http_https_whitelist() {
+        for allowed in [
+            "https://www.bing.com/search?q=%E5%8F%A4%E5%A2%93%E4%B8%BD%E5%BD%B1",
+            "http://example.com/",
+        ] {
+            assert!(validate_external_url(allowed).is_ok(), "{allowed}");
+        }
+        for denied in [
+            "",
+            "https://",
+            "javascript:alert(1)",
+            "file:///C:/secret.dat",
+            "https://example.com/has space",
+        ] {
+            let error = validate_external_url(denied).unwrap_err();
+            assert_eq!(error.code, CODE_LINK_URL_UNSUPPORTED, "{denied}");
         }
     }
 

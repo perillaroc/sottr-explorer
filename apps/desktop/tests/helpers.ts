@@ -105,6 +105,10 @@ export class ControlledSource implements DataSource {
     throw new Error("ControlledSource 不支持链接打开");
   }
 
+  async openExternalUrl(): Promise<never> {
+    throw new Error("ControlledSource 不支持合成外链");
+  }
+
   get pendingCount(): number {
     return this.pending.length;
   }

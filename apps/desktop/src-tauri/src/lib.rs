@@ -13,7 +13,8 @@
 //! - 目录发现、路径策略、稳定快照与输出提交复用 `sottr-platform`（与 CLI 共用），
 //!   不因界面需要放宽路径规则；
 //! - WebView 不加载外部攻略页面（导航门禁 + CSP + 无 opener/dialog 前端权限）；
-//!   攻略链接由 `commands::open_guide_link` 校验后交给系统外部浏览器；
+//!   攻略链接由 `commands::open_guide_link` 校验后交给系统外部浏览器，界面合成的
+//!   搜索链接走 `commands::open_external_url`（同一 http/https 白名单）；
 //! - 默认不携带 Python 运行时或 sidecar；默认无网络、无遥测、无后台更新；
 //! - 任何路径都不写回、修复或覆盖原存档。
 //!
@@ -51,7 +52,8 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             commands::cancel_analysis,
             commands::export_report,
             commands::resolve_guide_link,
-            commands::open_guide_link
+            commands::open_guide_link,
+            commands::open_external_url
         ])
         .setup(|app| {
             // 生产：攻略链接交给系统外部浏览器；WebView 不加载外部页面。

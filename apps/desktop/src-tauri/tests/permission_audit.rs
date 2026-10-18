@@ -17,6 +17,7 @@ const EXPECTED_COMMANDS: &[&str] = &[
     "export_report",
     "resolve_guide_link",
     "open_guide_link",
+    "open_external_url",
 ];
 
 fn tauri_dir() -> PathBuf {

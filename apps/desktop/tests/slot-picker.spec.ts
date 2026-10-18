@@ -40,6 +40,9 @@ class NoGameSource implements DataSource {
   async openGuideLink(): Promise<never> {
     throw new Error("不应调用");
   }
+  async openExternalUrl(): Promise<never> {
+    throw new Error("不应调用");
+  }
 }
 
 describe("导入与槽位选择", () => {

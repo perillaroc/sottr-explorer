@@ -84,4 +84,9 @@ export class TauriDataSource implements DataSource {
       sourceRef: request.sourceRef,
     });
   }
+
+  openExternalUrl(url: string): Promise<void> {
+    // 合成地址不经快照：命令只做 http/https 白名单校验后交给系统浏览器。
+    return invoke("open_external_url", { url }).then(() => undefined);
+  }
 }

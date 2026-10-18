@@ -4,7 +4,8 @@
 // - 所有返回都是模拟数据，界面在模拟模式显著标注；不接触文件系统、不访问网络；
 // - 场景覆盖：完整、非零组、表不完整、资料文件、被占用后重试成功、分析失败、
 //   刷新失败（stale，携带旧报告）、取消（无结果信封）、导出（新目录/
-//   已存在/重叠/非法名称）、链接解析（无 URL 来源）与打开失败（可选开关）；
+//  已存在/重叠/非法名称）、链接解析（无 URL 来源）与打开失败（可选开关，
+//  攻略直链与合成外链共用）；
 // - `delayMs` 用于演示“分析中/取消”；测试使用 0 保持确定性；
 // - 导出与链接解析错误码与 SX-014 保持一致，便于界面走同一条恢复路径。
 import type { DesktopResult } from "../contract/desktop-result";
@@ -326,6 +327,18 @@ export class MockDataSource implements DataSource {
     }
     this.openedUrls.push(link.url);
     return link;
+  }
+
+  /** 模拟打开合成外链：同样只记录 URL；复用 `failGuideOpen` 演示打开失败。 */
+  async openExternalUrl(url: string): Promise<void> {
+    await this.wait();
+    if (this.failGuideOpen) {
+      throw mockCommandError(
+        "LINK_OPEN_FAILED",
+        "模拟：系统浏览器打开失败（LINK_OPEN_FAILED 演示开关）",
+      );
+    }
+    this.openedUrls.push(url);
   }
 
   /** 已提交结果（供界面与测试断言“切槽不串用报告”）。 */

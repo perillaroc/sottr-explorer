@@ -48,3 +48,8 @@ commands.allow = ["resolve_guide_link"]
 identifier = "allow-open-guide-link"
 description = "允许 open_guide_link：按稳定 ID 解析元数据来源链接（仅 http/https），交给系统外部浏览器"
 commands.allow = ["open_guide_link"]
+
+[[permission]]
+identifier = "allow-open-external-url"
+description = "允许 open_external_url：打开界面合成的外链（仅 http/https + 有主机名 + 无空白，与攻略直链同一白名单），交给系统外部浏览器"
+commands.allow = ["open_external_url"]
