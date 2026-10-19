@@ -7,7 +7,8 @@ import { Copy, ExternalLink, Search } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { copyText } from "../app/clipboard";
 import { formatSnapshotTime } from "../app/format";
-import { regionName } from "../app/collection";
+import { regionName, categoryNameOf } from "../app/collection";
+import { categoryClass } from "../app/category-style";
 import { buildSearchUrl, textSearchQuery, videoSearchQuery } from "../app/external-links";
 import { externalLinkKey, guideLinkKey, type DirectLink, type LinkActionState } from "../app/store";
 import type { PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
@@ -38,6 +39,14 @@ onMounted(() => {
 });
 
 const collected = computed(() => props.item.status === "collected");
+
+/** 类别显示名（徽标按类别着色，颜色与主清单分组头同一套）。 */
+const categoryLabel = computed(() => categoryNameOf(store.atlas, props.group.category));
+
+/** 分组自己的名字（故事类别按子类别分组）；与类别名相同时不再单独成徽标。 */
+const subgroupLabel = computed(() =>
+  props.group.name === categoryLabel.value ? null : props.group.name,
+);
 
 /** 同一子关卡内的条目（用于相对位置散点）。 */
 const sameUnitItems = computed<PlanItem[]>(() => {
@@ -205,7 +214,10 @@ const linkStatusTone = computed(() => {
         <UiBadge :tone="collected ? 'success' : 'caution'" kind-label="状态">
           {{ collected ? "已收集" : "未收集" }}
         </UiBadge>
-        <UiBadge tone="neutral" kind-label="类别">{{ group.name }}</UiBadge>
+        <UiBadge tone="neutral" kind-label="类别" :class="categoryClass(group.category)">
+          {{ categoryLabel }}
+        </UiBadge>
+        <UiBadge v-if="subgroupLabel" tone="neutral" kind-label="子类别">{{ subgroupLabel }}</UiBadge>
         <UiBadge v-if="item.is_dlc" tone="neutral" kind-label="版本">DLC</UiBadge>
         <UiBadge v-if="item.required_for_100 === false" tone="neutral" kind-label="口径">可选（不计入 100%）</UiBadge>
         <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" kind-label="口径">未闭合（不计入缺失结论）</UiBadge>

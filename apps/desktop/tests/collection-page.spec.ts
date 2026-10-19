@@ -1,6 +1,7 @@
 // 区域与收集页测试（SX-022）：区域卡片、逐项清单、状态筛选、搜索、目录外记录。
 import { describe, expect, it } from "vitest";
 import CollectionPage from "../src/components/CollectionPage.vue";
+import { categoryNameOf } from "../src/app/collection";
 import { createTestStore, analyzeCandidate, mountWithStore } from "./helpers";
 
 async function collectionStore(observedIds?: () => string[]) {
@@ -77,6 +78,32 @@ describe("区域与收集页", () => {
     expect(row.element.tagName).toBe("BUTTON");
     await row.trigger("click");
     expect(store.state.selectedRowId).toBe("0x0F28B6EC");
+  });
+
+  it("分类单独成行并按类别着色：分组头是着色类别名，行内是同一色相的圆点", async () => {
+    const store = await collectionStore();
+    store.actions.setRegion("mission_of_san_juan");
+    const wrapper = mountWithStore(CollectionPage, store);
+    const list = wrapper.get('[data-testid="region-list"]');
+
+    // 第一行：着色类别名 + 计数；第二行：子类别。
+    const headers = list.findAll("h2");
+    expect(headers.length).toBeGreaterThan(0);
+    for (const header of headers) {
+      expect(header.classes().some((name) => name.startsWith("cat-text-"))).toBe(true);
+    }
+    const artifacts = headers.find((header) => header.text().includes("Artifacts"));
+    expect(artifacts?.classes()).toContain("cat-text-artifacts");
+    expect(artifacts?.text()).not.toContain("Relic");
+    expect(list.get('[data-testid="group-subcategory"]').text()).toContain("子类别：");
+
+    // 行内圆点：每行一个，颜色与所在分组一致。
+    const rows = list.findAll('[data-testid^="row-"]');
+    const dots = list.findAll(".cat-dot");
+    expect(dots.length).toBe(rows.length);
+    const firstGroup = store.planGroups.value[0];
+    expect(dots[0].classes().some((name) => name.startsWith("cat-dot-"))).toBe(true);
+    expect(dots[0].attributes("title")).toBe(categoryNameOf(store.atlas, firstGroup.category));
   });
 
   it("目录外观察记录单独列出，不混入任何区域", async () => {

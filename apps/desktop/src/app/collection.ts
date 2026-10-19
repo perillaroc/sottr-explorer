@@ -3,7 +3,7 @@
 // 只做筛选、排序与计数，不重新解释收集状态：状态一律来自 `buildPlan`（与 Rust 核心
 // 的 `sottr_core::atlas` 黄金一致）。筛选值沿用 `StatusFilter`：
 // `missing` = 未收集（存档观察集合中没有），`observed` = 已收集，`all` = 全部。
-import type { CollectionPlan, PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
+import type { Atlas, CollectionPlan, PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
 import { regionDisplayName } from "../data/atlas";
 import type { FilterState, StatusFilter } from "./catalog";
 
@@ -35,6 +35,11 @@ export function countPlan(plan: CollectionPlan, kind?: "main" | "special"): Coll
 /** 区域中文名（中文 → 英文 → slug）。 */
 export function regionName(region: PlanRegion): string {
   return regionDisplayName(region);
+}
+
+/** 类别显示名（图鉴类别名；未知回退 id）。主清单分组头与详情徽标共用。 */
+export function categoryNameOf(atlas: Atlas, categoryId: string): string {
+  return atlas.categories.find((entry) => entry.id === categoryId)?.name ?? categoryId;
 }
 
 function itemHaystack(item: PlanItem, group: PlanGroup): string {

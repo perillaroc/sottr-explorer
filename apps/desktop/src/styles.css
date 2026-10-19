@@ -29,6 +29,20 @@
   --success-bg: #e6f4ec;
   --overlay: rgba(24, 35, 45, 0.45);
   --shadow: 0 8px 24px rgba(24, 35, 45, 0.18);
+  /* 类别色（12 个类别沿色环每 30° 取一色相；深色主题见下一节）。明度取「在浅色主题最不利
+     背景 --raised 上仍 ≥4.5:1」的最亮值，核算见文件末。 */
+  --cat-archivist_maps: #b5482d;
+  --cat-artifacts: #856721;
+  --cat-challenge_tombs: #61721d;
+  --cat-croft_manor_extra: #3a791e;
+  --cat-crypt_entrances: #1f7b31;
+  --cat-crypt_treasures: #1e795e;
+  --cat-explorer_backpacks: #227489;
+  --cat-gym_training: #3966ce;
+  --cat-monoliths: #6f56d5;
+  --cat-strongboxes: #a138cd;
+  --cat-survival_caches: #b92e9d;
+  --cat-test_items: #c4315d;
 }
 
 [data-theme="dark"] {
@@ -53,6 +67,19 @@
   --success-bg: #1c3128;
   --overlay: rgba(0, 0, 0, 0.55);
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  /* 类别色：同一组色相，明度取「在深色主题最不利背景 --raised 上仍 ≥4.5:1」的最暗值。 */
+  --cat-archivist_maps: #d37c67;
+  --cat-artifacts: #b48e34;
+  --cat-challenge_tombs: #99b234;
+  --cat-croft_manor_extra: #5ab234;
+  --cat-crypt_entrances: #34b24d;
+  --cat-crypt_treasures: #34b28c;
+  --cat-explorer_backpacks: #36a0ba;
+  --cat-gym_training: #7592d7;
+  --cat-monoliths: #9988dc;
+  --cat-strongboxes: #bc79d8;
+  --cat-survival_caches: #d56fc1;
+  --cat-test_items: #d77592;
 }
 
 @theme inline {
@@ -120,6 +147,97 @@ body {
 
 .mono {
   font-family: var(--font-mono);
+}
+
+/* 类别着色工具类（2026-10-17 详情重设计阶段五）：文字用 .cat-text-<类别 id>，
+   圆点用 .cat-dot + .cat-dot-<类别 id>。颜色只做辅助辨认——类别名始终以文字出现，
+   不靠颜色单独表意；色相沿色环每 30° 铺开，明暗两套各自满足对比度要求。
+
+   13px 正文对比度核算（取各主题最不利背景，非只算白底/黑底）：
+   - 浅色主题：--raised #eef2f5 / --canvas #f5f7f9 / #ffffff，全部 ≥4.70:1
+     （最低：gym_training #3966ce 与 monoliths #6f56d5 = 4.70）
+   - 深色主题：--raised #202b34 / --surface #182128 / --canvas #11171c，全部 ≥4.70:1
+     （最低：archivist_maps #d37c67、gym_training #7592d7、test_items #d77592 = 4.70）
+   类别之间的最小色差 ΔE76：浅色 10.4、深色 13.9（croft_manor_extra ↔ crypt_entrances），
+   均远高于可分辨阈值。 */
+.cat-text-archivist_maps {
+  color: var(--cat-archivist_maps);
+}
+.cat-text-artifacts {
+  color: var(--cat-artifacts);
+}
+.cat-text-challenge_tombs {
+  color: var(--cat-challenge_tombs);
+}
+.cat-text-croft_manor_extra {
+  color: var(--cat-croft_manor_extra);
+}
+.cat-text-crypt_entrances {
+  color: var(--cat-crypt_entrances);
+}
+.cat-text-crypt_treasures {
+  color: var(--cat-crypt_treasures);
+}
+.cat-text-explorer_backpacks {
+  color: var(--cat-explorer_backpacks);
+}
+.cat-text-gym_training {
+  color: var(--cat-gym_training);
+}
+.cat-text-monoliths {
+  color: var(--cat-monoliths);
+}
+.cat-text-strongboxes {
+  color: var(--cat-strongboxes);
+}
+.cat-text-survival_caches {
+  color: var(--cat-survival_caches);
+}
+.cat-text-test_items {
+  color: var(--cat-test_items);
+}
+
+.cat-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+}
+.cat-dot-archivist_maps {
+  background-color: var(--cat-archivist_maps);
+}
+.cat-dot-artifacts {
+  background-color: var(--cat-artifacts);
+}
+.cat-dot-challenge_tombs {
+  background-color: var(--cat-challenge_tombs);
+}
+.cat-dot-croft_manor_extra {
+  background-color: var(--cat-croft_manor_extra);
+}
+.cat-dot-crypt_entrances {
+  background-color: var(--cat-crypt_entrances);
+}
+.cat-dot-crypt_treasures {
+  background-color: var(--cat-crypt_treasures);
+}
+.cat-dot-explorer_backpacks {
+  background-color: var(--cat-explorer_backpacks);
+}
+.cat-dot-gym_training {
+  background-color: var(--cat-gym_training);
+}
+.cat-dot-monoliths {
+  background-color: var(--cat-monoliths);
+}
+.cat-dot-strongboxes {
+  background-color: var(--cat-strongboxes);
+}
+.cat-dot-survival_caches {
+  background-color: var(--cat-survival_caches);
+}
+.cat-dot-test_items {
+  background-color: var(--cat-test_items);
 }
 
 /* 抽屉/对话框遮罩进入动画（尊重 reduced-motion）。 */

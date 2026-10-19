@@ -175,6 +175,18 @@ describe("收集品详情", () => {
     expect(wrapper.find('[data-testid="link-retry"]').exists()).toBe(true);
   });
 
+  it("类别徽标按类别着色，子类别另成徽标（与主清单同一套颜色）", async () => {
+    const { store } = await setup();
+    const nonStory = await detailFor(store, CACHES_ITEM);
+    const badges = nonStory.findAll(".cat-text-survival_caches");
+    expect(badges.length).toBe(1);
+    expect(badges[0].text()).toContain("生存贮藏点");
+
+    const story = await detailFor(store, PAITITI_ITEM);
+    expect(story.findAll(".cat-text-artifacts").length).toBe(1);
+    expect(story.text()).toContain("Relic（遗物）");
+  });
+
   it("复制线索只含名称/状态/获取方式/区域，不含私人路径", async () => {
     const { store } = await setup();
     const wrapper = await detailFor(store, PAITITI_ITEM);

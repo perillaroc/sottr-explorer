@@ -8,7 +8,8 @@
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { useStore } from "../app/inject";
 import { copy } from "../app/labels";
-import { categoriesOfRegion, countRegion, regionName } from "../app/collection";
+import { categoriesOfRegion, categoryNameOf, countRegion, regionName } from "../app/collection";
+import { categoryClass, categoryDotClass } from "../app/category-style";
 import { shortId } from "../app/format";
 import type { PlanGroup, PlanRegion } from "../data/atlas";
 import CoverageNotice from "./CoverageNotice.vue";
@@ -65,8 +66,12 @@ const categoryOptions = computed<ChipOption[]>(() => {
 });
 
 function categoryLabelOf(categoryId: string): string {
-  const category = store.atlas.categories.find((entry) => entry.id === categoryId);
-  return category?.name ?? categoryId;
+  return categoryNameOf(store.atlas, categoryId);
+}
+
+/** 分组自己的名字（故事类别按子类别分组）；与类别名相同时不重复成行。 */
+function subgroupLabelOf(group: PlanGroup): string | null {
+  return group.name === categoryLabelOf(group.category) ? null : group.name;
 }
 
 function groupPercent(region: PlanRegion): number {
@@ -310,11 +315,19 @@ watch(
           </div>
 
           <section v-for="group in groups" :key="`${group.category}-${group.subcategory ?? ''}`" class="mb-4">
-            <header class="mb-1 flex flex-wrap items-baseline gap-2">
-              <h2 class="text-[15px] font-medium text-ink">{{ group.name }}</h2>
-              <span class="text-xs text-muted">{{ group.collected }}/{{ group.total }}</span>
-              <UiBadge v-if="group.required_for_100 === null" tone="neutral" kind-label="口径">未闭合</UiBadge>
-              <UiBadge v-else-if="group.required_for_100 === false" tone="neutral" kind-label="口径">可选</UiBadge>
+            <!-- 分类单独成行：第一行是着色类别名 + 计数 + 口径，第二行才是该组的子类别。 -->
+            <header class="mb-1 space-y-0.5">
+              <div class="flex flex-wrap items-baseline gap-2">
+                <h2 class="text-[15px] font-medium" :class="categoryClass(group.category)">
+                  {{ categoryLabelOf(group.category) }}
+                </h2>
+                <span class="text-xs text-muted">{{ group.collected }}/{{ group.total }}</span>
+                <UiBadge v-if="group.required_for_100 === null" tone="neutral" kind-label="口径">未闭合</UiBadge>
+                <UiBadge v-else-if="group.required_for_100 === false" tone="neutral" kind-label="口径">可选</UiBadge>
+              </div>
+              <p v-if="subgroupLabelOf(group)" class="text-xs text-muted" data-testid="group-subcategory">
+                子类别：{{ subgroupLabelOf(group) }}
+              </p>
             </header>
             <ul class="divide-y divide-line/70">
               <li v-for="item in group.items" :key="item.id">
@@ -328,6 +341,12 @@ watch(
                   <span class="min-w-0 flex-1">
                     <span class="line-clamp-2 block break-words">{{ item.display_name }}</span>
                     <span class="mt-0.5 block text-xs text-muted">
+                      <span
+                        class="cat-dot mr-1.5 align-middle"
+                        :class="categoryDotClass(group.category)"
+                        :title="categoryLabelOf(group.category)"
+                        aria-hidden="true"
+                      ></span>
                       <template v-if="item.name_zh && item.name_en">英文名：{{ item.name_en }} · </template>
                       <template v-if="item.unit">
                         {{ item.unit.display_zh ?? item.unit.display_en ?? item.unit.zone }}
