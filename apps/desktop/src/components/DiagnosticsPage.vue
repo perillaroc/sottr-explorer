@@ -5,11 +5,13 @@ import { computed } from "vue";
 import { useStore } from "../app/inject";
 import { capabilityLabel, copy, reasonLabel, severityLabel } from "../app/labels";
 import { formatBytes, formatSnapshotTime } from "../app/format";
+import { regionName } from "../app/collection";
 import { diagnosticGroups, unclassifiedRecords } from "../app/catalog";
 import CoverageNotice from "./CoverageNotice.vue";
 import UiBadge from "./ui/UiBadge.vue";
 import UiButton from "./ui/UiButton.vue";
 import UiEmptyState from "./ui/UiEmptyState.vue";
+import UiEvidenceDetails from "./ui/UiEvidenceDetails.vue";
 
 const store = useStore();
 const report = computed(() => store.report.value);
@@ -32,6 +34,17 @@ const capabilityRows = computed(() => {
 
 const groups = computed(() => (report.value ? diagnosticGroups(report.value) : []));
 const records = computed(() => (report.value ? unclassifiedRecords(store.metadata, report.value) : []));
+
+// 当前选中条目的原始证据（从详情面板移入；详情只讲「怎么拿/去哪看」）。
+const selected = computed(() => store.selectedEntry.value);
+const selectedRegionRecord = computed(() => {
+  const region = selected.value?.region;
+  return region ? (store.atlas.regions.find((entry) => entry.region_hash === region.region_hash) ?? null) : null;
+});
+const selectedCategoryName = computed(() => {
+  const category = selected.value?.group.category;
+  return category ? (store.atlas.categories.find((entry) => entry.id === category)?.name ?? category) : null;
+});
 </script>
 
 <template>
@@ -135,6 +148,59 @@ const records = computed(() => (report.value ? unclassifiedRecords(store.metadat
             元数据版本：{{ report.metadata_version ?? "未知" }}；参考集合版本：{{ report.reference_set_version ?? "未知" }}；解析器 profile：
             <span class="mono">{{ report.parser_profile_id }}</span>
           </p>
+        </section>
+
+        <section class="space-y-2" data-testid="selected-evidence">
+          <h2 class="text-base font-medium">当前选中条目的原始证据</h2>
+          <p v-if="!selected" class="text-[13px] text-muted">
+            未选中条目：在区域清单中点一条，这里会显示它的图鉴版本、区域绑定、子关卡、原始坐标与状态判定说明。
+          </p>
+          <UiEvidenceDetails
+            v-else
+            summary="原始证据与数据集信息"
+            hint="图鉴版本 / 区域绑定 / 子关卡 / 坐标 / 内部名 / 状态判定"
+          >
+            <p>
+              条目：{{ selected.item.display_name }}（<span class="mono">{{ selected.item.id }}</span>）
+            </p>
+            <p>图鉴版本：{{ store.atlas.catalog_version }}（schema {{ store.atlas.catalog_schema_version }}）</p>
+            <p>
+              区域：{{ regionName(selected.region) }}（<span class="mono">{{ selected.region.region_hash }}</span>）<span
+                v-if="selectedRegionRecord?.binding"
+              >
+                · 绑定签名距离 {{ selectedRegionRecord.binding.signature_distance }}，次优
+                {{ selectedRegionRecord.binding.runner_up_distance ?? "无" }}
+              </span>
+            </p>
+            <p v-if="selectedRegionRecord?.binding">
+              计数核对：<span class="mono">{{ JSON.stringify(selectedRegionRecord.binding.signature) }}</span>
+              vs 存档目标 <span class="mono">{{ JSON.stringify(selectedRegionRecord.binding.source_targets) }}</span>
+            </p>
+            <p v-if="selected.item.unit">
+              子关卡：<span class="mono">{{ selected.item.unit.unit }}</span> · zone
+              <span class="mono">{{ selected.item.unit.zone ?? "未知" }}</span>（名称来源 {{ selected.item.unit.name_source }}）
+            </p>
+            <p v-if="selected.item.position">
+              原始坐标：x={{ selected.item.position.x }}，y={{ selected.item.position.y }}，空间
+              <span class="mono">{{ selected.item.position.space }}</span>（未校准）
+            </p>
+            <p>内部候选名：<span class="mono">{{ selected.item.internal_name ?? "（无）" }}</span></p>
+            <p v-if="selected.item.collection">故事合集：<span class="mono">{{ selected.item.collection }}</span></p>
+            <p>
+              类别：{{ selectedCategoryName }}<template v-if="selected.item.name_source"> · 名称来源 {{ selected.item.name_source }}</template>
+            </p>
+            <p>获取方式规则：<span class="mono">{{ selected.group.acquisition_rule_key }}</span></p>
+            <p data-testid="selected-status-reason">
+              <template v-if="selected.item.status === 'collected'">
+                该条目 ID 出现在当前存档的物品表中（观察集合），因此判为已收集。
+              </template>
+              <template v-else>
+                该条目 ID 未出现在当前存档的物品表中，因此判为未收集。若你在游戏中刚取得，请刷新（F5）后再看。
+              </template>
+            </p>
+            <p>区域与子类别已用存档自带的区域计数器逐行核对（区域 × 类别 43 行全部吻合）。</p>
+            <p v-if="store.isStale.value">{{ copy.stale }}：本次结果仅反映上一次读取。</p>
+          </UiEvidenceDetails>
         </section>
 
         <section class="space-y-2">

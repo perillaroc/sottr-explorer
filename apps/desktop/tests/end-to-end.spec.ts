@@ -74,6 +74,13 @@ class FakeDesktopBackend {
         this.openedUrls.push(link.url);
         return link;
       }
+      case "open_external_url": {
+        if (this.failOpen) {
+          throw { code: "LINK_OPEN_FAILED", message: "系统浏览器打开失败（测试脚本）" };
+        }
+        this.openedUrls.push(String(payload.url));
+        return null;
+      }
       default:
         throw { code: "INVALID_PARAMS", message: `未知命令 ${command}` };
     }
@@ -298,16 +305,25 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     const row = wrapper.get('[data-testid="row-0xCAA74459"]');
     expect(row.text()).toContain("古老典籍");
 
-    // 5) 详情：官方中文名 + 位置线索 + 获取方式
+    // 5) 详情：官方中文名 + 如何获取 + 外部参考入口
     await row.trigger("click");
     await flushPromises();
     const detail = document.querySelector('[data-testid="item-detail"]');
     expect(detail?.textContent).toContain("古老典籍");
-    expect(detail?.textContent).toContain("去哪里找");
-    expect(detail?.textContent).toContain("怎么拿");
+    expect(detail?.textContent).toContain("如何获取");
+    expect(detail?.textContent).toContain("外部参考");
     expect(detail?.textContent).toContain("未校准");
+    expect(detail?.textContent).not.toContain("为什么是这个状态");
+    expect(detail?.textContent).not.toContain("原始证据与数据集信息");
 
-    // 6) 复制线索：前端组合文本，不含存档路径
+    // 6) 搜索入口：合成地址经真实命令通道打开（默认 Bing）
+    document.querySelector<HTMLElement>('[data-testid="link-search-text"]')?.click();
+    await settle();
+    expect(lastCall(backend, "open_external_url")?.args.url).toMatch(
+      /^https:\/\/www\.bing\.com\/search\?q=/,
+    );
+
+    // 7) 复制线索：前端组合文本，不含存档路径
     document.querySelector<HTMLElement>('[data-testid="copy-lead"]')?.click();
     await flushPromises();
     expect(navigator.clipboard.writeText).toHaveBeenCalled();

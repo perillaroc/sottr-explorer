@@ -1,18 +1,19 @@
 <script setup lang="ts">
-// 收集品详情（SX-022）：名称与状态 → 去哪里找 → 怎么拿 → 原始证据（默认折叠）。
+// 收集品详情（2026-10-17 重设计）：头部 → 如何获取 → 外部参考 → 同一子关卡相对位置（默认折叠）。
 // 位置是关卡内归一化坐标，未校准；界面不把它写成导航点位，也不画真实地图底图。
+// 状态判定说明与原始证据移到「诊断」页的「当前选中条目的原始证据」一节。
 import { computed, nextTick, onMounted, ref } from "vue";
-import { Copy } from "@lucide/vue";
+import { Copy, ExternalLink, Search } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { copyText } from "../app/clipboard";
-import { copy } from "../app/labels";
 import { formatSnapshotTime } from "../app/format";
 import { regionName } from "../app/collection";
+import { buildSearchUrl, textSearchQuery, videoSearchQuery } from "../app/external-links";
+import { externalLinkKey, guideLinkKey, type DirectLink, type LinkActionState } from "../app/store";
 import type { PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
 import PositionScatter from "./PositionScatter.vue";
 import UiBadge from "./ui/UiBadge.vue";
 import UiButton from "./ui/UiButton.vue";
-import UiEvidenceDetails from "./ui/UiEvidenceDetails.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -38,7 +39,7 @@ onMounted(() => {
 
 const collected = computed(() => props.item.status === "collected");
 
-/** 同一子关卡内的条目（用于相对位置散点与“还有 N 项”）。 */
+/** 同一子关卡内的条目（用于相对位置散点）。 */
 const sameUnitItems = computed<PlanItem[]>(() => {
   const unit = props.item.unit?.unit;
   if (!unit) {
@@ -49,15 +50,6 @@ const sameUnitItems = computed<PlanItem[]>(() => {
     .filter((entry) => entry.unit?.unit === unit);
 });
 
-const groupFact = computed(() => {
-  const sub = store.atlas.categories.find((entry) => entry.id === props.group.category);
-  return sub?.name ?? props.group.category;
-});
-
-const regionRecord = computed(() =>
-  store.atlas.regions.find((entry) => entry.region_hash === props.region.region_hash) ?? null,
-);
-
 const unitText = computed(() => {
   const unit = props.item.unit;
   if (!unit) {
@@ -66,20 +58,133 @@ const unitText = computed(() => {
   return unit.display_zh ?? unit.display_en ?? unit.zone ?? `子关卡 ${unit.unit}`;
 });
 
-const copyLines = computed(() => {
-  const lines = [
-    `${props.item.display_name}${props.item.name_en ? `（${props.item.name_en}）` : ""}`,
-    `状态：${collected.value ? "已收集" : "未收集"} · ${regionName(props.region)}${unitText.value ? ` · ${unitText.value}` : ""}`,
-    `怎么拿：${props.item.acquisition_text}`,
-    `位置：${props.item.location_hint}`,
+/** 「如何获取」主体：区域 · 子关卡 → 类别规则原文 → 关卡内相对位置 → 同子关卡剩余。 */
+const acquisitionBody = computed(() => {
+  const parts = [
+    `${regionName(props.region)}${unitText.value ? ` · ${unitText.value}` : ""}`,
+    props.item.acquisition_text,
   ];
-  return lines.join("\n");
+  const position = props.item.position;
+  if (position) {
+    parts.push(`关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})`);
+  }
+  const remaining = props.item.same_unit_remaining ?? 0;
+  if (remaining > 0) {
+    parts.push(`同一子关卡还有 ${remaining} 项未收集`);
+  }
+  return parts.join(" · ");
 });
+
+const copyLines = computed(() =>
+  [
+    `${props.item.display_name}${props.item.name_en ? `（${props.item.name_en}）` : ""}`,
+    `状态：${collected.value ? "已收集" : "未收集"}`,
+    `区域：${regionName(props.region)}${unitText.value ? ` · ${unitText.value}` : ""}`,
+    `获取：${props.item.acquisition_text}`,
+  ].join("\n"),
+);
 
 async function copyHint(): Promise<void> {
   leadText.value = copyLines.value;
   copiedHint.value = await copyText(copyLines.value);
 }
+
+// ---------------------------------------------------------------------------
+// 外部参考：直链（元数据来源）+ 搜索（按设置页的搜索引擎合成）
+// ---------------------------------------------------------------------------
+
+const searchTextUrl = computed(() =>
+  buildSearchUrl(store.state.searchEngine, textSearchQuery(props.item, regionName(props.region))),
+);
+const searchVideoUrl = computed(() =>
+  buildSearchUrl(store.state.searchEngine, videoSearchQuery(props.item, regionName(props.region))),
+);
+
+/** 直链候选：只保留每条来源的首个地址，界面每个载体最多一个按钮。 */
+const directLinks = computed(() => store.directLinksForItem(props.item));
+const directText = computed(() => directLinks.value.find((link) => link.medium === "text") ?? null);
+const directVideo = computed(() => directLinks.value.find((link) => link.medium === "video") ?? null);
+
+interface LinkButton {
+  key: string;
+  label: string;
+  retry: () => Promise<void>;
+}
+
+function openDirectLink(link: DirectLink, label: string): Promise<void> {
+  return store.actions.openGuideLink(link.locationId, link.sourceRef, label);
+}
+
+function openSearch(medium: "text" | "video"): Promise<void> {
+  return medium === "text"
+    ? store.actions.openExternalLink(searchTextUrl.value, "搜索图文攻略")
+    : store.actions.openExternalLink(searchVideoUrl.value, "搜索视频");
+}
+
+/** 四个按钮的目标与重试动作（统一显示动作状态；直链无候选时不出现）。 */
+const linkButtons = computed<LinkButton[]>(() => {
+  const buttons: LinkButton[] = [];
+  const text = directText.value;
+  if (text) {
+    buttons.push({
+      key: guideLinkKey(text.locationId, text.sourceRef),
+      label: "攻略页",
+      retry: () => openDirectLink(text, "攻略页"),
+    });
+  }
+  buttons.push({
+    key: externalLinkKey(searchTextUrl.value),
+    label: "搜索图文攻略",
+    retry: () => openSearch("text"),
+  });
+  const video = directVideo.value;
+  if (video) {
+    buttons.push({
+      key: guideLinkKey(video.locationId, video.sourceRef),
+      label: "视频页",
+      retry: () => openDirectLink(video, "视频页"),
+    });
+  }
+  buttons.push({
+    key: externalLinkKey(searchVideoUrl.value),
+    label: "搜索视频",
+    retry: () => openSearch("video"),
+  });
+  return buttons;
+});
+
+function statusText(action: LinkActionState): string {
+  switch (action.status) {
+    case "resolving":
+      return "正在解析链接…";
+    case "opening":
+      return "正在打开…";
+    case "opened":
+      return "已在浏览器打开";
+    case "copied":
+      return "已复制链接";
+    case "error":
+      return `失败：${action.error?.message ?? "未知错误"}`;
+  }
+}
+
+const activeLink = computed(() => {
+  const action = store.state.linkAction;
+  if (!action) {
+    return null;
+  }
+  const button = linkButtons.value.find((entry) => entry.key === action.key);
+  return button ? { button, action } : null;
+});
+
+const linkStatusTone = computed(() => {
+  const status = activeLink.value?.action.status;
+  return status === "error"
+    ? "text-danger"
+    : status === "opened" || status === "copied"
+      ? "text-success"
+      : "text-muted";
+});
 </script>
 
 <template>
@@ -111,21 +216,8 @@ async function copyHint(): Promise<void> {
     </header>
 
     <section class="space-y-1.5">
-      <h3 class="text-sm font-medium">去哪里找</h3>
-      <p class="text-[13px]" data-testid="detail-location">{{ item.location_hint }}</p>
-      <p v-if="!item.position" class="text-xs text-muted">
-        该条目没有可用的关卡内相对位置（游戏数据未给出或坐标越界），请按区域与子关卡线索查找。
-      </p>
-      <PositionScatter
-        v-else
-        :items="sameUnitItems"
-        :selected-id="item.id"
-      />
-    </section>
-
-    <section class="space-y-1.5">
-      <h3 class="text-sm font-medium">怎么拿</h3>
-      <p class="text-[13px]" data-testid="detail-acquisition">{{ item.acquisition_text }}</p>
+      <h3 class="text-sm font-medium">如何获取</h3>
+      <p class="text-[13px]" data-testid="detail-acquisition">{{ acquisitionBody }}</p>
       <p class="text-xs text-muted">
         <template v-if="item.acquisition_source === 'item_note'">逐项注记（人工整理，未逐条与游戏内核实）。</template>
         <template v-else>类别通用说明（人工整理，未逐条与游戏内核实）。</template>
@@ -146,44 +238,67 @@ async function copyHint(): Promise<void> {
       >
     </section>
 
-    <section class="space-y-1">
-      <h3 class="text-sm font-medium">为什么是这个状态</h3>
-      <p class="text-[13px] text-muted" data-testid="detail-status-reason">
-        <template v-if="collected">
-          该条目 ID 出现在当前存档的物品表中（观察集合），因此判为已收集。
-        </template>
-        <template v-else>
-          该条目 ID 未出现在当前存档的物品表中，因此判为未收集。
-          若你在游戏中刚取得，请刷新（F5）后再看。
-        </template>
+    <section class="space-y-1.5" data-testid="external-links">
+      <h3 class="text-sm font-medium">外部参考</h3>
+      <div class="flex flex-wrap items-center gap-2">
+        <UiButton
+          v-if="directText"
+          size="sm"
+          variant="ghost"
+          data-testid="link-guide"
+          @click="openDirectLink(directText, '攻略页')"
+        >
+          <ExternalLink :size="16" aria-hidden="true" />
+          攻略页
+        </UiButton>
+        <UiButton size="sm" variant="ghost" data-testid="link-search-text" @click="openSearch('text')">
+          <Search :size="16" aria-hidden="true" />
+          搜索图文攻略
+        </UiButton>
+        <UiButton
+          v-if="directVideo"
+          size="sm"
+          variant="ghost"
+          data-testid="link-video"
+          @click="openDirectLink(directVideo, '视频页')"
+        >
+          <ExternalLink :size="16" aria-hidden="true" />
+          视频页
+        </UiButton>
+        <UiButton size="sm" variant="ghost" data-testid="link-search-video" @click="openSearch('video')">
+          <Search :size="16" aria-hidden="true" />
+          搜索视频
+        </UiButton>
+      </div>
+      <p v-if="activeLink" class="flex flex-wrap items-center gap-2 text-xs" :class="linkStatusTone" data-testid="link-status">
+        {{ activeLink.button.label }}：{{ statusText(activeLink.action) }}
+        <UiButton
+          v-if="activeLink.action.status === 'error'"
+          size="sm"
+          variant="ghost"
+          data-testid="link-retry"
+          @click="activeLink.button.retry()"
+        >
+          重试
+        </UiButton>
       </p>
       <p class="text-xs text-muted">
-        区域与子类别已用存档自带的区域计数器逐行核对（区域 × 类别 43 行全部吻合）。
+        在系统浏览器中打开；设置页选「仅复制链接」时只复制地址。应用内始终不加载网页。
       </p>
     </section>
 
-    <UiEvidenceDetails summary="原始证据与数据集信息" hint="图鉴版本 / 区域绑定 / 子关卡 / 坐标 / 内部名">
-      <p>图鉴版本：{{ store.atlas.catalog_version }}（schema {{ store.atlas.catalog_schema_version }}）</p>
-      <p>区域：{{ regionName(region) }}（<span class="mono">{{ region.region_hash }}</span>）<span v-if="regionRecord?.binding">
-        · 绑定签名距离 {{ regionRecord.binding.signature_distance }}，次优 {{ regionRecord.binding.runner_up_distance ?? "无" }}
-      </span></p>
-      <p v-if="regionRecord?.binding">
-        计数核对：<span class="mono">{{ JSON.stringify(regionRecord.binding.signature) }}</span>
-        vs 存档目标 <span class="mono">{{ JSON.stringify(regionRecord.binding.source_targets) }}</span>
-      </p>
-      <p v-if="item.unit">
-        子关卡：<span class="mono">{{ item.unit.unit }}</span> · zone <span class="mono">{{ item.unit.zone ?? "未知" }}</span>
-        （名称来源 {{ item.unit.name_source }}）
-      </p>
-      <p v-if="item.position">
-        原始坐标：x={{ item.position.x }}，y={{ item.position.y }}，空间
-        <span class="mono">{{ item.position.space }}</span>（未校准）
-      </p>
-      <p>内部候选名：<span class="mono">{{ item.internal_name ?? "（无）" }}</span></p>
-      <p v-if="item.collection">故事合集：<span class="mono">{{ item.collection }}</span></p>
-      <p>类别：{{ groupFact }}<template v-if="item.name_source"> · 名称来源 {{ item.name_source }}</template></p>
-      <p>获取方式规则：<span class="mono">{{ group.acquisition_rule_key }}</span></p>
-      <p v-if="store.isStale.value">{{ copy.stale }}：本次结果仅反映上一次读取。</p>
-    </UiEvidenceDetails>
+    <details
+      v-if="item.position"
+      class="rounded-[8px] border border-line bg-raised/60 px-3 py-2"
+      data-testid="position-section"
+    >
+      <summary class="cursor-pointer text-[13px] font-medium">同一子关卡内的相对位置</summary>
+      <div class="mt-2 space-y-1.5">
+        <PositionScatter :items="sameUnitItems" :selected-id="item.id" />
+        <p class="text-xs text-caution">
+          未校准：坐标为关卡内归一化值，不是导航点位；仅用于同一子关卡内的相对参照。
+        </p>
+      </div>
+    </details>
   </article>
 </template>
