@@ -35,7 +35,7 @@ const capabilityRows = computed(() => {
 const groups = computed(() => (report.value ? diagnosticGroups(report.value) : []));
 const records = computed(() => (report.value ? unclassifiedRecords(store.metadata, report.value) : []));
 
-// 当前选中条目的原始证据（从详情面板移入；详情只讲「怎么拿/去哪看」）。
+// 当前选中条目的原始证据（从详情面板移入；详情只保留「如何获取」与外部参考）。
 const selected = computed(() => store.selectedEntry.value);
 const selectedRegionRecord = computed(() => {
   const region = selected.value?.region;
