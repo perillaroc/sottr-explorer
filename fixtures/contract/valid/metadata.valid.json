@@ -228,7 +228,9 @@
       "license": "MIT",
       "redistributable": "yes",
       "method": "内部 ID 与名称字典转录",
-      "review": "许可与固定提交已复核"
+      "review": "许可与固定提交已复核",
+      "medium": "text",
+      "role": "tool"
     },
     "src:asl-sottr": {
       "url": "https://github.com/Atorizil/ASL-SOTTR",
@@ -237,7 +239,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "区域计数目标与偏移的事实转录",
-      "review": "仅独立转录事实"
+      "review": "仅独立转录事实",
+      "medium": "text",
+      "role": "tool"
     },
     "src:stella-san-juan": {
       "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
@@ -246,7 +250,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "攻略组与来源链接引用",
-      "review": "仅引用链接，不打包攻略内容"
+      "review": "仅引用链接，不打包攻略内容",
+      "medium": "text",
+      "role": "guide"
     },
     "src:stella-saves": {
       "url": "https://tombraiders.net/stella/savegame/TR11saves.html",
@@ -255,7 +261,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "公开参考存档来源与哈希",
-      "review": "公开存档不随产品分发"
+      "review": "公开存档不随产品分发",
+      "medium": "text",
+      "role": "save"
     },
     "src:plan-0.4-table": {
       "url": null,
@@ -264,7 +272,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "方案文档内部名称片段转录",
-      "review": "人工简名，不是已验证的游戏正式名称"
+      "review": "人工简名，不是已验证的游戏正式名称",
+      "medium": null,
+      "role": "research"
     }
   }
 }

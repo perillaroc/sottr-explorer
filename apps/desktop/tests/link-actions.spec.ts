@@ -1,5 +1,5 @@
 // 外链动作（2026-10-17 详情重设计阶段三）：按「打开方式」分派打开或仅复制、
-// 直链候选来自报告位置线索 × 有 URL 的元数据来源。
+// 直链候选来自报告位置线索 × role 为 guide 且有 URL 的元数据来源。
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MockDataSource } from "../src/data/mock";
 import { externalLinkKey, guideLinkKey } from "../src/app/store";
@@ -116,20 +116,31 @@ describe("store：外链动作", () => {
 });
 
 describe("store：直链候选", () => {
-  it("取成员含该条目的位置线索，跳过没有 URL 的来源", async () => {
+  it("只为 role 为 guide 且有 URL 的来源产生候选", async () => {
     const { store } = await storeWithReport();
     const links = store.directLinksForItem(item());
 
-    // 圣胡安贮藏点线索的来源里 stella 与 ASL 有 URL，plan-doc / research-evidence 没有。
-    expect(links.length).toBeGreaterThan(0);
-    expect(links.every((link) => link.url.startsWith("https://"))).toBe(true);
-    expect(links.map((link) => link.sourceRef)).not.toContain("src:plan-doc");
+    // 圣胡安贮藏点线索的来源里，stella 是 guide；ASL 有 URL 但 role=tool，
+    // plan-doc / research-evidence 没有 URL——都不产生候选。
+    expect(links.map((link) => link.sourceRef)).toEqual(["src:stella-san-juan"]);
     expect(links[0]).toMatchObject({
       locationId: "loc:stella:san-juan-caches",
       sourceRef: "src:stella-san-juan",
       medium: "text",
     });
-    expect(new Set(links.map((link) => link.url)).size).toBe(links.length);
+    expect(links[0].url).toMatch(/^https:\/\//);
+  });
+
+  it("同一载体的多个 guide 来源按 source_refs 顺序返回，首个在前", async () => {
+    const { store } = await storeWithReport();
+    const links = store.directLinksForItem(item("0x439B19A6"));
+
+    // 圣胡安石碑组的 source_refs 顺序：stella-san-juan → stella-san-juan-monolith。
+    expect(links.map((link) => link.sourceRef)).toEqual([
+      "src:stella-san-juan",
+      "src:stella-san-juan-monolith",
+    ]);
+    expect(links.every((link) => link.medium === "text")).toBe(true);
   });
 
   it("不在任何线索里的条目没有候选", async () => {

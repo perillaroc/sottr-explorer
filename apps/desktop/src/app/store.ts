@@ -25,7 +25,7 @@ import type {
 } from "../data/source";
 import { toCommandError } from "../data/errors";
 import { copyText } from "./clipboard";
-import { mediumOfUrl, type LinkMedium } from "./external-links";
+import type { LinkMedium } from "./external-links";
 import { demoMetadata, productionMetadata } from "../data/metadata";
 import type { FilterState, RegionScope, StatusFilter } from "./catalog";
 import {
@@ -851,8 +851,9 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   }
 
   /**
-   * 当前条目可用的直链候选：报告里成员含该条目的位置线索 × 其来源中**有 URL** 的那些。
-   * 没有 URL 的来源（如书面记录）不产生候选——界面据此隐藏对应按钮，不置灰。
+   * 当前条目可用的直链候选：报告里成员含该条目的位置线索 × 其来源中
+   * `role = "guide"`、有 URL 且有 `medium` 的那些。其余来源（工具、存档、
+   * 研究记录）只作证据，不产生候选——界面据此隐藏对应按钮，不置灰。
    */
   function directLinksForItem(item: PlanItem): DirectLink[] {
     const locations = report.value?.locations ?? [];
@@ -863,12 +864,20 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
         continue;
       }
       for (const sourceRef of location.source_refs) {
-        const url = productionMetadata.sources[sourceRef]?.url ?? null;
-        if (!url || seen.has(url)) {
+        const source = productionMetadata.sources[sourceRef];
+        if (!source || source.role !== "guide" || !source.url || !source.medium) {
           continue;
         }
-        seen.add(url);
-        links.push({ locationId: location.location_id, sourceRef, url, medium: mediumOfUrl(url) });
+        if (seen.has(source.url)) {
+          continue;
+        }
+        seen.add(source.url);
+        links.push({
+          locationId: location.location_id,
+          sourceRef,
+          url: source.url,
+          medium: source.medium,
+        });
       }
     }
     return links;

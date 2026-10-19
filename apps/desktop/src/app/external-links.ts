@@ -1,4 +1,4 @@
-// 外部参考链接（2026-10-17 详情重设计阶段三）：搜索地址合成与图文/视频判定。
+// 外部参考链接（2026-10-17 详情重设计阶段三）：搜索地址合成。
 //
 // 只做纯字符串拼装，不读 store、不发起命令：详情面板与 store 各自取用。
 // 查询词带上区域名以提高命中率（区域名由调用方从计划里取，见 `app/collection.ts`）。
@@ -17,33 +17,6 @@ export const SEARCH_ENGINES = {
 
 /** 参考链接的载体：图文页或视频页。 */
 export type LinkMedium = "text" | "video";
-
-/** 视频站点主机名；命中子域也算（如 `www.bilibili.com`、`m.youtube.com`）。 */
-const VIDEO_HOSTS = [
-  "bilibili.com",
-  "youtube.com",
-  "youtu.be",
-  "youku.com",
-  "iqiyi.com",
-  "v.qq.com",
-  "twitch.tv",
-  "douyin.com",
-];
-
-/**
- * 按主机名猜图文还是视频——**临时启发式**：数据层的 `Source` 还没有 `medium`
- * 字段（补数据见设计文档 9.1「中文图文攻略与视频攻略来源探索」）。届时本函数
- * 直接删除，改读显式字段；在此之前只有它决定直链按钮归到「攻略页」还是「视频页」。
- */
-export function mediumOfUrl(url: string): LinkMedium {
-  let host: string;
-  try {
-    host = new URL(url).hostname.toLowerCase();
-  } catch {
-    return "text";
-  }
-  return VIDEO_HOSTS.some((known) => host === known || host.endsWith(`.${known}`)) ? "video" : "text";
-}
 
 /** 把查询词编码后填进引擎模板。 */
 export function buildSearchUrl(engine: SearchEngine, query: string): string {

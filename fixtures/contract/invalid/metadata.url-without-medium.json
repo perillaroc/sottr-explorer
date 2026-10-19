@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "metadata_version": "0.1.0",
+  "namespace": "sottr",
+  "items": {},
+  "categories": {},
+  "regions": {},
+  "guide_groups": {},
+  "reference_sets": {},
+  "region_counters": {},
+  "sources": {
+    "src:url-without-medium": {
+      "url": "https://example.invalid/guide",
+      "fixed_revision": null,
+      "accessed": null,
+      "license": null,
+      "redistributable": "pending",
+      "method": null,
+      "review": "非法夹具：URL 非空时 medium 必须非空（由 Rust 加载器拒绝）"
+    }
+  }
+}

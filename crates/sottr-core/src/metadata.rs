@@ -708,8 +708,14 @@ fn validate_dataset_shape(dataset: &MetadataDataset) -> Result<(), MetadataError
             ));
         }
     }
-    for source in dataset.sources.values() {
+    for (source_id, source) in &dataset.sources {
         validate_source_url(source.url.as_deref())?;
+        if source.url.is_some() && source.medium.is_none() {
+            return Err(MetadataError::new(
+                CODE_INVALID_VALUE,
+                format!("来源 {source_id} 的 URL 非空但缺少 medium"),
+            ));
+        }
     }
     for entry in dataset.region_counters.values() {
         if entry.source_total == 0 {

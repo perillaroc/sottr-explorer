@@ -236,7 +236,9 @@
       "license": "MIT",
       "redistributable": "yes",
       "method": "内部 ID 与候选名称字典转录（研究包 tool/data/collectible_id_candidates.json）",
-      "review": "许可与固定提交已复核；候选名称不等于游戏显示名称"
+      "review": "许可与固定提交已复核；候选名称不等于游戏显示名称",
+      "medium": "text",
+      "role": "tool"
     },
     "src:asl-sottr": {
       "url": "https://github.com/Atorizil/ASL-SOTTR",
@@ -245,7 +247,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "区域/类别计数目标与磁盘偏移的事实转录及独立比对",
-      "review": "上游未声明许可证；仅独立转录事实，发布包含需 SX-018 再分发复核"
+      "review": "上游未声明许可证；仅独立转录事实，发布包含需 SX-018 再分发复核",
+      "medium": "text",
+      "role": "tool"
     },
     "src:stella-saves": {
       "url": "https://tombraiders.net/stella/savegame/TR11saves.html",
@@ -254,7 +258,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "公开参考存档来源与压缩文件 SHA-256（两个作者标注 100% 槽位）",
-      "review": "公开存档不随产品分发；仅记录来源与哈希"
+      "review": "公开存档不随产品分发；仅记录来源与哈希",
+      "medium": "text",
+      "role": "save"
     },
     "src:stella-san-juan": {
       "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
@@ -263,7 +269,9 @@
       "license": "站点保留权利；仅链接与事实引用",
       "redistributable": "pending",
       "method": "圣胡安贮藏点/石碑的区域、总数与位置描述引用",
-      "review": "不打包攻略内容；组级线索不冒充精确条目映射"
+      "review": "不打包攻略内容；组级线索不冒充精确条目映射",
+      "medium": "text",
+      "role": "guide"
     },
     "src:stella-san-juan-monolith": {
       "url": "https://tombraiders.net/stella/walks/TR11walk/details/san-juan-8.html",
@@ -272,7 +280,9 @@
       "license": "站点保留权利；仅链接与事实引用",
       "redistributable": "pending",
       "method": "圣胡安石碑位置细节引用",
-      "review": "仅链接引用"
+      "review": "仅链接引用",
+      "medium": "text",
+      "role": "guide"
     },
     "src:stella-san-juan-crypt": {
       "url": "https://tombraiders.net/stella/walks/TR11walk/details/san-juan-4.html",
@@ -281,7 +291,9 @@
       "license": "站点保留权利；仅链接与事实引用",
       "redistributable": "pending",
       "method": "圣胡安墓穴（Crypt of Huascar）位置线索引用",
-      "review": "墓穴宝藏条目未逐一核对；仅组级线索"
+      "review": "墓穴宝藏条目未逐一核对；仅组级线索",
+      "medium": "text",
+      "role": "guide"
     },
     "src:plan-doc": {
       "url": null,
@@ -290,7 +302,9 @@
       "license": null,
       "redistributable": "pending",
       "method": "已确认方案中的区域/类别/组级线索转录（人工简名，不是游戏正式名称）",
-      "review": "人工简名与组级线索；不冒充精确条目映射"
+      "review": "人工简名与组级线索；不冒充精确条目映射",
+      "medium": null,
+      "role": "research"
     },
     "src:research-evidence": {
       "url": null,
@@ -299,7 +313,9 @@
       "license": "内部研究记录；不随产品分发",
       "redistributable": "no",
       "method": "独立计数交叉比对、参考集合共同性与公开样本哈希结论",
-      "review": "仅转录事实结论；私人存档字节与绝对路径不进入任何数据文件"
+      "review": "仅转录事实结论；私人存档字节与绝对路径不进入任何数据文件",
+      "medium": null,
+      "role": "research"
     }
   }
 }

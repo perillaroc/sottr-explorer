@@ -20,6 +20,8 @@ const COLLECTIBLES: &str = include_str!("../../../data/metadata/collectibles.jso
 const REGION_COUNTERS: &str = include_str!("../../../data/metadata/region_counters.json");
 const REFERENCE_SETS: &str = include_str!("../../../data/metadata/reference_sets.json");
 const MANIFEST: &str = include_str!("../../../data/metadata/manifest.json");
+const URL_WITHOUT_MEDIUM: &str =
+    include_str!("../../../fixtures/contract/invalid/metadata.url-without-medium.json");
 
 const REFERENCE_SET_ID: &str = "rs:stella-100pct-common";
 
@@ -74,6 +76,18 @@ fn item_json(id: &str, alias: &str) -> serde_json::Value {
         },
         "location_mappings": [],
         "source_refs": [],
+        "review": null
+    })
+}
+
+fn source_json(url: Option<&str>) -> serde_json::Value {
+    json!({
+        "url": url,
+        "fixed_revision": null,
+        "accessed": null,
+        "license": null,
+        "redistributable": "pending",
+        "method": null,
         "review": null
     })
 }
@@ -511,9 +525,43 @@ fn loader_rejects_invalid_url_protocols() {
         "license": null,
         "redistributable": "pending",
         "method": null,
-        "review": null
+        "review": null,
+        "medium": "text"
     });
     assert!(load_dataset(&bytes_of(&document), &MetadataLimits::default()).is_ok());
+}
+
+#[test]
+fn loader_requires_medium_when_url_is_present() {
+    let error = load_text(URL_WITHOUT_MEDIUM).expect_err("URL 非空必须有 medium");
+    assert_eq!(error.code(), CODE_INVALID_VALUE);
+    assert!(
+        error.message().contains("src:url-without-medium"),
+        "错误文案应指明来源 ID：{}",
+        error.message()
+    );
+
+    // 无 URL 的来源不要求 medium。
+    let mut document = minimal_document("0.1.0");
+    document["sources"]["src:offline"] = source_json(None);
+    assert!(load_dataset(&bytes_of(&document), &MetadataLimits::default()).is_ok());
+
+    // 合法取值通过。
+    let mut document = minimal_document("0.1.0");
+    document["sources"]["src:guide"] = source_json(Some("https://example.invalid/guide"));
+    document["sources"]["src:guide"]["medium"] = json!("video");
+    document["sources"]["src:guide"]["role"] = json!("guide");
+    assert!(load_dataset(&bytes_of(&document), &MetadataLimits::default()).is_ok());
+
+    // 未知 medium / role 被 serde 拒绝。
+    for (field, value) in [("medium", "audio"), ("role", "blog")] {
+        let mut document = minimal_document("0.1.0");
+        document["sources"]["src:bad"] = source_json(Some("https://example.invalid/a"));
+        document["sources"]["src:bad"]["medium"] = json!("text");
+        document["sources"]["src:bad"][field] = json!(value);
+        let error = load_dataset(&bytes_of(&document), &MetadataLimits::default()).unwrap_err();
+        assert_eq!(error.code(), CODE_INVALID_VALUE, "{field}");
+    }
 }
 
 #[test]

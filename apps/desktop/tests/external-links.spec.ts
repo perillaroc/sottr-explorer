@@ -1,9 +1,8 @@
-// 外部链接构造（2026-10-17 详情重设计阶段三）：搜索地址拼接与图文/视频判定。
+// 外部链接构造（2026-10-17 详情重设计阶段三）：搜索地址拼接。
 import { describe, expect, it } from "vitest";
 import {
   SEARCH_ENGINES,
   buildSearchUrl,
-  mediumOfUrl,
   textSearchQuery,
   videoSearchQuery,
 } from "../src/app/external-links";
@@ -51,29 +50,5 @@ describe("外部链接：搜索地址", () => {
     expect(textSearchQuery(item({ name_en: undefined }), "圣胡安")).toBe(
       "圣胡安贮藏点 #1 圣胡安 古墓丽影暗影 攻略",
     );
-  });
-});
-
-describe("外部链接：图文 / 视频判定（临时启发式）", () => {
-  it("视频站点（含子域）判为视频", () => {
-    for (const url of [
-      "https://www.bilibili.com/video/BV1xx411c7mD",
-      "https://youtu.be/dQw4w9WgXcQ",
-      "https://m.youtube.com/watch?v=1",
-      "https://v.qq.com/x/page/a.html",
-      "https://www.youku.com/v_show/id_x",
-    ]) {
-      expect(mediumOfUrl(url), url).toBe("video");
-    }
-  });
-
-  it("其余站点与无法解析的地址判为图文", () => {
-    for (const url of [
-      "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html",
-      "https://github.com/Atorizil/ASL-SOTTR",
-      "not a url",
-    ]) {
-      expect(mediumOfUrl(url), url).toBe("text");
-    }
   });
 });
