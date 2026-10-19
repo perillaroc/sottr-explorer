@@ -76,6 +76,32 @@ pub enum Redistributable {
     Pending,
 }
 
+/// 来源链接载体。
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SourceMedium {
+    /// 图文页面。
+    Text,
+    /// 视频页面。
+    Video,
+}
+
+/// 来源用途；只有 `Guide` 参与直链候选。
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum SourceRole {
+    /// 攻略页。
+    Guide,
+    /// 工具仓库或工具页。
+    Tool,
+    /// 存档页。
+    Save,
+    /// 研究记录或方案文档。
+    Research,
+    /// 其他。
+    Other,
+}
+
 /// 适用范围；未知信息显式 `null` 并写入 notes。
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -285,6 +311,10 @@ pub struct Source {
     pub method: Option<String>,
     /// 审核记录。
     pub review: Option<String>,
+    /// 链接载体；URL 非空时必须非空（由加载器校验）。
+    pub medium: Option<SourceMedium>,
+    /// 来源用途；只有 `Guide` 参与直链候选。
+    pub role: Option<SourceRole>,
 }
 
 /// 元数据数据集（单文件解析形态）。

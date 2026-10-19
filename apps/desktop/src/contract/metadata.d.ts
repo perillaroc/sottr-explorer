@@ -197,4 +197,12 @@ export interface Source {
   redistributable: Redistributable;
   method: string | null;
   review: string | null;
+  /**
+   * 链接载体；URL 非空时必须非空（跨字段规则由 Rust 加载器校验，JSON Schema 不强制）
+   */
+  medium?: "text" | "video" | null;
+  /**
+   * 来源用途；仅 role 为 guide 且 URL 非空的来源产生直链候选
+   */
+  role?: "guide" | "tool" | "save" | "research" | "other" | null;
 }
