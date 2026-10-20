@@ -277,7 +277,10 @@ fn export_csv_keeps_identity_and_item_semantics() {
     assert_eq!(cache_row[10], "community_correlated");
     assert_eq!(cache_row[11], "refdiff.v1.likely_collected");
     assert!(cache_row[12].contains("参考"), "规则描述：{cache_row:?}");
-    assert_eq!(cache_row[13], "loc:stella:san-juan-caches");
+    assert_eq!(
+        cache_row[13],
+        "loc:guide:mission_of_san_juan:survival_caches"
+    );
     assert_eq!(cache_row[14], "guide_group");
     let names: Vec<String> = serde_json::from_str(&cache_row[7]).unwrap();
     assert!(
@@ -287,19 +290,21 @@ fn export_csv_keeps_identity_and_item_semantics() {
         "{names:?}"
     );
 
-    // 缺席参考项 → likely_missing；帕伊提提线索 ID 的定位精度为 region。
+    // 缺席参考项 → likely_missing。
     let missing_row = rows[1..]
         .iter()
         .find(|row| row[6] == "0x0F28B6ED")
         .expect("缺席缓存必须在 CSV 中");
     assert_eq!(missing_row[9], "likely_missing");
     assert_eq!(missing_row[11], "refdiff.v1.likely_missing");
+
+    // 帕伊提提线索 ID 现在属于区域×类别攻略组，导出取更精确的 guide_group 定位。
     let region_row = rows[1..]
         .iter()
         .find(|row| row[6] == "0x851B4915")
         .expect("帕伊提提线索条目必须在 CSV 中");
-    assert_eq!(region_row[13], "loc:region:paititi");
-    assert_eq!(region_row[14], "region");
+    assert_eq!(region_row[13], "loc:guide:paititi:survival_caches");
+    assert_eq!(region_row[14], "guide_group");
 
     // 全表无危险前缀单元格（公式保护在整表范围成立）。
     for row in &rows[1..] {

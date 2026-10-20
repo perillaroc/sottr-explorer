@@ -382,7 +382,20 @@ fn dataset_contains_no_fake_points_or_exact_mappings() {
         "仅有 10 个圣胡安组成员 + 2 个帕伊提提区域线索"
     );
     for group in dataset.guide_groups.values() {
-        assert_eq!(group.target_count, Some(group.member_ids.len() as u32));
+        if group.counter_keys.is_empty() {
+            assert!(
+                group.target_count.is_none(),
+                "{} 没有计数键时不应设置目标数",
+                group.guide_group_id
+            );
+        } else {
+            assert_eq!(
+                group.target_count,
+                Some(group.member_ids.len() as u32),
+                "{} 的目标数应与成员数一致",
+                group.guide_group_id
+            );
+        }
     }
 }
 

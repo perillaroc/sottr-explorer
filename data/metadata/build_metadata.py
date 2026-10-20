@@ -161,6 +161,94 @@ SOURCES = {
         "medium": None,
         "role": "research",
     },
+    "src:3dm-full-walkthrough": {
+        "url": "https://www.3dmgame.com/gl/3754628.html",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "站点保留权利；仅链接与事实引用",
+        "redistributable": "pending",
+        "method": "中文图文全流程攻略目录与区域分页引用（57 页）",
+        "review": "2026-10-20 已核实目录与关键区域页可访问；未逐条核对每个收集品",
+        "medium": "text",
+        "role": "guide",
+    },
+    "src:gamersky-full-walkthrough": {
+        "url": "https://www.gamersky.com/handbook/201809/1098996.shtml",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "站点保留权利；仅链接与事实引用",
+        "redistributable": "pending",
+        "method": "中文图文全收集流程攻略章节引用（11 页）",
+        "review": "2026-10-20 已核实页面可访问；章节未逐区域命名，作为次级文本来源",
+        "medium": "text",
+        "role": "guide",
+    },
+    "src:gamersky-paititi-map": {
+        "url": "https://www.gamersky.com/handbook/201809/1100600.shtml",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "站点保留权利；仅链接与事实引用",
+        "redistributable": "pending",
+        "method": "帕依提提全收集地图与全物品位置引用",
+        "review": "2026-10-20 已核实可访问；地图页不保证与图鉴条目逐条对应",
+        "medium": "text",
+        "role": "guide",
+    },
+    "src:gamersky-paititi-relics-documents": {
+        "url": "https://www.gamersky.com/handbook/201809/1101523.shtml",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "站点保留权利；仅链接与事实引用",
+        "redistributable": "pending",
+        "method": "帕依提提遗物与文献位置引用",
+        "review": "2026-10-20 已核实可访问；仅覆盖遗物与文献",
+        "medium": "text",
+        "role": "guide",
+    },
+    "src:bilibili-platinum-36p": {
+        "url": "https://www.bilibili.com/video/BV1iM4y1g78i/",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "用户投稿；站点保留权利；仅链接",
+        "redistributable": "pending",
+        "method": "按分 P 区域流程引用；不下载或转发视频",
+        "review": "2026-10-20 已核实 36P 分 P 列表与 ?p= 地址可访问",
+        "medium": "video",
+        "role": "guide",
+    },
+    "src:bilibili-collection-49p": {
+        "url": "https://www.bilibili.com/video/BV11v4y1R7jC/",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "用户投稿；站点保留权利；仅链接",
+        "redistributable": "pending",
+        "method": "按分 P 区域流程引用；不下载或转发视频",
+        "review": "2026-10-20 已核实 49P 分 P 列表可访问；作为次级视频来源",
+        "medium": "video",
+        "role": "guide",
+    },
+    "src:bilibili-paititi-collect": {
+        "url": "https://www.bilibili.com/video/BV1bW4116739/",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "用户投稿；站点保留权利；仅链接",
+        "redistributable": "pending",
+        "method": "帕依提提收集专题引用；按整段视频链接",
+        "review": "2026-10-20 已核实 28P 分 P 列表可访问；部分分 P 为单物品短片",
+        "medium": "video",
+        "role": "guide",
+    },
+    "src:bilibili-peruvian-jungle-collect": {
+        "url": "https://www.bilibili.com/video/BV1uW411k7uq/",
+        "fixed_revision": None,
+        "accessed": "2026-10-20",
+        "license": "用户投稿；站点保留权利；仅链接",
+        "redistributable": "pending",
+        "method": "秘鲁丛林收集专题引用；按整段视频链接",
+        "review": "2026-10-20 已核实 23P 分 P 列表可访问",
+        "medium": "video",
+        "role": "guide",
+    },
 }
 
 # ---------------------------------------------------------------------------
@@ -283,6 +371,101 @@ GUIDE_GROUPS = [
         ],
     },
 ]
+
+# ---------------------------------------------------------------------------
+# 阶段 C：区域 × 类别攻略组（成员来自全收集图鉴）
+# ---------------------------------------------------------------------------
+CATALOG_PATH = ROOT / "data" / "catalog" / "collectibles_catalog.json"
+
+GUIDE_REGION_IDS = [
+    "paititi",
+    "kuwaq_yaku",
+    "mission_of_san_juan",
+    "peruvian_jungle",
+    "cenote",
+    "cozumel",
+    "porvenir_oil_fields",
+    "trial_of_the_eagle",
+    "head_of_the_serpent",
+]
+# 图鉴中的游戏本地化区域名，仅用于攻略组显示名。
+GUIDE_REGION_NAMES = {
+    "paititi": "帕依提提",
+    "kuwaq_yaku": "库阿克雅库",
+    "mission_of_san_juan": "圣胡安教会",
+    "peruvian_jungle": "秘鲁丛林",
+    "cenote": "灰岩坑",
+    "cozumel": "科祖梅尔",
+    "porvenir_oil_fields": "波文尼尔石油田",
+    "trial_of_the_eagle": "猎鹰的试炼",
+    "head_of_the_serpent": "巨蛇之首",
+}
+
+# (图鉴 category, subcategory) -> (元数据类别, 组名类别)
+GUIDE_CATEGORY_MAP = {
+    ("artifacts", "relics"): ("relics", "遗物"),
+    ("artifacts", "documents"): ("documents", "文献"),
+    ("artifacts", "murals"): ("murals", "壁画"),
+    ("survival_caches", None): ("survival_caches", "贮藏点"),
+    ("monoliths", None): ("monoliths", "石碑"),
+    ("crypt_treasures", None): ("crypt_treasures", "地下墓穴宝藏"),
+    ("strongboxes", None): ("strongboxes", "保险箱"),
+}
+GUIDE_CATEGORY_NAMES = {value[0]: value[1] for value in GUIDE_CATEGORY_MAP.values()}
+
+# 组声明的元数据类别；贮藏点合并普通与稀有（与计数口径一致）。
+GUIDE_GROUP_CATEGORY_IDS = {
+    "survival_caches": ["rare_resource_caches", "survival_caches"],
+}
+
+# 组与计数键的类别映射；只有这些类别可复用区域计数。
+GUIDE_COUNTER_CATEGORY = {
+    "survival_caches": "survival_caches",
+    "monoliths": "monoliths",
+    "crypt_treasures": "crypts",
+}
+
+TEXT_PRIMARY = "src:3dm-full-walkthrough"
+TEXT_FALLBACK = "src:gamersky-full-walkthrough"
+VIDEO_PRIMARY = "src:bilibili-platinum-36p"
+VIDEO_FALLBACK = "src:bilibili-collection-49p"
+EVIDENCE_REF = "src:research-evidence"
+
+REGION_TEXT_SOURCES = {
+    "paititi": ["src:gamersky-paititi-map", TEXT_PRIMARY, TEXT_FALLBACK],
+}
+# 圣胡安已有 Stella 基线来源，保留为其主图文来源。
+REGION_CATEGORY_TEXT_PREFIX = {
+    ("mission_of_san_juan", "survival_caches"): ["src:stella-san-juan"],
+    ("mission_of_san_juan", "murals"): ["src:stella-san-juan"],
+    ("mission_of_san_juan", "monoliths"): [
+        "src:stella-san-juan",
+        "src:stella-san-juan-monolith",
+    ],
+    ("mission_of_san_juan", "crypt_treasures"): ["src:stella-san-juan-crypt"],
+}
+REGION_CATEGORY_TEXT_SOURCES = {
+    ("paititi", "relics"): ["src:gamersky-paititi-relics-documents"],
+    ("paititi", "documents"): ["src:gamersky-paititi-relics-documents"],
+}
+REGION_VIDEO_SOURCES = {
+    "paititi": [VIDEO_PRIMARY, "src:bilibili-paititi-collect", VIDEO_FALLBACK],
+    "peruvian_jungle": [VIDEO_PRIMARY, "src:bilibili-peruvian-jungle-collect", VIDEO_FALLBACK],
+    "porvenir_oil_fields": [VIDEO_FALLBACK, VIDEO_PRIMARY],
+}
+
+
+def guide_group_source_refs(region_id, category_id):
+    refs = list(REGION_CATEGORY_TEXT_PREFIX.get((region_id, category_id), []))
+    refs.extend(REGION_TEXT_SOURCES.get(region_id, [TEXT_PRIMARY, TEXT_FALLBACK]))
+    refs.extend(REGION_CATEGORY_TEXT_SOURCES.get((region_id, category_id), []))
+    refs.extend(REGION_VIDEO_SOURCES.get(region_id, [VIDEO_PRIMARY, VIDEO_FALLBACK]))
+    refs.append(EVIDENCE_REF)
+    deduped = []
+    for ref in refs:
+        if ref not in deduped:
+            deduped.append(ref)
+    return deduped
 
 
 def load_json(path: Path):
@@ -512,7 +695,7 @@ def build_reference_set(reference_groups):
     }
 
 
-def build_guide_groups():
+def build_guide_groups(region_counters, catalog):
     groups = {}
     for definition in GUIDE_GROUPS:
         group_id = definition["guide_group_id"]
@@ -529,10 +712,59 @@ def build_guide_groups():
             "counter_keys": sorted(definition["counter_keys"]),
             "source_refs": definition["source_refs"],
         }
+
+    members = {}
+    for item_id, item in catalog["items"].items():
+        region_id = item.get("region_slug")
+        if region_id not in GUIDE_REGION_IDS:
+            continue
+        mapped = GUIDE_CATEGORY_MAP.get((item.get("category"), item.get("subcategory")))
+        if mapped is None:
+            continue
+        members.setdefault((region_id, mapped[0]), []).append(item_id)
+
+    for (region_id, category_id), member_ids in sorted(members.items()):
+        group_id = f"guide:{region_id}:{category_id}"
+        member_ids = sorted(member_ids)
+        target_count = None
+        counter_keys = []
+        counter_category = GUIDE_COUNTER_CATEGORY.get(category_id)
+        if counter_category:
+            counter_key = f"counter:{region_id}:{counter_category}"
+            counter = region_counters.get(counter_key)
+            if counter is not None:
+                assert counter["source_total"] == len(member_ids), (
+                    f"{group_id} 的计数目标 {counter['source_total']} "
+                    f"与图鉴成员数 {len(member_ids)} 不一致"
+                )
+                target_count = len(member_ids)
+                counter_keys = [counter_key]
+        reference_set_id = (
+            REFERENCE_SET_ID
+            if category_id in REFERENCE_CATEGORY.values()
+            else None
+        )
+        groups[group_id] = {
+            "guide_group_id": group_id,
+            "display_name": (
+                f"{GUIDE_REGION_NAMES[region_id]} · {GUIDE_CATEGORY_NAMES[category_id]}"
+            ),
+            "name_kind": "curated_short",
+            "region_id": region_id,
+            "category_ids": sorted(
+                GUIDE_GROUP_CATEGORY_IDS.get(category_id, [category_id])
+            ),
+            "member_ids": member_ids,
+            "target_count": target_count,
+            "mapping_kind": "guide_group_membership",
+            "reference_set_id": reference_set_id,
+            "counter_keys": sorted(counter_keys),
+            "source_refs": guide_group_source_refs(region_id, category_id),
+        }
     return groups
 
 
-def build_documents(dictionary, counter_entries, reference_groups):
+def build_documents(dictionary, counter_entries, reference_groups, catalog):
     reference_ids_by_category = {
         category_id: sorted(set(reference_groups[group_name]["reference_ids"]))
         for group_name, category_id in REFERENCE_CATEGORY.items()
@@ -544,7 +776,7 @@ def build_documents(dictionary, counter_entries, reference_groups):
     )
     region_counters = build_region_counters(counter_entries)
     reference_set = build_reference_set(reference_groups)
-    guide_groups = build_guide_groups()
+    guide_groups = build_guide_groups(region_counters, catalog)
 
     def empty_sections():
         return {
@@ -618,6 +850,21 @@ def validate(dictionary, counter_entries, reference_groups, documents):
     missing = [item_id for item_id in reference_ids if item_id not in collectibles["items"]]
     assert not missing, f"参考 ID 不在条目表：{missing}"
 
+    # 攻略组：成员必须在条目表、来源必须在来源表；guide: 组 ID 与区域/类别一致。
+    for group_id, group in references["guide_groups"].items():
+        assert group["member_ids"], f"{group_id} 没有成员"
+        assert group["source_refs"], f"{group_id} 没有来源"
+        for item_id in group["member_ids"]:
+            assert item_id in collectibles["items"], f"{group_id} 成员 {item_id} 不在条目表"
+        for ref in group["source_refs"]:
+            assert ref in collectibles["sources"], f"{group_id} 来源 {ref} 不在来源表"
+        if group_id.startswith("guide:"):
+            _, region_id, category_id = group_id.split(":", 2)
+            assert region_id == group["region_id"], group_id
+            assert category_id in group["category_ids"], group_id
+        if group["counter_keys"]:
+            assert group["target_count"] == len(group["member_ids"]), group_id
+
     # 43 项计数：偏移恒等式、区域/类别与作用域合计
     for counter_key, entry in counters["region_counters"].items():
         expected_offset = 0x10BC + entry["serialized_row_index"] * 104 + entry[
@@ -636,17 +883,27 @@ def validate(dictionary, counter_entries, reference_groups, documents):
     assert scope_source_totals[("monoliths",)] == 12
     assert scope_source_totals[("crypt_treasures",)] == 10
 
-    # 攻略组：成员落于参考范围；计数目标与组目标一致
+    # 攻略组：参考类别内的组校验成员；有计数键的组校验目标数。
     for group_id, group in references["guide_groups"].items():
-        union = set()
-        for category_id in group["category_ids"]:
-            union.update(reference_set["reference_ids"][category_id])
-        for item_id in group["member_ids"]:
-            assert item_id in union, f"{group_id} 成员 {item_id} 不在参考范围"
-        target = sum(
-            counters["region_counters"][key]["source_total"] for key in group["counter_keys"]
-        )
-        assert group["target_count"] == target, f"{group_id} 目标数 {group['target_count']} != {target}"
+        if all(
+            category_id in reference_set["reference_ids"]
+            for category_id in group["category_ids"]
+        ):
+            union = set()
+            for category_id in group["category_ids"]:
+                union.update(reference_set["reference_ids"][category_id])
+            for item_id in group["member_ids"]:
+                assert item_id in union, f"{group_id} 成员 {item_id} 不在参考范围"
+        if group["counter_keys"]:
+            target = sum(
+                counters["region_counters"][key]["source_total"]
+                for key in group["counter_keys"]
+            )
+            assert group["target_count"] == target, (
+                f"{group_id} 目标数 {group['target_count']} != {target}"
+            )
+        else:
+            assert group["target_count"] is None, group_id
 
     # 不产生精确点位或条目映射的假数据
     for item_id, item in collectibles["items"].items():
@@ -669,8 +926,9 @@ def main() -> int:
     dictionary = load_json(RESEARCH_DIR / "collectible_id_candidates.json")["mapping"]
     counter_entries = load_json(RESEARCH_DIR / "region_counter_candidates.json")["entries"]
     reference_groups = load_json(RESEARCH_DIR / "reference_category_ids.json")["groups"]
+    catalog = load_json(CATALOG_PATH)
 
-    documents = build_documents(dictionary, counter_entries, reference_groups)
+    documents = build_documents(dictionary, counter_entries, reference_groups, catalog)
     validate(dictionary, counter_entries, reference_groups, documents)
 
     file_names = ["collectibles.json", "region_counters.json", "reference_sets.json"]
@@ -692,6 +950,12 @@ def main() -> int:
                 "region_counter_candidates.json",
                 "reference_category_ids.json",
             )
+        ]
+        + [
+            {
+                "file": "data/catalog/collectibles_catalog.json",
+                "sha256": sha256_file(CATALOG_PATH),
+            }
         ],
         "files": [
             {

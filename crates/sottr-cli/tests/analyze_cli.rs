@@ -181,6 +181,52 @@ fn analyze_matches_library_business_report_and_keeps_inputs() {
             .all(|location| location.coordinates.is_none())
     );
 
+    // 阶段 C：区域×类别攻略组进入报告，来源可解析出 URL 与载体。
+    let guide_locations: Vec<_> = report
+        .locations
+        .iter()
+        .filter(|location| {
+            location
+                .guide_group_id
+                .as_deref()
+                .is_some_and(|id| id.starts_with("guide:"))
+        })
+        .collect();
+    assert_eq!(guide_locations.len(), 43, "9 个主区域的区域×类别组");
+    let paititi = report
+        .locations
+        .iter()
+        .find(|location| {
+            location.guide_group_id.as_deref() == Some("guide:paititi:survival_caches")
+        })
+        .expect("帕伊提提贮藏点攻略组");
+    assert_eq!(paititi.region_id.as_deref(), Some("paititi"));
+    assert_eq!(paititi.member_ids.len(), 34);
+    assert_eq!(paititi.target_count, Some(34));
+    assert!(
+        paititi
+            .source_refs
+            .iter()
+            .any(|source_ref| source_ref == "src:3dm-full-walkthrough")
+    );
+    assert!(
+        paititi
+            .source_refs
+            .iter()
+            .any(|source_ref| source_ref == "src:bilibili-platinum-36p")
+    );
+    let dataset = bundle.dataset().unwrap();
+    for source_ref in &paititi.source_refs {
+        let source = dataset
+            .sources
+            .get(source_ref)
+            .unwrap_or_else(|| panic!("来源 {source_ref} 不存在"));
+        if source.role == Some(sottr_core::metadata::SourceRole::Guide) {
+            assert!(source.url.is_some(), "来源 {source_ref} 缺少 URL");
+            assert!(source.medium.is_some(), "来源 {source_ref} 缺少 medium");
+        }
+    }
+
     // 输入未被修改，输出目录不写入输入目录。
     assert_eq!(
         sha256_hex(&fs::read(input.join("save1.dat")).unwrap()),

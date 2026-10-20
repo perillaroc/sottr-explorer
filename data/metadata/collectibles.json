@@ -22365,6 +22365,94 @@
       "review": "仅转录事实结论；私人存档字节与绝对路径不进入任何数据文件",
       "medium": null,
       "role": "research"
+    },
+    "src:3dm-full-walkthrough": {
+      "url": "https://www.3dmgame.com/gl/3754628.html",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "中文图文全流程攻略目录与区域分页引用（57 页）",
+      "review": "2026-10-20 已核实目录与关键区域页可访问；未逐条核对每个收集品",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:gamersky-full-walkthrough": {
+      "url": "https://www.gamersky.com/handbook/201809/1098996.shtml",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "中文图文全收集流程攻略章节引用（11 页）",
+      "review": "2026-10-20 已核实页面可访问；章节未逐区域命名，作为次级文本来源",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:gamersky-paititi-map": {
+      "url": "https://www.gamersky.com/handbook/201809/1100600.shtml",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提全收集地图与全物品位置引用",
+      "review": "2026-10-20 已核实可访问；地图页不保证与图鉴条目逐条对应",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:gamersky-paititi-relics-documents": {
+      "url": "https://www.gamersky.com/handbook/201809/1101523.shtml",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提遗物与文献位置引用",
+      "review": "2026-10-20 已核实可访问；仅覆盖遗物与文献",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:bilibili-platinum-36p": {
+      "url": "https://www.bilibili.com/video/BV1iM4y1g78i/",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "用户投稿；站点保留权利；仅链接",
+      "redistributable": "pending",
+      "method": "按分 P 区域流程引用；不下载或转发视频",
+      "review": "2026-10-20 已核实 36P 分 P 列表与 ?p= 地址可访问",
+      "medium": "video",
+      "role": "guide"
+    },
+    "src:bilibili-collection-49p": {
+      "url": "https://www.bilibili.com/video/BV11v4y1R7jC/",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "用户投稿；站点保留权利；仅链接",
+      "redistributable": "pending",
+      "method": "按分 P 区域流程引用；不下载或转发视频",
+      "review": "2026-10-20 已核实 49P 分 P 列表可访问；作为次级视频来源",
+      "medium": "video",
+      "role": "guide"
+    },
+    "src:bilibili-paititi-collect": {
+      "url": "https://www.bilibili.com/video/BV1bW4116739/",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "用户投稿；站点保留权利；仅链接",
+      "redistributable": "pending",
+      "method": "帕依提提收集专题引用；按整段视频链接",
+      "review": "2026-10-20 已核实 28P 分 P 列表可访问；部分分 P 为单物品短片",
+      "medium": "video",
+      "role": "guide"
+    },
+    "src:bilibili-peruvian-jungle-collect": {
+      "url": "https://www.bilibili.com/video/BV1uW411k7uq/",
+      "fixed_revision": null,
+      "accessed": "2026-10-20",
+      "license": "用户投稿；站点保留权利；仅链接",
+      "redistributable": "pending",
+      "method": "秘鲁丛林收集专题引用；按整段视频链接",
+      "review": "2026-10-20 已核实 23P 分 P 列表可访问",
+      "medium": "video",
+      "role": "guide"
     }
   }
 }

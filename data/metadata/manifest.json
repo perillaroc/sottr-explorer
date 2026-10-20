@@ -13,23 +13,27 @@
     {
       "file": "research/python-v0.2/data/reference_category_ids.json",
       "sha256": "1e7eafecf04bd67bf4902f2b29fe3284991686dd6bb06250ca4408005bd6e665"
+    },
+    {
+      "file": "data/catalog/collectibles_catalog.json",
+      "sha256": "eb257f75170acdca7bab5053904b33bc5ff1000eb210a159dca67c8f52076402"
     }
   ],
   "files": [
     {
       "file_id": "collectibles.json",
-      "sha256": "349f09b034eb7961f5d2fa12493ab7ff5dd732948c571ba7e87d5fd1c03286c8",
-      "bytes": 535345
+      "sha256": "0027cbb78f517ff13e24259ca16bc1d7ad9080d7155f6419b067a50e9ed672d4",
+      "bytes": 539223
     },
     {
       "file_id": "region_counters.json",
-      "sha256": "e293e45554c5a5c3fa0462d5479089d8e5f9b5fd20ad2c9a13ee4c7dde0aab4a",
-      "bytes": 23155
+      "sha256": "7606a51fb6cd5b53707cc74f28e56b3c1c2a3d7eec47a453c46d1ef26e406c40",
+      "bytes": 27033
     },
     {
       "file_id": "reference_sets.json",
-      "sha256": "4582f5b1bd4eae197ff7c45bd54936ca6eead845141e44d60c6dce410ccc8e2b",
-      "bytes": 9975
+      "sha256": "b2ec50b84d2fa4cdfb5523958b1a6763ab9408eeb37b0c4282c5fad1317f31cc",
+      "bytes": 51830
     }
   ]
 }
