@@ -10,10 +10,12 @@ import { MockDataSource } from "../src/data/mock";
 
 const STELLA_SAN_JUAN_URL =
   "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-murals-caches.html";
-/** 圣胡安贮藏点组成员（位置线索带来源地址）。 */
+/** 圣胡安贮藏点组成员（位置线索带图文与视频来源）。 */
 const CACHES_ITEM = "0x0F28B6EC";
-/** 帕依提提主城的遗物（有坐标、无直链来源）。 */
+/** 帕依提提主城的遗物（用于搜索词断言）。 */
 const PAITITI_ITEM = "0xF1FAE49A";
+/** 帕依提提档案图：不在区域×类别攻略组内，用于“无直链”断言。 */
+const UNCOVERED_ITEM = "0xD1C49E0E";
 
 const writeText = vi.fn();
 
@@ -105,16 +107,16 @@ describe("收集品详情", () => {
     expect(wrapper.text()).toContain("按 ID 计数，不拆分判定");
   });
 
-  it("外部参考：直链按钮只在该条目的位置线索有来源地址时出现", async () => {
+  it("外部参考：有图文/视频来源时显示直链，未覆盖类别只显示搜索", async () => {
     const { store } = await setup();
     const withLinks = await detailFor(store, CACHES_ITEM);
     expect(withLinks.find('[data-testid="link-guide"]').exists()).toBe(true);
-    // 现有来源没有视频地址：视频直链不渲染（不置灰）。
-    expect(withLinks.find('[data-testid="link-video"]').exists()).toBe(false);
+    // 阶段 C 来源含视频：视频直链应出现。
+    expect(withLinks.find('[data-testid="link-video"]').exists()).toBe(true);
     expect(withLinks.find('[data-testid="link-search-text"]').exists()).toBe(true);
     expect(withLinks.find('[data-testid="link-search-video"]').exists()).toBe(true);
 
-    const withoutLinks = await detailFor(store, PAITITI_ITEM);
+    const withoutLinks = await detailFor(store, UNCOVERED_ITEM);
     expect(withoutLinks.find('[data-testid="link-guide"]').exists()).toBe(false);
     expect(withoutLinks.find('[data-testid="link-video"]').exists()).toBe(false);
   });

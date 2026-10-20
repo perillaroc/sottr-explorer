@@ -116,19 +116,23 @@ describe("store：外链动作", () => {
 });
 
 describe("store：直链候选", () => {
-  it("只为 role 为 guide 且有 URL 的来源产生候选", async () => {
+  it("只为 role 为 guide 的来源产生候选，图文与视频分别保留", async () => {
     const { store } = await storeWithReport();
     const links = store.directLinksForItem(item());
 
-    // 圣胡安贮藏点线索的来源里，stella 是 guide；ASL 有 URL 但 role=tool，
+    // 圣胡安贮藏点线索里，stella 是主图文来源；ASL 有 URL 但 role=tool，
     // plan-doc / research-evidence 没有 URL——都不产生候选。
-    expect(links.map((link) => link.sourceRef)).toEqual(["src:stella-san-juan"]);
     expect(links[0]).toMatchObject({
       locationId: "loc:stella:san-juan-caches",
       sourceRef: "src:stella-san-juan",
       medium: "text",
     });
     expect(links[0].url).toMatch(/^https:\/\//);
+    const refs = links.map((link) => link.sourceRef);
+    expect(refs).not.toContain("src:plan-doc");
+    expect(refs).not.toContain("src:asl-sottr");
+    expect(links.some((link) => link.medium === "video")).toBe(true);
+    expect(new Set(links.map((link) => link.url)).size).toBe(links.length);
   });
 
   it("同一载体的多个 guide 来源按 source_refs 顺序返回，首个在前", async () => {
@@ -136,11 +140,11 @@ describe("store：直链候选", () => {
     const links = store.directLinksForItem(item("0x439B19A6"));
 
     // 圣胡安石碑组的 source_refs 顺序：stella-san-juan → stella-san-juan-monolith。
-    expect(links.map((link) => link.sourceRef)).toEqual([
+    expect(links.slice(0, 2).map((link) => link.sourceRef)).toEqual([
       "src:stella-san-juan",
       "src:stella-san-juan-monolith",
     ]);
-    expect(links.every((link) => link.medium === "text")).toBe(true);
+    expect(links.slice(0, 2).every((link) => link.medium === "text")).toBe(true);
   });
 
   it("不在任何线索里的条目没有候选", async () => {

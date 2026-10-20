@@ -78,7 +78,7 @@ function counter(
 function groupLocation(
   guideGroupId: string,
   members: string[],
-  targetCount: number,
+  targetCount: number | null,
   digest: ReturnType<typeof inputDigest>,
   evidenceRef: string,
 ): LocationHint {
@@ -98,12 +98,15 @@ function groupLocation(
     applicable_platform: null,
     coordinates: null,
     map_transform: null,
-    group_actionability: {
-      kind: "whole_group_check",
-      reason_codes: ["COMPLETE_TABLE", "ZERO_GROUP_COUNT", "REFERENCE_MATCH"],
-      evidence_refs: [evidenceRef],
-      evaluated_input_digest: digest,
-    },
+    group_actionability:
+      group && group.counter_keys.length > 0
+        ? {
+            kind: "whole_group_check",
+            reason_codes: ["COMPLETE_TABLE", "ZERO_GROUP_COUNT", "REFERENCE_MATCH"],
+            evidence_refs: [evidenceRef],
+            evaluated_input_digest: digest,
+          }
+        : null,
     limitations: [
       "未建立内部 ID 与攻略编号的一对一映射；“按攻略逐一检查”基于整组当前计数为零与参考范围匹配（模拟数据）",
     ],
@@ -158,10 +161,24 @@ export function buildCompleteReport(seed: ReportSeed): Report {
   const monolithGroup = demoMetadata.guide_groups["stella:san-juan-monolith"];
   const cryptGroup = demoMetadata.guide_groups["stella:san-juan-crypt"];
 
+  // 阶段 C 新增的区域×类别攻略组：模拟报告与真实报告保持同一组集合。
+  const guideGroupLocations = Object.values(demoMetadata.guide_groups)
+    .filter((group) => group.guide_group_id.startsWith("guide:"))
+    .map((group) =>
+      groupLocation(
+        group.guide_group_id,
+        group.member_ids,
+        group.target_count,
+        digest,
+        `ev:guide:${group.guide_group_id}`,
+      ),
+    );
+
   const locations: LocationHint[] = [
     groupLocation("stella:san-juan-caches", cachesGroup?.member_ids ?? [], 8, digest, "ev:counter:san-juan:caches"),
     groupLocation("stella:san-juan-monolith", monolithGroup?.member_ids ?? [], 1, digest, "ev:counter:san-juan:monoliths"),
     groupLocation("stella:san-juan-crypt", cryptGroup?.member_ids ?? [], 1, digest, "ev:counter:san-juan:crypts"),
+    ...guideGroupLocations,
     {
       location_id: "loc:region:paititi",
       precision: "region",
