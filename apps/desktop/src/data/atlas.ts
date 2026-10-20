@@ -11,6 +11,7 @@
 // 全部来自版本化数据集 `data/catalog/collectibles_catalog.json`。
 
 import raw from "../../../../data/catalog/collectibles_catalog.json";
+import { localizedName, t } from "../app/i18n";
 
 export interface AtlasPosition {
   x: number;
@@ -236,12 +237,7 @@ function unitOf(atlas: Atlas, unit: number | null): PlanUnit | undefined {
 }
 
 export function displayNameOfItem(item: AtlasItem, id: string): string {
-  for (const value of [item.name_zh, item.name_en, item.name]) {
-    if (value && value.length > 0) {
-      return value;
-    }
-  }
-  return id;
+  return localizedName(item.name_zh, item.name_en ?? item.name, id);
 }
 
 function locationHint(
@@ -251,19 +247,34 @@ function locationHint(
   othersUncollected: number | undefined,
 ): string {
   const parts = [regionName];
-  const unitName = unit?.display_zh ?? unit?.display_en ?? unit?.zone ?? null;
+  const unitName = unit ? localizedName(unit.display_zh, unit.display_en, unit.zone ?? "") : null;
   if (unitName && !parts.includes(unitName)) {
     parts.push(unitName);
   }
   let text = parts.join(" · ");
   if (position) {
-    text += `；关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})（未校准，仅供同关卡内相对参照）`;
+    text += t(
+      `；关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})（未校准，仅供同关卡内相对参照）`,
+      `; in-level relative position ≈ (${position.x.toFixed(2)}, ${position.y.toFixed(2)}) (uncalibrated; relative reference within the same level only)`,
+    );
   }
   if (othersUncollected !== undefined && othersUncollected > 0) {
-    text += `；该子关卡还有 ${othersUncollected} 项未收集`;
+    text += t(
+      `；该子关卡还有 ${othersUncollected} 项未收集`,
+      `; ${othersUncollected} more uncollected in this sub-level`,
+    );
   }
   return text;
 }
+
+/** 特殊区域的英文说明（图鉴数据只提供中文 note）。 */
+const REGION_NOTES_EN: Record<string, string> = {
+  _challenge_tombs:
+    "Aggregate challenge-tomb region in game data (regionProgressionIndex=999, hideOnMap=1); it has no save counter and is shown per sub-level.",
+  _special:
+    "Special region in game data outside the 26-region main table; includes cross-region items such as Path of the Stars and Lara's Notebook.",
+  croft_manor: "Prologue manor area; does not count toward 100%.",
+};
 
 function compareItems(
   left: [string, AtlasItem],
@@ -348,7 +359,7 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
     const record = atlas.regions.find((region) => region.region_hash === regionHash);
     const nameZh = record?.name_zh ?? undefined;
     const nameEn = record?.name_en ?? undefined;
-    const regionName = nameZh ?? nameEn ?? slug;
+    const regionName = localizedName(nameZh, nameEn, slug);
 
     const buckets = new Map<string, { category: string; subcategory: string | null; items: [string, AtlasItem][] }>();
     for (const [id, item] of entries) {
@@ -375,7 +386,10 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
         ? category?.subcategories?.find((entry) => entry.id === bucket.subcategory)
         : undefined;
       const ruleKey = sub?.acquisition_rule_key ?? category?.acquisition_rule_key ?? "";
-      const ruleText = atlas.acquisition_rules[ruleKey]?.text_zh ?? "";
+      const rule = atlas.acquisition_rules[ruleKey];
+      const ruleText = rule ? t(rule.text_zh, rule.text_en) : "";
+      // 分组名保持目录原始值（与 Rust 核心/CLI 黄金输出一致）；界面按类别/子类别 id
+      // 做双语映射，见 `app/collection.ts` 的 `groupDisplayName`。
       const groupName = sub?.name ?? category?.name ?? bucket.category;
 
       bucket.items.sort(compareItems);
@@ -441,7 +455,9 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
       name_en: nameEn,
       name_source: record?.name_source ?? undefined,
       kind,
-      note: record?.note ?? undefined,
+      note: record?.note
+        ? localizedName(record.note, record.slug ? REGION_NOTES_EN[record.slug] : undefined, record.note)
+        : undefined,
       collected: regionCollected,
       total: regionTotal,
       groups,
@@ -457,9 +473,9 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
   };
 }
 
-/** 区域显示名（中文优先）。 */
+/** 区域显示名（当前语言；缺失回退另一种语言）。 */
 export function regionDisplayName(region: PlanRegion): string {
-  return region.name_zh ?? region.name_en ?? region.slug;
+  return localizedName(region.name_zh, region.name_en, region.slug);
 }
 
 /** 计划内全部条目（用于搜索/诊断）。 */

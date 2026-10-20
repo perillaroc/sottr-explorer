@@ -3,6 +3,7 @@
 // 关闭后焦点回到触发条目；打开时锁定背景滚动。
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { X } from "@lucide/vue";
+import { t } from "../../app/i18n";
 import UiIconButton from "./UiIconButton.vue";
 
 const props = withDefaults(
@@ -134,7 +135,7 @@ onBeforeUnmount(() => {
       >
         <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
           <h2 class="truncate text-base font-medium">{{ title }}</h2>
-          <UiIconButton label="关闭详情（Esc）" @click="emit('close')">
+          <UiIconButton :label="t('关闭详情（Esc）', 'Close details (Esc)')" @click="emit('close')">
             <X :size="16" aria-hidden="true" />
           </UiIconButton>
         </header>

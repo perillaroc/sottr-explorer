@@ -8,6 +8,7 @@
 import type { AssessedItem, InventoryRecord, LocationHint, Report } from "../contract/report";
 import type { MetadataDataset } from "../contract/metadata";
 import { COUNTER_CELL_SPECS, counterKey, REFERENCE_CATEGORY_ORDER } from "../data/metadata";
+import { t, tFormat } from "./i18n";
 import { businessStatus, categoryLabel, itemEvidenceLevel, regionLabel } from "./labels";
 
 export type RegionScope = "all" | "unknown" | string;
@@ -99,11 +100,21 @@ export function displayNameOf(
   const aliases = item?.aliases ?? [];
   if (item?.display_name && item.name_kind !== "unknown") {
     if (item.name_kind === "curated_short") {
-      return { text: item.display_name, kind: "curated", note: "人工简名，不是游戏正式名称", aliases };
+      return {
+        text: item.display_name,
+        kind: "curated",
+        note: t("人工简名，不是游戏正式名称", "Curated short name, not the official in-game name"),
+        aliases,
+      };
     }
     return { text: item.display_name, kind: "localized", note: null, aliases };
   }
-  return { text: `${category}（名称待确认）`, kind: "fallback", note: `短 ID ${shortIdOf(id)}`, aliases };
+  return {
+    text: tFormat("{category}（名称待确认）", "{category} (name to be confirmed)", { category }),
+    kind: "fallback",
+    note: tFormat("短 ID {id}", "short ID {id}", { id: shortIdOf(id) }),
+    aliases,
+  };
 }
 
 function searchHaystack(
@@ -313,17 +324,17 @@ function categoryRank(rank: number): number {
 
 /** 定位精度筛选选项（含“无定位”）。 */
 export const PRECISION_OPTIONS = [
-  { value: "region", label: "区域线索" },
-  { value: "guide_group", label: "攻略组" },
-  { value: "guide_item", label: "精确条目" },
-  { value: "verified_coordinates", label: "已验证坐标" },
-  { value: "none", label: "无定位" },
+  { value: "region", get label() { return t("区域线索", "Region clue"); } },
+  { value: "guide_group", get label() { return t("攻略组", "Guide group"); } },
+  { value: "guide_item", get label() { return t("精确条目", "Exact item"); } },
+  { value: "verified_coordinates", get label() { return t("已验证坐标", "Verified coordinates"); } },
+  { value: "none", get label() { return t("无定位", "No location"); } },
 ] as const;
 
 export const EVIDENCE_OPTIONS = [
-  { value: "observed", label: "原始观察" },
-  { value: "community_correlated", label: "社区关联" },
-  { value: "game_validated", label: "游戏内验证" },
+  { value: "observed", get label() { return t("原始观察", "Raw observation"); } },
+  { value: "community_correlated", get label() { return t("社区关联", "Community-correlated"); } },
+  { value: "game_validated", get label() { return t("游戏内验证", "In-game validated"); } },
 ] as const;
 
 /** 区域计数单元格（概览与区域页共用）。 */
@@ -357,7 +368,10 @@ export function regionCells(
         value: null,
         target: null,
         rawValue: null,
-        reason: "该区域/类别没有已映射的区域计数（43 项稀疏映射之外）",
+        reason: t(
+          "该区域/类别没有已映射的区域计数（43 项稀疏映射之外）",
+          "No mapped region counter for this region/category (outside the 43 sparse mappings)",
+        ),
         mergedNote: null,
       };
     }
@@ -371,7 +385,10 @@ export function regionCells(
         value: null,
         target: mapping.source_total,
         rawValue: null,
-        reason: "已映射计数，但本次快照未提供读数（未知不是 0）",
+        reason: t(
+          "已映射计数，但本次快照未提供读数（未知不是 0）",
+          "The counter is mapped, but this snapshot provided no reading (unknown is not zero)",
+        ),
         mergedNote: spec.mergedNote ?? null,
       };
     }
@@ -384,7 +401,12 @@ export function regionCells(
         value: null,
         target: reading.source_target,
         rawValue: reading.raw_value,
-        reason: reading.reason ?? "原始读数超出来源目标，保留原始值",
+        reason:
+          reading.reason ??
+          t(
+            "原始读数超出来源目标，保留原始值",
+            "The raw reading exceeds the source target; the raw value is kept",
+          ),
         mergedNote: spec.mergedNote ?? null,
       };
     }
@@ -428,34 +450,39 @@ export function unclassifiedRecords(metadata: MetadataDataset, report: Report): 
   });
 }
 
-/** 诊断分组（按“输入与解析 / 支持能力 / 计数与参考 / 定位与元数据”）。 */export interface DiagnosticGroup {
+/** 诊断分组（按“输入与解析 / 支持能力 / 计数与参考 / 定位与元数据”）。 */
+export interface DiagnosticGroup {
   title: string;
   items: Report["diagnostics"];
 }
 
 export function diagnosticGroups(report: Report): DiagnosticGroup[] {
+  const inputTitle = t("输入与解析", "Input & parsing");
+  const capabilityTitle = t("支持能力", "Supported capabilities");
+  const counterTitle = t("计数与参考", "Counters & reference");
+  const locationTitle = t("定位与元数据", "Location & metadata");
   const groups: Record<string, Report["diagnostics"]> = {
-    "输入与解析": [],
-    "支持能力": [],
-    "计数与参考": [],
-    "定位与元数据": [],
+    [inputTitle]: [],
+    [capabilityTitle]: [],
+    [counterTitle]: [],
+    [locationTitle]: [],
   };
   for (const diagnostic of report.diagnostics) {
     switch (diagnostic.scope) {
       case "input":
       case "container":
       case "sections":
-        groups["输入与解析"].push(diagnostic);
+        groups[inputTitle].push(diagnostic);
         break;
       case "inventory":
-        groups["支持能力"].push(diagnostic);
+        groups[capabilityTitle].push(diagnostic);
         break;
       case "counters":
       case "reference_difference":
-        groups["计数与参考"].push(diagnostic);
+        groups[counterTitle].push(diagnostic);
         break;
       default:
-        groups["定位与元数据"].push(diagnostic);
+        groups[locationTitle].push(diagnostic);
         break;
     }
   }

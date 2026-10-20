@@ -5,9 +5,10 @@
 import { computed, nextTick, onMounted, ref } from "vue";
 import { Copy, ExternalLink, Search } from "@lucide/vue";
 import { useStore } from "../app/inject";
+import { localizedName, t, tFormat } from "../app/i18n";
 import { copyText } from "../app/clipboard";
 import { formatSnapshotTime } from "../app/format";
-import { regionName, categoryNameOf } from "../app/collection";
+import { regionName, categoryNameOf, groupDisplayName } from "../app/collection";
 import { categoryClass } from "../app/category-style";
 import { buildSearchUrl, textSearchQuery, videoSearchQuery } from "../app/external-links";
 import { externalLinkKey, guideLinkKey, type DirectLink, type LinkActionState } from "../app/store";
@@ -44,9 +45,10 @@ const collected = computed(() => props.item.status === "collected");
 const categoryLabel = computed(() => categoryNameOf(store.atlas, props.group.category));
 
 /** 分组自己的名字（故事类别按子类别分组）；与类别名相同时不再单独成徽标。 */
-const subgroupLabel = computed(() =>
-  props.group.name === categoryLabel.value ? null : props.group.name,
-);
+const subgroupLabel = computed(() => {
+  const name = groupDisplayName(props.group);
+  return name === categoryLabel.value ? null : name;
+});
 
 /** 同一子关卡内的条目（用于相对位置散点）。 */
 const sameUnitItems = computed<PlanItem[]>(() => {
@@ -64,7 +66,7 @@ const unitText = computed(() => {
   if (!unit) {
     return null;
   }
-  return unit.display_zh ?? unit.display_en ?? unit.zone ?? `子关卡 ${unit.unit}`;
+  return localizedName(unit.display_zh, unit.display_en, unit.zone ?? t(`子关卡 ${unit.unit}`, `Sub-level ${unit.unit}`));
 });
 
 /** 「如何获取」主体：区域 · 子关卡 → 类别规则原文 → 关卡内相对位置 → 同子关卡剩余。 */
@@ -75,21 +77,30 @@ const acquisitionBody = computed(() => {
   ];
   const position = props.item.position;
   if (position) {
-    parts.push(`关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})`);
+    parts.push(
+      t(
+        `关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})`,
+        `Approx. in-level position (${position.x.toFixed(2)}, ${position.y.toFixed(2)})`,
+      ),
+    );
   }
   const remaining = props.item.same_unit_remaining ?? 0;
   if (remaining > 0) {
-    parts.push(`同一子关卡还有 ${remaining} 项未收集`);
+    parts.push(
+      t(`同一子关卡还有 ${remaining} 项未收集`, `${remaining} more uncollected in the same sub-level`),
+    );
   }
   return parts.join(" · ");
 });
 
 const copyLines = computed(() =>
   [
-    `${props.item.display_name}${props.item.name_en ? `（${props.item.name_en}）` : ""}`,
-    `状态：${collected.value ? "已收集" : "未收集"}`,
-    `区域：${regionName(props.region)}${unitText.value ? ` · ${unitText.value}` : ""}`,
-    `获取：${props.item.acquisition_text}`,
+    `${props.item.display_name}`,
+    t(`状态：${collected.value ? "已收集" : "未收集"}`, `Status: ${collected.value ? "collected" : "uncollected"}`),
+    tFormat("区域：{value}", "Region: {value}", {
+      value: `${regionName(props.region)}${unitText.value ? ` · ${unitText.value}` : ""}`,
+    }),
+    tFormat("获取：{value}", "Acquisition: {value}", { value: props.item.acquisition_text }),
   ].join("\n"),
 );
 
@@ -126,8 +137,8 @@ function openDirectLink(link: DirectLink, label: string): Promise<void> {
 
 function openSearch(medium: "text" | "video"): Promise<void> {
   return medium === "text"
-    ? store.actions.openExternalLink(searchTextUrl.value, "搜索图文攻略")
-    : store.actions.openExternalLink(searchVideoUrl.value, "搜索视频");
+    ? store.actions.openExternalLink(searchTextUrl.value, t("搜索图文攻略", "Search text guides"))
+    : store.actions.openExternalLink(searchVideoUrl.value, t("搜索视频", "Search videos"));
 }
 
 /** 四个按钮的目标与重试动作（统一显示动作状态；直链无候选时不出现）。 */
@@ -137,26 +148,26 @@ const linkButtons = computed<LinkButton[]>(() => {
   if (text) {
     buttons.push({
       key: guideLinkKey(text.locationId, text.sourceRef),
-      label: "攻略页",
-      retry: () => openDirectLink(text, "攻略页"),
+      label: t("攻略页", "Guide page"),
+      retry: () => openDirectLink(text, t("攻略页", "Guide page")),
     });
   }
   buttons.push({
     key: externalLinkKey(searchTextUrl.value),
-    label: "搜索图文攻略",
+    label: t("搜索图文攻略", "Search text guides"),
     retry: () => openSearch("text"),
   });
   const video = directVideo.value;
   if (video) {
     buttons.push({
       key: guideLinkKey(video.locationId, video.sourceRef),
-      label: "视频页",
-      retry: () => openDirectLink(video, "视频页"),
+      label: t("视频页", "Video page"),
+      retry: () => openDirectLink(video, t("视频页", "Video page")),
     });
   }
   buttons.push({
     key: externalLinkKey(searchVideoUrl.value),
-    label: "搜索视频",
+    label: t("搜索视频", "Search videos"),
     retry: () => openSearch("video"),
   });
   return buttons;
@@ -165,15 +176,15 @@ const linkButtons = computed<LinkButton[]>(() => {
 function statusText(action: LinkActionState): string {
   switch (action.status) {
     case "resolving":
-      return "正在解析链接…";
+      return t("正在解析链接…", "Resolving link…");
     case "opening":
-      return "正在打开…";
+      return t("正在打开…", "Opening…");
     case "opened":
-      return "已在浏览器打开";
+      return t("已在浏览器打开", "Opened in browser");
     case "copied":
-      return "已复制链接";
+      return t("已复制链接", "Link copied");
     case "error":
-      return `失败：${action.error?.message ?? "未知错误"}`;
+      return tFormat("失败：{message}", "Failed: {message}", { message: action.error?.message ?? t("未知错误", "unknown error") });
   }
 }
 
@@ -200,47 +211,46 @@ const linkStatusTone = computed(() => {
   <article class="space-y-4 pb-4" data-testid="item-detail">
     <header class="space-y-1">
       <p class="text-xs text-muted">
-        {{ store.currentSlot.value?.name ?? "未选择文件" }}
+        {{ store.currentSlot.value?.name ?? t("未选择文件", "No file selected") }}
         <template v-if="store.currentSlot.value?.result?.snapshot_time">
-          · 快照 {{ formatSnapshotTime(store.currentSlot.value.result.snapshot_time) }}
+          · {{ t("快照", "snapshot") }} {{ formatSnapshotTime(store.currentSlot.value.result.snapshot_time) }}
         </template>
       </p>
       <h2 ref="heading" tabindex="-1" class="text-base leading-snug font-semibold break-words" data-testid="detail-heading">
         {{ item.display_name }}
       </h2>
-      <p v-if="item.name_en && item.name_zh" class="text-[13px] text-muted">{{ item.name_en }}</p>
       <p class="mono text-xs text-muted">{{ item.id }}</p>
       <div class="flex flex-wrap items-center gap-1.5">
-        <UiBadge :tone="collected ? 'success' : 'caution'" kind-label="状态">
-          {{ collected ? "已收集" : "未收集" }}
+        <UiBadge :tone="collected ? 'success' : 'caution'" :kind-label="t('状态', 'Status')">
+          {{ collected ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
         </UiBadge>
-        <UiBadge tone="neutral" kind-label="类别" :class="categoryClass(group.category)">
+        <UiBadge tone="neutral" :kind-label="t('类别', 'Category')" :class="categoryClass(group.category)">
           {{ categoryLabel }}
         </UiBadge>
-        <UiBadge v-if="subgroupLabel" tone="neutral" kind-label="子类别">{{ subgroupLabel }}</UiBadge>
-        <UiBadge v-if="item.is_dlc" tone="neutral" kind-label="版本">DLC</UiBadge>
-        <UiBadge v-if="item.required_for_100 === false" tone="neutral" kind-label="口径">可选（不计入 100%）</UiBadge>
-        <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" kind-label="口径">未闭合（不计入缺失结论）</UiBadge>
+        <UiBadge v-if="subgroupLabel" tone="neutral" :kind-label="t('子类别', 'Subcategory')">{{ subgroupLabel }}</UiBadge>
+        <UiBadge v-if="item.is_dlc" tone="neutral" :kind-label="t('版本', 'Edition')">DLC</UiBadge>
+        <UiBadge v-if="item.required_for_100 === false" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("可选（不计入 100%）", "Optional (not counted toward 100%)") }}</UiBadge>
+        <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("未闭合（不计入缺失结论）", "Unresolved (excluded from missing conclusions)") }}</UiBadge>
       </div>
       <p v-if="item.shared_names && item.shared_names.length > 1" class="text-xs text-caution">
-        该 ID 对应 {{ item.shared_names.length }} 个名称：{{ item.shared_names.join(" / ") }}（按 ID 计数，不拆分判定）
+        {{ tFormat("该 ID 对应 {count} 个名称：{names}（按 ID 计数，不拆分判定）", "This ID maps to {count} names: {names} (counted by ID; not split for assessment)", { count: item.shared_names.length, names: item.shared_names.join(" / ") }) }}
       </p>
     </header>
 
     <section class="space-y-1.5">
-      <h3 class="text-sm font-medium">如何获取</h3>
+      <h3 class="text-sm font-medium">{{ t("如何获取", "How to obtain") }}</h3>
       <p class="text-[13px]" data-testid="detail-acquisition">{{ acquisitionBody }}</p>
       <p class="text-xs text-muted">
-        <template v-if="item.acquisition_source === 'item_note'">逐项注记（人工整理，未逐条与游戏内核实）。</template>
-        <template v-else>类别通用说明（人工整理，未逐条与游戏内核实）。</template>
+        <template v-if="item.acquisition_source === 'item_note'">{{ t("逐项注记（人工整理，未逐条与游戏内核实）。", "Per-item note (curated; not verified item by item in-game).") }}</template>
+        <template v-else>{{ t("类别通用说明（人工整理，未逐条与游戏内核实）。", "Category-level note (curated; not verified item by item in-game).") }}</template>
       </p>
       <div class="flex flex-wrap items-center gap-2 pt-1">
         <UiButton size="sm" variant="ghost" data-testid="copy-lead" @click="copyHint">
           <Copy :size="16" aria-hidden="true" />
-          复制这条线索
+          {{ t("复制这条线索", "Copy this hint") }}
         </UiButton>
-        <span v-if="copiedHint" class="text-[13px] text-success">已复制到剪贴板。</span>
-        <span v-else-if="leadText" class="text-[13px] text-caution">复制失败：可手动选择下方文本。</span>
+        <span v-if="copiedHint" class="text-[13px] text-success">{{ t("已复制到剪贴板。", "Copied to clipboard.") }}</span>
+        <span v-else-if="leadText" class="text-[13px] text-caution">{{ t("复制失败：可手动选择下方文本。", "Copy failed: select the text below manually.") }}</span>
       </div>
       <pre
         v-if="leadText"
@@ -251,35 +261,35 @@ const linkStatusTone = computed(() => {
     </section>
 
     <section class="space-y-1.5" data-testid="external-links">
-      <h3 class="text-sm font-medium">外部参考</h3>
+      <h3 class="text-sm font-medium">{{ t("外部参考", "External references") }}</h3>
       <div class="flex flex-wrap items-center gap-2">
         <UiButton
           v-if="directText"
           size="sm"
           variant="ghost"
           data-testid="link-guide"
-          @click="openDirectLink(directText, '攻略页')"
+          @click="openDirectLink(directText, t('攻略页', 'Guide page'))"
         >
           <ExternalLink :size="16" aria-hidden="true" />
-          攻略页
+          {{ t("攻略页", "Guide page") }}
         </UiButton>
         <UiButton size="sm" variant="ghost" data-testid="link-search-text" @click="openSearch('text')">
           <Search :size="16" aria-hidden="true" />
-          搜索图文攻略
+          {{ t("搜索图文攻略", "Search text guides") }}
         </UiButton>
         <UiButton
           v-if="directVideo"
           size="sm"
           variant="ghost"
           data-testid="link-video"
-          @click="openDirectLink(directVideo, '视频页')"
+          @click="openDirectLink(directVideo, t('视频页', 'Video page'))"
         >
           <ExternalLink :size="16" aria-hidden="true" />
-          视频页
+          {{ t("视频页", "Video page") }}
         </UiButton>
         <UiButton size="sm" variant="ghost" data-testid="link-search-video" @click="openSearch('video')">
           <Search :size="16" aria-hidden="true" />
-          搜索视频
+          {{ t("搜索视频", "Search videos") }}
         </UiButton>
       </div>
       <p v-if="activeLink" class="flex flex-wrap items-center gap-2 text-xs" :class="linkStatusTone" data-testid="link-status">
@@ -291,11 +301,11 @@ const linkStatusTone = computed(() => {
           data-testid="link-retry"
           @click="activeLink.button.retry()"
         >
-          重试
+          {{ t("重试", "Retry") }}
         </UiButton>
       </p>
       <p class="text-xs text-muted">
-        在系统浏览器中打开；设置页选「仅复制链接」时只复制地址。应用内始终不加载网页。
+        {{ t("在系统浏览器中打开；设置页选「仅复制链接」时只复制地址。应用内始终不加载网页。", "Opens in the system browser; with “Copy link only” selected in Settings, only the address is copied. The app never loads web pages in-app.") }}
       </p>
     </section>
 
@@ -304,11 +314,11 @@ const linkStatusTone = computed(() => {
       class="rounded-[8px] border border-line bg-raised/60 px-3 py-2"
       data-testid="position-section"
     >
-      <summary class="cursor-pointer text-[13px] font-medium">同一子关卡内的相对位置</summary>
+      <summary class="cursor-pointer text-[13px] font-medium">{{ t("同一子关卡内的相对位置", "Relative positions within the same sub-level") }}</summary>
       <div class="mt-2 space-y-1.5">
         <PositionScatter :items="sameUnitItems" :selected-id="item.id" />
         <p class="text-xs text-caution">
-          未校准：坐标为关卡内归一化值，不是导航点位；仅用于同一子关卡内的相对参照。
+          {{ t("未校准：坐标为关卡内归一化值，不是导航点位；仅用于同一子关卡内的相对参照。", "Uncalibrated: coordinates are normalized in-level values, not navigation waypoints; they are for relative reference within the same sub-level only.") }}
         </p>
       </div>
     </details>

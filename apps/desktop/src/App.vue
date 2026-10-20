@@ -4,6 +4,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { ArrowLeft, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
+import { t } from "./app/i18n";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
 import { productionMetadata } from "./data/metadata";
 import { demoObservedIds } from "./data/atlas";
@@ -218,7 +219,7 @@ onBeforeUnmount(() => {
             data-testid="notice"
           >
             <span class="min-w-0 flex-1">{{ store.state.notice.text }}</span>
-            <UiIconButton label="关闭提示" @click="store.actions.dismissNotice()">
+            <UiIconButton :label="t('关闭提示', 'Dismiss notice')" @click="store.actions.dismissNotice()">
               <X :size="14" aria-hidden="true" />
             </UiIconButton>
           </div>
@@ -227,7 +228,7 @@ onBeforeUnmount(() => {
             <header class="flex h-12 shrink-0 items-center gap-2 border-b border-line px-3">
               <UiButton size="sm" variant="ghost" data-testid="detail-back" @click="store.actions.closeDetail()">
                 <ArrowLeft :size="16" aria-hidden="true" />
-                返回清单
+                {{ t("返回清单", "Back to list") }}
               </UiButton>
               <span class="truncate text-xs text-muted">{{ store.currentSlot.value?.name ?? "" }}</span>
             </header>
@@ -246,7 +247,7 @@ onBeforeUnmount(() => {
         <aside
           v-if="showPersistentPane && selectedEntry"
           class="w-[400px] shrink-0 border-l border-line bg-surface"
-          aria-label="条目详情"
+          :aria-label="t('条目详情', 'Item details')"
           data-testid="detail-pane"
         >
           <div class="scroll-area h-full px-4 py-3">
@@ -271,7 +272,7 @@ onBeforeUnmount(() => {
     <UiDrawer
       v-if="showDrawer && selectedEntry"
       :open="true"
-      :title="store.currentSlot.value?.name ? `详情 · ${store.currentSlot.value.name}` : '详情'"
+      :title="store.currentSlot.value?.name ? t(`详情 · ${store.currentSlot.value.name}`, `Details · ${store.currentSlot.value.name}`) : t('详情', 'Details')"
       :width-class="drawerWidthClass"
       @close="store.actions.closeDetail()"
     >

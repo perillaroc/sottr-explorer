@@ -6,6 +6,7 @@
 import type { Atlas, CollectionPlan, PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
 import { regionDisplayName } from "../data/atlas";
 import type { FilterState, StatusFilter } from "./catalog";
+import { categoryLabel, subcategoryLabel } from "./labels";
 
 export interface CollectionCounts {
   all: number;
@@ -37,9 +38,10 @@ export function regionName(region: PlanRegion): string {
   return regionDisplayName(region);
 }
 
-/** 类别显示名（图鉴类别名；未知回退 id）。主清单分组头与详情徽标共用。 */
+/** 类别显示名（图鉴类别 id 的双语名；未知回退 id）。主清单分组头与详情徽标共用。 */
 export function categoryNameOf(atlas: Atlas, categoryId: string): string {
-  return atlas.categories.find((entry) => entry.id === categoryId)?.name ?? categoryId;
+  const entry = atlas.categories.find((category) => category.id === categoryId);
+  return categoryLabel(categoryId, entry?.name ?? null);
 }
 
 function itemHaystack(item: PlanItem, group: PlanGroup): string {
@@ -114,9 +116,17 @@ export function categoriesOfRegion(region: PlanRegion): { id: string; name: stri
   return [...seen.values()];
 }
 
+/** 分组显示名：故事类别按子类别（遗物/文献/壁画），其余用类别名；保留原始值为回退。 */
+export function groupDisplayName(group: PlanGroup): string {
+  if (group.subcategory) {
+    return subcategoryLabel(group.subcategory) ?? group.name;
+  }
+  return categoryLabel(group.category, group.name);
+}
+
 /** 全部区域的类别名（取第一处出现的分组名，故事类别按子类别展示）。 */
 export function groupLabel(group: PlanGroup): string {
-  return group.name;
+  return groupDisplayName(group);
 }
 
 /** 区域列表：主区域在前、特殊区域在后（计划已排序，这里只做透传并附名称）。 */

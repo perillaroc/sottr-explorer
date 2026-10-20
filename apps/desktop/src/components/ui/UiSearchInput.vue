@@ -2,6 +2,7 @@
 // 搜索输入：受控组件；提供 focus() 供 Ctrl+F 使用；空值时显示清除按钮。
 import { ref } from "vue";
 import { X } from "@lucide/vue";
+import { t } from "../../app/i18n";
 
 const props = withDefaults(
   defineProps<{
@@ -10,7 +11,7 @@ const props = withDefaults(
     ariaLabel: string;
     disabled?: boolean;
   }>(),
-  { placeholder: "搜索", disabled: false },
+  { placeholder: undefined, disabled: false },
 );
 
 const emit = defineEmits<{
@@ -41,7 +42,7 @@ defineExpose({ focus });
       ref="input"
       type="search"
       :value="props.modelValue"
-      :placeholder="placeholder"
+      :placeholder="props.placeholder ?? t('搜索', 'Search')"
       :aria-label="ariaLabel"
       :disabled="disabled"
       class="h-9 w-full rounded-[6px] border border-line bg-surface pr-8 pl-3 text-sm text-ink placeholder:text-muted disabled:opacity-60"
@@ -50,8 +51,8 @@ defineExpose({ focus });
     <button
       v-if="props.modelValue"
       type="button"
-      :aria-label="`清除搜索：${props.modelValue}`"
-      title="清除搜索"
+      :aria-label="t(`清除搜索：${props.modelValue}`, `Clear search: ${props.modelValue}`)"
+      :title="t('清除搜索', 'Clear search')"
       class="absolute right-1 inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] text-muted hover:bg-raised hover:text-ink"
       @click="clear"
     >

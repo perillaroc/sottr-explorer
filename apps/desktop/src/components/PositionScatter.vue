@@ -4,6 +4,7 @@
 // - 只表达“同一子关卡内这些收集品的相对位置”，不画真实地图底图（版权与校准双重风险）；
 // - 已收集实心、未收集空心，当前条目加外圈。
 import { computed } from "vue";
+import { t } from "../app/i18n";
 import type { PlanItem } from "../data/atlas";
 
 const props = defineProps<{
@@ -48,7 +49,7 @@ const hasPoints = computed(() => points.value.length > 0);
       :viewBox="`0 0 ${SIZE} ${SIZE}`"
       class="w-full max-w-[220px] rounded-[6px] border border-line bg-raised"
       role="img"
-      :aria-label="`同一子关卡内 ${points.length} 个收集品的相对位置（未校准）`"
+      :aria-label="t(`同一子关卡内 ${points.length} 个收集品的相对位置（未校准）`, `Relative positions of ${points.length} collectibles in the same sub-level (uncalibrated)`)"
     >
       <line
         v-for="tick in [0.25, 0.5, 0.75]"
@@ -90,15 +91,15 @@ const hasPoints = computed(() => points.value.length > 0);
           :stroke="point.collected ? 'var(--accent-strong)' : 'var(--muted)'"
           stroke-width="1.6"
         >
-          <title>{{ point.label }}（{{ point.collected ? "已收集" : "未收集" }}）</title>
+          <title>{{ point.label }}（{{ point.collected ? t("已收集", "collected") : t("未收集", "uncollected") }}）</title>
         </circle>
       </g>
       <text :x="PAD" :y="SIZE - 2" class="fill-[var(--muted)]" font-size="8">0</text>
       <text :x="SIZE - PAD - 6" :y="SIZE - 2" class="fill-[var(--muted)]" font-size="8">1</text>
     </svg>
     <figcaption class="text-xs text-muted">
-      实心 = 已收集，空心 = 未收集；同一子关卡内的相对位置。
-      <span class="text-caution">坐标未校准，不是导航点位。</span>
+      {{ t("实心 = 已收集，空心 = 未收集；同一子关卡内的相对位置。", "Filled = collected, hollow = uncollected; relative positions within the same sub-level.") }}
+      <span class="text-caution">{{ t("坐标未校准，不是导航点位。", "Coordinates are uncalibrated and are not navigation waypoints.") }}</span>
     </figcaption>
   </figure>
 </template>

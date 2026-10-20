@@ -7,8 +7,9 @@
 // - 区域进度分母是该区域图鉴条目数，不是游戏内地图百分比。
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { useStore } from "../app/inject";
+import { t, tFormat, localizedName } from "../app/i18n";
 import { copy } from "../app/labels";
-import { categoriesOfRegion, categoryNameOf, countRegion, regionName } from "../app/collection";
+import { categoriesOfRegion, categoryNameOf, countRegion, groupDisplayName, regionName } from "../app/collection";
 import { categoryClass, categoryDotClass } from "../app/category-style";
 import { shortId } from "../app/format";
 import type { PlanGroup, PlanRegion } from "../data/atlas";
@@ -36,27 +37,30 @@ const specialRegions = computed(() => plan.value.regions.filter((entry) => entry
 
 const regionTitle = computed(() => {
   if (region.value === "all") {
-    return "全部区域";
+    return t("全部区域", "All regions");
   }
   if (region.value === "unknown") {
-    return "目录外观察记录";
+    return t("目录外观察记录", "Off-catalog observed records");
   }
   return regionPlan.value ? regionName(regionPlan.value) : region.value;
 });
 
 const statusOptions = computed<ChipOption[]>(() => [
-  { value: "missing", label: "未收集", count: store.planFilterCounts.value.missing },
-  { value: "observed", label: "已收集", count: store.planFilterCounts.value.observed },
+  { value: "missing", label: t("未收集", "Uncollected"), count: store.planFilterCounts.value.missing },
+  { value: "observed", label: t("已收集", "Collected"), count: store.planFilterCounts.value.observed },
   {
     value: "all",
-    label: "全部",
+    label: t("全部", "All"),
     count: store.planFilterCounts.value.all,
-    title: "“全部”指本图鉴收录的收集品，不含服装 / 技能等非收集品记录",
+    title: t(
+      "“全部”指本图鉴收录的收集品，不含服装 / 技能等非收集品记录",
+      "“All” means collectibles in this catalog; outfits, skills and other non-collectible records are excluded",
+    ),
   },
 ]);
 
 const categoryOptions = computed<ChipOption[]>(() => {
-  const options: ChipOption[] = [{ value: "", label: "全部类别" }];
+  const options: ChipOption[] = [{ value: "", label: t("全部类别", "All categories") }];
   if (regionPlan.value) {
     for (const category of categoriesOfRegion(regionPlan.value)) {
       options.push({ value: category.id, label: categoryLabelOf(category.id), count: category.count });
@@ -71,7 +75,8 @@ function categoryLabelOf(categoryId: string): string {
 
 /** 分组自己的名字（故事类别按子类别分组）；与类别名相同时不重复成行。 */
 function subgroupLabelOf(group: PlanGroup): string | null {
-  return group.name === categoryLabelOf(group.category) ? null : group.name;
+  const name = groupDisplayName(group);
+  return name === categoryLabelOf(group.category) ? null : name;
 }
 
 function groupPercent(region: PlanRegion): number {
@@ -92,25 +97,29 @@ function onSelectRow(id: string): void {
 
 const activeFilterSummary = computed(() => {
   const parts: string[] = [];
-  const statusLabels: Record<string, string> = { missing: "未收集", observed: "已收集", all: "全部" };
-  parts.push(`状态：${statusLabels[store.state.filters.status] ?? store.state.filters.status}`);
+  const statusLabels: Record<string, string> = {
+    missing: t("未收集", "Uncollected"),
+    observed: t("已收集", "Collected"),
+    all: t("全部", "All"),
+  };
+  parts.push(tFormat("状态：{value}", "Status: {value}", { value: statusLabels[store.state.filters.status] ?? store.state.filters.status }));
   if (store.state.filters.category) {
-    parts.push(`类别：${categoryLabelOf(store.state.filters.category)}`);
+    parts.push(tFormat("类别：{value}", "Category: {value}", { value: categoryLabelOf(store.state.filters.category) }));
   }
   if (store.state.search) {
-    parts.push(`搜索：${store.state.search}`);
+    parts.push(tFormat("搜索：{value}", "Search: {value}", { value: store.state.search }));
   }
   return parts.join(" · ");
 });
 
 const emptyTitle = computed(() => {
   if (store.state.search) {
-    return "没有匹配的收集品";
+    return t("没有匹配的收集品", "No matching collectibles");
   }
   if (store.state.filters.status === "missing") {
-    return "本区域已全部收集";
+    return t("本区域已全部收集", "Everything in this region is collected");
   }
-  return "当前筛选没有条目";
+  return t("当前筛选没有条目", "No items match the current filters");
 });
 
 onMounted(() => {
@@ -133,14 +142,14 @@ watch(
   <section class="flex min-h-0 flex-1 flex-col" aria-labelledby="collection-title">
     <header class="shrink-0 space-y-2 px-6 pt-5 pb-3">
       <div class="flex flex-wrap items-baseline gap-2">
-        <h1 id="collection-title" class="text-xl font-semibold">区域与收集 · {{ regionTitle }}</h1>
+        <h1 id="collection-title" class="text-xl font-semibold">{{ t("区域与收集", "Regions & Collection") }} · {{ regionTitle }}</h1>
         <span class="text-[13px] text-muted">
-          主区域 {{ totalCounts.collected }}/{{ totalCounts.all }} 已收集 · 特殊区域单列 · 图鉴 {{ plan.catalog_version }}
+          {{ t(`主区域 ${totalCounts.collected}/${totalCounts.all} 已收集 · 特殊区域单列 · 图鉴 ${plan.catalog_version}`, `Main regions ${totalCounts.collected}/${totalCounts.all} collected · special regions listed separately · catalog ${plan.catalog_version}`) }}
         </span>
       </div>
 
       <div class="flex flex-wrap items-center gap-2">
-        <label class="text-[13px] text-muted" for="region-select">区域</label>
+        <label class="text-[13px] text-muted" for="region-select">{{ t("区域", "Region") }}</label>
         <select
           id="region-select"
           class="h-9 rounded-[6px] border border-line bg-surface px-2 text-[13px]"
@@ -148,30 +157,30 @@ watch(
           data-testid="region-select"
           @change="openRegion(($event.target as HTMLSelectElement).value)"
         >
-          <option value="all">全部区域</option>
-          <optgroup label="主区域">
+          <option value="all">{{ t("全部区域", "All regions") }}</option>
+          <optgroup :label="t('主区域', 'Main regions')">
             <option v-for="entry in mainRegions" :key="entry.slug" :value="entry.slug">
-              {{ regionName(entry) }}（{{ entry.collected }}/{{ entry.total }}）
+              {{ regionName(entry) }} ({{ entry.collected }}/{{ entry.total }})
             </option>
           </optgroup>
-          <optgroup label="特殊区域">
+          <optgroup :label="t('特殊区域', 'Special regions')">
             <option v-for="entry in specialRegions" :key="entry.slug" :value="entry.slug">
-              {{ regionName(entry) }}（{{ entry.collected }}/{{ entry.total }}）
+              {{ regionName(entry) }} ({{ entry.collected }}/{{ entry.total }})
             </option>
           </optgroup>
-          <option value="unknown">目录外观察记录（{{ plan.observed_not_in_catalog.length }}）</option>
+          <option value="unknown">{{ t(`目录外观察记录（${plan.observed_not_in_catalog.length}）`, `Off-catalog observed records (${plan.observed_not_in_catalog.length})`) }}</option>
         </select>
       </div>
 
       <UiEmptyState v-if="!store.report.value" :title="copy.noReport" :description="copy.noReportHelp">
-        <UiButton variant="primary" @click="store.actions.setView('import')">打开存档</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
       </UiEmptyState>
       <UiEmptyState
         v-else-if="!store.planAvailable.value"
-        title="资料文件没有收集品清单"
-        description="profile.dat 是资料文件，只做容器观察；请选择 save*.dat 存档查看区域收集状态。"
+        :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
+        :description="t('profile.dat 是资料文件，只做容器观察；请选择 save*.dat 存档查看区域收集状态。', 'profile.dat is a profile file and is only observed as a container; choose a save*.dat file to view regional collection status.')"
       >
-        <UiButton variant="primary" @click="store.actions.setView('import')">选择存档文件</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
       </UiEmptyState>
 
       <template v-else>
@@ -180,27 +189,27 @@ watch(
           tone="warning"
           test-id="stale-banner"
           :title="copy.stale"
-          :lines="['旧结果只反映上一次读取；收集状态可能已变化，请刷新后再核对。']"
+          :lines="[t('旧结果只反映上一次读取；收集状态可能已变化，请刷新后再核对。', 'The previous result reflects only the last read; collection status may have changed — refresh before checking again.')]"
         />
         <CoverageNotice
           tone="info"
           test-id="coverage-banner"
-          title="收集状态来自存档物品表"
+          :title="t('收集状态来自存档物品表', 'Collection status comes from the save inventory table')"
           :lines="[
-            '“已收集”= 该 ID 出现在当前存档的物品表中；区域计数已与存档自带的区域计数器逐行核对。',
-            '区域进度是图鉴条目数之比，不是游戏内地图完成度百分比。',
+            t('“已收集”= 该 ID 出现在当前存档的物品表中；区域计数已与存档自带的区域计数器逐行核对。', '“Collected” means the ID appears in the current save inventory table; regional counts were checked line by line against the save’s own region counters.'),
+            t('区域进度是图鉴条目数之比，不是游戏内地图完成度百分比。', 'Region progress is a ratio of catalog item counts, not the in-game map completion percentage.'),
           ]"
         />
 
         <template v-if="region !== 'all' && region !== 'unknown'">
           <div class="flex flex-wrap items-center gap-2">
             <span class="text-[13px] text-ink">
-              已收集 {{ counts.collected }}/{{ counts.all }}
+              {{ t(`已收集 ${counts.collected}/${counts.all}`, `Collected ${counts.collected}/${counts.all}`) }}
             </span>
             <span v-if="counts.uncollected > 0" class="rounded-[6px] bg-accent-bg px-2 py-0.5 text-[13px] text-accent-strong">
-              未收集 {{ counts.uncollected }}
+              {{ t(`未收集 ${counts.uncollected}`, `Uncollected ${counts.uncollected}`) }}
             </span>
-            <span v-else class="text-[13px] text-muted">本区域已全部收集</span>
+            <span v-else class="text-[13px] text-muted">{{ t("本区域已全部收集", "Everything in this region is collected") }}</span>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
@@ -208,24 +217,24 @@ watch(
               <UiSearchInput
                 ref="searchInput"
                 :model-value="store.state.search"
-                placeholder="搜索名称 / 内部名 / ID"
-                :ariaLabel="'搜索名称或 ID'"
+                :placeholder="t('搜索名称 / 内部名 / ID', 'Search name / internal name / ID')"
+                :ariaLabel="t('搜索名称或 ID', 'Search by name or ID')"
                 @update:model-value="store.actions.setSearch($event)"
               />
             </div>
             <UiFilterChips
               :options="statusOptions"
               :model-value="store.state.filters.status"
-              :ariaLabel="'按收集状态筛选'"
+              :ariaLabel="t('按收集状态筛选', 'Filter by collection status')"
               @update:model-value="store.actions.setStatusFilter($event as 'missing' | 'observed' | 'all')"
             />
             <UiFilterChips
               :options="categoryOptions"
               :model-value="store.state.filters.category ?? ''"
-              :ariaLabel="'按类别筛选'"
+              :ariaLabel="t('按类别筛选', 'Filter by category')"
               @update:model-value="store.actions.setCategory($event === '' ? null : $event)"
             />
-            <UiButton size="sm" variant="ghost" @click="store.actions.clearFilters()">清除筛选</UiButton>
+            <UiButton size="sm" variant="ghost" @click="store.actions.clearFilters()">{{ t("清除筛选", "Clear filters") }}</UiButton>
             <span class="text-xs text-muted">{{ activeFilterSummary }}</span>
           </div>
         </template>
@@ -237,7 +246,7 @@ watch(
         <!-- 全部区域：区域卡片 -->
         <div v-if="region === 'all'" class="space-y-4" data-testid="region-overview">
           <section class="space-y-2">
-            <h2 class="text-base font-medium">主区域</h2>
+            <h2 class="text-base font-medium">{{ t("主区域", "Main regions") }}</h2>
             <div class="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
               <button
                 v-for="entry in mainRegions"
@@ -258,16 +267,18 @@ watch(
                   />
                 </div>
                 <p class="mt-1 text-xs text-muted">
-                  <span v-if="entry.total - entry.collected > 0">未收集 {{ entry.total - entry.collected }} 项</span>
-                  <span v-else>已全部收集</span>
+                  <span v-if="entry.total - entry.collected > 0">{{ t(`未收集 ${entry.total - entry.collected} 项`, `${entry.total - entry.collected} uncollected`) }}</span>
+                  <span v-else>{{ t("已全部收集", "All collected") }}</span>
                 </p>
               </button>
             </div>
           </section>
 
           <section class="space-y-2">
-            <h2 class="text-base font-medium">特殊区域</h2>
-            <p class="text-xs text-muted">这些区域没有存档区域计数器，单独成组，不计入主区域合计。</p>
+            <h2 class="text-base font-medium">{{ t("特殊区域", "Special regions") }}</h2>
+            <p class="text-xs text-muted">
+              {{ t("这些区域没有存档区域计数器，单独成组，不计入主区域合计。", "These regions have no save region counters; they are listed separately and excluded from the main-region total.") }}
+            </p>
             <div class="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
               <button
                 v-for="entry in specialRegions"
@@ -287,17 +298,16 @@ watch(
           </section>
 
           <p v-if="plan.observed_not_in_catalog.length > 0" class="text-xs text-muted">
-            存档里另有 {{ plan.observed_not_in_catalog.length }} 个不属于收集品的观察 ID（服装 / 技能 / 装备等），
-            见「诊断」；它们不进入任何区域计数。
+            {{ t(`存档里另有 ${plan.observed_not_in_catalog.length} 个不属于收集品的观察 ID（服装 / 技能 / 装备等），见「诊断」；它们不进入任何区域计数。`, `The save also contains ${plan.observed_not_in_catalog.length} observed IDs that are not collectibles (outfits, skills, gear, etc.); see Diagnostics. They are not counted in any region.`) }}
           </p>
         </div>
 
         <!-- 目录外观察记录 -->
         <div v-else-if="region === 'unknown'" class="space-y-2" data-testid="unknown-records">
           <p class="text-[13px] text-muted">
-            以下 ID 出现在存档中，但不属于全收集图鉴（多为服装、技能与装备）。按原始身份列出，不推断收集状态。
+            {{ t("以下 ID 出现在存档中，但不属于全收集图鉴（多为服装、技能与装备）。按原始身份列出，不推断收集状态。", "The IDs below appear in the save but are not part of the full-collection catalog (mostly outfits, skills and gear). They are listed by raw identity; collection status is not inferred.") }}
           </p>
-          <p v-if="plan.observed_not_in_catalog.length === 0" class="text-[13px] text-muted">没有目录外观察记录。</p>
+          <p v-if="plan.observed_not_in_catalog.length === 0" class="text-[13px] text-muted">{{ t("没有目录外观察记录。", "No off-catalog observed records.") }}</p>
           <ul v-else class="grid grid-cols-1 gap-1 md:grid-cols-2 xl:grid-cols-3">
             <li v-for="id in plan.observed_not_in_catalog" :key="id" class="mono text-[12px] text-muted">
               {{ id }}
@@ -308,9 +318,9 @@ watch(
         <!-- 区域清单 -->
         <template v-else>
           <div v-if="groups.length === 0">
-            <UiEmptyState :title="emptyTitle" :description="`当前范围：${regionTitle} · ${activeFilterSummary}`">
-              <UiButton v-if="store.state.search" size="sm" @click="store.actions.setSearch('')">清空搜索</UiButton>
-              <UiButton size="sm" @click="store.actions.clearFilters()">清除筛选</UiButton>
+            <UiEmptyState :title="emptyTitle" :description="tFormat('当前范围：{value}', 'Current scope: {value}', { value: `${regionTitle} · ${activeFilterSummary}` })">
+              <UiButton v-if="store.state.search" size="sm" @click="store.actions.setSearch('')">{{ t("清空搜索", "Clear search") }}</UiButton>
+              <UiButton size="sm" @click="store.actions.clearFilters()">{{ t("清除筛选", "Clear filters") }}</UiButton>
             </UiEmptyState>
           </div>
 
@@ -322,11 +332,11 @@ watch(
                   {{ categoryLabelOf(group.category) }}
                 </h2>
                 <span class="text-xs text-muted">{{ group.collected }}/{{ group.total }}</span>
-                <UiBadge v-if="group.required_for_100 === null" tone="neutral" kind-label="口径">未闭合</UiBadge>
-                <UiBadge v-else-if="group.required_for_100 === false" tone="neutral" kind-label="口径">可选</UiBadge>
+                <UiBadge v-if="group.required_for_100 === null" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("未闭合", "Unresolved") }}</UiBadge>
+                <UiBadge v-else-if="group.required_for_100 === false" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("可选", "Optional") }}</UiBadge>
               </div>
               <p v-if="subgroupLabelOf(group)" class="text-xs text-muted" data-testid="group-subcategory">
-                子类别：{{ subgroupLabelOf(group) }}
+                {{ tFormat("子类别：{value}", "Subcategory: {value}", { value: subgroupLabelOf(group) ?? "" }) }}
               </p>
             </header>
             <ul class="divide-y divide-line/70">
@@ -347,9 +357,8 @@ watch(
                         :title="categoryLabelOf(group.category)"
                         aria-hidden="true"
                       ></span>
-                      <template v-if="item.name_zh && item.name_en">英文名：{{ item.name_en }} · </template>
                       <template v-if="item.unit">
-                        {{ item.unit.display_zh ?? item.unit.display_en ?? item.unit.zone }}
+                        {{ localizedName(item.unit.display_zh, item.unit.display_en, item.unit.zone ?? "") }}
                         ·
                       </template>
                       <span class="mono">{{ shortId(item.id) }}</span>
@@ -359,11 +368,11 @@ watch(
                   <span class="ml-auto flex shrink-0 flex-wrap items-center gap-1">
                     <UiBadge
                       :tone="item.status === 'collected' ? 'success' : 'caution'"
-                      kind-label="状态"
+                      :kind-label="t('状态', 'Status')"
                     >
-                      {{ item.status === "collected" ? "已收集" : "未收集" }}
+                      {{ item.status === "collected" ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
                     </UiBadge>
-                    <UiBadge v-if="item.position" tone="info" kind-label="位置">相对位置</UiBadge>
+                    <UiBadge v-if="item.position" tone="info" :kind-label="t('位置', 'Location')">{{ t("相对位置", "Relative position") }}</UiBadge>
                   </span>
                 </button>
               </li>

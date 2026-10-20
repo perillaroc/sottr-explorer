@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // 文本徽标：形状/符号 + 文字，不只靠颜色区分（业务状态 / 依据 / 定位共用外观）。
 import { computed } from "vue";
+import { labelColon } from "../../app/i18n";
 
 const props = withDefaults(
   defineProps<{
@@ -50,7 +51,7 @@ const classes = computed(() => {
 <template>
   <span :class="classes">
     <span aria-hidden="true">{{ glyph }}</span>
-    <span v-if="kindLabel" class="sr-only">{{ kindLabel }}：</span>
+    <span v-if="kindLabel" class="sr-only">{{ kindLabel }}{{ labelColon() }}</span>
     <slot />
   </span>
 </template>

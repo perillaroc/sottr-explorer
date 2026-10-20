@@ -4,6 +4,7 @@
 // 切槽不继承旧槽位的分析结果，只继承这些偏好。
 import type { FilterState } from "./catalog";
 import { DEFAULT_FILTERS, type RegionScope, type StatusFilter } from "./catalog";
+import type { LanguagePreference } from "./i18n";
 import type { ThemePreference } from "./theme";
 
 export type ViewId = "import" | "overview" | "full" | "regions" | "diagnostics" | "settings";
@@ -15,6 +16,8 @@ export type SearchEngine = "bing" | "google" | "baidu";
 export type LinkOpenMode = "open" | "copy";
 
 export interface UiPreferences {
+  /** 界面显示语言（默认中文）。 */
+  language: LanguagePreference;
   theme: ThemePreference;
   navCollapsed: boolean;
   view: ViewId;
@@ -27,6 +30,7 @@ export interface UiPreferences {
 const STORAGE_KEY = "sottr-explorer.ui.v1";
 
 const DEFAULT_PREFERENCES: UiPreferences = {
+  language: "zh",
   theme: "system",
   navCollapsed: false,
   view: "import",
@@ -62,6 +66,7 @@ export function loadPreferences(): UiPreferences {
       precision: parsed.filters?.precision ?? null,
     };
     return {
+      language: isLanguagePreference(parsed.language) ? parsed.language : DEFAULT_PREFERENCES.language,
       theme: parsed.theme === "light" || parsed.theme === "dark" ? parsed.theme : "system",
       navCollapsed: parsed.navCollapsed === true,
       view: isViewId(parsed.view) ? parsed.view : DEFAULT_PREFERENCES.view,
@@ -97,6 +102,10 @@ export function clearPreferences(): void {
 
 function isViewId(value: unknown): value is ViewId {
   return value === "import" || value === "overview" || value === "full" || value === "regions" || value === "diagnostics" || value === "settings";
+}
+
+function isLanguagePreference(value: unknown): value is LanguagePreference {
+  return value === "zh" || value === "en" || value === "both";
 }
 
 function isSearchEngine(value: unknown): value is SearchEngine {

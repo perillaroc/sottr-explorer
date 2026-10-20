@@ -3,16 +3,19 @@
 // 只做纯字符串拼装，不读 store、不发起命令：详情面板与 store 各自取用。
 // 查询词带上区域名以提高命中率（区域名由调用方从计划里取，见 `app/collection.ts`）。
 import type { PlanItem } from "../data/atlas";
+import { t } from "./i18n";
 import type { SearchEngine } from "./prefs";
 
-/** 游戏名中文常用写法，用于搜索词。 */
-const GAME_TERM = "古墓丽影暗影";
+/** 游戏名常用写法（随界面语言切换搜索词）。 */
+function gameTerm(): string {
+  return t("古墓丽影暗影", "Shadow of the Tomb Raider");
+}
 
 /** 搜索引擎表（设置页三选一）；`{q}` 为查询词占位符。 */
 export const SEARCH_ENGINES = {
   bing: { label: "Bing", template: "https://www.bing.com/search?q={q}" },
   google: { label: "Google", template: "https://www.google.com/search?q={q}" },
-  baidu: { label: "百度", template: "https://www.baidu.com/s?wd={q}" },
+  baidu: { label: "Baidu", template: "https://www.baidu.com/s?wd={q}" },
 } as const satisfies Record<SearchEngine, { label: string; template: string }>;
 
 /** 参考链接的载体：图文页或视频页。 */
@@ -25,12 +28,12 @@ export function buildSearchUrl(engine: SearchEngine, query: string): string {
 
 /** 图文攻略搜索词：条目名（中英）+ 区域名 + 游戏名 + 攻略。 */
 export function textSearchQuery(item: PlanItem, regionName: string): string {
-  return joinQuery([item.display_name, item.name_en, regionName, GAME_TERM, "攻略"]);
+  return joinQuery([item.display_name, item.name_en, regionName, gameTerm(), t("攻略", "guide")]);
 }
 
 /** 视频攻略搜索词：条目名 + 区域名 + 游戏名 + 视频攻略。 */
 export function videoSearchQuery(item: PlanItem, regionName: string): string {
-  return joinQuery([item.display_name, regionName, GAME_TERM, "视频攻略"]);
+  return joinQuery([item.display_name, regionName, gameTerm(), t("视频攻略", "video walkthrough")]);
 }
 
 /** 拼查询词：丢掉缺失项（条目未必有英文名），空格分隔。 */

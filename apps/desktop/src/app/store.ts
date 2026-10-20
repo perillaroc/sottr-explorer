@@ -49,6 +49,13 @@ import {
 import { fileNameOf } from "./format";
 import { applyTheme, onSystemThemeChange, type ThemePreference } from "./theme";
 import {
+  languageRef,
+  setLanguage as applyLanguage,
+  t,
+  tFormat,
+  type LanguagePreference,
+} from "./i18n";
+import {
   loadPreferences,
   savePreferences,
   type LinkOpenMode,
@@ -163,6 +170,8 @@ export interface AppState {
   navCollapsed: boolean;
   navOverlayOpen: boolean;
   detailOpen: boolean;
+  /** 界面显示语言：中文 / English / 中英文对照。 */
+  language: LanguagePreference;
   theme: ThemePreference;
   /** 外部搜索链接使用的搜索引擎。 */
   searchEngine: SearchEngine;
@@ -236,6 +245,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     navCollapsed: preferences?.navCollapsed ?? false,
     navOverlayOpen: false,
     detailOpen: true,
+    language: preferences?.language ?? "zh",
     theme: preferences?.theme ?? "system",
     searchEngine: preferences?.searchEngine ?? "bing",
     linkOpenMode: preferences?.linkOpenMode ?? "open",
@@ -260,11 +270,15 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   let requestCounter = 0;
   const systemThemeListener = ref<(() => void) | null>(null);
 
+  // 语言是全局显示状态：新建 store（含测试）时按偏好初始化，避免沿用上一个实例。
+  applyLanguage(state.language);
+
   function persistNow(): void {
     if (!persist) {
       return;
     }
     const snapshot: UiPreferences = {
+      language: state.language,
       theme: state.theme,
       navCollapsed: state.navCollapsed,
       view: state.view,
@@ -332,8 +346,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   /** 资料文件（profile.dat）没有物品表：不产生收集状态，界面显示“不适用”。 */
   const planAvailable = computed(() => report.value !== null && report.value.context.mode !== "profile");
 
-  const plan = computed<CollectionPlan>(() =>
-    planAvailable.value
+  const plan = computed<CollectionPlan>(() => {
+    // 图鉴名称、获取说明与位置提示随语言变化：读取语言引用使本计算属性重新求值。
+    void languageRef.value;
+    return planAvailable.value
       ? buildPlan(atlas, observedIds.value)
       : {
           catalog_version: atlas.catalog_version,
@@ -341,8 +357,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
           main_total: 0,
           regions: [],
           observed_not_in_catalog: [],
-        },
-  );
+        };
+  });
 
   const planCounts = computed<CollectionCounts>(() => countPlan(plan.value));
   /** 主区域合计（不含特殊区域），用于“全部区域”摘要。 */
@@ -431,7 +447,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     // 取消：无结果信封（freshness=none，report/error 均为 null）→ 保留原视图。
     if (result.report === null && result.error === null) {
       state.lastCancelledPath = path;
-      notify("info", "已取消：保留原视图，未产生新报告。");
+      notify("info", t("已取消：保留原视图，未产生新报告。", "Cancelled: the current view is kept and no new report was produced."));
       return;
     }
 
@@ -440,7 +456,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       slot.result = result;
       slot.startError = null;
       if (result.freshness === "stale") {
-        notify("warning", "刷新失败：已保留旧快照并标记过期（未反映本次读取）。");
+        notify("warning", t("刷新失败：已保留旧快照并标记过期（未反映本次读取）。", "Refresh failed: the previous snapshot is kept and marked stale (it does not reflect this read)."));
       } else if (kind === "start") {
         state.view = "overview";
       }
@@ -452,7 +468,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     const error = result.error;
     if (error) {
       if (slot.result) {
-        notify("warning", `刷新失败：${error.message}（保留上次结果）`);
+        notify("warning", t(`刷新失败：${error.message}（保留上次结果）`, `Refresh failed: ${error.message} (previous result kept)`));
       } else {
         slot.startError = error;
       }
@@ -464,7 +480,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     if (state.region !== "all" && state.region !== "unknown"
       && !plan.value.regions.some((region) => region.slug === state.region)) {
       state.region = "all";
-      notify("info", "原区域在当前图鉴中不存在，已切换到“全部区域”。");
+      notify("info", t("原区域在当前图鉴中不存在，已切换到“全部区域”。", "The previous region does not exist in the current catalog; switched to “All regions”."));
     }
     if (state.selectedRowId && !selectedEntry.value) {
       state.selectedRowId = null;
@@ -508,7 +524,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
 
   async function rescan(): Promise<void> {
     await discover();
-    notify("info", "已重新查找默认目录（模拟：演示候选）。");
+    notify("info", t("已重新查找默认目录（模拟：演示候选）。", "Rescanned the default folders (mock: demo candidates)."));
   }
 
   async function openRoot(root: string): Promise<void> {
@@ -555,7 +571,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
           matches_observed_names: /^save\d+\.dat$/i.test(name) || name.toLowerCase() === "profile.dat",
           status: "ready",
           detail: null,
-          note: "手动选择（模拟）",
+          note: t("手动选择（模拟）", "Manually selected (mock)"),
         },
       ];
     }
@@ -571,11 +587,11 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       return;
     }
     if (!state.selectedPath) {
-      notify("warning", "请先选择要分析的存档文件。");
+      notify("warning", t("请先选择要分析的存档文件。", "Select a save file to analyze first."));
       return;
     }
     if (!state.purpose) {
-      notify("warning", "请先确认这个文件用于：普通战役存档 / 不确定，仅查看可用观察。");
+      notify("warning", t("请先确认这个文件用于：普通战役存档 / 不确定，仅查看可用观察。", "Confirm how this file is used: campaign save / unsure, view available observations only."));
       return;
     }
     const slot = slotOf(state.selectedPath);
@@ -591,13 +607,13 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     source.cancel(analysis.requestId);
     state.analysis = null;
     state.lastCancelledPath = analysis.path;
-    notify("info", "已取消：保留原视图，未产生新报告。");
+    notify("info", t("已取消：保留原视图，未产生新报告。", "Cancelled: the current view is kept and no new report was produced."));
   }
 
   async function refresh(): Promise<void> {
     const slot = currentSlot.value;
     if (!slot || !slot.result) {
-      notify("warning", "当前没有可刷新的报告。");
+      notify("warning", t("当前没有可刷新的报告。", "There is no report to refresh."));
       return;
     }
     await beginAnalyze(slot.path, "refresh");
@@ -608,7 +624,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       // 切槽先撤销旧请求的结果提交资格，并请求取消后端任务。
       source.cancel(state.analysis.requestId);
       state.analysis = null;
-      notify("info", "已撤销之前的分析请求（切槽）。");
+      notify("info", t("已撤销之前的分析请求（切槽）。", "The previous analysis request was withdrawn (slot switched)."));
     }
     state.selectedPath = path;
     state.selectedRowId = null;
@@ -656,11 +672,11 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
 
   function openExportDialog(): void {
     if (!state.selectedPath || !currentSlot.value?.result) {
-      notify("warning", "没有可导出的报告：请先分析当前槽位。");
+      notify("warning", t("没有可导出的报告：请先分析当前槽位。", "No report to export: analyze the current slot first."));
       return;
     }
     if (state.analysis) {
-      notify("warning", "分析/刷新进行中：完成后再导出，避免导出与快照不一致。");
+      notify("warning", t("分析/刷新进行中：完成后再导出，避免导出与快照不一致。", "Analysis/refresh is in progress: export after it finishes so the export matches the snapshot."));
       return;
     }
     state.exportState = {
@@ -710,11 +726,11 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     const slot = currentSlot.value;
     const result = slot?.result ?? null;
     if (!result || !result.snapshot_id) {
-      notify("warning", "没有可导出的报告：请先分析当前槽位。");
+      notify("warning", t("没有可导出的报告：请先分析当前槽位。", "No report to export: analyze the current slot first."));
       return;
     }
     if (state.analysis) {
-      notify("warning", "分析/刷新进行中，暂不能导出。");
+      notify("warning", t("分析/刷新进行中，暂不能导出。", "Analysis/refresh is in progress; export is unavailable for now."));
       return;
     }
     const target = exportTargetPath.value;
@@ -722,7 +738,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       state.exportState.status = "error";
       state.exportState.error = {
         code: "INVALID_PARAMS",
-        message: "请先选择目标位置并填写新目录名",
+        message: t("请先选择目标位置并填写新目录名", "Choose a target location and enter a new folder name first"),
       };
       return;
     }
@@ -743,8 +759,14 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       notify(
         outcome.freshness === "stale" ? "warning" : "success",
         outcome.freshness === "stale"
-          ? `已导出旧快照（含过期标记）：${outcome.artifacts.map((artifact) => artifact.path).join("；")}`
-          : `已导出：${outcome.artifacts.map((artifact) => artifact.path).join("；")}`,
+          ? t(
+              `已导出旧快照（含过期标记）：${outcome.artifacts.map((artifact) => artifact.path).join("；")}`,
+              `Exported a stale snapshot (marked as stale): ${outcome.artifacts.map((artifact) => artifact.path).join("; ")}`,
+            )
+          : t(
+              `已导出：${outcome.artifacts.map((artifact) => artifact.path).join("；")}`,
+              `Exported: ${outcome.artifacts.map((artifact) => artifact.path).join("; ")}`,
+            ),
       );
     } catch (error) {
       const commandError = toCommandError(error);
@@ -810,15 +832,19 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       }
       if (mode === "open") {
         state.linkAction = { key, kind: mode, status: "opened", url, error: null };
-        notify("success", `已在系统浏览器打开：${target.label}（WebView 不加载网页）`);
+        notify("success", tFormat("已在系统浏览器打开：{label}（WebView 不加载网页）", "Opened in the system browser: {label} (WebView does not load web pages)", { label: target.label }));
       } else {
         const copied = await copyText(url);
         state.linkAction = { key, kind: mode, status: "copied", url, error: null };
         notify(
           copied ? "success" : "warning",
           copied
-            ? `已复制链接：${target.label}（不含存档内容或私人路径）`
-            : "复制失败：可在下方选择链接文本手动复制",
+            ? tFormat(
+                "已复制链接：{label}（不含存档内容或私人路径）",
+                "Link copied: {label} (no save content or private paths)",
+                { label: target.label },
+              )
+            : t("复制失败：可在下方选择链接文本手动复制", "Copy failed: select the link text below and copy it manually"),
         );
       }
     } catch (error) {
@@ -833,7 +859,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   function openGuideLink(locationId: string, sourceRef: string, label: string): Promise<void> {
     const result = currentSlot.value?.result ?? null;
     if (!result?.snapshot_id || !result.report) {
-      notify("warning", "没有可用的报告：请先分析当前槽位。");
+      notify("warning", t("没有可用的报告：请先分析当前槽位。", "No report available: analyze the current slot first."));
       return Promise.resolve();
     }
     return runLinkAction({
@@ -976,6 +1002,12 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     persistNow();
   }
 
+  function setLanguage(preference: LanguagePreference): void {
+    state.language = preference;
+    applyLanguage(preference);
+    persistNow();
+  }
+
   function setSearchEngine(engine: SearchEngine): void {
     state.searchEngine = engine;
     persistNow();
@@ -990,7 +1022,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.navCollapsed = false;
     state.detailOpen = true;
     persistNow();
-    notify("info", "已恢复默认布局（导航展开、详情常驻）。");
+    notify("info", t("已恢复默认布局（导航展开、详情常驻）。", "Default layout restored (navigation expanded, details persistent)."));
   }
 
   function setLayoutWidth(width: number): void {
@@ -1083,6 +1115,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       toggleNav,
       setNavOverlay,
       setTheme,
+      setLanguage,
       setSearchEngine,
       setLinkOpenMode,
       resetLayout,

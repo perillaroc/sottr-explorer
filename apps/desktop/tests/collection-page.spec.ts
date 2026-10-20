@@ -33,7 +33,7 @@ describe("区域与收集页", () => {
     const wrapper = mountWithStore(CollectionPage, store);
     const text = wrapper.text();
     expect(text).toContain("区域与收集 · 圣胡安教会");
-    expect(text).toContain("Document（文献）");
+    expect(text).toContain("文献");
     expect(text).toContain("未收集");
     // 分组进度是该组真实总数（圣胡安文献共 27 项），不随筛选变化。
     const region = store.planRegion.value!;
@@ -92,9 +92,9 @@ describe("区域与收集页", () => {
     for (const header of headers) {
       expect(header.classes().some((name) => name.startsWith("cat-text-"))).toBe(true);
     }
-    const artifacts = headers.find((header) => header.text().includes("Artifacts"));
+    const artifacts = headers.find((header) => header.text().includes("故事收藏"));
     expect(artifacts?.classes()).toContain("cat-text-artifacts");
-    expect(artifacts?.text()).not.toContain("Relic");
+    expect(artifacts?.text()).not.toContain("遗物");
     expect(list.get('[data-testid="group-subcategory"]').text()).toContain("子类别：");
 
     // 行内圆点：每行一个，颜色与所在分组一致。

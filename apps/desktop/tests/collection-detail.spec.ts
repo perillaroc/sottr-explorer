@@ -48,12 +48,12 @@ describe("收集品详情", () => {
     });
   });
 
-  it("故事条目显示官方中文名与英文名、状态与所在区域/子关卡", async () => {
+  it("故事条目默认中文只显示官方中文名、状态与所在区域/子关卡", async () => {
     const { store } = await setup();
     const wrapper = await detailFor(store, "0xF97006F6");
     const text = wrapper.text();
     expect(text).toContain("隐秘之城的谜团");
-    expect(text).toContain("HIDDEN CITY RIDDLE");
+    expect(text).not.toContain("HIDDEN CITY RIDDLE");
     expect(text).toContain("0xF97006F6");
     expect(wrapper.get('[data-testid="detail-heading"]').text()).toContain("隐秘之城的谜团");
     expect(text).toContain("特殊 / 跨区域");
@@ -186,7 +186,7 @@ describe("收集品详情", () => {
 
     const story = await detailFor(store, PAITITI_ITEM);
     expect(story.findAll(".cat-text-artifacts").length).toBe(1);
-    expect(story.text()).toContain("Relic（遗物）");
+    expect(story.text()).toContain("遗物");
   });
 
   it("复制线索只含名称/状态/获取方式/区域，不含私人路径", async () => {
