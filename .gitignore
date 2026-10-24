@@ -7,6 +7,17 @@ dist/
 dist-ssr/
 *.local
 
+# Python 缓存与虚拟环境（research/ 下的脚本本身入库）
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+.ipynb_checkpoints/
+
 # 日志与编辑器/系统文件
 logs/
 *.log
