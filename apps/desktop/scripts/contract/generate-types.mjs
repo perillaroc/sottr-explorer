@@ -17,6 +17,7 @@ const targets = [
   { schema: "batch", name: "BatchReport" },
   { schema: "desktop-result", name: "DesktopResult" },
   { schema: "export", name: "ExportDocument" },
+  { schema: "basemap", name: "BasemapDataset" },
 ];
 
 mkdirSync(outDir, { recursive: true });
