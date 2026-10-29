@@ -235,6 +235,9 @@ export interface Coordinates {
  */
 export interface MapTransform {
   basemap_version: NonEmptyString;
+  /**
+   * JSON 字符串，内容是 schemas/basemap.schema.json 的 Transform 对象：kind/matrix/coordinate_y_axis/image_origin。定义见 docs/contracts.md「BasemapDataset」一节
+   */
   transform_parameters: string;
   control_points_source: NonEmptyString;
   error_description: string;

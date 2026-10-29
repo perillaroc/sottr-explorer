@@ -355,7 +355,10 @@
       "required": ["basemap_version", "transform_parameters", "control_points_source", "error_description"],
       "properties": {
         "basemap_version": { "$ref": "#/$defs/NonEmptyString" },
-        "transform_parameters": { "type": "string" },
+        "transform_parameters": {
+          "type": "string",
+          "description": "JSON 字符串，内容是 schemas/basemap.schema.json 的 Transform 对象：kind/matrix/coordinate_y_axis/image_origin。定义见 docs/contracts.md「BasemapDataset」一节"
+        },
         "control_points_source": { "$ref": "#/$defs/NonEmptyString" },
         "error_description": { "type": "string" }
       },

@@ -82,7 +82,8 @@
   非零、未知、冲突或变化时必须撤销并重新评估，前端不得从文案/计数自行推导。
 - `coordinates`：无已验证映射时为 `null`；`precision` 为 `verified_coordinates` 时必须有
   坐标对象（`x`、`y`、`z`、`coordinate_space`、`unit`、`level_id`）。`map_transform`
-  的 `transform_parameters` 序列化形式待 SX-020 定义，首版恒为 `null`。
+  携带变换时其 `transform_parameters` 是 `Transform` 对象的 JSON 字符串，
+  定义见下文「BasemapDataset」；无已验证变换时 `map_transform` 整体为 `null`。
 
 ### Evidence
 
@@ -166,6 +167,79 @@
 `INVENTORY_INCOMPLETE`、`INVENTORY_UNAVAILABLE`、`CONTEXT_NOT_CAMPAIGN`、
 `SNAPSHOT_NOT_CURRENT`（`unavailable`，关闭行动摘要）。输出绑定
 `evaluated_input_digest`，每次刷新/切槽必须重新评估。
+
+## BasemapDataset（`schemas/basemap.schema.json`）
+
+真实地图基底层：`data/map/basemaps.json`，记录每个子关卡的底图与「图鉴归一化坐标 → 图片像素」的变换。
+加载器为 `crates/sottr-core/src/basemap.rs`，前端类型 `apps/desktop/src/contract/basemap.d.ts`
+由 `pnpm contract:types` 生成。
+
+### 坐标约定（唯一一处定义）
+
+- 图鉴 `position.x` / `position.y` 是**每单位独立**的归一化空间，取值 `[0,1]`。
+- 原点在底图取景框的**西北角**；**y 向下（向南）增大**，与图片像素 `v` 同向。
+- 因此首版变换是纯比例映射，不含平移、旋转与镜像：
+
+```text
+u = x · W          v = y · H
+```
+
+- `x = 0, y = 0` → 图片左上角；`x = 1, y = 1` → 图片右下角。
+- 不同子关卡的 `[0,1]` 空间互不相通，**不存在全局地图坐标**。
+
+### `Transform` 对象（唯一形态）
+
+```json
+{
+  "kind": "affine",
+  "matrix": [2048.0, 0.0, 0.0, 0.0, 2048.0, 0.0],
+  "coordinate_y_axis": "down",
+  "image_origin": "top_left"
+}
+```
+
+| 字段 | 取值 | 说明 |
+| --- | --- | --- |
+| `kind` | `"affine"` | 首版只允许仿射；不提供单应 |
+| `matrix` | 6 个有限数 `[a,b,c,d,e,f]` | `u = a·x + b·y + c`，`v = d·x + e·y + f`；首版必须等于 `[W,0,0,0,H,0]` |
+| `coordinate_y_axis` | `"up"` / `"down"` | 图鉴坐标的 y 方向；本数据集恒为 `down` |
+| `image_origin` | `"top_left"` | 图片原点 |
+
+`matrix` 与 `image_width` / `image_height` 的等值关系由加载器校验（JSON Schema 只能约束元素个数）。
+
+### `transform_parameters` 字符串
+
+报告契约 `MapTransform.transform_parameters` 是**字符串**，内容就是上面这个 `Transform`
+对象的 JSON 序列化，不另立格式：
+
+- 只允许同一份字段集，禁止附加字段；
+- 数字用 JSON 数字（不得为字符串）；
+- 序列化时不得出现 `NaN` / `Infinity`；
+- 无已验证变换时 `map_transform` 整体为 `null`，不用空对象或空字符串占位。
+
+即：基底层里的 `transform` 与报告里的 `transform_parameters` 是同一对象的两种载体
+（前者已解析，后者为字符串）。
+
+### 状态与精度门槛（D5）
+
+| `status` | 条件 |
+| --- | --- |
+| `unverified` | 三个误差字段必须为 `null` |
+| `approximate` | 中位误差 ≤ 2% 图片对角线 |
+| `calibrated` | 中位 ≤ 0.5% **且** P95 ≤ 1% 图片对角线 |
+
+加载器按状态**强制**校验门槛，不达标直接拒绝，不做静默降级。
+`transform_basis = "analytic"` 表示变换由游戏数据解析得出，此时误差字段是**验证结果**
+而非拟合残差；`error_source` 区分 `measured`（逐单位抽样）与 `global_estimate`（汇总估计）。
+
+### 双层校验分工
+
+- JSON Schema：字段集、类型、枚举、矩阵元素个数、状态与误差字段的搭配
+  （`if/then` 条件在类型层被丢弃，故必须由加载器执行）。
+- Rust 加载器：键与 `basemap_id` 一致、unit 全局唯一、矩阵等于 `[W,0,0,0,H,0]`、
+  `source_refs` 可解析、D5 门槛、`bundled` 必须带 `image_sha256`。
+- 图片存在性与 SHA-256 由构建脚本 `private/map-contact/check_basemaps.py` 校验；
+  加载器只接收字节，不读文件系统。
 
 ## 分析管线与命令行（SX-009）
 
@@ -343,6 +417,9 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `adapted/*` | Python v0.2 适配输入与输出形状示例 |
 | `crates/sottr-core/tests/parity/fixtures/*.json` | 差分回归夹具清单（SX-010）：私有五文件期望值（不含哈希）与公开 20 样本来源/哈希清单 |
 | `data/metadata/*.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/metadata.schema.json` 校验；Rust 加载测试另行核对数量、哈希与交叉一致性 |
+| `valid/basemap.valid.json`、`valid/basemap.minimal.json` | 基底层合法夹具：三种状态、`bundled`/`external` 根目录；同时由 Rust 加载器复核 |
+| `invalid/basemap.*` | 矩阵元素数不足、`unverified` 带误差、`calibrated` 误差为 `null`、未知字段、图片路径含父目录 |
+| `data/map/basemaps.json`（真实数据） | 由 `pnpm contract:validate` 与 `crates/sottr-core/tests/basemap_dataset.rs` 双层校验 |
 
 ## 版本策略
 
@@ -352,8 +429,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
   `region_counters`、名称种类与参考/组字段（未发布版本内的补齐，`schema_version`
   保持 `1.0.0`）；此后对元数据 schema 的字段增删同样受本策略约束。
 - 适配旧 Python 输出必须通过显式适配器；原始报告可并存以便追溯差异。
-- 未决事项：`map_transform.transform_parameters` 序列化形式（SX-020）；
-  报告与导出 JSON 的重复键与 `NaN`/`Infinity` 解析级拒绝落点（SX-004/011，T10；
+- 未决事项：报告与导出 JSON 的重复键与 `NaN`/`Infinity` 解析级拒绝落点（SX-004/011，T10；
   元数据侧已由 SX-008 加载器执行）。
 - 元数据内容与来源许可已由 SX-008 落地（`data/metadata/`）；`redistributable`
   非 `yes` 的来源在 SX-018 发布复核前不得直接打包。
