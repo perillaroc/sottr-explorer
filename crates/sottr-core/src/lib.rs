@@ -20,6 +20,7 @@
 //! - [`catalog`]：全收集图鉴加载与校验（SX-021；SX-022 升到 schema 2.0.0）
 //! - [`missing`]：按类别的必收缺失清单（SX-021）
 //! - [`atlas`]：按区域的收集计划与查找线索（SX-022）
+//! - [`basemap`]：真实地图基底层加载与校验（P2-01 / P2-02）
 //!
 //! 当前状态：SX-004 容器与区段步进、SX-005 记录恢复、SX-006 上下文与进度、
 //! SX-007 参考差集与证据评估、SX-008 版本化元数据与组级门禁、SX-009 分析管线、
@@ -28,6 +29,7 @@
 
 pub mod analyze;
 pub mod atlas;
+pub mod basemap;
 pub mod catalog;
 pub mod container;
 pub mod domain;
