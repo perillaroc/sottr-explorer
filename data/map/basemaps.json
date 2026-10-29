@@ -1,0 +1,1894 @@
+{
+  "schema_version": "1.0.0",
+  "basemap_version": "0.1.0",
+  "generated": "2026-10-29 by private/map-contact/build_basemaps.py",
+  "image_root": {
+    "kind": "external",
+    "path": "resource/map-processed",
+    "note": "D4 授权未决，处理后的图暂不放仓库；确认可分发后改为仓库内 data/map 并切换 kind"
+  },
+  "notes": [
+    "坐标空间：图鉴 position 为每单位归一化 [0,1]，原点在取景框西北角，y 向下增大。",
+    "变换为恒等比例：u = x*W, v = y*H，不含平移/旋转/缩放参数。",
+    "status=calibrated 表示有逐单位抽样验证且满足 D5 门槛；approximate 表示未逐单位验证。"
+  ],
+  "sources": {
+    "src:spriters-map-502127": {
+      "url": null,
+      "fixed_revision": null,
+      "accessed": "2026-10-19",
+      "license": "社区从游戏资源提取的贴图；分发权待确认",
+      "redistributable": "pending",
+      "method": "从 spriters-resource 投稿 502127 下载的 18 张 PNG",
+      "review": "仅本地使用；未随产品分发"
+    },
+    "src:spriters-map-502132": {
+      "url": null,
+      "fixed_revision": null,
+      "accessed": "2026-10-19",
+      "license": "社区从游戏资源提取的贴图；分发权待确认",
+      "redistributable": "pending",
+      "method": "从 spriters-resource 投稿 502132 下载的 15 张 PNG",
+      "review": "仅本地使用；未随产品分发"
+    },
+    "src:spriters-map-502133": {
+      "url": null,
+      "fixed_revision": null,
+      "accessed": "2026-10-19",
+      "license": "社区从游戏资源提取的贴图；分发权待确认",
+      "redistributable": "pending",
+      "method": "从 spriters-resource 投稿 502133 下载的 11 张 PNG",
+      "review": "仅本地使用；未随产品分发"
+    }
+  },
+  "basemaps": {
+    "bm:porvenir_oil_fields/198": {
+      "basemap_id": "bm:porvenir_oil_fields/198",
+      "version": "0.1.0",
+      "region_id": "porvenir_oil_fields",
+      "unit_ids": [
+        198
+      ],
+      "map_path": "map\\an_apocalypse_now_01",
+      "level_drm": "an_apocalypse_now_v2_01",
+      "source_sheet": "24590",
+      "image": "maps/an_apocalypse_now_01.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "12c79593f0a26c288c5e154d7f53bdefc638046cf47a4a431e3741181519a6b5",
+      "image_bytes": 576368
+    },
+    "bm:porvenir_oil_fields/231": {
+      "basemap_id": "bm:porvenir_oil_fields/231",
+      "version": "0.1.0",
+      "region_id": "porvenir_oil_fields",
+      "unit_ids": [
+        231
+      ],
+      "map_path": "map\\an_apocalypse_now_02",
+      "level_drm": "an_apocalypse_now_v2_02",
+      "source_sheet": "24591",
+      "image": "maps/an_apocalypse_now_02.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "fd5acc43d90265893a7eaa4a7189a485cc0e56518b7c355c6376f53ad3772483",
+      "image_bytes": 665564
+    },
+    "bm:porvenir_oil_fields/222": {
+      "basemap_id": "bm:porvenir_oil_fields/222",
+      "version": "0.1.0",
+      "region_id": "porvenir_oil_fields",
+      "unit_ids": [
+        222
+      ],
+      "map_path": "map\\an_apocalypse_now_03",
+      "level_drm": "an_apocalypse_now_v2_03",
+      "source_sheet": "24592",
+      "image": "maps/an_apocalypse_now_03.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "d2342c2623f68f395a15d96a3e9264959cc4769dcd26ada1eb605f31dd5ad956",
+      "image_bytes": 746794
+    },
+    "bm:porvenir_oil_fields/177": {
+      "basemap_id": "bm:porvenir_oil_fields/177",
+      "version": "0.1.0",
+      "region_id": "porvenir_oil_fields",
+      "unit_ids": [
+        177
+      ],
+      "map_path": "map\\an_apocalypse_now_04",
+      "level_drm": "an_apocalypse_now_v2_04",
+      "source_sheet": "24593",
+      "image": "maps/an_apocalypse_now_04.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "65a79df6ba769aee80a8c93b04c7f3f332fbcd23d6cd3f5e0ca1f9c0773a5a00",
+      "image_bytes": 762988
+    },
+    "bm:peruvian_jungle/1060": {
+      "basemap_id": "bm:peruvian_jungle/1060",
+      "version": "0.1.0",
+      "region_id": "peruvian_jungle",
+      "unit_ids": [
+        1060
+      ],
+      "map_path": "map\\av_abandoned_village",
+      "level_drm": "av_abandonned_village",
+      "source_sheet": "24594",
+      "image": "maps/av_abandoned_village.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "c88786f2963839a53f999677bec297c7eee08dd5277c440ea99846cf9bf19abe",
+      "image_bytes": 760804
+    },
+    "bm:cenote/931": {
+      "basemap_id": "bm:cenote/931",
+      "version": "0.1.0",
+      "region_id": "cenote",
+      "unit_ids": [
+        931
+      ],
+      "map_path": "map\\ce_cenotes_010",
+      "level_drm": "ce_010_fall",
+      "source_sheet": "24595",
+      "image": "maps/ce_cenotes_010.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "478c22f4396b0f7c697b4611a0f2ce13cf55da72947e0d30f10d72a95e6c1ed0",
+      "image_bytes": 701906
+    },
+    "bm:cenote/1294": {
+      "basemap_id": "bm:cenote/1294",
+      "version": "0.1.0",
+      "region_id": "cenote",
+      "unit_ids": [
+        1294
+      ],
+      "map_path": "map\\ce_cenotes_020",
+      "level_drm": "ce_020_camp",
+      "source_sheet": "24596",
+      "image": "maps/ce_cenotes_020.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "cac156114d2525af536c6d5eee6ecdd43132da5727d3258d5469b74e0e3c364a",
+      "image_bytes": 845260
+    },
+    "bm:cenote/638": {
+      "basemap_id": "bm:cenote/638",
+      "version": "0.1.0",
+      "region_id": "cenote",
+      "unit_ids": [
+        638
+      ],
+      "map_path": "map\\ce_cenotes_030",
+      "level_drm": "ce_030_den",
+      "source_sheet": "24597",
+      "image": "maps/ce_cenotes_030.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "f0cdca77e8c54654ced5f20824e4f4aa1914afbc346f08e84d921607257fa481",
+      "image_bytes": 752102
+    },
+    "bm:cenote/949": {
+      "basemap_id": "bm:cenote/949",
+      "version": "0.1.0",
+      "region_id": "cenote",
+      "unit_ids": [
+        949
+      ],
+      "map_path": "map\\ce_cenotes_040",
+      "level_drm": "ce_040_tomb",
+      "source_sheet": "24598",
+      "image": "maps/ce_cenotes_040.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "d63df6870371a292969c4b0ff5074cd7a2edd51c52db191febd10a28acd67d18",
+      "image_bytes": 623360
+    },
+    "bm:cenote/1303": {
+      "basemap_id": "bm:cenote/1303",
+      "version": "0.1.0",
+      "region_id": "cenote",
+      "unit_ids": [
+        1303
+      ],
+      "map_path": "map\\ce_cenotes_050",
+      "level_drm": "ce_050_exit",
+      "source_sheet": "24599",
+      "image": "maps/ce_cenotes_050.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "4540eb8ef3e898e9ef068810a0a9df099cd420365b805ef1ae5d03012aab9ea2",
+      "image_bytes": 645764
+    },
+    "bm:trial_of_the_eagle/980": {
+      "basemap_id": "bm:trial_of_the_eagle/980",
+      "version": "0.1.0",
+      "region_id": "trial_of_the_eagle",
+      "unit_ids": [
+        980
+      ],
+      "map_path": "map\\cw_citadel_of_wind",
+      "level_drm": "ct_citadel_of_wind",
+      "source_sheet": "24600",
+      "image": "maps/cw_citadel_of_wind.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 3.63,
+      "p95_error_px": 36.23,
+      "max_error_px": 44.33,
+      "error_source": "measured",
+      "validation_samples": 5,
+      "image_sha256": "ad452815c4bc469c523a8974ce8022aa577daf4d51735d55b111457319fb0321",
+      "image_bytes": 565922
+    },
+    "bm:unnamed/1544": {
+      "basemap_id": "bm:unnamed/1544",
+      "version": "0.1.0",
+      "region_id": "unnamed",
+      "unit_ids": [
+        1544
+      ],
+      "map_path": "map\\ch_chamber_of_heaven",
+      "level_drm": "ch_chamber_of_heaven",
+      "source_sheet": "24601",
+      "image": "maps/ch_chamber_of_heaven.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "94e6c5cc1ac9abd1ae991f0e8f9f670d7aa7e1ef82b1e9fe08d22f89857f8b9d",
+      "image_bytes": 2625888
+    },
+    "bm:trial_of_the_eagle/1072": {
+      "basemap_id": "bm:trial_of_the_eagle/1072",
+      "version": "0.1.0",
+      "region_id": "trial_of_the_eagle",
+      "unit_ids": [
+        1072
+      ],
+      "map_path": "map\\cw_citadel_of_wind_connector",
+      "level_drm": "ct_citadel_of_wind_connector",
+      "source_sheet": "24602",
+      "image": "maps/cw_citadel_of_wind_connector.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "53d747d74131f8271066635e88746ec51ab4960475a89a3f9a045141ff16cdc1",
+      "image_bytes": 574270
+    },
+    "bm:cozumel/54": {
+      "basemap_id": "bm:cozumel/54",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        54
+      ],
+      "map_path": "map\\dd_day_of_the_dead_010",
+      "level_drm": "dd_day_of_the_dead_010",
+      "source_sheet": "24603",
+      "image": "maps/dd_day_of_the_dead_010.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "6c76f85ae2ac954dc75658b0228008245cb8d9fa1d3d49bbd896aa8656937e44",
+      "image_bytes": 2519056
+    },
+    "bm:cozumel/3744": {
+      "basemap_id": "bm:cozumel/3744",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        3744
+      ],
+      "map_path": "map\\dd_day_of_the_dead_020",
+      "level_drm": "dd_day_of_the_dead_020",
+      "source_sheet": "24604",
+      "image": "maps/dd_day_of_the_dead_020.webp",
+      "image_width": 2048,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "af9a52255194a054f41a9cafba0a37acc60f2ca151c9c365f72e3ee743afd98e",
+      "image_bytes": 1583370
+    },
+    "bm:cozumel/648": {
+      "basemap_id": "bm:cozumel/648",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        648
+      ],
+      "map_path": "map\\dd_day_of_the_dead_030",
+      "level_drm": "dd_day_of_the_dead_030",
+      "source_sheet": "24605",
+      "image": "maps/dd_day_of_the_dead_030.webp",
+      "image_width": 2048,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "9a84a0816cd27307f71435795c9c69a7293fa14754d107314c36fa6e2c64130a",
+      "image_bytes": 1259510
+    },
+    "bm:cozumel/982": {
+      "basemap_id": "bm:cozumel/982",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        982
+      ],
+      "map_path": "map\\dd_day_of_the_dead_040",
+      "level_drm": "dd_day_of_the_dead_040",
+      "source_sheet": "24606",
+      "image": "maps/dd_day_of_the_dead_040.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "6a37727329989fb9bce4eb59bbe9c47bed19330460b3ad4fc5c8049feeb514b9",
+      "image_bytes": 2391492
+    },
+    "bm:cozumel/940": {
+      "basemap_id": "bm:cozumel/940",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        940
+      ],
+      "map_path": "map\\dd_day_of_the_dead_050",
+      "level_drm": "dd_day_of_the_dead_050",
+      "source_sheet": "24607",
+      "image": "maps/dd_day_of_the_dead_050.webp",
+      "image_width": 4096,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502127"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "f083f3cb87b56c2588aa289c79509c3f306a3b356d191f67799db00d6cd1eacc",
+      "image_bytes": 1120740
+    },
+    "bm:head_of_the_serpent/4028": {
+      "basemap_id": "bm:head_of_the_serpent/4028",
+      "version": "0.1.0",
+      "region_id": "head_of_the_serpent",
+      "unit_ids": [
+        4028
+      ],
+      "map_path": "map\\dm_devils_maw",
+      "level_drm": "dm_devils_maw",
+      "source_sheet": "24608",
+      "image": "maps/dm_devils_maw.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "7765264ff5071dc12fbc9167bed498c1b1f2c31ec0ad46d6218aababac4ec806",
+      "image_bytes": 466044
+    },
+    "bm:kuwaq_yaku/2287": {
+      "basemap_id": "bm:kuwaq_yaku/2287",
+      "version": "0.1.0",
+      "region_id": "kuwaq_yaku",
+      "unit_ids": [
+        2287
+      ],
+      "map_path": "map\\hv_hollow_village_01",
+      "level_drm": "hv_hollow_village_v2_01",
+      "source_sheet": "24609",
+      "image": "maps/hv_hollow_village_01.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "calibrated",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.72,
+      "p95_error_px": 16.7,
+      "max_error_px": 36.84,
+      "error_source": "measured",
+      "validation_samples": 35,
+      "image_sha256": "3c535c26caf6cef02f140d9a9cde4d44c958df911e69c7ba585783a44c02ffde",
+      "image_bytes": 538142
+    },
+    "bm:kuwaq_yaku/1597": {
+      "basemap_id": "bm:kuwaq_yaku/1597",
+      "version": "0.1.0",
+      "region_id": "kuwaq_yaku",
+      "unit_ids": [
+        1597
+      ],
+      "map_path": "map\\hv_hollow_village_02",
+      "level_drm": "hv_hollow_village_v2_02",
+      "source_sheet": "24610",
+      "image": "maps/hv_hollow_village_02.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "fe5ce57ed9b78063e8d278e3348506c501c4e39904ef3e728faad01e5df5f5b8",
+      "image_bytes": 1992038
+    },
+    "bm:kuwaq_yaku/4026": {
+      "basemap_id": "bm:kuwaq_yaku/4026",
+      "version": "0.1.0",
+      "region_id": "kuwaq_yaku",
+      "unit_ids": [
+        4026
+      ],
+      "map_path": "map\\hv_hollow_village_03",
+      "level_drm": "hv_hollow_village_v2_03",
+      "source_sheet": "24611",
+      "image": "maps/hv_hollow_village_03.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "9880e728c2b5ed3369fbe404b56b064e05d06b41284175c128a9772d81dd6435",
+      "image_bytes": 515028
+    },
+    "bm:kuwaq_yaku/2541": {
+      "basemap_id": "bm:kuwaq_yaku/2541",
+      "version": "0.1.0",
+      "region_id": "kuwaq_yaku",
+      "unit_ids": [
+        2541
+      ],
+      "map_path": "map\\hv_hollow_village_connector",
+      "level_drm": "hv_hollow_village_v2_connector_out",
+      "source_sheet": "24612",
+      "image": "maps/hv_hollow_village_connector.webp",
+      "image_width": 2048,
+      "image_height": 1024,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          1024.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "404c1df771d93125d54762d8c19993ea66daed28c685419881732c9ffee52477",
+      "image_bytes": 356676
+    },
+    "bm:peruvian_jungle/1774": {
+      "basemap_id": "bm:peruvian_jungle/1774",
+      "version": "0.1.0",
+      "region_id": "peruvian_jungle",
+      "unit_ids": [
+        1774
+      ],
+      "map_path": "map\\lj_lost_in_the_jungle_010",
+      "level_drm": "lj_lost_in_the_jungle_v2_01",
+      "source_sheet": "24613",
+      "image": "maps/lj_lost_in_the_jungle_010.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "ae6cd52867c13a5f27f44cd9656f310b398ebf0db889fef38c74ad54343c10db",
+      "image_bytes": 727652
+    },
+    "bm:peruvian_jungle/682": {
+      "basemap_id": "bm:peruvian_jungle/682",
+      "version": "0.1.0",
+      "region_id": "peruvian_jungle",
+      "unit_ids": [
+        682
+      ],
+      "map_path": "map\\lj_lost_in_the_jungle_020",
+      "level_drm": "lj_lost_in_the_jungle_v2_02",
+      "source_sheet": "24614",
+      "image": "maps/lj_lost_in_the_jungle_020.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "7037609090375fc2da961f6a8117e2553e0bb0393babb5419caf7d2ccceec496",
+      "image_bytes": 3326412
+    },
+    "bm:peruvian_jungle/672": {
+      "basemap_id": "bm:peruvian_jungle/672",
+      "version": "0.1.0",
+      "region_id": "peruvian_jungle",
+      "unit_ids": [
+        672
+      ],
+      "map_path": "map\\lj_lost_in_the_jungle_030",
+      "level_drm": "lj_lost_in_the_jungle_v2_03",
+      "source_sheet": "24615",
+      "image": "maps/lj_lost_in_the_jungle_030.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "8364ef1c31a0021c357e596f095d555fee1ac5f3620c72c89e1208ebd4121c3f",
+      "image_bytes": 3018722
+    },
+    "bm:peruvian_jungle/2486": {
+      "basemap_id": "bm:peruvian_jungle/2486",
+      "version": "0.1.0",
+      "region_id": "peruvian_jungle",
+      "unit_ids": [
+        2486
+      ],
+      "map_path": "map\\lj_lost_in_the_jungle_040",
+      "level_drm": "lj_lost_in_the_jungle_v2_04",
+      "source_sheet": "24616",
+      "image": "maps/lj_lost_in_the_jungle_040.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "daf587f7deb5fe43cdc4ebbfbb356619d8a4ba0e8f02994341dfdf396ce186b9",
+      "image_bytes": 3127428
+    },
+    "bm:peruvian_jungle/667": {
+      "basemap_id": "bm:peruvian_jungle/667",
+      "version": "0.1.0",
+      "region_id": "peruvian_jungle",
+      "unit_ids": [
+        667
+      ],
+      "map_path": "map\\lj_lost_in_the_jungle_connector_out",
+      "level_drm": "lj_lost_in_the_jungle_v2_connector_out",
+      "source_sheet": "24617",
+      "image": "maps/lj_lost_in_the_jungle_connector_out.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "9104be6f594a7f69fa6c8a2859cd73becb7389cd77b8cf74f36d5d316d2e4813",
+      "image_bytes": 2976126
+    },
+    "bm:cenote/1307": {
+      "basemap_id": "bm:cenote/1307",
+      "version": "0.1.0",
+      "region_id": "cenote",
+      "unit_ids": [
+        1307
+      ],
+      "map_path": "map\\pa_hub_paititi_connector_from_cenote",
+      "level_drm": "pa_hub_paititi_connector_from_cenote",
+      "source_sheet": "24619",
+      "image": "maps/pa_hub_paititi_connector_from_cenote.webp",
+      "image_width": 1024,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          1024.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 2.5,
+      "p95_error_px": 8.0,
+      "max_error_px": 18.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "537ba82c3cee4ea8a1680cd4d2390619f0cd3854f3f057d0f3fb2cf3bcd8ed44",
+      "image_bytes": 383866
+    },
+    "bm:paititi/1340": {
+      "basemap_id": "bm:paititi/1340",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        1340
+      ],
+      "map_path": "map\\pa_hub_paititi_kings_tomb",
+      "level_drm": "pa_hub_paititi_kings_tomb",
+      "source_sheet": "24620",
+      "image": "maps/pa_hub_paititi_kings_tomb.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "823090961774fd862606c0490aac136cbb35059a34c5f632079d12b1cb5970d3",
+      "image_bytes": 509954
+    },
+    "bm:paititi/4029": {
+      "basemap_id": "bm:paititi/4029",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        4029
+      ],
+      "map_path": "map\\pa_hub_paititi_kings_tomb_connector_01",
+      "level_drm": "pa_hub_paititi_kings_tomb_connector_01",
+      "source_sheet": "24621",
+      "image": "maps/pa_hub_paititi_kings_tomb_connector_01.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "ff9dff29f623fcbeee92f6429ba38dd838f3545a728814a81dba9d28c54088e7",
+      "image_bytes": 484456
+    },
+    "bm:paititi/1333": {
+      "basemap_id": "bm:paititi/1333",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        1333
+      ],
+      "map_path": "map\\pa_hub_paititi_kings_tomb_to_cenote_connector",
+      "level_drm": "pa_hub_paititi_kings_tomb_to_cenote_connector",
+      "source_sheet": "24622",
+      "image": "maps/pa_hub_paititi_kings_tomb_to_cenote_connector.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502132"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "656da5b8094e4457ce0e0343308e42988b5deec182ef8d558f6ec198485d628b",
+      "image_bytes": 425140
+    },
+    "bm:paititi/2306": {
+      "basemap_id": "bm:paititi/2306",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        2306
+      ],
+      "map_path": "map\\pa_hub_paititi_middle_island",
+      "level_drm": "pa_hub_paititi_middle_island",
+      "source_sheet": "24623",
+      "image": "maps/pa_hub_paititi_middle_island.webp",
+      "image_width": 2048,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "89a91c1000392028143962881a655a98c0fffdace3b3727f2f0f0bb91021471e",
+      "image_bytes": 638324
+    },
+    "bm:paititi/243": {
+      "basemap_id": "bm:paititi/243",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        243
+      ],
+      "map_path": "map\\Paititi_Hub",
+      "level_drm": "pa_hub_paititi",
+      "source_sheet": "24624",
+      "image": "maps/Paititi_Hub.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "eb84afcafb87f998c311ece062ca36898970f2e6de8f364929c01c569dcffd85",
+      "image_bytes": 2742072
+    },
+    "bm:paititi/241": {
+      "basemap_id": "bm:paititi/241",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        241
+      ],
+      "map_path": "map\\pa_hub_paititi_return_02",
+      "level_drm": "pa_hub_paititi_return_02",
+      "source_sheet": "24625",
+      "image": "maps/pa_hub_paititi_return_02.webp",
+      "image_width": 4096,
+      "image_height": 4096,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          4096.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "ee3548f0a3e844e9b357e16406747127c0e1319edf0753de838c06e5ccd6187c",
+      "image_bytes": 1943540
+    },
+    "bm:paititi/1070": {
+      "basemap_id": "bm:paititi/1070",
+      "version": "0.1.0",
+      "region_id": "paititi",
+      "unit_ids": [
+        1070
+      ],
+      "map_path": "map\\pa_hub_paititi_wilderness",
+      "level_drm": "pa_hub_paititi_wilderness",
+      "source_sheet": "24626",
+      "image": "maps/pa_hub_paititi_wilderness.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "3c8aa76d2c215a3e8ccab2215a938c3af5d02f3b45c9e968bc0b112126df5a8c",
+      "image_bytes": 555818
+    },
+    "bm:cozumel/641": {
+      "basemap_id": "bm:cozumel/641",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        641
+      ],
+      "map_path": "map\\pl_prologue",
+      "level_drm": "pl_prologue",
+      "source_sheet": "24627",
+      "image": "maps/pl_prologue.webp",
+      "image_width": 4096,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "bc14c83340d005255c0118933c5454001a1482fd53e0ba550386283ba329a3b9",
+      "image_bytes": 1024494
+    },
+    "bm:mission_of_san_juan/4030": {
+      "basemap_id": "bm:mission_of_san_juan/4030",
+      "version": "0.1.0",
+      "region_id": "mission_of_san_juan",
+      "unit_ids": [
+        4030
+      ],
+      "map_path": "map\\sm_spanish_mission_cornfield",
+      "level_drm": "sm_spanish_mission_cornfield",
+      "source_sheet": "24630",
+      "image": "maps/sm_spanish_mission_cornfield.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "15560967635fc76e6d9e71a4887967d10e2e364fb61514fad6b3f67ba61b4baa",
+      "image_bytes": 498048
+    },
+    "bm:mission_of_san_juan/318": {
+      "basemap_id": "bm:mission_of_san_juan/318",
+      "version": "0.1.0",
+      "region_id": "mission_of_san_juan",
+      "unit_ids": [
+        318
+      ],
+      "map_path": "map\\sm_spanish_mission_village",
+      "level_drm": "sm_spanish_mission_village",
+      "source_sheet": "24631",
+      "image": "maps/sm_spanish_mission_village.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "calibrated",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 3.54,
+      "p95_error_px": 14.44,
+      "max_error_px": 34.95,
+      "error_source": "measured",
+      "validation_samples": 38,
+      "image_sha256": "31570f7bd1f7700e564c38c8f9cc56b70304e9affbb60088358f0fb86dab02fc",
+      "image_bytes": 616494
+    },
+    "bm:unnamed/4027": {
+      "basemap_id": "bm:unnamed/4027",
+      "version": "0.1.0",
+      "region_id": "unnamed",
+      "unit_ids": [
+        4027
+      ],
+      "map_path": "map\\sp_sacrificial_pit",
+      "level_drm": "sp_sacrificial_pit",
+      "source_sheet": "24632",
+      "image": "maps/sp_sacrificial_pit.webp",
+      "image_width": 2048,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          2048.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 5.0,
+      "p95_error_px": 16.0,
+      "max_error_px": 36.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "a9ad3f86e71edcb0e931ad15f25d97769b85b15ed3ff49970fc2f8152089ec13",
+      "image_bytes": 616344
+    },
+    "bm:unnamed/1001": {
+      "basemap_id": "bm:unnamed/1001",
+      "version": "0.1.0",
+      "region_id": "unnamed",
+      "unit_ids": [
+        1001
+      ],
+      "map_path": "map\\ta_to_aztlan",
+      "level_drm": "ta_010_volcano",
+      "source_sheet": "24633",
+      "image": "maps/ta_to_aztlan.webp",
+      "image_width": 4096,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "c72e4ff51f936b25413c52a03ef4e41a0450a1ad41f169010174699f041a3ec2",
+      "image_bytes": 1114268
+    },
+    "bm:cozumel/631": {
+      "basemap_id": "bm:cozumel/631",
+      "version": "0.1.0",
+      "region_id": "cozumel",
+      "unit_ids": [
+        631
+      ],
+      "map_path": "map\\tf_the_flood",
+      "level_drm": "tf_the_flood",
+      "source_sheet": "24637",
+      "image": "maps/tf_the_flood.webp",
+      "image_width": 4096,
+      "image_height": 2048,
+      "transform": {
+        "kind": "affine",
+        "matrix": [
+          4096.0,
+          0.0,
+          0.0,
+          0.0,
+          2048.0,
+          0.0
+        ],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "approximate",
+      "source_refs": [
+        "src:spriters-map-502133"
+      ],
+      "review": {
+        "state": "draft",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
+        "date": "2026-10-29"
+      },
+      "median_error_px": 10.0,
+      "p95_error_px": 32.0,
+      "max_error_px": 72.0,
+      "error_source": "global_estimate",
+      "validation_samples": 0,
+      "image_sha256": "75accde2364273319677d97eb55dbaa227e802a76e63133c6037e16ec3185ca3",
+      "image_bytes": 1321862
+    }
+  }
+}

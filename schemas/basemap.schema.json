@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BasemapDataset",
+  "description": "SOTTR Explorer 真实地图基底层。独立版本化的本地 JSON 数据集：记录每个子关卡（unit）使用的底图、把图鉴归一化坐标映射到图片像素的仿射变换，以及变换的依据、状态与误差。坐标空间是每单位独立的 [0,1] 归一化空间，原点在取景框西北角、y 向下增大；变换首版恒为比例映射。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "basemap_version", "image_root", "sources", "basemaps"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "basemap_version": { "type": "string", "minLength": 1 },
+    "generated": {
+      "type": "string",
+      "minLength": 1,
+      "description": "生成说明（工具与日期），仅供追溯，不参与逻辑"
+    },
+    "image_root": { "$ref": "#/$defs/ImageRoot" },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "面向维护者的人类可读说明"
+    },
+    "sources": {
+      "type": "object",
+      "propertyNames": { "pattern": "^src:[a-z0-9][a-z0-9-]*$" },
+      "additionalProperties": { "$ref": "#/$defs/Source" },
+      "minProperties": 1
+    },
+    "basemaps": {
+      "type": "object",
+      "propertyNames": { "pattern": "^bm:[a-z0-9_]+/[0-9]+$" },
+      "additionalProperties": { "$ref": "#/$defs/Basemap" },
+      "minProperties": 1,
+      "description": "键必须等于条目的 basemap_id（由加载器校验）；同一 unit 只能出现在一条记录里"
+    }
+  },
+  "$defs": {
+    "ImageRoot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path"],
+      "properties": {
+        "kind": {
+          "enum": ["external", "bundled"],
+          "description": "external = 图片在仓库外、由用户指向本地目录；bundled = 图片随应用分发"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "image 字段的相对根目录；kind=bundled 时相对仓库 data/map"
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["license", "redistributable", "method"],
+      "properties": {
+        "url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "原始来源页；不可考时为 null"
+        },
+        "fixed_revision": { "type": ["string", "null"] },
+        "accessed": { "type": ["string", "null"], "format": "date" },
+        "license": { "type": "string", "minLength": 1 },
+        "redistributable": {
+          "enum": ["pending", "allowed", "denied"],
+          "description": "分发授权状态；非 allowed 的图片不得进入发布包"
+        },
+        "method": { "type": "string", "minLength": 1 },
+        "review": { "type": "string" }
+      }
+    },
+    "Basemap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basemap_id",
+        "version",
+        "region_id",
+        "unit_ids",
+        "image",
+        "image_width",
+        "image_height",
+        "transform",
+        "transform_basis",
+        "status",
+        "source_refs",
+        "review"
+      ],
+      "properties": {
+        "basemap_id": {
+          "type": "string",
+          "pattern": "^bm:[a-z0-9_]+/[0-9]+$",
+          "description": "必须等于 basemaps 的键（由加载器校验）"
+        },
+        "version": { "type": "string", "minLength": 1 },
+        "region_id": {
+          "type": "string",
+          "pattern": "^([a-z0-9_]+|unnamed)$",
+          "description": "干净的区域 slug；无对应区域时为 unnamed"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "子关卡 zone id；每个 unit 全局最多出现一次（由加载器校验）"
+        },
+        "map_path": { "type": "string", "minLength": 1 },
+        "level_drm": { "type": "string", "minLength": 1 },
+        "source_sheet": { "type": "string", "pattern": "^[0-9]+$" },
+        "image": {
+          "type": "string",
+          "pattern": "^maps/[A-Za-z0-9_.-]+\\.(webp|avif|png)$",
+          "description": "相对 image_root.path 的图片路径"
+        },
+        "image_width": { "type": "integer", "minimum": 1 },
+        "image_height": { "type": "integer", "minimum": 1 },
+        "transform": { "$ref": "#/$defs/Transform" },
+        "transform_basis": {
+          "enum": ["analytic", "measured"],
+          "description": "analytic = 由游戏数据解析出的确定性映射；measured = 由控制点拟合"
+        },
+        "status": {
+          "enum": ["unverified", "approximate", "calibrated"],
+          "description": "calibrated 要求中位误差 ≤ 0.5% 对角线且 P95 ≤ 1%；approximate 要求中位 ≤ 2%"
+        },
+        "median_error_px": { "type": ["number", "null"], "minimum": 0 },
+        "p95_error_px": { "type": ["number", "null"], "minimum": 0 },
+        "max_error_px": { "type": ["number", "null"], "minimum": 0 },
+        "error_source": {
+          "enum": ["measured", "global_estimate"],
+          "description": "measured = 逐单位抽样验证；global_estimate = 使用其它单位的汇总估计"
+        },
+        "validation_samples": { "type": "integer", "minimum": 0 },
+        "source_refs": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^src:" },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "必须解析到顶层 sources（由加载器校验）"
+        },
+        "image_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "image_bytes": { "type": "integer", "minimum": 1 },
+        "review": { "$ref": "#/$defs/Review" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "unverified" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "median_error_px": { "type": "null" },
+              "p95_error_px": { "type": "null" },
+              "max_error_px": { "type": "null" }
+            },
+            "required": ["median_error_px", "p95_error_px", "max_error_px"]
+          },
+          "else": {
+            "properties": {
+              "median_error_px": { "type": "number" },
+              "p95_error_px": { "type": "number" },
+              "max_error_px": { "type": "number" }
+            },
+            "required": ["median_error_px", "p95_error_px", "max_error_px"]
+          }
+        },
+        {
+          "if": { "properties": { "error_source": { "const": "measured" } }, "required": ["error_source"] },
+          "then": {
+            "properties": { "validation_samples": { "type": "integer", "minimum": 1 } },
+            "required": ["validation_samples"]
+          }
+        }
+      ]
+    },
+    "Transform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "matrix", "coordinate_y_axis", "image_origin"],
+      "properties": {
+        "kind": { "const": "affine" },
+        "matrix": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 6,
+          "maxItems": 6,
+          "description": "u = a*x + b*y + c, v = d*x + e*y + f，顺序为 [a,b,c,d,e,f]。首版恒为 [W,0,0,0,H,0]（由加载器校验与 image_width/height 一致）"
+        },
+        "coordinate_y_axis": {
+          "enum": ["up", "down"],
+          "description": "图鉴坐标的 y 方向；实测为 down（原点在西北角，向南增大）"
+        },
+        "image_origin": { "const": "top_left" }
+      }
+    },
+    "Review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state"],
+      "properties": {
+        "state": { "enum": ["draft", "reviewed"] },
+        "note": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"], "format": "date" }
+      }
+    }
+  }
+}
