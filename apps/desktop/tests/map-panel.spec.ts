@@ -183,6 +183,69 @@ describe("懒加载（P3-05）", () => {
   });
 });
 
+describe("误差说明（P3-06）", () => {
+  it("calibrated 显示状态与两项误差", () => {
+    const wrapper = mount(MapPanel, {
+      props: {
+        items: [item("a", 0.5, 0.5)],
+        selectedId: "a",
+        basemap: basemap({ status: "calibrated", median_error_px: 3.54, p95_error_px: 14.44 }),
+      },
+    });
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-status")).toBe("calibrated");
+    const text = wrapper.text();
+    expect(text).toContain("已校准");
+    expect(text).toContain("3.5");
+    expect(text).toContain("14.4");
+    expect(text).not.toContain("近似");
+  });
+
+  it("approximate 绝不出现「已校准」，并标注全局估计", () => {
+    const wrapper = mount(MapPanel, {
+      props: {
+        items: [item("a", 0.5, 0.5)],
+        selectedId: "a",
+        basemap: basemap({
+          status: "approximate",
+          median_error_px: 5.0,
+          p95_error_px: 16.0,
+          error_source: "global_estimate",
+          validation_samples: 0,
+        }),
+      },
+    });
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-status")).toBe("approximate");
+    const text = wrapper.text();
+    expect(text).toContain("近似位置");
+    expect(text).toContain("5.0");
+    expect(text).toContain("全局估计");
+    expect(text).not.toContain("已校准");
+  });
+
+  it("approximate 且为实测时不标全局估计", () => {
+    const wrapper = mount(MapPanel, {
+      props: {
+        items: [item("a", 0.5, 0.5)],
+        selectedId: "a",
+        basemap: basemap({ status: "approximate", error_source: "measured", validation_samples: 5 }),
+      },
+    });
+    const text = wrapper.text();
+    expect(text).toContain("近似位置");
+    expect(text).not.toContain("全局估计");
+    expect(text).not.toContain("已校准");
+  });
+
+  it("回退散点时说明仍是「未校准」", () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: null },
+    });
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-status")).toBeUndefined();
+    expect(wrapper.text()).toContain("未校准");
+    expect(wrapper.text()).not.toContain("已校准");
+  });
+});
+
 describe("底图面板", () => {
   it("按矩阵把归一化坐标投影到位图百分比", () => {
     const wrapper = mount(MapPanel, {

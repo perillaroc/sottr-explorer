@@ -111,19 +111,32 @@ const ariaLabel = computed(() =>
   ),
 );
 
+/** 误差像素值保留一位小数；缺失时给占位符而不是编造数字。 */
+function formatPx(value: number | null | undefined): string {
+  return typeof value === "number" && Number.isFinite(value) ? value.toFixed(1) : "—";
+}
+
 const caption = computed(() => {
   if (mode.value === "map" && props.basemap) {
-    const approximate = props.basemap.status === "approximate";
-    return {
-      main: approximate
-        ? t(
-            "底图点位为近似位置，按该子关卡的变换绘制。",
-            "Map markers are approximate positions drawn with this sub-level's transform.",
+    const entry = props.basemap;
+    const median = formatPx(entry.median_error_px);
+    const p95 = formatPx(entry.p95_error_px);
+    const estimated = entry.error_source === "global_estimate";
+    // 只有 status = calibrated 才允许出现「已校准」字样。
+    const main =
+      entry.status === "calibrated"
+        ? tFormat(
+            "已校准 · 中位误差 {median} px，P95 {p95} px",
+            "Calibrated · median {median} px, P95 {p95} px",
+            { median, p95 },
           )
-        : t(
-            "底图点位按该子关卡已校准的变换绘制。",
-            "Map markers are drawn with this sub-level's calibrated transform.",
-          ),
+        : tFormat(
+            "近似位置 · 中位误差 {median} px{estimated}",
+            "Approximate · median {median} px{estimated}",
+            { median, estimated: estimated ? t("（全局估计）", " (global estimate)") : "" },
+          );
+    return {
+      main,
       legend: t("实心 = 已收集，空心 = 未收集。", "Filled = collected, hollow = uncollected."),
       caution: t("不是导航路线。", "Not a navigation route."),
     };
@@ -145,6 +158,7 @@ const caption = computed(() => {
     data-testid="map-panel"
     :data-mode="mode"
     :data-reason="resolved.reason"
+    :data-status="mode === 'map' && basemap ? basemap.status : null"
   >
     <div
       v-if="mode === 'map' && basemap"
