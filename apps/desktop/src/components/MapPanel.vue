@@ -69,6 +69,25 @@ const dots = computed<Dot[]>(() => {
   return points;
 });
 
+/** 底图的最大高度（像素）；宽度按可用宽度与图片比例自适应。 */
+const MAX_HEIGHT = 320;
+
+/**
+ * 面板内边距之外的可用宽度由父容器决定，这里只负责「不超宽、不超高」：
+ * 宽度取 `min(100%, 最大高度 × 宽高比)`，保证任意比例（含 2:1 宽图）都按高度上限收敛。
+ */
+const mapBoxStyle = computed(() => {
+  const entry = props.basemap;
+  if (!entry || entry.image_height <= 0) {
+    return {};
+  }
+  const ratio = entry.image_width / entry.image_height;
+  return {
+    aspectRatio: `${entry.image_width} / ${entry.image_height}`,
+    maxWidth: `min(100%, ${Math.round(MAX_HEIGHT * ratio)}px)`,
+  };
+});
+
 /** 当前条目最后绘制，避免被相邻点位盖住外圈。 */
 const orderedDots = computed<Dot[]>(() => [
   ...dots.value.filter((dot) => !dot.selected),
@@ -120,8 +139,9 @@ const caption = computed(() => {
   >
     <div
       v-if="mode === 'map' && basemap && imageUrl"
-      class="relative mx-auto w-full max-w-[320px] overflow-hidden rounded-[6px] border border-line bg-raised"
-      :style="{ aspectRatio: `${basemap.image_width} / ${basemap.image_height}` }"
+      class="relative mx-auto w-full overflow-hidden rounded-[6px] border border-line bg-raised"
+      :style="mapBoxStyle"
+      data-testid="basemap-frame"
     >
       <img
         :src="imageUrl"

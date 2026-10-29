@@ -133,6 +133,31 @@ describe("点位语义（P3-03）", () => {
   });
 });
 
+describe("底图自适应（P3-04）", () => {
+  it("方图宽度上限等于最大高度 320", () => {
+    const square = basemap({ image_width: 2048, image_height: 2048 });
+    square.transform.matrix = [2048, 0, 0, 0, 2048, 0];
+    const wrapper = mount(MapPanel, {
+      props: { items: [], selectedId: null, basemap: square },
+    });
+    const frame = wrapper.get('[data-testid="basemap-frame"]');
+    expect(frame.classes()).toContain("w-full");
+    expect(frame.attributes("style")).toContain("aspect-ratio: 2048 / 2048");
+    expect(frame.attributes("style")).toContain("max-width: min(100%, 320px)");
+  });
+
+  it("宽图按宽高比放宽上限，仍不超过最大高度", () => {
+    const wide = basemap({ image_width: 2048, image_height: 1024 });
+    wide.transform.matrix = [2048, 0, 0, 0, 1024, 0];
+    const wrapper = mount(MapPanel, {
+      props: { items: [], selectedId: null, basemap: wide },
+    });
+    const style = wrapper.get('[data-testid="basemap-frame"]').attributes("style");
+    expect(style).toContain("aspect-ratio: 2048 / 1024");
+    expect(style).toContain("max-width: min(100%, 640px)");
+  });
+});
+
 describe("底图面板", () => {
   it("按矩阵把归一化坐标投影到位图百分比", () => {
     const wrapper = mount(MapPanel, {
