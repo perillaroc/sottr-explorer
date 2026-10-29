@@ -13,7 +13,8 @@ import { categoryClass } from "../app/category-style";
 import { buildSearchUrl, textSearchQuery, videoSearchQuery } from "../app/external-links";
 import { externalLinkKey, guideLinkKey, type DirectLink, type LinkActionState } from "../app/store";
 import type { PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
-import PositionScatter from "./PositionScatter.vue";
+import { basemapForUnit } from "../data/basemaps";
+import MapPanel from "./MapPanel.vue";
 import UiBadge from "./ui/UiBadge.vue";
 import UiButton from "./ui/UiButton.vue";
 
@@ -60,6 +61,9 @@ const sameUnitItems = computed<PlanItem[]>(() => {
     .flatMap((group) => group.items)
     .filter((entry) => entry.unit?.unit === unit);
 });
+
+/** 当前条目所属子关卡的基底层记录（没有则该段落回退散点）。 */
+const unitBasemap = computed(() => basemapForUnit(props.item.unit?.unit));
 
 const unitText = computed(() => {
   const unit = props.item.unit;
@@ -316,10 +320,7 @@ const linkStatusTone = computed(() => {
     >
       <summary class="cursor-pointer text-[13px] font-medium">{{ t("同一子关卡内的相对位置", "Relative positions within the same sub-level") }}</summary>
       <div class="mt-2 space-y-1.5">
-        <PositionScatter :items="sameUnitItems" :selected-id="item.id" />
-        <p class="text-xs text-caution">
-          {{ t("未校准：坐标为关卡内归一化值，不是导航点位；仅用于同一子关卡内的相对参照。", "Uncalibrated: coordinates are normalized in-level values, not navigation waypoints; they are for relative reference within the same sub-level only.") }}
-        </p>
+        <MapPanel :items="sameUnitItems" :selected-id="item.id" :basemap="unitBasemap" />
       </div>
     </details>
   </article>

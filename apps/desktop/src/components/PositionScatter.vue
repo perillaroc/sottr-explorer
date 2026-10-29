@@ -32,8 +32,9 @@ const points = computed<Point[]>(() =>
       id: item.id,
       label: item.display_name,
       x: PAD + item.position!.x * (SIZE - PAD * 2),
-      // 游戏坐标 Y 向上；SVG Y 向下，做一次翻转。
-      y: PAD + (1 - item.position!.y) * (SIZE - PAD * 2),
+      // 图鉴坐标的 y 向下增大（原点在取景框西北角），与 SVG 的 y 同向，不做翻转。
+      // 旧版按「y 向上」做了 1 - y，会让散点上下镜像。
+      y: PAD + item.position!.y * (SIZE - PAD * 2),
       collected: item.status === "collected",
       selected: item.id === props.selectedId,
     })),
