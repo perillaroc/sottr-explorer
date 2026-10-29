@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { flushPromises } from "@vue/test-utils";
 import { mount } from "@vue/test-utils";
 import CollectionDetail from "../src/components/CollectionDetail.vue";
+import MapPanel from "../src/components/MapPanel.vue";
 import { storeKey } from "../src/app/inject";
 import { createTestStore, analyzeCandidate } from "./helpers";
 import { MockDataSource } from "../src/data/mock";
@@ -86,6 +87,19 @@ describe("收集品详情", () => {
     expect(wrapper.find('[data-testid="position-scatter"]').exists()).toBe(true);
     expect(wrapper.text()).toContain("未校准");
     expect(wrapper.text()).toContain("不是导航点位");
+  });
+
+  it("展开相对位置段落后才把 active 传给底图面板（P3-05）", async () => {
+    const { store } = await setup();
+    const wrapper = await detailFor(store, PAITITI_ITEM);
+    const section = wrapper.get('[data-testid="position-section"]');
+    const panel = wrapper.findComponent(MapPanel);
+    expect(panel.exists()).toBe(true);
+    expect(panel.props("active")).toBe(false);
+
+    (section.element as HTMLDetailsElement).open = true;
+    await section.trigger("toggle");
+    expect(panel.props("active")).toBe(true);
   });
 
   it("详情只剩四段：头部、如何获取、外部参考、相对位置（折叠）", async () => {

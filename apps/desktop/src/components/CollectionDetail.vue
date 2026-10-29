@@ -65,6 +65,13 @@ const sameUnitItems = computed<PlanItem[]>(() => {
 /** 当前条目所属子关卡的基底层记录（没有则该段落回退散点）。 */
 const unitBasemap = computed(() => basemapForUnit(props.item.unit?.unit));
 
+/** 「相对位置」段落是否展开：底图只在展开后加载（P3-05）。 */
+const positionOpen = ref(false);
+
+function onPositionToggle(event: Event) {
+  positionOpen.value = (event.currentTarget as HTMLDetailsElement).open;
+}
+
 const unitText = computed(() => {
   const unit = props.item.unit;
   if (!unit) {
@@ -317,10 +324,17 @@ const linkStatusTone = computed(() => {
       v-if="item.position"
       class="rounded-[8px] border border-line bg-raised/60 px-3 py-2"
       data-testid="position-section"
+      :open="positionOpen"
+      @toggle="onPositionToggle"
     >
       <summary class="cursor-pointer text-[13px] font-medium">{{ t("同一子关卡内的相对位置", "Relative positions within the same sub-level") }}</summary>
       <div class="mt-2 space-y-1.5">
-        <MapPanel :items="sameUnitItems" :selected-id="item.id" :basemap="unitBasemap" />
+        <MapPanel
+          :items="sameUnitItems"
+          :selected-id="item.id"
+          :basemap="unitBasemap"
+          :active="positionOpen"
+        />
       </div>
     </details>
   </article>

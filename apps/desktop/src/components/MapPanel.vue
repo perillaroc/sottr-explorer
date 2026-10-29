@@ -12,13 +12,19 @@ import type { PlanItem } from "../data/atlas";
 import { basemapImageUrl, projectToImage, resolveBasemapMode, type Basemap } from "../data/basemaps";
 import PositionScatter from "./PositionScatter.vue";
 
-const props = defineProps<{
-  /** 同一子关卡内的条目（含当前条目）。 */
-  items: PlanItem[];
-  selectedId: string | null;
-  /** 该子关卡的基底层记录；没有则为 null。 */
-  basemap: Basemap | null;
-}>();
+const props = withDefaults(
+  defineProps<{
+    /** 同一子关卡内的条目（含当前条目）。 */
+    items: PlanItem[];
+    selectedId: string | null;
+    /** 该子关卡的基底层记录；没有则为 null。 */
+    basemap: Basemap | null;
+    /** 所在段落是否已展开；折叠时不挂载图片，避免提前下载。 */
+    active?: boolean;
+  }>(),
+  // Boolean 属性缺省会被 Vue 转成 false，这里显式默认成 true（独立使用时立即加载）。
+  { active: true },
+);
 
 const imageFailed = ref(false);
 
@@ -30,6 +36,9 @@ watch(
 );
 
 const imageUrl = computed(() => (props.basemap ? basemapImageUrl(props.basemap) : null));
+
+/** 展开且地址可用时才挂载 `<img>`；折叠状态不发起图片请求。 */
+const shouldLoadImage = computed(() => props.active && imageUrl.value !== null);
 
 const resolved = computed(() => resolveBasemapMode(props.basemap, imageUrl.value, imageFailed.value));
 const mode = computed(() => resolved.value.mode);
@@ -138,40 +147,42 @@ const caption = computed(() => {
     :data-reason="resolved.reason"
   >
     <div
-      v-if="mode === 'map' && basemap && imageUrl"
+      v-if="mode === 'map' && basemap"
       class="relative mx-auto w-full overflow-hidden rounded-[6px] border border-line bg-raised"
       :style="mapBoxStyle"
       data-testid="basemap-frame"
     >
-      <img
-        :src="imageUrl"
-        :alt="ariaLabel"
-        class="absolute inset-0 h-full w-full object-fill"
-        data-testid="basemap-image"
-        @error="imageFailed = true"
-      />
-      <span
-        v-for="dot in orderedDots"
-        :key="dot.id"
-        class="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px]"
-        :class="[
-          dot.collected
-            ? 'border-[var(--accent-strong)] bg-[var(--accent-strong)]'
-            : 'border-[var(--muted)] bg-transparent',
-          dot.selected ? 'z-10' : 'z-0',
-        ]"
-        :style="{ left: `${dot.left}%`, top: `${dot.top}%` }"
-        :data-collected="dot.collected"
-        :data-selected="dot.selected"
-        data-testid="basemap-dot"
-      >
+      <template v-if="shouldLoadImage && imageUrl">
+        <img
+          :src="imageUrl"
+          :alt="ariaLabel"
+          class="absolute inset-0 h-full w-full object-fill"
+          data-testid="basemap-image"
+          @error="imageFailed = true"
+        />
+        <span
+          v-for="dot in orderedDots"
+          :key="dot.id"
+          class="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px]"
+          :class="[
+            dot.collected
+              ? 'border-[var(--accent-strong)] bg-[var(--accent-strong)]'
+              : 'border-[var(--muted)] bg-transparent',
+            dot.selected ? 'z-10' : 'z-0',
+          ]"
+          :style="{ left: `${dot.left}%`, top: `${dot.top}%` }"
+          :data-collected="dot.collected"
+          :data-selected="dot.selected"
+          data-testid="basemap-dot"
+        >
         <span
           v-if="dot.selected"
           class="pointer-events-none absolute -inset-[4px] rounded-full border-2 border-[var(--accent-strong)]"
           data-testid="basemap-dot-ring"
         />
         <title>{{ dot.label }}（{{ dot.collected ? t("已收集", "collected") : t("未收集", "uncollected") }}）</title>
-      </span>
+        </span>
+      </template>
     </div>
     <PositionScatter v-else :items="items" :selected-id="selectedId" />
     <figcaption v-if="mode === 'map'" class="text-xs text-muted">

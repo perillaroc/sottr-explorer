@@ -158,6 +158,31 @@ describe("底图自适应（P3-04）", () => {
   });
 });
 
+describe("懒加载（P3-05）", () => {
+  it("未展开时不挂载图片与点位，展开后才挂载", async () => {
+    const props = { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: basemap() };
+    const wrapper = mount(MapPanel, { props: { ...props, active: false } });
+    expect(wrapper.find('[data-testid="basemap-image"]').exists()).toBe(false);
+    expect(wrapper.findAll('[data-testid="basemap-dot"]')).toHaveLength(0);
+    // 判定仍是「有底图可用」，只是没展开。
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("map");
+    expect(wrapper.find('[data-testid="basemap-frame"]').exists()).toBe(true);
+
+    await wrapper.setProps({ active: true });
+    expect(wrapper.get('[data-testid="basemap-image"]').attributes("src")).toBe(
+      "/basemaps/maps/unit.webp",
+    );
+    expect(wrapper.findAll('[data-testid="basemap-dot"]')).toHaveLength(1);
+  });
+
+  it("未传 active 时按展开处理（默认立即加载）", () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: basemap() },
+    });
+    expect(wrapper.find('[data-testid="basemap-image"]').exists()).toBe(true);
+  });
+});
+
 describe("底图面板", () => {
   it("按矩阵把归一化坐标投影到位图百分比", () => {
     const wrapper = mount(MapPanel, {
