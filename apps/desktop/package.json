@@ -14,6 +14,7 @@
     "contract:validate": "node scripts/contract/validate.mjs",
     "contract:document": "node scripts/contract/validate-document.mjs",
     "contract:types": "node scripts/contract/generate-types.mjs",
+    "contract:images": "node scripts/contract/check-basemap-images.mjs",
     "contract:check": "node scripts/contract/validate.mjs && node scripts/contract/generate-types.mjs && vue-tsc --noEmit"
   },
   "dependencies": {
