@@ -6,7 +6,7 @@
 // 图片加载失败同样回退，不显示破图。
 //
 // 点位坐标来自基底层矩阵（首版为 u = x·W、v = y·H），不做任何前端拟合。
-import { computed, ref, watch } from "vue";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
 import { t, tFormat } from "../app/i18n";
 import type { PlanItem } from "../data/atlas";
 import { basemapImageUrl, projectToImage, resolveBasemapMode, type Basemap } from "../data/basemaps";
@@ -27,6 +27,7 @@ const props = withDefaults(
 );
 
 const imageFailed = ref(false);
+const imageElement = ref<HTMLImageElement | null>(null);
 
 watch(
   () => props.basemap?.basemap_id,
@@ -34,6 +35,20 @@ watch(
     imageFailed.value = false;
   },
 );
+
+// 卸载时断开 src，确保解码后的位图可被回收（窄窗下反复开关详情时尤其明显）。
+onBeforeUnmount(() => {
+  imageElement.value?.removeAttribute("src");
+});
+
+/** 只接受当前地址的加载失败；切换单位时上一张图迟到的 error 不得污染新单位。 */
+function onImageError(event: Event) {
+  const target = event.target as HTMLImageElement | null;
+  if (!target || target.getAttribute("src") !== imageUrl.value) {
+    return;
+  }
+  imageFailed.value = true;
+}
 
 const imageUrl = computed(() => (props.basemap ? basemapImageUrl(props.basemap) : null));
 
@@ -168,11 +183,14 @@ const caption = computed(() => {
     >
       <template v-if="shouldLoadImage && imageUrl">
         <img
+          :key="imageUrl"
+          ref="imageElement"
           :src="imageUrl"
           :alt="ariaLabel"
+          decoding="async"
           class="absolute inset-0 h-full w-full object-fill"
           data-testid="basemap-image"
-          @error="imageFailed = true"
+          @error="onImageError"
         />
         <span
           v-for="dot in orderedDots"

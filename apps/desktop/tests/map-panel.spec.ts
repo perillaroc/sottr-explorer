@@ -5,7 +5,7 @@ import { mount } from "@vue/test-utils";
 // 让「已配置外置素材」成立：其余导出保持真实实现。
 vi.mock("../src/data/basemaps", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../src/data/basemaps")>();
-  return { ...actual, basemapImageUrl: () => "/basemaps/maps/unit.webp" };
+  return { ...actual, basemapImageUrl: (entry: Basemap) => `/basemaps/${entry.image}` };
 });
 
 import MapPanel from "../src/components/MapPanel.vue";
@@ -243,6 +243,52 @@ describe("误差说明（P3-06）", () => {
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-status")).toBeUndefined();
     expect(wrapper.text()).toContain("未校准");
     expect(wrapper.text()).not.toContain("已校准");
+  });
+});
+
+describe("切换条目释放图片（P3-07）", () => {
+  const other = () =>
+    basemap({
+      basemap_id: "bm:test_region/2",
+      unit_ids: [2],
+      image: "maps/other.webp",
+    });
+
+  it("切换单位时重建 img 元素", async () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: basemap() },
+    });
+    const before = wrapper.get('[data-testid="basemap-image"]').element;
+    await wrapper.setProps({ basemap: other() });
+    const after = wrapper.get('[data-testid="basemap-image"]').element;
+    expect(after).not.toBe(before);
+    expect(wrapper.get('[data-testid="basemap-image"]').attributes("src")).toBe(
+      "/basemaps/maps/other.webp",
+    );
+  });
+
+  it("切换单位后清掉上一张的失败状态", async () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: basemap() },
+    });
+    await wrapper.get('[data-testid="basemap-image"]').trigger("error");
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("scatter");
+
+    await wrapper.setProps({ basemap: other() });
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("map");
+  });
+
+  it("上一张图迟到的 error 不污染新单位", async () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: basemap() },
+    });
+    const stale = wrapper.get('[data-testid="basemap-image"]').element as HTMLImageElement;
+    await wrapper.setProps({ basemap: other() });
+
+    // 旧元素已被替换，但它的事件监听仍挂在旧节点上。
+    stale.dispatchEvent(new Event("error"));
+    await wrapper.vm.$nextTick();
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("map");
   });
 });
 
