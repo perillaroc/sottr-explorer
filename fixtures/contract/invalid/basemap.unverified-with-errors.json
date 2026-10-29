@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "basemap_version": "0.1.0",
+  "image_root": { "kind": "external", "path": "resource/map-processed" },
+  "sources": {
+    "src:fixture": { "license": "fixture", "redistributable": "pending", "method": "fixture" }
+  },
+  "basemaps": {
+    "bm:region_one/1": {
+      "basemap_id": "bm:region_one/1",
+      "version": "0.1.0",
+      "region_id": "region_one",
+      "unit_ids": [1],
+      "image": "maps/unit.webp",
+      "image_width": 256,
+      "image_height": 256,
+      "transform": {
+        "kind": "affine",
+        "matrix": [256.0, 0.0, 0.0, 0.0, 256.0, 0.0],
+        "coordinate_y_axis": "down",
+        "image_origin": "top_left"
+      },
+      "transform_basis": "analytic",
+      "status": "unverified",
+      "median_error_px": 4.0,
+      "p95_error_px": null,
+      "max_error_px": null,
+      "source_refs": ["src:fixture"],
+      "review": { "state": "draft" }
+    }
+  }
+}

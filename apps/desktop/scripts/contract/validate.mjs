@@ -53,6 +53,8 @@ const validTargets = [
   // SX-022：全收集图鉴（schema 2.0.0）同样受契约校验（与 Rust catalog 加载器互补）。
   ["catalog", "../../data/catalog/collectibles_catalog.json"],
   // P2-01/P2-05：真实地图基底层同样受契约校验（与 Rust basemap 加载器互补）。
+  ["basemap", "valid/basemap.valid.json"],
+  ["basemap", "valid/basemap.minimal.json"],
   ["basemap", "../../data/map/basemaps.json"],
 ];
 
@@ -61,6 +63,11 @@ const invalidTargets = [
   ["report", "invalid/report.null-value-without-reason.json"],
   ["report", "invalid/report.verified-coordinates-null.json"],
   ["metadata", "invalid/metadata.bad-url.json"],
+  ["basemap", "invalid/basemap.bad-matrix.json"],
+  ["basemap", "invalid/basemap.unverified-with-errors.json"],
+  ["basemap", "invalid/basemap.calibrated-null-error.json"],
+  ["basemap", "invalid/basemap.unknown-field.json"],
+  ["basemap", "invalid/basemap.bad-image-path.json"],
 ];
 
 const validators = new Map();

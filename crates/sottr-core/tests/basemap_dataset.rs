@@ -15,6 +15,8 @@ use sottr_core::basemap::{
 use sottr_core::metadata::MetadataLimits;
 
 const BASEMAPS: &str = include_str!("../../../data/map/basemaps.json");
+const FIXTURE_VALID: &str = include_str!("../../../fixtures/contract/valid/basemap.valid.json");
+const FIXTURE_MINIMAL: &str = include_str!("../../../fixtures/contract/valid/basemap.minimal.json");
 
 fn load() -> BasemapDataset {
     BasemapDataset::from_json(BASEMAPS.as_bytes(), &MetadataLimits::default())
@@ -90,6 +92,15 @@ fn only_measured_units_are_calibrated() {
     assert_eq!(village.validation_samples, Some(38));
 
     assert!(dataset.for_unit(424242).is_none());
+}
+
+#[test]
+fn contract_fixtures_load_in_rust_loader() {
+    // schema 与加载器是两层独立校验；合法夹具必须同时通过两层。
+    for (name, json) in [("basemap.valid", FIXTURE_VALID), ("basemap.minimal", FIXTURE_MINIMAL)] {
+        BasemapDataset::from_json(json.as_bytes(), &MetadataLimits::default())
+            .unwrap_or_else(|error| panic!("{name} 应通过 Rust 加载器：{error}"));
+    }
 }
 
 // --- 非法输入 -------------------------------------------------------------
