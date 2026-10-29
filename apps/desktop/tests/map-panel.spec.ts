@@ -94,6 +94,45 @@ describe("底图显示判定（P3-02）", () => {
   });
 });
 
+describe("点位语义（P3-03）", () => {
+  it("已收集实心、未收集空心，当前条目外圈并最后绘制", () => {
+    const wrapper = mount(MapPanel, {
+      props: {
+        items: [
+          item("a", 0.2, 0.2, true),
+          item("b", 0.5, 0.5),
+          item("c", 0.8, 0.8),
+        ],
+        selectedId: "c",
+        basemap: basemap(),
+      },
+    });
+    const dots = wrapper.findAll('[data-testid="basemap-dot"]');
+    expect(dots).toHaveLength(3);
+
+    const collected = dots.find((dot) => dot.attributes("data-collected") === "true");
+    expect(collected?.classes()).toContain("bg-[var(--accent-strong)]");
+
+    const hollow = dots.filter((dot) => dot.attributes("data-collected") === "false");
+    expect(hollow).toHaveLength(2);
+    expect(hollow[0].classes()).toContain("bg-transparent");
+    expect(hollow[0].classes()).toContain("border-[var(--muted)]");
+
+    // 当前条目排在最后，避免被相邻点位盖住外圈。
+    const last = dots[dots.length - 1];
+    expect(last.attributes("data-selected")).toBe("true");
+    expect(last.classes()).toContain("z-10");
+    expect(wrapper.findAll('[data-testid="basemap-dot-ring"]')).toHaveLength(1);
+  });
+
+  it("没有当前条目时不画外圈", () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.5, 0.5)], selectedId: null, basemap: basemap() },
+    });
+    expect(wrapper.find('[data-testid="basemap-dot-ring"]').exists()).toBe(false);
+  });
+});
+
 describe("底图面板", () => {
   it("按矩阵把归一化坐标投影到位图百分比", () => {
     const wrapper = mount(MapPanel, {
@@ -112,12 +151,13 @@ describe("底图面板", () => {
 
     const dots = wrapper.findAll('[data-testid="basemap-dot"]');
     expect(dots).toHaveLength(2);
-    expect(dots[0].attributes("style")).toContain("left: 25%");
-    expect(dots[0].attributes("style")).toContain("top: 50%");
-    expect(dots[0].attributes("data-collected")).toBe("true");
-    expect(dots[0].attributes("data-selected")).toBe("true");
-    expect(dots[1].attributes("style")).toContain("left: 75%");
-    expect(dots[1].attributes("style")).toContain("top: 20%");
+    const selected = dots.find((dot) => dot.attributes("data-selected") === "true");
+    expect(selected?.attributes("style")).toContain("left: 25%");
+    expect(selected?.attributes("style")).toContain("top: 50%");
+    expect(selected?.attributes("data-collected")).toBe("true");
+    const other = dots.find((dot) => dot.attributes("data-selected") === "false");
+    expect(other?.attributes("style")).toContain("left: 75%");
+    expect(other?.attributes("style")).toContain("top: 20%");
   });
 
   it("没有基底层记录时回退散点", () => {

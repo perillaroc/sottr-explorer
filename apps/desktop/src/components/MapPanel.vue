@@ -69,6 +69,12 @@ const dots = computed<Dot[]>(() => {
   return points;
 });
 
+/** 当前条目最后绘制，避免被相邻点位盖住外圈。 */
+const orderedDots = computed<Dot[]>(() => [
+  ...dots.value.filter((dot) => !dot.selected),
+  ...dots.value.filter((dot) => dot.selected),
+]);
+
 const ariaLabel = computed(() =>
   tFormat(
     `同一子关卡内 {n} 个收集品在地图底图上的位置`,
@@ -125,14 +131,15 @@ const caption = computed(() => {
         @error="imageFailed = true"
       />
       <span
-        v-for="dot in dots"
+        v-for="dot in orderedDots"
         :key="dot.id"
         class="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px]"
-        :class="
+        :class="[
           dot.collected
             ? 'border-[var(--accent-strong)] bg-[var(--accent-strong)]'
-            : 'border-[var(--muted)] bg-transparent'
-        "
+            : 'border-[var(--muted)] bg-transparent',
+          dot.selected ? 'z-10' : 'z-0',
+        ]"
         :style="{ left: `${dot.left}%`, top: `${dot.top}%` }"
         :data-collected="dot.collected"
         :data-selected="dot.selected"
@@ -140,7 +147,8 @@ const caption = computed(() => {
       >
         <span
           v-if="dot.selected"
-          class="pointer-events-none absolute -inset-[3px] rounded-full border-2 border-[var(--accent-strong)]"
+          class="pointer-events-none absolute -inset-[4px] rounded-full border-2 border-[var(--accent-strong)]"
+          data-testid="basemap-dot-ring"
         />
         <title>{{ dot.label }}（{{ dot.collected ? t("已收集", "collected") : t("未收集", "uncollected") }}）</title>
       </span>
