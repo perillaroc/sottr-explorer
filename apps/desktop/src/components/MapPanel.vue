@@ -9,7 +9,7 @@
 import { computed, ref, watch } from "vue";
 import { t, tFormat } from "../app/i18n";
 import type { PlanItem } from "../data/atlas";
-import { basemapImageUrl, projectToImage, type Basemap } from "../data/basemaps";
+import { basemapImageUrl, projectToImage, resolveBasemapMode, type Basemap } from "../data/basemaps";
 import PositionScatter from "./PositionScatter.vue";
 
 const props = defineProps<{
@@ -31,13 +31,8 @@ watch(
 
 const imageUrl = computed(() => (props.basemap ? basemapImageUrl(props.basemap) : null));
 
-const mode = computed<"map" | "scatter">(() => {
-  const entry = props.basemap;
-  if (!entry || entry.status === "unverified" || !imageUrl.value || imageFailed.value) {
-    return "scatter";
-  }
-  return "map";
-});
+const resolved = computed(() => resolveBasemapMode(props.basemap, imageUrl.value, imageFailed.value));
+const mode = computed(() => resolved.value.mode);
 
 interface Dot {
   id: string;
@@ -111,7 +106,12 @@ const caption = computed(() => {
 </script>
 
 <template>
-  <figure class="space-y-1" data-testid="map-panel" :data-mode="mode">
+  <figure
+    class="space-y-1"
+    data-testid="map-panel"
+    :data-mode="mode"
+    :data-reason="resolved.reason"
+  >
     <div
       v-if="mode === 'map' && basemap && imageUrl"
       class="relative mx-auto w-full max-w-[320px] overflow-hidden rounded-[6px] border border-line bg-raised"

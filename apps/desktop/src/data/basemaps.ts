@@ -49,6 +49,41 @@ export function basemapImageUrl(basemap: Basemap): string | null {
   return `${imageBase.replace(/\/+$/, "")}/${basemap.image.replace(/^\/+/, "")}`;
 }
 
+/** 底图面板的显示判定结果。 */
+export interface BasemapMode {
+  /** `map` 画底图与点位，`scatter` 回退散点。 */
+  mode: "map" | "scatter";
+  /** 判定原因，供界面与测试使用。 */
+  reason: "map" | "no-record" | "unverified" | "no-image" | "image-error";
+}
+
+/**
+ * 决定「相对位置」段落画底图还是回退散点（P3-02）。
+ *
+ * 只有同时满足「有基底层记录」「状态不是 unverified」「图片地址可用」
+ * 「图片没有加载失败」才画底图；任一条不满足就回退散点，
+ * 回退时沿用原有「未校准」措辞，不暗示任何精度。
+ */
+export function resolveBasemapMode(
+  basemap: Basemap | null,
+  imageUrl: string | null,
+  imageFailed: boolean,
+): BasemapMode {
+  if (!basemap) {
+    return { mode: "scatter", reason: "no-record" };
+  }
+  if (basemap.status === "unverified") {
+    return { mode: "scatter", reason: "unverified" };
+  }
+  if (!imageUrl) {
+    return { mode: "scatter", reason: "no-image" };
+  }
+  if (imageFailed) {
+    return { mode: "scatter", reason: "image-error" };
+  }
+  return { mode: "map", reason: "map" };
+}
+
 /** 把归一化坐标按变换矩阵映射到图片像素。 */
 export function projectToImage(
   basemap: Basemap,

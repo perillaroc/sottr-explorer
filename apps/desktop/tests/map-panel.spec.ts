@@ -9,7 +9,7 @@ vi.mock("../src/data/basemaps", async (importOriginal) => {
 });
 
 import MapPanel from "../src/components/MapPanel.vue";
-import type { Basemap } from "../src/data/basemaps";
+import { resolveBasemapMode, type Basemap } from "../src/data/basemaps";
 import type { PlanItem } from "../src/data/atlas";
 
 function item(id: string, x: number, y: number, collected = false): PlanItem {
@@ -54,6 +54,46 @@ function basemap(overrides: Partial<Basemap> = {}): Basemap {
   };
 }
 
+describe("底图显示判定（P3-02）", () => {
+  const url = "/basemaps/maps/unit.webp";
+
+  it("有记录、状态非 unverified、图片可用时画底图", () => {
+    expect(resolveBasemapMode(basemap(), url, false)).toEqual({ mode: "map", reason: "map" });
+    expect(resolveBasemapMode(basemap({ status: "approximate" }), url, false)).toEqual({
+      mode: "map",
+      reason: "map",
+    });
+  });
+
+  it("没有记录时回退，原因 no-record", () => {
+    expect(resolveBasemapMode(null, url, false)).toEqual({
+      mode: "scatter",
+      reason: "no-record",
+    });
+  });
+
+  it("状态为 unverified 时回退，原因 unverified", () => {
+    expect(resolveBasemapMode(basemap({ status: "unverified" }), url, false)).toEqual({
+      mode: "scatter",
+      reason: "unverified",
+    });
+  });
+
+  it("没有图片素材时回退，原因 no-image", () => {
+    expect(resolveBasemapMode(basemap(), null, false)).toEqual({
+      mode: "scatter",
+      reason: "no-image",
+    });
+  });
+
+  it("图片加载失败时回退，原因 image-error", () => {
+    expect(resolveBasemapMode(basemap(), url, true)).toEqual({
+      mode: "scatter",
+      reason: "image-error",
+    });
+  });
+});
+
 describe("底图面板", () => {
   it("按矩阵把归一化坐标投影到位图百分比", () => {
     const wrapper = mount(MapPanel, {
@@ -64,6 +104,7 @@ describe("底图面板", () => {
       },
     });
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("map");
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-reason")).toBe("map");
     expect(wrapper.find('[data-testid="position-scatter"]').exists()).toBe(false);
     expect(wrapper.get('[data-testid="basemap-image"]').attributes("src")).toBe(
       "/basemaps/maps/unit.webp",
@@ -84,6 +125,7 @@ describe("底图面板", () => {
       props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: null },
     });
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("scatter");
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-reason")).toBe("no-record");
     expect(wrapper.find('[data-testid="position-scatter"]').exists()).toBe(true);
     expect(wrapper.text()).toContain("未校准");
   });
@@ -97,6 +139,7 @@ describe("底图面板", () => {
       },
     });
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("scatter");
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-reason")).toBe("unverified");
   });
 
   it("图片加载失败后回退散点", async () => {
@@ -104,8 +147,10 @@ describe("底图面板", () => {
       props: { items: [item("a", 0.5, 0.5)], selectedId: "a", basemap: basemap() },
     });
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("map");
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-reason")).toBe("map");
     await wrapper.get('[data-testid="basemap-image"]').trigger("error");
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("scatter");
+    expect(wrapper.get('[data-testid="map-panel"]').attributes("data-reason")).toBe("image-error");
     expect(wrapper.find('[data-testid="position-scatter"]').exists()).toBe(true);
   });
 
