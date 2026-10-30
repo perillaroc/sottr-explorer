@@ -993,7 +993,7 @@
         "image_origin": "top_left"
       },
       "transform_basis": "analytic",
-      "status": "approximate",
+      "status": "calibrated",
       "source_refs": [
         "src:spriters-map-502132"
       ],
@@ -1002,11 +1002,11 @@
         "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
         "date": "2026-10-29"
       },
-      "median_error_px": 5.0,
-      "p95_error_px": 16.0,
-      "max_error_px": 36.0,
-      "error_source": "global_estimate",
-      "validation_samples": 0,
+      "median_error_px": 6.28,
+      "p95_error_px": 19.06,
+      "max_error_px": 23.45,
+      "error_source": "measured",
+      "validation_samples": 13,
       "image_sha256": "9880e728c2b5ed3369fbe404b56b064e05d06b41284175c128a9772d81dd6435",
       "image_bytes": 515028
     },
@@ -1125,7 +1125,7 @@
         "image_origin": "top_left"
       },
       "transform_basis": "analytic",
-      "status": "approximate",
+      "status": "calibrated",
       "source_refs": [
         "src:spriters-map-502132"
       ],
@@ -1134,11 +1134,11 @@
         "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
         "date": "2026-10-29"
       },
-      "median_error_px": 10.0,
-      "p95_error_px": 32.0,
-      "max_error_px": 72.0,
-      "error_source": "global_estimate",
-      "validation_samples": 0,
+      "median_error_px": 5.05,
+      "p95_error_px": 15.25,
+      "max_error_px": 20.82,
+      "error_source": "measured",
+      "validation_samples": 13,
       "image_sha256": "7037609090375fc2da961f6a8117e2553e0bb0393babb5419caf7d2ccceec496",
       "image_bytes": 3326412
     },
@@ -1477,7 +1477,7 @@
         "image_origin": "top_left"
       },
       "transform_basis": "analytic",
-      "status": "approximate",
+      "status": "calibrated",
       "source_refs": [
         "src:spriters-map-502133"
       ],
@@ -1486,11 +1486,11 @@
         "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
         "date": "2026-10-29"
       },
-      "median_error_px": 5.0,
-      "p95_error_px": 16.0,
-      "max_error_px": 36.0,
-      "error_source": "global_estimate",
-      "validation_samples": 0,
+      "median_error_px": 2.96,
+      "p95_error_px": 7.53,
+      "max_error_px": 8.06,
+      "error_source": "measured",
+      "validation_samples": 15,
       "image_sha256": "89a91c1000392028143962881a655a98c0fffdace3b3727f2f0f0bb91021471e",
       "image_bytes": 638324
     },
@@ -1521,7 +1521,7 @@
         "image_origin": "top_left"
       },
       "transform_basis": "analytic",
-      "status": "approximate",
+      "status": "calibrated",
       "source_refs": [
         "src:spriters-map-502133"
       ],
@@ -1530,11 +1530,11 @@
         "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
         "date": "2026-10-29"
       },
-      "median_error_px": 10.0,
-      "p95_error_px": 32.0,
-      "max_error_px": 72.0,
-      "error_source": "global_estimate",
-      "validation_samples": 0,
+      "median_error_px": 6.19,
+      "p95_error_px": 35.87,
+      "max_error_px": 141.67,
+      "error_source": "measured",
+      "validation_samples": 84,
       "image_sha256": "eb84afcafb87f998c311ece062ca36898970f2e6de8f364929c01c569dcffd85",
       "image_bytes": 2742072
     },
@@ -1565,7 +1565,7 @@
         "image_origin": "top_left"
       },
       "transform_basis": "analytic",
-      "status": "approximate",
+      "status": "calibrated",
       "source_refs": [
         "src:spriters-map-502133"
       ],
@@ -1574,11 +1574,11 @@
         "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经人工抽查",
         "date": "2026-10-29"
       },
-      "median_error_px": 10.0,
-      "p95_error_px": 32.0,
-      "max_error_px": 72.0,
-      "error_source": "global_estimate",
-      "validation_samples": 0,
+      "median_error_px": 7.41,
+      "p95_error_px": 12.13,
+      "max_error_px": 13.03,
+      "error_source": "measured",
+      "validation_samples": 14,
       "image_sha256": "ee3548f0a3e844e9b357e16406747127c0e1319edf0753de838c06e5ccd6187c",
       "image_bytes": 1943540
     },

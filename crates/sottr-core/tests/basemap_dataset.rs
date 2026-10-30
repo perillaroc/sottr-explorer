@@ -83,7 +83,8 @@ fn only_measured_units_are_calibrated() {
         .flat_map(|basemap| basemap.unit_ids.clone())
         .collect();
     calibrated.sort_unstable();
-    assert_eq!(calibrated, vec![318, 2287]);
+    // 逐单位抽样验证过的 7 个单位；其余为 approximate（变换解析精确但未逐单位验证）。
+    assert_eq!(calibrated, vec![241, 243, 318, 682, 2287, 2306, 4026]);
 
     let village = dataset.for_unit(318).expect("San Juan 村庄");
     assert_eq!(village.image, "maps/sm_spanish_mission_village.webp");
