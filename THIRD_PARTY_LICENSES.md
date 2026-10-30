@@ -66,3 +66,13 @@
   事实性映射（ID→区域/单位/放置/坐标）是否随交付版发布按方案 G4 出口的
   “证据与再分发门禁逐类复核”执行，当前不声明已完成
 - 方法与发现详见 `research/s019/README.md`、`research/s019/findings.md`
+
+## 10. 真实地图底图（`data/map/`，2026-10-30）
+
+- 来源：spriters-resource 的三份投稿 **502127 / 502132 / 502133**，共 44 张 PNG
+  （社区从游戏资源提取的地图贴图）
+- 当前状态：`sources[*].redistributable = pending`。原始 PNG（`resource/map/`）与处理后的
+  WebP（`resource/map-processed/`）**都在仓库外**，未随发布包分发
+- 仓库内的 `data/map/basemaps.json` 只记录路径、尺寸、SHA-256、变换与来源键，**不含图像数据**
+- 分发前需补齐投稿标题与作者记录并完成授权判断（工作区
+  `doc/2026-10-19-真实地图/真实地图方案.md` 的 P0-05 / P0-06）

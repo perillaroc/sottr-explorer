@@ -33,10 +33,18 @@ G4 已开始：**SX-019 完成**（游戏资源独立提取：非故事收集品
 CLI `plan`；区域页/详情/概览/全收集页改为消费图鉴。端到端验收：图鉴「区域×子类别」
 与存档自带区域计数器 **43/43 行完全吻合**；见 `research/s022/README.md`）。
 
+**真实地图底图层完成**（2026-10-30，P1–P5）：42 个子关卡各有唯一底图，变换为解析恒等映射
+`u = x·W`、`v = y·H`（由 gameflow 取景框与营地归一化坐标配对求解，24 个点对零残差，
+非拟合参数）。291 条带位置条目中 **277 条（95.2%）** 落在底图不透明区域；2 条 `calibrated`
+（San Juan 318、Kuwaq 2287）、40 条 `approximate`；没有底图的单位保持散点，并明确标注未校准。
+图片是外置素材，授权未决前不进仓库。见 [data/map/README.md](data/map/README.md) 与
+`docs/contracts.md` 的「BasemapDataset」一节。
+
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
 - 接口契约与夹具说明：[docs/contracts.md](docs/contracts.md)
 - 元数据数据集（来源、生成与许可状态）：[data/metadata/README.md](data/metadata/README.md)
 - 全收集图鉴（区域 / 子关卡 / 中英名 / 相对位置 / 获取方式）：[data/catalog/README.md](data/catalog/README.md)
+- 真实地图基底层（坐标、状态与界面措辞边界）：[data/map/README.md](data/map/README.md)
 - 图鉴数据基础研究（区域绑定、本地化对齐与验收）：[research/s022/README.md](research/s022/README.md)
 - 开发方案与任务状态在开发工作区 `plan/` 目录维护，不在本仓库
 
@@ -51,6 +59,7 @@ CLI `plan`；区域页/详情/概览/全收集页改为消费图鉴。端到端�
 | `apps/desktop/` | Tauri 2 后端 + Vue 3/Vite/Tailwind 4 前端（pnpm）。后端命令层（SX-014）：`discover_saves`/`list_candidates`/`select_input`/`analyze_file`/`cancel_analysis`/`export_report`/`resolve_guide_link`/`open_guide_link`；权限清单 `capabilities/default.json` + `permissions/sottr-commands.toml`；CSP 与导航门禁在 `tauri.conf.json`/`src/navigation.rs`。前端（SX-015/SX-016）：外壳/槽位选择/概览/区域与收集/详情/诊断/设置 + 视觉令牌 + 真实数据源 `TauriDataSource`（`src/data/tauri.ts`）与模拟数据源；导出对话框与攻略链接动作；组件/状态/端到端测试（`tests/`，80 项 + 1 项真实输出绑定（需环境变量）） |
 | `data/metadata/` | 版本化收集品元数据（SX-008）：三个数据集文件、manifest 与转换脚本 |
 | `data/catalog/` | 全收集图鉴（SX-021 建目录；SX-022 schema 2.0.0：区域 / 子关卡 / 中英名 / 相对位置 / 获取方式）：生成脚本、契约与说明 |
+| `data/map/` | 真实地图基底层：42 个子关卡的底图记录与「归一化坐标 → 图片像素」变换（契约、加载器与说明；图片为外置素材，授权未决前不入库） |
 | `research/s022/` | 图鉴数据基础研究（SX-022）：区域绑定、子关卡命名、本地化对齐与验收脚本（无商业数据转储） |
 | `research/python-v0.2/` | 研究基线 Python 程序与字典副本（回归参照，无私人样本） |
 | `research/s019/` | G4 研究记录（SX-019）：游戏资源与本地化关联的独立提取脚本及发现（无商业数据转储） |
@@ -99,6 +108,7 @@ pnpm contract:validate         # 契约夹具与 data/metadata 真实数据：�
 pnpm contract:document -- --schema batch --file <analysis.json>   # 复核 CLI 输出
 pnpm contract:types            # 由 schemas/ 重新生成 src/contract/*.d.ts
 pnpm contract:check            # 上述校验 + 类型生成 + vue-tsc 联合检查
+pnpm contract:images           # 底图图片校验：存在性、字节数、SHA-256、WebP 实际尺寸（外置素材，可单独运行）
 pnpm dev                       # 前端开发服务器（http://127.0.0.1:1420；浏览器内为模拟数据演示）
 #   ?mock=1 可在 Tauri 内强制模拟数据源；?mockWidth=800..1440 模拟“有效内容宽度”；
 #   ?mockLinkFail=1 演示“系统浏览器打开失败”的恢复路径（均仅模拟模式）
@@ -121,9 +131,11 @@ py -3 -m unittest discover -s tests -v
 - 未知状态显式 `unknown`，能力不适用显式 `unsupported`；不用 0 或空清单冒充结论
 - 桌面命令层（SX-014）只开放完成“选择输入 → 列候选 → 分析 → 取消 → 导出 → 打开核验链接”所需命令；前端权限为显式最小集（`core:app/event/path/window` 默认权限 + 7 条应用命令，未开放 opener/dialog/shell/文件系统/图像/菜单/托盘/资源/WebView 查询），WebView 不加载外部攻略页面（CSP + 导航门禁），攻略链接由后端校验 http/https 后交给系统外部浏览器
 - 私人存档、私人输出与完整研究包不在本仓库；见 `.gitignore` 的私人材料规则
+- 真实地图底图是**外置素材**：应用不内置、不下载，只在用户配置了本地目录时读取；未配置、以及详情里未展开「相对位置」段落时，不发起任何图片请求
 
 ## 许可与来源
 
 - 产品许可证尚未选择（仓库暂不含 `LICENSE`，属刻意状态，需单独决策）
 - 第三方内容来源、许可与待处理项见 [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
+- 真实地图底图来自社区从游戏资源提取的贴图，分发权未确认（`sources[*].redistributable = pending`），**未随发布包分发**
 - 精确依赖版本由 `Cargo.lock` 与 `apps/desktop/pnpm-lock.yaml` 固定
