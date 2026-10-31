@@ -67,12 +67,15 @@
   “证据与再分发门禁逐类复核”执行，当前不声明已完成
 - 方法与发现详见 `research/s019/README.md`、`research/s019/findings.md`
 
-## 10. 真实地图底图（`data/map/`，2026-10-30）
+## 10. 真实地图底图（`data/map/`，2026-10-31）
 
-- 来源：spriters-resource 的三份投稿 **502127 / 502132 / 502133**，共 44 张 PNG
-  （社区从游戏资源提取的地图贴图）
-- 当前状态：`sources[*].redistributable = pending`。原始 PNG（`resource/map/`）与处理后的
-  WebP（`resource/map-processed/`）**都在仓库外**，未随发布包分发
-- 仓库内的 `data/map/basemaps.json` 只记录路径、尺寸、SHA-256、变换与来源键，**不含图像数据**
-- 分发前需补齐投稿标题与作者记录并完成授权判断（工作区
-  `doc/2026-10-19-真实地图/真实地图方案.md` 的 P0-05 / P0-06）
+- 来源：spriters-resource 作者 **vi7ual** 的三份投稿（2025-12-18 提交），共 44 张地图贴图：
+  `502127`「Map (1/3)」24590–24607、`502132`「Map (2/3)」24608–24622、
+  `502133`「Map (3/3)」24623–24637（后两个标题按同批投稿推断）
+- 站点 About 页（<https://www.spriters-resource.com/page/about/>）说明：
+  「These resources are collected for **personal projects and non-commercial work**.」
+- 本项目的处理：按**非商业用途随包分发**，`sources[*].redistributable = allowed`；
+  处理后的 WebP 位于 `data/map/maps/`（约 48 MB），原始 PNG 留在开发工作区未入库
+- 素材版权归原权利人；**商业用途需另行取得许可**
+- 记录与推导见工作区 `doc/2026-10-19-真实地图/真实地图方案.md` 的 P0-05 / P0-06 与
+  `data/map/README.md`

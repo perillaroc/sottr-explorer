@@ -30,8 +30,10 @@ fn real_dataset_shape() {
     assert_eq!(dataset.version(), "0.1.0");
     assert_eq!(dataset.basemaps.len(), 42);
     assert_eq!(dataset.sources.len(), 3);
-    assert!(!dataset.images_bundled());
-    assert_eq!(dataset.image_root.kind, ImageRootKind::External);
+    // D4 = A：图片随包分发，因此必须是 bundled 且每条都带 image_sha256。
+    assert!(dataset.images_bundled());
+    assert_eq!(dataset.image_root.kind, ImageRootKind::Bundled);
+    assert!(dataset.basemaps.values().all(|b| b.image_sha256.is_some()));
 
     let regions: BTreeSet<&str> = dataset
         .basemaps

@@ -2,7 +2,7 @@ import { defineConfig } from "vitest/config";
 import { loadEnv, type Plugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,22 +13,23 @@ const host = process.env.TAURI_DEV_HOST;
 const appRoot = fileURLToPath(new URL(".", import.meta.url));
 const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
+/** 随包分发的底图目录（D4 = A）；`image_root.kind = bundled` 时由它提供 `/basemaps/*`。 */
+const bundledBasemapDir = path.join(repoRoot, "data/map/maps");
+
 /**
- * 开发期把 `/basemaps/<path>` 映射到外置图片目录（不复制、不改 fs.allow）。
+ * 把底图挂到 `/basemaps/maps/*`：开发期直接读目录，构建期作为 asset 输出。
  *
- * 真实地图底图是外置素材（D4 未决）：只有显式设置 BASEMAP_IMAGE_ROOT 时才提供，
- * 且只用于开发服务器；未设置时前端拿到 null 并回退到散点。
- * 取值优先级：进程环境变量 → `.env.local` 等 Vite 环境文件。
+ * `BASEMAP_IMAGE_ROOT` 可在本地覆盖来源目录（例如尚未入库的外置素材），
+ * 两者都没有时返回 null，前端拿到 null 并回退散点。
  */
-function basemapImageServer(root: string | undefined): Plugin | null {
-  if (!root) {
+function basemapImages(dir: string | null, emit: boolean): Plugin | null {
+  if (!dir) {
     return null;
   }
-  const base = path.resolve(root);
-  const prefix = "/basemaps/";
+  const base = path.resolve(dir);
+  const prefix = "/basemaps/maps/";
   return {
     name: "sottr-basemap-images",
-    apply: "serve",
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const url = req.url ?? "";
@@ -46,22 +47,37 @@ function basemapImageServer(root: string | undefined): Plugin | null {
         createReadStream(file).pipe(res);
       });
     },
+    generateBundle() {
+      if (!emit || !existsSync(base)) {
+        return;
+      }
+      for (const name of readdirSync(base)) {
+        if (!name.endsWith(".webp")) {
+          continue;
+        }
+        this.emitFile({
+          type: "asset",
+          fileName: `basemaps/maps/${name}`,
+          source: readFileSync(path.join(base, name)),
+        });
+      }
+    },
   };
 }
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const fileEnv = loadEnv(mode, appRoot, "");
-  // 测试环境固定走「未配置素材」分支：避免本机 .env.local 让用例依赖外部文件。
-  const basemapRoot =
-    mode === "test" ? undefined : (process.env.BASEMAP_IMAGE_ROOT ?? fileEnv.BASEMAP_IMAGE_ROOT);
-  const basemapPlugin = basemapImageServer(basemapRoot);
+  const override = process.env.BASEMAP_IMAGE_ROOT ?? fileEnv.BASEMAP_IMAGE_ROOT;
+  // 测试环境固定走「未配置素材」分支：避免本机目录让用例依赖外部文件。
+  const imageDir = mode === "test" ? null : (override ?? (existsSync(bundledBasemapDir) ? bundledBasemapDir : null));
+  const plugin = basemapImages(imageDir, !override);
 
   return {
-    plugins: [vue(), tailwindcss(), ...(basemapPlugin ? [basemapPlugin] : [])],
+    plugins: [vue(), tailwindcss(), ...(plugin ? [plugin] : [])],
 
     define: {
-      __BASEMAP_IMAGE_BASE__: JSON.stringify(basemapRoot ? "/basemaps" : null),
+      __BASEMAP_IMAGE_BASE__: JSON.stringify(imageDir ? "/basemaps" : null),
     },
 
     // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
@@ -98,3 +114,4 @@ export default defineConfig(({ mode }) => {
     },
   };
 });
+

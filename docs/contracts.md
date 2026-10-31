@@ -240,9 +240,10 @@ u = x · W          v = y · H
   `source_refs` 可解析、D5 门槛、`bundled` 必须带 `image_sha256`。
 - 图片存在性、字节数、SHA-256 与 WebP 实际像素尺寸由 `pnpm contract:images`
   （`apps/desktop/scripts/contract/check-basemap-images.mjs`）校验；
-  `image_root.kind = external` 时用 `--root` 或 `BASEMAP_IMAGE_ROOT` 指向图片目录。
+  `image_root.kind = bundled` 时直接校验仓库内 `image_root.path`，
+  `external` 时用 `--root` 或 `BASEMAP_IMAGE_ROOT` 指向图片目录。
   加载器只接收字节，不读文件系统。
-- `pnpm contract:check` 不含图片校验：图片可能不在本机，故单独成命令。
+- `pnpm contract:check` 不含图片校验：图片体积大且可外置，故单独成命令。
 
 ## 分析管线与命令行（SX-009）
 

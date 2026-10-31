@@ -32,19 +32,20 @@ u = x · W        v = y · H
 | `approximate` | 中位误差 ≤ 2% 图片对角线 |
 | `calibrated` | 中位 ≤ 0.5% **且** P95 ≤ 1% 图片对角线 |
 
-加载器按状态强制校验门槛，不达标直接拒绝，不做静默降级。当前 42 条中 2 条为 `calibrated`
-（San Juan 318、Kuwaq 2287），其余为 `approximate`——变换解析精确，但未逐单位抽样验证。
+加载器按状态强制校验门槛，不达标直接拒绝，不做静默降级。当前 42 条中 **7 条为 `calibrated`**
+（241、243、318、682、2287、2306、4026，共覆盖 212 条带位置条目），其余 35 条为
+`approximate`——变换同样是解析恒等映射，只是**条目数不足以做统计验证**。
 
 误差口径是中位/P95/最大「图鉴条目到最近摆件网格中心」的像素距离，属**上界**，不是拟合残差。
 
 ## 图片位置
 
-图片是**外置素材**：授权未决前不进仓库。
+图片**随包分发**（D4 = A）：处理后放在 `data/map/maps/*.webp`，共 42 张、约 48 MB。
 
-- `image_root.kind = external` 时，`image_root.path` 指向仓库外的处理后目录；
-- 开发服务器只在设置了 `BASEMAP_IMAGE_ROOT` 时提供 `/basemaps/*`（见 `apps/desktop/vite.config.ts`），
-  否则前端拿不到图片地址并回退散点；
-- 确认可分发后，把图片移入仓库、`image_root.kind` 改为 `bundled` 即可，其余字段不用动。
+- `image_root.kind = bundled`，`image_root.path = data/map`；`image` 是相对它的 `maps/<名称>.webp`；
+- 开发期由 Vite 中间件把 `/basemaps/maps/*` 映射到该目录，构建期作为 asset 输出到 `dist/basemaps/maps/`；
+- 设置 `BASEMAP_IMAGE_ROOT` 可在本地临时改用其它目录（用于验证尚未入库的素材）；
+- 目录不存在时前端拿不到图片地址，自动回退散点。
 
 ## 覆盖
 
@@ -81,6 +82,14 @@ cd apps/desktop; pnpm contract:check
 
 ## 来源与许可
 
-底图来自社区从游戏资源提取的贴图（spriters-resource 三份投稿 502127 / 502132 / 502133）。
-授权状态记录在数据集的 `sources[*].redistributable` 中，当前为 `pending`：
-**未确认分发权前，处理后的图片不得进入发布包**。
+底图来自 spriters-resource 的三份投稿，作者 **vi7ual**（2025-12-18 提交）：
+
+| 投稿 | 标题 | 覆盖 |
+| --- | --- | --- |
+| 502127 | Map (1/3) | 24590–24607 |
+| 502132 | Map (2/3) | 24608–24622（标题按同批投稿推断） |
+| 502133 | Map (3/3) | 24623–24637（标题按同批投稿推断） |
+
+站点 About 页写明素材供「personal projects and non-commercial work」，本项目以**非商业**方式
+随包分发，因此 `sources[*].redistributable` 为 `allowed`。素材版权仍归原权利人；
+商业用途需另行取得许可。完整记录见 `THIRD_PARTY_LICENSES.md` 第 10 节。

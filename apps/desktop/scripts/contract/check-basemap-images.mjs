@@ -61,7 +61,7 @@ const root =
   argValue("--root") ??
   process.env.BASEMAP_IMAGE_ROOT ??
   (imageRoot.kind === "bundled"
-    ? path.join(repoRoot, "data/map", imageRoot.path)
+    ? path.join(repoRoot, imageRoot.path)
     : path.resolve(repoRoot, "../../resource/map-processed"));
 
 if (!existsSync(root)) {

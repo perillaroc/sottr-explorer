@@ -35,9 +35,9 @@ CLI `plan`；区域页/详情/概览/全收集页改为消费图鉴。端到端�
 
 **真实地图底图层完成**（2026-10-30，P1–P5）：42 个子关卡各有唯一底图，变换为解析恒等映射
 `u = x·W`、`v = y·H`（由 gameflow 取景框与营地归一化坐标配对求解，24 个点对零残差，
-非拟合参数）。291 条带位置条目中 **277 条（95.2%）** 落在底图不透明区域；2 条 `calibrated`
-（San Juan 318、Kuwaq 2287）、40 条 `approximate`；没有底图的单位保持散点，并明确标注未校准。
-图片是外置素材，授权未决前不进仓库。见 [data/map/README.md](data/map/README.md) 与
+非拟合参数）。291 条带位置条目中 **277 条（95.2%）** 落在底图不透明区域；7 条 `calibrated`
+（覆盖 212 条带位置条目）、35 条 `approximate`；没有底图的单位保持散点，并明确标注未校准。
+图片随包分发（作者 vi7ual，非商业用途），存量约 48 MB。见 [data/map/README.md](data/map/README.md) 与
 `docs/contracts.md` 的「BasemapDataset」一节。
 
 - 基线复现记录：[docs/baseline.md](docs/baseline.md)
@@ -131,11 +131,12 @@ py -3 -m unittest discover -s tests -v
 - 未知状态显式 `unknown`，能力不适用显式 `unsupported`；不用 0 或空清单冒充结论
 - 桌面命令层（SX-014）只开放完成“选择输入 → 列候选 → 分析 → 取消 → 导出 → 打开核验链接”所需命令；前端权限为显式最小集（`core:app/event/path/window` 默认权限 + 7 条应用命令，未开放 opener/dialog/shell/文件系统/图像/菜单/托盘/资源/WebView 查询），WebView 不加载外部攻略页面（CSP + 导航门禁），攻略链接由后端校验 http/https 后交给系统外部浏览器
 - 私人存档、私人输出与完整研究包不在本仓库；见 `.gitignore` 的私人材料规则
-- 真实地图底图是**外置素材**：应用不内置、不下载，只在用户配置了本地目录时读取；未配置、以及详情里未展开「相对位置」段落时，不发起任何图片请求
+- 真实地图底图随包分发（`data/map/maps/`，来源于 spriters-resource 作者 vi7ual，非商业用途）：应用不联网下载；详情里未展开「相对位置」段落时不加载图片
 
 ## 许可与来源
 
 - 产品许可证尚未选择（仓库暂不含 `LICENSE`，属刻意状态，需单独决策）
 - 第三方内容来源、许可与待处理项见 [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
-- 真实地图底图来自社区从游戏资源提取的贴图，分发权未确认（`sources[*].redistributable = pending`），**未随发布包分发**
+- 真实地图底图来自 spriters-resource 作者 vi7ual（投稿 502127 / 502132 / 502133），站点声明素材供
+  personal projects and non-commercial work；本项目按非商业用途随包分发，版权仍归原权利人
 - 精确依赖版本由 `Cargo.lock` 与 `apps/desktop/pnpm-lock.yaml` 固定
