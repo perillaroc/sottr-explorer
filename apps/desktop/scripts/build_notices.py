@@ -20,6 +20,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 OUT = REPO / "THIRD_PARTY_NOTICES.txt"
 MIT_TEXT = REPO / "licenses" / "TrRebootModTools-MIT.txt"
+LUCIDE_TEXT = REPO / "licenses" / "lucide-ISC.txt"
 
 
 def run(args: list[str], cwd: Path) -> tuple[int, str, str]:
@@ -147,6 +148,7 @@ def main() -> int:
     rust_rows, rust_error = rust_packages()
     js_rows, js_error = js_packages()
     mit = MIT_TEXT.read_text(encoding="utf-8").strip() if MIT_TEXT.exists() else "（MIT 全文缺失，待复核）"
+    lucide = LUCIDE_TEXT.read_text(encoding="utf-8").strip() if LUCIDE_TEXT.exists() else "（ISC 全文缺失，待复核）"
 
     js_note = f"；{js_error}" if js_error else ""
     notices = f"""SOTTR Explorer — 第三方组件与许可通知（离线副本）
@@ -176,6 +178,11 @@ def main() -> int:
 TrRebootModTools 许可全文（内部 ID 名称字典与列表模板来源；MIT）：
 ----------------------------------------------------------------
 {mit}
+----------------------------------------------------------------
+
+Lucide 许可全文（应用图标几何与界面图标库；ISC）：
+----------------------------------------------------------------
+{lucide}
 ----------------------------------------------------------------
 
 Rust 依赖（name version — license，共 {len(rust_rows)} 项）：

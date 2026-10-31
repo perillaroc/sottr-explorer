@@ -119,11 +119,14 @@ py -3 apps/desktop/scripts/build_notices.py
 该确认只涉及事实数据的再分发，不构成对游戏素材、美术或商标的许可。游戏内中英名称
 来自 `locals.bin` 的表内对齐，不打包任何本地化文件或原始资源。
 
-## 7. 脚手架与图标
+## 7. 界面资产与图标
 
 - 项目骨架由 create-tauri-app 4.7.5（Tauri Programme，MIT / Apache-2.0 双许可）生成。
-- `apps/desktop/src-tauri/icons/` 当前仍是模板默认图标（Tauri 标识），仅用于本地
-  脚手架；**发布前必须替换为自行设计的应用图标**。
+- 应用图标为深青圆角底 + 罗盘，源文件 `apps/desktop/scripts/app-icon.svg`，
+  由 `pnpm exec tauri icon` 生成全部尺寸（含 Windows Store 的 `Square*Logo`）。
+  罗盘几何取自 **Lucide** 的 `compass`（ISC License，Copyright (c) 2026
+  Lucide Icons and Contributors），许可全文见 [`licenses/lucide-ISC.txt`](licenses/lucide-ISC.txt)；
+  界面图标同样来自 `@lucide/vue`（同一许可）。
 - 界面不加载自带字体：`styles.css` 只用 CSS 变量引用系统字体，无 `@font-face`。
 
 ## 8. 研究来源（未复制代码）
@@ -140,8 +143,7 @@ py -3 apps/desktop/scripts/build_notices.py
 
 ## 9. 发布前待办
 
-- 替换 `apps/desktop/src-tauri/icons/` 的 16 个模板图标。
-- 随二进制发布各依赖的许可全文（当前仓库只提供清单与 TrRebootModTools 全文；
-  MPL-2.0 覆盖的包按第 4 节给出源代码获取方式）。打包脚本可在
+- 随二进制发布各依赖的许可全文（当前仓库只提供通知正文与 TrRebootModTools /
+  Lucide 两份全文；MPL-2.0 覆盖的包按第 4 节给出源代码获取方式）。打包脚本可在
   `build_notices.py` 基础上扩展。
 - 每次发布前重跑 `build_notices.py`，并确认 `data/*/README.md` 的来源状态无变化。

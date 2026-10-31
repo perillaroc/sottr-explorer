@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 应用底色：与界面主题一致的深青渐变圆角方块 -->
+  <rect x="0" y="0" width="1024" height="1024" rx="232" fill="url(#bg)"/>
+
+  <!-- 罗盘外环 -->
+  <circle cx="512" cy="512" r="286" fill="none" stroke="#22d3ee" stroke-width="56"/>
+
+  <!-- 指针：北半亮青，南半深青 -->
+  <polygon points="659,365 559,559 465,465" fill="#22d3ee"/>
+  <polygon points="359,659 559,559 465,465" fill="#0e7490"/>
+
+  <!-- 中心轴 -->
+  <circle cx="512" cy="512" r="30" fill="#0f172a"/>
+</svg>
