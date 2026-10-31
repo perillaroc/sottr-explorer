@@ -6,6 +6,11 @@ SOTTR Explorer — 第三方组件与许可通知（离线副本）
 产品许可：代码采用 MIT（全文见仓库 LICENSE）。地图底图、游戏数据与下列第三方组件
 不在 MIT 覆盖范围内，各自保留原权利与条款；完整说明见仓库 THIRD_PARTY_NOTICES.md。
 
+完整依赖许可全文：THIRD_PARTY_LICENSES.txt（应用内「关于」页可展开查看）。
+本次生成：Rust 461 个、JavaScript 27 个依赖；自带许可文件 450 个；
+去重后 229 份许可文本；包内无许可文件 38 个、
+仅有许可指针 1 个（已按项目所选许可补全正文）；待复核 0 项。
+
 来源许可状态（含用户决策记录）：
   data/metadata/collectibles.json：no×1、pending×13、yes×2
   data/metadata/region_counters.json：no×1、pending×13、yes×2

@@ -1,8 +1,10 @@
 # 第三方通知与许可声明
 
 > 本文件只记录许可、来源与归属，不记录开发进度。
-> 随应用分发的离线全文由 `apps/desktop/scripts/build_notices.py` 生成到
-> [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt)，并在「关于」页内展示。
+> 随应用分发的离线全文由 `apps/desktop/scripts/build_notices.py` 生成：
+> [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt)（来源、声明与依赖清单）与
+> [`THIRD_PARTY_LICENSES.txt`](THIRD_PARTY_LICENSES.txt)（产品许可、仓库内全文与
+> 每个依赖自带的许可全文），两者都在「关于」页内可展开查看。
 > 各数据集的结构、生成方式与验收细节见对应目录的 README。
 
 ## 1. 产品许可
@@ -15,7 +17,7 @@ MIT **不覆盖**以下内容，它们各自保留原权利与条款，不因本
 | --- | --- |
 | `data/map/maps/`、`data/map/basemaps.json` | 地图底图，作者 vi7ual；见第 5 节 |
 | `data/catalog/`、`data/metadata/` | 《古墓丽影：暗影》游戏数据事实；见第 6 节 |
-| `licenses/`、`THIRD_PARTY_NOTICES.txt` | 第三方组件与数据来源；见第 3、4 节 |
+| `licenses/`、`THIRD_PARTY_NOTICES.txt`、`THIRD_PARTY_LICENSES.txt` | 第三方组件与数据来源；见第 3、4 节 |
 
 「Shadow of the Tomb Raider」及相关名称、美术与商标归 Square Enix、Crystal Dynamics
 及各自权利人所有。本项目是只读、非官方的存档分析工具，与上述公司无从属关系，
@@ -67,22 +69,33 @@ MIT **不覆盖**以下内容，它们各自保留原权利与条款，不因本
 [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt) 中维护，由脚本生成：
 
 - Rust registry 包 **461 个**（不含本仓库 workspace 包），全部带 `license` 字段；
-- **生产** JavaScript 依赖 **27 个**，全部带 `license` 字段。
+- **生产** JavaScript 依赖 **27 个**，全部带 `license` 字段；
+- 其中 **450 个**包自带 LICENSE/COPYING/NOTICE 文件；去重后 **229 份**许可文本；
+- **38 个**包在本地 registry / node_modules 中没有许可文件，另有 **1 个**包只有
+  SPDX 指针；这些按项目所选许可转载完整正文（优先 MIT，其次 Apache-2.0、BSD、ISC、
+  Zlib、MPL-2.0），并附包元数据作者或 SPDX 版权行。
 
-仓库不再另存依赖清单副本，避免与通知正文不一致。开发依赖不随产品分发，不在通知范围内。
+依赖自带的许可全文、仓库内全文与上述补全文本在
+[`THIRD_PARTY_LICENSES.txt`](THIRD_PARTY_LICENSES.txt) 中随应用内嵌分发，并在
+「关于」页内可展开查看；仓库不再另存依赖清单副本，避免与通知正文不一致。
+开发依赖不随产品分发，不在通知范围内。
 
 需要单独留意的许可：
 
 - **MPL-2.0（Rust 5 个）**：`cssparser`、`cssparser-macros`、`dtoa-short`、`option-ext`、
-  `selectors`；JavaScript 另有 2 个。弱著佐权，只覆盖其自身源文件。按 MPL-2.0 §3.2，
-  以目标代码分发时须告知接收者如何取得对应源代码：上述包可按 `name` 与 `version`
-  在 <https://crates.io> 与 <https://www.npmjs.com> 取得原始源代码包。- **Unicode-3.0（Rust 18 个）**：`icu_*`、`litemap`、`tinystr`、`writeable`、`yoke`、
+  `selectors`；生产 JavaScript 当前没有 MPL-2.0 依赖。弱著佐权，只覆盖其自身源文件。
+  按 MPL-2.0 §3.2，以目标代码分发时须告知接收者如何取得对应源代码：上述包可按
+  `name` 与 `version` 在 <https://crates.io> 取得原始源代码包。
+- **Unicode-3.0（Rust 18 个）**：`icu_*`、`litemap`、`tinystr`、`writeable`、`yoke`、
   `zerofrom`、`zerotrie`、`zerovec` 等，允许再分发，需保留其版权与许可声明。
-- **BSL/其他**：`BlueOak-1.0.0`（JavaScript 5 个）、`CC0-1.0`、`Python-2.0`、
-  `Zlib`、`0BSD`、`Unlicense`、`ISC`、`BSD-2/3-Clause`、`MIT-0` 均为宽松许可；
+- **宽松许可与双许可**：`0BSD`、`Unlicense`、`ISC`、`BSD-2/3-Clause`、`Zlib`、
+  `MIT-0`、`CC0-1.0`、`Apache-2.0 WITH LLVM-exception`、`MIT`/`Apache-2.0` 双许可等；
   `brotli` 为 `BSD-3-Clause AND MIT`，两者条件同时适用。
 - **LGPL-2.1-or-later（可选）**：`r-efi` 标注
   `MIT OR Apache-2.0 OR LGPL-2.1-or-later`，本项目按 MIT / Apache-2.0 使用。
+- **补全清单需人工复核**：`libappindicator-sys 0.9.0` 在本地没有许可文件，包元数据也
+  没有作者/仓库；已按 MIT 转载全文，但版权行无法自动补齐。该包是 Linux 平台条件依赖，
+  不进入 Windows 构建，发布前请人工确认其版权行或从通知范围中排除。
 
 重新生成（仓库根目录，需要 `cargo` 与 `pnpm`）：
 
@@ -90,8 +103,9 @@ MIT **不覆盖**以下内容，它们各自保留原权利与条款，不因本
 py -3 apps/desktop/scripts/build_notices.py
 ```
 
-脚本调用 `cargo metadata` 与 `pnpm licenses list --json`；任一失败时对应小节标注
-「待复核」，不虚构内容。
+脚本调用 `cargo metadata` 与 `pnpm licenses list --prod --json`，一次生成上述两份文件；
+任一采集失败或存在未补全的许可文本时脚本以非零状态退出，并在文件第 3 节标注「待复核」，
+不虚构内容。
 
 ## 5. 地图底图
 

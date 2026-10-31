@@ -1,15 +1,42 @@
 <script setup lang="ts">
 // 关于（2026-10-31 从「设置与关于」拆出）：应用与数据版本、支持范围、许可与快捷键。
 // 设置页只放可调项；解释性、归属性与数据来源信息集中在这里。
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "../app/inject";
 import { t } from "../app/i18n";
 import { supportedCategories } from "../app/catalog";
 import { basemapDatasetVersion } from "../data/basemaps";
-// SX-018：许可通知全文随前端内嵌（构建期内嵌，离线可读）。
+// SX-018 / 2026-10-31：许可通知与依赖许可全文随前端内嵌（构建期内嵌，离线可读）。
+// 全文约 800 KB，展开时再动态载入，避免主包与首屏变重。
 import noticesText from "../../../../THIRD_PARTY_NOTICES.txt?raw";
 
 const store = useStore();
+
+const licensesText = ref<string | null>(null);
+const licensesLoading = ref(false);
+const licensesError = ref<string | null>(null);
+
+async function loadLicenses(): Promise<void> {
+  if (licensesText.value || licensesLoading.value) {
+    return;
+  }
+  licensesLoading.value = true;
+  licensesError.value = null;
+  try {
+    const module = await import("../../../../THIRD_PARTY_LICENSES.txt?raw");
+    licensesText.value = module.default;
+  } catch (error) {
+    licensesError.value = error instanceof Error ? error.message : String(error);
+  } finally {
+    licensesLoading.value = false;
+  }
+}
+
+function onLicensesToggle(event: Event): void {
+  if ((event.currentTarget as HTMLDetailsElement).open) {
+    void loadLicenses();
+  }
+}
 
 const report = computed(() => store.report.value);
 const categories = computed(() => (report.value ? supportedCategories(store.metadata, report.value) : []));
@@ -60,7 +87,7 @@ const shortcuts = computed(() => [
       <section class="space-y-2" data-testid="about-notices">
         <h2 class="text-[13px] font-medium text-muted">{{ t("许可", "Licenses") }}</h2>
         <ul class="space-y-1 text-[13px]">
-          <li>{{ t("代码采用 MIT（根目录 LICENSE）；地图底图与游戏数据不受 MIT 覆盖；第三方来源与许可见仓库 THIRD_PARTY_NOTICES.md。", "The code is MIT (see LICENSE); map basemaps and game data are not covered by MIT; see THIRD_PARTY_NOTICES.md for third-party sources and licenses.") }}</li>
+          <li>{{ t("代码采用 MIT（根目录 LICENSE）；地图底图与游戏数据不受 MIT 覆盖；第三方来源、依赖清单与许可全文可在下方离线展开。", "The code is MIT (see LICENSE); map basemaps and game data are not covered by MIT; third-party sources, dependency inventory and full license texts can be opened offline below.") }}</li>
           <li>
             {{ t("交付形态：单文件免安装 exe（Windows），依赖系统 WebView2 Runtime；本构建未做代码签名，SmartScreen 可能提示未知发布者。", "Delivery: a single portable Windows exe that requires the system WebView2 Runtime; this build is not code-signed, so SmartScreen may warn about an unknown publisher.") }}
           </li>
@@ -73,6 +100,26 @@ const shortcuts = computed(() => [
             {{ t("第三方组件与许可通知（离线全文）", "Third-party components and license notices (offline full text)") }}
           </summary>
           <pre class="mt-2 max-h-80 overflow-auto whitespace-pre-wrap text-[11px] leading-4 text-muted">{{ noticesText }}</pre>
+        </details>
+        <details
+          class="rounded-[10px] border border-line bg-surface px-4 py-2"
+          data-testid="about-license-full"
+          @toggle="onLicensesToggle"
+        >
+          <summary class="cursor-pointer text-[13px] text-accent-strong">
+            {{ t("依赖许可全文（离线，按包分组）", "Full dependency license texts (offline, grouped by package)") }}
+          </summary>
+          <p v-if="licensesLoading" class="mt-2 text-xs text-muted">
+            {{ t("正在载入许可全文…", "Loading full license texts…") }}
+          </p>
+          <p v-else-if="licensesError" class="mt-2 text-xs text-danger" role="alert">
+            {{ t("无法载入许可全文：", "Could not load full license texts: ") }}{{ licensesError }}
+          </p>
+          <pre
+            v-else-if="licensesText"
+            class="mono mt-2 max-h-96 overflow-auto whitespace-pre-wrap text-[11px] leading-4 text-muted"
+            data-testid="license-full-text"
+          >{{ licensesText }}</pre>
         </details>
       </section>
 

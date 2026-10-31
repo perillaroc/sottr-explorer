@@ -41,7 +41,7 @@
 - 全收集图鉴（区域 / 子关卡 / 中英名 / 获取方式 / 相对位置）：[data/catalog/README.md](data/catalog/README.md)
 - 真实地图基底层（42 个单位、坐标与状态口径）：[data/map/README.md](data/map/README.md)
 - 收集品元数据：[data/metadata/README.md](data/metadata/README.md)
-- 第三方来源与许可：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
+- 第三方来源与许可：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)；依赖许可全文见 [THIRD_PARTY_LICENSES.txt](THIRD_PARTY_LICENSES.txt)（应用内「关于」页可展开）
 - 地图底图来自 spriters-resource 作者 **vi7ual**（投稿 502127 / 502132 / 502133，2025-12-18 提交），
   站点声明素材供 personal projects and non-commercial work；本项目按非商业用途随包分发，
   版权仍归原权利人。
