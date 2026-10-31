@@ -92,4 +92,4 @@ cd apps/desktop; pnpm contract:check
 
 站点 About 页写明素材供「personal projects and non-commercial work」，本项目以**非商业**方式
 随包分发，因此 `sources[*].redistributable` 为 `allowed`。素材版权仍归原权利人；
-商业用途需另行取得许可。完整记录见 `THIRD_PARTY_LICENSES.md` 第 10 节。
+商业用途需另行取得许可。完整记录见 `THIRD_PARTY_NOTICES.md` 第 5 节。

@@ -22293,10 +22293,10 @@
       "url": "https://github.com/Atorizil/ASL-SOTTR",
       "fixed_revision": "b758ee890eac30d9e3b3477999a30f8f9e442f00",
       "accessed": "2026-10-11",
-      "license": null,
-      "redistributable": "pending",
+      "license": "上游未声明许可证；仅转录事实数据（偏移与计数），未复制源代码",
+      "redistributable": "yes",
       "method": "区域/类别计数目标与磁盘偏移的事实转录及独立比对",
-      "review": "上游未声明许可证；仅独立转录事实，发布包含需 SX-018 再分发复核",
+      "review": "定性为事实性数据（2026-10-31）：内存 stride 272 与存档 stride 104 交叉推导、公开样本佐证、图鉴与游戏计数 43/43 吻合",
       "medium": "text",
       "role": "tool"
     },

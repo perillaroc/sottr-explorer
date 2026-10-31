@@ -415,7 +415,7 @@ def main() -> int:
                 "gameflow_dtp_sha256_16": hashlib.sha256(
                     (work / "extracted" / "gameflow_dtp_0360F4.bin").read_bytes()).hexdigest()[:16],
             },
-            "name_source": "TrRebootModTools tr11collectibles.bt（MIT，见 THIRD_PARTY_LICENSES.md）",
+            "name_source": "TrRebootModTools tr11collectibles.bt（MIT，见 THIRD_PARTY_NOTICES.md）",
             "locale_source": "locals.bin（英 / 简中，allvo_allplt）按表下标对齐；见 research/s022/README.md",
             "zone_source": "TrRebootModTools tr11zones.bt（MIT）",
             "region_binding": "存档区域计数器来源目标 vs 目录区域×类别计数（L1 最近邻，距离 0）；"

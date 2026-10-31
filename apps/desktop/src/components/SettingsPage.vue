@@ -186,7 +186,7 @@ const shortcuts = computed(() => [
           <li v-if="categories.length">
             {{ t("当前报告支持类别", "Categories supported by the current report") }}：{{ categories.map((category) => category.label).join(t("、", ", ")) }}
           </li>
-          <li>{{ t("许可证：产品许可证尚未选择；第三方来源与许可见仓库 THIRD_PARTY_LICENSES.md。", "License: the product license has not been selected; see THIRD_PARTY_LICENSES.md in the repository for third-party sources and licenses.") }}</li>
+          <li>{{ t("许可证：代码采用 MIT（根目录 LICENSE）；地图底图与游戏数据不受 MIT 覆盖；第三方来源与许可见仓库 THIRD_PARTY_NOTICES.md。", "License: the code is MIT (see LICENSE); map basemaps and game data are not covered by MIT; see THIRD_PARTY_NOTICES.md in the repository for third-party sources and licenses.") }}</li>
           <li>{{ t("本地只读：无账号、无遥测、无后台上传；导出默认分享脱敏（接线在 SX-016）。", "Local and read-only: no accounts, telemetry or background uploads; exports are share-redacted by default (wired in SX-016).") }}</li>
         </ul>
         <p class="rounded-[6px] border border-caution/40 bg-caution-bg px-3 py-2 text-xs text-caution">
@@ -202,7 +202,10 @@ const shortcuts = computed(() => [
           </li>
           <li>{{ t("本构建未做代码签名：SmartScreen 可能提示“未知发布者”；未声称已通过 SmartScreen。", "This build is not code-signed: SmartScreen may warn about an “unknown publisher”; no SmartScreen approval is claimed.") }}</li>
           <li>
-            {{ t("产品许可证尚未选择；商业游戏数据与社区来源的再分发复核按 2026-10-17 用户决定豁免，记录见下方离线通知全文。", "The product license has not been selected; the redistribution review for commercial game data and community sources was waived by the user on 2026-10-17 — see the offline notices below.") }}
+            {{ t("代码采用 MIT；地图底图、游戏数据事实与第三方组件各自保留原权利，完整声明见下方离线通知全文与仓库 THIRD_PARTY_NOTICES.md。", "The code is MIT; map basemaps, game data facts and third-party components keep their own terms — see the offline notices below and THIRD_PARTY_NOTICES.md in the repository.") }}
+          </li>
+          <li>
+            {{ t("地图底图：vi7ual（spriters-resource 投稿 502127 / 502132 / 502133），站点声明素材供 personal projects and non-commercial work；版权归原权利人，商业用途需另行取得许可。", "Map basemaps: vi7ual (spriters-resource submissions 502127 / 502132 / 502133), published for personal projects and non-commercial work; copyright remains with the original rights holders and commercial use requires separate permission.") }}
           </li>
         </ul>
         <details class="rounded-[6px] border border-line bg-surface px-3 py-2">

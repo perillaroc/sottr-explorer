@@ -31,7 +31,8 @@ describe("设置与关于", () => {
     const text = wrapper.text();
     expect(text).toContain("元数据版本");
     expect(text).toContain("已验证坐标 0 项");
-    expect(text).toContain("THIRD_PARTY_LICENSES.md");
+    expect(text).toContain("THIRD_PARTY_NOTICES.md");
+    expect(text).toContain("vi7ual");
     expect(text).toContain("Ctrl+O");
   });
 

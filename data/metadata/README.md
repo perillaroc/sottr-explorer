@@ -21,9 +21,10 @@ Schema 为 `schemas/metadata.schema.json`（契约 1.0.0）；字段语义与拒
 - 内部 ID 与候选名称：TrRebootModTools（MIT，固定提交
   `a79c48b75f1ffaaf623dc73a625211bf98ff0504`）的字典转录（研究包
   `tool/data/collectible_id_candidates.json`，本仓库副本在 `research/python-v0.2/data/`）。
-- 区域计数偏移与目标：Atorizil/ASL-SOTTR（未声明许可证，固定提交
+- 区域计数偏移与目标：Atorizil/ASL-SOTTR（上游未声明许可证，固定提交
   `b758ee890eac30d9e3b3477999a30f8f9e442f00`）的事实转录与独立比对；
-  43 项稀疏映射，缺项不是 0。
+  43 项稀疏映射，缺项不是 0。该映射**定性为事实性数据**（2026-10-31），
+  可随产品分发，理由链见 `THIRD_PARTY_NOTICES.md` 第 3 节。
 - 参考集合：Stella 攻略站两个作者标注 100% 参考槽位（Medium 与
   NG+/Deadly Obsession）共同且相等的四组集合；压缩文件 SHA-256 记录在
   `reference_sets.json` 的 `source_save_hashes`（存档字节不随产品分发）。
@@ -49,14 +50,14 @@ py -3 data/metadata/build_metadata.py --check  # 校验现有文件与 manifest 
 交叉一致性校验（866 ID / 871 名称 / 43 计数 / 65、12、12、10 参考；作用域
 合计 77、12、10 与参考 ID 数一致）。任何校验失败即退出非零、不写文件。
 
-## 许可状态（发布前复核）
+## 许可状态
 
 | 来源 | 状态 |
 | --- | --- |
-| TrRebootModTools 字典 | MIT；许可全文见 `research/python-v0.2/data/THIRD_PARTY_LICENSE.txt` |
-| ASL-SOTTR 计数事实 | 上游未声明许可证；标注 `pending`，发布包含需 SX-018 再分发复核 |
-| Stella 参考存档与攻略页 | 标注 `pending`；仅引用链接与哈希，不打包其内容 |
+| TrRebootModTools 字典 | MIT；许可全文见 `licenses/TrRebootModTools-MIT.txt` |
+| ASL-SOTTR 计数事实 | **已确认**（2026-10-31）：事实性数据，仅转录偏移与计数，未复制代码 |
+| Stella 参考存档与攻略页 | 仅引用链接与哈希，不打包其内容；存档字节不随产品分发 |
 | 开发方案文档与内部研究记录 | 仅转录事实结论；不随产品分发 |
 
-`redistributable` 非 `yes` 的条目不得直接进入发布包，直到许可确认或数据替换
-（见 `THIRD_PARTY_LICENSES.md`）。
+来源的机器可读状态在各数据文件的 `sources` 字段中；法律声明汇总见
+`THIRD_PARTY_NOTICES.md`。`redistributable` 非 `yes` 的条目仍不得直接进入发布包。

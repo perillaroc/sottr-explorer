@@ -59,6 +59,6 @@ python -m unittest discover -s tests -v
 
 ## 来源与授权
 
-内部名称字典沿用 TrRebootModTools MIT 来源，许可证在 `data/THIRD_PARTY_LICENSE.txt`。地区字段为独立转录的事实及本地交叉推断；ASL 上游未声明许可证，未复制其源代码。公开下载文件只用于本地只读比对，不作为可再分发软件素材。详见 `CHANGELOG.md` 和 `evidence/`。
+内部名称字典沿用 TrRebootModTools MIT 来源，许可证见仓库 `licenses/TrRebootModTools-MIT.txt`。地区字段为独立转录的事实及本地交叉推断；ASL 上游未声明许可证，未复制其源代码。公开下载文件只用于本地只读比对，不作为可再分发软件素材。详见 `CHANGELOG.md` 和 `evidence/`。
 
 重复 ID 的原始记录全部保留；报告分别给出记录数、唯一 ID 数、重复记录数。参考差异计算使用集合，避免重复记录影响差异数。原始只接受 save数字.dat 文件名作为调用上下文；结构校验不能证明被改名的文件一定是普通战役存档。

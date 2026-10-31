@@ -22,18 +22,18 @@
   "files": [
     {
       "file_id": "collectibles.json",
-      "sha256": "0027cbb78f517ff13e24259ca16bc1d7ad9080d7155f6419b067a50e9ed672d4",
-      "bytes": 539223
+      "sha256": "8b7cb2b5efd3a84ed18aebcb72ad2809265e38e5526b6e086fa6f48a59fe27f3",
+      "bytes": 539370
     },
     {
       "file_id": "region_counters.json",
-      "sha256": "7606a51fb6cd5b53707cc74f28e56b3c1c2a3d7eec47a453c46d1ef26e406c40",
-      "bytes": 27033
+      "sha256": "940600c7296f04b94a5e5d8195ebad9372fd207d61776c652bffc8169b97824e",
+      "bytes": 27180
     },
     {
       "file_id": "reference_sets.json",
-      "sha256": "b2ec50b84d2fa4cdfb5523958b1a6763ab9408eeb37b0c4282c5fad1317f31cc",
-      "bytes": 51830
+      "sha256": "af5e20f6fb20bc34f8763c42142a1a26afaa6f59e3cab17c68f56e491632108d",
+      "bytes": 51977
     }
   ]
 }

@@ -140,5 +140,5 @@ py -3 data/catalog/build_catalog.py $W --check      # 可复现性
 ## 许可与门禁
 
 用户已确认（2026-10-17）商业游戏数据可随交付版发布，许可不作为阻塞。
-名称与 zone 来自 TrRebootModTools（MIT，见 `THIRD_PARTY_LICENSES.md`）。
+名称与 zone 来自 TrRebootModTools（MIT，见 `THIRD_PARTY_NOTICES.md`）。
 派生表只含事实性映射，不含原始资源转储。

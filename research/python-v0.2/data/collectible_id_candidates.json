@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/arcusmaximus/TrRebootModTools/blob/a79c48b75f1ffaaf623dc73a625211bf98ff0504/Templates/010%20Editor/tr/tr11/lists/tr11collectibles.bt",
   "warning": "Candidate internal names, not collection status. Duplicate IDs retained. No category or region guarantees.",
-  "license": "MIT; see THIRD_PARTY_LICENSE.txt",
+  "license": "MIT; see licenses/TrRebootModTools-MIT.txt",
   "mapping": {
     "0xF97006F6": [
       "Hidden_City_Riddle"

@@ -17,7 +17,9 @@ describe("SettingsPage 关于与许可", () => {
     expect(text).toContain("MIT");
     expect(text).toContain("Rust 依赖");
     expect(text).toContain("JavaScript 依赖");
-    expect(text).toContain("豁免");
+    expect(text).toContain("事实性数据");
+    expect(text).toContain("43/43");
+    expect(text).toContain("vi7ual");
     wrapper.unmount();
   });
 });

@@ -77,6 +77,11 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 
 ## 许可与门禁
 
-用户已确认（2026-10-17）商业游戏数据可随交付版发布，许可不作为阻塞；
+产品代码采用 MIT（根目录 `LICENSE`），**不覆盖本图鉴等游戏数据事实**。图鉴中的
+名称、区域、坐标与计数是《古墓丽影：暗影》的数据事实；项目所有者已确认
+（2026-10-17）可随交付版发布，该确认与 SSOTR 计数事实的定性（2026-10-31）都记录在
+`THIRD_PARTY_NOTICES.md` 第 3、6 节。
+
 名称来源 TrRebootModTools `tr11collectibles.bt`、zone 来源 `tr11zones.bt`（均 MIT，
-见 `THIRD_PARTY_LICENSES.md`）；中英名来自游戏 `locals.bin` 的表内对齐（见 `research/s022/README.md`）。
+全文见 `licenses/TrRebootModTools-MIT.txt`）；中英名来自游戏 `locals.bin` 的表内对齐
+（见 `research/s022/README.md`）。

@@ -11,7 +11,7 @@
       "collectibleinfo_dtp_sha256_16": "44e224bc7f2128aa",
       "gameflow_dtp_sha256_16": "29668ca153789ae8"
     },
-    "name_source": "TrRebootModTools tr11collectibles.bt（MIT，见 THIRD_PARTY_LICENSES.md）",
+    "name_source": "TrRebootModTools tr11collectibles.bt（MIT，见 THIRD_PARTY_NOTICES.md）",
     "locale_source": "locals.bin（英 / 简中，allvo_allplt）按表下标对齐；见 research/s022/README.md",
     "zone_source": "TrRebootModTools tr11zones.bt（MIT）",
     "region_binding": "存档区域计数器来源目标 vs 目录区域×类别计数（L1 最近邻，距离 0）；证据见 research/s022/data/region_bindings.json",
