@@ -215,4 +215,31 @@ describe("收集品详情", () => {
     expect(lead).toContain("区域：");
     expect(lead).not.toContain("C:");
   });
+
+  it("「在新窗口中打开」调用弹窗动作；showPopout=false 时隐藏", async () => {
+    const { store } = await setup();
+    store.actions.openRow(PAITITI_ITEM);
+    const entry = store.selectedEntry.value!;
+    const spy = vi.spyOn(store.actions, "openDetailWindow").mockResolvedValue();
+    const withButton = mount(CollectionDetail, {
+      props: { region: entry.region, group: entry.group, item: entry.item, mode: "pane" },
+      global: { provide: { [storeKey]: store } },
+      attachTo: document.body,
+    });
+    await withButton.get('[data-testid="detail-popout"]').trigger("click");
+    expect(spy).toHaveBeenCalledTimes(1);
+
+    const withoutButton = mount(CollectionDetail, {
+      props: {
+        region: entry.region,
+        group: entry.group,
+        item: entry.item,
+        mode: "pane",
+        showPopout: false,
+      },
+      global: { provide: { [storeKey]: store } },
+      attachTo: document.body,
+    });
+    expect(withoutButton.find('[data-testid="detail-popout"]').exists()).toBe(false);
+  });
 });

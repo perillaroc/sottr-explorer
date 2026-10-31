@@ -53,3 +53,13 @@ commands.allow = ["open_guide_link"]
 identifier = "allow-open-external-url"
 description = "允许 open_external_url：打开界面合成的外链（仅 http/https + 有主机名 + 无空白，与攻略直链同一白名单），交给系统外部浏览器"
 commands.allow = ["open_external_url"]
+
+[[permission]]
+identifier = "allow-open-detail-window"
+description = "允许 open_detail_window：主窗口把只读详情 payload 交给 Rust 内存槽（≤2 MiB、必须是 JSON 对象），创建/复用 detail 窗口并广播更新"
+commands.allow = ["open_detail_window"]
+
+[[permission]]
+identifier = "allow-read-detail-window-payload"
+description = "允许 read_detail_window_payload：详情弹窗读取最近一次 payload（只读内存，不落盘、不读存档）"
+commands.allow = ["read_detail_window_payload"]

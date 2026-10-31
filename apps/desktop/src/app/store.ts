@@ -53,6 +53,11 @@ import {
   regionHasBasemap,
 } from "./map-view";
 import { basemapForUnit } from "../data/basemaps";
+import {
+  buildDetailWindowPayload,
+  openDetailWindow as openDetailWindowNative,
+  type DetailWindowPayload,
+} from "./detail-window";
 import { fileNameOf } from "./format";
 import { applyTheme, onSystemThemeChange, type ThemePreference } from "./theme";
 import {
@@ -216,6 +221,11 @@ export interface AppState {
   exportState: ExportState;
   /** 详情内的攻略链接动作（SX-016；null 表示无进行中的动作）。 */
   linkAction: LinkActionState | null;
+  /** 独立详情窗口失败时的应用内兜底浮层（阶段三）。 */
+  detailWindowFallback: {
+    open: boolean;
+    payload: DetailWindowPayload | null;
+  };
 }
 
 export interface CreateStoreOptions {
@@ -305,6 +315,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       suggestedFolder: null,
     },
     linkAction: null,
+    detailWindowFallback: { open: false, payload: null },
   });
 
   let requestCounter = 0;
@@ -961,6 +972,49 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   }
 
   // -------------------------------------------------------------------------
+  // 详情弹出窗口（阶段三）：构建只读 payload，交给原生窗口或应用内兜底浮层
+  // -------------------------------------------------------------------------
+
+  async function openDetailWindow(): Promise<void> {
+    const entry = selectedEntry.value;
+    if (!entry) {
+      notify("warning", t("请先选择一个条目。", "Select an item first."));
+      return;
+    }
+    const payload = buildDetailWindowPayload(
+      {
+        plan: plan.value,
+        atlas,
+        slotName: currentSlot.value?.name ?? "",
+        snapshotTime: currentSlot.value?.result?.snapshot_time ?? null,
+        stale: isStale.value,
+        searchEngine: state.searchEngine,
+        linkOpenMode: state.linkOpenMode,
+        directLinksForItem,
+      },
+      entry,
+    );
+    try {
+      await openDetailWindowNative(payload);
+      state.detailWindowFallback = { open: false, payload: null };
+    } catch (error) {
+      // 窗口被拦截 / 创建失败：退回应用内浮层（同一份 payload，只读）。
+      state.detailWindowFallback = { open: true, payload };
+      notify(
+        "warning",
+        t(
+          `无法打开独立窗口，已在应用内显示详情：${error instanceof Error ? error.message : String(error)}`,
+          `Could not open a separate window; showing details in-app: ${error instanceof Error ? error.message : String(error)}`,
+        ),
+      );
+    }
+  }
+
+  function closeDetailWindowFallback(): void {
+    state.detailWindowFallback = { open: false, payload: null };
+  }
+
+  // -------------------------------------------------------------------------
   // 视图与筛选
   // -------------------------------------------------------------------------
 
@@ -1312,6 +1366,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       openGuideLink,
       openExternalLink,
       clearLinkAction,
+      openDetailWindow,
+      closeDetailWindowFallback,
       setView,
       setRegion,
       setMapRegion,

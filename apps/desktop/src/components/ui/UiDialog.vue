@@ -12,8 +12,10 @@ const props = withDefaults(
     title: string;
     /** 宽度类：导出对话框默认 520px，不超过视口减 24px。 */
     widthClass?: string;
+    /** 便于测试/定位：默认 export-dialog。 */
+    testId?: string;
   }>(),
-  { widthClass: "w-[520px] max-w-[calc(100vw-24px)]" },
+  { widthClass: "w-[520px] max-w-[calc(100vw-24px)]", testId: "export-dialog" },
 );
 
 const emit = defineEmits<{ close: [] }>();
@@ -134,7 +136,7 @@ onBeforeUnmount(() => {
           'flex max-h-[calc(100vh-48px)] flex-col rounded-[12px] border border-line bg-surface shadow-[var(--shadow)]',
           widthClass,
         ]"
-        data-testid="export-dialog"
+        :data-testid="testId"
       >
         <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
           <h2 class="truncate text-base font-medium">{{ title }}</h2>

@@ -31,13 +31,33 @@ use std::sync::Arc;
 
 use tauri::Manager;
 
+/// 窗口销毁时的动作：只有主窗口销毁才取消在飞分析并退出应用。
+///
+/// 详情弹窗（`detail`）关闭不得取消主窗口在飞的分析——窗口事件必须按标签收窄。
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum WindowDestroyAction {
+    /// 主窗口：取消全部在飞分析、关闭详情窗口并退出应用。
+    ShutDown,
+    /// 其他窗口（详情弹窗等）：不做任何事。
+    Ignore,
+}
+
+/// 按窗口标签决定销毁动作（可测的纯函数）。
+pub fn window_destroy_action(label: &str) -> WindowDestroyAction {
+    if label == commands::MAIN_WINDOW_LABEL {
+        WindowDestroyAction::ShutDown
+    } else {
+        WindowDestroyAction::Ignore
+    }
+}
+
 /// 组装桌面后端（生产与测试共用）：
 ///
 /// - opener 插件用于在系统外部浏览器打开攻略链接（Rust 端白名单调用，
 ///   前端没有 `opener:*` 权限）；
 /// - dialog 插件仅用于 Rust 端“选择文件/目录”（前端没有 `dialog:*` 权限）；
 /// - 导航门禁拒绝 WebView 加载外部页面；
-/// - 窗口销毁时取消全部在飞分析请求。
+/// - 窗口销毁按标签收窄：只有主窗口销毁才取消在飞分析，并一并关闭详情弹窗。
 pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builder<R> {
     builder
         .plugin(tauri_plugin_opener::init())
@@ -53,7 +73,9 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             commands::export_report,
             commands::resolve_guide_link,
             commands::open_guide_link,
-            commands::open_external_url
+            commands::open_external_url,
+            commands::open_detail_window,
+            commands::read_detail_window_payload
         ])
         .setup(|app| {
             // 生产：攻略链接交给系统外部浏览器；WebView 不加载外部页面。
@@ -85,12 +107,24 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             Ok(())
         })
         .on_window_event(|window, event| {
-            if matches!(event, tauri::WindowEvent::Destroyed) {
-                // 窗口关闭：取消全部在飞分析，避免旧回调恢复成功状态。
-                window
-                    .state::<session::DesktopState>()
-                    .with_session(|session| session.cancel_all());
+            if !matches!(event, tauri::WindowEvent::Destroyed) {
+                return;
             }
+            if window_destroy_action(window.label()) != WindowDestroyAction::ShutDown {
+                return;
+            }
+            // 主窗口关闭：取消全部在飞分析，避免旧回调恢复成功状态。
+            window
+                .state::<session::DesktopState>()
+                .with_session(|session| session.cancel_all());
+            // 一并关闭详情弹窗，避免残留窗口阻止应用退出。
+            if let Some(detail) = window
+                .app_handle()
+                .get_webview_window(commands::DETAIL_WINDOW_LABEL)
+            {
+                let _ = detail.close();
+            }
+            window.app_handle().exit(0);
         })
 }
 
@@ -99,4 +133,23 @@ pub fn run() {
     configure(tauri::Builder::default())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn only_main_window_destroy_shuts_down() {
+        // 关闭详情弹窗不得取消主窗口在飞的分析。
+        assert_eq!(
+            window_destroy_action(commands::MAIN_WINDOW_LABEL),
+            WindowDestroyAction::ShutDown
+        );
+        assert_eq!(
+            window_destroy_action(commands::DETAIL_WINDOW_LABEL),
+            WindowDestroyAction::Ignore
+        );
+        assert_eq!(window_destroy_action("other"), WindowDestroyAction::Ignore);
+    }
 }

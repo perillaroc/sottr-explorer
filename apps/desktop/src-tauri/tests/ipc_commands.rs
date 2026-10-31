@@ -1249,3 +1249,49 @@ fn real_context_acl_allows_app_commands_and_rejects_plugin_commands() {
         "拒绝原因必须是 ACL 门禁：{message}"
     );
 }
+
+// ---------------------------------------------------------------------------
+// 详情弹窗 payload（阶段三）：只存内存、失败不建窗、可重复打开
+// ---------------------------------------------------------------------------
+
+#[test]
+fn detail_window_payload_round_trips_and_rejects_invalid_payloads() {
+    let app = build_app();
+    let state = app.app.state::<DesktopState>();
+
+    // 非对象 payload：拒绝且不写状态、不创建窗口。
+    let error = invoke(
+        &app.webview,
+        "open_detail_window",
+        json!({"payload": "[1,2,3]"}),
+    )
+    .expect_err("非对象 payload 必须被拒绝");
+    assert_eq!(error["code"], CODE_INVALID_PARAMS);
+    assert_eq!(state.detail_payload(), None, "非法 payload 不写内存");
+    assert!(
+        app.app.get_webview_window("detail").is_none(),
+        "非法 payload 不创建窗口"
+    );
+
+    // 合法 payload：写入内存、创建 detail 窗口，可读回。
+    let payload = json!({"version":1,"selectedId":"0xCAA74459","items":[]}).to_string();
+    invoke(
+        &app.webview,
+        "open_detail_window",
+        json!({"payload": payload}),
+    )
+    .expect("合法 payload 应被接受");
+    assert!(app.app.get_webview_window("detail").is_some(), "应创建 detail 窗口");
+
+    let read = invoke(&app.webview, "read_detail_window_payload", json!({}))
+        .expect("详情弹窗应能读取 payload");
+    assert_eq!(read, json!(payload));
+
+    // 重复打开：复用同一窗口，不报错。
+    invoke(
+        &app.webview,
+        "open_detail_window",
+        json!({"payload": payload}),
+    )
+    .expect("重复打开应复用窗口");
+}

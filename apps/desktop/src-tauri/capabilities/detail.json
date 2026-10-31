@@ -1,0 +1,12 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "detail",
+  "description": "详情弹窗最小权限（阶段三）：读取 Rust 内存中的只读 payload、监听 payload 更新、打开外链白名单地址、关闭自身窗口；不开放文件系统、WebView、shell、dialog 或 opener 直调",
+  "windows": ["detail"],
+  "permissions": [
+    "core:event:default",
+    "core:window:allow-close",
+    "allow-read-detail-window-payload",
+    "allow-open-external-url"
+  ]
+}

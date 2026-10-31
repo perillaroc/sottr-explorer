@@ -21,7 +21,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
 use serde::Serialize;
-use tauri::State;
+use tauri::{Emitter, Manager, State};
 
 use sottr_core::analyze::analyze_bytes;
 use sottr_core::domain::context::DeclaredContext;
@@ -921,6 +921,82 @@ fn validate_external_url(url: &str) -> Result<(), CommandError> {
     Ok(())
 }
 
+// ---------------------------------------------------------------------------
+// 详情弹窗（阶段三）：payload 只存 Rust 进程内存，不落盘；窗口标签固定 `detail`
+// ---------------------------------------------------------------------------
+
+/// 主窗口标签（窗口事件按标签收窄，避免关闭弹窗误取消主窗口分析）。
+pub const MAIN_WINDOW_LABEL: &str = "main";
+/// 详情弹窗的窗口标签（capability `detail` 与前端识别共用）。
+pub const DETAIL_WINDOW_LABEL: &str = "detail";
+/// 详情弹窗的固定标题（不含条目名：窗口内切换条目不出现标题与内容不一致）。
+pub const DETAIL_WINDOW_TITLE: &str = "收集品详情 · SOTTR Explorer";
+/// payload 大小上限（2 MiB；84 条同子关卡约 40–100 KB）。
+pub const MAX_DETAIL_PAYLOAD_BYTES: usize = 2 * 1024 * 1024;
+/// 主窗口再次打开详情时通知弹窗更新的事件名。
+pub const DETAIL_PAYLOAD_EVENT: &str = "detail-payload-updated";
+
+/// 校验详情 payload：大小有界，且必须是合法 JSON 对象。
+///
+/// 失败时返回 `INVALID_PARAMS` 且不写状态、不创建窗口。
+pub fn validate_detail_payload(payload: &str) -> Result<(), CommandError> {
+    if payload.len() > MAX_DETAIL_PAYLOAD_BYTES {
+        return Err(CommandError::invalid_params(format!(
+            "详情 payload 超过上限（{} 字节 > {MAX_DETAIL_PAYLOAD_BYTES}）",
+            payload.len()
+        )));
+    }
+    let value: serde_json::Value = serde_json::from_str(payload)
+        .map_err(|error| CommandError::invalid_params(format!("详情 payload 不是合法 JSON：{error}")))?;
+    if !value.is_object() {
+        return Err(CommandError::invalid_params("详情 payload 必须是 JSON 对象"));
+    }
+    Ok(())
+}
+
+/// 打开/复用详情窗口（阶段三）。
+///
+/// 顺序：先校验、再写内存、最后建窗口——弹窗页面挂载时一定能读到初始 payload。
+/// 已存在 `detail` 窗口时只显示/聚焦并广播更新，不重复开窗。
+#[tauri::command]
+pub async fn open_detail_window<R: tauri::Runtime>(
+    app: tauri::AppHandle<R>,
+    state: State<'_, DesktopState>,
+    payload: String,
+) -> Result<(), CommandError> {
+    validate_detail_payload(&payload)?;
+    state.set_detail_payload(payload.clone());
+
+    if let Some(window) = app.get_webview_window(DETAIL_WINDOW_LABEL) {
+        let _ = window.show();
+        let _ = window.unminimize();
+        let _ = window.set_focus();
+        let _ = window.emit(DETAIL_PAYLOAD_EVENT, payload);
+        return Ok(());
+    }
+
+    tauri::WebviewWindowBuilder::new(
+        &app,
+        DETAIL_WINDOW_LABEL,
+        tauri::WebviewUrl::App("index.html".into()),
+    )
+    .title(DETAIL_WINDOW_TITLE)
+    .inner_size(560.0, 780.0)
+    .min_inner_size(380.0, 420.0)
+    .resizable(true)
+    .build()
+    .map_err(|error| CommandError::internal(format!("创建详情窗口失败：{error}")))?;
+    Ok(())
+}
+
+/// 读取最近一次详情 payload（详情弹窗启动时调用；窗口关闭不清除，便于重开时先显示旧内容）。
+#[tauri::command]
+pub fn read_detail_window_payload(
+    state: State<'_, DesktopState>,
+) -> Result<Option<String>, CommandError> {
+    Ok(state.detail_payload())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1017,5 +1093,28 @@ mod tests {
         assert_eq!(outcome.candidates[1].detail.as_deref(), Some("拒绝访问"));
         assert_eq!(outcome.game_roots.len(), 1);
         assert!(outcome.game_roots[0].ends_with("Shadow of the Tomb Raider"));
+    }
+
+    #[test]
+    fn detail_payload_validation_is_bounded_and_requires_json_object() {
+        assert!(validate_detail_payload(r#"{"version":1,"selectedId":"0xCAA74459"}"#).is_ok());
+        assert_eq!(
+            validate_detail_payload("[1,2,3]").unwrap_err().code,
+            CODE_INVALID_PARAMS,
+            "数组不是对象"
+        );
+        assert_eq!(
+            validate_detail_payload("{ 不是 JSON").unwrap_err().code,
+            CODE_INVALID_PARAMS
+        );
+        let oversized = format!(
+            "{{\"data\":\"{}\"}}",
+            "x".repeat(MAX_DETAIL_PAYLOAD_BYTES)
+        );
+        assert_eq!(
+            validate_detail_payload(&oversized).unwrap_err().code,
+            CODE_INVALID_PARAMS,
+            "超过 2 MiB 的 payload 必须被拒绝"
+        );
     }
 }

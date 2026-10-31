@@ -428,6 +428,8 @@ pub struct DesktopState {
     session: Arc<Mutex<Session>>,
     url_opener: Arc<Mutex<Option<UrlOpener>>>,
     file_picker: Arc<Mutex<Option<FilePicker>>>,
+    /// 详情弹窗最近一次 payload（只读内存，不落盘；窗口关闭不清除，下次打开覆盖）。
+    detail_payload: Arc<Mutex<Option<String>>>,
 }
 
 impl DesktopState {
@@ -437,6 +439,7 @@ impl DesktopState {
             session: Arc::new(Mutex::new(Session::new())),
             url_opener: Arc::new(Mutex::new(None)),
             file_picker: Arc::new(Mutex::new(None)),
+            detail_payload: Arc::new(Mutex::new(None)),
         }
     }
 
@@ -473,6 +476,16 @@ impl DesktopState {
     /// 借用会话执行一段操作（命令层与窗口关闭清理共用）。
     pub fn with_session<T>(&self, action: impl FnOnce(&mut Session) -> T) -> T {
         action(&mut lock(&self.session))
+    }
+
+    /// 保存详情弹窗最近一次 payload（先写内存再建窗口，弹窗挂载即可读到）。
+    pub fn set_detail_payload(&self, payload: String) {
+        *lock(&self.detail_payload) = Some(payload);
+    }
+
+    /// 最近一次详情弹窗 payload（窗口关闭不清除）。
+    pub fn detail_payload(&self) -> Option<String> {
+        lock(&self.detail_payload).clone()
     }
 }
 

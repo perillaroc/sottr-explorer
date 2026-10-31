@@ -28,7 +28,9 @@ import MapPage from "./components/MapPage.vue";
 import DiagnosticsPage from "./components/DiagnosticsPage.vue";
 import SettingsPage from "./components/SettingsPage.vue";
 import CollectionDetail from "./components/CollectionDetail.vue";
+import DetailWindow from "./components/DetailWindow.vue";
 import UiButton from "./components/ui/UiButton.vue";
+import UiDialog from "./components/ui/UiDialog.vue";
 import UiDrawer from "./components/ui/UiDrawer.vue";
 import UiIconButton from "./components/ui/UiIconButton.vue";
 import UiResizeHandle from "./components/ui/UiResizeHandle.vue";
@@ -384,5 +386,21 @@ onBeforeUnmount(() => {
 
     <!-- 导出对话框（SX-016）：任何视图/布局下都可打开；模态焦点规则同抽屉 -->
     <ExportDialog />
+
+    <!-- 详情独立窗口失败时的应用内兜底（阶段三）：同一份只读 payload，模态焦点规则同对话框 -->
+    <UiDialog
+      v-if="store.state.detailWindowFallback.open && store.state.detailWindowFallback.payload"
+      :open="true"
+      :title="t('收集品详情', 'Item details')"
+      width-class="w-[640px] max-w-[calc(100vw-24px)]"
+      test-id="detail-fallback-dialog"
+      @close="store.actions.closeDetailWindowFallback()"
+    >
+      <DetailWindow
+        mode="inline"
+        :payload="store.state.detailWindowFallback.payload"
+        @close="store.actions.closeDetailWindowFallback()"
+      />
+    </UiDialog>
   </div>
 </template>

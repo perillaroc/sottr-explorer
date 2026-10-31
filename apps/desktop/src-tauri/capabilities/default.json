@@ -16,6 +16,7 @@
     "allow-export-report",
     "allow-resolve-guide-link",
     "allow-open-guide-link",
-    "allow-open-external-url"
+    "allow-open-external-url",
+    "allow-open-detail-window"
   ]
 }
