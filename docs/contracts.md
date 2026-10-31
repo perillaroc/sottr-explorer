@@ -383,6 +383,9 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `export_report` | 导出当前快照（JSON/CSV） | 目标必须是新目录且与输入不重叠；默认分享脱敏；旧结果携带 `stale` 与刷新错误码 |
 | `resolve_guide_link` | 仅解析/校验攻略来源链接（不打开） | 与 `open_guide_link` 同一校验路径；供“复制已核验链接”等无副作用操作 |
 | `open_guide_link` | 打开攻略来源链接 | 只接受 `snapshot_id`/`location_id`/`source_ref` 稳定 ID；URL 从元数据解析并校验 http/https 后交给系统外部浏览器 |
+| `open_external_url` | 打开界面合成的外链（搜索地址等） | 不绑定快照；与攻略直链同一 http/https + 主机 + 无空白白名单 |
+| `open_detail_window` | 打开/复用独立详情窗口 | 只接受 ≤2 MiB 的 JSON 对象 payload；先写 Rust 内存再建窗口；已有 `detail` 窗口时聚焦并广播 `detail-payload-updated` |
+| `read_detail_window_payload` | 详情弹窗读取最近一次 payload | 只读 Rust 进程内存（窗口关闭不清除）；不读存档、不落盘 |
 
 请求与快照语义（开发方案 SX-014 的“界面接线补充”）：
 
@@ -394,11 +397,16 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
   `stale` 并记录刷新错误码；被取消的请求只返回无结果信封。
 - 输入路径只用于路径策略、去重与输出重叠校验，不出现在信封、分享导出与外部
   链接中；打开攻略链接不附加存档内容或账户信息。
-- 未列入 `permissions/sottr-commands.toml` 与 `capabilities/default.json` 的命令
-  会被 ACL 拒绝；前端权限为显式最小集（`core:app/event/path/window` 默认权限 +
-  7 条应用命令），未开放 `opener`/`dialog`/`shell`/文件系统/图像/菜单/托盘/资源/
-  WebView 查询权限；WebView 导航只允许应用自身来源（CSP + 导航门禁），外部页面
-  不进入 WebView。
+- 未列入 `permissions/sottr-commands.toml` 与对应 capability 的命令会被 ACL 拒绝。
+  两个 capability：`default`（主窗口 `main`，`core:app/event/path/window` 默认权限 +
+  11 条应用命令中除读取 payload 外的全部）与 `detail`（详情弹窗 `detail`，仅
+  `core:event:default`、`core:window:allow-close`、`allow-read-detail-window-payload`
+  与 `allow-open-external-url`）；两者均未开放 `opener`/`dialog`/`shell`/文件系统/
+  图像/菜单/托盘/资源/WebView 查询权限；WebView 导航只允许应用自身来源
+  （CSP + 导航门禁），外部页面不进入 WebView。
+- 窗口事件按标签收窄：只有主窗口（`main`）销毁才取消在飞分析、关闭详情弹窗并退出
+  应用；关闭详情弹窗（`detail`）不影响主窗口。详情 payload 只存进程内存（≤2 MiB、
+  必须是 JSON 对象），是打开时的只读快照，不含完整路径、证据或诊断数据。
 - 命令错误码：`INVALID_PARAMS`、`INTERNAL`、`METADATA_UNAVAILABLE`、
   `SNAPSHOT_UNKNOWN`、`SNAPSHOT_MISMATCH`、`LINK_LOCATION_UNKNOWN`、
   `LINK_SOURCE_UNKNOWN`、`LINK_URL_UNSUPPORTED`、`LINK_OPEN_FAILED`、
