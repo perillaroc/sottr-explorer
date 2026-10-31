@@ -12,6 +12,9 @@
 //! 无法运行。
 
 fn main() {
+    // tauri-build 只监听 tauri.conf.json、capabilities 与 permissions；
+    // 图标变更不会触发 Windows 资源重新生成，这里显式监听，避免 exe 内嵌旧图标。
+    println!("cargo:rerun-if-changed=icons");
     tauri_build::build();
     #[cfg(windows)]
     link_resource_into_tests();
