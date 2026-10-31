@@ -30,6 +30,26 @@ export function basemapForUnit(unit: number | null | undefined): Basemap | null 
   return byUnit.get(unit) ?? null;
 }
 
+function minUnit(basemap: Basemap): number {
+  return Math.min(...basemap.unit_ids);
+}
+
+/** 全部底图记录（按最小 unit 升序；同 unit 时按 basemap_id 稳定排序）。 */
+const ordered = Object.values(dataset.basemaps).sort((left, right) => {
+  const diff = minUnit(left) - minUnit(right);
+  return diff !== 0 ? diff : left.basemap_id.localeCompare(right.basemap_id);
+});
+
+/** 数据集的全部底图记录（只读副本；地图查询视图的目录来源）。 */
+export function allBasemaps(): Basemap[] {
+  return [...ordered];
+}
+
+/** 某区域的底图记录（按最小 unit 升序）。 */
+export function basemapsForRegion(regionSlug: string): Basemap[] {
+  return ordered.filter((entry) => entry.region_id === regionSlug);
+}
+
 const imageBase = __BASEMAP_IMAGE_BASE__;
 
 /** 图片基地址；未配置外置素材时为 null。 */

@@ -150,6 +150,36 @@ describe("布局档位（有效内容宽度）", () => {
     await flushPromises();
     expect(wrapper.findAll('[data-testid="app-sidebar"]').length).toBe(1);
   });
+
+  it("地图视图不渲染 App 详情（宽/中/窄）", async () => {
+    for (const width of [1440, 1280, 799]) {
+      const { store, wrapper } = await mountApp(width);
+      store.actions.openRow(ROW_ID);
+      await flushPromises();
+      store.actions.setView("map");
+      await flushPromises();
+      // 地图页自己管理右栏与浮层：App 的常驻详情/抽屉/页面替换都不出现。
+      expect(wrapper.find('[data-testid="detail-pane"]').exists()).toBe(false);
+      expect(document.querySelector('[role="dialog"]')).toBeNull();
+      expect(wrapper.find('[data-testid="map-canvas"]').exists()).toBe(true);
+      wrapper.unmount();
+    }
+  });
+
+  it("地图视图下 Ctrl+F 聚焦地图搜索（不切换到区域清单）", async () => {
+    const { store } = await mountApp(1440);
+    store.actions.setView("map");
+    await flushPromises();
+    const focusSpy = vi.spyOn(store.actions, "requestMapSearchFocus");
+    const regionsSpy = vi.spyOn(store.actions, "setView");
+    press("f", { ctrlKey: true });
+    expect(focusSpy).toHaveBeenCalled();
+    expect(regionsSpy).not.toHaveBeenCalled();
+    await flushPromises();
+    expect((document.activeElement as HTMLElement | null)?.getAttribute("aria-label")).toBe(
+      "搜索地图上的收集品",
+    );
+  });
 });
 
 describe("键盘快捷键（可发现、不与系统冲突）", () => {

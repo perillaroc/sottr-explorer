@@ -24,6 +24,7 @@ import SlotPicker from "./components/SlotPicker.vue";
 import OverviewPage from "./components/OverviewPage.vue";
 import FullCollectionPage from "./components/FullCollectionPage.vue";
 import CollectionPage from "./components/CollectionPage.vue";
+import MapPage from "./components/MapPage.vue";
 import DiagnosticsPage from "./components/DiagnosticsPage.vue";
 import SettingsPage from "./components/SettingsPage.vue";
 import CollectionDetail from "./components/CollectionDetail.vue";
@@ -82,6 +83,8 @@ const pageComponent = computed(() => {
       return FullCollectionPage;
     case "regions":
       return CollectionPage;
+    case "map":
+      return MapPage;
     case "diagnostics":
       return DiagnosticsPage;
     case "settings":
@@ -93,18 +96,20 @@ const pageComponent = computed(() => {
 
 const selectedEntry = computed(() => store.selectedEntry.value);
 
+const detailViewActive = computed(() => store.state.view !== "import" && store.state.view !== "map");
+
 const showPersistentPane = computed(
-  () => layout.value === "wide" && store.state.detailOpen && selectedEntry.value !== null && store.state.view !== "import",
+  () => layout.value === "wide" && detailViewActive.value && store.state.detailOpen && selectedEntry.value !== null,
 );
 const showDrawer = computed(
   () =>
     (layout.value === "medium" || layout.value === "compact") &&
+    detailViewActive.value &&
     store.state.detailOpen &&
-    selectedEntry.value !== null &&
-    store.state.view !== "import",
+    selectedEntry.value !== null,
 );
 const showNarrowDetail = computed(
-  () => layout.value === "narrow" && store.state.detailOpen && selectedEntry.value !== null && store.state.view !== "import",
+  () => layout.value === "narrow" && detailViewActive.value && store.state.detailOpen && selectedEntry.value !== null,
 );
 
 // ---------------------------------------------------------------------------
@@ -207,8 +212,12 @@ function onKeydown(event: KeyboardEvent): void {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "f") {
     if (!inEditable) {
       event.preventDefault();
-      store.actions.setView("regions");
-      store.actions.requestSearchFocus();
+      if (store.state.view === "map") {
+        store.actions.requestMapSearchFocus();
+      } else {
+        store.actions.setView("regions");
+        store.actions.requestSearchFocus();
+      }
     }
     return;
   }

@@ -7,7 +7,7 @@ import { DEFAULT_FILTERS, type RegionScope, type StatusFilter } from "./catalog"
 import type { LanguagePreference } from "./i18n";
 import type { ThemePreference } from "./theme";
 
-export type ViewId = "import" | "overview" | "full" | "regions" | "diagnostics" | "settings";
+export type ViewId = "import" | "overview" | "full" | "regions" | "map" | "diagnostics" | "settings";
 
 /** 外部搜索链接使用的搜索引擎（默认 Bing）。 */
 export type SearchEngine = "bing" | "google" | "baidu";
@@ -141,7 +141,7 @@ export function widthPreference(value: unknown, limits: WidthLimits): number {
 }
 
 function isViewId(value: unknown): value is ViewId {
-  return value === "import" || value === "overview" || value === "full" || value === "regions" || value === "diagnostics" || value === "settings";
+  return value === "import" || value === "overview" || value === "full" || value === "regions" || value === "map" || value === "diagnostics" || value === "settings";
 }
 
 function isLanguagePreference(value: unknown): value is LanguagePreference {

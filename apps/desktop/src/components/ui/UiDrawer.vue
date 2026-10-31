@@ -14,8 +14,10 @@ const props = withDefaults(
     widthClass?: string;
     /** 动态宽度（px）：提供时用内联宽度，仍保留响应式 max-width（不再依赖固定宽度类）。 */
     width?: number;
+    /** 内容区不要内边距与滚动（内部自带滚动布局，如地图右栏）。 */
+    flush?: boolean;
   }>(),
-  { widthClass: "w-[400px] max-w-[calc(100vw-24px)]", width: undefined },
+  { widthClass: "w-[400px] max-w-[calc(100vw-24px)]", width: undefined, flush: false },
 );
 
 const emit = defineEmits<{ close: [] }>();
@@ -147,7 +149,7 @@ onBeforeUnmount(() => {
         </header>
         <!-- 调整宽度手柄（阶段一）：绝对定位在抽屉左边缘，放在头部之后使焦点先进入关闭按钮。 -->
         <slot name="handle" />
-        <div class="scroll-area min-h-0 flex-1 px-4 py-3">
+        <div :class="flush ? 'min-h-0 flex-1' : 'scroll-area min-h-0 flex-1 px-4 py-3'">
           <slot />
         </div>
       </section>

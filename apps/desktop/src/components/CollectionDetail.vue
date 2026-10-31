@@ -25,8 +25,10 @@ const props = withDefaults(
     item: PlanItem;
     /** pane：宽屏常驻；drawer：模态抽屉；page：窄窗页面替换。 */
     mode?: "pane" | "drawer" | "page";
+    /** 是否显示「同一子关卡内的相对位置」段落（地图页已展示位置，默认 true）。 */
+    showPosition?: boolean;
   }>(),
-  { mode: "pane" },
+  { mode: "pane", showPosition: true },
 );
 
 const store = useStore();
@@ -321,7 +323,7 @@ const linkStatusTone = computed(() => {
     </section>
 
     <details
-      v-if="item.position"
+      v-if="showPosition && item.position"
       class="rounded-[8px] border border-line bg-raised/60 px-3 py-2"
       data-testid="position-section"
       :open="positionOpen"

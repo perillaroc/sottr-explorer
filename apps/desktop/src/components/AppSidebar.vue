@@ -2,7 +2,7 @@
 // 侧栏（SX-015）：“概览 / 区域与收集 / 区域段 / 诊断 / 设置与关于”在同一侧栏，
 // 不做四列；折叠时只显示图标（aria-label 保留），区域选择移到正文或浮层。
 import { computed } from "vue";
-import { Activity, FolderOpen, LayoutDashboard, ListTree, Settings, Trophy } from "@lucide/vue";
+import { Activity, FolderOpen, LayoutDashboard, ListTree, MapPinned, Settings, Trophy } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { regionName } from "../app/collection";
@@ -29,7 +29,7 @@ function itemClass(active: boolean): string {
   return `${baseItem} ${active ? "bg-accent-bg text-accent-strong" : "text-ink hover:bg-raised"}`;
 }
 
-function go(view: "import" | "overview" | "full" | "regions" | "diagnostics" | "settings"): void {
+function go(view: "import" | "overview" | "full" | "regions" | "map" | "diagnostics" | "settings"): void {
   store.actions.setView(view);
 }
 
@@ -100,6 +100,21 @@ function goRegion(region: string): void {
           <ListTree :size="16" aria-hidden="true" />
           <span v-if="props.expanded">{{ t("区域与收集", "Regions & Collection") }}</span>
           <span v-else class="sr-only">{{ t("区域与收集", "Regions & Collection") }}</span>
+        </button>
+      </li>
+
+      <li>
+        <button
+          type="button"
+          :class="itemClass(store.state.view === 'map')"
+          :disabled="!hasResult"
+          :title="hasResult ? t('地图查询', 'Map') : t('地图查询：先分析一个存档文件', 'Map: analyze a save file first')"
+          :aria-current="store.state.view === 'map' ? 'page' : undefined"
+          @click="go('map')"
+        >
+          <MapPinned :size="16" aria-hidden="true" />
+          <span v-if="props.expanded">{{ t("地图查询", "Map") }}</span>
+          <span v-else class="sr-only">{{ t("地图查询", "Map") }}</span>
         </button>
       </li>
 

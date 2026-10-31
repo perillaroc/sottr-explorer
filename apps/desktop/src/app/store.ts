@@ -46,6 +46,13 @@ import {
   groupFilters,
   type CollectionCounts,
 } from "./collection";
+import {
+  defaultMapBasemap,
+  mapOptions,
+  mapOptionsForRegion,
+  regionHasBasemap,
+} from "./map-view";
+import { basemapForUnit } from "../data/basemaps";
 import { fileNameOf } from "./format";
 import { applyTheme, onSystemThemeChange, type ThemePreference } from "./theme";
 import {
@@ -175,6 +182,17 @@ export interface AppState {
   navCollapsed: boolean;
   navOverlayOpen: boolean;
   detailOpen: boolean;
+  /** 地图查询视图：区域与底图选择（与区域清单的 `region` 解耦，不回写）。 */
+  mapRegion: string | null;
+  mapBasemapId: string | null;
+  /** 地图视图独立筛选（默认全部；与区域清单的筛选互不影响）。 */
+  mapStatus: StatusFilter;
+  mapCategory: string | null;
+  mapSearch: string;
+  /** 右栏标签页：「详情 / 清单」，默认清单；本次应用会话内保留。 */
+  mapRailTab: "detail" | "list";
+  /** Ctrl+F 在地图页聚焦地图搜索。 */
+  mapSearchFocusToken: number;
   /** 详情面板宽度（px；拖动调整，随偏好持久化）。 */
   detailPaneWidth: number;
   detailDrawerWidth: number;
@@ -256,6 +274,13 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     navCollapsed: preferences?.navCollapsed ?? false,
     navOverlayOpen: false,
     detailOpen: true,
+    mapRegion: null,
+    mapBasemapId: null,
+    mapStatus: "all",
+    mapCategory: null,
+    mapSearch: "",
+    mapRailTab: "list",
+    mapSearchFocusToken: 0,
     detailPaneWidth: preferences?.detailPaneWidth ?? DETAIL_PANE_WIDTH.default,
     detailDrawerWidth: preferences?.detailDrawerWidth ?? DETAIL_DRAWER_WIDTH.default,
     detailCompactWidth: preferences?.detailCompactWidth ?? DETAIL_COMPACT_WIDTH.default,
@@ -503,6 +528,9 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     }
     if (state.selectedRowId && !selectedEntry.value) {
       state.selectedRowId = null;
+    }
+    if (state.view === "map") {
+      ensureMapSelection();
     }
   }
 
@@ -936,7 +964,134 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   // 视图与筛选
   // -------------------------------------------------------------------------
 
+  // -------------------------------------------------------------------------
+  // 地图查询视图（阶段二）：区域/底图选择与独立筛选；与区域清单的 state.region 解耦
+  // -------------------------------------------------------------------------
+
+  function mapRegionValid(slug: string | null): boolean {
+    return slug !== null && regionHasBasemap(plan.value, slug);
+  }
+
+  function defaultMapBasemapId(slug: string | null): string | null {
+    return defaultMapBasemap(plan.value, atlas, slug)?.basemapId ?? null;
+  }
+
+  /** 第一个有带坐标条目的区域（其次任何有底图的区域）。 */
+  function firstMapRegion(): string | null {
+    const options = mapOptions(plan.value, atlas);
+    return (options.find((option) => option.itemCount > 0) ?? options[0])?.regionSlug ?? null;
+  }
+
+  /** 切槽/刷新后重新校验地图选择；不改区域清单的 `state.region`。 */
+  function ensureMapSelection(): void {
+    if (!mapRegionValid(state.mapRegion)) {
+      state.mapRegion = firstMapRegion();
+      state.mapBasemapId = null;
+    }
+    if (state.mapBasemapId !== null) {
+      const stillThere = mapOptionsForRegion(plan.value, atlas, state.mapRegion).some(
+        (option) => option.basemapId === state.mapBasemapId,
+      );
+      if (!stillThere) {
+        state.mapBasemapId = null;
+      }
+    }
+    if (state.mapBasemapId === null) {
+      state.mapBasemapId = defaultMapBasemapId(state.mapRegion);
+    }
+  }
+
+  /**
+   * 进入地图视图的初始化（按优先级）：
+   * 选中条目有底图 → 打开其子关卡并保留选中；否则采用有底图的当前区域；
+   * 否则保留上次地图区域；否则选第一个有带坐标条目的区域。
+   * 选中条目没有底图时清空选中，避免详情标签显示不在当前地图上的条目。
+   */
+  function enterMapView(): void {
+    if (state.view === "map") {
+      return;
+    }
+    const selected = selectedEntry.value;
+    const selectedBasemap = selected ? basemapForUnit(selected.item.unit?.unit) : null;
+    if (
+      selectedBasemap &&
+      plan.value.regions.some((region) => region.slug === selectedBasemap.region_id)
+    ) {
+      state.mapRegion = selectedBasemap.region_id;
+      state.mapBasemapId = selectedBasemap.basemap_id;
+      return;
+    }
+    if (selected) {
+      state.selectedRowId = null;
+      state.detailOpen = false;
+    }
+    if (state.region !== "all" && state.region !== "unknown" && mapRegionValid(state.region)) {
+      state.mapRegion = state.region;
+    } else if (!mapRegionValid(state.mapRegion)) {
+      state.mapRegion = firstMapRegion();
+    }
+    state.mapBasemapId = defaultMapBasemapId(state.mapRegion);
+  }
+
+  /** 计划变化后确保地图选择仍有效（MapPage 挂载时也会调用）。 */
+  function ensureMapView(): void {
+    if (!planAvailable.value) {
+      return;
+    }
+    ensureMapSelection();
+  }
+
+  function setMapRegion(regionSlug: string): void {
+    if (!mapRegionValid(regionSlug)) {
+      return;
+    }
+    state.mapRegion = regionSlug;
+    state.mapBasemapId = defaultMapBasemapId(regionSlug);
+    state.selectedRowId = null;
+    state.detailOpen = false;
+  }
+
+  function setMapBasemap(basemapId: string): void {
+    const valid = mapOptionsForRegion(plan.value, atlas, state.mapRegion).some(
+      (option) => option.basemapId === basemapId,
+    );
+    if (!valid) {
+      return;
+    }
+    state.mapBasemapId = basemapId;
+    state.selectedRowId = null;
+    state.detailOpen = false;
+  }
+
+  function setMapStatus(status: StatusFilter): void {
+    state.mapStatus = status;
+    state.selectedRowId = null;
+    state.detailOpen = false;
+  }
+
+  function setMapCategory(category: string | null): void {
+    state.mapCategory = category;
+    state.selectedRowId = null;
+    state.detailOpen = false;
+  }
+
+  /** 搜索不强制清空选中；选中项被筛掉时详情标签显示提示。 */
+  function setMapSearch(query: string): void {
+    state.mapSearch = query;
+  }
+
+  function setMapRailTab(tab: "detail" | "list"): void {
+    state.mapRailTab = tab;
+  }
+
+  function requestMapSearchFocus(): void {
+    state.mapSearchFocusToken += 1;
+  }
+
   function setView(view: ViewId): void {
+    if (view === "map") {
+      enterMapView();
+    }
     state.view = view;
     state.navOverlayOpen = false;
     persistNow();
@@ -1159,6 +1314,14 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       clearLinkAction,
       setView,
       setRegion,
+      setMapRegion,
+      setMapBasemap,
+      setMapStatus,
+      setMapCategory,
+      setMapSearch,
+      setMapRailTab,
+      requestMapSearchFocus,
+      ensureMapView,
       setStatusFilter,
       setCategory,
       setEvidenceFilter,

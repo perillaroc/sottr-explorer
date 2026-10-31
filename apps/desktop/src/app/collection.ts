@@ -44,7 +44,8 @@ export function categoryNameOf(atlas: Atlas, categoryId: string): string {
   return categoryLabel(categoryId, entry?.name ?? null);
 }
 
-function itemHaystack(item: PlanItem, group: PlanGroup): string {
+/** 条目搜索文本（名称/内部名/ID/子关卡名…）；区域清单与地图搜索共用。 */
+export function itemHaystack(item: PlanItem, group: PlanGroup): string {
   const unit = item.unit ? [item.unit.display_zh, item.unit.display_en, item.unit.zone] : [];
   return [
     item.display_name,
