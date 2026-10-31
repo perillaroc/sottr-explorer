@@ -24,14 +24,14 @@ const emit = defineEmits<{ select: [category: string | null] }>();
 </script>
 
 <template>
-  <div role="group" :aria-label="ariaLabel" class="flex flex-wrap items-center gap-1">
+  <div role="group" :aria-label="ariaLabel" class="flex flex-nowrap items-center gap-1 overflow-x-auto pb-0.5">
     <button
       v-for="option in options"
       :key="option.category || 'all'"
       type="button"
       :aria-pressed="(selected ?? '') === option.category"
       :title="option.label"
-      class="inline-flex h-8 cursor-pointer items-center gap-1 rounded-[6px] border px-2 text-[13px]"
+      class="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1 rounded-[6px] border px-2 text-[13px]"
       :class="[
         (selected ?? '') === option.category
           ? 'border-accent bg-accent-bg text-accent-strong'

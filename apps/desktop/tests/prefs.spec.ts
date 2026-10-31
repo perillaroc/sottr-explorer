@@ -83,6 +83,11 @@ describe("界面偏好持久化", () => {
     expect(loadPreferences().view).not.toBe("import");
   });
 
+  it("视图偏好接受关于视图并往返", () => {
+    savePreferences({ ...loadPreferences(), view: "about" });
+    expect(loadPreferences().view).toBe("about");
+  });
+
   it("面板宽度：越界值钳制、非数字回退默认，旧偏好缺字段时仍可读", () => {
     window.localStorage.setItem(
       STORAGE_KEY,

@@ -11,12 +11,11 @@ describe("概览", () => {
     const wrapper = mountWithStore(OverviewPage, store);
     expect(wrapper.get('[data-testid="overall-value"]').text()).toContain("66.20%");
     expect(wrapper.text()).toContain("推定");
-    expect(wrapper.get('[data-testid="collection-summary"]').text()).toContain("246/370");
+    expect(wrapper.get('[data-testid="collection-summary"]').text()).toContain("246");
+    expect(wrapper.get('[data-testid="collection-summary"]').text()).toContain("370");
     expect(wrapper.get('[data-testid="uncollected-value"]').text()).toContain("124 项");
-    expect(wrapper.text()).toContain("不能互相换算");
-    expect(wrapper.text()).toContain("不是游戏内地图完成度百分比");
-    expect(wrapper.get('[data-testid="coverage-banner"]').text()).toContain("收集状态口径");
-    expect(wrapper.text()).toContain(copy.coverageScope);
+    // 说明性口径不再占据主界面（保留在「关于」页的数据与范围里）。
+    expect(wrapper.find('[data-testid="coverage-banner"]').exists()).toBe(false);
   });
 
   it("区域进度列出全部主区域与特殊区域入口", async () => {
@@ -62,7 +61,6 @@ describe("概览", () => {
     expect(staleNotice.text()).toContain("快照时间");
     expect(staleNotice.text()).toContain("INPUT_CHANGED");
     expect(staleNotice.text()).toContain("请刷新后再核对收集状态");
-    expect(wrapper.get('[data-testid="coverage-banner"]').text()).toContain("收集状态口径");
   });
 
   it("资料文件：整体候选显示不可用与原因，收集品计数显示不适用", async () => {

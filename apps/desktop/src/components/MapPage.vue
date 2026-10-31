@@ -4,7 +4,8 @@
 //
 // 边界（方案 §2.1）：一张底图 = 一个子关卡，不做跨子关卡拼图；点位只是同子关卡内的
 // 相对位置参考，不是导航；筛选独立于区域清单，`mapRegion` 不回写 `state.region`。
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { X } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { copy } from "../app/labels";
@@ -13,7 +14,6 @@ import { MAP_RAIL_WIDTH } from "../app/prefs";
 import {
   defaultMapBasemap,
   filterMapEntries,
-  mapCoverage,
   mapEntriesForBasemap,
   mapGroups,
   mapOptions,
@@ -33,6 +33,7 @@ import UiButton from "./ui/UiButton.vue";
 import UiDrawer from "./ui/UiDrawer.vue";
 import UiEmptyState from "./ui/UiEmptyState.vue";
 import UiFilterChips from "./ui/UiFilterChips.vue";
+import UiIconButton from "./ui/UiIconButton.vue";
 import UiResizeHandle from "./ui/UiResizeHandle.vue";
 import UiSearchInput from "./ui/UiSearchInput.vue";
 import type { ChipOption } from "./ui/types";
@@ -55,7 +56,6 @@ const overlayRail = computed(() => layout.value === "compact");
 const narrow = computed(() => layout.value === "narrow");
 
 const options = computed<MapBasemapOption[]>(() => mapOptions(plan.value, atlas));
-const coverage = computed(() => mapCoverage(plan.value, atlas));
 
 /** 区域选择：只列有底图的区域（「全部区域」不作为地图选择值）。 */
 const regionChoices = computed(() => {
@@ -125,21 +125,15 @@ const categoryOptions = computed<MapLegendOption[]>(() => {
   return list;
 });
 
-const coverageText = computed(() =>
-  tFormat(
-    "底图 {basemaps} 张 · {unitsWithBasemap}/{units} 个子关卡 · {mappable}/{items} 条可上图",
-    "{basemaps} basemaps · {unitsWithBasemap}/{units} sub-levels · {mappable}/{items} items mappable",
-    {
-      basemaps: coverage.value.basemaps,
-      unitsWithBasemap: coverage.value.unitsWithBasemap,
-      units: coverage.value.units,
-      mappable: coverage.value.mappable,
-      items: coverage.value.items,
-    },
-  ),
-);
+const calibrationShort = computed(() => {
+  const option = currentOption.value;
+  if (!option) {
+    return "";
+  }
+  return option.basemap.status === "calibrated" ? t("已校准", "Calibrated") : t("近似位置", "Approximate");
+});
 
-const calibrationText = computed(() => {
+const calibrationTitle = computed(() => {
   const option = currentOption.value;
   if (!option) {
     return "";
@@ -147,21 +141,14 @@ const calibrationText = computed(() => {
   const basemap = option.basemap;
   const formatPx = (value: number | null | undefined) =>
     typeof value === "number" && Number.isFinite(value) ? value.toFixed(1) : "—";
-  // 只有 status = calibrated 才允许出现「已校准」字样。
-  if (basemap.status === "calibrated") {
-    return tFormat("已校准 · 中位误差 {median} px，P95 {p95} px", "Calibrated · median {median} px, P95 {p95} px", {
-      median: formatPx(basemap.median_error_px),
-      p95: formatPx(basemap.p95_error_px),
-    });
-  }
-  return tFormat(
-    "近似位置 · 中位误差 {median} px{estimated}",
-    "Approximate · median {median} px{estimated}",
-    {
-      median: formatPx(basemap.median_error_px),
-      estimated: basemap.error_source === "global_estimate" ? t("（全局估计）", " (global estimate)") : "",
-    },
-  );
+  return basemap.status === "calibrated"
+    ? tFormat("中位误差 {median} px，P95 {p95} px", "Median error {median} px, P95 {p95} px", {
+        median: formatPx(basemap.median_error_px),
+        p95: formatPx(basemap.p95_error_px),
+      })
+    : tFormat("中位误差 {median} px", "Median error {median} px", {
+        median: formatPx(basemap.median_error_px),
+      });
 });
 
 const basemapLabel = (option: MapBasemapOption): string => {
@@ -267,34 +254,52 @@ function onRailTab(tab: "detail" | "list"): void {
   store.actions.setMapRailTab(tab);
 }
 
+/** 从区域清单跳转过来时，把选中标记带入可视区并保持右栏详情可见。 */
+function focusSelected(): void {
+  const id = store.state.selectedRowId;
+  if (!id) {
+    return;
+  }
+  void nextTick(() => canvas.value?.focusItem(id));
+}
+
+watch(() => store.state.mapFocusToken, focusSelected);
+
 watch(
   () => store.state.mapSearchFocusToken,
   () => searchInput.value?.focus(),
 );
 
-onMounted(() => store.actions.ensureMapView());
+onMounted(() => {
+  store.actions.ensureMapView();
+  focusSelected();
+});
 </script>
 
 <template>
   <section class="flex min-h-0 flex-1 flex-col" aria-labelledby="map-title">
-    <header class="shrink-0 space-y-2 px-4 pt-4 pb-2">
+    <header class="shrink-0 space-y-2 border-b border-line/70 px-4 pt-4 pb-2.5">
       <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h1 id="map-title" class="text-xl font-semibold">{{ t("地图查询", "Map") }}</h1>
+        <h1 id="map-title" class="text-lg font-semibold">{{ t("地图查询", "Map") }}</h1>
         <template v-if="ready && currentOption">
-          <span class="text-[13px] text-ink" data-testid="map-counts">
-            {{ t(`已收集 ${currentOption.collected}/${currentOption.itemCount} · 当前筛选 ${filteredEntries.length} 项`, `Collected ${currentOption.collected}/${currentOption.itemCount} · ${filteredEntries.length} shown`) }}
+          <span class="text-[13px] tabular-nums text-ink" data-testid="map-counts">
+            {{ t(`已收集 ${currentOption.collected}/${currentOption.itemCount} · 显示 ${filteredEntries.length}`, `Collected ${currentOption.collected}/${currentOption.itemCount} · ${filteredEntries.length} shown`) }}
           </span>
-          <span class="text-xs text-muted" data-testid="map-calibration">{{ calibrationText }}</span>
+          <span
+            class="text-xs text-muted underline decoration-dotted underline-offset-2"
+            :title="calibrationTitle"
+            data-testid="map-calibration"
+          >{{ calibrationShort }}</span>
         </template>
-        <span class="text-xs text-muted" data-testid="map-coverage">{{ coverageText }}</span>
+        <span class="ml-auto text-xs text-muted">底图 · vi7ual</span>
       </div>
 
       <template v-if="ready">
         <div class="flex flex-wrap items-center gap-2">
-          <label class="text-[13px] text-muted" for="map-region-select">{{ t("区域", "Region") }}</label>
           <select
             id="map-region-select"
-            class="h-9 max-w-[220px] rounded-[6px] border border-line bg-surface px-2 text-[13px]"
+            class="h-8 max-w-[170px] cursor-pointer rounded-[6px] border border-line bg-surface px-2 text-[13px]"
+            :aria-label="t('区域', 'Region')"
             :value="store.state.mapRegion ?? ''"
             data-testid="map-region-select"
             @change="onRegionChange"
@@ -304,10 +309,10 @@ onMounted(() => store.actions.ensureMapView());
             </option>
           </select>
 
-          <label class="text-[13px] text-muted" for="map-basemap-select">{{ t("子关卡", "Sub-level") }}</label>
           <select
             id="map-basemap-select"
-            class="h-9 max-w-[320px] rounded-[6px] border border-line bg-surface px-2 text-[13px]"
+            class="h-8 max-w-[260px] cursor-pointer rounded-[6px] border border-line bg-surface px-2 text-[13px]"
+            :aria-label="t('子关卡', 'Sub-level')"
             :value="store.state.mapBasemapId ?? ''"
             data-testid="map-basemap-select"
             @change="onBasemapChange"
@@ -316,10 +321,8 @@ onMounted(() => store.actions.ensureMapView());
               {{ basemapLabel(option) }}
             </option>
           </select>
-        </div>
 
-        <div class="flex flex-wrap items-center gap-2">
-          <div class="w-56 max-w-full">
+          <div class="w-48 max-w-full">
             <UiSearchInput
               ref="searchInput"
               :model-value="store.state.mapSearch"
@@ -335,9 +338,13 @@ onMounted(() => store.actions.ensureMapView());
             :ariaLabel="t('按收集状态筛选（地图）', 'Filter by collection status (map)')"
             @update:model-value="store.actions.setMapStatus($event as 'missing' | 'observed' | 'all')"
           />
-          <UiButton size="sm" variant="ghost" data-testid="map-clear-filters" @click="clearMapFilters">
-            {{ t("清除筛选", "Clear filters") }}
-          </UiButton>
+          <UiIconButton
+            :label="t('清除筛选', 'Clear filters')"
+            data-testid="map-clear-filters"
+            @click="clearMapFilters"
+          >
+            <X :size="15" aria-hidden="true" />
+          </UiIconButton>
         </div>
         <MapLegend
           :options="categoryOptions"
@@ -350,7 +357,7 @@ onMounted(() => store.actions.ensureMapView());
           tone="warning"
           test-id="map-stale"
           :title="copy.stale"
-          :lines="[t('旧结果只反映上一次读取；收集状态可能已变化，请刷新后再核对。', 'The previous result reflects only the last read; collection status may have changed — refresh before checking again.')]"
+          :lines="[t('请刷新后再核对收集状态。', 'Refresh before checking collection status again.')]"
         />
       </template>
     </header>
@@ -367,7 +374,6 @@ onMounted(() => store.actions.ensureMapView());
       v-else-if="!store.planAvailable.value"
       class="mx-4"
       :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
-      :description="t('profile.dat 只做容器观察；请选择 save*.dat 存档查看地图上的收集品。', 'profile.dat is only observed as a container; choose a save*.dat file to view collectibles on the map.')"
     >
       <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
     </UiEmptyState>
@@ -375,7 +381,6 @@ onMounted(() => store.actions.ensureMapView());
       v-else-if="!currentOption"
       class="mx-4"
       :title="t('该区域暂无可用的地图底图', 'No basemap is available for this region')"
-      :description="t('特殊区域与无底图子关卡不在地图中；请在区域清单查看这些条目。', 'Special regions and sub-levels without basemaps are not in the map; see the regional list instead.')"
     >
       <UiButton size="sm" @click="openRegionList">{{ t("在区域清单中查看", "View in regional list") }}</UiButton>
     </UiEmptyState>
@@ -476,12 +481,6 @@ onMounted(() => store.actions.ensureMapView());
           {{ t("详情与清单", "Details & list") }}
         </button>
       </div>
-
-      <footer class="shrink-0 border-t border-line px-4 py-1 text-xs text-muted" data-testid="map-footer">
-        {{ t("底图来源：vi7ual（个人非商业使用）", "Basemaps: vi7ual (personal, non-commercial use)") }}
-        ·
-        {{ t("特殊区域与无底图子关卡不在地图中，请在区域清单查看。", "Special regions and sub-levels without basemaps are not in the map; see the regional list.") }}
-      </footer>
     </div>
 
     <UiDrawer

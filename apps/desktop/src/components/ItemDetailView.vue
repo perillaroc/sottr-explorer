@@ -89,29 +89,8 @@ onMounted(() => {
 
 const collected = computed(() => props.item.status === "collected");
 
-/** 「如何获取」主体：区域 · 子关卡 → 类别规则原文 → 关卡内相对位置 → 同子关卡剩余。 */
-const acquisitionBody = computed(() => {
-  const parts = [
-    `${props.regionName}${props.unitLabel ? ` · ${props.unitLabel}` : ""}`,
-    props.item.acquisition_text,
-  ];
-  const position = props.item.position;
-  if (position) {
-    parts.push(
-      t(
-        `关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})`,
-        `Approx. in-level position (${position.x.toFixed(2)}, ${position.y.toFixed(2)})`,
-      ),
-    );
-  }
-  const remaining = props.item.same_unit_remaining ?? 0;
-  if (remaining > 0) {
-    parts.push(
-      t(`同一子关卡还有 ${remaining} 项未收集`, `${remaining} more uncollected in the same sub-level`),
-    );
-  }
-  return parts.join(" · ");
-});
+/** 同一子关卡剩余未收集数。 */
+const sameUnitRemaining = computed(() => props.item.same_unit_remaining ?? 0);
 
 const copyLines = computed(() =>
   [
@@ -173,12 +152,13 @@ const linkStatusTone = computed(() => {
   <article class="space-y-4 pb-4" data-testid="item-detail">
     <header class="space-y-1">
       <div class="flex items-start justify-between gap-2">
-        <p class="min-w-0 text-xs text-muted">
+        <p v-if="mode === 'window'" class="min-w-0 text-xs text-muted">
           {{ slotName || t("未选择文件", "No file selected") }}
           <template v-if="snapshotTime">
             · {{ t("快照", "snapshot") }} {{ formatSnapshotTime(snapshotTime) }}
           </template>
         </p>
+        <span v-else />
         <UiIconButton
           v-if="showPopout && mode !== 'window'"
           :label="t('在新窗口中打开', 'Open in a new window')"
@@ -202,8 +182,8 @@ const linkStatusTone = computed(() => {
         </UiBadge>
         <UiBadge v-if="subgroupLabel" tone="neutral" :kind-label="t('子类别', 'Subcategory')">{{ subgroupLabel }}</UiBadge>
         <UiBadge v-if="item.is_dlc" tone="neutral" :kind-label="t('版本', 'Edition')">DLC</UiBadge>
-        <UiBadge v-if="item.required_for_100 === false" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("可选（不计入 100%）", "Optional (not counted toward 100%)") }}</UiBadge>
-        <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("未闭合（不计入缺失结论）", "Unresolved (excluded from missing conclusions)") }}</UiBadge>
+        <UiBadge v-if="item.required_for_100 === false" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("可选", "Optional") }}</UiBadge>
+        <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("未闭合", "Unresolved") }}</UiBadge>
       </div>
       <p v-if="item.shared_names && item.shared_names.length > 1" class="text-xs text-caution">
         {{ tFormat("该 ID 对应 {count} 个名称：{names}（按 ID 计数，不拆分判定）", "This ID maps to {count} names: {names} (counted by ID; not split for assessment)", { count: item.shared_names.length, names: item.shared_names.join(" / ") }) }}
@@ -212,10 +192,31 @@ const linkStatusTone = computed(() => {
 
     <section class="space-y-1.5">
       <h3 class="text-sm font-medium">{{ t("如何获取", "How to obtain") }}</h3>
-      <p class="text-[13px]" data-testid="detail-acquisition">{{ acquisitionBody }}</p>
+      <dl class="space-y-1 text-[13px]" data-testid="detail-acquisition">
+        <div class="flex gap-2">
+          <dt class="w-12 shrink-0 text-muted">{{ t("区域", "Region") }}</dt>
+          <dd class="min-w-0">{{ regionName }}{{ unitLabel ? ` · ${unitLabel}` : "" }}</dd>
+        </div>
+        <div class="flex gap-2">
+          <dt class="w-12 shrink-0 text-muted">{{ t("获取", "How") }}</dt>
+          <dd class="min-w-0">{{ item.acquisition_text }}</dd>
+        </div>
+        <div v-if="item.position" class="flex gap-2">
+          <dt class="w-12 shrink-0 text-muted">{{ t("位置", "Where") }}</dt>
+          <dd class="min-w-0">
+            {{ t(
+              `关卡内相对位置约 (${item.position.x.toFixed(2)}, ${item.position.y.toFixed(2)})`,
+              `Approx. in-level position (${item.position.x.toFixed(2)}, ${item.position.y.toFixed(2)})`,
+            ) }}
+          </dd>
+        </div>
+        <div v-if="sameUnitRemaining > 0" class="flex gap-2">
+          <dt class="w-12 shrink-0 text-muted">{{ t("同关卡", "Same level") }}</dt>
+          <dd class="min-w-0">{{ t(`还有 ${sameUnitRemaining} 项未收集`, `${sameUnitRemaining} more uncollected`) }}</dd>
+        </div>
+      </dl>
       <p class="text-xs text-muted">
-        <template v-if="item.acquisition_source === 'item_note'">{{ t("逐项注记（人工整理，未逐条与游戏内核实）。", "Per-item note (curated; not verified item by item in-game).") }}</template>
-        <template v-else>{{ t("类别通用说明（人工整理，未逐条与游戏内核实）。", "Category-level note (curated; not verified item by item in-game).") }}</template>
+        {{ item.acquisition_source === "item_note" ? t("逐项注记", "Per-item note") : t("类别规则", "Category rule") }}
       </p>
       <div class="flex flex-wrap items-center gap-2 pt-1">
         <UiButton size="sm" variant="ghost" data-testid="copy-lead" @click="copyHint">
@@ -261,9 +262,6 @@ const linkStatusTone = computed(() => {
           {{ t("重试", "Retry") }}
         </UiButton>
       </p>
-      <p class="text-xs text-muted">
-        {{ t("在系统浏览器中打开；设置页选「仅复制链接」时只复制地址。应用内始终不加载网页。", "Opens in the system browser; with “Copy link only” selected in Settings, only the address is copied. The app never loads web pages in-app.") }}
-      </p>
     </section>
 
     <details
@@ -273,7 +271,7 @@ const linkStatusTone = computed(() => {
       :open="positionOpen"
       @toggle="onPositionToggle"
     >
-      <summary class="cursor-pointer text-[13px] font-medium">{{ t("同一子关卡内的相对位置", "Relative positions within the same sub-level") }}</summary>
+      <summary class="cursor-pointer text-[13px] font-medium">{{ t("相对位置", "Relative positions") }}</summary>
       <div class="mt-2 space-y-1.5">
         <MapPanel
           :items="sameUnitItems"

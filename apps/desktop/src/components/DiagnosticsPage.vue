@@ -49,10 +49,10 @@ const selectedCategoryName = computed(() => {
 </script>
 
 <template>
-  <section class="scroll-area min-h-0 flex-1 px-6 py-5" aria-labelledby="diagnostics-title">
-    <div class="mx-auto max-w-4xl space-y-4">
-      <header class="space-y-1">
-        <h1 id="diagnostics-title" class="text-xl font-semibold">{{ t("诊断", "Diagnostics") }}</h1>
+  <section class="scroll-area min-h-0 flex-1 px-6 py-6" aria-labelledby="diagnostics-title">
+    <div class="mx-auto max-w-5xl space-y-5">
+      <header class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h1 id="diagnostics-title" class="text-lg font-semibold">{{ t("诊断", "Diagnostics") }}</h1>
         <p class="text-[13px] text-muted">
           <template v-if="slot?.name">
             {{ t(`当前槽位：${slot.name} · 快照 ${formatSnapshotTime(slot.result?.snapshot_time ?? null)}`, `Current slot: ${slot.name} · snapshot ${formatSnapshotTime(slot.result?.snapshot_time ?? null)}`) }}
@@ -158,7 +158,7 @@ const selectedCategoryName = computed(() => {
         <section class="space-y-2" data-testid="selected-evidence">
           <h2 class="text-base font-medium">{{ t("当前选中条目的原始证据", "Raw evidence for the selected item") }}</h2>
           <p v-if="!selected" class="text-[13px] text-muted">
-            {{ t("未选中条目：在区域清单中点一条，这里会显示它的图鉴版本、区域绑定、子关卡、原始坐标与状态判定说明。", "No item selected: click a row in the region list to see its catalog version, region binding, sub-level, raw coordinates and status rationale here.") }}
+            {{ t("未选中条目：在区域清单中选择一个条目查看原始证据。", "No item selected: choose an item in the region list to see its raw evidence.") }}
           </p>
           <UiEvidenceDetails
             v-else
@@ -202,7 +202,6 @@ const selectedCategoryName = computed(() => {
                 {{ t("该条目 ID 未出现在当前存档的物品表中，因此判为未收集。若你在游戏中刚取得，请刷新（F5）后再看。", "This item ID does not appear in the current save’s inventory table, so it is judged uncollected. If you just obtained it in-game, refresh (F5) and check again.") }}
               </template>
             </p>
-            <p>{{ t("区域与子类别已用存档自带的区域计数器逐行核对（区域 × 类别 43 行全部吻合）。", "Regions and subcategories were checked line by line against the save’s own region counters (all 43 region × category rows match).") }}</p>
             <p v-if="store.isStale.value">{{ copy.stale }}：{{ t("本次结果仅反映上一次读取。", "This result reflects only the last read.") }}</p>
           </UiEvidenceDetails>
         </section>
@@ -227,9 +226,6 @@ const selectedCategoryName = computed(() => {
 
         <section class="space-y-2">
           <h2 class="text-base font-medium">{{ t("已观察记录（未分类，不计入收集品数）", "Observed records (unclassified, not counted as collectibles)") }}</h2>
-          <p class="text-[13px] text-muted">
-            {{ t(`这里保留未分类/未知非零 ID 的原始观察（共 ${records.length} 条）；主清单的“全部”不包含它们。`, `Raw observations for unclassified/unknown non-zero IDs are kept here (${records.length} records); “All” in the main list excludes them.`) }}
-          </p>
           <ul class="space-y-1">
             <li v-for="record in records" :key="`${record.table}-${record.index}`" class="rounded-[6px] border border-line bg-surface px-3 py-1.5 text-[13px]">
               <span class="mono">{{ record.internal_id }}</span> · {{ t("表", "table") }} {{ record.table }} #{{ record.index }} · {{ t("伴随字", "companion") }}

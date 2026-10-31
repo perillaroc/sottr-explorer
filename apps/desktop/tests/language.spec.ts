@@ -22,9 +22,9 @@ describe("界面语言", () => {
 
     const wrapper = mountWithStore(SettingsPage, store);
     expect((wrapper.get('[data-testid="language-zh"]').element as HTMLInputElement).checked).toBe(true);
-    expect(wrapper.text()).toContain("设置与关于");
+    expect(wrapper.text()).toContain("设置");
     expect(wrapper.text()).toContain("语言");
-    expect(wrapper.text()).not.toContain("Settings & About");
+    expect(wrapper.text()).not.toContain("Settings");
   });
 
   it("切换 English：界面文案、<html lang> 与图鉴类别名切换", async () => {
@@ -39,7 +39,7 @@ describe("界面语言", () => {
     expect(store.state.language).toBe("en");
     expect(document.documentElement.lang).toBe("en");
     expect(wrapper.text()).toContain("Regions & Collection");
-    expect(wrapper.text()).toContain("Main regions");
+    expect(wrapper.text()).toContain("All regions");
     expect(wrapper.text()).toContain("Collected");
     expect(wrapper.text()).not.toContain("区域与收集");
   });
@@ -51,7 +51,7 @@ describe("界面语言", () => {
 
     await store.actions.setLanguage("both");
     await wrapper.vm.$nextTick();
-    expect(wrapper.text()).toContain("设置与关于 / Settings & About");
+    expect(wrapper.text()).toContain("设置 / Settings");
     expect(wrapper.text()).toContain("语言 / Language");
 
     const entry = findPlanItem(store.plan.value, "0xF97006F6");

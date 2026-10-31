@@ -1,8 +1,17 @@
 <script setup lang="ts">
-// 侧栏（SX-015）：“概览 / 区域与收集 / 区域段 / 诊断 / 设置与关于”在同一侧栏，
-// 不做四列；折叠时只显示图标（aria-label 保留），区域选择移到正文或浮层。
+// 侧栏（SX-015）：主视图 + 区域快捷入口；折叠时只显示图标（aria-label 保留）。
+// 设置与关于拆成两个入口；区域按主区域/特殊区域分组，特殊区域不再逐行挂“特殊”标签。
 import { computed } from "vue";
-import { Activity, FolderOpen, LayoutDashboard, ListTree, MapPinned, Settings, Trophy } from "@lucide/vue";
+import {
+  Activity,
+  FolderOpen,
+  Info,
+  LayoutDashboard,
+  ListTree,
+  MapPinned,
+  Settings,
+  Trophy,
+} from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { regionName } from "../app/collection";
@@ -12,24 +21,35 @@ const props = withDefaults(defineProps<{ expanded: boolean }>(), { expanded: tru
 const store = useStore();
 
 const hasResult = computed(() => store.currentSlot.value?.result !== null);
-const regions = computed(() =>
-  store.plan.value.regions.map((region) => ({
-    id: region.slug,
-    label: regionName(region),
-    collected: region.collected,
-    total: region.total,
-    kind: region.kind,
-  })),
+const mainRegions = computed(() =>
+  store.plan.value.regions
+    .filter((region) => region.kind === "main")
+    .map((region) => ({
+      id: region.slug,
+      label: regionName(region),
+      collected: region.collected,
+      total: region.total,
+    })),
+);
+const specialRegions = computed(() =>
+  store.plan.value.regions
+    .filter((region) => region.kind === "special")
+    .map((region) => ({
+      id: region.slug,
+      label: regionName(region),
+      collected: region.collected,
+      total: region.total,
+    })),
 );
 
 const baseItem =
-  "flex w-full items-center gap-2 rounded-[6px] px-2 py-[7px] text-left text-[13px] disabled:cursor-not-allowed disabled:opacity-60";
+  "flex w-full items-center gap-2 rounded-[6px] px-2 py-[7px] text-left text-[13px] disabled:cursor-not-allowed disabled:opacity-50";
 
 function itemClass(active: boolean): string {
   return `${baseItem} ${active ? "bg-accent-bg text-accent-strong" : "text-ink hover:bg-raised"}`;
 }
 
-function go(view: "import" | "overview" | "full" | "regions" | "map" | "diagnostics" | "settings"): void {
+function go(view: "import" | "overview" | "full" | "regions" | "map" | "diagnostics" | "settings" | "about"): void {
   store.actions.setView(view);
 }
 
@@ -46,7 +66,7 @@ function goRegion(region: string): void {
     :aria-label="t('主导航', 'Main navigation')"
     data-testid="app-sidebar"
   >
-    <ul class="flex-1 space-y-0.5 p-1.5">
+    <ul class="flex-1 space-y-0.5 overflow-y-auto p-1.5">
       <li>
         <button
           type="button"
@@ -102,7 +122,6 @@ function goRegion(region: string): void {
           <span v-else class="sr-only">{{ t("区域与收集", "Regions & Collection") }}</span>
         </button>
       </li>
-
       <li>
         <button
           type="button"
@@ -118,47 +137,59 @@ function goRegion(region: string): void {
         </button>
       </li>
 
-      <li v-if="props.expanded" class="mt-2 px-2 text-xs text-muted">{{ t("区域", "Regions") }}</li>
-      <li v-if="props.expanded">
-        <ul class="space-y-0.5">
-          <li>
-            <button
-              type="button"
-              :class="itemClass(store.state.view === 'regions' && store.state.region === 'all')"
-              :disabled="!hasResult"
-              :title="hasResult ? t('全部区域', 'All regions') : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
-              @click="goRegion('all')"
-            >
-              {{ t("全部区域", "All regions") }}
-            </button>
-          </li>
-          <li v-for="region in regions" :key="region.id">
-            <button
-              type="button"
-              class="flex w-full items-center gap-2"
-              :class="itemClass(store.state.view === 'regions' && store.state.region === region.id)"
-              :disabled="!hasResult"
-              :title="hasResult ? tFormat('{region}：已收集 {collected}/{total}', '{region}: collected {collected}/{total}', { region: region.label, collected: region.collected, total: region.total }) : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
-              @click="goRegion(region.id)"
-            >
-              <span class="min-w-0 flex-1 truncate text-left">{{ region.label }}</span>
-              <span class="shrink-0 tabular-nums text-xs text-muted">{{ region.collected }}/{{ region.total }}</span>
-              <span v-if="region.kind === 'special'" class="shrink-0 text-[10px] text-muted">{{ t("特殊", "Special") }}</span>
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              :class="itemClass(store.state.view === 'regions' && store.state.region === 'unknown')"
-              :disabled="!hasResult"
-              :title="hasResult ? t('目录外观察记录（服装 / 技能等，不计入收集品）', 'Off-catalog records (outfits, skills, etc.; not collectibles)') : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
-              @click="goRegion('unknown')"
-            >
-              {{ t(`目录外记录（${store.plan.value.observed_not_in_catalog.length}）`, `Off-catalog records (${store.plan.value.observed_not_in_catalog.length})`) }}
-            </button>
-          </li>
-        </ul>
-      </li>
+      <template v-if="props.expanded">
+        <li class="mt-3 px-2 text-[11px] font-medium tracking-wide text-muted">{{ t("区域", "Regions") }}</li>
+        <li>
+          <button
+            type="button"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === 'all')"
+            :disabled="!hasResult"
+            :title="hasResult ? t('全部区域', 'All regions') : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
+            @click="goRegion('all')"
+          >
+            {{ t("全部区域", "All regions") }}
+          </button>
+        </li>
+        <li v-for="region in mainRegions" :key="region.id">
+          <button
+            type="button"
+            class="flex w-full items-center gap-2"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === region.id)"
+            :disabled="!hasResult"
+            :title="hasResult ? tFormat('{region}：已收集 {collected}/{total}', '{region}: collected {collected}/{total}', { region: region.label, collected: region.collected, total: region.total }) : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
+            @click="goRegion(region.id)"
+          >
+            <span class="min-w-0 flex-1 truncate text-left">{{ region.label }}</span>
+            <span class="shrink-0 tabular-nums text-xs text-muted">{{ region.collected }}/{{ region.total }}</span>
+          </button>
+        </li>
+
+        <li class="mt-3 px-2 text-[11px] font-medium tracking-wide text-muted">{{ t("特殊区域", "Special") }}</li>
+        <li v-for="region in specialRegions" :key="region.id">
+          <button
+            type="button"
+            class="flex w-full items-center gap-2"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === region.id)"
+            :disabled="!hasResult"
+            :title="hasResult ? tFormat('{region}：已收集 {collected}/{total}', '{region}: collected {collected}/{total}', { region: region.label, collected: region.collected, total: region.total }) : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
+            @click="goRegion(region.id)"
+          >
+            <span class="min-w-0 flex-1 truncate text-left">{{ region.label }}</span>
+            <span class="shrink-0 tabular-nums text-xs text-muted">{{ region.collected }}/{{ region.total }}</span>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === 'unknown')"
+            :disabled="!hasResult"
+            :title="hasResult ? t('目录外观察记录（服装 / 技能等，不计入收集品）', 'Off-catalog records (outfits, skills, etc.; not collectibles)') : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
+            @click="goRegion('unknown')"
+          >
+            {{ t(`目录外记录（${store.plan.value.observed_not_in_catalog.length}）`, `Off-catalog records (${store.plan.value.observed_not_in_catalog.length})`) }}
+          </button>
+        </li>
+      </template>
     </ul>
 
     <ul class="space-y-0.5 border-t border-line p-1.5">
@@ -181,12 +212,25 @@ function goRegion(region: string): void {
           type="button"
           :class="itemClass(store.state.view === 'settings')"
           :aria-current="store.state.view === 'settings' ? 'page' : undefined"
-          :title="t('设置与关于', 'Settings & About')"
+          :title="t('设置', 'Settings')"
           @click="go('settings')"
         >
           <Settings :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("设置与关于", "Settings & About") }}</span>
-          <span v-else class="sr-only">{{ t("设置与关于", "Settings & About") }}</span>
+          <span v-if="props.expanded">{{ t("设置", "Settings") }}</span>
+          <span v-else class="sr-only">{{ t("设置", "Settings") }}</span>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          :class="itemClass(store.state.view === 'about')"
+          :aria-current="store.state.view === 'about' ? 'page' : undefined"
+          :title="t('关于', 'About')"
+          @click="go('about')"
+        >
+          <Info :size="16" aria-hidden="true" />
+          <span v-if="props.expanded">{{ t("关于", "About") }}</span>
+          <span v-else class="sr-only">{{ t("关于", "About") }}</span>
         </button>
       </li>
     </ul>

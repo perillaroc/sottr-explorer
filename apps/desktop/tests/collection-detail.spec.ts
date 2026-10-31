@@ -68,7 +68,7 @@ describe("收集品详情", () => {
     expect(body).toContain("在关卡内拾取");
     expect(body).toContain("关卡内相对位置约 (");
     expect(body).toContain("项未收集");
-    expect(wrapper.text()).toContain("类别通用说明（人工整理");
+    expect(wrapper.text()).toContain("类别规则");
   });
 
   it("非故事收集品使用类别通用获取方式", async () => {
@@ -108,7 +108,7 @@ describe("收集品详情", () => {
     const text = wrapper.text();
     expect(text).toContain("如何获取");
     expect(text).toContain("外部参考");
-    expect(text).toContain("同一子关卡内的相对位置");
+    expect(text).toContain("相对位置");
     // 移出详情的两节不再出现。
     expect(text).not.toContain("为什么是这个状态");
     expect(text).not.toContain("原始证据与数据集信息");

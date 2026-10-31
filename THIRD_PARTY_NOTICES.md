@@ -2,7 +2,7 @@
 
 > 本文件只记录许可、来源与归属，不记录开发进度。
 > 随应用分发的离线全文由 `apps/desktop/scripts/build_notices.py` 生成到
-> [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt)，并在「设置与关于」页内展示。
+> [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt)，并在「关于」页内展示。
 > 各数据集的结构、生成方式与验收细节见对应目录的 README。
 
 ## 1. 产品许可

@@ -58,7 +58,8 @@ const moreItems = computed<MenuItem[]>(() => [
       },
   { id: "rescan", label: t("重新查找默认目录", "Rescan default folders") },
   { id: "diagnostics", label: t("诊断", "Diagnostics") },
-  { id: "settings", label: t("设置与关于", "Settings & About") },
+  { id: "settings", label: t("设置", "Settings") },
+  { id: "about", label: t("关于", "About") },
 ]);
 
 function onMore(id: string): void {
@@ -74,6 +75,9 @@ function onMore(id: string): void {
       break;
     case "settings":
       store.actions.setView("settings");
+      break;
+    case "about":
+      store.actions.setView("about");
       break;
     default:
       break;
@@ -107,12 +111,17 @@ function onMore(id: string): void {
       <span class="hidden text-xs text-muted sm:inline">{{ copy.subtitle }}</span>
     </div>
 
-    <div class="ml-2 flex min-w-0 items-center gap-2">
-      <span class="text-[13px] text-muted">{{ t("当前：", "Current:") }}</span>
-      <span class="max-w-48 truncate text-[13px]" data-testid="current-file" :title="store.state.selectedPath ?? ''">
+    <div class="ml-2 flex min-w-0 items-center rounded-[6px] border border-line bg-canvas pl-2.5">
+      <span class="max-w-48 truncate py-1 text-[13px]" data-testid="current-file" :title="store.state.selectedPath ?? ''">
         {{ currentName }}
       </span>
-      <UiButton size="sm" :title="t('切换存档（打开导入页）', 'Switch save (open import page)')" @click="store.actions.openImport()">{{ t("切换", "Switch") }}</UiButton>
+      <span class="mx-1.5 h-3.5 w-px bg-line" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="h-7 cursor-pointer rounded-[4px] px-2 text-xs text-accent-strong hover:bg-raised"
+        :title="t('切换存档（打开导入页）', 'Switch save (open import page)')"
+        @click="store.actions.openImport()"
+      >{{ t("切换", "Switch") }}</button>
     </div>
 
     <div class="flex-1" />

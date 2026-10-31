@@ -4,7 +4,7 @@
 // 文案与门禁遵循开发方案：修改时间按系统本地时间显示并注明时区；不把最新时间
 // 当作正确存档；未选文件或用途时开始分析禁用并有就地说明；模式声明不是格式识别证明。
 import { computed, ref } from "vue";
-import { FolderOpen, Info, RefreshCw, Search } from "@lucide/vue";
+import { FolderOpen, RefreshCw, Search } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { fileNameOf, formatBytes, formatLocalTime, formatPercent } from "../app/format";
@@ -160,13 +160,10 @@ function rowSummary(candidate: CandidateFileDto) {
 </script>
 
 <template>
-  <section class="scroll-area min-h-0 flex-1 px-6 py-5" aria-labelledby="import-title">
-    <div class="mx-auto max-w-4xl space-y-4">
-      <header class="space-y-1">
-        <h1 id="import-title" class="text-xl font-semibold">{{ t("打开存档", "Open a save") }}</h1>
-        <p class="text-[13px] text-muted">
-          {{ t("选择文件后，查看当前支持类别中的参考遗漏。原始文件不会被改写。", "Choose a file to see reference gaps within the currently supported categories. The original file is never modified.") }}
-        </p>
+  <section class="scroll-area min-h-0 flex-1 px-6 py-6" aria-labelledby="import-title">
+    <div class="mx-auto max-w-5xl space-y-4">
+      <header>
+        <h1 id="import-title" class="text-lg font-semibold">{{ t("打开存档", "Open a save") }}</h1>
       </header>
 
       <div class="flex flex-wrap items-center gap-2">
@@ -313,9 +310,6 @@ function rowSummary(candidate: CandidateFileDto) {
             </template>
           </tbody>
         </table>
-        <p v-if="candidates.some((item) => item.note?.includes('相同'))" class="text-xs text-muted">
-          {{ t("提示：内容相同的文件不会自动删除、合并或替用户选定。", "Note: files with identical content are never automatically deleted, merged, or selected on your behalf.") }}
-        </p>
       </div>
 
       <UiEmptyState
@@ -352,10 +346,6 @@ function rowSummary(candidate: CandidateFileDto) {
             {{ t("不确定，仅查看可用观察", "Not sure; view available observations only") }}
           </label>
         </div>
-        <p class="flex items-start gap-1 text-xs text-muted">
-          <Info :size="14" class="mt-0.5 shrink-0" aria-hidden="true" />
-          {{ t("模式声明不是格式识别证明；profile.dat 始终按资料文件处理；原始文件不会被改写。", "The declared mode is not proof of format detection; profile.dat is always treated as a profile file; the original file is never modified.") }}
-        </p>
       </div>
 
       <div class="space-y-2">

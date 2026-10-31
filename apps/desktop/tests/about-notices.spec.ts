@@ -1,13 +1,13 @@
 // SX-018 关于区：许可通知离线全文与交付声明。
 import { describe, expect, it } from "vitest";
 
-import SettingsPage from "../src/components/SettingsPage.vue";
+import AboutPage from "../src/components/AboutPage.vue";
 import { createTestStore, mountWithStore } from "./helpers";
 
-describe("SettingsPage 关于与许可", () => {
+describe("AboutPage 关于与许可", () => {
   it("离线通知全文包含关键声明与依赖清单", async () => {
     const { store } = await createTestStore();
-    const wrapper = mountWithStore(SettingsPage, store);
+    const wrapper = mountWithStore(AboutPage, store);
     const about = wrapper.find('[data-testid="about-notices"]');
     expect(about.exists()).toBe(true);
     const text = about.text();

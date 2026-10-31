@@ -212,18 +212,19 @@ export function precisionLabel(precision: LocationPrecision | null): string {
 
 /** 图鉴类别 id → 双语名称（与 `data/catalog` 的 categories 一一对应）。 */
 const CATEGORY_LABELS: Record<string, { zh: string; en: string }> = {
-  archivist_maps: { zh: "档案图（可选）", en: "Archivist Maps (optional)" },
+  archivist_maps: { zh: "档案图", en: "Archivist Maps" },
   artifacts: { zh: "故事收藏", en: "Artifacts" },
   challenge_tombs: { zh: "挑战古墓", en: "Challenge Tombs" },
-  croft_manor_extra: { zh: "克劳馥庄园（序章，不要求）", en: "Croft Manor (Prologue, optional)" },
-  crypt_entrances: { zh: "墓穴入口（可选）", en: "Crypt Entrances (optional)" },
+  croft_manor_extra: { zh: "克劳馥庄园", en: "Croft Manor" },
+  crypt_entrances: { zh: "墓穴入口", en: "Crypt Entrances" },
   crypt_treasures: { zh: "墓穴宝藏", en: "Crypt Treasures" },
-  explorer_backpacks: { zh: "探险者背包（可选）", en: "Explorer Backpacks (optional)" },
-  gym_training: { zh: "训练场（不要求）", en: "Gym Training (optional)" },
+  explorer_backpacks: { zh: "探险者背包", en: "Explorer Backpacks" },
+  gym_training: { zh: "训练场", en: "Gym Training" },
   monoliths: { zh: "石碑", en: "Monoliths" },
-  strongboxes: { zh: "保险箱（可选）", en: "Strongboxes (optional)" },
+  rare_resource_caches: { zh: "稀有资源贮藏点", en: "Rare Resource Caches" },
+  strongboxes: { zh: "保险箱", en: "Strongboxes" },
   survival_caches: { zh: "生存贮藏点", en: "Survival Caches" },
-  test_items: { zh: "测试项（不要求）", en: "Test Items (optional)" },
+  test_items: { zh: "测试项", en: "Test Items" },
 };
 
 const SUBCATEGORY_LABELS: Record<string, { zh: string; en: string }> = {

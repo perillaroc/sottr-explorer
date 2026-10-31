@@ -40,14 +40,6 @@ const requiredRegionRows = computed(() => {
   return rows;
 });
 
-const requiredRegionTotals = computed(() => {
-  const rows = requiredRegionRows.value.filter((row) => row.kind === "main");
-  return {
-    collected: rows.reduce((sum, row) => sum + row.collected, 0),
-    total: rows.reduce((sum, row) => sum + row.total, 0),
-  };
-});
-
 function openRegion(slug: string, category: string): void {
   store.actions.setRegion(slug);
   store.actions.setCategory(category.split(":")[0]);
@@ -94,32 +86,30 @@ function categoryName(id: string, fallback: string): string {
 </script>
 
 <template>
-  <section class="mx-auto max-w-[980px] px-4 py-5" data-testid="full-collection">
-    <header class="mb-4">
-      <h1 class="text-[20px] font-semibold text-ink">{{ t("全收集（100%）", "Full collection (100%)") }}</h1>
-      <p class="mt-1 text-[12px] leading-5 text-muted">
-        {{ t("按成就/100% 完成度口径统计。必收类别给出逐项缺失清单（缺失 = 未在当前存档的观察集合中出现）；可选类别只给计数；未闭合类别不显示缺失结论。必收计数与清单按必收子集，DLC 与非必收条目不混入。", "Counted against the achievement/100% scope. Required categories get an item-by-item missing list (missing = not present in the current save's observed set); optional categories show counts only; unresolved categories show no missing conclusion. Required counts and lists use the required subset only — DLC and non-required items are excluded.") }}
-      </p>
-    </header>
-
-    <p v-if="!missing" class="rounded-[6px] border border-line bg-surface px-3 py-4 text-[13px] text-muted">
-      {{ t("先分析一个存档文件，再查看全收集缺失清单。", "Analyze a save file first to view the full-collection missing list.") }}
-    </p>
-
-    <template v-else>
-      <div class="mb-4 flex flex-wrap items-center gap-3 rounded-[6px] border border-line bg-surface px-3 py-2 text-[13px]">
-        <span class="text-ink">{{ t(`必收合计：${requiredTotals.observed}/${requiredTotals.total}`, `Required total: ${requiredTotals.observed}/${requiredTotals.total}`) }}</span>
-        <span class="rounded-[6px] bg-accent-bg px-2 py-0.5 text-accent-strong">{{ t(`缺失 ${requiredTotals.missing}`, `Missing ${requiredTotals.missing}`) }}</span>
-        <span v-if="missing.observed_not_in_catalog.length > 0" class="text-muted">
-          {{ t(`目录外未知 ID：${missing.observed_not_in_catalog.length}（单列，不混入缺失）`, `Off-catalog unknown IDs: ${missing.observed_not_in_catalog.length} (listed separately, not counted as missing)`) }}
+  <section class="scroll-area min-h-0 flex-1 px-6 py-6" data-testid="full-collection">
+    <div class="mx-auto max-w-5xl">
+      <header class="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h1 class="text-lg font-semibold text-ink">{{ t("全收集（100%）", "Full collection (100%)") }}</h1>
+        <span v-if="missing" class="text-[13px] text-muted">
+          {{ t(`必收 ${requiredTotals.observed}/${requiredTotals.total} · 缺失 ${requiredTotals.missing}`, `Required ${requiredTotals.observed}/${requiredTotals.total} · missing ${requiredTotals.missing}`) }}
         </span>
-      </div>
+      </header>
 
-      <h2 class="mb-2 text-[16px] font-medium text-ink">{{ t("必收类别 · 按区域", "Required categories · by region") }}</h2>
-      <p class="mb-2 text-xs text-muted">
-        {{ t(`主区域必收 ${requiredRegionTotals.collected}/${requiredRegionTotals.total}。点击类别进入该区域的逐项清单（已在「区域与收集」里按未收集过滤）。`, `Main-region required ${requiredRegionTotals.collected}/${requiredRegionTotals.total}. Click a category to open its item list in that region (already filtered to uncollected in “Regions & Collection”).`) }}
+      <p v-if="!missing" class="rounded-[8px] border border-line bg-surface px-3 py-4 text-[13px] text-muted">
+        {{ t("先分析一个存档文件，再查看全收集缺失清单。", "Analyze a save file first to view the full-collection missing list.") }}
       </p>
-      <div class="mb-5 overflow-x-auto">
+
+      <template v-else>
+        <div class="mb-4 flex flex-wrap items-center gap-3 rounded-[8px] border border-line bg-surface px-4 py-2 text-[13px]">
+          <span class="text-ink">{{ t(`必收合计：${requiredTotals.observed}/${requiredTotals.total}`, `Required total: ${requiredTotals.observed}/${requiredTotals.total}`) }}</span>
+          <span class="rounded-[999px] bg-accent-bg px-2 py-0.5 text-accent-strong">{{ t(`缺失 ${requiredTotals.missing}`, `Missing ${requiredTotals.missing}`) }}</span>
+          <span v-if="missing.observed_not_in_catalog.length > 0" class="text-muted">
+            {{ t(`目录外 ID ${missing.observed_not_in_catalog.length}`, `Off-catalog IDs ${missing.observed_not_in_catalog.length}`) }}
+          </span>
+        </div>
+
+        <h2 class="mb-2 text-[13px] font-medium text-muted">{{ t("必收类别 · 按区域", "Required categories · by region") }}</h2>
+        <div class="mb-5 overflow-x-auto rounded-[8px] border border-line bg-surface px-3">
         <table class="w-full min-w-[640px] border-collapse text-[12px]" data-testid="required-region-matrix">
           <thead>
             <tr class="border-b border-line text-left text-muted">
@@ -157,12 +147,12 @@ function categoryName(id: string, fallback: string): string {
         </table>
       </div>
 
-      <h2 class="mb-2 text-[16px] font-medium text-ink">{{ t("必收类别", "Required categories") }}</h2>
+      <h2 class="mb-2 text-[13px] font-medium text-muted">{{ t("必收类别", "Required categories") }}</h2>
       <ul class="mb-5 space-y-1.5">
         <li
           v-for="category in required"
           :key="category.id"
-          class="rounded-[6px] border border-line bg-surface px-3 py-2"
+          class="rounded-[8px] border border-line bg-surface px-3 py-2"
           :data-testid="`category-${category.id}`"
         >
           <div class="flex flex-wrap items-center gap-2 text-[13px]">
@@ -198,33 +188,32 @@ function categoryName(id: string, fallback: string): string {
         </li>
       </ul>
 
-      <h2 class="mb-2 text-[16px] font-medium text-ink">{{ t("可选类别", "Optional categories") }}</h2>
+      <h2 class="mb-2 text-[13px] font-medium text-muted">{{ t("可选类别", "Optional categories") }}</h2>
       <ul class="mb-5 space-y-1.5">
         <li
           v-for="category in optional"
           :key="category.id"
-          class="flex flex-wrap items-center gap-2 rounded-[6px] border border-line bg-surface px-3 py-2 text-[13px]"
+          class="flex flex-wrap items-center gap-2 rounded-[8px] border border-line bg-surface px-3 py-2 text-[13px]"
           :data-testid="`category-${category.id}`"
         >
           <span class="text-ink">{{ categoryName(category.id, category.name) }}</span>
           <span class="text-muted">{{ category.observed }}/{{ category.total }}</span>
-          <span class="text-muted">{{ t("可选，不进入缺失清单", "Optional; excluded from the missing list") }}</span>
         </li>
       </ul>
 
-      <h2 class="mb-2 text-[16px] font-medium text-ink">{{ t("未闭合类别（不显示缺失结论）", "Unresolved categories (no missing conclusion)") }}</h2>
+      <h2 class="mb-2 text-[13px] font-medium text-muted">{{ t("未闭合类别", "Unresolved categories") }}</h2>
       <ul class="space-y-1.5">
         <li
           v-for="category in unresolved"
           :key="category.id"
-          class="flex flex-wrap items-center gap-2 rounded-[6px] border border-line bg-surface px-3 py-2 text-[13px]"
+          class="flex flex-wrap items-center gap-2 rounded-[8px] border border-line bg-surface px-3 py-2 text-[13px]"
           :data-testid="`category-${category.id}`"
         >
           <span class="text-ink">{{ categoryName(category.id, category.name) }}</span>
           <span class="text-muted">{{ category.observed }}/{{ category.total }}</span>
-          <span class="text-muted">{{ t("数据未闭合：不显示缺失数或清单", "Data unresolved: no missing count or list is shown") }}</span>
         </li>
       </ul>
-    </template>
+      </template>
+    </div>
   </section>
 </template>

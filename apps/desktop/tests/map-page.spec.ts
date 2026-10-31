@@ -65,9 +65,7 @@ describe("地图页：目录与默认选择", () => {
     const markers = wrapper.findAll("[data-map-marker='true']");
     expect(markers.length).toBeGreaterThan(0);
     expect(wrapper.get('[data-testid="map-counts"]').text()).toContain("已收集");
-    expect(wrapper.get('[data-testid="map-coverage"]').text()).toContain("42");
-    expect(wrapper.get('[data-testid="map-coverage"]').text()).toContain("24/65");
-    expect(wrapper.get('[data-testid="map-coverage"]').text()).toContain("291/470");
+    expect(wrapper.get('[data-testid="map-calibration"]').text()).toMatch(/已校准|近似位置/);
   });
 
   it("切换区域/子关卡只更新地图选择，不回写区域清单的区域", async () => {

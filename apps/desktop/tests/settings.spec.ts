@@ -1,12 +1,13 @@
-// 设置与主题测试（SX-015：明暗主题、布局恢复、关于信息可复核）。
+// 设置与主题测试（SX-015：明暗主题、布局恢复）。
 import { describe, expect, it } from "vitest";
 import SettingsPage from "../src/components/SettingsPage.vue";
+import AboutPage from "../src/components/AboutPage.vue";
 import { createTestStore, mountWithStore } from "./helpers";
 import { createAppStore } from "../src/app/store";
 import { MockDataSource } from "../src/data/mock";
 import { clearPreferences } from "../src/app/prefs";
 
-describe("设置与关于", () => {
+describe("设置", () => {
   it("主题选择写入 <html data-theme>，跟随系统解析为具体主题", async () => {
     const { store } = await createTestStore();
     const wrapper = mountWithStore(SettingsPage, store);
@@ -20,14 +21,22 @@ describe("设置与关于", () => {
     expect(store.state.theme).toBe("system");
   });
 
-  it("布局恢复可用，且展示元数据版本与已支持范围", async () => {
+  it("布局恢复可用；设置页只保留可调项", async () => {
     const { store } = await createTestStore();
     store.state.navCollapsed = true;
     store.state.detailOpen = false;
     const wrapper = mountWithStore(SettingsPage, store);
-    await wrapper.get("button").trigger("click");
+    await wrapper.get('[data-testid="reset-layout"]').trigger("click");
     expect(store.state.navCollapsed).toBe(false);
     expect(store.state.detailOpen).toBe(true);
+    expect(wrapper.text()).toContain("语言");
+    expect(wrapper.text()).not.toContain("元数据版本");
+    expect(wrapper.text()).not.toContain("THIRD_PARTY_NOTICES.md");
+  });
+
+  it("关于页展示数据版本、支持范围、许可与快捷键", async () => {
+    const { store } = await createTestStore();
+    const wrapper = mountWithStore(AboutPage, store);
     const text = wrapper.text();
     expect(text).toContain("元数据版本");
     expect(text).toContain("已验证坐标 0 项");

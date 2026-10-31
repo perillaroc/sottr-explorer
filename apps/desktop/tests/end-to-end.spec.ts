@@ -370,8 +370,8 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     expect(store.isStale.value).toBe(true);
     expect(store.currentSlot.value?.result?.snapshot_id).toBe(freshSnapshot);
     expect(wrapper.find('[data-testid="stale-banner"]').exists()).toBe(true);
-    // 覆盖提示仍可见（不互相替代）。
-    expect(wrapper.find('[data-testid="coverage-banner"]').exists()).toBe(true);
+    // 说明性口径横幅已移除，过期提示仍然常驻。
+    expect(wrapper.find('[data-testid="coverage-banner"]').exists()).toBe(false);
     // 旧的遗漏数仍不冒充当前结论。
     expect(wrapper.text()).toContain("旧快照，未反映本次读取");
 

@@ -196,6 +196,8 @@ export interface AppState {
   mapSearch: string;
   /** 右栏标签页：「详情 / 清单」，默认清单；本次应用会话内保留。 */
   mapRailTab: "detail" | "list";
+  /** 请求地图页聚焦当前选中条目（从区域清单跳转时递增）。 */
+  mapFocusToken: number;
   /** Ctrl+F 在地图页聚焦地图搜索。 */
   mapSearchFocusToken: number;
   /** 详情面板宽度（px；拖动调整，随偏好持久化）。 */
@@ -290,6 +292,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     mapCategory: null,
     mapSearch: "",
     mapRailTab: "list",
+    mapFocusToken: 0,
     mapSearchFocusToken: 0,
     detailPaneWidth: preferences?.detailPaneWidth ?? DETAIL_PANE_WIDTH.default,
     detailDrawerWidth: preferences?.detailDrawerWidth ?? DETAIL_DRAWER_WIDTH.default,
@@ -1095,6 +1098,63 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     ensureMapSelection();
   }
 
+  /** 条目的地图目标：所属子关卡有底图且区域在当前计划内，否则为 null。 */
+  function mapTargetForItem(item: PlanItem): { regionSlug: string; basemapId: string } | null {
+    const basemap = basemapForUnit(item.unit?.unit);
+    if (!basemap) {
+      return null;
+    }
+    if (!plan.value.regions.some((region) => region.slug === basemap.region_id)) {
+      return null;
+    }
+    return { regionSlug: basemap.region_id, basemapId: basemap.basemap_id };
+  }
+
+  /**
+   * 从区域清单跳转地图：打开条目所属子关卡、选中该条目并请求画布聚焦。
+   * 清空地图自己的筛选，保证跳转后的条目一定可见；不改区域清单的区域与筛选。
+   */
+  function openInMap(itemId: string): void {
+    const entry = findPlanItem(plan.value, itemId);
+    const target = entry ? mapTargetForItem(entry.item) : null;
+    if (!target) {
+      notify("info", t("该条目所在子关卡没有地图底图。", "No basemap is available for this item's sub-level."));
+      return;
+    }
+    state.mapRegion = target.regionSlug;
+    state.mapBasemapId = target.basemapId;
+    state.mapStatus = "all";
+    state.mapCategory = null;
+    state.mapSearch = "";
+    state.selectedRowId = itemId;
+    state.detailOpen = true;
+    state.mapRailTab = "detail";
+    state.view = "map";
+    state.navOverlayOpen = false;
+    state.mapFocusToken += 1;
+    persistNow();
+  }
+
+  /** 区域级跳转：打开该区域的默认底图，不选中条目。 */
+  function openRegionInMap(regionSlug: string): void {
+    if (!mapRegionValid(regionSlug)) {
+      notify("info", t("该区域没有地图底图。", "No basemap is available for this region."));
+      return;
+    }
+    state.mapRegion = regionSlug;
+    state.mapBasemapId = defaultMapBasemapId(regionSlug);
+    state.mapStatus = "all";
+    state.mapCategory = null;
+    state.mapSearch = "";
+    state.selectedRowId = null;
+    state.detailOpen = false;
+    state.mapRailTab = "list";
+    state.view = "map";
+    state.navOverlayOpen = false;
+    state.mapFocusToken += 1;
+    persistNow();
+  }
+
   function setMapRegion(regionSlug: string): void {
     if (!mapRegionValid(regionSlug)) {
       return;
@@ -1338,6 +1398,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     metadataVersion: metadata.metadata_version,
     canExport,
     exportTargetPath,
+    /** 条目的地图跳转目标（无底图时为 null；界面据此隐藏按钮）。 */
+    mapTargetForItem,
     /** 某外链按钮当前的动作状态（无则 null）；键由 `guideLinkKey` / `externalLinkKey` 给出。 */
     linkActionFor,
     /** 某条目可用的直链候选（无地址的来源不出现）。 */
@@ -1378,6 +1440,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       setMapRailTab,
       requestMapSearchFocus,
       ensureMapView,
+      openInMap,
+      openRegionInMap,
       setStatusFilter,
       setCategory,
       setEvidenceFilter,

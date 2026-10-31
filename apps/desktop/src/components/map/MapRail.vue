@@ -9,7 +9,6 @@ import { categoryClass } from "../../app/category-style";
 import { categoryIcon } from "../../app/category-icon";
 import type { MapEntry, MapGroupView } from "../../app/map-view";
 import CollectionDetail from "../CollectionDetail.vue";
-import UiBadge from "../ui/UiBadge.vue";
 import UiButton from "../ui/UiButton.vue";
 
 const props = withDefaults(
@@ -170,7 +169,6 @@ watch(
     >
       <div v-if="entries.length === 0" class="space-y-2 px-2 py-3" data-testid="map-list-empty">
         <p class="text-[13px]">{{ t("本子关卡没有带坐标的收集品。", "This sub-level has no collectibles with coordinates.") }}</p>
-        <p class="text-xs text-muted">{{ t("可以切换子关卡或区域；其余条目请在区域清单查看。", "Switch to another sub-level or region; see the regional list for other items.") }}</p>
       </div>
       <div v-else-if="groups.length === 0" class="space-y-2 px-2 py-3" data-testid="map-list-filtered-empty">
         <p class="text-[13px]">{{ t("当前筛选没有条目。", "No items match the current filters.") }}</p>
@@ -205,12 +203,12 @@ watch(
                   {{ entry.item.unit ? localizedName(entry.item.unit.display_zh, entry.item.unit.display_en, entry.item.unit.zone ?? "") : "" }}
                 </span>
               </span>
-              <UiBadge
-                :tone="entry.item.status === 'collected' ? 'success' : 'caution'"
-                :kind-label="t('状态', 'Status')"
+              <span
+                class="shrink-0 text-xs"
+                :class="entry.item.status === 'collected' ? 'text-success' : 'text-caution'"
               >
                 {{ entry.item.status === "collected" ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
-              </UiBadge>
+              </span>
             </button>
             <button
               v-if="showRowDetail"

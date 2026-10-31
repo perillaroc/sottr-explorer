@@ -95,7 +95,8 @@ describe("区域与收集页", () => {
     const artifacts = headers.find((header) => header.text().includes("故事收藏"));
     expect(artifacts?.classes()).toContain("cat-text-artifacts");
     expect(artifacts?.text()).not.toContain("遗物");
-    expect(list.get('[data-testid="group-subcategory"]').text()).toContain("子类别：");
+    expect(list.get('[data-testid="group-subcategory"]').text()).toContain("文献");
+    expect(list.get('[data-testid="group-subcategory"]').text()).not.toContain("子类别：");
 
     // 行内圆点：每行一个，颜色与所在分组一致。
     const rows = list.findAll('[data-testid^="row-"]');
@@ -104,6 +105,42 @@ describe("区域与收集页", () => {
     const firstGroup = store.planGroups.value[0];
     expect(dots[0].classes().some((name) => name.startsWith("cat-dot-"))).toBe(true);
     expect(dots[0].attributes("title")).toBe(categoryNameOf(store.atlas, firstGroup.category));
+  });
+
+  it("区域与条目都能跳转地图：选中条目并打开其子关卡底图", async () => {
+    const store = await collectionStore();
+    store.actions.setRegion("paititi");
+    store.actions.setStatusFilter("all");
+    const wrapper = mountWithStore(CollectionPage, store);
+
+    // 区域级按钮：打开帕依提提默认底图，不选中条目。
+    await wrapper.get('[data-testid="region-map-open"]').trigger("click");
+    expect(store.state.view).toBe("map");
+    expect(store.state.mapRegion).toBe("paititi");
+    expect(store.state.selectedRowId).toBeNull();
+
+    // 回到区域清单，点击某个条目的地图按钮：带着条目进入地图并聚焦。
+    store.actions.setView("regions");
+    store.actions.setRegion("paititi");
+    await wrapper.vm.$nextTick();
+    const itemButton = wrapper.find('[data-testid^="item-map-"]');
+    expect(itemButton.exists()).toBe(true);
+    await itemButton.trigger("click");
+    const id = (itemButton.attributes("data-testid") ?? "").replace("item-map-", "");
+    expect(store.state.view).toBe("map");
+    expect(store.state.selectedRowId).toBe(id);
+    expect(store.state.mapRailTab).toBe("detail");
+    expect(store.state.mapBasemapId).not.toBeNull();
+  });
+
+  it("无底图条目不显示地图按钮", async () => {
+    const store = await collectionStore();
+    // 克劳馥庄园（特殊区域）没有底图。
+    store.actions.setRegion("croft_manor");
+    store.actions.setStatusFilter("all");
+    const wrapper = mountWithStore(CollectionPage, store);
+    expect(wrapper.find('[data-testid^="item-map-"]').exists()).toBe(false);
+    expect(wrapper.find('[data-testid="region-map-open"]').exists()).toBe(false);
   });
 
   it("目录外观察记录单独列出，不混入任何区域", async () => {

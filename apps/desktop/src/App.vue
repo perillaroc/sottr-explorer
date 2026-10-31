@@ -27,6 +27,7 @@ import CollectionPage from "./components/CollectionPage.vue";
 import MapPage from "./components/MapPage.vue";
 import DiagnosticsPage from "./components/DiagnosticsPage.vue";
 import SettingsPage from "./components/SettingsPage.vue";
+import AboutPage from "./components/AboutPage.vue";
 import CollectionDetail from "./components/CollectionDetail.vue";
 import DetailWindow from "./components/DetailWindow.vue";
 import UiButton from "./components/ui/UiButton.vue";
@@ -91,6 +92,8 @@ const pageComponent = computed(() => {
       return DiagnosticsPage;
     case "settings":
       return SettingsPage;
+    case "about":
+      return AboutPage;
     default:
       return SlotPicker;
   }
@@ -98,7 +101,9 @@ const pageComponent = computed(() => {
 
 const selectedEntry = computed(() => store.selectedEntry.value);
 
-const detailViewActive = computed(() => store.state.view !== "import" && store.state.view !== "map");
+const detailViewActive = computed(
+  () => store.state.view === "overview" || store.state.view === "full" || store.state.view === "regions",
+);
 
 const showPersistentPane = computed(
   () => layout.value === "wide" && detailViewActive.value && store.state.detailOpen && selectedEntry.value !== null,

@@ -30,12 +30,13 @@ describe("FullCollectionPage", () => {
     // 可选类别：只给计数，不进入缺失清单。
     const backpacks = wrapper.find('[data-testid="category-explorer_backpacks"]');
     expect(backpacks.exists()).toBe(true);
-    expect(backpacks.text()).toContain("可选，不进入缺失清单");
+    expect(backpacks.text()).toContain("探险者背包");
+    expect(wrapper.find('[data-testid="missing-toggle-explorer_backpacks"]').exists()).toBe(false);
 
     // 未闭合类别：给出观察计数但不显示缺失数或清单。
     const tombs = wrapper.find('[data-testid="category-challenge_tombs"]');
     expect(tombs.exists()).toBe(true);
-    expect(tombs.text()).toContain("数据未闭合：不显示缺失数或清单");
+    expect(tombs.text()).toContain("挑战古墓");
     expect(wrapper.find('[data-testid="missing-toggle-challenge_tombs"]').exists()).toBe(false);
 
     wrapper.unmount();

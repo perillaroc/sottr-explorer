@@ -71,7 +71,6 @@ describe.skipIf(!resultPath)("真实 Rust 输出 → 界面绑定（SX-016 / SX-
     } else {
       expect(overview.get('[data-testid="overall-value"]').text()).toContain("不可用");
     }
-    expect(overview.get('[data-testid="coverage-banner"]').text()).toContain("收集状态口径");
     expect(overview.get('[data-testid="uncollected-value"]').text()).toContain(
       `${store.planCounts.value.uncollected} 项`,
     );
@@ -82,7 +81,6 @@ describe.skipIf(!resultPath)("真实 Rust 输出 → 界面绑定（SX-016 / SX-
     store.actions.setStatusFilter("all");
     const region = mountWithStore(CollectionPage, store);
     await flushPromises();
-    expect(region.find('[data-testid="coverage-banner"]').exists()).toBe(true);
     const sanJuan = store.planRegion.value;
     expect(sanJuan?.slug).toBe("mission_of_san_juan");
     expect(region.text()).toContain("圣胡安教会");
