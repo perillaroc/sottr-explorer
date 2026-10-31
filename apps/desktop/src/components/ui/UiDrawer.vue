@@ -10,10 +10,12 @@ const props = withDefaults(
   defineProps<{
     open: boolean;
     title: string;
-    /** 宽度类：右侧抽屉默认 400px；紧凑模式由父级传入近全宽。 */
+    /** 宽度类（未提供 `width` 时使用）：右侧抽屉默认 400px。 */
     widthClass?: string;
+    /** 动态宽度（px）：提供时用内联宽度，仍保留响应式 max-width（不再依赖固定宽度类）。 */
+    width?: number;
   }>(),
-  { widthClass: "w-[400px] max-w-[calc(100vw-24px)]" },
+  { widthClass: "w-[400px] max-w-[calc(100vw-24px)]", width: undefined },
 );
 
 const emit = defineEmits<{ close: [] }>();
@@ -131,7 +133,11 @@ onBeforeUnmount(() => {
         aria-modal="true"
         :aria-label="title"
         tabindex="-1"
-        :class="['flex h-full min-w-0 flex-col border-l border-line bg-surface shadow-[var(--shadow)]', widthClass]"
+        :class="[
+          'relative flex h-full min-w-0 flex-col border-l border-line bg-surface shadow-[var(--shadow)]',
+          width === undefined ? widthClass : 'max-w-[calc(100vw-24px)]',
+        ]"
+        :style="width === undefined ? undefined : { width: `${width}px` }"
       >
         <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
           <h2 class="truncate text-base font-medium">{{ title }}</h2>
@@ -139,6 +145,8 @@ onBeforeUnmount(() => {
             <X :size="16" aria-hidden="true" />
           </UiIconButton>
         </header>
+        <!-- 调整宽度手柄（阶段一）：绝对定位在抽屉左边缘，放在头部之后使焦点先进入关闭按钮。 -->
+        <slot name="handle" />
         <div class="scroll-area min-h-0 flex-1 px-4 py-3">
           <slot />
         </div>

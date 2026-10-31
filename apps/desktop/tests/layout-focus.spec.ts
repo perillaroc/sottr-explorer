@@ -98,7 +98,9 @@ describe("布局档位（有效内容宽度）", () => {
     store.actions.openRow(ROW_ID);
     await flushPromises();
     const drawer = document.querySelector('[role="dialog"]') as HTMLElement | null;
-    expect(drawer?.className ?? "").toContain("min(720px");
+    // 紧凑抽屉默认 720px（保留近全宽体验），响应式上限仍由 max-width 类保证。
+    expect(drawer?.style.width).toBe("720px");
+    expect(drawer?.className ?? "").toContain("max-w-[calc(100vw-24px)]");
   });
 
   it("<800：单列，详情页面替换清单，进入聚焦标题、返回恢复滚动位置", async () => {

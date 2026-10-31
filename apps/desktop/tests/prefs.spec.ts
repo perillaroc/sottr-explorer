@@ -55,4 +55,49 @@ describe("界面偏好持久化", () => {
     expect(broken.linkOpenMode).toBe("open");
     expect(broken.theme).toBe("system");
   });
+
+  it("面板宽度：默认值、钳制与往返（阶段一）", () => {
+    const defaults = loadPreferences();
+    expect(defaults.detailPaneWidth).toBe(400);
+    expect(defaults.detailDrawerWidth).toBe(400);
+    expect(defaults.detailCompactWidth).toBe(720);
+    expect(defaults.mapRailWidth).toBe(420);
+
+    savePreferences({
+      ...defaults,
+      detailPaneWidth: 480,
+      detailDrawerWidth: 520,
+      detailCompactWidth: 760,
+      mapRailWidth: 500,
+    });
+    const roundTrip = loadPreferences();
+    expect(roundTrip.detailPaneWidth).toBe(480);
+    expect(roundTrip.detailDrawerWidth).toBe(520);
+    expect(roundTrip.detailCompactWidth).toBe(760);
+    expect(roundTrip.mapRailWidth).toBe(500);
+  });
+
+  it("面板宽度：越界值钳制、非数字回退默认，旧偏好缺字段时仍可读", () => {
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        detailPaneWidth: 100,
+        detailDrawerWidth: 5000,
+        detailCompactWidth: 640,
+        mapRailWidth: "wide",
+      }),
+    );
+    const parsed = loadPreferences();
+    expect(parsed.detailPaneWidth).toBe(320);
+    expect(parsed.detailDrawerWidth).toBe(900);
+    expect(parsed.detailCompactWidth).toBe(640);
+    expect(parsed.mapRailWidth).toBe(420);
+
+    // 旧版本偏好没有宽度字段：全部回落默认值，不影响其余字段。
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ theme: "dark" }));
+    const legacy = loadPreferences();
+    expect(legacy.theme).toBe("dark");
+    expect(legacy.detailPaneWidth).toBe(400);
+    expect(legacy.detailCompactWidth).toBe(720);
+  });
 });

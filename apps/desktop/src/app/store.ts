@@ -56,8 +56,13 @@ import {
   type LanguagePreference,
 } from "./i18n";
 import {
+  DETAIL_COMPACT_WIDTH,
+  DETAIL_DRAWER_WIDTH,
+  DETAIL_PANE_WIDTH,
+  MAP_RAIL_WIDTH,
   loadPreferences,
   savePreferences,
+  widthPreference,
   type LinkOpenMode,
   type SearchEngine,
   type UiPreferences,
@@ -170,6 +175,12 @@ export interface AppState {
   navCollapsed: boolean;
   navOverlayOpen: boolean;
   detailOpen: boolean;
+  /** 详情面板宽度（px；拖动调整，随偏好持久化）。 */
+  detailPaneWidth: number;
+  detailDrawerWidth: number;
+  detailCompactWidth: number;
+  /** 地图查询右栏宽度（px；阶段二使用）。 */
+  mapRailWidth: number;
   /** 界面显示语言：中文 / English / 中英文对照。 */
   language: LanguagePreference;
   theme: ThemePreference;
@@ -245,6 +256,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     navCollapsed: preferences?.navCollapsed ?? false,
     navOverlayOpen: false,
     detailOpen: true,
+    detailPaneWidth: preferences?.detailPaneWidth ?? DETAIL_PANE_WIDTH.default,
+    detailDrawerWidth: preferences?.detailDrawerWidth ?? DETAIL_DRAWER_WIDTH.default,
+    detailCompactWidth: preferences?.detailCompactWidth ?? DETAIL_COMPACT_WIDTH.default,
+    mapRailWidth: preferences?.mapRailWidth ?? MAP_RAIL_WIDTH.default,
     language: preferences?.language ?? "zh",
     theme: preferences?.theme ?? "system",
     searchEngine: preferences?.searchEngine ?? "bing",
@@ -286,6 +301,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       filters: { ...state.filters },
       searchEngine: state.searchEngine,
       linkOpenMode: state.linkOpenMode,
+      detailPaneWidth: state.detailPaneWidth,
+      detailDrawerWidth: state.detailDrawerWidth,
+      detailCompactWidth: state.detailCompactWidth,
+      mapRailWidth: state.mapRailWidth,
     };
     savePreferences(snapshot);
   }
@@ -1018,11 +1037,48 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     persistNow();
   }
 
+  /** 详情/地图右栏宽度：拖动或键盘调整后写偏好；越界值钳制到安全范围。 */
+  function setDetailPaneWidth(width: number): void {
+    state.detailPaneWidth = widthPreference(width, DETAIL_PANE_WIDTH);
+    persistNow();
+  }
+
+  function setDetailDrawerWidth(width: number): void {
+    state.detailDrawerWidth = widthPreference(width, DETAIL_DRAWER_WIDTH);
+    persistNow();
+  }
+
+  function setDetailCompactWidth(width: number): void {
+    state.detailCompactWidth = widthPreference(width, DETAIL_COMPACT_WIDTH);
+    persistNow();
+  }
+
+  function setMapRailWidth(width: number): void {
+    state.mapRailWidth = widthPreference(width, MAP_RAIL_WIDTH);
+    persistNow();
+  }
+
+  /** 四个面板宽度一起复位（不改视图、导航或选中）。 */
+  function resetDetailWidths(): void {
+    state.detailPaneWidth = DETAIL_PANE_WIDTH.default;
+    state.detailDrawerWidth = DETAIL_DRAWER_WIDTH.default;
+    state.detailCompactWidth = DETAIL_COMPACT_WIDTH.default;
+    state.mapRailWidth = MAP_RAIL_WIDTH.default;
+    persistNow();
+  }
+
   function resetLayout(): void {
     state.navCollapsed = false;
     state.detailOpen = true;
+    state.detailPaneWidth = DETAIL_PANE_WIDTH.default;
+    state.detailDrawerWidth = DETAIL_DRAWER_WIDTH.default;
+    state.detailCompactWidth = DETAIL_COMPACT_WIDTH.default;
+    state.mapRailWidth = MAP_RAIL_WIDTH.default;
     persistNow();
-    notify("info", t("已恢复默认布局（导航展开、详情常驻）。", "Default layout restored (navigation expanded, details persistent)."));
+    notify(
+      "info",
+      t("已恢复默认布局（导航展开、详情常驻、宽度复位）。", "Default layout restored (navigation expanded, details persistent, widths reset)."),
+    );
   }
 
   function setLayoutWidth(width: number): void {
@@ -1118,6 +1174,11 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       setLanguage,
       setSearchEngine,
       setLinkOpenMode,
+      setDetailPaneWidth,
+      setDetailDrawerWidth,
+      setDetailCompactWidth,
+      setMapRailWidth,
+      resetDetailWidths,
       resetLayout,
       setLayoutWidth,
       setListScrollTop,

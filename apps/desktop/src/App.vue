@@ -6,6 +6,11 @@ import { ArrowLeft, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
 import { t } from "./app/i18n";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
+import {
+  DETAIL_COMPACT_WIDTH,
+  DETAIL_DRAWER_WIDTH,
+  DETAIL_PANE_WIDTH,
+} from "./app/prefs";
 import { productionMetadata } from "./data/metadata";
 import { demoObservedIds } from "./data/atlas";
 import { createDemoSource } from "./data/mock";
@@ -25,6 +30,7 @@ import CollectionDetail from "./components/CollectionDetail.vue";
 import UiButton from "./components/ui/UiButton.vue";
 import UiDrawer from "./components/ui/UiDrawer.vue";
 import UiIconButton from "./components/ui/UiIconButton.vue";
+import UiResizeHandle from "./components/ui/UiResizeHandle.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -101,9 +107,69 @@ const showNarrowDetail = computed(
   () => layout.value === "narrow" && store.state.detailOpen && selectedEntry.value !== null && store.state.view !== "import",
 );
 
-const drawerWidthClass = computed(() =>
-  layout.value === "compact" ? "w-[min(720px,calc(100vw-24px))]" : "w-[400px] max-w-[calc(100vw-24px)]",
+// ---------------------------------------------------------------------------
+// 详情宽度（阶段一）：左边缘手柄拖动/键盘调整，宽度写入偏好；拖动期间只在本地
+// 预览（draft），松手（commit）才落偏好，避免拖动中频繁写 localStorage。
+// ---------------------------------------------------------------------------
+
+/** 详情拉开时给主内容保留的最小宽度。 */
+const MAIN_MIN_WIDTH = 320;
+const SIDEBAR_RAIL_WIDTH = 56;
+const SIDEBAR_EXPANDED_WIDTH = 216;
+
+const sidebarWidth = computed(() =>
+  layout.value === "wide" && !store.state.navCollapsed ? SIDEBAR_EXPANDED_WIDTH : SIDEBAR_RAIL_WIDTH,
 );
+
+function clampWidth(value: number, min: number, max: number): number {
+  const upper = Math.max(min, max);
+  return Math.min(upper, Math.max(min, Math.round(value)));
+}
+
+/** 常驻详情上限：视口可用宽度 − 侧栏 − 主内容最小宽度，且不超过硬上限。 */
+function paneMaxWidth(): number {
+  const available = store.state.layoutWidth - sidebarWidth.value - MAIN_MIN_WIDTH;
+  return Math.max(DETAIL_PANE_WIDTH.min, Math.min(DETAIL_PANE_WIDTH.max, available));
+}
+
+/** 抽屉上限：紧凑档允许接近全宽（保留 24px 遮罩边距），其余档给主内容留 320px。 */
+function drawerMaxWidth(): number {
+  const reserved = layout.value === "compact" ? 24 : MAIN_MIN_WIDTH;
+  return Math.max(
+    DETAIL_DRAWER_WIDTH.min,
+    Math.min(DETAIL_DRAWER_WIDTH.max, store.state.layoutWidth - reserved),
+  );
+}
+
+const paneDraft = ref<number | null>(null);
+const drawerDraft = ref<number | null>(null);
+
+const detailPaneWidth = computed(() =>
+  clampWidth(paneDraft.value ?? store.state.detailPaneWidth, DETAIL_PANE_WIDTH.min, paneMaxWidth()),
+);
+
+const drawerDefaultWidth = computed(() =>
+  layout.value === "compact" ? DETAIL_COMPACT_WIDTH.default : DETAIL_DRAWER_WIDTH.default,
+);
+
+const detailDrawerWidth = computed(() => {
+  const stored = layout.value === "compact" ? store.state.detailCompactWidth : store.state.detailDrawerWidth;
+  return clampWidth(drawerDraft.value ?? stored, DETAIL_DRAWER_WIDTH.min, drawerMaxWidth());
+});
+
+function commitPaneWidth(width: number): void {
+  paneDraft.value = null;
+  store.actions.setDetailPaneWidth(width);
+}
+
+function commitDrawerWidth(width: number): void {
+  drawerDraft.value = null;
+  if (layout.value === "compact") {
+    store.actions.setDetailCompactWidth(width);
+  } else {
+    store.actions.setDetailDrawerWidth(width);
+  }
+}
 
 const sidebarExpanded = computed(() => layout.value === "wide" && !store.state.navCollapsed);
 const showNavOverlay = computed(() => store.state.navOverlayOpen && layout.value !== "wide");
@@ -246,10 +312,21 @@ onBeforeUnmount(() => {
 
         <aside
           v-if="showPersistentPane && selectedEntry"
-          class="w-[400px] shrink-0 border-l border-line bg-surface"
+          class="relative shrink-0 border-l border-line bg-surface"
+          :style="{ width: `${detailPaneWidth}px` }"
           :aria-label="t('条目详情', 'Item details')"
           data-testid="detail-pane"
         >
+          <UiResizeHandle
+            data-testid="detail-pane-resize"
+            :width="detailPaneWidth"
+            :min="DETAIL_PANE_WIDTH.min"
+            :max="paneMaxWidth"
+            :default-width="DETAIL_PANE_WIDTH.default"
+            :label="t('调整详情宽度（拖动、方向键或双击复位）', 'Resize details (drag, arrow keys, or double-click to reset)')"
+            @resize="paneDraft = $event"
+            @commit="commitPaneWidth"
+          />
           <div class="scroll-area h-full px-4 py-3">
             <CollectionDetail
               :region="selectedEntry.region"
@@ -273,9 +350,21 @@ onBeforeUnmount(() => {
       v-if="showDrawer && selectedEntry"
       :open="true"
       :title="store.currentSlot.value?.name ? t(`详情 · ${store.currentSlot.value.name}`, `Details · ${store.currentSlot.value.name}`) : t('详情', 'Details')"
-      :width-class="drawerWidthClass"
+      :width="detailDrawerWidth"
       @close="store.actions.closeDetail()"
     >
+      <template #handle>
+        <UiResizeHandle
+          data-testid="detail-drawer-resize"
+          :width="detailDrawerWidth"
+          :min="DETAIL_DRAWER_WIDTH.min"
+          :max="drawerMaxWidth"
+          :default-width="drawerDefaultWidth"
+          :label="t('调整详情宽度（拖动、方向键或双击复位）', 'Resize details (drag, arrow keys, or double-click to reset)')"
+          @resize="drawerDraft = $event"
+          @commit="commitDrawerWidth"
+        />
+      </template>
       <CollectionDetail
         :region="selectedEntry.region"
         :group="selectedEntry.group"

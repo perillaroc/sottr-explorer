@@ -128,7 +128,7 @@ const shortcuts = computed(() => [
         <div class="flex flex-wrap items-center gap-2">
           <UiButton size="sm" @click="store.actions.resetLayout()">{{ t("恢复默认布局", "Restore default layout") }}</UiButton>
           <span class="text-xs text-muted">
-            {{ t("导航展开、详情常驻；首版不提供窗格拖拽调宽。", "Navigation expanded and details persistent; pane resizing by dragging is not available in the first release.") }}
+            {{ t("导航展开、详情常驻；详情面板可拖动左边缘调整宽度，双击手柄回到默认。此项会一并复位面板宽度。", "Navigation expanded and details persistent; drag the details pane's left edge to resize it and double-click the handle to reset. This also resets the panel widths.") }}
           </span>
         </div>
       </section>
