@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SX-019 step 2: parse the GlobalCollectibleInfo DTP object graph.
+"""解析步骤 2（原 SX-019）：解析 GlobalCollectibleInfo 的 DTP 对象图。
 
 Layout per public binary template (tr11globalcollectibleinfo + trobjectcommon):
 - GlobalCollectibleInfo: CollectibleStoryCollection inline (28 B), FSkip(4),

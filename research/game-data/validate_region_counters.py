@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SX-022 验收：图鉴（区域 × 子类别）↔ 存档区域计数器逐行对账。
+"""验收（原 SX-022）：图鉴（区域 × 子类别）↔ 存档区域计数器逐行对账。
 
 对账两列：
   - 总数：图鉴里「该区域该类别、非 DLC」的条目数  vs  存档计数器的来源目标数
@@ -9,7 +9,7 @@
 推导（relic/document/mural）、DLC 排除、非故事类别映射与「观察集合 = 已收集」。
 
 用法：
-  py -3 research/s022/scripts/validate_region_counters.py <catalog.json> <analysis.json>
+  py -3 research/game-data/validate_region_counters.py <catalog.json> <analysis.json>
 """
 from __future__ import annotations
 

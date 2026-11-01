@@ -2,7 +2,7 @@
 //!
 //! 只封装 `SHGetKnownFolderPath(FOLDERID_Documents)` 与 `CoTaskMemFree`：
 //! `Documents` 是唯一需要的 Known Folder，系统重定向后的路径由该 API 直接返回，
-//! 与 Python v0.2 研究参照（`research/python-v0.2/sottr_inspect.py::windows_documents`）
+//! 与 Python v0.2 研究参照（`research/save-inspector/sottr_inspect.py::windows_documents`）
 //! 使用同一 API 与同一 GUID（其 ctypes 版本作为交叉核对证据）。
 //!
 //! 不引入 `windows-sys`/`windows` 依赖：仅需要两个稳定导出与一个 GUID 常量，

@@ -1,7 +1,9 @@
-# SX-019 研究记录：游戏资源、网络来源与本地化关联
+# 游戏资源提取与容器格式
+
+（原 SX-019 研究记录）
 
 游戏安装数据的本地只读提取与关联研究。产出为事实、假说与未解问题清单；未证实结论
-不改产品状态，元数据并入按方案 G4 出口在 SX-020 完成后执行。
+不改产品状态，元数据并入按方案 G4 出口在原 SX-020 完成后执行。
 
 ## 环境与输入
 
@@ -20,7 +22,7 @@ DRM 内的资源位置表带 `archiveId`，部分资源仍指回基础归档（1
 
 ## 格式（独立实现）
 
-`scripts/sottr_dtp.py` 为独立实现（未复制任何第三方源码），与两个公开工具的读取器交叉
+`../sottr_dtp.py` 为独立实现（未复制任何第三方源码），与两个公开工具的读取器交叉
 核对过容器结构：
 
 - TIGER v5：`TAFS` 头（version=5、numParts、numFiles、id、subId、platform[0x20]）+
@@ -51,21 +53,21 @@ NonStoryCollectibleItem 240。注意：**更新后的 DTP 与模板版本存在�
 
 | 脚本 | 作用 |
 | --- | --- |
-| `scripts/sottr_dtp.py` | 独立容器/对象图读取库（TIGER/CDRM/DRM/DTP、FNV-1a 64、归档注册表） |
-| `scripts/extract_collectibleinfo.py` | 提取四个归档家族中的 `globalcollectibleinfo.drm`，逐家族对比 DTP 负载摘要 |
-| `scripts/parse_collectibleinfo.py` | 解析 GlobalCollectibleInfo → 非故事收集品（组/条目全字段） |
-| `scripts/extract_gameflow_locals.py` | 提取 `globalgameflow.drm`（26 区域、94 单位地图）与 `locals.bin`（英/简中） |
-| `scripts/crosscheck_saves.py` | 用 CLI 分析输出（观察 ID）与 DTP 全集、866 名称字典交叉对账 |
+| [`../sottr_dtp.py`](../sottr_dtp.py) | 独立容器/对象图读取库（TIGER/CDRM/DRM/DTP、FNV-1a 64、归档注册表） |
+| [`../extract_collectibleinfo.py`](../extract_collectibleinfo.py) | 提取四个归档家族中的 `globalcollectibleinfo.drm`，逐家族对比 DTP 负载摘要 |
+| [`../parse_collectibleinfo.py`](../parse_collectibleinfo.py) | 解析 GlobalCollectibleInfo → 非故事收集品（组/条目全字段） |
+| [`../extract_gameflow_locals.py`](../extract_gameflow_locals.py) | 提取 `globalgameflow.drm`（26 区域、94 单位地图）与 `locals.bin`（英/简中） |
+| [`../crosscheck_saves.py`](../crosscheck_saves.py) | 用 CLI 分析输出（观察 ID）与 DTP 全集、866 名称字典交叉对账 |
 
-运行示例（输出目录应在仓库外，如 `private/s019_work`）：
+运行示例（仓库根目录执行；输出目录应在仓库外，如 `private/s019_work`）：
 
 ```powershell
-py -3 scripts/extract_collectibleinfo.py "<游戏目录>" "<工作目录>/extracted"
-py -3 scripts/parse_collectibleinfo.py "<工作目录>/extracted/dtp_0360E8.bin" "<工作目录>/extracted/collectibleinfo_update3.json"
-py -3 scripts/extract_gameflow_locals.py "<游戏目录>" "<工作目录>/extracted"
+py -3 research/game-data/extract_collectibleinfo.py "<游戏目录>" "<工作目录>/extracted"
+py -3 research/game-data/parse_collectibleinfo.py "<工作目录>/extracted/dtp_0360E8.bin" "<工作目录>/extracted/collectibleinfo_update3.json"
+py -3 research/game-data/extract_gameflow_locals.py "<游戏目录>" "<工作目录>/extracted"
 & repo\sottr-explorer\target\debug\sottr-cli.exe analyze --input "<存档目录>" --context campaign `
     --output "<工作目录>/cli_analyze" --metadata repo\sottr-explorer\data\metadata
-py -3 scripts/crosscheck_saves.py "<工作目录>/cli_analyze/analysis.json" "<工作目录>/extracted/collectibleinfo_update3.json"
+py -3 research/game-data/crosscheck_saves.py "<工作目录>/cli_analyze/analysis.json" "<工作目录>/extracted/collectibleinfo_update3.json"
 ```
 
 ## 来源与许可（本条研究）
@@ -78,6 +80,6 @@ py -3 scripts/crosscheck_saves.py "<工作目录>/cli_analyze/analysis.json" "<�
 
 ## 结果去向
 
-- 可复现脚本与结论：本目录（仓库内，无商业数据转储）。
+- 可复现脚本与结论：`research/game-data/`（仓库内，无商业数据转储）。
 - 提取数据、映射候选表、验证日志：`private/s019_work/`、`private/s019_verification.log`（仓库外，按门禁未并入产品）。
-- 产品元数据并入：按方案 G4 出口，在 SX-020 完成后统一执行。
+- 产品元数据并入：按方案 G4 出口，在原 SX-020 完成后统一执行。

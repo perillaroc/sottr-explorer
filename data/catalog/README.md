@@ -3,8 +3,8 @@
 `collectibles_catalog.json`：按“全收集（成就/100% 完成度）”口径整理的收集品图鉴，
 也是界面「区域与收集」与 CLI `plan` 的数据源。
 
-事实来源、对账与门禁决策见 `research/s019/findings.md`、`research/s020/README.md`、
-`research/s022/README.md` 与 `../metadata/README.md`。
+事实来源、对账与门禁决策见 `research/game-data/notes/findings.md`、`research/game-data/notes/reconciliation.md`、
+`research/game-data/notes/derived-tables.md` 与 `../metadata/README.md`。
 
 ## 结构
 
@@ -21,8 +21,8 @@
 ## 生成与校验
 
 ```powershell
-# 需要仓库外的提取物（见 research/s019/README.md 与 research/s022/README.md）：
-py -3 research/s022/scripts/build_derived_tables.py <work_dir> <trreboot_tools_dir>
+# 需要仓库外的提取物（见 research/game-data/notes/extraction.md 与 research/game-data/notes/derived-tables.md）：
+py -3 research/game-data/build_derived_tables.py <work_dir> <trreboot_tools_dir>
 py -3 data/catalog/build_catalog.py <work_dir>          # 写入/更新
 py -3 data/catalog/build_catalog.py <work_dir> --check  # 校验与现有文件一致
 ```
@@ -34,7 +34,7 @@ py -3 data/catalog/build_catalog.py <work_dir> --check  # 校验与现有文件�
 ## 验收（最强的一条）
 
 ```powershell
-py -3 research/s022/scripts/validate_region_counters.py `
+py -3 research/game-data/validate_region_counters.py `
     data/catalog/collectibles_catalog.json <work_dir>/cli_analyze/analysis.json save1.dat
 ```
 
@@ -84,4 +84,4 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 
 名称来源 TrRebootModTools `tr11collectibles.bt`、zone 来源 `tr11zones.bt`（均 MIT，
 全文见 `licenses/TrRebootModTools-MIT.txt`）；中英名来自游戏 `locals.bin` 的表内对齐
-（见 `research/s022/README.md`）。
+（见 `research/game-data/notes/derived-tables.md`）。

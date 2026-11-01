@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""SX-019: cross-check CLI observations (analysis.json) against the game-DTP
-non-story collectible set; print coverage facts.
+"""交叉对账（原 SX-019）：CLI 观察（analysis.json）vs 游戏 DTP 非故事收集品全集，
+打印覆盖事实。
 
 Usage:
   py -3 crosscheck_saves.py <analysis.json> <collectibleinfo.json>

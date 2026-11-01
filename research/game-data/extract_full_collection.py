@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Full-collection scope extract (2026-10-17 decision):
+"""Full-collection scope extract (原 SX-019, 2026-10-17 decision):
 - story collectibles (Artifacts: Documents/Relics/Murals...) with ids/group/metricName
 - per-region composition lists: challenge tombs / campsites / challenges / missions
 
-Inputs are files produced by the other scripts in this directory (see ../README.md):
+Inputs are files produced by the other scripts in this directory (see notes/extraction.md):
   <work>/extracted/dtp_0360E8.bin            (globalcollectibleinfo DTP, update3)
   <work>/extracted/gameflow_dtp_0360F4.bin   (globalgameflow DTP, update3)
 

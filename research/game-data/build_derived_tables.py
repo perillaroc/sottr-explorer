@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SX-022 派生表生成：区域绑定、区域名、单位名、本地化字符串。
+"""派生表生成：区域绑定、区域名、单位名、本地化字符串。
 
 只读消费：
   <work>/extracted/dtp_0360E8.bin            globalcollectibleinfo DTP（update3）
@@ -9,14 +9,14 @@
   data/metadata/region_counters.json         区域计数器来源目标（区域绑定签名）
 
 产出（随产品分发的事实性映射，进入仓库）：
-  research/s022/data/region_bindings.json   区域哈希 → ASL slug + 签名证据
-  research/s022/data/region_names.json      slug/特殊区域 → 中英显示名
-  research/s022/data/unit_names.json        unit id → zone 名 + 中英显示名
-  research/s022/data/item_names.json        条目 ID → 中英名（故事条目）
-  research/s022/data/locale_summary.json    对齐统计（供复核）
+  research/game-data/data/region_bindings.json   区域哈希 → ASL slug + 签名证据
+  research/game-data/data/region_names.json      slug/特殊区域 → 中英显示名
+  research/game-data/data/unit_names.json        unit id → zone 名 + 中英显示名
+  research/game-data/data/item_names.json        条目 ID → 中英名（故事条目）
+  research/game-data/data/locale_summary.json    对齐统计（供复核）
 
 用法：
-  py -3 research/s022/scripts/build_derived_tables.py <work_dir> <trreboot_tools_dir> [out_dir]
+  py -3 research/game-data/build_derived_tables.py <work_dir> <trreboot_tools_dir> [out_dir]
 """
 from __future__ import annotations
 
@@ -26,9 +26,8 @@ from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[2]
+REPO = HERE.parents[1]
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(REPO / "research" / "s019" / "scripts"))
 from sottr_atlas import (  # noqa: E402
     NONSTORY_TYPE_CATEGORY, STORY_TYPE_SUBCATEGORY,
     align_locales, bind_regions, load_locals, load_source_targets_from_metadata,
@@ -172,7 +171,7 @@ def main() -> int:
         return 2
     work = Path(sys.argv[1])
     trreboot = Path(sys.argv[2])
-    out_dir = Path(sys.argv[3]) if len(sys.argv) > 3 else HERE.parent / "data"
+    out_dir = Path(sys.argv[3]) if len(sys.argv) > 3 else HERE / "data"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     dtp = DtpFile((work / "extracted" / "dtp_0360E8.bin").read_bytes())

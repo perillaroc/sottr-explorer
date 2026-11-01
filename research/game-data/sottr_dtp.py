@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SX-019 research helper: independent readers for SOTTR archive containers.
+"""游戏资源容器读取库（原 SX-019）：SOTTR 归档容器的独立实现。
 
 Formats implemented from observed structure (cross-checked against two public
 mod tools' readers; no third-party code copied):

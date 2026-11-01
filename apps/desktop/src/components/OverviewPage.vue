@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 概览（SX-022）：收集进度摘要 + 各区域进度 + 入口。
-// 区域进度是图鉴条目数之比，不是游戏内地图百分比（口径未闭合，见 research/s020）。
+// 区域进度是图鉴条目数之比，不是游戏内地图百分比（口径未闭合，见 research/game-data/notes/reconciliation.md）。
 import { computed } from "vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";

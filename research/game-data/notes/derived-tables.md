@@ -1,6 +1,9 @@
-# SX-022 研究记录：图鉴数据基础（区域 / 子关卡 / 中英名 / 位置 / 获取方式）
+# 图鉴数据基础：区域 / 子关卡 / 中英名 / 位置 / 获取方式
 
-把 SX-019/SX-020 已提取的游戏数据，闭合成**可按区域展示、可判定收集状态、可给出查找线索**
+（原 SX-022 研究记录）
+
+把 [`extraction.md`](extraction.md)、[`reconciliation.md`](reconciliation.md) 已提取的游戏数据，
+闭合成**可按区域展示、可判定收集状态、可给出查找线索**
 的图鉴。产出为事实性映射与版本化数据集；原始商业资源仍只在本地读取、不进仓库。
 
 ## 环境与输入
@@ -40,11 +43,11 @@
 | 29E50C12 | `_special` | 不在 26 区主表内；Path of the Stars / Lara's Notebook 等跨区域条目 |
 | 669D3CB3 | `croft_manor` | 克劳馥庄园（Prologue，不参与 100%） |
 
-证据全文：`research/s022/data/region_bindings.json`。
+证据全文：`research/game-data/data/region_bindings.json`。
 
 ### 2. 故事条目结构：与 nonStory 共享前缀，子类别可还原
 
-SX-019 只从故事条目取了 4 个字段（496 字节结构）。实测同一结构在相同偏移上有：
+原 SX-019 只从故事条目取了 4 个字段（496 字节结构）。实测同一结构在相同偏移上有：
 
 | 偏移 | 字段 | 证据 |
 | --- | --- | --- |
@@ -60,7 +63,7 @@ SX-019 只从故事条目取了 4 个字段（496 字节结构）。实测同一
 
 ### 3. 端到端验收：43/43 行与存档区域计数器完全吻合
 
-`scripts/validate_region_counters.py` 用「区域绑定 + 子类别 + DLC 排除 + 观察=已收集」
+[`../validate_region_counters.py`](../validate_region_counters.py) 用「区域绑定 + 子类别 + DLC 排除 + 观察=已收集」
 重算，与**存档自带的区域计数器**逐行比对：
 
 ```text
@@ -89,7 +92,7 @@ mission_of_san_juan   7 个类别全部     目标吻合，读数 0 / 0        O
   例如 `HIDDEN CITY RIDDLE → 隐秘之城的谜团`、`SILVER BOX OF IX CHEL → 伊希切尔的银盒子`；
 - 区域名：42 个 `regionname_*` 全部可读（`PAITITI → 帕依提提`、`CROFT MANOR → 克劳馥庄园`…）。
 
-这推翻了 SX-019「DTP 64 位键 → locals 键哈希未闭合」的阻塞：不需要破解哈希，
+这推翻了原 SX-019 记录中「DTP 64 位键 → locals 键哈希未闭合」的阻塞：不需要破解哈希，
 用**文本/前缀直接定位下标**即可。
 
 ### 6. 覆盖度：470 条就是完整收集品全集
@@ -108,19 +111,19 @@ save1 观察 517 个 ID，其中 358 个属于图鉴；其余 159 个经 866 字
 
 | 文件 | 作用 |
 | --- | --- |
-| `scripts/sottr_atlas.py` | 库：故事/非故事全字段解析、zone 命名、locals 读取与对齐、区域签名匹配 |
-| `scripts/build_derived_tables.py` | 生成 `research/s022/data/{region_bindings,region_names,unit_names,item_names,locale_summary}.json` |
-| `scripts/validate_region_counters.py` | 验收：图鉴 ↔ 存档区域计数器逐行对账（43 行） |
+| [`../sottr_atlas.py`](../sottr_atlas.py) | 库：故事/非故事全字段解析、zone 命名、locals 读取与对齐、区域签名匹配 |
+| [`../build_derived_tables.py`](../build_derived_tables.py) | 生成 `research/game-data/data/{region_bindings,region_names,unit_names,item_names,locale_summary}.json` |
+| [`../validate_region_counters.py`](../validate_region_counters.py) | 验收：图鉴 ↔ 存档区域计数器逐行对账（43 行） |
 | `data/catalog/build_catalog.py` | 生成 schema 2.0.0 图鉴 `data/catalog/collectibles_catalog.json` |
 
-复现：
+复现（仓库根目录执行）：
 
 ```powershell
 $W = "<work_dir>"                                  # 含 extracted/ 的目录
 $T = "<TrRebootModTools 目录>"
-py -3 research/s022/scripts/build_derived_tables.py $W $T
+py -3 research/game-data/build_derived_tables.py $W $T
 py -3 data/catalog/build_catalog.py $W
-py -3 research/s022/scripts/validate_region_counters.py `
+py -3 research/game-data/validate_region_counters.py `
     data/catalog/collectibles_catalog.json $W/cli_analyze/analysis.json save1.dat
 py -3 data/catalog/build_catalog.py $W --check      # 可复现性
 ```

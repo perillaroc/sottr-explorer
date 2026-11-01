@@ -3,20 +3,20 @@
   "converter": "data/metadata/build_metadata.py",
   "source_inputs": [
     {
-      "file": "research/python-v0.2/data/collectible_id_candidates.json",
-      "sha256": "5d165b440a2687938358adecc0268e7f1518f7856e56069b5219f1216934e05c"
+      "file": "research/save-inspector/data/collectible_id_candidates.json",
+      "sha256": "7e8fac52aa7a64fc533c4666d03e513138cc8869635acfbb77d9ff30ac543700"
     },
     {
-      "file": "research/python-v0.2/data/region_counter_candidates.json",
+      "file": "research/save-inspector/data/region_counter_candidates.json",
       "sha256": "e0cceadca422e1ea3997dfd1340658f76c088be8c0b890c84785913c9cae925f"
     },
     {
-      "file": "research/python-v0.2/data/reference_category_ids.json",
+      "file": "research/save-inspector/data/reference_category_ids.json",
       "sha256": "1e7eafecf04bd67bf4902f2b29fe3284991686dd6bb06250ca4408005bd6e665"
     },
     {
       "file": "data/catalog/collectibles_catalog.json",
-      "sha256": "eb257f75170acdca7bab5053904b33bc5ff1000eb210a159dca67c8f52076402"
+      "sha256": "7bd2d5bb175dc3a75ca55c4f768b833782ef4ebec514d1b4b5a428a295c5df3a"
     }
   ],
   "files": [

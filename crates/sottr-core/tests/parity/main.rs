@@ -139,7 +139,7 @@ fn repo_root() -> PathBuf {
 }
 
 fn tool_dir() -> PathBuf {
-    repo_root().join("research/python-v0.2")
+    repo_root().join("research/save-inspector")
 }
 
 fn catalog_path() -> PathBuf {

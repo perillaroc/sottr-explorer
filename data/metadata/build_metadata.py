@@ -8,9 +8,9 @@
     py -3 data/metadata/build_metadata.py --check  # 只校验现有文件与 manifest 一致
 
 输入（仓库内研究参照副本，来自授权研究包 tool/data/）：
-    research/python-v0.2/data/collectible_id_candidates.json
-    research/python-v0.2/data/region_counter_candidates.json
-    research/python-v0.2/data/reference_category_ids.json
+    research/save-inspector/data/collectible_id_candidates.json
+    research/save-inspector/data/region_counter_candidates.json
+    research/save-inspector/data/reference_category_ids.json
 
 输出：
     data/metadata/collectibles.json      条目与类别
@@ -37,7 +37,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data" / "metadata"
-RESEARCH_DIR = ROOT / "research" / "python-v0.2" / "data"
+RESEARCH_DIR = ROOT / "research" / "save-inspector" / "data"
 
 METADATA_VERSION = "0.1.0"
 SCHEMA_VERSION = "1.0.0"
@@ -942,7 +942,7 @@ def main() -> int:
         "converter": "data/metadata/build_metadata.py",
         "source_inputs": [
             {
-                "file": f"research/python-v0.2/data/{name}",
+                "file": f"research/save-inspector/data/{name}",
                 "sha256": sha256_file(RESEARCH_DIR / name),
             }
             for name in (

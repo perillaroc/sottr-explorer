@@ -303,7 +303,7 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
 
 ## 差分回归（SX-010）
 
-`cargo test -p sottr-core --test parity`：Python v0.2（`research/python-v0.2/` 参照副本）
+`cargo test -p sottr-core --test parity`：Python v0.2（`research/save-inspector/` 参照副本）
 作为正常已知输入的参照，其原始输出保留在输出目录（`report.json`、CSV、日志）；
 规范化适配器（`crates/sottr-core/tests/parity/adapter.rs`）逐层对照，差异与判定写入
 `parity_report.json`（附 `parity_summary.txt`）。

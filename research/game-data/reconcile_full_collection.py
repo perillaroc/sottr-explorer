@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SX-020 reconciliation: full-collection scope against game data and sources.
+"""全收集口径对账（原 SX-020）：游戏数据 vs 外部来源。
 
 Covers:
 - story groups: base vs DLC classification (isDLC/dlcHash), counts vs external 259/253
@@ -8,7 +8,7 @@ Covers:
 - overall completion ratio test: save counters sum / source totals vs 0x28 value
 
 Usage:
-  py -3 reconcile_full_collection.py <work_dir> <out_dir>
+  py -3 research/game-data/reconcile_full_collection.py <work_dir> <out_dir>
 """
 from __future__ import annotations
 
@@ -123,12 +123,19 @@ def main() -> int:
     maps = []
     for i in range(num_maps):
         b = map_target + i * 272
+        num_secondary = gameflow.u32(b + 236)
+        secondary_target = gameflow.ref_target(b + 240)
+        secondary = []
+        if secondary_target is not None:
+            for k in range(min(num_secondary, 64)):
+                secondary.append(f"{gameflow.u32(secondary_target + k * 4):08X}")
         maps.append({
             "hashedString": f"{gameflow.u32(b):08X}",
             "uiUnitID": gameflow.i32(b + 4),
             "markerUnit": gameflow.u16(b + 12),
             "primaryRegion": f"{gameflow.u32(b + 232):08X}",
-            "numSecondary": gameflow.u32(b + 236),
+            "numSecondary": num_secondary,
+            "secondaryRegions": secondary,
         })
     region_units: dict[str, set[int]] = defaultdict(set)
     for m in maps:
@@ -166,7 +173,7 @@ def main() -> int:
     for m in maps:
         unit_by_map.setdefault(m["uiUnitID"], []).append(m)
         unit_by_map.setdefault(m["markerUnit"], []).append(m)
-    ok = mismatch = nounit = 0
+    ok = mismatch = nounit = secondary_ok = 0
     for item in mt:
         unit = item["unit"]
         candidates = unit_by_map.get(unit, [])
@@ -175,14 +182,23 @@ def main() -> int:
             continue
         if any(m["primaryRegion"] == item["regionId"] for m in candidates):
             ok += 1
+        elif any(item["regionId"] in m["secondaryRegions"] for m in candidates):
+            # 二级区域判定：条目区域在单位地图的 secondaryRegions 中（如 Paititi 的
+            # abandoned village 条目），按一致计，并单独记数以便复核。
+            secondary_ok += 1
+            ok += 1
         else:
             mismatch += 1
-    print(f"non-story item region check: ok={ok} mismatch={mismatch} no-unit-map={nounit}")
-    report["regionCheck"] = {"ok": ok, "mismatch": mismatch, "noUnitMap": nounit}
+    print(f"non-story item region check: ok={ok} (secondary={secondary_ok}) "
+          f"mismatch={mismatch} no-unit-map={nounit}")
+    report["regionCheck"] = {
+        "ok": ok, "secondaryMatch": secondary_ok,
+        "mismatch": mismatch, "noUnitMap": nounit,
+    }
 
     # ---------- overall completion ratio test ----------
     analysis = json.loads((work_dir / "cli_analyze" / "analysis.json").read_text(encoding="utf-8"))
-    meta = json.loads((Path(__file__).parents[2] / "repo" / "sottr-explorer" / "data" / "metadata" / "region_counters.json").read_text(encoding="utf-8"))
+    meta = json.loads((Path(__file__).resolve().parents[2] / "data" / "metadata" / "region_counters.json").read_text(encoding="utf-8"))
     targets = {v["counter_key"]: v["source_total"] for v in meta["region_counters"].values()}
     for entry in analysis["results"]:
         if entry.get("input_ref") != "save1.dat" or not entry.get("report"):

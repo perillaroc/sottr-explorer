@@ -1,7 +1,9 @@
-# SX-019 研究发现
+# 游戏资源提取研究发现
+
+（原 SX-019 研究记录）
 
 依据：本地游戏数据（2026-10-17，更新至 `bigfile.update3.002`）提取，脚本见
-`scripts/`。完整提取数据与验证日志在仓库外 `private/s019_work/`。
+上一级目录 `research/game-data/`。完整提取数据与验证日志在仓库外 `private/s019_work/`。
 
 ## 事实（已复核）
 
@@ -16,7 +18,7 @@
    按 metricName 前缀可见：2=贮藏点（65 SurvivalCache + 16 RareResource/Gym）、
    4=石碑（12 Monolith）、5=探险者尸包（15 ExplorerSatchel）、6=墓穴宝藏（10 CryptTreasure）、
    7=藏宝图/档案图（19）、8=锁箱（8 lockpick/Strongbox）、9=挑战古墓/训练（17）、
-   11=墓穴入口（9）、1=测试项（2 Document_Test）。类别命名属观察归纳，待 SX-020 语义确认。
+   11=墓穴入口（9）、1=测试项（2 Document_Test）。类别命名属观察归纳，待 [`reconciliation.md`](reconciliation.md) 语义确认。
 4. **地图标记图标**（mapMarkerIcon）：SurvivalCache 81、DocumentChest 19、ExplorerCorpse 15、
    Codex 12、Monoliths 12、LostItem 10、CryptEntrance 9、Strongbox 8、Document 2。
    与 type 分布一致（81/19/15/12/12/10/9/8/2）。
@@ -49,7 +51,7 @@
     161 条非零；instanceZ 160 条非零；hasAreaMarker 仅 12 条为 1（与石碑数一致，
     待语义确认）；doNotShowOnMap 全部为 0。
 
-## 假说（待 SX-020 验证，不得直接进入产品图层）
+## 假说（待 [`reconciliation.md`](reconciliation.md) 验证，不得直接进入产品图层）
 
 - placement.id0（64 位）是对象/放置哈希，可与单位地图（primaryRegion/secondary）关联出
   更细的区域归属；尚待用可见对象反例核对。
@@ -102,13 +104,13 @@
 ### 全收集口径扩展提取（2026-10-17 用户决定后补做）
 
 - 故事收集品全量：44 组、**302 条目/302 唯一 ID**（无重复），字段含 nameText 明文、
-  regionId 等；与"Artifacts 259/约 253 必需"存在 43 条口径差（含 DLC、不要求项），待 SX-020 细化。
+  regionId 等；与"Artifacts 259/约 253 必需"存在 43 条口径差（含 DLC、不要求项），待 [`reconciliation.md`](reconciliation.md) 细化。
 - 区域组成列表（gameflow RegionData，26 区域求和）：
   - 挑战古墓 **9**（与来源"9 个挑战古墓"完全一致 ✓；非故事 type 9 的 12 个 CT 项含 DLC/训练场）
   - 挑战 **16**（来源称 15，差 1，待核对是否含 DLC/训练项）
   - 营地 **34**（区域列表求和；GameFlow 根部 62 个营地记录，口径待核对；营地不参与 100%）
   - 任务目标 **20**（与来源"8 条支线"不一致——该列表更可能是主线/任务目标而非支线，
-    语义待 SX-020 确认，不据此下结论）
+    语义待 [`reconciliation.md`](reconciliation.md) 确认，不据此下结论）
 
 ## 门禁分类（发布复核用）
 

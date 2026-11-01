@@ -1,7 +1,9 @@
-# SX-020 验证与对账记录（全收集口径）
+# 全收集口径验证与对账
 
-结论与否定结果汇总。输入与容器格式见 `../s019/README.md`；脚本见 `scripts/`；
-原始对账数据在仓库外 `private/s019_work/extracted/s020_reconciliation.json`。
+（原 SX-020 研究记录）
+
+结论与否定结果汇总。输入与容器格式见 [`extraction.md`](extraction.md)；脚本见上一级目录
+`research/game-data/`；原始对账数据在仓库外 `private/s019_work/extracted/s020_reconciliation.json`。
 
 ## 1. 故事收集品：与"Artifacts 259 / 253 必需"对账 ✓（假说级）
 
@@ -28,6 +30,9 @@
 ## 3. 非故事收集品 ↔ 单位地图一致性
 
 - 含二级区域判定后：**150 一致 / 8 不一致 / 10 无单位地图**（共 168）。
+  其中 145 条按单位地图的 `primaryRegion` 直接命中，另 5 条命中 `secondaryRegions`
+  （Paititi 的 abandoned village 条目，unit 1060 → 主区域 3177F7A9、二级区域 C5B30CDB）。
+  脚本输出：`ok=150 (secondary=5) mismatch=8 no-unit-map=10`。
 - 8 条不一致全部是 `CT_*`（挑战古墓）条目，其 regionId=26694CD8（特殊"古墓"区域），
   而单位地图指向所在主区域 —— 属**归属口径差异**，不是数据错误；
   SX-021 展示时须保持原样，不得改写为宿主区域或反之。

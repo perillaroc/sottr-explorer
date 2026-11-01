@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""SX-019 step 3: extract highest-priority globalgameflow.drm, parse regions and
-unit maps, locate/parse locals.bin from language archives, resolve name keys.
+"""提取步骤 3（原 SX-019）：取出最高优先级的 globalgameflow.drm，解析区域与
+单位地图，从语言归档中定位/解析 locals.bin，解析名称键。
 
 Usage:
   py -3 extract_gameflow_locals.py <game_dir> [out_dir]

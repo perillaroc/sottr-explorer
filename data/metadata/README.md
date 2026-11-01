@@ -20,7 +20,7 @@ Schema 为 `schemas/metadata.schema.json`（契约 1.0.0）；字段语义与拒
 
 - 内部 ID 与候选名称：TrRebootModTools（MIT，固定提交
   `a79c48b75f1ffaaf623dc73a625211bf98ff0504`）的字典转录（研究包
-  `tool/data/collectible_id_candidates.json`，本仓库副本在 `research/python-v0.2/data/`）。
+  `tool/data/collectible_id_candidates.json`，本仓库副本在 `research/save-inspector/data/`）。
 - 区域计数偏移与目标：Atorizil/ASL-SOTTR（上游未声明许可证，固定提交
   `b758ee890eac30d9e3b3477999a30f8f9e442f00`）的事实转录与独立比对；
   43 项稀疏映射，缺项不是 0。该映射**定性为事实性数据**（2026-10-31），
@@ -45,7 +45,7 @@ py -3 data/metadata/build_metadata.py          # 生成三个数据文件与 man
 py -3 data/metadata/build_metadata.py --check  # 校验现有文件与 manifest 一致
 ```
 
-脚本只从 `research/python-v0.2/data/` 的三个研究数据文件与脚本内显式记录的
+脚本只从 `research/save-inspector/data/` 的三个研究数据文件与脚本内显式记录的
 固定事实（参考存档哈希、圣胡安/帕伊提提归属、攻略组与来源表）转换，并做数量与
 交叉一致性校验（866 ID / 871 名称 / 43 计数 / 65、12、12、10 参考；作用域
 合计 77、12、10 与参考 ID 数一致）。任何校验失败即退出非零、不写文件。

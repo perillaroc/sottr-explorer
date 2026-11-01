@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """Build the full-collection catalog / atlas (SX-021 stage A; SX-022 schema 2.0.0).
 
-Inputs (outside the repo, produced by research/s019 + research/s022 scripts):
+Inputs (outside the repo, produced by research/game-data scripts):
   <work>/extracted/dtp_0360E8.bin            globalcollectibleinfo DTP (update3)
   <work>/extracted/gameflow_dtp_0360F4.bin   globalgameflow DTP (update3)
 Repo inputs:
-  research/python-v0.2/data/collectible_id_candidates.json   (MIT name dictionary)
-  research/s022/data/{region_bindings,region_names,unit_names,item_names}.json
+  research/save-inspector/data/collectible_id_candidates.json   (MIT name dictionary)
+  research/game-data/data/{region_bindings,region_names,unit_names,item_names}.json
   schemas/catalog.schema.json                (output contract)
 
 Output:
@@ -24,11 +24,10 @@ from collections import Counter
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-DICT_PATH = REPO / "research" / "python-v0.2" / "data" / "collectible_id_candidates.json"
-S022_DATA = REPO / "research" / "s022" / "data"
+DICT_PATH = REPO / "research" / "save-inspector" / "data" / "collectible_id_candidates.json"
+GAME_DATA = REPO / "research" / "game-data" / "data"
 OUT_PATH = Path(__file__).resolve().parent / "collectibles_catalog.json"
-sys.path.insert(0, str(REPO / "research" / "s019" / "scripts"))
-sys.path.insert(0, str(REPO / "research" / "s022" / "scripts"))
+sys.path.insert(0, str(REPO / "research" / "game-data"))
 from sottr_atlas import (  # noqa: E402
     NONSTORY_TYPE_CATEGORY, POSITION_SPACE, STORY_TYPE_SUBCATEGORY,
     parse_nonstory_items, parse_story_items,
@@ -184,10 +183,10 @@ def main() -> int:
 
     dictionary = load_json(DICT_PATH)["mapping"]
     names = {k.upper(): (v[0] if isinstance(v, list) and v else None) for k, v in dictionary.items()}
-    bindings = load_json(S022_DATA / "region_bindings.json")["bindings"]
-    region_names = load_json(S022_DATA / "region_names.json")
-    unit_names = load_json(S022_DATA / "unit_names.json")
-    item_names = load_json(S022_DATA / "item_names.json")
+    bindings = load_json(GAME_DATA / "region_bindings.json")["bindings"]
+    region_names = load_json(GAME_DATA / "region_names.json")
+    unit_names = load_json(GAME_DATA / "unit_names.json")
+    item_names = load_json(GAME_DATA / "item_names.json")
 
     dtp = DtpFile((work / "extracted" / "dtp_0360E8.bin").read_bytes())
     story_rows = parse_story_items(dtp)
@@ -416,10 +415,10 @@ def main() -> int:
                     (work / "extracted" / "gameflow_dtp_0360F4.bin").read_bytes()).hexdigest()[:16],
             },
             "name_source": "TrRebootModTools tr11collectibles.bt（MIT，见 THIRD_PARTY_NOTICES.md）",
-            "locale_source": "locals.bin（英 / 简中，allvo_allplt）按表下标对齐；见 research/s022/README.md",
+            "locale_source": "locals.bin（英 / 简中，allvo_allplt）按表下标对齐；见 research/game-data/notes/derived-tables.md",
             "zone_source": "TrRebootModTools tr11zones.bt（MIT）",
             "region_binding": "存档区域计数器来源目标 vs 目录区域×类别计数（L1 最近邻，距离 0）；"
-                              "证据见 research/s022/data/region_bindings.json",
+                              "证据见 research/game-data/data/region_bindings.json",
             "acquisition_text": "类别通用规则为人工整理（curated）；逐项注记见 items[].acquisition_note",
             "date": "2026-10-17",
             "license_decision": "用户已确认商业游戏数据可随交付版发布（2026-10-17）",

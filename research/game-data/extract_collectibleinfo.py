@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""SX-019 step 1: extract the highest-priority globalcollectibleinfo.drm and
-report/compare its DTP payloads across archive families.
+"""提取步骤 1（原 SX-019）：取出最高优先级的 globalcollectibleinfo.drm，
+并逐归档家族比对 DTP 负载。
 
 Usage:
   py -3 extract_collectibleinfo.py <game_dir> [out_dir]
