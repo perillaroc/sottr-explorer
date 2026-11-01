@@ -2,7 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { flushPromises } from "@vue/test-utils";
 import SlotPicker from "../src/components/SlotPicker.vue";
-import { createTestStore, candidatePath, mountWithStore, ControlledSource, analyzeCandidate, MOCK_ROOT_B } from "./helpers";
+import { createTestStore, candidatePath, mountWithStore, ControlledSource, analyzeCandidate, MOCK_ROOT_A, MOCK_ROOT_B } from "./helpers";
 import type { DataSource, DiscoverOutcomeDto } from "../src/data/source";
 
 class NoGameSource implements DataSource {
@@ -157,5 +157,52 @@ describe("导入与槽位选择", () => {
     ];
     const wrapper = mountWithStore(SlotPicker, store);
     expect(wrapper.text()).toContain(longName);
+  });
+
+  it("按账户子目录分组展示候选文件，同名文件不混在一起", async () => {
+    const { store } = await createTestStore();
+    const accountA = `${MOCK_ROOT_A}\\292733975847239680`;
+    const accountB = `${MOCK_ROOT_A}\\76561198105637627`;
+    const file = (dir: string, name: string, modified: string) => ({
+      name,
+      path: `${dir}\\${name}`,
+      size_bytes: 597_590,
+      modified_millis: Date.parse(modified),
+      matches_observed_names: true,
+      status: "ready" as const,
+      detail: null,
+      note: null,
+    });
+    store.state.candidates = [
+      file(accountA, "profile.dat", "2026-10-10T21:14:00+08:00"),
+      file(accountA, "save202.dat", "2026-10-10T21:14:05+08:00"),
+      file(accountB, "profile.dat", "2026-10-09T18:00:00+08:00"),
+      file(accountB, "save1.dat", "2026-10-09T18:02:31+08:00"),
+    ];
+    const wrapper = mountWithStore(SlotPicker, store);
+
+    // 不同账户各自成组，标题写明账户数字与文件数（账户数字按数值排序）。
+    const groups = wrapper.findAll('[data-testid="candidate-group"]');
+    expect(groups).toHaveLength(2);
+    expect(groups[0].text()).toContain("账户 76561198105637627");
+    expect(groups[0].text()).toContain("2 个文件");
+    expect(groups[1].text()).toContain("账户 292733975847239680");
+    expect(groups[1].text()).toContain("2 个文件");
+
+    // 同名文件分别落在各自分组内，单选仍按完整路径区分。
+    expect(groups[0].text()).toContain("save1.dat");
+    expect(groups[0].text()).toContain("profile.dat");
+    expect(groups[0].text()).not.toContain("save202.dat");
+    expect(groups[1].text()).toContain("save202.dat");
+    expect(groups[1].text()).not.toContain("save1.dat");
+    expect(wrapper.findAll('input[name="candidate"]')).toHaveLength(4);
+    expect(wrapper.get('[data-testid="candidate-group-hint"]').text()).toContain("不同账户下的同名存档各自独立");
+  });
+
+  it("单一目录（无子目录）不显示分组标题", async () => {
+    const { store } = await createTestStore();
+    const wrapper = mountWithStore(SlotPicker, store);
+    expect(wrapper.find('[data-testid="candidate-group-title"]').exists()).toBe(false);
+    expect(wrapper.find('[data-testid="candidate-group-hint"]').exists()).toBe(false);
   });
 });

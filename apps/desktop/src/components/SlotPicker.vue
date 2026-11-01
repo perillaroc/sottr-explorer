@@ -22,6 +22,95 @@ const analyzing = computed(() => store.state.analysis !== null);
 const selected = computed(() => store.state.selectedPath);
 
 /**
+ * 候选文件分组：真实存档位于 `Shadow of the Tomb Raider\<账户数字>\saveN.dat`，
+ * 同一根目录下可能有多个账户子目录、彼此存在同名文件。这里按所在子目录分组，
+ * 不把不同账户的文件混到同一张清单里（组内顺序沿用后端按路径排序的结果）。
+ */
+interface CandidateGroup {
+  key: string;
+  /** 相对活动根目录的子目录；`""` 为根目录本身，`null` 为根目录之外（手动选择）。 */
+  relative: string | null;
+  /** 该组文件所在目录的完整路径（用于提示）。 */
+  dir: string;
+  files: CandidateFileDto[];
+}
+
+/** 统一分隔符并去掉末尾分隔符：只用于比较/拆分，不改变原始路径的显示。 */
+function toWindowsPath(path: string): string {
+  return path.replace(/\//g, "\\").replace(/\\+$/, "");
+}
+
+function parentDirOf(path: string): string {
+  const normalized = toWindowsPath(path);
+  const index = normalized.lastIndexOf("\\");
+  return index < 0 ? normalized : normalized.slice(0, index);
+}
+
+/** 相对活动根目录的子目录；不在该根目录下时返回 `null`。 */
+function relativeDirOf(path: string, root: string | null): string | null {
+  if (!root) {
+    return null;
+  }
+  const dir = parentDirOf(path);
+  const normalizedRoot = toWindowsPath(root);
+  const dirLower = dir.toLowerCase();
+  const rootLower = normalizedRoot.toLowerCase();
+  if (dirLower === rootLower) {
+    return "";
+  }
+  if (dirLower.startsWith(`${rootLower}\\`)) {
+    return dir.slice(normalizedRoot.length + 1);
+  }
+  return null;
+}
+
+const candidateGroups = computed<CandidateGroup[]>(() => {
+  const groups = new Map<string, CandidateGroup>();
+  for (const candidate of candidates.value) {
+    const dir = parentDirOf(candidate.path);
+    const relative = relativeDirOf(candidate.path, store.state.activeRoot);
+    const key = relative === null ? `outside:${dir.toLowerCase()}` : `under:${relative.toLowerCase()}`;
+    let group = groups.get(key);
+    if (!group) {
+      group = { key, relative, dir, files: [] };
+      groups.set(key, group);
+    }
+    group.files.push(candidate);
+  }
+  // 排序：根目录文件 → 各子目录（账户数字按数值）→ 根目录之外；组数不影响候选顺序。
+  const rank = (group: CandidateGroup): number =>
+    group.relative === "" ? 0 : group.relative === null ? 2 : 1;
+  return [...groups.values()].sort((a, b) => {
+    const byRank = rank(a) - rank(b);
+    if (byRank !== 0) {
+      return byRank;
+    }
+    return (a.relative ?? a.dir).localeCompare(b.relative ?? b.dir, undefined, { numeric: true });
+  });
+});
+
+/** 分组标题：纯数字子目录按“账户”标注，其余按子目录显示。 */
+function groupLabel(group: CandidateGroup): string {
+  if (group.relative === null) {
+    return t(`根目录之外：${group.dir}`, `Outside the root folder: ${group.dir}`);
+  }
+  if (group.relative === "") {
+    return t("游戏根目录（不在账户子目录内）", "Game root folder (not inside an account subfolder)");
+  }
+  if (/^\d+$/.test(group.relative)) {
+    return t(`账户 ${group.relative}`, `Account ${group.relative}`);
+  }
+  return t(`子目录 ${group.relative}`, `Subfolder ${group.relative}`);
+}
+
+function groupFileCount(group: CandidateGroup): string {
+  return t(
+    `${group.files.length} 个文件`,
+    `${group.files.length} ${group.files.length === 1 ? "file" : "files"}`,
+  );
+}
+
+/**
  * 候选 Documents 目录 → 游戏目录（用于列出文件与高亮当前目录）。
  * `discover_saves` 的 game_roots 与 game_found 候选按同一顺序返回，这里按序配对；
  * 未配对的候选退回使用自身路径（发现层仍会做有界枚举）。
@@ -223,6 +312,14 @@ function rowSummary(candidate: CandidateFileDto) {
 
       <div v-if="candidates.length > 0" class="space-y-2">
         <h2 class="text-base font-medium">{{ t("文件", "Files") }}</h2>
+        <p v-if="candidateGroups.length > 1" class="text-xs text-muted" data-testid="candidate-group-hint">
+          {{
+            t(
+              "按子目录（账户）分组显示：不同账户下的同名存档各自独立，不会合并或自动选定。",
+              "Grouped by subfolder (account): same-named saves in different accounts stay separate and are never merged or auto-selected.",
+            )
+          }}
+        </p>
         <table class="w-full border-collapse text-[13px]">
           <caption class="sr-only">{{ t("候选存档文件与读取状态", "Candidate save files and read status") }}</caption>
           <thead>
@@ -239,8 +336,14 @@ function rowSummary(candidate: CandidateFileDto) {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <template v-for="candidate in candidates" :key="candidate.path">
+          <tbody v-for="group in candidateGroups" :key="group.key" data-testid="candidate-group">
+            <tr v-if="candidateGroups.length > 1" class="border-b border-line bg-raised/60" data-testid="candidate-group-title">
+              <th colspan="6" scope="colgroup" class="py-1.5 text-left text-xs font-medium text-ink" :title="group.dir">
+                <span class="break-all">{{ groupLabel(group) }}</span>
+                <span class="ml-2 font-normal text-muted">· {{ groupFileCount(group) }}</span>
+              </th>
+            </tr>
+            <template v-for="candidate in group.files" :key="candidate.path">
               <tr class="border-b border-line/60 align-top">
                 <td class="py-2">
                   <input
