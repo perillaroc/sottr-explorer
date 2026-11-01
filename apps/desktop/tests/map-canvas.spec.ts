@@ -10,8 +10,16 @@ vi.mock("../src/data/basemaps", async (importOriginal) => {
   return { ...actual, basemapImageUrl: (entry: Basemap) => `/basemaps/${entry.image}` };
 });
 
+// 遮罩采样结果由用例控制：默认 null（无法检测，保持原有渲染）。
+const maskState = vi.hoisted(() => ({ mask: null as MapMask | null }));
+vi.mock("../src/app/map-mask", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/app/map-mask")>();
+  return { ...actual, readMapMask: () => maskState.mask };
+});
+
 import MapCanvas from "../src/components/map/MapCanvas.vue";
 import type { MapEntry } from "../src/app/map-view";
+import type { MapMask } from "../src/app/map-mask";
 import type { PlanGroup, PlanItem, PlanRegion } from "../src/data/atlas";
 import type { Basemap } from "../src/data/basemaps";
 
@@ -109,6 +117,7 @@ afterAll(() => {
 });
 
 beforeEach(() => {
+  maskState.mask = null;
   // 容器 800×600：fit = min(8, 12) = 8 → 内层画布 800×400，垂直居中 100。
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
     x: 0,
@@ -222,5 +231,28 @@ describe("MapCanvas", () => {
     const wrapper = await mountCanvas();
     expect(wrapper.get('[data-testid="map-canvas"]').attributes("aria-label")).toContain("测试区域 · 子关卡 A");
     expect(wrapper.get('[data-testid="map-canvas"]').attributes("aria-label")).toContain("3 个收集品标记");
+  });
+
+  it("落在底图留白区的点位用虚线外环标出并通知父级", async () => {
+    // 底图 100×50：左侧 70% 有内容，右侧透明；c (0.95, 0.1) 落在留白。
+    const width = 100;
+    const height = 50;
+    const alpha = new Uint8ClampedArray(width * height).fill(255);
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 70; x < width; x += 1) {
+        alpha[y * width + x] = 0;
+      }
+    }
+    maskState.mask = { width, height, alpha };
+
+    const wrapper = await mountCanvas();
+    await wrapper.get('[data-testid="map-image"]').trigger("load");
+    await nextTick();
+
+    expect(wrapper.get('[data-testid="map-marker-a"]').attributes("data-off-map")).toBe("false");
+    expect(wrapper.get('[data-testid="map-marker-c"]').attributes("data-off-map")).toBe("true");
+    expect(wrapper.findAll('[data-testid="map-marker-off-map"]')).toHaveLength(1);
+    expect(wrapper.get('[data-testid="map-marker-c"]').attributes("aria-label")).toContain("底图留白区");
+    expect(wrapper.emitted("off-map")?.at(-1)).toEqual([["c"]]);
   });
 });

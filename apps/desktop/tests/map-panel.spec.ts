@@ -1,5 +1,5 @@
 // 底图面板（P3-01）：底图模式的点位投影，以及无素材/未验证/缺记录时的回退。
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
 // 让「已配置外置素材」成立：其余导出保持真实实现。
@@ -8,9 +8,21 @@ vi.mock("../src/data/basemaps", async (importOriginal) => {
   return { ...actual, basemapImageUrl: (entry: Basemap) => `/basemaps/${entry.image}` };
 });
 
+// 遮罩采样结果由用例控制：默认 null（无法检测，保持原有渲染）。
+const maskState = vi.hoisted(() => ({ mask: null as MapMask | null }));
+vi.mock("../src/app/map-mask", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/app/map-mask")>();
+  return { ...actual, readMapMask: () => maskState.mask };
+});
+
 import MapPanel from "../src/components/MapPanel.vue";
 import { resolveBasemapMode, type Basemap } from "../src/data/basemaps";
+import type { MapMask } from "../src/app/map-mask";
 import type { PlanItem } from "../src/data/atlas";
+
+beforeEach(() => {
+  maskState.mask = null;
+});
 
 function item(id: string, x: number, y: number, collected = false): PlanItem {
   return {
@@ -289,6 +301,43 @@ describe("切换条目释放图片（P3-07）", () => {
     stale.dispatchEvent(new Event("error"));
     await wrapper.vm.$nextTick();
     expect(wrapper.get('[data-testid="map-panel"]').attributes("data-mode")).toBe("map");
+  });
+});
+
+describe("底图留白（2026-11-01）", () => {
+  it("留白区的点用虚线外环标出，并在图下说明数量", async () => {
+    // 底图 100×50：左侧 70% 有内容，右侧透明；b (0.9, 0.2) 落在留白。
+    const width = 100;
+    const height = 50;
+    const alpha = new Uint8ClampedArray(width * height).fill(255);
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 70; x < width; x += 1) {
+        alpha[y * width + x] = 0;
+      }
+    }
+    maskState.mask = { width, height, alpha };
+
+    const wrapper = mount(MapPanel, {
+      props: {
+        items: [item("a", 0.2, 0.2, true), item("b", 0.9, 0.2)],
+        selectedId: null,
+        basemap: basemap(),
+      },
+    });
+    await wrapper.get('[data-testid="basemap-image"]').trigger("load");
+
+    const dots = wrapper.findAll('[data-testid="basemap-dot"]');
+    expect(dots.find((dot) => dot.attributes("data-off-map") === "true")).toBeDefined();
+    expect(wrapper.findAll('[data-testid="basemap-dot-off-map"]')).toHaveLength(1);
+    expect(wrapper.get('[data-testid="basemap-blank-note"]').text()).toContain("1 个点");
+  });
+
+  it("无法采样时不标记留白，也不显示说明", () => {
+    const wrapper = mount(MapPanel, {
+      props: { items: [item("a", 0.9, 0.2)], selectedId: null, basemap: basemap() },
+    });
+    expect(wrapper.findAll('[data-testid="basemap-dot-off-map"]')).toHaveLength(0);
+    expect(wrapper.find('[data-testid="basemap-blank-note"]').exists()).toBe(false);
   });
 });
 

@@ -10,6 +10,7 @@ import { categoryClass, categoryDotClass } from "../../app/category-style";
 import { categoryIcon } from "../../app/category-icon";
 import { categoryLabel } from "../../app/labels";
 import type { MapEntry } from "../../app/map-view";
+import { pointOnMap, readMapMask, type MapMask } from "../../app/map-mask";
 import { basemapImageUrl, projectToImage, type Basemap } from "../../data/basemaps";
 
 const props = defineProps<{
@@ -21,7 +22,11 @@ const props = defineProps<{
   label: string;
 }>();
 
-const emit = defineEmits<{ select: [id: string | null] }>();
+const emit = defineEmits<{
+  select: [id: string | null];
+  /** 落在底图留白区的条目（按当前筛选后的条目计算）。 */
+  "off-map": [ids: string[]];
+}>();
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
@@ -33,6 +38,8 @@ const viewport = ref({ width: 0, height: 0 });
 const zoom = ref(1);
 const pan = ref({ x: 0, y: 0 });
 const imageFailed = ref(false);
+/** 底图的不透明区域遮罩；图片未加载或无法采样时为 null（按「已绘制」处理）。 */
+const mask = ref<MapMask | null>(null);
 
 let observer: ResizeObserver | null = null;
 
@@ -142,9 +149,19 @@ watch(
   () => props.basemap.basemap_id,
   () => {
     imageFailed.value = false;
+    mask.value = null;
     resetView();
   },
 );
+
+/** 图片就绪后采样不透明区域；只接受当前地址的 load，避免切图时迟到的回调用旧图。 */
+function onImageLoad(event: Event): void {
+  const target = event.target as HTMLImageElement | null;
+  if (!target || target.getAttribute("src") !== imageUrl.value) {
+    return;
+  }
+  mask.value = readMapMask(target);
+}
 
 function onImageError(event: Event): void {
   const target = event.target as HTMLImageElement | null;
@@ -288,6 +305,8 @@ interface Marker {
   category: string;
   label: string;
   ariaLabel: string;
+  /** 坐标落在底图留白区（多为地下、隧道或地图边缘）。 */
+  offMap: boolean;
 }
 
 const markers = computed<Marker[]>(() => {
@@ -307,6 +326,7 @@ const markers = computed<Marker[]>(() => {
     const collected = entry.item.status === "collected";
     const category = entry.group.category;
     const categoryName = categoryLabel(category, entry.group.name);
+    const offMap = !pointOnMap(mask.value, position.x, position.y);
     result.push({
       id: entry.item.id,
       entry,
@@ -316,11 +336,21 @@ const markers = computed<Marker[]>(() => {
       selected: entry.item.id === props.selectedId,
       category,
       label: categoryName,
-      ariaLabel: `${entry.item.display_name}，${categoryName}，${collected ? t("已收集", "collected") : t("未收集", "uncollected")}`,
+      offMap,
+      ariaLabel: `${entry.item.display_name}，${categoryName}，${collected ? t("已收集", "collected") : t("未收集", "uncollected")}${
+        offMap ? t("，位于底图留白区", ", in a blank area of the basemap") : ""
+      }`,
     });
   }
   return result;
 });
+
+/** 留白区点位（供父级在图下说明）。 */
+const offMapIds = computed(() =>
+  markers.value.filter((marker) => marker.offMap).map((marker) => marker.id),
+);
+
+watch(offMapIds, (ids) => emit("off-map", [...ids]), { flush: "post" });
 
 /** 选中项最后绘制，避免被相邻点位盖住外圈。 */
 const orderedMarkers = computed(() => [
@@ -394,6 +424,7 @@ defineExpose({ focusItem });
           class="block max-w-none object-fill"
           :style="{ width: `${canvasWidth}px`, height: `${canvasHeight}px` }"
           data-testid="map-image"
+          @load="onImageLoad"
           @error="onImageError"
         />
         <button
@@ -406,9 +437,14 @@ defineExpose({ focusItem });
           :data-collected="marker.collected"
           :data-selected="marker.selected"
           :data-category="marker.category"
+          :data-off-map="marker.offMap"
           :aria-label="marker.ariaLabel"
           :aria-pressed="marker.selected"
-          :title="marker.entry.item.display_name"
+          :title="
+            marker.offMap
+              ? `${marker.entry.item.display_name}（${t('底图留白区', 'blank area of the basemap')}）`
+              : marker.entry.item.display_name
+          "
           class="absolute flex cursor-pointer items-center justify-center rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
           :class="[
             marker.selected ? 'h-[26px] w-[26px]' : 'h-6 w-6',
@@ -421,6 +457,12 @@ defineExpose({ focusItem });
           @dblclick.stop
         >
           <component :is="categoryIcon(marker.category)" :size="14" aria-hidden="true" />
+          <span
+            v-if="marker.offMap"
+            class="pointer-events-none absolute -inset-[4px] rounded-full border-2 border-dashed border-[var(--muted)]"
+            data-testid="map-marker-off-map"
+            aria-hidden="true"
+          />
           <span
             v-if="marker.selected"
             class="pointer-events-none absolute -inset-[3px] rounded-full border-2 border-[var(--accent)]"

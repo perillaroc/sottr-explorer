@@ -8,9 +8,17 @@ vi.mock("../src/data/basemaps", async (importOriginal) => {
   return { ...actual, basemapImageUrl: (entry: Basemap) => `/basemaps/${entry.image}` };
 });
 
+// 遮罩采样结果由用例控制：默认 null（无法检测，保持原有渲染）。
+const maskState = vi.hoisted(() => ({ mask: null as MapMask | null }));
+vi.mock("../src/app/map-mask", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/app/map-mask")>();
+  return { ...actual, readMapMask: () => maskState.mask };
+});
+
 import MapPage from "../src/components/MapPage.vue";
 import { createAppStore } from "../src/app/store";
 import { MockDataSource } from "../src/data/mock";
+import type { MapMask } from "../src/app/map-mask";
 import type { Basemap } from "../src/data/basemaps";
 import { analyzeCandidate, createTestStore, mountWithStore } from "./helpers";
 
@@ -31,6 +39,7 @@ afterAll(() => {
 });
 
 beforeEach(() => {
+  maskState.mask = null;
   vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
     x: 0,
     y: 0,
@@ -206,6 +215,42 @@ describe("地图页：响应式", () => {
     close?.click();
     await flushPromises();
     expect(wrapper.find('[data-testid="map-canvas"]').exists()).toBe(true);
+  });
+});
+
+describe("地图页：底图留白（2026-11-01）", () => {
+  it("落在留白区的点位用虚线外环标出，并在图下说明数量", async () => {
+    // 100×100 遮罩：右侧 25% 与北侧一段留白，正好覆盖 Kuwaq unit 2287 的 4 条。
+    const width = 100;
+    const height = 100;
+    const alpha = new Uint8ClampedArray(width * height).fill(255);
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
+        if (x >= 75 || (y < 25 && x >= 35 && x <= 55)) {
+          alpha[y * width + x] = 0;
+        }
+      }
+    }
+    maskState.mask = { width, height, alpha };
+
+    const { store, wrapper } = await mountMap(1440);
+    store.actions.setMapRegion("kuwaq_yaku");
+    store.actions.setMapBasemap("bm:kuwaq_yaku/2287");
+    await flushPromises();
+    await wrapper.get('[data-testid="map-image"]').trigger("load");
+    await flushPromises();
+
+    const offMap = wrapper.findAll('[data-map-marker="true"][data-off-map="true"]');
+    expect(offMap).toHaveLength(4);
+    expect(wrapper.findAll('[data-testid="map-marker-off-map"]')).toHaveLength(4);
+    expect(wrapper.get('[data-testid="map-off-map-note"]').text()).toContain("4 个点位");
+    expect(wrapper.get('[data-testid="map-off-map-note"]').text()).toContain("底图留白区");
+  });
+
+  it("无法采样底图时不显示留白说明", async () => {
+    const { wrapper } = await mountMap(1440);
+    expect(wrapper.find('[data-testid="map-off-map-note"]').exists()).toBe(false);
+    expect(wrapper.findAll('[data-map-marker="true"][data-off-map="true"]')).toHaveLength(0);
   });
 });
 

@@ -8,6 +8,7 @@
 // 点位坐标来自基底层矩阵（首版为 u = x·W、v = y·H），不做任何前端拟合。
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 import { t, tFormat } from "../app/i18n";
+import { pointOnMap, readMapMask, type MapMask } from "../app/map-mask";
 import type { PlanItem } from "../data/atlas";
 import { basemapImageUrl, projectToImage, resolveBasemapMode, type Basemap } from "../data/basemaps";
 import PositionScatter from "./PositionScatter.vue";
@@ -28,13 +29,25 @@ const props = withDefaults(
 
 const imageFailed = ref(false);
 const imageElement = ref<HTMLImageElement | null>(null);
+/** 底图不透明区域遮罩；未加载或无法采样时为 null（按「已绘制」处理）。 */
+const mask = ref<MapMask | null>(null);
 
 watch(
   () => props.basemap?.basemap_id,
   () => {
     imageFailed.value = false;
+    mask.value = null;
   },
 );
+
+/** 图片就绪后采样不透明区域；只接受当前地址的 load。 */
+function onImageLoad(event: Event) {
+  const target = event.target as HTMLImageElement | null;
+  if (!target || target.getAttribute("src") !== imageUrl.value) {
+    return;
+  }
+  mask.value = readMapMask(target);
+}
 
 // 卸载时断开 src，确保解码后的位图可被回收（窄窗下反复开关详情时尤其明显）。
 onBeforeUnmount(() => {
@@ -65,6 +78,8 @@ interface Dot {
   top: number;
   collected: boolean;
   selected: boolean;
+  /** 坐标落在底图留白区（多为地下、隧道或地图边缘）。 */
+  offMap: boolean;
 }
 
 const dots = computed<Dot[]>(() => {
@@ -88,6 +103,7 @@ const dots = computed<Dot[]>(() => {
       top: (pixel.v / entry.image_height) * 100,
       collected: item.status === "collected",
       selected: item.id === props.selectedId,
+      offMap: !pointOnMap(mask.value, item.position.x, item.position.y),
     });
   }
   return points;
@@ -132,6 +148,7 @@ function formatPx(value: number | null | undefined): string {
 }
 
 const caption = computed(() => {
+  const blank = dots.value.filter((dot) => dot.offMap).length;
   if (mode.value === "map" && props.basemap) {
     const entry = props.basemap;
     const median = formatPx(entry.median_error_px);
@@ -154,6 +171,13 @@ const caption = computed(() => {
       main,
       legend: t("实心 = 已收集，空心 = 未收集。", "Filled = collected, hollow = uncollected."),
       caution: t("不是导航路线。", "Not a navigation route."),
+      blank:
+        blank > 0
+          ? t(
+              `另有 ${blank} 个点位于底图留白区（多为地下、隧道或地图边缘）。`,
+              `${blank} point(s) fall in blank areas of the basemap (often underground, in tunnels, or at the map edge).`,
+            )
+          : "",
     };
   }
   return {
@@ -163,6 +187,7 @@ const caption = computed(() => {
     ),
     legend: "",
     caution: t("坐标未校准，不是导航点位。", "Coordinates are uncalibrated and are not navigation waypoints."),
+    blank: "",
   };
 });
 </script>
@@ -190,6 +215,7 @@ const caption = computed(() => {
           decoding="async"
           class="absolute inset-0 h-full w-full object-fill"
           data-testid="basemap-image"
+          @load="onImageLoad"
           @error="onImageError"
         />
         <span
@@ -205,8 +231,14 @@ const caption = computed(() => {
           :style="{ left: `${dot.left}%`, top: `${dot.top}%` }"
           :data-collected="dot.collected"
           :data-selected="dot.selected"
+          :data-off-map="dot.offMap"
           data-testid="basemap-dot"
         >
+        <span
+          v-if="dot.offMap"
+          class="pointer-events-none absolute -inset-[3px] rounded-full border border-dashed border-[var(--muted)]"
+          data-testid="basemap-dot-off-map"
+        />
         <span
           v-if="dot.selected"
           class="pointer-events-none absolute -inset-[4px] rounded-full border-2 border-[var(--accent-strong)]"
@@ -220,6 +252,9 @@ const caption = computed(() => {
     <figcaption v-if="mode === 'map'" class="text-xs text-muted">
       {{ caption.main }}
       <template v-if="caption.legend"> {{ caption.legend }}</template>
+      <template v-if="caption.blank">
+        <span data-testid="basemap-blank-note">{{ caption.blank }}</span>
+      </template>
       <span class="text-caution">{{ caption.caution }}</span>
     </figcaption>
   </figure>

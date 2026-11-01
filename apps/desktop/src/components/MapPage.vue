@@ -45,6 +45,8 @@ const searchInput = ref<InstanceType<typeof UiSearchInput> | null>(null);
 const railOverlayOpen = ref(false);
 const narrowDetailOpen = ref(false);
 const railDraft = ref<number | null>(null);
+/** 当前地图上落在底图留白区的条目（由 MapCanvas 采样底图 alpha 得出）。 */
+const offMapIds = ref<string[]>([]);
 
 const plan = computed(() => store.plan.value);
 const atlas = store.atlas;
@@ -222,6 +224,11 @@ function openRegionList(): void {
   store.actions.setView("regions");
 }
 
+/** 底图留白区点位变化：只用于图下说明，不影响筛选与计数。 */
+function onOffMap(ids: string[]): void {
+  offMapIds.value = ids;
+}
+
 /** 点击地图图标：选中并自动切到「详情」；窄窗打开全宽详情浮层。 */
 function onMarkerSelect(id: string | null): void {
   if (id === null) {
@@ -396,6 +403,7 @@ onMounted(() => {
               :selected-id="store.state.selectedRowId"
               :label="canvasLabel"
               @select="onMarkerSelect"
+              @off-map="onOffMap"
             >
               <template #error>
                 <UiButton size="sm" @click="openRegionList">{{ t("在区域清单中查看", "View in regional list") }}</UiButton>
@@ -411,6 +419,19 @@ onMounted(() => {
               </p>
             </div>
           </div>
+
+          <p
+            v-if="offMapIds.length > 0"
+            class="shrink-0 border-t border-line bg-surface px-4 py-1.5 text-xs text-muted"
+            data-testid="map-off-map-note"
+          >
+            {{
+              t(
+                `地图上有 ${offMapIds.length} 个点位落在底图留白区（多为地下、隧道或地图边缘），已用虚线外环标出。`,
+                `${offMapIds.length} marker(s) fall in blank areas of the basemap (often underground, in tunnels, or at the map edge); they are marked with a dashed ring.`,
+              )
+            }}
+          </p>
 
           <details
             v-if="narrow"
