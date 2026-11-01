@@ -21,12 +21,12 @@
                                                                  └─► data/catalog/collectibles_catalog.json
 ```
 
-`game-data/notes/` 四篇记录按顺序阅读：
+四篇研究记录的正文在文档站（`docs/data/research/`），`game-data/notes/` 只保留入口指针：
 
-1. [`extraction.md`](game-data/notes/extraction.md)：环境、输入、容器格式、脚本与运行示例
-2. [`findings.md`](game-data/notes/findings.md)：提取到的事实、假说与未解问题
-3. [`reconciliation.md`](game-data/notes/reconciliation.md)：全收集口径对账与否定结果
-4. [`derived-tables.md`](game-data/notes/derived-tables.md)：派生表口径、43 行验收与未闭合项
+1. [`extraction.md`](../docs/data/research/extraction.md)：环境、输入、容器格式、脚本与运行示例
+2. [`findings.md`](../docs/data/research/findings.md)：提取到的事实、假说与未解问题
+3. [`reconciliation.md`](../docs/data/research/reconciliation.md)：全收集口径对账与否定结果
+4. [`derived-tables.md`](../docs/data/research/derived-tables.md)：派生表口径、43 行验收与未闭合项
 
 ## 复现与校验
 

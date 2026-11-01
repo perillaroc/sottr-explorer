@@ -4,7 +4,7 @@
 只读消费已提取的游戏资源负载（`research/game-data` 的提取产物）与两个 MIT 列表模板，
 产出可随产品分发的事实性映射。原始商业资源不进入本仓库。
 
-对象布局（与 `research/game-data/notes/extraction.md` 记录一致，原 SX-022 补齐故事条目字段）：
+对象布局（与 `docs/data/research/extraction.md` 记录一致，原 SX-022 补齐故事条目字段）：
 
 - CollectibleStory（组）步长 168：isDLC@4、组名 ref@16、条目 ref@152、条目数@160
 - StoryCollectibleItem 步长 496、NonStoryCollectibleItem 步长 240，**共享同一前缀**：

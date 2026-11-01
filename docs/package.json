@@ -5,7 +5,8 @@
   "packageManager": "pnpm@10.33.2",
   "scripts": {
     "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
+    "docs:check": "node scripts/check-consistency.mjs",
+    "docs:build": "node scripts/check-consistency.mjs && vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {

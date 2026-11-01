@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "sottr-explorer 全收集图鉴（SX-021 阶段 A / SX-022 schema 2.0.0）",
-  "description": "由 data/catalog/build_catalog.py 生成；事实来源与门禁说明见 data/catalog/README.md 与 research/game-data/notes/derived-tables.md",
+  "description": "由 data/catalog/build_catalog.py 生成；事实来源与门禁说明见 data/catalog/README.md 与 docs/data/research/derived-tables.md",
   "type": "object",
   "additionalProperties": false,
   "required": ["catalog_schema_version", "catalog_version", "generated_from", "totals", "acquisition_rules", "categories", "collections", "units", "regions", "items"],

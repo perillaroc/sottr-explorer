@@ -95,7 +95,8 @@ pnpm dev                            # 开发服务器（浏览器内为模拟数
 cd docs
 pnpm install
 pnpm docs:dev                       # 文档站本地预览
-pnpm docs:build                     # 生成静态站点（含死链检查）
+pnpm docs:check                     # 错误码与术语一致性
+pnpm docs:build                     # 生成静态站点（含死链与一致性校验）
 ```
 
 ### 命令行

@@ -11,8 +11,8 @@
 //! - SX-022 新增的区域 / 子关卡 / 中英名 / 坐标 / 获取方式均为**展示与定位线索**，
 //!   坐标空间显式标为未校准（`unit_normalized_unverified`），不得当作已验证地图坐标。
 //!
-//! 数据来源与门禁见 `data/catalog/README.md`、`research/game-data/notes/derived-tables.md` 与
-//! `research/game-data/notes/reconciliation.md`。
+//! 数据来源与门禁见 `data/catalog/README.md`、`docs/data/research/derived-tables.md` 与
+//! `docs/data/research/reconciliation.md`。
 
 use std::collections::BTreeMap;
 use std::fmt;
@@ -92,7 +92,7 @@ pub enum ItemKind {
 /// 关卡内相对位置（SX-022）。
 ///
 /// `space` 固定为 `unit_normalized_unverified`：坐标来自游戏数据的关卡归一化空间，
-/// **未校准**为地图投影，只能作相对位置线索展示（见 `research/game-data/notes/derived-tables.md`）。
+/// **未校准**为地图投影，只能作相对位置线索展示（见 `docs/data/research/derived-tables.md`）。
 #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct CatalogPosition {

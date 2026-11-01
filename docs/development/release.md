@@ -20,7 +20,7 @@
 4. `py -3 data/metadata/build_metadata.py --check`；
 5. `py -3 data/catalog/build_catalog.py <work_dir> --check`（需要仓库外提取物）；
 6. 更新 `THIRD_PARTY_NOTICES.md` 与依赖许可全文，确认 `licenses/` 与“关于”页一致；
-7. `cd docs && pnpm docs:build`，确认无死链；
+7. `cd docs && pnpm docs:build`，确认无死链与一致性错误；
 8. 打 tag 并触发桌面端构建与 Netlify 文档发布。
 
 ## 不随包分发

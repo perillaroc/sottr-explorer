@@ -57,3 +57,36 @@
 | `metadata` | 内部 ID、名称、43 项计数映射、参考集合与攻略组 |
 | `basemap` | 子关卡底图 + 归一化坐标到像素的变换 |
 | `manifest` | 元数据输入与输出哈希清单，用于漂移检测 |
+
+## 枚举值速查
+
+契约与数据集中会直接出现的取值。完整定义见[契约](/contracts)对应字段。
+
+| 组 | 取值 |
+| --- | --- |
+| 支持状态 | `supported`、`partial`、`unsupported` |
+| 上下文模式 | `campaign`、`profile`、`unknown`、`unsupported` |
+| 上下文来源 | `user_declared`、`fixture_provenance`、`unknown` |
+| 观测 | `present`、`reference_present_current_absent`、`unknown` |
+| 评估 | `likely_collected`、`likely_missing`、`unknown`、`verified_collected`、`verified_uncollected` |
+| 证据等级 | `observed`、`community_correlated`、`game_validated` |
+| 严重级别 | `info`、`warning`、`error` |
+| 诊断作用域 | `input`、`container`、`sections`、`inventory`、`counters`、`reference_difference`、`location`、`metadata` |
+| 清单表 | `prefix`、`type28_overflow` |
+| 定位精度 | `region`、`guide_group`、`guide_item`、`verified_coordinates` |
+| 映射类型 | `region_clue`、`guide_group_membership`、`exact_guide_item`、`verified_coordinates`、`none` |
+| 组行动性 | `whole_group_check`、`general_reference`、`unavailable` |
+| 快照新鲜度 | `current`、`refreshing`、`stale`、`none` |
+| 名称种类 | `source_localized`、`curated_short`、`machine_translated`、`unknown` |
+| 审核状态 | `draft`、`reviewed`、`withdrawn` |
+| 可再分发 | `yes`、`no`、`pending` |
+| 来源介质 | `text`、`video` |
+| 来源角色 | `guide`、`tool`、`save`、`research`、`other` |
+| 底图根目录 | `external`、`bundled` |
+| 变换依据 / 误差来源 | `analytic`、`measured`、`global_estimate` |
+| 底图状态 | `unverified`、`approximate`、`calibrated` |
+| 坐标 y 轴 | `up`、`down` |
+| 底图来源许可 | `pending`、`allowed`、`denied` |
+| 图鉴条目种类 | `story`、`nonstory` |
+| 获取方式来源 | `curated`、`game_data` |
+| 名称来源 | `game_locale`、`curated`、`zone_name` |

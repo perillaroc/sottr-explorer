@@ -1,6 +1,6 @@
 //! 全收集目录（SX-021，阶段 B）：真实数据加载与非法输入拒绝。
 //!
-//! 真实数据断言与 `research/game-data/notes/reconciliation.md` 的对账结论一致；任何数字变化都必须
+//! 真实数据断言与 `docs/data/research/reconciliation.md` 的对账结论一致；任何数字变化都必须
 //! 同时更新两处，否则测试失败。
 
 use sottr_core::catalog::{

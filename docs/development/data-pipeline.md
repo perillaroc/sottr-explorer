@@ -13,7 +13,7 @@
 
 游戏安装包 bigfile*.tiger
 └─ research/game-data/extract_*（仓库外提取物）
-   ├─ reconcile_* ─────────────────────► research/game-data/notes/*
+   ├─ reconcile_* ─────────────────────► docs/data/research/*
    └─ build_derived_tables.py ──────────► research/game-data/data/*.json
                                             └─ data/catalog/build_catalog.py
                                                ──► data/catalog/collectibles_catalog.json

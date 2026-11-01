@@ -44,12 +44,14 @@ pnpm contract:images  # 底图存在性、字节数、SHA-256、WebP 尺寸
 cd docs
 pnpm install
 pnpm docs:dev       # 本地预览
-pnpm docs:build     # 输出 docs/.vitepress/dist
+pnpm docs:check     # 错误码与术语枚举一致性
+pnpm docs:build     # 先跑一致性校验，再输出 docs/.vitepress/dist
 pnpm docs:preview   # 预览构建产物
 ```
 
 Netlify 使用同一套命令：仓库根 `netlify.toml` 把 base 设为 `docs`，发布目录为
-`.vitepress/dist`。构建默认会把死链当错误，因此文档链接改动后必须重新构建。
+`.vitepress/dist`。构建默认会把死链和一致性错误当失败，因此文档链接、错误码或枚举值
+改动后必须重新构建。
 
 ## 常见问题
 

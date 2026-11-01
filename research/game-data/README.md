@@ -21,10 +21,12 @@
 
 ## 记录
 
-- [`notes/extraction.md`](notes/extraction.md)：环境、输入、容器格式、脚本与运行示例（原 SX-019）
-- [`notes/findings.md`](notes/findings.md)：提取到的事实、假说与未解问题（原 SX-019）
-- [`notes/reconciliation.md`](notes/reconciliation.md)：全收集口径对账与否定结果（原 SX-020）
-- [`notes/derived-tables.md`](notes/derived-tables.md)：派生表口径、43 行验收与未闭合项（原 SX-022）
+四篇记录的正文在文档站（`docs/data/research/`），`notes/` 只保留入口指针：
+
+- [`extraction.md`](../../docs/data/research/extraction.md)：环境、输入、容器格式、脚本与运行示例（原 SX-019）
+- [`findings.md`](../../docs/data/research/findings.md)：提取到的事实、假说与未解问题（原 SX-019）
+- [`reconciliation.md`](../../docs/data/research/reconciliation.md)：全收集口径对账与否定结果（原 SX-020）
+- [`derived-tables.md`](../../docs/data/research/derived-tables.md)：派生表口径、43 行验收与未闭合项（原 SX-022）
 
 ## 复现顺序
 

@@ -2,7 +2,7 @@
 //!
 //! 真实数据的区域×子类别计数与 `research/game-data/validate_region_counters.py`
 //! 对存档区域计数器的对账结果一致（43 行全部吻合）；任何数字变化都必须同时更新
-//! `data/catalog/` 与 `research/game-data/notes/derived-tables.md`。
+//! `data/catalog/` 与 `docs/data/research/derived-tables.md`。
 
 use std::collections::BTreeSet;
 
@@ -81,7 +81,7 @@ fn real_catalog_story_subcategories_match_region_counters() {
             })
             .count()
     };
-    // 与存档区域计数器的来源目标逐项一致（见 research/game-data/notes/derived-tables.md 的对账表）。
+    // 与存档区域计数器的来源目标逐项一致（见 docs/data/research/derived-tables.md 的对账表）。
     assert_eq!(
         (
             count("paititi", "relics"),
