@@ -153,10 +153,10 @@ describe("MapCanvas", () => {
     const markers = wrapper.findAll("[data-map-marker='true']");
     expect(markers.length).toBe(3);
     expect(wrapper.get('[data-testid="map-canvas"]').attributes("data-zoom")).toBe("1");
-    // (0.5, 0.5) → u=50, v=25 → ×8 → (400, 200)。
+    // (0.5, 0.5) → u=50, v=25 → ×8 → 图层内 (400, 200)；1× 时画布垂直居中 +100。
     const a = wrapper.get('[data-testid="map-marker-a"]').element as HTMLElement;
     expect(a.style.left).toBe("400px");
-    expect(a.style.top).toBe("200px");
+    expect(a.style.top).toBe("300px");
     expect(a.getAttribute("aria-label")).toContain("收集品 a");
     expect(a.getAttribute("aria-label")).toContain("已收集");
   });
@@ -182,12 +182,16 @@ describe("MapCanvas", () => {
     const wrapper = await mountCanvas();
     await wrapper.get('[data-testid="map-zoom-in"]').trigger("click");
     expect(Number(wrapper.get('[data-testid="map-canvas"]').attributes("data-zoom"))).toBeCloseTo(1.35);
-    const marker = wrapper.get('[data-testid="map-marker-a"]').element as HTMLElement;
-    expect(marker.style.transform).toContain("scale(0.74074");
+    const marker = wrapper.get('[data-testid="map-marker-a"]');
+    const element = marker.element as HTMLElement;
+    // 标记不在缩放层里，只做居中平移；图标始终保持原生 24px，不会被栅格化放大。
+    expect(element.parentElement?.getAttribute("data-testid")).toBe("map-marker-layer");
+    expect(element.style.transform).toBe("translate(-50%, -50%)");
+    expect(marker.classes()).toContain("h-6");
     await wrapper.get('[data-testid="map-zoom-out"]').trigger("click");
     await wrapper.get('[data-testid="map-zoom-reset"]').trigger("click");
     expect(wrapper.get('[data-testid="map-canvas"]').attributes("data-zoom")).toBe("1");
-    expect(marker.style.transform).toBe("translate(-50%, -50%) scale(1)");
+    expect(element.style.transform).toBe("translate(-50%, -50%)");
   });
 
   it("滚轮以指针为锚点缩放并阻止页面滚动；双击放大", async () => {

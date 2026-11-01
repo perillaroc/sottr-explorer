@@ -365,11 +365,15 @@ const ariaLabel = computed(() =>
   }),
 );
 
+// 标记画在**未经变换**的覆盖层上（见模板 data-testid="map-marker-layer"）：
+// 只把底图放进缩放层，标记按 pan/zoom 直接换算成屏幕坐标。
+// 之前标记放在缩放层里再用 scale(1/zoom) 反向缩放保持大小，浏览器会把整个
+// 变换子树先栅格化再放大，放大后 Lucide 矢量图标会发虚。
 function markerStyle(marker: Marker): Record<string, string> {
   return {
-    left: `${marker.left}px`,
-    top: `${marker.top}px`,
-    transform: `translate(-50%, -50%) scale(${1 / zoom.value})`,
+    left: `${pan.value.x + marker.left * zoom.value}px`,
+    top: `${pan.value.y + marker.top * zoom.value}px`,
+    transform: "translate(-50%, -50%)",
     zIndex: marker.selected ? "30" : "1",
   };
 }
@@ -427,6 +431,10 @@ defineExpose({ focusItem });
           @load="onImageLoad"
           @error="onImageError"
         />
+      </div>
+
+      <!-- 标记层不参与缩放变换：位置由 pan/zoom 换算，图标保持原生 24px 尺寸，缩放不发虚。 -->
+      <div class="pointer-events-none absolute inset-0" data-testid="map-marker-layer">
         <button
           v-for="marker in orderedMarkers"
           :key="marker.id"
@@ -445,7 +453,7 @@ defineExpose({ focusItem });
               ? `${marker.entry.item.display_name}（${t('底图留白区', 'blank area of the basemap')}）`
               : marker.entry.item.display_name
           "
-          class="absolute flex cursor-pointer items-center justify-center rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
+          class="pointer-events-auto absolute flex cursor-pointer items-center justify-center rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
           :class="[
             marker.selected ? 'h-[26px] w-[26px]' : 'h-6 w-6',
             marker.collected
