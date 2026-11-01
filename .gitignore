@@ -7,6 +7,10 @@ dist/
 dist-ssr/
 *.local
 
+# 文档站构建产物
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+
 # Python 缓存与虚拟环境（research/ 下的脚本本身入库）
 __pycache__/
 *.py[cod]

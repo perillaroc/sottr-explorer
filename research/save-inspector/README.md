@@ -11,7 +11,7 @@ Python 3.10+，仅标准库、离线运行。读取原文件，不写回存档�
 退出游戏，使用稳定的存档副本。输出必须是全新的目录，不能与输入重叠。
 
 ```powershell
-py -3 sottr_inspect.py --input "D:\SOTTR研究\存档副本" --output "D:\SOTTR研究\报告02" --catalog "data\collectible_id_candidates.json"
+py -3 sottr_inspect.py --input "<saves_dir>" --output "<report_dir>" --catalog "data\collectible_id_candidates.json"
 ```
 
 可重复 `--input`，`--max-pairs 0` 可关闭逐对二进制比较。省略 `--input` 时沿用 v0.1 的 Windows Documents 尝试发现；未在 Windows 实机验证。

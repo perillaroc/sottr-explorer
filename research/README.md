@@ -1,7 +1,7 @@
 # 研究资料（research）
 
-产品数据的事实来源与可复现脚本。原始商业资源、玩家存档与提取产物一律留在仓库外
-（`sottr-explorer-devel/private/`），仓库里只保留脚本、派生映射与结论。
+产品数据的事实来源与可复现脚本。原始商业资源、玩家存档与提取产物一律留在仓库外的
+私有工作区，仓库里只保留脚本、派生映射与结论。
 
 ## 两个包
 
@@ -43,4 +43,4 @@ py -3 data/catalog/build_catalog.py <work_dir> --check
 - 脚本与派生映射随仓库分发（代码 MIT，见根目录 `LICENSE`）；
 - 名称与 zone 命名来自 TrRebootModTools（MIT）；
 - 区域计数器来源目标来自 ASL-SOTTR（事实性数据，见 `THIRD_PARTY_NOTICES.md`）；
-- 原始商业资源转储与玩家存档不入库（`.gitignore` 的 `*.dat`、`samples/`、`analysis*/`、`private/`）。
+- 原始商业资源转储与玩家存档不入库（`.gitignore` 的 `*.dat`、`samples/`、`analysis*/` 与私有工作区规则）。

@@ -21,8 +21,7 @@ u = x · W        v = y · H
 不同子关卡的 `[0,1]` 空间互不相通，不存在全局地图坐标。
 
 变换不是拟合出来的：gameflow 的 `MapData` 自带西北/东南两个标记摆件，`Campsite` 又同时带
-归一化坐标与世界摆件，两侧配对求解得到零残差映射。推导见
-`doc/2026-10-25-地图纹理逆向/几何标定执行.md` 的 GB-09。
+归一化坐标与世界摆件，两侧配对求解得到零残差映射。推导见开发工作区的几何标定记录（GB-09）。
 
 ## 状态与精度
 
@@ -57,16 +56,15 @@ u = x · W        v = y · H
   判定在渲染时采样底图 alpha（`alpha > 8`，与本表口径一致），见
   `apps/desktop/src/app/map-mask.ts`。
 
-逐单位数字见 `doc/2026-10-19-真实地图/覆盖与误差表.md`（由
-`private/map-contact/gen_coverage_doc.py` 生成）。
+逐单位数字见开发工作区的真实地图覆盖与误差表（不随仓库分发）。
 
 ## 生成与校验
 
-生成脚本在开发工作区（`sottr-explorer-devel/private/map-contact/`），不在本仓库：
+生成脚本在开发工作区，不在本仓库：
 
 ```powershell
-# 重新生成数据集与处理后的图片（图片写在仓库外）
-private/venvs/p1/Scripts/python.exe private/map-contact/build_basemaps.py
+# 在开发工作区重新生成数据集与处理后的图片（图片写在仓库外）
+python <map_workdir>/build_basemaps.py
 
 # 校验数据集与图片（存在性、字节数、SHA-256、WebP 实际尺寸）
 cd apps/desktop; pnpm contract:images

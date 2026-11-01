@@ -501,7 +501,7 @@ fn run_public(public_dir: &Path) -> Outcome {
     }
     coverage_notes.push(format!(
         "公开清单自检：{} 条样本对应来源归档与成员；{} 个归档、ZIP 合计 {} 字节；\
-         ZIP 哈希与逐成员核对见恢复清单（仓库外 private/s010_parity/public_restore_manifest.json）",
+         ZIP 哈希与逐成员核对见仓库外的私有恢复清单",
         provenance_ok,
         inventory.archives.len(),
         inventory

@@ -1,5 +1,5 @@
 {
-  "schema_note": "SX-010 私有夹具清单：五文件来自研究包 samples/（不随仓库分发）；本文件不含样本哈希（实现间哈希等式在回归中核对），期望值来自 docs/baseline.md（SX-001 基线，已公开）。",
+  "schema_note": "SX-010 私有夹具清单：五文件来自研究包 samples/（不随仓库分发）；本文件不含样本哈希（实现间哈希等式在回归中核对），期望值来自 docs/data/research/baseline.md（SX-001 基线，已公开）。",
   "samples": [
     {
       "name": "profile.dat",

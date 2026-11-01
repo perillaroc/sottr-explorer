@@ -6,7 +6,7 @@
 //! 使用同一 API 与同一 GUID（其 ctypes 版本作为交叉核对证据）。
 //!
 //! 不引入 `windows-sys`/`windows` 依赖：仅需要两个稳定导出与一个 GUID 常量，
-//! 绑定正确性由本机测试与 `private/` 验证日志中的 PowerShell 独立核对约束。
+//! 绑定正确性由本机测试与开发工作区的独立验证记录（PowerShell 核对）约束。
 //! 任何失败（HRESULT 非成功、路径为空）返回 `None`，由调用方回退到其他候选。
 
 use std::path::PathBuf;

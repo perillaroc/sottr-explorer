@@ -10,10 +10,10 @@
 
 | 项 | 值 |
 | --- | --- |
-| 输入（仓库外） | `private/s019_work/extracted/`：`dtp_0360E8.bin`（globalcollectibleinfo，update3）、`gameflow_dtp_0360F4.bin`、`locals_english.bin`、`locals_simplechinese.bin` |
-| 列表模板（MIT） | `private/s019_tools/TrRebootModTools/Templates/010 Editor/tr/tr11/lists/tr11zones.bt` |
+| 输入（仓库外） | `<work_dir>/extracted/`：`dtp_0360E8.bin`（globalcollectibleinfo，update3）、`gameflow_dtp_0360F4.bin`、`locals_english.bin`、`locals_simplechinese.bin` |
+| 列表模板（MIT） | `<trreboot_tools_dir>/Templates/010 Editor/tr/tr11/lists/tr11zones.bt` |
 | 区域计数器来源目标 | `data/metadata/region_counters.json`（ASL-SOTTR，社区脚本） |
-| 观察集（验收） | `private/s019_work/cli_analyze/analysis.json`（5 个私人战役槽位的 CLI 批量分析） |
+| 观察集（验收） | `<work_dir>/cli_analyze/analysis.json`（5 个私人战役槽位的 CLI 批量分析） |
 | 观察日期 | 2026-10-17 |
 
 ## 结论（均已复核）

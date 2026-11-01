@@ -75,7 +75,7 @@
 | `apps/desktop/` | Tauri 2 后端 + Vue 3 / Vite / Tailwind 前端 |
 | `data/` | 图鉴、元数据与地图基底层（含契约与说明） |
 | `schemas/`、`fixtures/contract/` | 接口 JSON Schema 与契约夹具 |
-| `docs/contracts.md` | 契约与变换格式的正式定义 |
+| `docs/` | 文档站源码（VitePress）：使用指南、开发文档、契约与数据说明；根目录 `netlify.toml` 定义发布方式 |
 
 ### 构建与检查
 
@@ -91,6 +91,11 @@ pnpm test                           # 组件 / 状态 / 端到端测试
 pnpm contract:check                 # 契约校验 + 类型生成 + vue-tsc
 pnpm contract:images                # 底图清单：存在性、字节数、SHA-256、WebP 尺寸
 pnpm dev                            # 开发服务器（浏览器内为模拟数据演示）
+
+cd docs
+pnpm install
+pnpm docs:dev                       # 文档站本地预览
+pnpm docs:build                     # 生成静态站点（含死链检查）
 ```
 
 ### 命令行

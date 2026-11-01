@@ -10,7 +10,7 @@
 | 项 | 值 |
 | --- | --- |
 | 游戏 | Shadow of the Tomb Raider（Steam appid 750920，Definitive Edition，PC） |
-| 安装目录 | `G:\SteamLibrary\steamapps\common\Shadow of the Tomb Raider` |
+| 安装目录 | `<game_dir>` |
 | 数据文件 | `bigfile.000-011.tiger`、`bigfile.update1.002.*`、`bigfile.update2.002.*`、`bigfile.update3.002.*`；各语言 `*_allvo_allplt`、`*_alltxt_*` 家族 |
 | 关键文件 | `pcx64-w\globalcollectibleinfo.drm`、`pcx64-w\globalgameflow.drm`、`pcx64-w\local\locals.bin` |
 | 观察日期 | 2026-10-17 |
@@ -59,7 +59,7 @@ NonStoryCollectibleItem 240。注意：**更新后的 DTP 与模板版本存在�
 | [`../extract_gameflow_locals.py`](../extract_gameflow_locals.py) | 提取 `globalgameflow.drm`（26 区域、94 单位地图）与 `locals.bin`（英/简中） |
 | [`../crosscheck_saves.py`](../crosscheck_saves.py) | 用 CLI 分析输出（观察 ID）与 DTP 全集、866 名称字典交叉对账 |
 
-运行示例（仓库根目录执行；输出目录应在仓库外，如 `private/s019_work`）：
+运行示例（仓库根目录执行；输出目录应在仓库外，如 `<work_dir>`）：
 
 ```powershell
 py -3 research/game-data/extract_collectibleinfo.py "<游戏目录>" "<工作目录>/extracted"
@@ -81,5 +81,5 @@ py -3 research/game-data/crosscheck_saves.py "<工作目录>/cli_analyze/analysi
 ## 结果去向
 
 - 可复现脚本与结论：`research/game-data/`（仓库内，无商业数据转储）。
-- 提取数据、映射候选表、验证日志：`private/s019_work/`、`private/s019_verification.log`（仓库外，按门禁未并入产品）。
+- 提取数据、映射候选表、验证日志：开发工作区的私有目录（仓库外，按门禁未并入产品）。
 - 产品元数据并入：按方案 G4 出口，在原 SX-020 完成后统一执行。

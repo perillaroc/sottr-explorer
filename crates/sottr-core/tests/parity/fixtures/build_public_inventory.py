@@ -8,8 +8,8 @@
 用法（仓库根目录）：
 
     py -3 crates/sottr-core/tests/parity/fixtures/build_public_inventory.py \
-        --sources plan/SOTTR_Save_Research/evidence/public_samples/sources.json \
-        --analysis plan/SOTTR_Save_Research/evidence/public_samples/public_analysis.json \
+        --sources <research_package>/evidence/public_samples/sources.json \
+        --analysis <research_package>/evidence/public_samples/public_analysis.json \
         --out crates/sottr-core/tests/parity/fixtures/public_samples.json
 
     # 只校验现有清单与输入一致（不写文件）

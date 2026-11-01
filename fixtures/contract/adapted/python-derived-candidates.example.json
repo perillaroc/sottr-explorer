@@ -1,6 +1,6 @@
 {
   "note": "Python v0.2 derived_candidates 示例片段（输入侧形状，供适配规则说明使用）",
-  "source": "private/baseline/analysis01/report.json (save1.dat, 2026-10-13 复跑)",
+  "source": "<private_workdir>/analysis01/report.json (save1.dat, 2026-10-13 复跑)",
   "python_shape": {
     "derived_candidates": {
       "overall_completion": {

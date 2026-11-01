@@ -16,7 +16,7 @@ export interface MapMask {
 
 /** 采样用的最长边；远小于原图即可，只在点位附近判断有没有内容。 */
 const MAX_SIDE = 1024;
-/** 与 `private/map-contact/gen_coverage_doc.py` 相同的「不透明」阈值。 */
+/** 与底图处理脚本一致的不透明阈值（alpha > 8）。 */
 const ALPHA_MIN = 8;
 
 function normalize(value: number, size: number): number {

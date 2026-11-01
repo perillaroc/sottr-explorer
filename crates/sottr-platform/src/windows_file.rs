@@ -3,8 +3,8 @@
 //! 为什么不用 std：`std::os::windows::fs::MetadataExt::file_index` 与
 //! `volume_serial_number` 仍是不稳定接口（feature `windows_by_handle`），
 //! stable 工具链不可用；本模块直接读取 `BY_HANDLE_FILE_INFORMATION` 的同名字段，
-//! 只做只读查询、没有副作用。绑定正确性由单元测试与
-//! `private/s013_verification.log` 中的 `fsutil file queryfileid` 独立核对约束。
+//! 只做只读查询、没有副作用。绑定正确性由单元测试与开发工作区的独立验证记录
+//! （`fsutil file queryfileid`）约束。
 
 use crate::read_snapshot::FileIdentity;
 

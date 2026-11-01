@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "basemap_version": "0.1.0",
-  "generated": "2026-10-31 by private/map-contact/build_basemaps.py",
+  "generated": "2026-10-31 by build_basemaps.py",
   "image_root": {
     "kind": "bundled",
     "path": "data/map",

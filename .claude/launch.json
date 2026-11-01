@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--dir", "apps/desktop", "run", "dev"],
       "port": 51888
+    },
+    {
+      "name": "docs-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--dir", "docs", "run", "docs:preview", "--port", "51919"],
+      "port": 51919
     }
   ]
 }

@@ -1,8 +1,7 @@
 # 游戏安装数据（game-data）
 
 从 Shadow of the Tomb Raider（Steam，Definitive Edition）安装包的 `bigfile*.tiger`
-归档中提取、对账并生成图鉴派生表。全程只读；原始资源与提取物留在仓库外
-`private/s019_work/`。
+归档中提取、对账并生成图鉴派生表。全程只读；原始资源与提取物留在仓库外的私有目录。
 
 ## 文件
 

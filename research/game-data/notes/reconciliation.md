@@ -3,7 +3,7 @@
 （原 SX-020 研究记录）
 
 结论与否定结果汇总。输入与容器格式见 [`extraction.md`](extraction.md)；脚本见上一级目录
-`research/game-data/`；原始对账数据在仓库外 `private/s019_work/extracted/s020_reconciliation.json`。
+`research/game-data/`；原始对账数据在仓库外的私有目录。
 
 ## 1. 故事收集品：与"Artifacts 259 / 253 必需"对账 ✓（假说级）
 
@@ -55,4 +55,4 @@
 ## 发布与许可
 
 用户已确认商业游戏数据可随交付版发布（2026-10-17），许可不作为阻塞；脚本与结论
-可入库，原始提取数据留 `private/s019_work/`。
+可入库，原始提取数据留在开发工作区。
