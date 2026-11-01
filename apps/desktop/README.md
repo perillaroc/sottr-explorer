@@ -13,7 +13,7 @@ SX-014 提供最小权限命令层（后端）；SX-015 实现契约驱动的界
 
 ```powershell
 pnpm install        # 安装依赖并生成/更新 pnpm-lock.yaml
-pnpm dev            # 前端开发服务器（http://127.0.0.1:1420；浏览器内为模拟数据演示）
+pnpm dev            # 前端开发服务器（http://127.0.0.1:51888；浏览器内为模拟数据演示）
 pnpm build          # vue-tsc 类型检查（含 tests/）+ vite 构建
 pnpm test           # 组件/状态/端到端测试（Vitest + jsdom；SX-015/SX-016）
 pnpm contract:check # 契约夹具校验 + 由 schemas/ 生成 src/contract 类型 + 类型检查

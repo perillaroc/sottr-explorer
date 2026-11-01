@@ -274,7 +274,7 @@ fn csp_blocks_remote_content_and_stays_local_in_development() {
         .as_str()
         .expect("必须显式配置开发 CSP（Vite HMR 需要 WebSocket 例外）");
     assert!(dev_csp.contains("default-src 'self'"));
-    assert!(dev_csp.contains("ws://localhost:1420"));
+    assert!(dev_csp.contains("ws://localhost:51888"));
     assert!(
         !dev_csp.contains("https://") && !dev_csp.contains('*'),
         "开发 CSP 也不得放行远程来源：{dev_csp}"

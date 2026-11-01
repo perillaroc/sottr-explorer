@@ -5,7 +5,7 @@
       "name": "desktop-dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--dir", "apps/desktop", "run", "dev"],
-      "port": 1420
+      "port": 51888
     }
   ]
 }

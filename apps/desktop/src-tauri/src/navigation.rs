@@ -44,8 +44,8 @@ mod tests {
         for allowed in [
             "tauri://localhost/index.html",
             "http://tauri.localhost/",
-            "http://localhost:1420/",
-            "http://127.0.0.1:1420/index.html",
+            "http://localhost:51888/",
+            "http://127.0.0.1:51888/index.html",
             "about:blank",
         ] {
             assert!(is_allowed_navigation(&url(allowed)), "{allowed}");
@@ -57,7 +57,7 @@ mod tests {
             "file:///C:/Windows/System32/calc.exe",
             "javascript:alert(1)",
             "data:text/html,<script>alert(1)</script>",
-            "ws://localhost:1420/socket",
+            "ws://localhost:51888/socket",
         ] {
             assert!(!is_allowed_navigation(&url(denied)), "{denied}");
         }
