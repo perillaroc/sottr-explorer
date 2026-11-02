@@ -3,7 +3,7 @@
 - story collectibles (Artifacts: Documents/Relics/Murals...) with ids/group/metricName
 - per-region composition lists: challenge tombs / campsites / challenges / missions
 
-Inputs are files produced by the other scripts in this directory (see notes/extraction.md):
+Inputs are files produced by the other scripts in this directory (see docs/data/research/extraction.md):
   <work>/extracted/dtp_0360E8.bin            (globalcollectibleinfo DTP, update3)
   <work>/extracted/gameflow_dtp_0360F4.bin   (globalgameflow DTP, update3)
 

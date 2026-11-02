@@ -16,7 +16,7 @@
 玩家存档 ──save-inspector──► 观察 ID / 区域计数器 ──► data/metadata/*.json
 
 游戏安装包 ──game-data/extract_*──► 原始提取物（仓库外）
-                                     ├─ reconcile ─────────► notes/reconciliation.md 结论
+                                     ├─ reconcile ─────────► docs/data/research/reconciliation.md 结论
                                      └─ build_derived_tables ─► game-data/data/*.json
                                                                  └─► data/catalog/collectibles_catalog.json
 ```
