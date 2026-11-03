@@ -463,7 +463,7 @@ def main() -> int:
         print("--check:", "identical" if same else "DIFFERS")
         return 0 if same else 1
 
-    OUT_PATH.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    OUT_PATH.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     print(f"written {OUT_PATH} ({OUT_PATH.stat().st_size} bytes)")
     return 0
 

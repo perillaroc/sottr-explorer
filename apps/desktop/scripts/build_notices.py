@@ -34,6 +34,14 @@ PRODUCT_LICENSE = REPO / "LICENSE"
 LICENSE_NAME = re.compile(r"(?i)^(licen[cs]e|copying|notice)")
 MAX_LICENSE_BYTES = 300_000
 
+
+def app_version() -> str:
+    """应用版本的唯一来源：Cargo.toml 的 [workspace.package].version。"""
+    cargo = (REPO / "Cargo.toml").read_text(encoding="utf-8")
+    section = re.search(r"\[workspace\.package\](.*?)(?=\n\[|$)", cargo, re.S)
+    match = re.search(r'^\s*version\s*=\s*"([^"]+)"', section.group(1) if section else "", re.M)
+    return match.group(1) if match else "?"
+
 # 依赖声明里常见的 SPDX 标识；顺序也是无许可文件时的选择优先级。
 LICENSE_PREFERENCE = ["MIT", "Apache-2.0", "BSD-3-Clause", "BSD-2-Clause", "ISC", "Zlib", "MPL-2.0"]
 
@@ -342,9 +350,7 @@ def build_licenses(
     ]
     unresolved: list[str] = []
     lines: list[str] = []
-    version = json.loads(
-        (REPO / "apps" / "desktop" / "src-tauri" / "tauri.conf.json").read_text(encoding="utf-8")
-    ).get("version", "?")
+    version = app_version()
 
     lines.append("SOTTR Explorer — 第三方依赖许可全文（离线副本）")
     lines.append(f"版本：{version}    生成：apps/desktop/scripts/build_notices.py")
@@ -505,15 +511,13 @@ def metadata_sources() -> str:
 
 
 def main() -> int:
-    version = json.loads(
-        (REPO / "apps" / "desktop" / "src-tauri" / "tauri.conf.json").read_text(encoding="utf-8")
-    ).get("version", "?")
+    version = app_version()
     rust_deps, rust_rows, rust_error = collect_rust()
     js_deps, js_rows, js_error = collect_js()
     dependencies = rust_deps + js_deps
 
     licenses_text, stats, unresolved = build_licenses(dependencies, rust_error, js_error)
-    LICENSES_OUT.write_text(licenses_text, encoding="utf-8")
+    LICENSES_OUT.write_text(licenses_text, encoding="utf-8", newline="\n")
 
     mit = MIT_TEXT.read_text(encoding="utf-8").strip() if MIT_TEXT.exists() else "（MIT 全文缺失，待复核）"
     lucide = LUCIDE_TEXT.read_text(encoding="utf-8").strip() if LUCIDE_TEXT.exists() else "（ISC 全文缺失，待复核）"
@@ -563,7 +567,7 @@ Rust 依赖（name version — license，共 {len(rust_rows)} 项）：
 JavaScript 依赖（prod，共 {len(js_rows)} 项{js_note}）：
 {txt_rows(js_rows) if not js_error else '  ' + js_error}
 """
-    OUT.write_text(notices, encoding="utf-8")
+    OUT.write_text(notices, encoding="utf-8", newline="\n")
     print(
         f"written {OUT.name} ({OUT.stat().st_size} bytes) and "
         f"{LICENSES_OUT.name} ({LICENSES_OUT.stat().st_size} bytes; "

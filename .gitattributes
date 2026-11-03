@@ -1,0 +1,11 @@
+# 统一文本文件换行：仓库与检出都使用 LF。
+# Windows 检出若把 JSON 转成 CRLF，会改变内容 SHA-256，导致
+# metadata manifest 校验与 dataset 测试失败。
+* text=auto eol=lf
+
+*.png binary
+*.ico binary
+*.icns binary
+*.webp binary
+*.exe binary
+*.zip binary

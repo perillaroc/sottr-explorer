@@ -59,4 +59,6 @@ Netlify 使用同一套命令：仓库根 `netlify.toml` 把 base 设为 `docs`�
 - `pnpm tauri dev` 启动失败：先确认 WebView2 运行时与 MSVC 工具链；
 - 契约类型报错：先跑 `pnpm contract:types`，不要手改 `src/contract/*.d.ts`；
 - 底图 404：确认 `data/map/maps/*.webp` 存在，或设置 `BASEMAP_IMAGE_ROOT` 指向外置目录；
+- 数据哈希校验失败：确认文本文件使用 LF（仓库 `.gitattributes` 已强制 `eol=lf`）；
+  不要把 `data/**/*.json` 保存成 CRLF，否则内容 SHA-256 会变化；
 - 差分回归全部跳过：检查 `SOTTR_SAMPLE_DIR` / `SOTTR_PUBLIC_DIR` 是否设置。
