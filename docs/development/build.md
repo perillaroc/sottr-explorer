@@ -22,6 +22,7 @@ cd apps/desktop
 pnpm install
 pnpm build          # vue-tsc 类型检查 + vite 构建
 pnpm test           # 组件 / 状态 / 端到端测试
+pnpm tauri build    # 单文件便携 exe（不生成安装包）：target/release/sottr-desktop.exe
 pnpm dev            # 开发服务器 http://127.0.0.1:51888（浏览器内为模拟数据）
 pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2）
 ```

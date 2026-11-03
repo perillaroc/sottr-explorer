@@ -93,9 +93,9 @@ MIT **不覆盖**以下内容，它们各自保留原权利与条款，不因本
   `brotli` 为 `BSD-3-Clause AND MIT`，两者条件同时适用。
 - **LGPL-2.1-or-later（可选）**：`r-efi` 标注
   `MIT OR Apache-2.0 OR LGPL-2.1-or-later`，本项目按 MIT / Apache-2.0 使用。
-- **补全清单需人工复核**：`libappindicator-sys 0.9.0` 在本地没有许可文件，包元数据也
-  没有作者/仓库；已按 MIT 转载全文，但版权行无法自动补齐。该包是 Linux 平台条件依赖，
-  不进入 Windows 构建，发布前请人工确认其版权行或从通知范围中排除。
+- **Linux 条件依赖**：`libappindicator-sys 0.9.0` 在本地没有许可文件，包元数据也没有
+  作者/仓库；其 SPDX 为 `Apache-2.0 OR MIT`，已按 MIT 转载全文。该包是 Linux 平台
+  条件依赖，不进入 Windows 构建，也不随本产品分发；保留条目仅为依赖清单完整性。
 
 重新生成（仓库根目录，需要 `cargo` 与 `pnpm`）：
 
@@ -155,9 +155,7 @@ py -3 apps/desktop/scripts/build_notices.py
 - 社区攻略与视频（Stella、3DM、游民星空、B 站）：只记录链接、哈希与事实线索，
   不打包攻略正文、图片或视频。
 
-## 9. 发布前待办
+## 9. 发布前复核
 
-- 随二进制发布各依赖的许可全文（当前仓库只提供通知正文与 TrRebootModTools /
-  Lucide 两份全文；MPL-2.0 覆盖的包按第 4 节给出源代码获取方式）。打包脚本可在
-  `build_notices.py` 基础上扩展。
+- 依赖许可全文已随应用内嵌分发（`THIRD_PARTY_LICENSES.txt`），「关于」页可展开查看；
 - 每次发布前重跑 `build_notices.py`，并确认 `data/*/README.md` 的来源状态无变化。

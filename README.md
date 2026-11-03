@@ -13,6 +13,16 @@
 
 所有判断都基于"存档里出现了哪些 ID"，不是估算；不确定的地方会明确写"未知"，不会用 0 或空清单冒充结论。
 
+## 下载与运行
+
+从 [Releases](https://github.com/perillaroc/sottr-explorer/releases/latest) 下载
+`sottr-desktop.exe`，双击运行，无需安装。
+
+- 仅提供 64 位 Windows 单文件便携版，不提供 MSI/NSIS 安装包；
+- 可执行文件未签名，首次运行可能出现 SmartScreen 提示，选择「更多信息 → 仍要运行」；
+- 需要 WebView2 运行时：Windows 11 已内置；Windows 10 缺失时请从 Microsoft 官网安装；
+- 系统要求与已知限制见[文档站](https://sottr-explorer.netlify.app/guide/getting-started)。
+
 ## 怎么用
 
 1. 启动应用，选择存档文件（默认扫描 `文档\Shadow of the Tomb Raider\*.dat`，也可以手动挑选）。
@@ -90,6 +100,7 @@ pnpm build                          # vue-tsc 类型检查 + vite 构建
 pnpm test                           # 组件 / 状态 / 端到端测试
 pnpm contract:check                 # 契约校验 + 类型生成 + vue-tsc
 pnpm contract:images                # 底图清单：存在性、字节数、SHA-256、WebP 尺寸
+pnpm tauri build                    # 单文件便携 exe（不生成安装包）
 pnpm dev                            # 开发服务器（浏览器内为模拟数据演示）
 
 cd docs

@@ -12,6 +12,16 @@
 
 未知版本写成 `null` 并在 `diagnostics` 说明原因，不虚构构建号。
 
+## 分发形态
+
+v0.1.x 只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
+
+- `apps/desktop/src-tauri/tauri.conf.json` 的 `bundle.active` 为 `false`，
+  `pnpm tauri build` 只输出 `target/release/sottr-desktop.exe`；
+- 产物未签名，Windows SmartScreen 会提示，发布说明必须写明；
+- 运行需要 WebView2：Windows 11 已内置，Windows 10 可能需单独安装；
+- 仓库没有 CI，打 tag 不会自动构建；在本机构建后手工创建 GitHub Release 并上传 exe。
+
 ## 发布前检查
 
 1. `cargo test`、`cargo clippy --all-targets -- -D warnings`；
@@ -19,9 +29,12 @@
 3. `pnpm contract:check` 与 `pnpm contract:images`；
 4. `py -3 data/metadata/build_metadata.py --check`；
 5. `py -3 data/catalog/build_catalog.py <work_dir> --check`（需要仓库外提取物）；
-6. 更新 `THIRD_PARTY_NOTICES.md` 与依赖许可全文，确认 `licenses/` 与“关于”页一致；
+6. `py -3 apps/desktop/scripts/build_notices.py`，确认 `THIRD_PARTY_NOTICES.md` 与生成的两份
+   txt 一致；
 7. `cd docs && pnpm docs:build`，确认无死链与一致性错误；
-8. 打 tag 并触发桌面端构建与 Netlify 文档发布。
+8. 准备 GitHub Release 的版本说明，确认 `README.md` 的下载链接；
+9. 打 tag、在本机构建 `pnpm tauri build`，手工创建 GitHub Release 并上传 exe；
+   文档站由 Netlify 从 `main` 构建。
 
 ## 不随包分发
 
