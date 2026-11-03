@@ -21,6 +21,19 @@
 差分回归与真实样本测试依赖环境变量；缺少夹具时会**安静跳过并记录覆盖缺口**，不记为通过。
 CI 或发布记录应把这些缺口写出来，而不是只看“0 failed”。
 
+## 持续集成
+
+`.github/workflows/ci.yml` 在推送到 `main`、PR 与手动触发时运行：
+
+- `rust`（windows-latest）：`cargo clippy --locked --all-targets -- -D warnings`、
+  `cargo test --locked --workspace`；
+- `frontend`（windows-latest）：`contract:check`、`contract:images`、`pnpm test`、`pnpm build`、
+  元数据 `build_metadata.py --check`；
+- `docs`（ubuntu-latest）：`pnpm docs:build`。
+
+CI 不配置私有/公开样本，因此差分回归按设计跳过；图鉴 `build_catalog.py --check` 需要仓库外
+提取物，也不在 CI 中运行。发布前仍需按[发布](/development/release)清单在本机补跑这两项。
+
 常用变量：
 
 - `SOTTR_SAMPLE_DIR`：私有五文件；

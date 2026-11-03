@@ -1,0 +1,94 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build portable exe
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: apps/desktop/package.json
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/desktop/pnpm-lock.yaml
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust
+        uses: swatinem/rust-cache@v2
+
+      - name: Install frontend dependencies
+        working-directory: apps/desktop
+        run: pnpm install --frozen-lockfile
+
+      - name: Build portable exe
+        working-directory: apps/desktop
+        run: pnpm tauri build
+
+      - name: Package assets
+        shell: pwsh
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          if (-not $tag.StartsWith("v")) {
+            $tag = "dev-$($env:GITHUB_SHA.Substring(0, 7))"
+          }
+          $asset = "SOTTR-Explorer-$tag-windows-x64.exe"
+          Copy-Item "target/release/sottr-desktop.exe" $asset
+          $hash = (Get-FileHash $asset -Algorithm SHA256).Hash.ToLower()
+          "$hash *$asset" | Out-File -Encoding ascii "$asset.sha256"
+          Get-Item $asset, "$asset.sha256" | Format-Table Name, Length
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable-exe
+          path: |
+            SOTTR-Explorer-*-windows-x64.exe
+            SOTTR-Explorer-*-windows-x64.exe.sha256
+          if-no-files-found: error
+
+      - name: Create or update GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = $env:GITHUB_REF_NAME
+          $asset = "SOTTR-Explorer-$tag-windows-x64.exe"
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $tag $asset "$asset.sha256" --clobber
+          } else {
+            gh release create $tag $asset "$asset.sha256" `
+              --title "SOTTR Explorer $tag" `
+              --generate-notes `
+              --latest
+          }

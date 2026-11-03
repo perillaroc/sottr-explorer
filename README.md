@@ -1,5 +1,7 @@
 # SOTTR Explorer
 
+[![CI](https://github.com/perillaroc/sottr-explorer/actions/workflows/ci.yml/badge.svg)](https://github.com/perillaroc/sottr-explorer/actions/workflows/ci.yml)
+
 《古墓丽影：暗影》（Shadow of the Tomb Raider，Windows Steam 版）的**本地只读**存档分析工具。
 打开你的存档，看清还差哪些收集品、它们在哪、怎么拿——原文件不会被改动一个字节。
 
@@ -16,7 +18,7 @@
 ## 下载与运行
 
 从 [Releases](https://github.com/perillaroc/sottr-explorer/releases/latest) 下载
-`sottr-desktop.exe`，双击运行，无需安装。
+`SOTTR-Explorer-<版本>-windows-x64.exe`，双击运行，无需安装。
 
 - 仅提供 64 位 Windows 单文件便携版，不提供 MSI/NSIS 安装包；
 - 可执行文件未签名，首次运行可能出现 SmartScreen 提示，选择「更多信息 → 仍要运行」；

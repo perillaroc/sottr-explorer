@@ -20,7 +20,11 @@ v0.1.x 只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
   `pnpm tauri build` 只输出 `target/release/sottr-desktop.exe`；
 - 产物未签名，Windows SmartScreen 会提示，发布说明必须写明；
 - 运行需要 WebView2：Windows 11 已内置，Windows 10 可能需单独安装；
-- 仓库没有 CI，打 tag 不会自动构建；在本机构建后手工创建 GitHub Release 并上传 exe。
+- 推送 `v*` tag 会触发 `.github/workflows/release.yml`：在 `windows-latest` 构建单文件 exe，
+  生成 SHA-256，并创建或更新 GitHub Release；也可手动运行该工作流只检查构建；
+- 工作流使用内置 `GITHUB_TOKEN`（`contents: write`），不需要额外 secrets；若仓库策略限制
+  默认 token 权限，需在 Settings → Actions 中允许写权限；
+- 日常检查由 `.github/workflows/ci.yml` 负责，发布工作流只负责构建与上传。
 
 ## 发布前检查
 
@@ -33,7 +37,7 @@ v0.1.x 只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
    txt 一致；
 7. `cd docs && pnpm docs:build`，确认无死链与一致性错误；
 8. 准备 GitHub Release 的版本说明，确认 `README.md` 的下载链接；
-9. 打 tag、在本机构建 `pnpm tauri build`，手工创建 GitHub Release 并上传 exe；
+9. 打并推送 `v*` tag，由 GitHub Actions 构建并创建 Release（产物含 `.exe` 与 `.sha256`）；
    文档站由 Netlify 从 `main` 构建。
 
 ## 不随包分发
