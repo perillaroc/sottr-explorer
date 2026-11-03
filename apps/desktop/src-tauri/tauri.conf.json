@@ -1,7 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "SOTTR Explorer",
-  "version": "0.1.0",
   "identifier": "org.sottrexplorer.desktop",
   "build": {
     "beforeDevCommand": "pnpm dev",

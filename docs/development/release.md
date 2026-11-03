@@ -2,13 +2,20 @@
 
 ## 版本字段
 
+应用版本只有一个来源：`Cargo.toml` 的 `[workspace.package].version`。Tauri 配置不写
+`version`，构建时回退到 `src-tauri/Cargo.toml`（即工作区版本）；前端由 Vite 在构建期注入
+同一值，打包后「关于」页再用 Tauri `getVersion()` 读取。发版只改这一行，跑
+`cargo check --workspace` 更新 `Cargo.lock`；发布工作流会校验 tag 与 Cargo 版本一致。
+
 | 字段 | 作用 | 变更规则 |
 | --- | --- | --- |
+| `tool_version` | 应用构建号 | 跟随 `Cargo.toml` 的 workspace 版本，无需单独修改 |
 | `schema_version` | 报告契约版本，当前固定 `1.0.0` | 字段含义、枚举或单位变化即升级 |
 | `catalog_version` | 图鉴数据集版本（当前 schema 2.0.0） | 条目、区域或坐标口径变化即升级 |
 | `metadata_version` | 元数据数据集版本 | 名称、计数映射或参考集合变化即升级 |
 | `reference_set_version` | 参考集合版本 | 参考 ID 集合变化即升级 |
-| `tool_version` | 应用构建号 | 每次发布更新 |
+
+数据与契约版本独立于应用版本；应用升版时不需要改这些字段。
 
 未知版本写成 `null` 并在 `diagnostics` 说明原因，不虚构构建号。
 

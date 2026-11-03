@@ -1,6 +1,6 @@
 [package]
 name = "sottr-cli"
-version = "0.1.0"
+version.workspace = true
 edition = "2024"
 description = "SOTTR Explorer 命令行界面（analyze/导出，SX-009 起实现）"
 publish = false

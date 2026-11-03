@@ -13,6 +13,13 @@ const host = process.env.TAURI_DEV_HOST;
 const appRoot = fileURLToPath(new URL(".", import.meta.url));
 const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
+/** 应用版本的唯一来源：Cargo workspace 版本；构建期注入前端。 */
+function workspaceVersion(): string {
+  const cargo = readFileSync(path.join(repoRoot, "Cargo.toml"), "utf8");
+  const workspace = cargo.match(/\[workspace\.package\]([\s\S]*?)(?=\n\[|$)/)?.[1] ?? "";
+  return workspace.match(/^\s*version\s*=\s*"([^"]+)"/m)?.[1] ?? "0.0.0";
+}
+
 /** 随包分发的底图目录（D4 = A）；`image_root.kind = bundled` 时由它提供 `/basemaps/*`。 */
 const bundledBasemapDir = path.join(repoRoot, "data/map/maps");
 
@@ -78,6 +85,7 @@ export default defineConfig(({ mode }) => {
 
     define: {
       __BASEMAP_IMAGE_BASE__: JSON.stringify(imageDir ? "/basemaps" : null),
+      __APP_VERSION__: JSON.stringify(workspaceVersion()),
     },
 
     // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`

@@ -12,3 +12,6 @@ declare module "*.vue" {
  * （未配置外置素材时界面回退到散点）。
  */
 declare const __BASEMAP_IMAGE_BASE__: string | null;
+
+/** 应用版本，由 vite.config.ts 从 Cargo workspace 版本读取并注入。 */
+declare const __APP_VERSION__: string;

@@ -2,15 +2,30 @@
 // 关于（2026-10-31 从「设置与关于」拆出）：应用与数据版本、支持范围、许可与快捷键。
 // 设置页只放可调项；解释性、归属性与数据来源信息集中在这里。
 import { computed, ref } from "vue";
+import { getVersion } from "@tauri-apps/api/app";
 import { useStore } from "../app/inject";
 import { t } from "../app/i18n";
 import { supportedCategories } from "../app/catalog";
 import { basemapDatasetVersion } from "../data/basemaps";
+import { isTauriRuntime } from "../data/tauri";
 // SX-018 / 2026-10-31：许可通知与依赖许可全文随前端内嵌（构建期内嵌，离线可读）。
 // 全文约 800 KB，展开时再动态载入，避免主包与首屏变重。
 import noticesText from "../../../../THIRD_PARTY_NOTICES.txt?raw";
 
 const store = useStore();
+
+// 应用版本的唯一来源是 Cargo workspace 版本：构建期由 Vite 注入 __APP_VERSION__；
+// 打包运行时再用 Tauri 的 getVersion() 覆盖，浏览器开发/测试保留构建期值。
+const appVersion = ref(__APP_VERSION__);
+if (isTauriRuntime()) {
+  void getVersion()
+    .then((value) => {
+      appVersion.value = value;
+    })
+    .catch(() => {
+      // 保持构建期注入值
+    });
+}
 
 const licensesText = ref<string | null>(null);
 const licensesLoading = ref(false);
@@ -42,7 +57,7 @@ const report = computed(() => store.report.value);
 const categories = computed(() => (report.value ? supportedCategories(store.metadata, report.value) : []));
 
 const versionRows = computed(() => [
-  { label: t("应用版本", "App version"), value: "0.1.0" },
+  { label: t("应用版本", "App version"), value: appVersion.value },
   { label: t("元数据版本", "Metadata version"), value: `${store.metadata.metadata_version}（${store.metadata.namespace}）` },
   { label: t("图鉴版本", "Catalog version"), value: store.atlas.catalog_version },
   { label: t("底图数据集", "Basemap dataset"), value: basemapDatasetVersion },
@@ -61,7 +76,7 @@ const shortcuts = computed(() => [
     <div class="mx-auto max-w-3xl space-y-6 px-6 py-6">
       <header class="space-y-0.5">
         <h1 id="about-title" class="text-lg font-semibold">{{ t("关于", "About") }}</h1>
-        <p class="text-[13px] text-muted">SOTTR Explorer 0.1.0 · {{ t("只读存档分析", "Read-only save analysis") }}</p>
+        <p class="text-[13px] text-muted">SOTTR Explorer {{ appVersion }} · {{ t("只读存档分析", "Read-only save analysis") }}</p>
       </header>
 
       <section class="space-y-2" data-testid="about-data">
