@@ -229,7 +229,7 @@ watch(
           {{ t(`本图另有 ${unplaced} 项无坐标`, `${unplaced} more items in this map have no coordinates`) }}
         </p>
         <p data-testid="map-list-unmapped">
-          {{ t(`本区域另有 ${unmapped} 项无底图`, `${unmapped} more items in this region have no basemap`) }}
+          {{ t(`本区域另有 ${unmapped} 项无底图（可用文字指引）`, `${unmapped} more items in this region have no basemap (text guidance available)`) }}
         </p>
         <UiButton size="sm" variant="ghost" data-testid="map-open-region" @click="emit('open-region')">
           {{ t("在区域清单中查看本区域", "View this region in the regional list") }}

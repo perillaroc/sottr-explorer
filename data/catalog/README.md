@@ -1,4 +1,4 @@
-# 全收集图鉴（SX-021 阶段 A；SX-022 schema 2.0.0）
+# 全收集图鉴（SX-021 阶段 A；SX-022 schema 2.1.0）
 
 `collectibles_catalog.json`：按“全收集（成就/100% 完成度）”口径整理的收集品图鉴，
 也是界面「区域与收集」与 CLI `plan` 的数据源。
@@ -10,13 +10,13 @@
 
 | 字段 | 说明 |
 | --- | --- |
-| `totals` | 条目 470（故事 302 + 非故事 168）、必收 352、DLC 42、带位置 425、已确定区域 470 |
+| `totals` | 条目 470（故事 302 + 非故事 168）、必收 352、DLC 42、带位置 409、已确定区域 470 |
 | `acquisition_rules` | 获取方式规则表（`key → {text_zh, text_en, source, limitations}`）；**人工整理**，标 `curated` |
 | `categories` | 类别清单：必收（artifacts 295、monoliths 12、survival_caches 77、crypt_treasures 10）、可选（explorer_backpacks 15、archivist_maps 19、strongboxes 8、crypt_entrances 9、gym_training 8、test_items 2、croft_manor_extra 7）、`challenge_tombs` 为 `null`（未闭合）。每个类别带 `acquisition_rule_key`；`artifacts` 与 `croft_manor_extra` 另有 `subcategories`（relics/documents/murals，各带自己的规则键） |
-| `collections` | 44 个故事合集（35 基础 + 7 DLC；`Prologue` 组 7 条不要求） |
+| `collections` | 42 个故事合集（35 基础 + 7 DLC；`Prologue` 组 7 条不要求）；含 `display_zh` / `display_en` 的条目可显示人工整理的合集名 |
 | `units` | 子关卡命名：`unit_id → {zone, display_en, display_zh, name_source, region_slug}`（65 条） |
 | `regions` | 26 个游戏区域 + 特殊区域；每条带 `slug` / `name_en` / `name_zh` / `item_count` / `binding`（签名匹配证据）与挑战古墓、营地、挑战、任务目标列表（`missions` 语义未定，不用于缺失） |
-| `items` | 每条：内部候选名 `name`、游戏中英名 `name_en`/`name_zh`、类别、子类别、`region_hash`/`region_slug`、`unit`、`position`（关卡内相对位置，**未校准**）、`is_dlc`、必收标记、`acquisition_note`（逐项注记，可空）；共用 ID 见 `shared_id`/`shared_names` |
+| `items` | 每条：内部候选名 `name`、游戏中英名 `name_en`/`name_zh`、类别、子类别、`region_hash`/`region_slug`、`unit`、`position`（关卡内相对位置，**未校准**）、`is_dlc`、必收标记、`acquisition_note`（中文注记）、`acquisition_note_en`（英文注记）、`acquisition_note_scope`（`item` / `collection` / `unit`）、`acquisition_note_source`（`curated` / `game_data`）；共用 ID 见 `shared_id`/`shared_names` |
 
 ## 生成与校验
 
@@ -28,8 +28,29 @@ py -3 data/catalog/build_catalog.py <work_dir> --check  # 校验与现有文件�
 ```
 
 自检（生成器内置）：故事 302、非故事 168、故事必收 253、全部条目有区域、
-302 条故事条目有官方中文名、全部 unit 有 zone 名。输出同时通过
+302 条故事条目有官方中文名、全部 unit 有 zone 名；另有指引覆盖
+`352 必收 / 243 地图 / 32 合集 / 77 子关卡 / 0 未覆盖`。输出同时通过
 `schemas/catalog.schema.json` 契约（`pnpm contract:validate`）。
+
+## 指引覆盖（v0.2.0）
+
+`guidance.json` 与 `guidance.py` 在构建时给必收条目补文字指引：
+
+- 32 条无坐标条目（集中在支线/挑战古墓奖励）→ 合集注记；
+- 77 条有坐标但所属 unit 无底图的条目 → 子关卡注记；
+- 其余 243 条有坐标且 unit 有底图 → 地图。
+
+不变量：每条 `required_for_100` 必须满足
+`(position && unit 有底图) || acquisition_note`。构建自检固定为
+`352 / 243 / 32 / 77 / 0`；CI 另跑：
+
+```powershell
+py -3 data/catalog/check_guidance.py
+```
+
+该检查只读已提交数据，不需要仓库外提取物；目录与 `guidance.json` 不一致、
+注记缺失或覆盖下降都会失败。注记为项目原创整理，基于图鉴的合集/区域/子关卡与
+坐标数据推断，未逐条与游戏内核实，不复制第三方攻略原文。
 
 ## 验收（最强的一条）
 
@@ -59,7 +80,7 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 ```
 
 `plan` 输出 `plan.json`：每个区域的收集品清单、已收集/未收集、所属子关卡、
-关卡内相对位置（未校准）与获取方式；特殊区域单独成组，不计入主区域合计。
+关卡内相对位置（未校准）与获取方式/指引；特殊区域单独成组，不计入主区域合计。
 `missing` 仍按类别回答「100% 必收还差哪些」（规则与 T22 一致，未改动）。
 
 ## 已知未闭合项（按 T22 不进入缺失结论）
@@ -69,9 +90,11 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
    `0x98564B9D`；按 ID 无法逐项判定，类别整体标记 `null`。界面按名称列出，
    但“缺失”只按共用 ID 观察，不拆分假点。
 2. **任务目标（missions）**：20 条与外部「8 条支线」不符，语义未定，不展示为缺失。
-3. **坐标未校准**：只作关卡内相对位置，不做地图投影、不画底图。
+3. **坐标未校准**：只作关卡内相对位置；只有所属 unit 有底图时才画地图，
+   其余显示散点并配合集/子关卡文字指引。
 4. **获取方式**：`acquisition_rules` 是人工整理的类别通用说明；
-   `items[].acquisition_note` 用于逐项注记（SX-025 补齐重点条目）。
+   `items[].acquisition_note` 已为无坐标/无底图的必收条目补合集或子关卡指引（SX-025），
+   具体触发点仍未逐条与游戏内核实。
 5. **三个特殊区域**（`_challenge_tombs` / `_special` / `croft_manor`）无存档区域计数器，
    单独成组，不参与主区域进度。
 
@@ -85,3 +108,6 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 名称来源 TrRebootModTools `tr11collectibles.bt`、zone 来源 `tr11zones.bt`（均 MIT，
 全文见 `licenses/TrRebootModTools-MIT.txt`）；中英名来自游戏 `locals.bin` 的表内对齐
 （见 `docs/data/research/derived-tables.md`）。
+
+合集/子关卡指引（`guidance.json` 与 `items[].acquisition_note*`）是项目原创整理文字，
+不含第三方攻略原文，不改变上述数据事实的许可边界。

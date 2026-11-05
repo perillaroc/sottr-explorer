@@ -50,7 +50,7 @@ const validTargets = [
   ["metadata", "../../data/metadata/collectibles.json"],
   ["metadata", "../../data/metadata/region_counters.json"],
   ["metadata", "../../data/metadata/reference_sets.json"],
-  // SX-022：全收集图鉴（schema 2.0.0）同样受契约校验（与 Rust catalog 加载器互补）。
+  // SX-022：全收集图鉴（schema 2.1.0）同样受契约校验（与 Rust catalog 加载器互补）。
   ["catalog", "../../data/catalog/collectibles_catalog.json"],
   // P2-01/P2-05：真实地图基底层同样受契约校验（与 Rust basemap 加载器互补）。
   ["basemap", "valid/basemap.valid.json"],

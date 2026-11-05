@@ -20,7 +20,7 @@ fn unique_dir(tag: &str) -> PathBuf {
 }
 
 const CATALOG: &str = r#"{
-  "catalog_schema_version": "2.0.0",
+  "catalog_schema_version": "2.1.0",
   "catalog_version": "2.0.0",
   "generated_from": {},
   "totals": {"items": 3, "story": 0, "nonstory": 3, "required_for_100": 2, "dlc": 0, "with_position": 0, "with_region": 0},

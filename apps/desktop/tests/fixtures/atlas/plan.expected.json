@@ -1,5 +1,5 @@
 {
-  "catalog_version": "2.0.0",
+  "catalog_version": "2.1.0",
   "input_ref": "fixture.dat",
   "main_collected": 55,
   "main_total": 370,
@@ -112,8 +112,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "拾取后会在该区域地图上标出所有收集品位置。不参与 100%。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "pa_archivist_map_07",
               "id": "0xD1C49E10",
               "internal_name": "pa_archivist_map_07",
@@ -160,8 +160,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "拾取后会在该区域地图上标出所有收集品位置。不参与 100%。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "pa_archivist_map_01",
               "id": "0xD1C49E0E",
               "internal_name": "pa_archivist_map_01",
@@ -978,8 +978,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Inca_Rebels",
               "display_name": "侦察",
               "id": "0xE3539118",
@@ -1006,8 +1006,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Cult_Story_1",
               "display_name": "罪行与惩罚",
               "id": "0xC6B98286",
@@ -1258,8 +1258,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Legends",
               "display_name": "猴子双胞胎",
               "id": "0xCBDCD9FB",
@@ -1286,8 +1286,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Legends",
               "display_name": "渡神",
               "id": "0x62B5AB49",
@@ -1314,8 +1314,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「战斗之路通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Cult_Story_1",
               "display_name": "库库尔坎战士",
               "id": "0x2B2FC7E7",
@@ -1342,8 +1342,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Mayan_History_2",
               "display_name": "商人的献祭",
               "id": "0xF744CC5B",
@@ -1773,8 +1773,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "织工恰吉",
               "id": "0xB3E072E4",
@@ -1801,8 +1801,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "商人奇斯皮",
               "id": "0x22E3B207",
@@ -1829,8 +1829,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「古老水道通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "古老水道",
               "id": "0x6D914037",
@@ -1857,8 +1857,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Secrets_And_Lies",
               "display_name": "镜子",
               "id": "0xC14AD971",
@@ -1885,8 +1885,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "太阳神庙",
               "id": "0x4F2135BC",
@@ -1913,8 +1913,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Gods",
               "display_name": "丰饶之神",
               "id": "0xCCE614A4",
@@ -1941,8 +1941,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「战斗之路通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Gods",
               "display_name": "母神",
               "id": "0xD80A5713",
@@ -1969,8 +1969,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「战斗之路」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "战斗之路",
               "id": "0x5DB360F6",
@@ -1997,8 +1997,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "陶工奥兰塔",
               "id": "0xFF54AE20",
@@ -2652,8 +2652,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Aztec_Gods",
               "display_name": "死神夫妇",
               "id": "0x659672E5",
@@ -2792,8 +2792,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「古老水道通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Yaaxil_Story",
               "display_name": "原始人偶",
               "id": "0x18155E52",
@@ -2961,8 +2961,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_05_cr_el_dorado",
               "id": "0x02A67B91",
               "internal_name": "CollectibleTypeCryptTreasure_05_cr_el_dorado",
@@ -2985,8 +2985,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 04」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_10_sm_spanish_mission_cr04",
               "id": "0x48C378CA",
               "internal_name": "CollectibleTypeCryptTreasure_10_sm_spanish_mission_cr04",
@@ -3009,8 +3009,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_03_cr_nepenthes",
               "id": "0x8A28E2C7",
               "internal_name": "CollectibleTypeCryptTreasure_03_cr_nepenthes",
@@ -3033,8 +3033,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_09_pa_hub_paititi_cr02",
               "id": "0xEE11B0D3",
               "internal_name": "CollectibleTypeCryptTreasure_09_pa_hub_paititi_cr02",
@@ -4081,8 +4081,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_Crypt_Eldorado_01",
               "id": "0xD6992534",
               "internal_name": "CollectibleTypeSurvivalCache_Crypt_Eldorado_01",
@@ -4105,8 +4105,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_Crypt_Eldorado_02",
               "id": "0xD6992537",
               "internal_name": "CollectibleTypeSurvivalCache_Crypt_Eldorado_02",
@@ -4129,8 +4129,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 04」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_Crypt_cr_04_01",
               "id": "0x5C4C9AC2",
               "internal_name": "CollectibleTypeSurvivalCache_Crypt_cr_04_01",
@@ -4177,8 +4177,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「古老水道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_01",
               "id": "0xDD26A1BC",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_01",
@@ -4200,8 +4200,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「古老水道通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_02",
               "id": "0xDD26A1BD",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Serpent_Hollow_02",
@@ -4224,8 +4224,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Sky_Temple_01",
               "id": "0xA5F6A32F",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Sky_Temple_01",
@@ -4248,8 +4248,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「战斗之路通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Warrior_Trial_01",
               "id": "0xFD9DCD84",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Warrior_Trial_01",
@@ -4272,8 +4272,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「战斗之路」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Warrior_Trial_02",
               "id": "0xFD9DCD87",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Warrior_Trial_02",
@@ -4342,8 +4342,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "拾取后会在该区域地图上标出所有收集品位置。不参与 100%。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「新生」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "hv_archivist_map_03",
               "id": "0xC31478F2",
               "internal_name": "hv_archivist_map_03",
@@ -4680,8 +4680,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Legends",
               "display_name": "沃坦",
               "id": "0x937D3868",
@@ -4708,8 +4708,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Mayan_History_2",
               "display_name": "神秘的风",
               "id": "0x79BFDBD5",
@@ -5083,8 +5083,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「新生」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "暴君维塔",
               "id": "0x6FA48E97",
@@ -5111,8 +5111,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "呼啸洞穴",
               "id": "0xEF88D7ED",
@@ -5411,8 +5411,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「新生」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_04_cr_newfall_01",
               "id": "0x7289AC8C",
               "internal_name": "CollectibleTypeCryptTreasure_04_cr_newfall_01",
@@ -5907,8 +5907,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Xolotl_01",
               "id": "0xB47DDD90",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Xolotl_01",
@@ -6791,8 +6791,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣科尔多瓦」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Conquerors",
               "display_name": "船长的笔记",
               "id": "0x65B54978",
@@ -6914,8 +6914,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣科尔多瓦通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Yaaxil_Story",
               "display_name": "原始人偶",
               "id": "0x743AA36A",
@@ -6942,8 +6942,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣科尔多瓦」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Conquerors",
               "display_name": "锈剑",
               "id": "0xDBA47FC6",
@@ -7159,8 +7159,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣科尔多瓦通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_01",
               "id": "0xD2E4E3EE",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_01",
@@ -7183,8 +7183,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣科尔多瓦」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_02",
               "id": "0xD2E4E3F1",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Spanish_Galleon_02",
@@ -7839,8 +7839,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Lopez_Death_Cult",
               "display_name": "遗言",
               "id": "0x83E53135",
@@ -7867,8 +7867,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Legends",
               "display_name": "阿鲁克斯",
               "id": "0x24D0344D",
@@ -7895,8 +7895,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Lopez_Death_Cult",
               "display_name": "特洛斯·赛拉诺的遗嘱",
               "id": "0x49B7C6F0",
@@ -7923,8 +7923,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Legends",
               "display_name": "世界之树",
               "id": "0x8834B6B2",
@@ -7951,8 +7951,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Legends",
               "display_name": "辰辰和查卡树",
               "id": "0xCCD225DD",
@@ -7979,8 +7979,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Lopez_Death_Cult",
               "display_name": "狂妄自大",
               "id": "0x5F17B019",
@@ -8007,8 +8007,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Lopez_Death_Cult",
               "display_name": "纯洁之心",
               "id": "0x5814FAFA",
@@ -8035,8 +8035,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Lopez_Death_Cult",
               "display_name": "恶魔",
               "id": "0xF285063D",
@@ -8063,8 +8063,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Lopez_Death_Cult",
               "display_name": "信徒的日志",
               "id": "0x9118AD01",
@@ -8102,8 +8102,8 @@
           "collected": 0,
           "items": [
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Gods",
               "display_name": "可可之神",
               "id": "0xE37CEF20",
@@ -8130,8 +8130,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "渴望诸神",
               "id": "0xD656004F",
@@ -8158,8 +8158,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "生命之树",
               "id": "0x9D56C3FE",
@@ -8186,8 +8186,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "汇合论者华斯卡尔",
               "id": "0xDD9CA99B",
@@ -8365,8 +8365,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Yaaxil_Story",
               "display_name": "原始人偶",
               "id": "0xFE4F7B24",
@@ -8393,8 +8393,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Yaaxil_Story",
               "display_name": "原始人偶",
               "id": "0x72A130AC",
@@ -8421,8 +8421,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Yaaxil_Story",
               "display_name": "原始人偶",
               "id": "0xEF35DE29",
@@ -8449,8 +8449,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Andrea_Lopez_Journal_3",
               "display_name": "轮锁手枪",
               "id": "0x668739AE",
@@ -8522,8 +8522,8 @@
           "collected": 0,
           "items": [
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_07_sm_spanish_mission_crypt_003",
               "id": "0xBA3B0D06",
               "internal_name": "CollectibleTypeCryptTreasure_07_sm_spanish_mission_crypt_003",
@@ -8826,8 +8826,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_02",
               "id": "0xFF9EAC6E",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_02",
@@ -8850,8 +8850,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_01",
               "id": "0xFF9EAC79",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Flooded_Sanctuary_01",
@@ -8874,8 +8874,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Tree_Of_Life_02",
               "id": "0xAE1A2E7A",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Tree_Of_Life_02",
@@ -8944,8 +8944,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "拾取后会在该区域地图上标出所有收集品位置。不参与 100%。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "litj_archivist_map_01",
               "id": "0x298EFC7A",
               "internal_name": "litj_archivist_map_01",
@@ -9174,8 +9174,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Conquerors",
               "display_name": "国王的赎身",
               "id": "0x29B519FB",
@@ -9202,8 +9202,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "The_Fawcett_Expedition_02",
               "display_name": "杰克的日记 2",
               "id": "0x9E17CFFB",
@@ -9230,8 +9230,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Mayan_History_2",
               "display_name": "出人意料的证人",
               "id": "0x60649B7C",
@@ -9258,8 +9258,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "The_Fawcett_Expedition_02",
               "display_name": "杰克的日记",
               "id": "0x09A53C76",
@@ -9286,8 +9286,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「冥界之门」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Search_For_Lost_City",
               "display_name": "咫尺之遥",
               "id": "0xDDC1710D",
@@ -9314,8 +9314,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取文献。与遗物相同：可用求生本能高亮，购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「冥界之门通道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Search_For_Lost_City",
               "display_name": "在门口",
               "id": "0x62148211",
@@ -9353,8 +9353,8 @@
           "collected": 1,
           "items": [
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "说书人里马克",
               "id": "0xCB3F79FB",
@@ -9381,8 +9381,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Crypts",
               "display_name": "侦察者乌求",
               "id": "0x5D96F89C",
@@ -9465,8 +9465,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「审判凝视通道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Maya_Gods",
               "display_name": "死亡之神",
               "id": "0xF2B65ADD",
@@ -9493,8 +9493,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "法官的凝视",
               "id": "0xB1629AF4",
@@ -9521,8 +9521,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内找到墙面壁画并上前查看。部分壁画需要先照明（火把 / 光源）或解开附近机关；可用求生本能高亮。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「冥界之门」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Challenge_Tombs",
               "display_name": "冥界之门",
               "id": "0x56AB3FD1",
@@ -9672,8 +9672,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "The_Fawcett_Expedition",
               "display_name": "墓志铭",
               "id": "0x65321863",
@@ -9700,8 +9700,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "collection": "Myths_Magic_And_Monsters",
               "display_name": "狭长的头骨",
               "id": "0xFAA76BB3",
@@ -9881,8 +9881,8 @@
           "collected": 0,
           "items": [
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_01_cr_lastbreath",
               "id": "0x32E820D8",
               "internal_name": "CollectibleTypeCryptTreasure_01_cr_lastbreath",
@@ -9905,8 +9905,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "进入墓穴（Crypt）并打开石棺取得。墓穴入口通常在区域地图上有标记。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeCryptTreasure_02_crypt_009",
               "id": "0xE66D0DA5",
               "internal_name": "CollectibleTypeCryptTreasure_02_crypt_009",
@@ -9963,8 +9963,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "拾取倒下的探险者遗物背包，可获得技能点。不参与 100%。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「冥界之门通道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeExplorerSatchel_LitJ_02",
               "id": "0x5B5C79A1",
               "internal_name": "CollectibleTypeExplorerSatchel_LitJ_02",
@@ -10257,8 +10257,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "多为散落在关卡里的箱子或背包，打开即得资源。可用求生本能高亮；购买区域档案图后会在区域地图上标出。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「冥界之门」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CollectibleTypeSurvivalCache_CT_Gate_Of_Xibalba_02",
               "id": "0xC062C7B3",
               "internal_name": "CollectibleTypeSurvivalCache_CT_Gate_Of_Xibalba_02",
@@ -10655,8 +10655,8 @@
           "collected": 1,
           "items": [
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "伊希切尔和查克切尔",
               "id": "0x1A19B4E3",
@@ -10685,8 +10685,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "阿玛鲁",
               "id": "0x30DC3B0C",
@@ -10700,8 +10700,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "约拿·玛依阿瓦",
               "id": "0x34ED39BC",
@@ -10715,8 +10715,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "圣三一徽章",
               "id": "0x3CD1C908",
@@ -10730,8 +10730,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "伊希切尔的银盒子",
               "id": "0x3E97117B",
@@ -10760,8 +10760,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "指挥官鲁尔克",
               "id": "0x94AA3CBF",
@@ -10790,8 +10790,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "猩红之火",
               "id": "0xACE98451",
@@ -10805,8 +10805,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "多米格斯博士",
               "id": "0xC4F4FA41",
@@ -10820,8 +10820,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "皇后乌努拉图",
               "id": "0xC65253E3",
@@ -10835,8 +10835,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "库库尔坎教团",
               "id": "0xCBE41351",
@@ -10865,8 +10865,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
               "collection": "aa_Laras_Notebook",
               "display_name": "安德烈斯·洛佩斯",
               "id": "0xF9CDBC99",
@@ -10915,8 +10915,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "完成挑战古墓内的解谜与机关，在尽头检查石碑即记录。注意：游戏数据里 12 个古墓名共用 9 个 ID，判定按 ID 计数、不拆分。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「古老水道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CT_Serpents_Hollow",
               "id": "0x8304AA4B",
               "internal_name": "CT_Serpents_Hollow",
@@ -10939,8 +10939,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "完成挑战古墓内的解谜与机关，在尽头检查石碑即记录。注意：游戏数据里 12 个古墓名共用 9 个 ID，判定按 ID 计数、不拆分。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CT_Court_of_Death",
               "id": "0x81D70069",
               "internal_name": "CT_Court_of_Death",
@@ -10963,8 +10963,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "完成挑战古墓内的解谜与机关，在尽头检查石碑即记录。注意：游戏数据里 12 个古墓名共用 9 个 ID，判定按 ID 计数、不拆分。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CT_Flooded_Sanctuary",
               "id": "0xDA196AFD",
               "internal_name": "CT_Flooded_Sanctuary",
@@ -11017,8 +11017,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "完成挑战古墓内的解谜与机关，在尽头检查石碑即记录。注意：游戏数据里 12 个古墓名共用 9 个 ID，判定按 ID 计数、不拆分。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CT_Sky_Temple",
               "id": "0x49B8E76F",
               "internal_name": "CT_Sky_Temple",
@@ -11041,8 +11041,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "完成挑战古墓内的解谜与机关，在尽头检查石碑即记录。注意：游戏数据里 12 个古墓名共用 9 个 ID，判定按 ID 计数、不拆分。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CT_Tree_Of_Life",
               "id": "0x005E3069",
               "internal_name": "CT_Tree_Of_Life",
@@ -11064,8 +11064,8 @@
               }
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "完成挑战古墓内的解谜与机关，在尽头检查石碑即记录。注意：游戏数据里 12 个古墓名共用 9 个 ID，判定按 ID 计数、不拆分。",
+              "acquisition_source": "unit_note",
+              "acquisition_text": "本子关卡「战斗之路」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
               "display_name": "CT_Warriors_Trial",
               "id": "0xAF194AE7",
               "internal_name": "CT_Warriors_Trial",
@@ -12137,8 +12137,8 @@
           "collected": 5,
           "items": [
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "查克切尔的钥匙",
               "id": "0x01A96640",
@@ -12167,8 +12167,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「阿兹特克人的日常」。本组共 7 件，其中 5 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Day_In_The_Life_Of_The_Aztec",
               "display_name": "耳缠",
               "id": "0x0322ED0C",
@@ -12197,8 +12197,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「邪教故事 I」。本组共 11 件，其中 9 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Cult_Story_1",
               "display_name": "勇士吊坠",
               "id": "0x08A8054E",
@@ -12212,8 +12212,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「帕依提提历史 II」。本组共 8 件，其中 7 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Paititi_History_2",
               "display_name": "救星护符",
               "id": "0x090D83BE",
@@ -12227,8 +12227,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "通往隐秘之城的道路",
               "id": "0x0DC43D80",
@@ -12242,8 +12242,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "银雕像",
               "id": "0x1D7C0331",
@@ -12257,8 +12257,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「玛雅历史 II」。本组共 9 件，其中 8 件在帕依提提 / 库阿克雅库 / 科祖梅尔 / 秘鲁丛林有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Mayan_History_2",
               "display_name": "头骨",
               "id": "0x4128D9F2",
@@ -12272,8 +12272,8 @@
               "status": "collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「社区之需」。本组共 5 件，其中 4 件在库阿克雅库 / 猎鹰的试炼有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。库阿克雅库的支线合集。具体触发点未逐条核实。",
               "collection": "A_Community_In_Need",
               "display_name": "珂巴脂",
               "id": "0x44ADFEB7",
@@ -12287,8 +12287,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「阿兹特克诸神」。本组共 8 件，其中 7 件在帕依提提 / 特殊 / 跨区域有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Aztec_Gods",
               "display_name": "金面具",
               "id": "0x4F8EE97C",
@@ -12302,8 +12302,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "玛雅日期",
               "id": "0x5165F3B4",
@@ -12317,8 +12317,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「神话、魔法与怪物」。本组共 8 件，其中 6 件在帕依提提 / 库阿克雅库 / 秘鲁丛林有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Myths_Magic_And_Monsters",
               "display_name": "纳瓦尔面具",
               "id": "0x5E6F0756",
@@ -12347,8 +12347,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「阿兹特克人的日常」。本组共 7 件，其中 5 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Day_In_The_Life_Of_The_Aztec",
               "display_name": "银镜子",
               "id": "0x69A11CF9",
@@ -12362,8 +12362,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「西班牙传教团」。本组共 8 件，其中 7 件在圣胡安教会有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Spanish_Mission",
               "display_name": "七步接近神",
               "id": "0x74D6B48B",
@@ -12392,8 +12392,8 @@
               "status": "collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「神话、魔法与怪物」。本组共 8 件，其中 6 件在帕依提提 / 库阿克雅库 / 秘鲁丛林有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Myths_Magic_And_Monsters",
               "display_name": "飞机",
               "id": "0xABD9B4C8",
@@ -12407,8 +12407,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "伊希切尔的银盒子",
               "id": "0xB4D95866",
@@ -12437,8 +12437,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "长蛇座",
               "id": "0xBEC00A0C",
@@ -12452,8 +12452,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「印加叛军」。本组共 9 件，其中 7 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Inca_Rebels",
               "display_name": "太阳神印蒂像",
               "id": "0xC65BA16D",
@@ -12482,8 +12482,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「印加叛军」。本组共 9 件，其中 7 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Inca_Rebels",
               "display_name": "乌努拉图的护符",
               "id": "0xDE835BF6",
@@ -12512,8 +12512,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「邪教故事 I」。本组共 11 件，其中 9 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
               "collection": "Cult_Story_1",
               "display_name": "仪式火钻",
               "id": "0xECFCF324",
@@ -12527,8 +12527,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "石杯",
               "id": "0xF41482BF",
@@ -12542,8 +12542,8 @@
               "status": "not_collected"
             },
             {
-              "acquisition_source": "category_rule",
-              "acquisition_text": "在关卡内拾取发光的小物件。学会「求生本能」相关技能后可用求生本能高亮附近收集品；购买该区域的档案图（Archivist Map）可在区域地图上标出未收集的遗物。",
+              "acquisition_source": "collection_note",
+              "acquisition_text": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
               "collection": "Path_of_the_Stars",
               "display_name": "隐秘之城的谜团",
               "id": "0xF97006F6",

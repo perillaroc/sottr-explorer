@@ -37,6 +37,9 @@ export interface AtlasItem {
   unit: number | null;
   position: AtlasPosition | null;
   acquisition_note: string | null;
+  acquisition_note_en?: string | null;
+  acquisition_note_scope?: "item" | "collection" | "unit" | null;
+  acquisition_note_source?: "curated" | "game_data" | null;
   shared_id?: boolean;
   shared_names?: string[];
 }
@@ -103,6 +106,8 @@ export interface AtlasCollection {
   is_dlc: boolean;
   count: number;
   required_for_100: boolean;
+  display_zh?: string | null;
+  display_en?: string | null;
 }
 
 export interface Atlas {
@@ -162,7 +167,7 @@ export interface PlanItem {
   unit?: PlanUnit;
   position?: AtlasPosition;
   acquisition_text: string;
-  acquisition_source: "item_note" | "category_rule";
+  acquisition_source: "item_note" | "collection_note" | "unit_note" | "category_rule";
   location_hint: string;
   same_unit_remaining?: number;
   shared_names?: string[];
@@ -409,7 +414,17 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
             : status === "not_collected"
               ? Math.max(total - 1, 0)
               : total;
-        const note = item.acquisition_note ?? null;
+        const noteZh = item.acquisition_note ?? null;
+        const noteEn = item.acquisition_note_en ?? noteZh;
+        const note = noteZh !== null ? t(noteZh, noteEn ?? noteZh) : null;
+        const acquisitionSource: PlanItem["acquisition_source"] =
+          note === null
+            ? "category_rule"
+            : item.acquisition_note_scope === "collection"
+              ? "collection_note"
+              : item.acquisition_note_scope === "unit"
+                ? "unit_note"
+                : "item_note";
         items.push({
           id,
           display_name: displayNameOfItem(item, id),
@@ -424,7 +439,7 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
           unit,
           position: item.position ?? undefined,
           acquisition_text: note ?? ruleText,
-          acquisition_source: note !== null ? "item_note" : "category_rule",
+          acquisition_source: acquisitionSource,
           location_hint: locationHint(regionName, unit, item.position ?? undefined, othersUncollected),
           same_unit_remaining: othersUncollected,
           shared_names: item.shared_names,

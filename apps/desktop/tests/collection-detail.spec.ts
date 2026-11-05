@@ -78,6 +78,25 @@ describe("收集品详情", () => {
     expect(wrapper.text()).toContain("生存贮藏点");
   });
 
+  it("无坐标必收条目显示合集指引与合集显示名", async () => {
+    const { store } = await setup();
+    const wrapper = await detailFor(store, "0xF97006F6");
+    const body = wrapper.get('[data-testid="detail-acquisition"]').text();
+    expect(body).toContain("星之路");
+    expect(body).toContain("本组 8 件都没有世界坐标");
+    expect(wrapper.text()).toContain("合集指引");
+  });
+
+  it("无底图子关卡条目显示子关卡指引", async () => {
+    const { store } = await setup();
+    const wrapper = await detailFor(store, "0x659672E5");
+    const body = wrapper.get('[data-testid="detail-acquisition"]').text();
+    expect(body).toContain("黄金城");
+    expect(body).toContain("暂无底图");
+    expect(body).toContain("位置以关卡内相对坐标表示");
+    expect(wrapper.text()).toContain("子关卡指引");
+  });
+
   it("相对位置散点默认折叠，展开区保留未校准与「不是导航点位」标注", async () => {
     const { store } = await setup();
     const wrapper = await detailFor(store, PAITITI_ITEM);

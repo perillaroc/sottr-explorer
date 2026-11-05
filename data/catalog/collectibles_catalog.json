@@ -1,6 +1,6 @@
 {
-  "catalog_schema_version": "2.0.0",
-  "catalog_version": "2.0.0",
+  "catalog_schema_version": "2.1.0",
+  "catalog_version": "2.1.0",
   "generated_from": {
     "game": {
       "product": "Shadow of the Tomb Raider",
@@ -15,8 +15,17 @@
     "locale_source": "locals.bin（英 / 简中，allvo_allplt）按表下标对齐；见 docs/data/research/derived-tables.md",
     "zone_source": "TrRebootModTools tr11zones.bt（MIT）",
     "region_binding": "存档区域计数器来源目标 vs 目录区域×类别计数（L1 最近邻，距离 0）；证据见 research/game-data/data/region_bindings.json",
-    "acquisition_text": "类别通用规则为人工整理（curated）；逐项注记见 items[].acquisition_note",
-    "date": "2026-10-17",
+    "acquisition_text": "类别通用规则为人工整理（curated）；逐项注记与合集/子关卡指引见 items[].acquisition_note*",
+    "guidance": {
+      "path": "data/catalog/guidance.json",
+      "source": "curated",
+      "limitations": [
+        "合集指引基于图鉴的合集/区域/子关卡与坐标数据推断，未逐条与游戏内核实。",
+        "子关卡指引只说明该子关卡没有底图与必收数量，不提供逐步路线。",
+        "指引文字为项目原创整理，不复制第三方攻略原文。"
+      ]
+    },
+    "date": "2026-11-05",
     "license_decision": "用户已确认商业游戏数据可随交付版发布（2026-10-17）"
   },
   "totals": {
@@ -280,7 +289,9 @@
       "name": "Path_of_the_Stars",
       "is_dlc": false,
       "count": 8,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "星之路",
+      "display_en": "Path of the Stars"
     },
     {
       "name": "Andrea_Lopez_Journal",
@@ -292,7 +303,9 @@
       "name": "aa_Laras_Notebook",
       "is_dlc": false,
       "count": 11,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "劳拉的笔记",
+      "display_en": "Lara's Notebook"
     },
     {
       "name": "Andrea_Lopez_Journal_2",
@@ -334,13 +347,17 @@
       "name": "A_Community_In_Need",
       "is_dlc": false,
       "count": 5,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "社区之需",
+      "display_en": "A Community in Need"
     },
     {
       "name": "Aztec_Gods",
       "is_dlc": false,
       "count": 8,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "阿兹特克诸神",
+      "display_en": "Aztec Gods"
     },
     {
       "name": "Conquerors",
@@ -352,7 +369,9 @@
       "name": "Day_In_The_Life_Of_The_Aztec",
       "is_dlc": false,
       "count": 7,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "阿兹特克人的日常",
+      "display_en": "Day in the Life of the Aztec"
     },
     {
       "name": "Fortune_And_Glory",
@@ -364,7 +383,9 @@
       "name": "Inca_Rebels",
       "is_dlc": false,
       "count": 9,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "印加叛军",
+      "display_en": "Inca Rebels"
     },
     {
       "name": "Mayan_History_1",
@@ -376,7 +397,9 @@
       "name": "Mayan_History_2",
       "is_dlc": false,
       "count": 9,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "玛雅历史 II",
+      "display_en": "Mayan History II"
     },
     {
       "name": "Mayan_History_3",
@@ -388,7 +411,9 @@
       "name": "Myths_Magic_And_Monsters",
       "is_dlc": false,
       "count": 8,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "神话、魔法与怪物",
+      "display_en": "Myths, Magic and Monsters"
     },
     {
       "name": "Paititi_History_1",
@@ -400,7 +425,9 @@
       "name": "Paititi_History_2",
       "is_dlc": false,
       "count": 8,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "帕依提提历史 II",
+      "display_en": "Paititi History II"
     },
     {
       "name": "Paititi_History_3",
@@ -424,7 +451,9 @@
       "name": "Spanish_Mission",
       "is_dlc": false,
       "count": 8,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "西班牙传教团",
+      "display_en": "Spanish Mission"
     },
     {
       "name": "The_Outside_World",
@@ -460,7 +489,9 @@
       "name": "Cult_Story_1",
       "is_dlc": false,
       "count": 11,
-      "required_for_100": true
+      "required_for_100": true,
+      "display_zh": "邪教故事 I",
+      "display_en": "Cult Story I"
     },
     {
       "name": "Lopez_Death_Cult",
@@ -1731,7 +1762,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xBEC00A0C": {
       "kind": "story",
@@ -1749,7 +1783,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x5165F3B4": {
       "kind": "story",
@@ -1767,7 +1804,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x01A96640": {
       "kind": "story",
@@ -1785,7 +1825,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x0DC43D80": {
       "kind": "story",
@@ -1803,7 +1846,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x1D7C0331": {
       "kind": "story",
@@ -1821,7 +1867,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xF41482BF": {
       "kind": "story",
@@ -1839,7 +1888,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xB4D95866": {
       "kind": "story",
@@ -1857,7 +1909,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「星之路」。本组 8 件都没有世界坐标，随该合集对应的支线/剧情获得。这是帕依提提的星象谜题支线。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Path of the Stars”. None of its 8 entries has a world coordinate; they are obtained through the collection's quest/story. A Paititi constellation-puzzle side quest. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xBA47343A": {
       "kind": "story",
@@ -1879,7 +1934,10 @@
         "y": 0.162219,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD37AD539": {
       "kind": "story",
@@ -1901,7 +1959,10 @@
         "y": 0.701124,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x8FCFCADA": {
       "kind": "story",
@@ -1923,7 +1984,10 @@
         "y": 0.544356,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF4B46500": {
       "kind": "story",
@@ -1945,7 +2009,10 @@
         "y": 0.428535,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCAA74459": {
       "kind": "story",
@@ -1967,7 +2034,10 @@
         "y": 0.509333,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9847F367": {
       "kind": "story",
@@ -1989,7 +2059,10 @@
         "y": 0.638085,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC98FDFC1": {
       "kind": "story",
@@ -2011,7 +2084,10 @@
         "y": 0.593317,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE5EEB8F4": {
       "kind": "story",
@@ -2033,7 +2109,10 @@
         "y": 0.43631,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x3CD1C908": {
       "kind": "story",
@@ -2051,7 +2130,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xC4F4FA41": {
       "kind": "story",
@@ -2069,7 +2151,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x1A19B4E3": {
       "kind": "story",
@@ -2087,7 +2172,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x3E97117B": {
       "kind": "story",
@@ -2105,7 +2193,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xCBE41351": {
       "kind": "story",
@@ -2123,7 +2214,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xC65253E3": {
       "kind": "story",
@@ -2141,7 +2235,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x30DC3B0C": {
       "kind": "story",
@@ -2159,7 +2256,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x34ED39BC": {
       "kind": "story",
@@ -2177,7 +2277,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x94AA3CBF": {
       "kind": "story",
@@ -2195,7 +2298,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xACE98451": {
       "kind": "story",
@@ -2213,7 +2319,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xF9CDBC99": {
       "kind": "story",
@@ -2231,7 +2340,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「劳拉的笔记」。本组 11 件都没有世界坐标，随该合集对应的支线/剧情获得。游戏数据把该组归在挑战古墓相关区域。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Lara's Notebook”. None of its 11 entries has a world coordinate; they are obtained through the collection's quest/story. Game data groups this set under challenge-tomb areas. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xBCCB866C": {
       "kind": "story",
@@ -2253,7 +2365,10 @@
         "y": 0.527851,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCF99CA42": {
       "kind": "story",
@@ -2275,7 +2390,10 @@
         "y": 0.614908,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x3597BA77": {
       "kind": "story",
@@ -2297,7 +2415,10 @@
         "y": 0.591595,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x40673C84": {
       "kind": "story",
@@ -2319,7 +2440,10 @@
         "y": 0.602933,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC8FCA6A1": {
       "kind": "story",
@@ -2341,7 +2465,10 @@
         "y": 0.175137,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x527EBACF": {
       "kind": "story",
@@ -2363,7 +2490,10 @@
         "y": 0.378738,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x164FB06D": {
       "kind": "story",
@@ -2385,7 +2515,10 @@
         "y": 0.528456,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEBA6791E": {
       "kind": "story",
@@ -2407,7 +2540,10 @@
         "y": 0.150996,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xFAC1CB6F": {
       "kind": "story",
@@ -2429,7 +2565,10 @@
         "y": 0.184097,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0E3859C1": {
       "kind": "story",
@@ -2451,7 +2590,10 @@
         "y": 0.115634,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4571AB24": {
       "kind": "story",
@@ -2473,7 +2615,10 @@
         "y": 0.128825,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB125462A": {
       "kind": "story",
@@ -2495,7 +2640,10 @@
         "y": 0.279012,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x26B79773": {
       "kind": "story",
@@ -2517,7 +2665,10 @@
         "y": 0.43937,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x668739AE": {
       "kind": "story",
@@ -2539,7 +2690,10 @@
         "y": 0.559984,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x1E84D6DF": {
       "kind": "story",
@@ -2557,7 +2711,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC9C48B41": {
       "kind": "story",
@@ -2579,7 +2736,10 @@
         "y": 0.289914,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x259EDE27": {
       "kind": "story",
@@ -2597,7 +2757,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x19977201": {
       "kind": "story",
@@ -2619,7 +2782,10 @@
         "y": 0.550079,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA0720AFF": {
       "kind": "story",
@@ -2641,7 +2807,10 @@
         "y": 0.48475,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEBA544A4": {
       "kind": "story",
@@ -2663,7 +2832,10 @@
         "y": 0.674587,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x09D5ABE6": {
       "kind": "story",
@@ -2685,7 +2857,10 @@
         "y": 0.399051,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x23FB0D7E": {
       "kind": "story",
@@ -2707,7 +2882,10 @@
         "y": 0.668506,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF18281A5": {
       "kind": "story",
@@ -2729,7 +2907,10 @@
         "y": 0.601618,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5C78EA34": {
       "kind": "story",
@@ -2751,7 +2932,10 @@
         "y": 0.764787,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4AC568AC": {
       "kind": "story",
@@ -2773,7 +2957,10 @@
         "y": 0.470821,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x12DABFF7": {
       "kind": "story",
@@ -2795,7 +2982,10 @@
         "y": 0.82788,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x043E391D": {
       "kind": "story",
@@ -2817,7 +3007,10 @@
         "y": 0.383786,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x07E76E24": {
       "kind": "story",
@@ -2839,7 +3032,10 @@
         "y": 0.487819,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x489FB5F6": {
       "kind": "story",
@@ -2861,7 +3057,10 @@
         "y": 0.567528,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x484AA8C8": {
       "kind": "story",
@@ -2883,7 +3082,10 @@
         "y": 0.809751,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x6741FDF6": {
       "kind": "story",
@@ -2905,7 +3107,10 @@
         "y": 0.412974,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF96E3E50": {
       "kind": "story",
@@ -2927,7 +3132,10 @@
         "y": 0.211742,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x52A30513": {
       "kind": "story",
@@ -2949,7 +3157,10 @@
         "y": 0.252635,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x8B86224A": {
       "kind": "story",
@@ -2971,7 +3182,10 @@
         "y": 0.666153,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5A58F5AB": {
       "kind": "story",
@@ -2993,7 +3207,10 @@
         "y": 0.743583,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x02784A71": {
       "kind": "story",
@@ -3015,7 +3232,10 @@
         "y": 0.647442,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x371C81F4": {
       "kind": "story",
@@ -3037,7 +3257,10 @@
         "y": 0.481359,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x65E3935A": {
       "kind": "story",
@@ -3059,7 +3282,10 @@
         "y": 0.589666,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEDBA6F35": {
       "kind": "story",
@@ -3081,7 +3307,10 @@
         "y": 0.599737,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x96E1C872": {
       "kind": "story",
@@ -3103,7 +3332,10 @@
         "y": 0.416912,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x65321863": {
       "kind": "story",
@@ -3125,7 +3357,10 @@
         "y": 0.353118,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “LAST BREATH” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x8712DACD": {
       "kind": "story",
@@ -3147,7 +3382,10 @@
         "y": 0.473834,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x724B9CF7": {
       "kind": "story",
@@ -3169,7 +3407,10 @@
         "y": 0.451878,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x44ADFEB7": {
       "kind": "story",
@@ -3187,7 +3428,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「社区之需」。本组共 5 件，其中 4 件在库阿克雅库 / 猎鹰的试炼有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。库阿克雅库的支线合集。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “A Community in Need”. 4 of its 5 entries have world positions in KUWAQ YAKU / TRIAL OF THE EAGLE; this entry has no world coordinate and is obtained through the collection's quest/story. A Kuwaq Yaku side-quest collection. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x8412840E": {
       "kind": "story",
@@ -3209,7 +3453,10 @@
         "y": 0.512251,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x60BF8840": {
       "kind": "story",
@@ -3231,7 +3478,10 @@
         "y": 0.434284,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7E613762": {
       "kind": "story",
@@ -3253,7 +3503,10 @@
         "y": 0.495842,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD85F7B97": {
       "kind": "story",
@@ -3275,7 +3528,10 @@
         "y": 0.330306,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4F8EE97C": {
       "kind": "story",
@@ -3293,7 +3549,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「阿兹特克诸神」。本组共 8 件，其中 7 件在帕依提提 / 特殊 / 跨区域有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Aztec Gods”. 7 of its 8 entries have world positions in PAITITI / SPECIAL / CROSS-REGION; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xE60DB5BB": {
       "kind": "story",
@@ -3315,7 +3574,10 @@
         "y": 0.539541,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0D40E76F": {
       "kind": "story",
@@ -3337,7 +3599,10 @@
         "y": 0.451567,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x22889CE2": {
       "kind": "story",
@@ -3359,7 +3624,10 @@
         "y": 0.261579,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9D37D10B": {
       "kind": "story",
@@ -3381,7 +3649,10 @@
         "y": 0.316777,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x659672E5": {
       "kind": "story",
@@ -3403,7 +3674,10 @@
         "y": 0.526276,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “EL DORADO” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x2389359E": {
       "kind": "story",
@@ -3425,7 +3699,10 @@
         "y": 0.385543,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x29B519FB": {
       "kind": "story",
@@ -3447,7 +3724,10 @@
         "y": 0.652175,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “LAST BREATH” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x783457B3": {
       "kind": "story",
@@ -3469,7 +3749,10 @@
         "y": 0.238076,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF9BA2199": {
       "kind": "story",
@@ -3491,7 +3774,10 @@
         "y": 0.240279,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x65B54978": {
       "kind": "story",
@@ -3513,7 +3799,10 @@
         "y": 0.658276,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣科尔多瓦」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN CORDOBA” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xC8B66BA8": {
       "kind": "story",
@@ -3535,7 +3824,10 @@
         "y": 0.741026,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCC4A7C40": {
       "kind": "story",
@@ -3557,7 +3849,10 @@
         "y": 0.251105,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDBA47FC6": {
       "kind": "story",
@@ -3579,7 +3874,10 @@
         "y": 0.621435,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣科尔多瓦」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN CORDOBA” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xEE8F45DD": {
       "kind": "story",
@@ -3601,7 +3899,10 @@
         "y": 0.172722,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB7605AD5": {
       "kind": "story",
@@ -3623,7 +3924,10 @@
         "y": 0.304017,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x462B1085": {
       "kind": "story",
@@ -3645,7 +3949,10 @@
         "y": 0.375618,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0095B5A7": {
       "kind": "story",
@@ -3667,7 +3974,10 @@
         "y": 0.292248,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0322ED0C": {
       "kind": "story",
@@ -3685,7 +3995,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「阿兹特克人的日常」。本组共 7 件，其中 5 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Day in the Life of the Aztec”. 5 of its 7 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x69A11CF9": {
       "kind": "story",
@@ -3703,7 +4016,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「阿兹特克人的日常」。本组共 7 件，其中 5 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Day in the Life of the Aztec”. 5 of its 7 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xE8794A7C": {
       "kind": "story",
@@ -3725,7 +4041,10 @@
         "y": 0.618675,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEDACACC3": {
       "kind": "story",
@@ -3747,7 +4066,10 @@
         "y": 0.473246,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC6F2A6A0": {
       "kind": "story",
@@ -3769,7 +4091,10 @@
         "y": 0.31858,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x6F328B11": {
       "kind": "story",
@@ -3791,7 +4116,10 @@
         "y": 0.614641,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x80AFF5C0": {
       "kind": "story",
@@ -3813,7 +4141,10 @@
         "y": 0.475865,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x39551DDB": {
       "kind": "story",
@@ -3835,7 +4166,10 @@
         "y": 0.63904,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5F844AE1": {
       "kind": "story",
@@ -3857,7 +4191,10 @@
         "y": 0.284443,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDDAB23B2": {
       "kind": "story",
@@ -3879,7 +4216,10 @@
         "y": 0.368428,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9865801A": {
       "kind": "story",
@@ -3901,7 +4241,10 @@
         "y": 0.644158,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC65BA16D": {
       "kind": "story",
@@ -3919,7 +4262,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「印加叛军」。本组共 9 件，其中 7 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Inca Rebels”. 7 of its 9 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xE3539118": {
       "kind": "story",
@@ -3941,7 +4287,10 @@
         "y": 0.458177,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEPENTHES” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x6E55AAF3": {
       "kind": "story",
@@ -3963,7 +4312,10 @@
         "y": 0.40505,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDE835BF6": {
       "kind": "story",
@@ -3981,7 +4333,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「印加叛军」。本组共 9 件，其中 7 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Inca Rebels”. 7 of its 9 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x93F50AAD": {
       "kind": "story",
@@ -4003,7 +4358,10 @@
         "y": 0.525709,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xAA344AC4": {
       "kind": "story",
@@ -4025,7 +4383,10 @@
         "y": 0.849158,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDD657071": {
       "kind": "story",
@@ -4047,7 +4408,10 @@
         "y": 0.649673,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x8E78816C": {
       "kind": "story",
@@ -4069,7 +4433,10 @@
         "y": 0.445429,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x44DF69A7": {
       "kind": "story",
@@ -4091,7 +4458,10 @@
         "y": 0.543064,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA7FF8298": {
       "kind": "story",
@@ -4113,7 +4483,10 @@
         "y": 0.491151,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF99B54F1": {
       "kind": "story",
@@ -4135,7 +4508,10 @@
         "y": 0.546156,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x018F6D1C": {
       "kind": "story",
@@ -4157,7 +4533,10 @@
         "y": 0.819991,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x6C489221": {
       "kind": "story",
@@ -4179,7 +4558,10 @@
         "y": 0.638306,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7117BC06": {
       "kind": "story",
@@ -4201,7 +4583,10 @@
         "y": 0.502589,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF744CC5B": {
       "kind": "story",
@@ -4223,7 +4608,10 @@
         "y": 0.493521,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PAITITI CRYPT 02” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x56DB72EA": {
       "kind": "story",
@@ -4245,7 +4633,10 @@
         "y": 0.323777,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE1751116": {
       "kind": "story",
@@ -4267,7 +4658,10 @@
         "y": 0.401789,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4128D9F2": {
       "kind": "story",
@@ -4285,7 +4679,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「玛雅历史 II」。本组共 9 件，其中 8 件在帕依提提 / 库阿克雅库 / 科祖梅尔 / 秘鲁丛林有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Mayan History II”. 8 of its 9 entries have world positions in PAITITI / KUWAQ YAKU / COZUMEL / PERUVIAN JUNGLE; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x31FBC663": {
       "kind": "story",
@@ -4307,7 +4704,10 @@
         "y": 0.610285,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDD726C24": {
       "kind": "story",
@@ -4329,7 +4729,10 @@
         "y": 0.886081,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9B746347": {
       "kind": "story",
@@ -4351,7 +4754,10 @@
         "y": 0.433266,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x79BFDBD5": {
       "kind": "story",
@@ -4373,7 +4779,10 @@
         "y": 0.639609,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “HOWLING CAVES PASSAGE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x60649B7C": {
       "kind": "story",
@@ -4395,7 +4804,10 @@
         "y": 0.454107,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “JUDGE'S GAZE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x8ED45A4D": {
       "kind": "story",
@@ -4417,7 +4829,10 @@
         "y": 0.524456,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9C3AA4AF": {
       "kind": "story",
@@ -4439,7 +4854,10 @@
         "y": 0.267132,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x47154F56": {
       "kind": "story",
@@ -4461,7 +4879,10 @@
         "y": 0.686537,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCEF8084E": {
       "kind": "story",
@@ -4483,7 +4904,10 @@
         "y": 0.453128,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x902F8AC3": {
       "kind": "story",
@@ -4505,7 +4929,10 @@
         "y": 0.11377,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC7AAC40A": {
       "kind": "story",
@@ -4527,7 +4954,10 @@
         "y": 0.230459,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xABD9B4C8": {
       "kind": "story",
@@ -4545,7 +4975,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「神话、魔法与怪物」。本组共 8 件，其中 6 件在帕依提提 / 库阿克雅库 / 秘鲁丛林有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Myths, Magic and Monsters”. 6 of its 8 entries have world positions in PAITITI / KUWAQ YAKU / PERUVIAN JUNGLE; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x10889D70": {
       "kind": "story",
@@ -4567,7 +5000,10 @@
         "y": 0.61361,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xFC3A73B2": {
       "kind": "story",
@@ -4589,7 +5025,10 @@
         "y": 0.599487,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDA615056": {
       "kind": "story",
@@ -4611,7 +5050,10 @@
         "y": 0.792776,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBA19BA13": {
       "kind": "story",
@@ -4633,7 +5075,10 @@
         "y": 0.522263,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE73BB718": {
       "kind": "story",
@@ -4655,7 +5100,10 @@
         "y": 0.41457,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5E6F0756": {
       "kind": "story",
@@ -4673,7 +5121,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「神话、魔法与怪物」。本组共 8 件，其中 6 件在帕依提提 / 库阿克雅库 / 秘鲁丛林有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Myths, Magic and Monsters”. 6 of its 8 entries have world positions in PAITITI / KUWAQ YAKU / PERUVIAN JUNGLE; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xFAA76BB3": {
       "kind": "story",
@@ -4695,7 +5146,10 @@
         "y": 0.54974,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “LAST BREATH” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xF23B3644": {
       "kind": "story",
@@ -4717,7 +5171,10 @@
         "y": 0.561174,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4345EA40": {
       "kind": "story",
@@ -4739,7 +5196,10 @@
         "y": 0.73339,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x2B36100B": {
       "kind": "story",
@@ -4761,7 +5221,10 @@
         "y": 0.235793,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEEE8EE49": {
       "kind": "story",
@@ -4783,7 +5246,10 @@
         "y": 0.243266,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9F2D0D69": {
       "kind": "story",
@@ -4805,7 +5271,10 @@
         "y": 0.276835,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF2D25297": {
       "kind": "story",
@@ -4827,7 +5296,10 @@
         "y": 0.500603,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB574659B": {
       "kind": "story",
@@ -4849,7 +5321,10 @@
         "y": 0.206897,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7B95CAEA": {
       "kind": "story",
@@ -4871,7 +5346,10 @@
         "y": 0.159434,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD78E5B56": {
       "kind": "story",
@@ -4893,7 +5371,10 @@
         "y": 0.163708,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x472701B9": {
       "kind": "story",
@@ -4915,7 +5396,10 @@
         "y": 0.456181,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0EA8B2F4": {
       "kind": "story",
@@ -4937,7 +5421,10 @@
         "y": 0.455222,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x090D83BE": {
       "kind": "story",
@@ -4955,7 +5442,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「帕依提提历史 II」。本组共 8 件，其中 7 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Paititi History II”. 7 of its 8 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x90851695": {
       "kind": "story",
@@ -4977,7 +5467,10 @@
         "y": 0.840412,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9DFB313D": {
       "kind": "story",
@@ -4999,7 +5492,10 @@
         "y": 0.314664,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x12B626FF": {
       "kind": "story",
@@ -5021,7 +5517,10 @@
         "y": 0.799143,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB931BAD2": {
       "kind": "story",
@@ -5043,7 +5542,10 @@
         "y": 0.594115,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x29D696EC": {
       "kind": "story",
@@ -5065,7 +5567,10 @@
         "y": 0.135282,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF89DAA0F": {
       "kind": "story",
@@ -5087,7 +5592,10 @@
         "y": 0.202486,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x329459A4": {
       "kind": "story",
@@ -5109,7 +5617,10 @@
         "y": 0.447163,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x344A0F7A": {
       "kind": "story",
@@ -5131,7 +5642,10 @@
         "y": 0.451931,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDF933EEC": {
       "kind": "story",
@@ -5153,7 +5667,10 @@
         "y": 0.430138,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7D18BFDB": {
       "kind": "story",
@@ -5175,7 +5692,10 @@
         "y": 0.636846,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA9A2B053": {
       "kind": "story",
@@ -5197,7 +5717,10 @@
         "y": 0.426324,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x403EEB8E": {
       "kind": "story",
@@ -5219,7 +5742,10 @@
         "y": 0.384241,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x6B6628FF": {
       "kind": "story",
@@ -5241,7 +5767,10 @@
         "y": 0.484282,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC384CBC3": {
       "kind": "story",
@@ -5263,7 +5792,10 @@
         "y": 0.480149,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBD971FD3": {
       "kind": "story",
@@ -5285,7 +5817,10 @@
         "y": 0.816546,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x62148211": {
       "kind": "story",
@@ -5307,7 +5842,10 @@
         "y": 0.497899,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「冥界之门通道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “UNDERWORLD GATE PASSAGE” has no basemap; it contains 1 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xDDC1710D": {
       "kind": "story",
@@ -5329,7 +5867,10 @@
         "y": 0.405164,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「冥界之门」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “UNDERWORLD GATE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xF1FAE49A": {
       "kind": "story",
@@ -5351,7 +5892,10 @@
         "y": 0.213163,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x89524837": {
       "kind": "story",
@@ -5373,7 +5917,10 @@
         "y": 0.539805,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x085A83D1": {
       "kind": "story",
@@ -5395,7 +5942,10 @@
         "y": 0.226837,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCE0734DD": {
       "kind": "story",
@@ -5417,7 +5967,10 @@
         "y": 0.560674,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x960A2A78": {
       "kind": "story",
@@ -5439,7 +5992,10 @@
         "y": 0.561017,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC14AD971": {
       "kind": "story",
@@ -5461,7 +6017,10 @@
         "y": 0.39328,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x9C9925D6": {
       "kind": "story",
@@ -5483,7 +6042,10 @@
         "y": 0.516664,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBBFEEBDB": {
       "kind": "story",
@@ -5505,7 +6067,10 @@
         "y": 0.313762,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF0FEB3C5": {
       "kind": "story",
@@ -5527,7 +6092,10 @@
         "y": 0.230328,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x42DE17F5": {
       "kind": "story",
@@ -5549,7 +6117,10 @@
         "y": 0.268741,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x2F1764FD": {
       "kind": "story",
@@ -5571,7 +6142,10 @@
         "y": 0.373694,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x584E2E20": {
       "kind": "story",
@@ -5593,7 +6167,10 @@
         "y": 0.445709,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBC594CE9": {
       "kind": "story",
@@ -5615,7 +6192,10 @@
         "y": 0.154161,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x74D6B48B": {
       "kind": "story",
@@ -5633,7 +6213,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「西班牙传教团」。本组共 8 件，其中 7 件在圣胡安教会有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Spanish Mission”. 7 of its 8 entries have world positions in MISSION OF SAN JUAN; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x83D4065F": {
       "kind": "story",
@@ -5655,7 +6238,10 @@
         "y": 0.661481,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x25A6AF2F": {
       "kind": "story",
@@ -5677,7 +6263,10 @@
         "y": 0.659432,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA3B16D2F": {
       "kind": "story",
@@ -5699,7 +6288,10 @@
         "y": 0.500044,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA2F185C7": {
       "kind": "story",
@@ -5721,7 +6313,10 @@
         "y": 0.366894,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF50E7CCE": {
       "kind": "story",
@@ -5743,7 +6338,10 @@
         "y": 0.418571,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x06D38407": {
       "kind": "story",
@@ -5765,7 +6363,10 @@
         "y": 0.381492,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4A4C37BB": {
       "kind": "story",
@@ -5787,7 +6388,10 @@
         "y": 0.634498,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA2B5625F": {
       "kind": "story",
@@ -5809,7 +6413,10 @@
         "y": 0.496857,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0D6ADEF8": {
       "kind": "story",
@@ -5831,7 +6438,10 @@
         "y": 0.36894,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x37E6E210": {
       "kind": "story",
@@ -5853,7 +6463,10 @@
         "y": 0.352435,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB44239F9": {
       "kind": "story",
@@ -5875,7 +6488,10 @@
         "y": 0.421235,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE0410A37": {
       "kind": "story",
@@ -5897,7 +6513,10 @@
         "y": 0.180703,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x78D55FD2": {
       "kind": "story",
@@ -5919,7 +6538,10 @@
         "y": 0.445136,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x8E1F420B": {
       "kind": "story",
@@ -5941,7 +6563,10 @@
         "y": 0.506904,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x101EBDED": {
       "kind": "story",
@@ -5963,7 +6588,10 @@
         "y": 0.166158,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4F357588": {
       "kind": "story",
@@ -5985,7 +6613,10 @@
         "y": 0.60918,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x2F0F0683": {
       "kind": "story",
@@ -6007,7 +6638,10 @@
         "y": 0.478676,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBF1247FD": {
       "kind": "story",
@@ -6029,7 +6663,10 @@
         "y": 0.635407,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x09A53C76": {
       "kind": "story",
@@ -6051,7 +6688,10 @@
         "y": 0.560904,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “JUDGE'S GAZE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x9E17CFFB": {
       "kind": "story",
@@ -6073,7 +6713,10 @@
         "y": 0.520832,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “CRYPT 09” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xA59C602F": {
       "kind": "story",
@@ -6095,7 +6738,10 @@
         "y": 0.641764,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD03FC71A": {
       "kind": "story",
@@ -6117,7 +6763,10 @@
         "y": 0.332504,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7CDCD0DC": {
       "kind": "story",
@@ -6139,7 +6788,10 @@
         "y": 0.641432,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x72A130AC": {
       "kind": "story",
@@ -6161,7 +6813,10 @@
         "y": 0.46091,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x743AA36A": {
       "kind": "story",
@@ -6183,7 +6838,10 @@
         "y": 0.52547,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣科尔多瓦通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN CORDOBA PASSAGE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x18155E52": {
       "kind": "story",
@@ -6205,7 +6863,10 @@
         "y": 0.534596,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「古老水道通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “ANCIENT AQUEDUCT PASSAGE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xEF35DE29": {
       "kind": "story",
@@ -6227,7 +6888,10 @@
         "y": 0.522486,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xFE4F7B24": {
       "kind": "story",
@@ -6249,7 +6913,10 @@
         "y": 0.581804,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xE437D5D8": {
       "kind": "story",
@@ -6271,7 +6938,10 @@
         "y": 0.527022,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD80A5713": {
       "kind": "story",
@@ -6293,7 +6963,10 @@
         "y": 0.535068,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「战斗之路通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PATH OF BATTLE PASSAGE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xCCE614A4": {
       "kind": "story",
@@ -6315,7 +6988,10 @@
         "y": 0.632733,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xF2B65ADD": {
       "kind": "story",
@@ -6337,7 +7013,10 @@
         "y": 0.465668,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「审判凝视通道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “JUDGE'S GAZE PASSAGE” has no basemap; it contains 1 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x24E6FFE5": {
       "kind": "story",
@@ -6359,7 +7038,10 @@
         "y": 0.222133,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE37CEF20": {
       "kind": "story",
@@ -6381,7 +7063,10 @@
         "y": 0.380267,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS PASSAGE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x039F63E5": {
       "kind": "story",
@@ -6403,7 +7088,10 @@
         "y": 0.7665,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x085190BF": {
       "kind": "story",
@@ -6425,7 +7113,10 @@
         "y": 0.362334,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x162D9BD8": {
       "kind": "story",
@@ -6447,7 +7138,10 @@
         "y": 0.222231,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xECFCF324": {
       "kind": "story",
@@ -6465,7 +7159,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「邪教故事 I」。本组共 11 件，其中 9 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Cult Story I”. 9 of its 11 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0x0D9C63E9": {
       "kind": "story",
@@ -6487,7 +7184,10 @@
         "y": 0.232308,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x57447BC8": {
       "kind": "story",
@@ -6509,7 +7209,10 @@
         "y": 0.427988,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x08A8054E": {
       "kind": "story",
@@ -6527,7 +7230,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "属于故事合集「邪教故事 I」。本组共 11 件，其中 9 件在帕依提提有位置；本条没有世界坐标，随该合集对应的支线/剧情获得。具体触发点未逐条核实。",
+      "acquisition_note_en": "Part of the story collection “Cult Story I”. 9 of its 11 entries have world positions in PAITITI; this entry has no world coordinate and is obtained through the collection's quest/story. The exact trigger has not been individually verified.",
+      "acquisition_note_scope": "collection",
+      "acquisition_note_source": "curated"
     },
     "0xC399ADA1": {
       "kind": "story",
@@ -6549,7 +7255,10 @@
         "y": 0.861885,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA648BD25": {
       "kind": "story",
@@ -6571,7 +7280,10 @@
         "y": 0.437188,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC6B98286": {
       "kind": "story",
@@ -6593,7 +7305,10 @@
         "y": 0.525799,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEPENTHES” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x2B2FC7E7": {
       "kind": "story",
@@ -6615,7 +7330,10 @@
         "y": 0.522931,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「战斗之路通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PATH OF BATTLE PASSAGE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x16C7C314": {
       "kind": "story",
@@ -6637,7 +7355,10 @@
         "y": 0.459474,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x3327D835": {
       "kind": "story",
@@ -6659,7 +7380,10 @@
         "y": 0.76383,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9118AD01": {
       "kind": "story",
@@ -6681,7 +7405,10 @@
         "y": 0.572658,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x83E53135": {
       "kind": "story",
@@ -6703,7 +7430,10 @@
         "y": 0.24543,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS PASSAGE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x5814FAFA": {
       "kind": "story",
@@ -6725,7 +7455,10 @@
         "y": 0.474072,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x5F17B019": {
       "kind": "story",
@@ -6747,7 +7480,10 @@
         "y": 0.468798,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xF285063D": {
       "kind": "story",
@@ -6769,7 +7505,10 @@
         "y": 0.505779,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x49B7C6F0": {
       "kind": "story",
@@ -6791,7 +7530,10 @@
         "y": 0.581562,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x24D0344D": {
       "kind": "story",
@@ -6813,7 +7555,10 @@
         "y": 0.478249,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xEF19D1FF": {
       "kind": "story",
@@ -6835,7 +7580,10 @@
         "y": 0.828873,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCBDCD9FB": {
       "kind": "story",
@@ -6857,7 +7605,10 @@
         "y": 0.430119,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x62B5AB49": {
       "kind": "story",
@@ -6879,7 +7630,10 @@
         "y": 0.538559,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xCCD225DD": {
       "kind": "story",
@@ -6901,7 +7655,10 @@
         "y": 0.547327,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE PASSAGE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x937D3868": {
       "kind": "story",
@@ -6923,7 +7680,10 @@
         "y": 0.623518,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “HOWLING CAVES PASSAGE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x8834B6B2": {
       "kind": "story",
@@ -6945,7 +7705,10 @@
         "y": 0.262468,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xB1629AF4": {
       "kind": "story",
@@ -6967,7 +7730,10 @@
         "y": 0.520933,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “JUDGE'S GAZE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xD656004F": {
       "kind": "story",
@@ -6989,7 +7755,10 @@
         "y": 0.571084,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x56AB3FD1": {
       "kind": "story",
@@ -7011,7 +7780,10 @@
         "y": 0.366982,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「冥界之门」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “UNDERWORLD GATE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x6D914037": {
       "kind": "story",
@@ -7033,7 +7805,10 @@
         "y": 0.559407,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「古老水道通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “ANCIENT AQUEDUCT PASSAGE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x4F2135BC": {
       "kind": "story",
@@ -7055,7 +7830,10 @@
         "y": 0.441978,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x9D56C3FE": {
       "kind": "story",
@@ -7077,7 +7855,10 @@
         "y": 0.375704,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x5DB360F6": {
       "kind": "story",
@@ -7099,7 +7880,10 @@
         "y": 0.108655,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「战斗之路」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PATH OF BATTLE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xEF88D7ED": {
       "kind": "story",
@@ -7121,7 +7905,10 @@
         "y": 0.521801,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “HOWLING CAVES PASSAGE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x5D96F89C": {
       "kind": "story",
@@ -7143,7 +7930,10 @@
         "y": 0.512798,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “CRYPT 09” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xCB3F79FB": {
       "kind": "story",
@@ -7165,7 +7955,10 @@
         "y": 0.427898,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “LAST BREATH” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x6FA48E97": {
       "kind": "story",
@@ -7187,7 +7980,10 @@
         "y": 0.615361,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「新生」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEWFALL” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xB3E072E4": {
       "kind": "story",
@@ -7209,7 +8005,10 @@
         "y": 0.476958,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “EL DORADO” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x22E3B207": {
       "kind": "story",
@@ -7231,7 +8030,10 @@
         "y": 0.5007,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEPENTHES” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xFF54AE20": {
       "kind": "story",
@@ -7253,7 +8055,10 @@
         "y": 0.481891,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PAITITI CRYPT 02” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xC0AF0E59": {
       "kind": "story",
@@ -7275,7 +8080,10 @@
         "y": 0.48524,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDD9CA99B": {
       "kind": "story",
@@ -7297,7 +8105,10 @@
         "y": 0.508796,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xAACA9591": {
       "kind": "story",
@@ -7315,7 +8126,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4A58B0D6": {
       "kind": "story",
@@ -7333,7 +8147,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDAB1DD87": {
       "kind": "story",
@@ -7351,7 +8168,10 @@
       "marker": "null",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7DEC396C": {
       "kind": "story",
@@ -7369,7 +8189,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x04F85CB9": {
       "kind": "story",
@@ -7387,7 +8210,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x93436A24": {
       "kind": "story",
@@ -7409,7 +8235,10 @@
         "y": 0.539191,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x116D04CB": {
       "kind": "story",
@@ -7431,7 +8260,10 @@
         "y": 0.475879,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x56FC59E0": {
       "kind": "story",
@@ -7453,7 +8285,10 @@
         "y": 0.39044,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xABC9E455": {
       "kind": "story",
@@ -7475,7 +8310,10 @@
         "y": 0.429948,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x119E2BC2": {
       "kind": "story",
@@ -7497,7 +8335,10 @@
         "y": 0.418376,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x82A9C782": {
       "kind": "story",
@@ -7519,7 +8360,10 @@
         "y": 0.57947,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x92C8057E": {
       "kind": "story",
@@ -7541,7 +8385,10 @@
         "y": 0.577372,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x64B06DC0": {
       "kind": "story",
@@ -7563,7 +8410,10 @@
         "y": 0.639462,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7666F866": {
       "kind": "story",
@@ -7585,7 +8435,10 @@
         "y": 0.669009,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x07DCD3FE": {
       "kind": "story",
@@ -7607,7 +8460,10 @@
         "y": 0.441278,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7828DF72": {
       "kind": "story",
@@ -7629,7 +8485,10 @@
         "y": 0.573627,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBD6B77BF": {
       "kind": "story",
@@ -7651,7 +8510,10 @@
         "y": 0.712601,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x32F3A092": {
       "kind": "story",
@@ -7673,7 +8535,10 @@
         "y": 0.693999,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE4E77A90": {
       "kind": "story",
@@ -7691,7 +8556,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x227327D9": {
       "kind": "story",
@@ -7713,7 +8581,10 @@
         "y": 0.541002,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA8615E3E": {
       "kind": "story",
@@ -7735,7 +8606,10 @@
         "y": 0.68524,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA0040AA7": {
       "kind": "story",
@@ -7757,7 +8631,10 @@
         "y": 0.540066,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xAB453584": {
       "kind": "story",
@@ -7779,7 +8656,10 @@
         "y": 0.515461,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBA280E1C": {
       "kind": "story",
@@ -7797,7 +8677,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCDC2FAF3": {
       "kind": "story",
@@ -7815,7 +8698,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x696CD437": {
       "kind": "story",
@@ -7833,7 +8719,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x01F16D6E": {
       "kind": "story",
@@ -7851,7 +8740,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5B10D527": {
       "kind": "story",
@@ -7869,7 +8761,10 @@
       "marker": "Document",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA687997B": {
       "kind": "story",
@@ -7887,7 +8782,10 @@
       "marker": "Mural",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD2024132": {
       "kind": "story",
@@ -7909,7 +8807,10 @@
         "y": 0.486347,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA9066A63": {
       "kind": "story",
@@ -7931,7 +8832,10 @@
         "y": 0.777871,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5332F9D0": {
       "kind": "story",
@@ -7949,7 +8853,10 @@
       "marker": "Document",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB869D6C6": {
       "kind": "story",
@@ -7967,7 +8874,10 @@
       "marker": "Document",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x82770BFB": {
       "kind": "story",
@@ -7989,7 +8899,10 @@
         "y": 0.691435,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF60968A7": {
       "kind": "story",
@@ -8011,7 +8924,10 @@
         "y": 0.324527,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x153C563F": {
       "kind": "story",
@@ -8033,7 +8949,10 @@
         "y": 0.528498,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x21F30738": {
       "kind": "story",
@@ -8055,7 +8974,10 @@
         "y": 0.564094,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCC7B3FA7": {
       "kind": "story",
@@ -8077,7 +8999,10 @@
         "y": 0.396843,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x1CD89B7B": {
       "kind": "story",
@@ -8095,7 +9020,10 @@
       "marker": "Relic",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA6C0BB36": {
       "kind": "story",
@@ -8117,7 +9045,10 @@
         "y": 0.092282,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x83DE3E3A": {
       "kind": "story",
@@ -8139,7 +9070,10 @@
         "y": 0.252728,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x053CAD08": {
       "kind": "story",
@@ -8157,7 +9091,10 @@
       "marker": "Mural",
       "unit": 0,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9D636823": {
       "kind": "nonstory",
@@ -8175,7 +9112,10 @@
       "subcategory": null,
       "unit": 4907,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9D636822": {
       "kind": "nonstory",
@@ -8193,7 +9133,10 @@
       "subcategory": null,
       "unit": 4907,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD7F7674C": {
       "kind": "nonstory",
@@ -8215,7 +9158,10 @@
         "y": 0.26501,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB47679E9": {
       "kind": "nonstory",
@@ -8237,7 +9183,10 @@
         "y": 0.681805,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x33BAC64B": {
       "kind": "nonstory",
@@ -8259,7 +9208,10 @@
         "y": 0.277997,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE17A9FED": {
       "kind": "nonstory",
@@ -8281,7 +9233,10 @@
         "y": 0.472335,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5BBA136D": {
       "kind": "nonstory",
@@ -8303,7 +9258,10 @@
         "y": 0.302458,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC283486E": {
       "kind": "nonstory",
@@ -8325,7 +9283,10 @@
         "y": 0.622709,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0EC13AE8": {
       "kind": "nonstory",
@@ -8347,7 +9308,10 @@
         "y": 0.534996,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xAF9AD9D4": {
       "kind": "nonstory",
@@ -8369,7 +9333,10 @@
         "y": 0.74776,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBEF19DB3": {
       "kind": "nonstory",
@@ -8391,7 +9358,10 @@
         "y": 0.33324,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB02F0961": {
       "kind": "nonstory",
@@ -8413,7 +9383,10 @@
         "y": 0.839939,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x439B19A6": {
       "kind": "nonstory",
@@ -8435,7 +9408,10 @@
         "y": 0.438856,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5BB0EF4C": {
       "kind": "nonstory",
@@ -8457,7 +9433,10 @@
         "y": 0.829451,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x570047BE": {
       "kind": "nonstory",
@@ -8479,7 +9458,10 @@
         "y": 0.601752,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF9536": {
       "kind": "nonstory",
@@ -8501,7 +9483,10 @@
         "y": 0.321847,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF9539": {
       "kind": "nonstory",
@@ -8523,7 +9508,10 @@
         "y": 0.650443,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF953A": {
       "kind": "nonstory",
@@ -8545,7 +9533,10 @@
         "y": 0.392564,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF94FD": {
       "kind": "nonstory",
@@ -8567,7 +9558,10 @@
         "y": 0.239797,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF953B": {
       "kind": "nonstory",
@@ -8589,7 +9583,10 @@
         "y": 0.279375,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF9538": {
       "kind": "nonstory",
@@ -8611,7 +9608,10 @@
         "y": 0.293247,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xF3CF9534": {
       "kind": "nonstory",
@@ -8633,7 +9633,10 @@
         "y": 0.603284,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x510A6E81": {
       "kind": "nonstory",
@@ -8655,7 +9658,10 @@
         "y": 0.486953,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5B5C79A2": {
       "kind": "nonstory",
@@ -8677,7 +9683,10 @@
         "y": 0.603533,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5B5C79A1": {
       "kind": "nonstory",
@@ -8699,7 +9708,10 @@
         "y": 0.522367,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「冥界之门通道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “UNDERWORLD GATE PASSAGE” has no basemap; it contains 1 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x27A828BB": {
       "kind": "nonstory",
@@ -8721,7 +9733,10 @@
         "y": 0.150101,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x27A828BA": {
       "kind": "nonstory",
@@ -8743,7 +9758,10 @@
         "y": 0.838708,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4816C0A1": {
       "kind": "nonstory",
@@ -8765,7 +9783,10 @@
         "y": 0.34357,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4816C0A2": {
       "kind": "nonstory",
@@ -8787,7 +9808,10 @@
         "y": 0.441763,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4816C0A3": {
       "kind": "nonstory",
@@ -8809,7 +9833,10 @@
         "y": 0.640878,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x4816C0A4": {
       "kind": "nonstory",
@@ -8831,7 +9858,10 @@
         "y": 0.457652,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x6893C3B1": {
       "kind": "nonstory",
@@ -8853,7 +9883,10 @@
         "y": 0.472729,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEEDDEEF2": {
       "kind": "nonstory",
@@ -8875,7 +9908,10 @@
         "y": 0.272634,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEEDDEEF0": {
       "kind": "nonstory",
@@ -8897,7 +9933,10 @@
         "y": 0.729647,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xEEDDEEF7": {
       "kind": "nonstory",
@@ -8919,7 +9958,10 @@
         "y": 0.428644,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9BADF674": {
       "kind": "nonstory",
@@ -8941,7 +9983,10 @@
         "y": 0.655917,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x8374143B": {
       "kind": "nonstory",
@@ -8963,7 +10008,10 @@
         "y": 0.514928,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDA196AFD": {
       "kind": "nonstory",
@@ -8985,7 +10033,10 @@
         "y": 0.478329,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x8304AA4B": {
       "kind": "nonstory",
@@ -9007,7 +10058,10 @@
         "y": 0.485862,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「古老水道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “ANCIENT AQUEDUCT” has no basemap; it contains 1 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x49B8E76F": {
       "kind": "nonstory",
@@ -9029,7 +10083,10 @@
         "y": 0.550573,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xAF194AE7": {
       "kind": "nonstory",
@@ -9047,7 +10104,10 @@
       "subcategory": null,
       "unit": 3428,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「战斗之路」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PATH OF BATTLE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x005E3069": {
       "kind": "nonstory",
@@ -9069,7 +10129,10 @@
         "y": 0.530662,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x861E902E": {
       "kind": "nonstory",
@@ -9091,7 +10154,10 @@
         "y": 0.389874,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x81D70069": {
       "kind": "nonstory",
@@ -9113,7 +10179,10 @@
         "y": 0.520945,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「审判凝视」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “JUDGE'S GAZE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xC9D62DEE": {
       "kind": "nonstory",
@@ -9136,6 +10205,9 @@
         "space": "unit_normalized_unverified"
       },
       "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null,
       "shared_id": true,
       "shared_names": [
         "CT_Pillars_Of_Heaven",
@@ -9161,7 +10233,10 @@
       "subcategory": null,
       "unit": 4908,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x98564B9F": {
       "kind": "nonstory",
@@ -9179,7 +10254,10 @@
       "subcategory": null,
       "unit": 4908,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x98564B9E": {
       "kind": "nonstory",
@@ -9197,7 +10275,10 @@
       "subcategory": null,
       "unit": 4908,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x98564B9D": {
       "kind": "nonstory",
@@ -9216,6 +10297,9 @@
       "unit": 4908,
       "position": null,
       "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null,
       "shared_id": true,
       "shared_names": [
         "gym_social_hub_codex04",
@@ -9242,7 +10326,10 @@
         "y": 0.670767,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD1C49E0E": {
       "kind": "nonstory",
@@ -9264,7 +10351,10 @@
         "y": 0.570549,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PAITITI CRYPT 02” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xD1C49E0D": {
       "kind": "nonstory",
@@ -9286,7 +10376,10 @@
         "y": 0.389596,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD1C49E0C": {
       "kind": "nonstory",
@@ -9308,7 +10401,10 @@
         "y": 0.261219,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD1C49E12": {
       "kind": "nonstory",
@@ -9330,7 +10426,10 @@
         "y": 0.156027,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD1C49E10": {
       "kind": "nonstory",
@@ -9352,7 +10451,10 @@
         "y": 0.407444,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “EL DORADO” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x0E60673F": {
       "kind": "nonstory",
@@ -9374,7 +10476,10 @@
         "y": 0.433641,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0E60673E": {
       "kind": "nonstory",
@@ -9396,7 +10501,10 @@
         "y": 0.408432,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDA3C8C8F": {
       "kind": "nonstory",
@@ -9418,7 +10526,10 @@
         "y": 0.440799,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDA3C8C8E": {
       "kind": "nonstory",
@@ -9440,7 +10551,10 @@
         "y": 0.233299,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDA3C8C91": {
       "kind": "nonstory",
@@ -9462,7 +10576,10 @@
         "y": 0.333822,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x09ACC02A": {
       "kind": "nonstory",
@@ -9484,7 +10601,10 @@
         "y": 0.659781,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x689D1BC3": {
       "kind": "nonstory",
@@ -9506,7 +10626,10 @@
         "y": 0.613844,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x298EFC7A": {
       "kind": "nonstory",
@@ -9528,7 +10651,10 @@
         "y": 0.403319,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “CRYPT 09” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x298EFC78": {
       "kind": "nonstory",
@@ -9550,7 +10676,10 @@
         "y": 0.419261,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0651897A": {
       "kind": "nonstory",
@@ -9572,7 +10701,10 @@
         "y": 0.364642,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC31478F3": {
       "kind": "nonstory",
@@ -9594,7 +10726,10 @@
         "y": 0.443348,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC31478F2": {
       "kind": "nonstory",
@@ -9616,7 +10751,10 @@
         "y": 0.655739,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「新生」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEWFALL” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xC31478F5": {
       "kind": "nonstory",
@@ -9638,7 +10776,10 @@
         "y": 0.574492,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0B3F2EC1": {
       "kind": "nonstory",
@@ -9660,7 +10801,10 @@
         "y": 0.253254,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDC67D414": {
       "kind": "nonstory",
@@ -9678,7 +10822,10 @@
       "subcategory": null,
       "unit": 4909,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDC67D417": {
       "kind": "nonstory",
@@ -9696,7 +10843,10 @@
       "subcategory": null,
       "unit": 4909,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA3B42DAD": {
       "kind": "nonstory",
@@ -9718,7 +10868,10 @@
         "y": 0.685027,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xFAAECCB0": {
       "kind": "nonstory",
@@ -9740,7 +10893,10 @@
         "y": 0.418187,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xCC47BB91": {
       "kind": "nonstory",
@@ -9762,7 +10918,10 @@
         "y": 0.406964,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBB000659": {
       "kind": "nonstory",
@@ -9784,7 +10943,10 @@
         "y": 0.27016,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x72112A9C": {
       "kind": "nonstory",
@@ -9806,7 +10968,10 @@
         "y": 0.748353,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xA794E81D": {
       "kind": "nonstory",
@@ -9828,7 +10993,10 @@
         "y": 0.537271,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x25EF128C": {
       "kind": "nonstory",
@@ -9850,7 +11018,10 @@
         "y": 0.417407,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBB70E605": {
       "kind": "nonstory",
@@ -9872,7 +11043,10 @@
         "y": 0.749933,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9FFEA926": {
       "kind": "nonstory",
@@ -9894,7 +11068,10 @@
         "y": 0.722194,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD8CD8257": {
       "kind": "nonstory",
@@ -9916,7 +11093,10 @@
         "y": 0.356479,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBB00065A": {
       "kind": "nonstory",
@@ -9938,7 +11118,10 @@
         "y": 0.706058,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xFA680F25": {
       "kind": "nonstory",
@@ -9956,7 +11139,10 @@
       "subcategory": null,
       "unit": 4909,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xFA680F2A": {
       "kind": "nonstory",
@@ -9974,7 +11160,10 @@
       "subcategory": null,
       "unit": 4909,
       "position": null,
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7D3D1069": {
       "kind": "nonstory",
@@ -9996,7 +11185,10 @@
         "y": 0.474456,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x7D3D1068": {
       "kind": "nonstory",
@@ -10018,7 +11210,10 @@
         "y": 0.500789,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x3672536F": {
       "kind": "nonstory",
@@ -10040,7 +11235,10 @@
         "y": 0.447118,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x3672536E": {
       "kind": "nonstory",
@@ -10062,7 +11260,10 @@
         "y": 0.440914,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x36725371": {
       "kind": "nonstory",
@@ -10084,7 +11285,10 @@
         "y": 0.505148,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x36725370": {
       "kind": "nonstory",
@@ -10106,7 +11310,10 @@
         "y": 0.743958,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x36725373": {
       "kind": "nonstory",
@@ -10128,7 +11335,10 @@
         "y": 0.724318,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC062C7B3": {
       "kind": "nonstory",
@@ -10150,7 +11360,10 @@
         "y": 0.395908,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「冥界之门」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “UNDERWORLD GATE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x752CBB46": {
       "kind": "nonstory",
@@ -10172,7 +11385,10 @@
         "y": 0.155768,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB47": {
       "kind": "nonstory",
@@ -10194,7 +11410,10 @@
         "y": 0.389521,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB48": {
       "kind": "nonstory",
@@ -10216,7 +11435,10 @@
         "y": 0.377489,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB49": {
       "kind": "nonstory",
@@ -10238,7 +11460,10 @@
         "y": 0.257652,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB4A": {
       "kind": "nonstory",
@@ -10260,7 +11485,10 @@
         "y": 0.348696,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB4C": {
       "kind": "nonstory",
@@ -10282,7 +11510,10 @@
         "y": 0.824508,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB47DDD90": {
       "kind": "nonstory",
@@ -10304,7 +11535,10 @@
         "y": 0.625493,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「呼啸洞穴通道」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “HOWLING CAVES PASSAGE” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x851B48F5": {
       "kind": "nonstory",
@@ -10326,7 +11560,10 @@
         "y": 0.216153,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48FA": {
       "kind": "nonstory",
@@ -10348,7 +11585,10 @@
         "y": 0.420497,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48FB": {
       "kind": "nonstory",
@@ -10370,7 +11610,10 @@
         "y": 0.337276,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48F8": {
       "kind": "nonstory",
@@ -10392,7 +11635,10 @@
         "y": 0.252886,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48F9": {
       "kind": "nonstory",
@@ -10414,7 +11660,10 @@
         "y": 0.640534,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48EE": {
       "kind": "nonstory",
@@ -10436,7 +11685,10 @@
         "y": 0.552377,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48EF": {
       "kind": "nonstory",
@@ -10458,7 +11710,10 @@
         "y": 0.46876,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48EC": {
       "kind": "nonstory",
@@ -10480,7 +11735,10 @@
         "y": 0.454225,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B48ED": {
       "kind": "nonstory",
@@ -10502,7 +11760,10 @@
         "y": 0.631241,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B4915": {
       "kind": "nonstory",
@@ -10524,7 +11785,10 @@
         "y": 0.498277,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B491B": {
       "kind": "nonstory",
@@ -10546,7 +11810,10 @@
         "y": 0.252576,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B4914": {
       "kind": "nonstory",
@@ -10568,7 +11835,10 @@
         "y": 0.518871,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xFD9DCD84": {
       "kind": "nonstory",
@@ -10590,7 +11860,10 @@
         "y": 0.498047,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「战斗之路通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PATH OF BATTLE PASSAGE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xFD9DCD87": {
       "kind": "nonstory",
@@ -10612,7 +11885,10 @@
         "y": 0.11282,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「战斗之路」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PATH OF BATTLE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xA5F6A32F": {
       "kind": "nonstory",
@@ -10634,7 +11910,10 @@
         "y": 0.4517,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「太阳神庙」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TEMPLE OF THE SUN” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xE871F8D6": {
       "kind": "nonstory",
@@ -10656,7 +11935,10 @@
         "y": 0.36958,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE871F8D5": {
       "kind": "nonstory",
@@ -10678,7 +11960,10 @@
         "y": 0.539838,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE871F8D4": {
       "kind": "nonstory",
@@ -10700,7 +11985,10 @@
         "y": 0.622409,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE871F8DA": {
       "kind": "nonstory",
@@ -10722,7 +12010,10 @@
         "y": 0.304537,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE871F8DB": {
       "kind": "nonstory",
@@ -10744,7 +12035,10 @@
         "y": 0.460301,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB419E702": {
       "kind": "nonstory",
@@ -10766,7 +12060,10 @@
         "y": 0.556603,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB419E703": {
       "kind": "nonstory",
@@ -10788,7 +12085,10 @@
         "y": 0.453128,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB419E6FE": {
       "kind": "nonstory",
@@ -10810,7 +12110,10 @@
         "y": 0.524741,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB275438A": {
       "kind": "nonstory",
@@ -10832,7 +12135,10 @@
         "y": 0.55947,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xDD26A1BC": {
       "kind": "nonstory",
@@ -10854,7 +12160,10 @@
         "y": 0.678706,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「古老水道」暂无底图；本关有 1 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “ANCIENT AQUEDUCT” has no basemap; it contains 1 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xDD26A1BD": {
       "kind": "nonstory",
@@ -10876,7 +12185,10 @@
         "y": 0.589323,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「古老水道通道」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “ANCIENT AQUEDUCT PASSAGE” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x0F28B6EC": {
       "kind": "nonstory",
@@ -10898,7 +12210,10 @@
         "y": 0.400957,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0F28B6ED": {
       "kind": "nonstory",
@@ -10920,7 +12235,10 @@
         "y": 0.402838,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0F28B6EE": {
       "kind": "nonstory",
@@ -10942,7 +12260,10 @@
         "y": 0.392325,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x0F28B6EF": {
       "kind": "nonstory",
@@ -10964,7 +12285,10 @@
         "y": 0.701984,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xAE1A2E7A": {
       "kind": "nonstory",
@@ -10986,7 +12310,10 @@
         "y": 0.480711,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「生命之树通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “TREE OF LIFE PASSAGE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xFF9EAC79": {
       "kind": "nonstory",
@@ -11008,7 +12335,10 @@
         "y": 0.544359,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xFF9EAC6E": {
       "kind": "nonstory",
@@ -11030,7 +12360,10 @@
         "y": 0.461543,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「诸神之欲念」暂无底图；本关有 6 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “THIRSTY GODS” has no basemap; it contains 6 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xD2E4E3EE": {
       "kind": "nonstory",
@@ -11052,7 +12385,10 @@
         "y": 0.535471,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣科尔多瓦通道」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN CORDOBA PASSAGE” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xD2E4E3F1": {
       "kind": "nonstory",
@@ -11074,7 +12410,10 @@
         "y": 0.609802,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣科尔多瓦」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN CORDOBA” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x6FBA9596": {
       "kind": "nonstory",
@@ -11096,7 +12435,10 @@
         "y": 0.702738,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD6992534": {
       "kind": "nonstory",
@@ -11118,7 +12460,10 @@
         "y": 0.419339,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “EL DORADO” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xC3DEB9BC": {
       "kind": "nonstory",
@@ -11140,7 +12485,10 @@
         "y": 0.627229,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xC3DEB9C2": {
       "kind": "nonstory",
@@ -11162,7 +12510,10 @@
         "y": 0.402065,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5C4C9AC2": {
       "kind": "nonstory",
@@ -11184,7 +12535,10 @@
         "y": 0.494604,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 04」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 04” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x36725372": {
       "kind": "nonstory",
@@ -11206,7 +12560,10 @@
         "y": 0.699079,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB45": {
       "kind": "nonstory",
@@ -11228,7 +12585,10 @@
         "y": 0.702332,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD6992537": {
       "kind": "nonstory",
@@ -11250,7 +12610,10 @@
         "y": 0.500535,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “EL DORADO” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x7D3D1067": {
       "kind": "nonstory",
@@ -11272,7 +12635,10 @@
         "y": 0.452697,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBB4D": {
       "kind": "nonstory",
@@ -11294,7 +12660,10 @@
         "y": 0.393092,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBAE7": {
       "kind": "nonstory",
@@ -11316,7 +12685,10 @@
         "y": 0.435719,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x752CBAE6": {
       "kind": "nonstory",
@@ -11338,7 +12710,10 @@
         "y": 0.785147,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xE871F8D9": {
       "kind": "nonstory",
@@ -11360,7 +12735,10 @@
         "y": 0.559966,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B491A": {
       "kind": "nonstory",
@@ -11382,7 +12760,10 @@
         "y": 0.511732,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x851B4919": {
       "kind": "nonstory",
@@ -11404,7 +12785,10 @@
         "y": 0.430241,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x64732AC8": {
       "kind": "nonstory",
@@ -11426,7 +12810,10 @@
         "y": 0.727562,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9BFEBBFF": {
       "kind": "nonstory",
@@ -11448,7 +12835,10 @@
         "y": 0.72563,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xD6C5375B": {
       "kind": "nonstory",
@@ -11470,7 +12860,10 @@
         "y": 0.426756,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x9A708439": {
       "kind": "nonstory",
@@ -11492,7 +12885,10 @@
         "y": 0.406607,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xB9211E1D": {
       "kind": "nonstory",
@@ -11514,7 +12910,10 @@
         "y": 0.538717,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x77B5868E": {
       "kind": "nonstory",
@@ -11536,7 +12935,10 @@
         "y": 0.852121,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBEF0D8BD": {
       "kind": "nonstory",
@@ -11558,7 +12960,10 @@
         "y": 0.439512,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x606EF1AF": {
       "kind": "nonstory",
@@ -11580,7 +12985,10 @@
         "y": 0.497569,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x5D1EDC8F": {
       "kind": "nonstory",
@@ -11602,7 +13010,10 @@
         "y": 0.385199,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0x32E820D8": {
       "kind": "nonstory",
@@ -11624,7 +13035,10 @@
         "y": 0.594973,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「最后之息」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “LAST BREATH” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xE66D0DA5": {
       "kind": "nonstory",
@@ -11646,7 +13060,10 @@
         "y": 0.630554,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「墓穴 09」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “CRYPT 09” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x8A28E2C7": {
       "kind": "nonstory",
@@ -11668,7 +13085,10 @@
         "y": 0.518377,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「猪笼草」暂无底图；本关有 4 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEPENTHES” has no basemap; it contains 4 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x7289AC8C": {
       "kind": "nonstory",
@@ -11690,7 +13110,10 @@
         "y": 0.373868,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「新生」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “NEWFALL” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x02A67B91": {
       "kind": "nonstory",
@@ -11712,7 +13135,10 @@
         "y": 0.585358,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「黄金城」暂无底图；本关有 5 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “EL DORADO” has no basemap; it contains 5 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xBA3B0D06": {
       "kind": "nonstory",
@@ -11734,7 +13160,10 @@
         "y": 0.515606,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 003」暂无底图；本关有 7 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 003” has no basemap; it contains 7 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xEE11B0D3": {
       "kind": "nonstory",
@@ -11756,7 +13185,10 @@
         "y": 0.516793,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「帕依提提墓穴 02」暂无底图；本关有 3 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “PAITITI CRYPT 02” has no basemap; it contains 3 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0x48C378CA": {
       "kind": "nonstory",
@@ -11778,7 +13210,10 @@
         "y": 0.578386,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": "本子关卡「圣胡安墓穴 04」暂无底图；本关有 2 件必收条目，位置以关卡内相对坐标表示。具体位置见下方攻略搜索。",
+      "acquisition_note_en": "The sub-level “SAN JUAN CRYPT 04” has no basemap; it contains 2 required items, shown as in-level relative coordinates. Use the guide search below for exact locations.",
+      "acquisition_note_scope": "unit",
+      "acquisition_note_source": "curated"
     },
     "0xC508D278": {
       "kind": "nonstory",
@@ -11800,7 +13235,10 @@
         "y": 0.381101,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     },
     "0xBDE170C6": {
       "kind": "nonstory",
@@ -11822,7 +13260,10 @@
         "y": 0.834718,
         "space": "unit_normalized_unverified"
       },
-      "acquisition_note": null
+      "acquisition_note": null,
+      "acquisition_note_en": null,
+      "acquisition_note_scope": null,
+      "acquisition_note_source": null
     }
   }
 }

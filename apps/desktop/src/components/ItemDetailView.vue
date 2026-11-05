@@ -27,6 +27,7 @@ export interface DetailLinkActionView {
 import { computed, nextTick, onMounted, ref } from "vue";
 import { Copy, ExternalLink, PanelRightOpen, Search } from "@lucide/vue";
 import { t, tFormat } from "../app/i18n";
+import { collectionDisplayName } from "../app/guidance";
 import { copyText } from "../app/clipboard";
 import { formatSnapshotTime } from "../app/format";
 import { categoryClass } from "../app/category-style";
@@ -92,6 +93,25 @@ const collected = computed(() => props.item.status === "collected");
 /** 同一子关卡剩余未收集数。 */
 const sameUnitRemaining = computed(() => props.item.same_unit_remaining ?? 0);
 
+/** 「如何获取」行标签：子关卡指引不是获取方式，避免写成「获取」。 */
+const acquisitionRowLabel = computed(() =>
+  props.item.acquisition_source === "unit_note" ? t("指引", "Guidance") : t("获取", "How"),
+);
+
+/** 注记来源标签。 */
+const acquisitionSourceLabel = computed(() => {
+  switch (props.item.acquisition_source) {
+    case "item_note":
+      return t("逐项注记", "Per-item note");
+    case "collection_note":
+      return t("合集指引", "Collection guidance");
+    case "unit_note":
+      return t("子关卡指引", "Sub-level guidance");
+    default:
+      return t("类别规则", "Category rule");
+  }
+});
+
 const copyLines = computed(() =>
   [
     `${props.item.display_name}`,
@@ -99,7 +119,17 @@ const copyLines = computed(() =>
     tFormat("区域：{value}", "Region: {value}", {
       value: `${props.regionName}${props.unitLabel ? ` · ${props.unitLabel}` : ""}`,
     }),
-    tFormat("获取：{value}", "Acquisition: {value}", { value: props.item.acquisition_text }),
+    ...(props.item.collection
+      ? [
+          tFormat("合集：{value}", "Collection: {value}", {
+            value: collectionDisplayName(props.item.collection),
+          }),
+        ]
+      : []),
+    tFormat("{label}：{value}", "{label}: {value}", {
+      label: acquisitionRowLabel.value,
+      value: props.item.acquisition_text,
+    }),
   ].join("\n"),
 );
 
@@ -197,8 +227,12 @@ const linkStatusTone = computed(() => {
           <dt class="w-12 shrink-0 text-muted">{{ t("区域", "Region") }}</dt>
           <dd class="min-w-0">{{ regionName }}{{ unitLabel ? ` · ${unitLabel}` : "" }}</dd>
         </div>
+        <div v-if="item.collection" class="flex gap-2">
+          <dt class="w-12 shrink-0 text-muted">{{ t("合集", "Collection") }}</dt>
+          <dd class="min-w-0">{{ collectionDisplayName(item.collection) }}</dd>
+        </div>
         <div class="flex gap-2">
-          <dt class="w-12 shrink-0 text-muted">{{ t("获取", "How") }}</dt>
+          <dt class="w-12 shrink-0 text-muted">{{ acquisitionRowLabel }}</dt>
           <dd class="min-w-0">{{ item.acquisition_text }}</dd>
         </div>
         <div v-if="item.position" class="flex gap-2">
@@ -216,7 +250,7 @@ const linkStatusTone = computed(() => {
         </div>
       </dl>
       <p class="text-xs text-muted">
-        {{ item.acquisition_source === "item_note" ? t("逐项注记", "Per-item note") : t("类别规则", "Category rule") }}
+        {{ acquisitionSourceLabel }}
       </p>
       <div class="flex flex-wrap items-center gap-2 pt-1">
         <UiButton size="sm" variant="ghost" data-testid="copy-lead" @click="copyHint">

@@ -205,6 +205,9 @@ fn every_item_has_acquisition_text_and_item_note_wins() {
         .expect("至少一条条目");
     if let Some(item) = with_note.items.get_mut(&target) {
         item.acquisition_note = Some("人工逐项注记".to_string());
+        item.acquisition_note_en = None;
+        item.acquisition_note_scope = None;
+        item.acquisition_note_source = None;
     }
     let result = plan(&with_note, &observed(&[]));
     let all_items: Vec<_> = result
@@ -225,6 +228,44 @@ fn every_item_has_acquisition_text_and_item_note_wins() {
         .expect("被注记的条目");
     assert_eq!(noted.acquisition_source, "item_note");
     assert_eq!(noted.acquisition_text, "人工逐项注记");
+}
+
+#[test]
+fn note_scope_selects_acquisition_source() {
+    let catalog = load();
+    let mut with_notes = catalog.clone();
+    let mut ids = with_notes.items.keys().cloned();
+    let item_id = ids.next().expect("条目一");
+    let collection_id = ids.next().expect("条目二");
+    let unit_id = ids.next().expect("条目三");
+    if let Some(item) = with_notes.items.get_mut(&item_id) {
+        item.acquisition_note = Some("逐项注记".to_string());
+        item.acquisition_note_scope = None;
+    }
+    if let Some(item) = with_notes.items.get_mut(&collection_id) {
+        item.acquisition_note = Some("合集指引".to_string());
+        item.acquisition_note_scope = Some("collection".to_string());
+    }
+    if let Some(item) = with_notes.items.get_mut(&unit_id) {
+        item.acquisition_note = Some("子关卡指引".to_string());
+        item.acquisition_note_scope = Some("unit".to_string());
+    }
+    let result = plan(&with_notes, &observed(&[]));
+    let all_items: Vec<_> = result
+        .regions
+        .iter()
+        .flat_map(|region| region.groups.iter())
+        .flat_map(|group| group.items.iter())
+        .collect();
+    let find = |id: &str| {
+        all_items
+            .iter()
+            .find(|item| item.id == id)
+            .unwrap_or_else(|| panic!("找不到条目 {id}"))
+    };
+    assert_eq!(find(&item_id).acquisition_source, "item_note");
+    assert_eq!(find(&collection_id).acquisition_source, "collection_note");
+    assert_eq!(find(&unit_id).acquisition_source, "unit_note");
 }
 
 #[test]

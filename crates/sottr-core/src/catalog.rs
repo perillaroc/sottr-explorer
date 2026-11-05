@@ -1,4 +1,4 @@
-//! 全收集图鉴（SX-021 建目录；SX-022 升到 schema 2.0.0）：
+//! 全收集图鉴（SX-021 建目录；SX-022 升到 schema 2.0.0；v0.2.0 升到 2.1.0）：
 //! `data/catalog/collectibles_catalog.json` 的严格加载与校验。
 //!
 //! 边界与不变量（与元数据（SX-008）同一哲学）：
@@ -43,6 +43,8 @@ pub const CODE_CATALOG_REGION_INVALID: &str = "CATALOG_REGION_INVALID";
 pub const CODE_CATALOG_POSITION_INVALID: &str = "CATALOG_POSITION_INVALID";
 /// 条目引用了未在 `acquisition_rules` 中声明的规则。
 pub const CODE_CATALOG_RULE_MISSING: &str = "CATALOG_RULE_MISSING";
+/// 获取注记的作用域、来源或中英文配对非法。
+pub const CODE_CATALOG_GUIDANCE_INVALID: &str = "CATALOG_GUIDANCE_INVALID";
 
 /// 目录加载/校验错误（`code` 为稳定错误码）。
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -143,6 +145,15 @@ pub struct CatalogItem {
     pub position: Option<CatalogPosition>,
     /// 逐项获取注记（人工整理，可空；为空时用类别的通用规则）。
     pub acquisition_note: Option<String>,
+    /// 注记英文文本（与 `acquisition_note` 配对；可空）。
+    #[serde(default)]
+    pub acquisition_note_en: Option<String>,
+    /// 注记作用域：`item` / `collection` / `unit`；为空时按 `item` 兼容旧数据。
+    #[serde(default)]
+    pub acquisition_note_scope: Option<String>,
+    /// 注记来源：`curated` / `game_data`。
+    #[serde(default)]
+    pub acquisition_note_source: Option<String>,
     /// 多个条目共用同一 ID 时置真。
     #[serde(default)]
     pub shared_id: Option<bool>,
@@ -246,6 +257,12 @@ pub struct CatalogCollection {
     pub count: usize,
     /// 是否属于必收集合。
     pub required_for_100: bool,
+    /// 合集中文显示名（人工整理；可空）。
+    #[serde(default)]
+    pub display_zh: Option<String>,
+    /// 合集英文显示名（人工整理；可空）。
+    #[serde(default)]
+    pub display_en: Option<String>,
 }
 
 /// 区域记录（游戏区域表 + SX-022 绑定结果）。
@@ -365,11 +382,11 @@ impl Catalog {
 
     /// 校验语义不变量。
     fn validate(&self) -> Result<(), CatalogError> {
-        if self.catalog_schema_version != "2.0.0" || self.catalog_version.is_empty() {
+        if self.catalog_schema_version != "2.1.0" || self.catalog_version.is_empty() {
             return Err(CatalogError::new(
                 CODE_CATALOG_VERSION_INVALID,
                 format!(
-                    "catalog_schema_version={}（期望 2.0.0），catalog_version={}",
+                    "catalog_schema_version={}（期望 2.1.0），catalog_version={}",
                     self.catalog_schema_version, self.catalog_version
                 ),
             ));
@@ -450,6 +467,53 @@ impl Catalog {
                     CODE_CATALOG_SHARED_ID_INVALID,
                     format!("条目 {id} 标记共用 ID 但缺少 shared_names"),
                 ));
+            }
+            match item.acquisition_note.as_deref() {
+                Some(note) => {
+                    if note.trim().is_empty() {
+                        return Err(CatalogError::new(
+                            CODE_CATALOG_GUIDANCE_INVALID,
+                            format!("条目 {id} 的 acquisition_note 为空"),
+                        ));
+                    }
+                    if let Some(scope) = item.acquisition_note_scope.as_deref()
+                        && !matches!(scope, "item" | "collection" | "unit")
+                    {
+                        return Err(CatalogError::new(
+                            CODE_CATALOG_GUIDANCE_INVALID,
+                            format!("条目 {id} 的 acquisition_note_scope={scope} 非法"),
+                        ));
+                    }
+                    if let Some(source) = item.acquisition_note_source.as_deref()
+                        && !matches!(source, "curated" | "game_data")
+                    {
+                        return Err(CatalogError::new(
+                            CODE_CATALOG_GUIDANCE_INVALID,
+                            format!("条目 {id} 的 acquisition_note_source={source} 非法"),
+                        ));
+                    }
+                    if item
+                        .acquisition_note_en
+                        .as_deref()
+                        .is_some_and(|value| value.trim().is_empty())
+                    {
+                        return Err(CatalogError::new(
+                            CODE_CATALOG_GUIDANCE_INVALID,
+                            format!("条目 {id} 的 acquisition_note_en 为空"),
+                        ));
+                    }
+                }
+                None => {
+                    if item.acquisition_note_en.is_some()
+                        || item.acquisition_note_scope.is_some()
+                        || item.acquisition_note_source.is_some()
+                    {
+                        return Err(CatalogError::new(
+                            CODE_CATALOG_GUIDANCE_INVALID,
+                            format!("条目 {id} 有注记附属字段但 acquisition_note 为空"),
+                        ));
+                    }
+                }
             }
             if let Some(unit) = item.unit
                 && unit != 0

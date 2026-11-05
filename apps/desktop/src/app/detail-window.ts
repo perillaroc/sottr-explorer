@@ -35,13 +35,14 @@ export interface DetailWindowItem {
   nameZh?: string;
   internalName?: string;
   status: "collected" | "not_collected";
+  collection?: string;
   category: string;
   categoryLabel: string;
   subgroupLabel: string | null;
   isDlc: boolean;
   requiredFor100: boolean | null;
   acquisitionText: string;
-  acquisitionSource: "item_note" | "category_rule";
+  acquisitionSource: "item_note" | "collection_note" | "unit_note" | "category_rule";
   position?: { x: number; y: number };
   sameUnitRemaining?: number;
   sharedNames?: string[];
@@ -108,6 +109,7 @@ function itemPayload(
     nameZh: item.name_zh,
     internalName: item.internal_name,
     status: item.status,
+    collection: item.collection,
     category: group.category,
     categoryLabel,
     subgroupLabel: groupLabel === categoryLabel ? null : groupLabel,

@@ -92,7 +92,8 @@ pub struct ItemPlan {
     pub position: Option<CatalogPosition>,
     /// 获取方式正文（逐项注记优先，否则为类别通用规则）。
     pub acquisition_text: String,
-    /// 获取方式来源：`item_note`（人工逐项注记）/ `category_rule`（类别通用规则）。
+    /// 获取方式来源：`item_note`（逐项）/ `collection_note`（合集）/
+    /// `unit_note`（子关卡）/ `category_rule`（类别通用规则）。
     pub acquisition_source: &'static str,
     /// 位置线索（区域 · 子关卡 · 相对位置 · 同子关卡未收集数）。
     pub location_hint: String,
@@ -400,6 +401,15 @@ pub fn plan(catalog: &Catalog, observed: &BTreeSet<String>) -> CollectionPlan {
                     .acquisition_note
                     .as_deref()
                     .filter(|value| !value.is_empty());
+                let acquisition_source = if note.is_some() {
+                    match item.acquisition_note_scope.as_deref() {
+                        Some("collection") => "collection_note",
+                        Some("unit") => "unit_note",
+                        _ => "item_note",
+                    }
+                } else {
+                    "category_rule"
+                };
                 items.push(ItemPlan {
                     id: id.clone(),
                     display_name: display_name(item, id),
@@ -414,11 +424,7 @@ pub fn plan(catalog: &Catalog, observed: &BTreeSet<String>) -> CollectionPlan {
                     unit: unit.clone(),
                     position: item.position.clone(),
                     acquisition_text: note.unwrap_or(&rule_text).to_string(),
-                    acquisition_source: if note.is_some() {
-                        "item_note"
-                    } else {
-                        "category_rule"
-                    },
+                    acquisition_source,
                     location_hint: location_hint(
                         &region_name,
                         unit.as_ref(),

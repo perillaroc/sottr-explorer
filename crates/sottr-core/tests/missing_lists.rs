@@ -7,7 +7,7 @@ use sottr_core::metadata::MetadataLimits;
 use sottr_core::missing::{REASON_OPTIONAL, REASON_UNRESOLVED, compute_missing};
 
 const CATALOG: &str = r#"{
-  "catalog_schema_version": "2.0.0",
+  "catalog_schema_version": "2.1.0",
   "catalog_version": "2.0.0",
   "generated_from": {},
   "totals": {"items": 5, "story": 0, "nonstory": 5, "required_for_100": 2, "dlc": 1, "with_position": 0, "with_region": 0},

@@ -89,4 +89,5 @@
 | 底图来源许可 | `pending`、`allowed`、`denied` |
 | 图鉴条目种类 | `story`、`nonstory` |
 | 获取方式来源 | `curated`、`game_data` |
+| 注记作用域 | `item`、`collection`、`unit` |
 | 名称来源 | `game_locale`、`curated`、`zone_name` |

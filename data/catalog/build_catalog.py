@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Build the full-collection catalog / atlas (SX-021 stage A; SX-022 schema 2.0.0).
+"""Build the full-collection catalog / atlas (SX-021 stage A; v0.2.0 schema 2.1.0).
 
 Inputs (outside the repo, produced by research/game-data scripts):
   <work>/extracted/dtp_0360E8.bin            globalcollectibleinfo DTP (update3)
@@ -24,10 +24,18 @@ from collections import Counter
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
 DICT_PATH = REPO / "research" / "save-inspector" / "data" / "collectible_id_candidates.json"
 GAME_DATA = REPO / "research" / "game-data" / "data"
-OUT_PATH = Path(__file__).resolve().parent / "collectibles_catalog.json"
+OUT_PATH = HERE / "collectibles_catalog.json"
+sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(REPO / "research" / "game-data"))
+from guidance import (  # noqa: E402
+    apply_guidance,
+    basemap_units,
+    load_guidance,
+    validate_guidance,
+)
 from sottr_atlas import (  # noqa: E402
     NONSTORY_TYPE_CATEGORY, POSITION_SPACE, STORY_TYPE_SUBCATEGORY,
     parse_nonstory_items, parse_story_items,
@@ -237,6 +245,9 @@ def main() -> int:
             "unit": row["unit"],
             "position": position_of(row),
             "acquisition_note": None,
+            "acquisition_note_en": None,
+            "acquisition_note_scope": None,
+            "acquisition_note_source": None,
         }
         if group not in seen_collections:
             seen_collections.add(group)
@@ -279,6 +290,9 @@ def main() -> int:
             "unit": row["unit"],
             "position": position_of(row),
             "acquisition_note": None,
+            "acquisition_note_en": None,
+            "acquisition_note_scope": None,
+            "acquisition_note_source": None,
         }
     for iid, shared in shared_ids.items():
         items[iid]["shared_id"] = True
@@ -402,9 +416,31 @@ def main() -> int:
         for key, rule in ACQUISITION_RULES.items()
     }
 
+    # ---------------- acquisition guidance (v0.2.0) ----------------
+    # Every required item must have either a mappable position or a note. Collection
+    # notes cover the 32 no-position story items; sub-level notes cover the 77 items in
+    # units without a basemap. The check is also enforced by check_guidance.py in CI.
+    guidance = load_guidance()
+    units_with_basemap = basemap_units()
+    guidance_errors = validate_guidance(guidance, items, unit_names, units_with_basemap)
+    if guidance_errors:
+        for error in guidance_errors:
+            print(f"GUIDANCE ERROR: {error}", file=sys.stderr)
+        return 1
+    guidance_stats = apply_guidance(
+        items, guidance, regions, unit_names, units_with_basemap
+    )
+    collection_guidance = guidance.get("collections", {})
+    for entry in collections:
+        info = collection_guidance.get(entry["name"])
+        if info:
+            entry["display_zh"] = info["display_zh"]
+            entry["display_en"] = info["display_en"]
+    print("guidance:", guidance_stats)
+
     catalog = {
-        "catalog_schema_version": "2.0.0",
-        "catalog_version": "2.0.0",
+        "catalog_schema_version": "2.1.0",
+        "catalog_version": "2.1.0",
         "generated_from": {
             "game": {"product": "Shadow of the Tomb Raider", "steam_appid": 750920,
                      "data": "bigfile.update3.002（最高优先级）"},
@@ -419,8 +455,13 @@ def main() -> int:
             "zone_source": "TrRebootModTools tr11zones.bt（MIT）",
             "region_binding": "存档区域计数器来源目标 vs 目录区域×类别计数（L1 最近邻，距离 0）；"
                               "证据见 research/game-data/data/region_bindings.json",
-            "acquisition_text": "类别通用规则为人工整理（curated）；逐项注记见 items[].acquisition_note",
-            "date": "2026-10-17",
+            "acquisition_text": "类别通用规则为人工整理（curated）；逐项注记与合集/子关卡指引见 items[].acquisition_note*",
+            "guidance": {
+                "path": "data/catalog/guidance.json",
+                "source": guidance.get("source"),
+                "limitations": guidance.get("limitations", []),
+            },
+            "date": "2026-11-05",
             "license_decision": "用户已确认商业游戏数据可随交付版发布（2026-10-17）",
         },
         "totals": {
@@ -451,6 +492,12 @@ def main() -> int:
         "story_names_localized": sum(1 for v in items.values()
                                      if v["kind"] == "story" and v["name_zh"]) == 302,
         "all_units_named": all(v["zone"] for v in unit_names.values()),
+        "required_total_352": guidance_stats["required"] == 352,
+        "required_mapped_243": guidance_stats["mapped"] == 243,
+        "required_collection_32": guidance_stats["collection"] == 32,
+        "required_unit_77": guidance_stats["unit"] == 77,
+        "required_item_0": guidance_stats["item"] == 0,
+        "required_uncovered_0": guidance_stats["uncovered"] == 0,
     }
     print("checks:", checks)
     if not all(checks.values()):

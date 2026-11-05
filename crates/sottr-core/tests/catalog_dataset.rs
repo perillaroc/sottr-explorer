@@ -4,9 +4,9 @@
 //! 同时更新两处，否则测试失败。
 
 use sottr_core::catalog::{
-    CODE_CATALOG_ID_INVALID, CODE_CATALOG_POSITION_INVALID, CODE_CATALOG_REGION_INVALID,
-    CODE_CATALOG_REQUIRED_CONFLICT, CODE_CATALOG_RULE_MISSING, CODE_CATALOG_SHARED_ID_INVALID,
-    CODE_CATALOG_TOTALS_MISMATCH, Catalog,
+    CODE_CATALOG_GUIDANCE_INVALID, CODE_CATALOG_ID_INVALID, CODE_CATALOG_POSITION_INVALID,
+    CODE_CATALOG_REGION_INVALID, CODE_CATALOG_REQUIRED_CONFLICT, CODE_CATALOG_RULE_MISSING,
+    CODE_CATALOG_SHARED_ID_INVALID, CODE_CATALOG_TOTALS_MISMATCH, Catalog,
 };
 use sottr_core::metadata::MetadataLimits;
 
@@ -20,7 +20,7 @@ fn load() -> Catalog {
 fn real_catalog_totals_match_reconciliation() {
     let catalog = load();
     let totals = catalog.totals;
-    assert_eq!(catalog.version(), "2.0.0");
+    assert_eq!(catalog.version(), "2.1.0");
     assert_eq!(
         (
             totals.items,
@@ -85,7 +85,7 @@ fn unresolved_and_optional_categories_are_not_required() {
 }
 
 const SYNTHETIC: &str = r#"{
-  "catalog_schema_version": "2.0.0",
+  "catalog_schema_version": "2.1.0",
   "catalog_version": "2.0.0",
   "generated_from": {},
   "totals": {"items": 1, "story": 0, "nonstory": 1, "required_for_100": 1, "dlc": 0, "with_position": 0, "with_region": 1},
@@ -186,6 +186,32 @@ fn rejects_missing_acquisition_rule() {
         ),
         CODE_CATALOG_RULE_MISSING,
     );
+}
+
+#[test]
+fn rejects_invalid_acquisition_note_scope() {
+    expect_code(
+        &SYNTHETIC.replace(
+            "\"acquisition_note\": null",
+            "\"acquisition_note\": \"注记\", \"acquisition_note_scope\": \"bogus\"",
+        ),
+        CODE_CATALOG_GUIDANCE_INVALID,
+    );
+}
+
+#[test]
+fn accepts_scoped_acquisition_note() {
+    let json = SYNTHETIC.replace(
+        "\"acquisition_note\": null",
+        "\"acquisition_note\": \"注记\", \"acquisition_note_en\": \"note\", \
+         \"acquisition_note_scope\": \"collection\", \"acquisition_note_source\": \"curated\"",
+    );
+    let catalog =
+        Catalog::from_json(json.as_bytes(), &MetadataLimits::default()).expect("注记应可加载");
+    let item = catalog.items.get("0x00000001").expect("条目");
+    assert_eq!(item.acquisition_note.as_deref(), Some("注记"));
+    assert_eq!(item.acquisition_note_scope.as_deref(), Some("collection"));
+    assert_eq!(item.acquisition_note_source.as_deref(), Some("curated"));
 }
 
 #[test]

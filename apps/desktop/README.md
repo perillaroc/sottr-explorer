@@ -11,6 +11,9 @@ SX-014 提供最小权限命令层（后端）；SX-015 实现契约驱动的界
 **详情「在新窗口中打开」**（Tauri 独立原生窗口；浏览器模式用 `window.open`；
 窗口创建失败退回应用内模态浮层）。
 
+v0.2.0 增加**必收指引覆盖**：无坐标条目用合集注记、无底图子关卡用子关卡注记；
+详情显示「合集 / 合集指引 / 子关卡指引」标签，全收集页显示 352/352 覆盖行。
+
 ```powershell
 pnpm install        # 安装依赖并生成/更新 pnpm-lock.yaml
 pnpm dev            # 前端开发服务器（http://127.0.0.1:51888；浏览器内为模拟数据演示）
@@ -45,6 +48,7 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 | `src/app/store.ts` | 单一 reactive store：request_id 隔离、切槽撤销提交资格、刷新失败 stale、筛选回退、导出与链接动作状态、地图选择/筛选、详情弹窗兜底、偏好持久化 |
 | `src/app/catalog.ts` | 界面派生视图：清单行（组行折叠）、区域计数单元格、诊断分组、表位置/参考集/组计数查询 |
 | `src/app/map-view.ts` | 地图视图派生：底图目录、当前图条目/分组/筛选、无坐标与无底图统计、全量覆盖统计 |
+| `src/app/guidance.ts` | 必收指引派生：352/352 覆盖统计、单条下落类别、合集显示名 |
 | `src/app/category-icon.ts` | 图鉴类别 → Lucide 图标（未知回退 `MapPin`） |
 | `src/app/detail-window.ts` | 详情弹窗 payload（版本 1）、从计划构建、打开/读取/订阅更新、窗口识别 |
 | `src/data/source.ts` | 数据源抽象（discover/list/analyze/cancel/export/resolve/open 与 DTO） |
@@ -53,7 +57,7 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 | `src/data/basemaps.ts` | 底图数据集索引（按 unit/区域查找、图片地址、坐标投影） |
 | `src/components/ExportDialog.vue` | 导出对话框：格式、分享脱敏、目标新目录、成功/失败/过期三态与恢复 |
 | `src/components/CollectionDetail.vue` | 详情 store 连接层（区域/类别文案、直链与搜索地址、外链动作、弹出窗口） |
-| `src/components/ItemDetailView.vue` | 详情纯展示层（主窗口与弹窗共用）：状态/徽标、如何获取、外部参考、相对位置 |
+| `src/components/ItemDetailView.vue` | 详情纯展示层（主窗口与弹窗共用）：状态/徽标、合集、如何获取/指引、外部参考、相对位置 |
 | `src/components/DetailWindow.vue` | 详情弹窗内容：读取 payload、同子关卡清单、外链打开/复制、缺失/版本/读取失败状态 |
 | `src/components/MapPage.vue` | 地图查询页：区域/子关卡选择、独立筛选、覆盖与校准提示、地图 + 右栏 |
 | `src/components/map/MapCanvas.vue` | 可交互地图：类别图标标记、已收集/未收集/选中、滚轮/按钮/双击缩放、拖拽平移 |

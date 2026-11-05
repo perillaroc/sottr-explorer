@@ -85,6 +85,9 @@ jobs:
       - name: Metadata check
         run: python data/metadata/build_metadata.py --check
 
+      - name: Catalog guidance coverage
+        run: python data/catalog/check_guidance.py
+
   docs:
     name: Docs
     runs-on: ubuntu-latest

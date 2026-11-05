@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0.0",
+  "source": "curated",
+  "limitations": [
+    "合集指引基于图鉴的合集/区域/子关卡与坐标数据推断，未逐条与游戏内核实。",
+    "子关卡指引只说明该子关卡没有底图与必收数量，不提供逐步路线。",
+    "指引文字为项目原创整理，不复制第三方攻略原文。"
+  ],
+  "collections": {
+    "Path_of_the_Stars": {
+      "display_zh": "星之路",
+      "display_en": "Path of the Stars",
+      "hint_zh": "这是帕依提提的星象谜题支线。",
+      "hint_en": "A Paititi constellation-puzzle side quest."
+    },
+    "aa_Laras_Notebook": {
+      "display_zh": "劳拉的笔记",
+      "display_en": "Lara's Notebook",
+      "hint_zh": "游戏数据把该组归在挑战古墓相关区域。",
+      "hint_en": "Game data groups this set under challenge-tomb areas."
+    },
+    "A_Community_In_Need": {
+      "display_zh": "社区之需",
+      "display_en": "A Community in Need",
+      "hint_zh": "库阿克雅库的支线合集。",
+      "hint_en": "A Kuwaq Yaku side-quest collection."
+    },
+    "Aztec_Gods": {
+      "display_zh": "阿兹特克诸神",
+      "display_en": "Aztec Gods"
+    },
+    "Cult_Story_1": {
+      "display_zh": "邪教故事 I",
+      "display_en": "Cult Story I"
+    },
+    "Day_In_The_Life_Of_The_Aztec": {
+      "display_zh": "阿兹特克人的日常",
+      "display_en": "Day in the Life of the Aztec"
+    },
+    "Inca_Rebels": {
+      "display_zh": "印加叛军",
+      "display_en": "Inca Rebels"
+    },
+    "Mayan_History_2": {
+      "display_zh": "玛雅历史 II",
+      "display_en": "Mayan History II"
+    },
+    "Myths_Magic_And_Monsters": {
+      "display_zh": "神话、魔法与怪物",
+      "display_en": "Myths, Magic and Monsters"
+    },
+    "Paititi_History_2": {
+      "display_zh": "帕依提提历史 II",
+      "display_en": "Paititi History II"
+    },
+    "Spanish_Mission": {
+      "display_zh": "西班牙传教团",
+      "display_en": "Spanish Mission"
+    }
+  },
+  "units": {
+    "1071": {},
+    "1308": {},
+    "1367": {},
+    "2284": {},
+    "2288": {},
+    "2289": {},
+    "2301": {},
+    "2302": {},
+    "2468": {},
+    "2487": {},
+    "2514": {},
+    "2919": {},
+    "2922": {},
+    "2924": {},
+    "3004": {},
+    "3246": {},
+    "3267": {},
+    "3317": {},
+    "3417": {},
+    "3418": {},
+    "3427": {},
+    "3428": {},
+    "4024": {},
+    "4906": {}
+  },
+  "items": {}
+}

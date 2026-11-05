@@ -17,6 +17,13 @@ describe("FullCollectionPage", () => {
     expect(text).toContain("可选类别");
     expect(text).toContain("未闭合类别");
 
+    // 必收指引覆盖：352 条全部有地图或文字指引。
+    const coverage = wrapper.get('[data-testid="guidance-coverage"]').text();
+    expect(coverage).toContain("必收指引 352/352");
+    expect(coverage).toContain("地图 243");
+    expect(coverage).toContain("合集 32");
+    expect(coverage).toContain("子关卡 77");
+
     // 必收类别：artifacts 按必收子集计 253，且有可展开缺失清单。
     const artifacts = wrapper.find('[data-testid="category-artifacts"]');
     expect(artifacts.exists()).toBe(true);

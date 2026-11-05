@@ -116,6 +116,7 @@ const selectedPlanItem = computed<PlanItem | null>(() => {
     status: item.status,
     is_dlc: item.isDlc,
     required_for_100: item.requiredFor100,
+    collection: item.collection,
     position: item.position ? { ...item.position, space: "unit_normalized_unverified" } : undefined,
     acquisition_text: item.acquisitionText,
     acquisition_source: item.acquisitionSource,

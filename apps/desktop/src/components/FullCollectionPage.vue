@@ -8,6 +8,7 @@ import { computed } from "vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { categoryLabel } from "../app/labels";
+import { collectionDisplayName, guidanceCoverage, guidanceScopeForId } from "../app/guidance";
 import { groupDisplayName, regionName } from "../app/collection";
 import {
   computeMissing,
@@ -83,6 +84,26 @@ function missingLabel(item: MissingItem): string {
 function categoryName(id: string, fallback: string): string {
   return categoryLabel(id, fallback);
 }
+
+/** 全量必收指引覆盖（静态，与当前存档状态无关）。 */
+const guidance = guidanceCoverage();
+const guidanceCovered =
+  guidance.mapped + guidance.item + guidance.collection + guidance.unit;
+
+function guidanceLabel(id: string): string {
+  switch (guidanceScopeForId(id)) {
+    case "map":
+      return t("地图", "Map");
+    case "collection":
+      return t("合集", "Collection");
+    case "unit":
+      return t("子关卡", "Sub-level");
+    case "item":
+      return t("指引", "Guide");
+    default:
+      return "";
+  }
+}
 </script>
 
 <template>
@@ -94,6 +115,20 @@ function categoryName(id: string, fallback: string): string {
           {{ t(`必收 ${requiredTotals.observed}/${requiredTotals.total} · 缺失 ${requiredTotals.missing}`, `Required ${requiredTotals.observed}/${requiredTotals.total} · missing ${requiredTotals.missing}`) }}
         </span>
       </header>
+
+      <p v-if="missing" class="mb-3 text-[12px] text-muted" data-testid="guidance-coverage">
+        {{ tFormat(
+          "必收指引 {covered}/{total}（地图 {mapped} · 合集 {collection} · 子关卡 {unit}）",
+          "Required guidance {covered}/{total} (map {mapped} · collection {collection} · sub-level {unit})",
+          {
+            covered: guidanceCovered,
+            total: guidance.required,
+            mapped: guidance.mapped,
+            collection: guidance.collection,
+            unit: guidance.unit,
+          },
+        ) }}
+      </p>
 
       <p v-if="!missing" class="rounded-[8px] border border-line bg-surface px-3 py-4 text-[13px] text-muted">
         {{ t("先分析一个存档文件，再查看全收集缺失清单。", "Analyze a save file first to view the full-collection missing list.") }}
@@ -178,7 +213,15 @@ function categoryName(id: string, fallback: string): string {
               >
                 <span class="text-ink">{{ missingLabel(item) }}</span>
                 <span class="ml-2 font-mono text-[11px]">{{ item.id }}</span>
-                <span v-if="item.collection" class="ml-2">{{ t(`合集：${item.collection}`, `Collection: ${item.collection}`) }}</span>
+                <span v-if="item.collection" class="ml-2">
+                  {{ tFormat("合集：{value}", "Collection: {value}", { value: collectionDisplayName(item.collection) }) }}
+                </span>
+                <span
+                  v-if="guidanceLabel(item.id)"
+                  class="ml-2 rounded-[4px] bg-raised px-1.5 py-0.5 text-[10px] text-muted"
+                >
+                  {{ guidanceLabel(item.id) }}
+                </span>
                 <span v-if="item.shared_names" class="ml-2">
                   {{ tFormat("共用 ID：{names}（按 ID 计数，不拆分判定）", "Shared ID: {names} (counted by ID; not split for assessment)", { names: item.shared_names.join(" / ") }) }}
                 </span>

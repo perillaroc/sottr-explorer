@@ -118,7 +118,7 @@ save1 观察 517 个 ID，其中 358 个属于图鉴；其余 159 个经 866 字
 | [`sottr_atlas.py`](https://github.com/perillaroc/sottr-explorer/blob/main/research/game-data/sottr_atlas.py) | 库：故事/非故事全字段解析、zone 命名、locals 读取与对齐、区域签名匹配 |
 | [`build_derived_tables.py`](https://github.com/perillaroc/sottr-explorer/blob/main/research/game-data/build_derived_tables.py) | 生成 `research/game-data/data/{region_bindings,region_names,unit_names,item_names,locale_summary}.json` |
 | [`validate_region_counters.py`](https://github.com/perillaroc/sottr-explorer/blob/main/research/game-data/validate_region_counters.py) | 验收：图鉴 ↔ 存档区域计数器逐行对账（43 行） |
-| `data/catalog/build_catalog.py` | 生成 schema 2.0.0 图鉴 `data/catalog/collectibles_catalog.json` |
+| `data/catalog/build_catalog.py` | 生成 schema 2.1.0 图鉴 `data/catalog/collectibles_catalog.json` |
 
 复现（仓库根目录执行）：
 
@@ -139,8 +139,9 @@ py -3 data/catalog/build_catalog.py $W --check      # 可复现性
 2. **`_special` / `_challenge_tombs` 的宿主区域**：游戏数据把它们归到聚合区域；
    产品保持原样，用子关卡名（各古墓 / 各关卡）表达实际位置，不改写为宿主区域；
 3. **坐标校准**：图鉴本身只提供每单位归一化位置；是否已校准由地图数据集标注；
-4. **获取方式文案**为人工整理的类别通用规则（`source: curated`），
-   逐项注记字段 `items[].acquisition_note` 留给后续补齐重点条目；
+4. **获取方式文案**为人工整理的类别通用规则（`source: curated`）；
+   v0.2.0 已用 `data/catalog/guidance.json` 为无坐标/无底图的必收条目补合集或子关卡指引，
+   具体触发点仍未逐条与游戏内核实；
 5. **区域名键的语义**：`regionname_pa_paititi02` 等取的是该区域主显示名；
    26 区中未承载收集品的区域不展示。
 

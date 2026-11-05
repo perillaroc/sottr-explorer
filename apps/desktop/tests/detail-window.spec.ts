@@ -88,6 +88,17 @@ describe("payload 构建", () => {
     expect(payload.items[0].id).toBe(NO_UNIT_ITEM);
     expect(payload.basemap).toBeNull();
     expect(payload.unitLabel).toBe("—");
+    expect(payload.items[0].collection).toBe("Path_of_the_Stars");
+    expect(payload.items[0].acquisitionSource).toBe("collection_note");
+  });
+
+  it("无底图子关卡条目：payload 携带子关卡指引", async () => {
+    const { payload } = await payloadFor("0x659672E5");
+    expect(payload.basemap).toBeNull();
+    const item = payload.items.find((entry) => entry.id === "0x659672E5")!;
+    expect(item.collection).toBe("Aztec_Gods");
+    expect(item.acquisitionSource).toBe("unit_note");
+    expect(item.acquisitionText).toContain("暂无底图");
   });
 
   it("stale 标记随报告状态进入 payload", async () => {

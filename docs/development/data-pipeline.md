@@ -18,6 +18,10 @@
                                             └─ data/catalog/build_catalog.py
                                                ──► data/catalog/collectibles_catalog.json
 
+data/catalog/guidance.json + data/map/basemaps.json
+└─ data/catalog/guidance.py（合集/子关卡注记）
+   └─ data/catalog/build_catalog.py ──► 图鉴 items[].acquisition_note*
+
 地图图集（仓库外）
 └─ 开发工作区的地图处理脚本（不随仓库分发）
    ──► data/map/maps/*.webp + data/map/basemaps.json
@@ -27,7 +31,8 @@
 
 | 数据集 | 生成器 | 输入 | 消费者 | 契约 | 进产品包 |
 | --- | --- | --- | --- | --- | --- |
-| `data/catalog/collectibles_catalog.json` | `data/catalog/build_catalog.py` | 研究字典 + `research/game-data/data/*` + 仓库外提取物 | 前端 `atlas.ts`、CLI `plan`/`missing`、Rust 测试 | `schemas/catalog.schema.json` | 是（Vite 构建期 import） |
+| `data/catalog/collectibles_catalog.json` | `data/catalog/build_catalog.py` | 研究字典 + `research/game-data/data/*` + 仓库外提取物 + `data/catalog/guidance.json` + `data/map/basemaps.json` | 前端 `atlas.ts`、CLI `plan`/`missing`、Rust 测试 | `schemas/catalog.schema.json` | 是（Vite 构建期 import） |
+| `data/catalog/guidance.json` | 手工维护（项目原创文字） | 图鉴合集/区域/子关卡与底图 unit 集合 | 仅 `build_catalog.py` / `guidance.py` / `check_guidance.py` | 由 `guidance.py` 校验 | 否（只把合并结果写进图鉴） |
 | `data/metadata/{collectibles,region_counters,reference_sets}.json` | `data/metadata/build_metadata.py` | `research/save-inspector/data/*` + 图鉴 | Rust `session.rs`（编译期嵌入）、CLI `--metadata`、测试 | `schemas/metadata.schema.json` | 是（`include_str!`） |
 | `data/map/basemaps.json` + `data/map/maps/*.webp` | 开发工作区的地图处理脚本 | 地图图集 + 游戏内地图定义 | 前端、Rust 加载器 | `schemas/basemap.schema.json` | 是（42 张，约 48 MB） |
 | `research/game-data/data/*.json` | `research/game-data/build_derived_tables.py` | 仓库外提取物 | 仅 `build_catalog.py` | 无独立 schema | 否 |
@@ -55,15 +60,17 @@
 ```powershell
 py -3 research/game-data/build_derived_tables.py <work_dir> <trreboot_tools_dir>
 py -3 data/catalog/build_catalog.py <work_dir> --check
+py -3 data/catalog/check_guidance.py
 py -3 data/metadata/build_metadata.py --check
 ```
 
-校验分三层：
+校验分四层：
 
 ```powershell
 cargo test -p sottr-core --test metadata_dataset
 cargo test -p sottr-core --test basemap_dataset
 cargo test -p sottr-core --test catalog_dataset
+py -3 data/catalog/check_guidance.py
 cd apps/desktop
 pnpm contract:check
 pnpm contract:images
