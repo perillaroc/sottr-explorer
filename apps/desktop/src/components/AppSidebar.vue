@@ -1,6 +1,7 @@
 <script setup lang="ts">
-// 侧栏（SX-015）：主视图 + 区域快捷入口；折叠时只显示图标（aria-label 保留）。
-// 设置与关于拆成两个入口；区域按主区域/特殊区域分组，特殊区域不再逐行挂“特殊”标签。
+// 侧栏（2026-11-05 界面美化阶段二）：展开 224px / 折叠 64px；一级导航 40px、
+// 区域入口 36px；选中为 3px 左侧标记 + accent-bg + accent-strong。
+// 区域按主区域/特殊区域分组，分组标题 12px 正常大小写，底部诊断/设置/关于固定。
 import { computed } from "vue";
 import {
   Activity,
@@ -20,7 +21,7 @@ const props = withDefaults(defineProps<{ expanded: boolean }>(), { expanded: tru
 
 const store = useStore();
 
-const hasResult = computed(() => store.currentSlot.value?.result !== null);
+const hasResult = computed(() => store.currentSlot.value?.result != null);
 const mainRegions = computed(() =>
   store.plan.value.regions
     .filter((region) => region.kind === "main")
@@ -42,11 +43,19 @@ const specialRegions = computed(() =>
     })),
 );
 
-const baseItem =
-  "flex w-full items-center gap-2 rounded-[6px] px-2 py-[7px] text-left text-[13px] disabled:cursor-not-allowed disabled:opacity-50";
+const navItem =
+  "ui-interactive flex h-10 w-full items-center gap-2.5 rounded-control px-2.5 text-left text-[13px] disabled:cursor-not-allowed disabled:opacity-50";
+const regionItem =
+  "ui-interactive flex h-9 w-full items-center gap-2 rounded-control px-2.5 text-left text-[13px] disabled:cursor-not-allowed disabled:opacity-50";
+const groupLabel = "mt-3 border-t border-line px-2 pt-2 text-xs font-medium text-muted";
 
-function itemClass(active: boolean): string {
-  return `${baseItem} ${active ? "bg-accent-bg text-accent-strong" : "text-ink hover:bg-raised"}`;
+function itemClass(active: boolean, region = false): string {
+  const base = region ? regionItem : navItem;
+  const state = active
+    ? "ui-row-selected font-medium text-accent-strong"
+    : "text-ink enabled:hover:bg-raised";
+  const collapsed = !props.expanded && !region ? "justify-center px-0" : "";
+  return `${base} ${state} ${collapsed}`;
 }
 
 function go(view: "import" | "overview" | "full" | "regions" | "map" | "diagnostics" | "settings" | "about"): void {
@@ -62,11 +71,11 @@ function goRegion(region: string): void {
 <template>
   <nav
     class="flex h-full flex-col border-r border-line bg-surface"
-    :class="props.expanded ? 'w-[216px]' : 'w-14'"
+    :class="props.expanded ? 'w-[224px]' : 'w-16'"
     :aria-label="t('主导航', 'Main navigation')"
     data-testid="app-sidebar"
   >
-    <ul class="flex-1 space-y-0.5 overflow-y-auto p-1.5">
+    <ul class="flex-1 space-y-0.5 overflow-y-auto px-1.5 pt-3 pb-1.5">
       <li>
         <button
           type="button"
@@ -75,8 +84,8 @@ function goRegion(region: string): void {
           :title="t('打开存档', 'Open save')"
           @click="go('import')"
         >
-          <FolderOpen :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("打开存档", "Open save") }}</span>
+          <FolderOpen :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("打开存档", "Open save") }}</span>
           <span v-else class="sr-only">{{ t("打开存档", "Open save") }}</span>
         </button>
       </li>
@@ -89,8 +98,8 @@ function goRegion(region: string): void {
           :aria-current="store.state.view === 'overview' ? 'page' : undefined"
           @click="go('overview')"
         >
-          <LayoutDashboard :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("概览", "Overview") }}</span>
+          <LayoutDashboard :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("概览", "Overview") }}</span>
           <span v-else class="sr-only">{{ t("概览", "Overview") }}</span>
         </button>
       </li>
@@ -103,8 +112,8 @@ function goRegion(region: string): void {
           :aria-current="store.state.view === 'full' ? 'page' : undefined"
           @click="go('full')"
         >
-          <Trophy :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("全收集（100%）", "Full collection (100%)") }}</span>
+          <Trophy :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("全收集（100%）", "Full collection (100%)") }}</span>
           <span v-else class="sr-only">{{ t("全收集（100%）", "Full collection (100%)") }}</span>
         </button>
       </li>
@@ -117,8 +126,8 @@ function goRegion(region: string): void {
           :aria-current="store.state.view === 'regions' ? 'page' : undefined"
           @click="go('regions')"
         >
-          <ListTree :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("区域与收集", "Regions & Collection") }}</span>
+          <ListTree :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("区域与收集", "Regions & Collection") }}</span>
           <span v-else class="sr-only">{{ t("区域与收集", "Regions & Collection") }}</span>
         </button>
       </li>
@@ -131,18 +140,18 @@ function goRegion(region: string): void {
           :aria-current="store.state.view === 'map' ? 'page' : undefined"
           @click="go('map')"
         >
-          <MapPinned :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("地图查询", "Map") }}</span>
+          <MapPinned :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("地图查询", "Map") }}</span>
           <span v-else class="sr-only">{{ t("地图查询", "Map") }}</span>
         </button>
       </li>
 
       <template v-if="props.expanded">
-        <li class="mt-3 px-2 text-[11px] font-medium tracking-wide text-muted">{{ t("区域", "Regions") }}</li>
+        <li :class="groupLabel">{{ t("区域", "Regions") }}</li>
         <li>
           <button
             type="button"
-            :class="itemClass(store.state.view === 'regions' && store.state.region === 'all')"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === 'all', true)"
             :disabled="!hasResult"
             :title="hasResult ? t('全部区域', 'All regions') : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
             @click="goRegion('all')"
@@ -153,35 +162,33 @@ function goRegion(region: string): void {
         <li v-for="region in mainRegions" :key="region.id">
           <button
             type="button"
-            class="flex w-full items-center gap-2"
-            :class="itemClass(store.state.view === 'regions' && store.state.region === region.id)"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === region.id, true)"
             :disabled="!hasResult"
             :title="hasResult ? tFormat('{region}：已收集 {collected}/{total}', '{region}: collected {collected}/{total}', { region: region.label, collected: region.collected, total: region.total }) : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
             @click="goRegion(region.id)"
           >
             <span class="min-w-0 flex-1 truncate text-left">{{ region.label }}</span>
-            <span class="shrink-0 tabular-nums text-xs text-muted">{{ region.collected }}/{{ region.total }}</span>
+            <span class="shrink-0 text-xs tabular-nums text-muted">{{ region.collected }}/{{ region.total }}</span>
           </button>
         </li>
 
-        <li class="mt-3 px-2 text-[11px] font-medium tracking-wide text-muted">{{ t("特殊区域", "Special") }}</li>
+        <li :class="groupLabel">{{ t("特殊区域", "Special") }}</li>
         <li v-for="region in specialRegions" :key="region.id">
           <button
             type="button"
-            class="flex w-full items-center gap-2"
-            :class="itemClass(store.state.view === 'regions' && store.state.region === region.id)"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === region.id, true)"
             :disabled="!hasResult"
             :title="hasResult ? tFormat('{region}：已收集 {collected}/{total}', '{region}: collected {collected}/{total}', { region: region.label, collected: region.collected, total: region.total }) : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
             @click="goRegion(region.id)"
           >
             <span class="min-w-0 flex-1 truncate text-left">{{ region.label }}</span>
-            <span class="shrink-0 tabular-nums text-xs text-muted">{{ region.collected }}/{{ region.total }}</span>
+            <span class="shrink-0 text-xs tabular-nums text-muted">{{ region.collected }}/{{ region.total }}</span>
           </button>
         </li>
         <li>
           <button
             type="button"
-            :class="itemClass(store.state.view === 'regions' && store.state.region === 'unknown')"
+            :class="itemClass(store.state.view === 'regions' && store.state.region === 'unknown', true)"
             :disabled="!hasResult"
             :title="hasResult ? t('目录外观察记录（服装 / 技能等，不计入收集品）', 'Off-catalog records (outfits, skills, etc.; not collectibles)') : t('区域列表：先分析一个存档文件', 'Region list: analyze a save file first')"
             @click="goRegion('unknown')"
@@ -202,8 +209,8 @@ function goRegion(region: string): void {
           :aria-current="store.state.view === 'diagnostics' ? 'page' : undefined"
           @click="go('diagnostics')"
         >
-          <Activity :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("诊断", "Diagnostics") }}</span>
+          <Activity :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("诊断", "Diagnostics") }}</span>
           <span v-else class="sr-only">{{ t("诊断", "Diagnostics") }}</span>
         </button>
       </li>
@@ -215,8 +222,8 @@ function goRegion(region: string): void {
           :title="t('设置', 'Settings')"
           @click="go('settings')"
         >
-          <Settings :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("设置", "Settings") }}</span>
+          <Settings :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("设置", "Settings") }}</span>
           <span v-else class="sr-only">{{ t("设置", "Settings") }}</span>
         </button>
       </li>
@@ -228,8 +235,8 @@ function goRegion(region: string): void {
           :title="t('关于', 'About')"
           @click="go('about')"
         >
-          <Info :size="16" aria-hidden="true" />
-          <span v-if="props.expanded">{{ t("关于", "About") }}</span>
+          <Info :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("关于", "About") }}</span>
           <span v-else class="sr-only">{{ t("关于", "About") }}</span>
         </button>
       </li>

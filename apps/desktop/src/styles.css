@@ -265,6 +265,11 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* 页面骨架：标题区上 20px；水平内边距由页面按布局档位提供。 */
+.ui-page-header {
+  padding-top: 20px;
+}
+
 /* 表面层级：页面 canvas 无外框；工作面 surface；次级区 raised；浮层 surface + shadow。
    区块优先用标题、留白与细分隔线区分，不默认套圆角卡片。 */
 .ui-panel {

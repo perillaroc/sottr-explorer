@@ -1,12 +1,22 @@
 <script setup lang="ts">
-// 顶栏（SX-015）：应用名、当前文件与切换、全局分析状态、手动刷新、更多菜单。
-// 全局分析状态靠近文件选择器，明确“正在分析哪个文件”。
+// 顶栏（2026-11-05 界面美化阶段二）：56px 三段结构——品牌 / 当前存档 / 状态与动作。
+// 1440 以上完整显示；1100–1439 隐藏副标题、压缩状态；800–1099 文件名可截断；
+// <800 刷新与更多改为图标按钮。文件名、切换入口、刷新状态与取消动作始终保留。
 import { computed } from "vue";
-import { ChevronDown, Menu, RefreshCw } from "@lucide/vue";
+import {
+  ChevronDown,
+  CircleAlert,
+  CircleCheck,
+  CircleDashed,
+  Menu,
+  RefreshCw,
+  TriangleAlert,
+} from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t } from "../app/i18n";
 import { copy } from "../app/labels";
 import { fileNameOf, formatSnapshotTime } from "../app/format";
+import AppBrandMark from "./AppBrandMark.vue";
 import UiButton from "./ui/UiButton.vue";
 import UiIconButton from "./ui/UiIconButton.vue";
 import UiMenu from "./ui/UiMenu.vue";
@@ -14,13 +24,63 @@ import type { MenuItem } from "./ui/types";
 
 const store = useStore();
 
+const layout = computed(() => store.layout.value);
+const isNarrow = computed(() => layout.value === "narrow");
+const isCompactStatus = computed(() => layout.value === "compact" || layout.value === "narrow");
+const showSubtitle = computed(() => layout.value === "wide");
+const showDividers = computed(() => layout.value !== "narrow");
+
 const currentName = computed(() => {
   const path = store.state.selectedPath;
   return path ? fileNameOf(path) : t("未选择文件", "No file selected");
 });
 
-const hasResult = computed(() => store.currentSlot.value?.result !== null);
+const fileMaxClass = computed(() => {
+  switch (layout.value) {
+    case "wide":
+      return "max-w-56";
+    case "medium":
+      return "max-w-48";
+    case "compact":
+      return "max-w-36";
+    default:
+      return "max-w-28";
+  }
+});
 
+const statusMaxClass = computed(() => {
+  switch (layout.value) {
+    case "wide":
+      return "max-w-[288px]";
+    case "medium":
+      return "max-w-[176px]";
+    default:
+      return "max-w-[128px]";
+  }
+});
+
+const hasResult = computed(() => store.currentSlot.value?.result != null);
+
+type StatusKind = "analysis" | "cancelled" | "stale" | "complete" | "failed" | "idle";
+
+const statusKind = computed<StatusKind>(() => {
+  if (store.state.analysis) {
+    return "analysis";
+  }
+  if (store.state.lastCancelledPath === store.state.selectedPath && store.state.selectedPath) {
+    return "cancelled";
+  }
+  const slot = store.currentSlot.value;
+  if (slot?.result) {
+    return slot.result.freshness === "stale" ? "stale" : "complete";
+  }
+  if (slot?.startError) {
+    return "failed";
+  }
+  return "idle";
+});
+
+/** 完整状态（含快照时间），放在 title 中供鼠标 / 辅助技术读取。 */
 const statusText = computed(() => {
   const analysis = store.state.analysis;
   if (analysis) {
@@ -44,6 +104,60 @@ const statusText = computed(() => {
   }
   return t("尚未分析", "Not analyzed yet");
 });
+
+/** 当前档位下的简短状态；完整信息保留在 title。 */
+const statusShort = computed(() => {
+  switch (statusKind.value) {
+    case "analysis":
+      return store.state.analysis?.kind === "refresh" ? t("刷新中", "Refreshing") : t("分析中", "Analyzing");
+    case "cancelled":
+      return t("已取消", "Cancelled");
+    case "stale":
+      return t("旧快照", "Stale snapshot");
+    case "complete":
+      return isCompactStatus.value ? t("完成", "Done") : t("分析完成", "Analysis complete");
+    case "failed":
+      return isCompactStatus.value ? t("失败", "Failed") : t("分析失败", "Analysis failed");
+    default:
+      return isCompactStatus.value ? t("未分析", "Not analyzed") : t("尚未分析", "Not analyzed yet");
+  }
+});
+
+const statusIcon = computed(() => {
+  switch (statusKind.value) {
+    case "analysis":
+      return RefreshCw;
+    case "stale":
+      return TriangleAlert;
+    case "complete":
+      return CircleCheck;
+    case "failed":
+      return CircleAlert;
+    default:
+      return CircleDashed;
+  }
+});
+
+const statusToneClass = computed(() => {
+  switch (statusKind.value) {
+    case "analysis":
+      return "text-info";
+    case "stale":
+      return "text-caution";
+    case "complete":
+      return "text-success";
+    case "failed":
+      return "text-danger";
+    default:
+      return "text-muted";
+  }
+});
+
+const refreshLabel = computed(() =>
+  hasResult.value
+    ? t("手动刷新（F5）", "Refresh manually (F5)")
+    : t("尚未分析，无法刷新", "Not analyzed yet; cannot refresh"),
+);
 
 const moreItems = computed<MenuItem[]>(() => [
   store.canExport.value
@@ -86,69 +200,115 @@ function onMore(id: string): void {
 </script>
 
 <template>
-  <header class="flex h-12 shrink-0 items-center gap-2 border-b border-line bg-surface px-3">
-    <UiIconButton
-      v-if="store.layout.value === 'narrow'"
-      :label="t('打开导航菜单', 'Open navigation menu')"
-      :pressed="store.state.navOverlayOpen"
-      @click="store.actions.toggleNav()"
-    >
-      <Menu :size="18" aria-hidden="true" />
-    </UiIconButton>
-    <UiButton
-      v-else
-      size="sm"
-      variant="ghost"
-      :title="store.state.navCollapsed ? t('展开导航', 'Expand navigation') : t('折叠导航', 'Collapse navigation')"
-      @click="store.actions.toggleNav()"
-    >
-      <Menu :size="16" aria-hidden="true" />
-      <span class="sr-only">{{ store.state.navCollapsed ? t("展开导航", "Expand navigation") : t("折叠导航", "Collapse navigation") }}</span>
-    </UiButton>
-
-    <div class="flex min-w-0 items-baseline gap-2">
-      <span class="text-sm font-semibold whitespace-nowrap">{{ copy.appName }}</span>
-      <span class="hidden text-xs text-muted sm:inline">{{ copy.subtitle }}</span>
+  <header
+    class="flex h-14 shrink-0 items-center gap-2 border-b border-line bg-surface px-3"
+    data-testid="app-topbar"
+  >
+    <!-- 左：导航 + 品牌 -->
+    <div class="flex min-w-0 shrink-0 items-center gap-2">
+      <UiIconButton
+        v-if="isNarrow"
+        :label="t('打开导航菜单', 'Open navigation menu')"
+        :pressed="store.state.navOverlayOpen"
+        @click="store.actions.toggleNav()"
+      >
+        <Menu :size="18" aria-hidden="true" />
+      </UiIconButton>
+      <UiButton
+        v-else
+        size="sm"
+        variant="ghost"
+        :title="store.state.navCollapsed ? t('展开导航', 'Expand navigation') : t('折叠导航', 'Collapse navigation')"
+        @click="store.actions.toggleNav()"
+      >
+        <Menu :size="18" aria-hidden="true" />
+        <span class="sr-only">{{ store.state.navCollapsed ? t("展开导航", "Expand navigation") : t("折叠导航", "Collapse navigation") }}</span>
+      </UiButton>
+      <AppBrandMark :size="24" />
+      <div class="flex min-w-0 items-baseline gap-1.5">
+        <span class="text-[15px] font-semibold whitespace-nowrap">{{ copy.appName }}</span>
+        <span v-if="showSubtitle" class="whitespace-nowrap text-xs text-muted" data-testid="brand-subtitle">
+          {{ copy.subtitle }}
+        </span>
+      </div>
     </div>
 
-    <div class="ml-2 flex min-w-0 items-center rounded-[6px] border border-line bg-canvas pl-2.5">
-      <span class="max-w-48 truncate py-1 text-[13px]" data-testid="current-file" :title="store.state.selectedPath ?? ''">
-        {{ currentName }}
-      </span>
-      <span class="mx-1.5 h-3.5 w-px bg-line" aria-hidden="true"></span>
-      <button
-        type="button"
-        class="h-7 cursor-pointer rounded-[4px] px-2 text-xs text-accent-strong hover:bg-raised"
-        :title="t('切换存档（打开导入页）', 'Switch save (open import page)')"
+    <span v-if="showDividers" class="h-5 w-px shrink-0 bg-line" aria-hidden="true"></span>
+
+    <!-- 中：当前存档 -->
+    <div class="flex min-w-0 items-center gap-0.5" role="group" :aria-label="t('当前存档', 'Current save')">
+      <span
+        class="truncate text-[13px] font-medium"
+        :class="fileMaxClass"
+        data-testid="current-file"
+        :title="store.state.selectedPath ?? ''"
+      >{{ currentName }}</span>
+      <UiIconButton
+        :label="t('切换存档（打开导入页）', 'Switch save (open import page)')"
         @click="store.actions.openImport()"
-      >{{ t("切换", "Switch") }}</button>
+      >
+        <ChevronDown :size="16" aria-hidden="true" />
+      </UiIconButton>
     </div>
 
     <div class="flex-1" />
 
-    <p class="max-w-64 truncate text-[13px] text-muted" aria-live="polite" data-testid="analysis-status">
-      {{ statusText }}
-    </p>
-    <UiButton
-      v-if="store.state.analysis"
-      size="sm"
-      variant="danger"
-      :title="t('取消当前分析（不产生新报告）', 'Cancel the current analysis (no new report)')"
-      @click="store.actions.cancelAnalysis()"
+    <!-- 右：状态 + 动作 -->
+    <div
+      class="flex min-w-0 items-center gap-2"
+      :class="showDividers ? 'border-l border-line pl-3' : ''"
     >
-      {{ t("取消", "Cancel") }}
-    </UiButton>
-    <UiButton
-      size="sm"
-      :disabled="!hasResult || store.state.analysis !== null"
-      :title="hasResult ? t('手动刷新（F5）', 'Refresh manually (F5)') : t('尚未分析，无法刷新', 'Not analyzed yet; cannot refresh')"
-      @click="store.actions.refresh()"
-    >
-      <RefreshCw :size="16" aria-hidden="true" />
-      {{ t("刷新", "Refresh") }}
-    </UiButton>
-    <UiMenu :label="t('更多', 'More')" :items="moreItems" @select="onMore">
-      <span class="inline-flex items-center gap-1">{{ t("更多", "More") }}<ChevronDown :size="14" aria-hidden="true" /></span>
-    </UiMenu>
+      <span
+        class="inline-flex min-w-0 items-center gap-1.5 text-[12px]"
+        :class="[statusToneClass, statusMaxClass]"
+        :title="statusText"
+        aria-live="polite"
+        aria-atomic="true"
+        data-testid="analysis-status"
+      >
+        <component :is="statusIcon" :size="14" :stroke-width="2" class="shrink-0" aria-hidden="true" />
+        <span class="truncate">{{ statusShort }}</span>
+      </span>
+      <UiButton
+        v-if="store.state.analysis"
+        size="sm"
+        variant="danger"
+        :title="t('取消当前分析（不产生新报告）', 'Cancel the current analysis (no new report)')"
+        @click="store.actions.cancelAnalysis()"
+      >
+        {{ t("取消", "Cancel") }}
+      </UiButton>
+      <UiButton
+        v-if="!isNarrow"
+        size="sm"
+        :disabled="!hasResult || store.state.analysis !== null"
+        :title="refreshLabel"
+        data-testid="topbar-refresh"
+        @click="store.actions.refresh()"
+      >
+        <RefreshCw :size="16" aria-hidden="true" />
+        {{ t("刷新", "Refresh") }}
+      </UiButton>
+      <UiIconButton
+        v-else
+        :label="refreshLabel"
+        :disabled="!hasResult || store.state.analysis !== null"
+        data-testid="topbar-refresh"
+        @click="store.actions.refresh()"
+      >
+        <RefreshCw :size="16" aria-hidden="true" />
+      </UiIconButton>
+      <UiMenu :label="t('更多', 'More')" :items="moreItems" @select="onMore">
+        <template #trigger>
+          <span v-if="!isNarrow" class="inline-flex items-center gap-1">
+            {{ t("更多", "More") }}<ChevronDown :size="14" aria-hidden="true" />
+          </span>
+          <template v-else>
+            <ChevronDown :size="16" aria-hidden="true" />
+            <span class="sr-only">{{ t("更多", "More") }}</span>
+          </template>
+        </template>
+      </UiMenu>
+    </div>
   </header>
 </template>

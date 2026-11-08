@@ -140,12 +140,12 @@ describe("布局档位（有效内容宽度）", () => {
   it("导航在中等宽度以浮层展开（不挤窄清单）", async () => {
     const { store, wrapper } = await mountApp(1280);
     const rail = wrapper.get('[data-testid="app-sidebar"]');
-    expect(rail.classes().join(" ")).toContain("w-14");
+    expect(rail.classes().join(" ")).toContain("w-16");
     store.actions.toggleNav();
     await flushPromises();
     const sidebars = wrapper.findAll('[data-testid="app-sidebar"]');
     expect(sidebars.length).toBe(2); // 轨道 + 浮层
-    expect(sidebars[1].classes().join(" ")).toContain("w-[216px]");
+    expect(sidebars[1].classes().join(" ")).toContain("w-[224px]");
     store.actions.setNavOverlay(false);
     await flushPromises();
     expect(wrapper.findAll('[data-testid="app-sidebar"]').length).toBe(1);

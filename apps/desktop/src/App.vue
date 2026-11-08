@@ -2,7 +2,7 @@
 // 应用外壳（SX-015）：顶栏 + 侧栏 + 主工作区 + 详情（常驻/抽屉/页面替换）。
 // 布局按可用内容宽度分档（800/1100/1440），详情方式与焦点行为随档位切换。
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
-import { ArrowLeft, X } from "@lucide/vue";
+import { ArrowLeft, CircleAlert, CircleCheck, Info, TriangleAlert, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
 import { t } from "./app/i18n";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
@@ -101,6 +101,46 @@ const pageComponent = computed(() => {
 
 const selectedEntry = computed(() => store.selectedEntry.value);
 
+// 全局通知条（阶段二）：状态图标 + 文本 + 关闭，保持 live region；不使用自动消失 toast。
+const noticeTone = computed(() => {
+  switch (store.state.notice?.kind) {
+    case "error":
+      return "danger";
+    case "warning":
+      return "caution";
+    case "success":
+      return "success";
+    default:
+      return "info";
+  }
+});
+
+const noticeIcon = computed(() => {
+  switch (noticeTone.value) {
+    case "danger":
+      return CircleAlert;
+    case "caution":
+      return TriangleAlert;
+    case "success":
+      return CircleCheck;
+    default:
+      return Info;
+  }
+});
+
+const noticeClass = computed(() => {
+  switch (noticeTone.value) {
+    case "danger":
+      return "border-danger/40 bg-danger-bg text-danger";
+    case "caution":
+      return "border-caution/40 bg-caution-bg text-caution";
+    case "success":
+      return "border-success/40 bg-success-bg text-success";
+    default:
+      return "border-info/30 bg-info-bg text-info";
+  }
+});
+
 const detailViewActive = computed(
   () => store.state.view === "overview" || store.state.view === "full" || store.state.view === "regions",
 );
@@ -126,8 +166,8 @@ const showNarrowDetail = computed(
 
 /** 详情拉开时给主内容保留的最小宽度。 */
 const MAIN_MIN_WIDTH = 320;
-const SIDEBAR_RAIL_WIDTH = 56;
-const SIDEBAR_EXPANDED_WIDTH = 216;
+const SIDEBAR_RAIL_WIDTH = 64;
+const SIDEBAR_EXPANDED_WIDTH = 224;
 
 const sidebarWidth = computed(() =>
   layout.value === "wide" && !store.state.navCollapsed ? SIDEBAR_EXPANDED_WIDTH : SIDEBAR_RAIL_WIDTH,
@@ -279,27 +319,20 @@ onBeforeUnmount(() => {
     <MockBanner v-if="store.state.sourceKind === 'mock'" />
     <AppTopBar />
 
-    <div class="flex min-h-0 flex-1">
+    <div class="relative flex min-h-0 flex-1">
       <AppSidebar v-if="layout !== 'narrow' && !showNarrowDetail" :expanded="sidebarExpanded" />
 
       <div class="relative flex min-h-0 min-w-0 flex-1">
         <main class="flex min-h-0 min-w-0 flex-1 flex-col">
           <div
             v-if="store.state.notice"
-            class="flex items-start gap-2 border-b border-line bg-raised px-3 py-1.5 text-[13px]"
-            :class="
-              store.state.notice.kind === 'error'
-                ? 'text-danger'
-                : store.state.notice.kind === 'warning'
-                  ? 'text-caution'
-                  : store.state.notice.kind === 'success'
-                    ? 'text-success'
-                    : 'text-info'
-            "
+            class="flex items-start gap-2 border-b px-4 py-1.5 text-[13px]"
+            :class="noticeClass"
             role="status"
             aria-live="polite"
             data-testid="notice"
           >
+            <component :is="noticeIcon" :size="16" :stroke-width="2" class="mt-0.5 shrink-0" aria-hidden="true" />
             <span class="min-w-0 flex-1">{{ store.state.notice.text }}</span>
             <UiIconButton :label="t('关闭提示', 'Dismiss notice')" @click="store.actions.dismissNotice()">
               <X :size="14" aria-hidden="true" />
@@ -307,14 +340,14 @@ onBeforeUnmount(() => {
           </div>
 
           <template v-if="showNarrowDetail && selectedEntry">
-            <header class="flex h-12 shrink-0 items-center gap-2 border-b border-line px-3">
+            <header class="flex h-12 shrink-0 items-center gap-2 border-b border-line px-4">
               <UiButton size="sm" variant="ghost" data-testid="detail-back" @click="store.actions.closeDetail()">
                 <ArrowLeft :size="16" aria-hidden="true" />
                 {{ t("返回清单", "Back to list") }}
               </UiButton>
               <span class="truncate text-xs text-muted">{{ store.currentSlot.value?.name ?? "" }}</span>
             </header>
-            <div class="scroll-area min-h-0 flex-1 px-4 py-3">
+            <div class="scroll-area min-h-0 flex-1 px-4 py-4">
               <CollectionDetail
                 :region="selectedEntry.region"
                 :group="selectedEntry.group"
@@ -343,7 +376,7 @@ onBeforeUnmount(() => {
             @resize="paneDraft = $event"
             @commit="commitPaneWidth"
           />
-          <div class="scroll-area h-full px-4 py-3">
+          <div class="scroll-area h-full px-5 py-4">
             <CollectionDetail
               :region="selectedEntry.region"
               :group="selectedEntry.group"
@@ -353,12 +386,18 @@ onBeforeUnmount(() => {
           </div>
         </aside>
       </div>
-    </div>
 
-    <!-- 浮层导航（中等/紧凑/窄窗）：不挤窄清单；点击背景或选择后关闭 -->
-    <div v-if="showNavOverlay" class="absolute inset-x-0 top-12 bottom-0 z-30 flex bg-[var(--overlay)]" @click.self="store.actions.setNavOverlay(false)">
-      <div class="flex h-full flex-col bg-surface shadow-[var(--shadow)]">
-        <AppSidebar :expanded="true" />
+      <!-- 浮层导航（中等/紧凑/窄窗）：相对内容行定位，不覆盖顶栏 / 模拟横幅；
+           点击背景或选择后关闭。 -->
+      <div
+        v-if="showNavOverlay"
+        class="absolute inset-0 z-30 flex bg-[var(--overlay)]"
+        data-testid="nav-overlay"
+        @click.self="store.actions.setNavOverlay(false)"
+      >
+        <div class="flex h-full flex-col bg-surface shadow-[var(--shadow)]">
+          <AppSidebar :expanded="true" />
+        </div>
       </div>
     </div>
 
