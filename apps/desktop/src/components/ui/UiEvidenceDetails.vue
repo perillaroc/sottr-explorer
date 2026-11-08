@@ -13,7 +13,7 @@ withDefaults(
 </script>
 
 <template>
-  <details class="rounded-[8px] border border-line bg-raised/60 px-3 py-2">
+  <details class="rounded-section border border-line bg-raised/60 px-3 py-2">
     <summary class="cursor-pointer text-[13px] font-medium text-ink">
       {{ summary }}
       <span v-if="hint" class="ml-1 text-xs text-muted">{{ tFormat("（{hint}）", " ({hint})", { hint }) }}</span>

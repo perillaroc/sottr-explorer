@@ -95,7 +95,7 @@ defineExpose({ close, toggle });
       ref="popup"
       role="menu"
       :aria-label="label"
-      class="absolute z-30 mt-1 min-w-48 rounded-[8px] border border-line bg-surface p-1 shadow-[var(--shadow)]"
+      class="absolute z-30 mt-1 min-w-48 rounded-section border border-line bg-surface p-1 shadow-[var(--shadow)]"
       :class="align === 'end' ? 'right-0' : 'left-0'"
     >
       <button
@@ -105,7 +105,7 @@ defineExpose({ close, toggle });
         role="menuitem"
         :disabled="item.disabled"
         :title="item.disabled ? item.reason : undefined"
-        class="block w-full cursor-pointer rounded-[6px] px-2 py-1.5 text-left text-sm text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-60"
+        class="ui-interactive block min-h-8 w-full cursor-pointer rounded-control px-2 py-1.5 text-left text-[13px] leading-5 whitespace-nowrap text-ink enabled:hover:bg-raised disabled:cursor-not-allowed disabled:opacity-60"
         @click="onSelect(item)"
       >
         {{ item.label }}

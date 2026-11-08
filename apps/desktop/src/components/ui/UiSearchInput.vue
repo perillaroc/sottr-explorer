@@ -1,7 +1,8 @@
 <script setup lang="ts">
-// 搜索输入：受控组件；提供 focus() 供 Ctrl+F 使用；空值时显示清除按钮。
+// 搜索输入：36px 高、6px 圆角；受控组件，提供 focus() 供 Ctrl+F 使用；
+// 空值时显示清除按钮，左侧搜索图标不挤压输入文字。
 import { ref } from "vue";
-import { X } from "@lucide/vue";
+import { Search, X } from "@lucide/vue";
 import { t } from "../../app/i18n";
 
 const props = withDefaults(
@@ -38,6 +39,7 @@ defineExpose({ focus });
 
 <template>
   <div class="relative flex items-center">
+    <Search :size="16" class="pointer-events-none absolute left-2.5 text-muted" aria-hidden="true" />
     <input
       ref="input"
       type="search"
@@ -45,7 +47,7 @@ defineExpose({ focus });
       :placeholder="props.placeholder ?? t('搜索', 'Search')"
       :aria-label="ariaLabel"
       :disabled="disabled"
-      class="h-9 w-full rounded-[6px] border border-line bg-surface pr-8 pl-3 text-sm text-ink placeholder:text-muted disabled:opacity-60"
+      class="ui-interactive h-9 w-full rounded-control border border-line bg-surface pr-9 pl-9 text-[13px] leading-5 text-ink placeholder:text-muted enabled:hover:border-accent/50 disabled:opacity-60"
       @input="onInput"
     />
     <button
@@ -53,7 +55,7 @@ defineExpose({ focus });
       type="button"
       :aria-label="t(`清除搜索：${props.modelValue}`, `Clear search: ${props.modelValue}`)"
       :title="t('清除搜索', 'Clear search')"
-      class="absolute right-1 inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[6px] text-muted hover:bg-raised hover:text-ink"
+      class="ui-interactive absolute right-1 inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[4px] text-muted enabled:hover:bg-raised enabled:hover:text-ink"
       @click="clear"
     >
       <X :size="16" aria-hidden="true" />

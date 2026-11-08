@@ -1,85 +1,140 @@
 @import "tailwindcss";
 
-/* SOTTR Explorer 视觉令牌（SX-015；SX-016 增加强调文字锚定点 accent-strong）。
-   明暗主题由 <html data-theme="light|dark"> 控制；“跟随系统” 在 JS 中解析为具体主题。
-   对比度：accent（#087F8C）用于填充/边框/大号文字；作为 13px 正文颜色时改用
-   accent-strong（浅色 #066A75）以满足 ≥4.5:1。实际 Windows DPI/对比度/
-   高对比度验收由 SX-017 实测记录；本文件不声称已达标。 */
+/* ==========================================================================
+   1. 明暗令牌与 Tailwind 映射
+   ==========================================================================
+   视觉方向：考古测绘工作台（2026-11-05 界面美化方案）。
+   明暗主题由 <html data-theme="light|dark"> 控制；“跟随系统”在 JS 中解析为具体主题。
+
+   对比度口径（详见 doc/2026-11-05-界面美化/对比度记录.md）：
+   - 正文 / 辅助文字 / 强调文字在 canvas、surface、raised 上均 ≥4.5:1；
+   - 主按钮文字在 accent 与 accent-hover 上均 ≥4.5:1；
+   - 旧金文字在 gold-bg 上 ≥4.5:1；
+   - 类别色在 canvas、surface、raised、accent-bg 上均 ≥4.5:1（逐色按需微调明度，
+     色相与饱和度保持不变，不整体重排色环）。 */
 
 :root,
 [data-theme="light"] {
-  --canvas: #f5f7f9;
+  /* 表面与文字 */
+  --canvas: #f4f6f4;
   --surface: #ffffff;
-  --raised: #eef2f5;
-  --text: #18232d;
-  --muted: #526171;
-  --border: #cfd8e1;
-  --accent: #087f8c;
-  --accent-strong: #066a75;
+  --raised: #e6ece8;
+  --text: #1f302f;
+  --muted: #566a64;
+  --border: #c4d1ca;
+
+  /* 主操作：深青玉 */
+  --accent: #12686a;
+  --accent-hover: #0d5558;
+  --accent-strong: #0d5558;
   --accent-contrast: #ffffff;
+  --accent-bg: #dfece7;
+
+  /* 旧金：只用于必收进度、100% 目标与关键测绘标记 */
+  --gold: #6c511c;
+  --gold-fill: #8c7134;
+  --gold-bg: #f0eadb;
+
+  /* 状态色 */
   --info: #145f9c;
   --caution: #855400;
   --danger: #b42318;
+  --danger-hover: #96180f;
+  --danger-contrast: #ffffff;
   --success: #167047;
   --focus: #005fcc;
-  --accent-bg: #e3f1f2;
   --info-bg: #e8f0f8;
   --caution-bg: #fdf3dd;
   --danger-bg: #fbeae8;
   --success-bg: #e6f4ec;
+
+  /* 浮层与地图工作面 */
   --overlay: rgba(24, 35, 45, 0.45);
-  --shadow: 0 8px 24px rgba(24, 35, 45, 0.18);
-  /* 类别色（12 个类别沿色环每 30° 取一色相；深色主题见下一节）。明度取「在浅色主题最不利
-     背景 --raised 上仍 ≥4.5:1」的最亮值，核算见文件末。 */
-  --cat-archivist_maps: #b5482d;
-  --cat-artifacts: #856721;
-  --cat-challenge_tombs: #61721d;
-  --cat-croft_manor_extra: #3a791e;
-  --cat-crypt_entrances: #1f7b31;
-  --cat-crypt_treasures: #1e795e;
-  --cat-explorer_backpacks: #227489;
-  --cat-gym_training: #3966ce;
-  --cat-monoliths: #6f56d5;
-  --cat-strongboxes: #a138cd;
-  --cat-survival_caches: #b92e9d;
-  --cat-test_items: #c4315d;
+  --shadow: 0 8px 24px rgba(31, 48, 47, 0.18);
+  --map-stage: #dde5e0;
+
+  /* 形状、控件与动效 */
+  --ui-radius-control: 6px;
+  --ui-radius-section: 8px;
+  --ui-radius-overlay: 12px;
+  --ui-control-h: 36px;
+  --ui-control-h-sm: 32px;
+  --ui-row-h: 48px;
+  --ui-row-h-lg: 56px;
+  --ui-duration-fast: 120ms;
+  --ui-duration-drawer: 160ms;
+  --ui-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 类别色（12 个类别沿色环每 30° 取一色相；深色主题见下一节）。
+     明度取「在浅色主题最不利背景 raised #e6ece8 / accent-bg #dfece7 上仍 ≥4.5:1」
+     的最低必要调整值；色相、饱和度与类别间的可分辨性保持不变。 */
+  --cat-archivist_maps: #b1462c;
+  --cat-artifacts: #816420;
+  --cat-challenge_tombs: #5e6f1c;
+  --cat-croft_manor_extra: #39761d;
+  --cat-crypt_entrances: #1e7830;
+  --cat-crypt_treasures: #1d765c;
+  --cat-explorer_backpacks: #217186;
+  --cat-gym_training: #3462cd;
+  --cat-monoliths: #6c52d4;
+  --cat-strongboxes: #9e33ca;
+  --cat-survival_caches: #b42d99;
+  --cat-test_items: #bf305b;
 }
 
 [data-theme="dark"] {
-  --canvas: #11171c;
-  --surface: #182128;
-  --raised: #202b34;
-  --text: #e8eef4;
-  --muted: #a7b4c2;
-  --border: #3b4b59;
-  --accent: #67d8e4;
-  --accent-strong: #8ce4ee;
-  --accent-contrast: #082b2f;
+  /* 表面与文字 */
+  --canvas: #101918;
+  --surface: #182522;
+  --raised: #23322d;
+  --text: #e2ebe4;
+  --muted: #a8bbb1;
+  --border: #3a5147;
+
+  /* 主操作：深色主题使用浅青玉填充 + 深色文字 */
+  --accent: #c5ded8;
+  --accent-hover: #d1e8e1;
+  --accent-strong: #9cd6cd;
+  --accent-contrast: #103e40;
+  --accent-bg: #203e38;
+
+  /* 旧金 */
+  --gold: #d1b477;
+  --gold-fill: #d1b477;
+  --gold-bg: #373021;
+
+  /* 状态色 */
   --info: #8bc4ff;
   --caution: #f3c873;
   --danger: #ff9b95;
+  --danger-hover: #ffb0ab;
+  --danger-contrast: #2b1210;
   --success: #85d6ab;
   --focus: #9accff;
-  --accent-bg: #14333a;
   --info-bg: #1b2b3a;
   --caution-bg: #352d1c;
   --danger-bg: #3a2220;
   --success-bg: #1c3128;
+
+  /* 浮层与地图工作面 */
   --overlay: rgba(0, 0, 0, 0.55);
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-  /* 类别色：同一组色相，明度取「在深色主题最不利背景 --raised 上仍 ≥4.5:1」的最暗值。 */
-  --cat-archivist_maps: #d37c67;
-  --cat-artifacts: #b48e34;
+  --map-stage: #0c1413;
+
+  /* 类别色：同一组色相，明度取「在深色主题最不利背景 raised #23322d /
+     accent-bg #203e38 上仍 ≥4.5:1」的最低必要调整值。 */
+  --cat-archivist_maps: #da907e;
+  --cat-artifacts: #c69d3a;
   --cat-challenge_tombs: #99b234;
-  --cat-croft_manor_extra: #5ab234;
-  --cat-crypt_entrances: #34b24d;
-  --cat-crypt_treasures: #34b28c;
-  --cat-explorer_backpacks: #36a0ba;
-  --cat-gym_training: #7592d7;
-  --cat-monoliths: #9988dc;
-  --cat-strongboxes: #bc79d8;
-  --cat-survival_caches: #d56fc1;
-  --cat-test_items: #d77592;
+  --cat-croft_manor_extra: #5cb735;
+  --cat-crypt_entrances: #36ba50;
+  --cat-crypt_treasures: #35b68f;
+  --cat-explorer_backpacks: #45afc9;
+  --cat-gym_training: #89a2dd;
+  --cat-monoliths: #a799e1;
+  --cat-strongboxes: #c68dde;
+  --cat-survival_caches: #dc86cb;
+  --cat-test_items: #dd8ba3;
 }
 
 @theme inline {
@@ -90,21 +145,35 @@
   --color-muted: var(--muted);
   --color-line: var(--border);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-strong: var(--accent-strong);
   --color-accent-contrast: var(--accent-contrast);
+  --color-accent-bg: var(--accent-bg);
+  --color-gold: var(--gold);
+  --color-gold-fill: var(--gold-fill);
+  --color-gold-bg: var(--gold-bg);
+  --color-map-stage: var(--map-stage);
   --color-info: var(--info);
   --color-caution: var(--caution);
   --color-danger: var(--danger);
+  --color-danger-contrast: var(--danger-contrast);
   --color-success: var(--success);
   --color-focus: var(--focus);
-  --color-accent-bg: var(--accent-bg);
   --color-info-bg: var(--info-bg);
   --color-caution-bg: var(--caution-bg);
   --color-danger-bg: var(--danger-bg);
   --color-success-bg: var(--success-bg);
-  --font-sans: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
-  --font-mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+  --radius-control: var(--ui-radius-control);
+  --radius-section: var(--ui-radius-section);
+  --radius-overlay: var(--ui-radius-overlay);
+  --ease-out-soft: var(--ui-ease-out);
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, monospace;
 }
+
+/* ==========================================================================
+   2. 文档、字体、焦点与 reduced-motion
+   ========================================================================== */
 
 html,
 body,
@@ -116,7 +185,7 @@ body,
 body {
   background: var(--canvas);
   color: var(--text);
-  font-family: var(--font-sans);
+  font-family: "Segoe UI Variable Text", "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.5;
   overflow: hidden;
@@ -149,17 +218,152 @@ body {
   font-family: var(--font-mono);
 }
 
-/* 类别着色工具类（2026-10-17 详情重设计阶段五）：文字用 .cat-text-<类别 id>，
-   圆点用 .cat-dot + .cat-dot-<类别 id>。颜色只做辅助辨认——类别名始终以文字出现，
-   不靠颜色单独表意；色相沿色环每 30° 铺开，明暗两套各自满足对比度要求。
+/* ==========================================================================
+   3. 共享表面、字阶、清单、状态与进度
+   ========================================================================== */
 
-   13px 正文对比度核算（取各主题最不利背景，非只算白底/黑底）：
-   - 浅色主题：--raised #eef2f5 / --canvas #f5f7f9 / #ffffff，全部 ≥4.70:1
-     （最低：gym_training #3966ce 与 monoliths #6f56d5 = 4.70）
-   - 深色主题：--raised #202b34 / --surface #182128 / --canvas #11171c，全部 ≥4.70:1
-     （最低：archivist_maps #d37c67、gym_training #7592d7、test_items #d77592 = 4.70）
-   类别之间的最小色差 ΔE76：浅色 10.4、深色 13.9（croft_manor_extra ↔ crypt_entrances），
-   均远高于可分辨阈值。 */
+/* 字阶：页面标题 / 详情标题 / 大统计 / 区块标题 / 正文 / 辅助 / 元信息 */
+.ui-page-title {
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+.ui-detail-title {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.ui-stat-large {
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ui-section-title {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.ui-body {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.ui-aux {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.ui-meta {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 表面层级：页面 canvas 无外框；工作面 surface；次级区 raised；浮层 surface + shadow。
+   区块优先用标题、留白与细分隔线区分，不默认套圆角卡片。 */
+.ui-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--ui-radius-section);
+}
+
+.ui-secondary {
+  background: var(--raised);
+  border-radius: var(--ui-radius-section);
+}
+
+/* 交互过渡：只响应用户操作，120ms ease-out。 */
+.ui-interactive {
+  transition:
+    color var(--ui-duration-fast) var(--ui-ease-out),
+    background-color var(--ui-duration-fast) var(--ui-ease-out),
+    border-color var(--ui-duration-fast) var(--ui-ease-out),
+    opacity var(--ui-duration-fast) var(--ui-ease-out);
+}
+
+/* 清单行与选中态：左侧 3px 标记 + 浅底，文字权重视调用方补充。 */
+.ui-row {
+  transition: background-color var(--ui-duration-fast) var(--ui-ease-out);
+}
+
+.ui-row:hover {
+  background: var(--raised);
+}
+
+.ui-row-selected {
+  background: var(--accent-bg);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* 进度条：4px 常规 / 6px 主进度；轨道 raised，主区域 accent，必收 gold-fill。 */
+.ui-progress {
+  position: relative;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--raised);
+}
+
+.ui-progress--md {
+  height: 6px;
+}
+
+.ui-progress__fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.ui-progress__fill--gold {
+  background: var(--gold-fill);
+}
+
+/* 收集状态图形：形状 + 可访问文字，不单独依赖颜色。 */
+.ui-status-mark {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1.5px solid;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.ui-status-mark--collected {
+  border-color: var(--success);
+  background: var(--success);
+  color: var(--surface);
+}
+
+.ui-status-mark--uncollected {
+  border-color: var(--muted);
+  color: var(--muted);
+}
+
+.ui-status-mark--unknown {
+  border-style: dashed;
+  border-color: var(--muted);
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   4. 类别色工具类（保留类别 id 命名，契约由 app/category-style.ts 与测试核对）
+   ==========================================================================
+   13px 正文对比度核算取各主题最不利背景（canvas / surface / raised / accent-bg）：
+   - 浅色主题：全部 ≥4.55:1（最低 crypt_treasures 4.55）
+   - 深色主题：全部 ≥4.55:1（最低 explorer_backpacks 4.55）
+   类别之间最小 ΔE76：浅色 10.5、深色 13.1（croft_manor_extra ↔ crypt_entrances /
+   strongboxes ↔ survival_caches），均高于可分辨阈值。 */
 .cat-text-archivist_maps {
   color: var(--cat-archivist_maps);
 }
@@ -240,10 +444,14 @@ body {
   background-color: var(--cat-test_items);
 }
 
-/* 抽屉/对话框遮罩进入动画（尊重 reduced-motion）。 */
+/* ==========================================================================
+   5. 浮层与动效
+   ==========================================================================
+   普通容器不用统一投影；只有菜单 / 抽屉 / 对话框使用 --shadow。
+   抽屉 160ms，遮罩与菜单 120ms；reduced-motion 下全部关闭。 */
 .overlay-enter-active,
 .overlay-leave-active {
-  transition: opacity 120ms ease;
+  transition: opacity var(--ui-duration-fast) var(--ui-ease-out);
 }
 
 .overlay-enter-from,

@@ -133,21 +133,21 @@ onBeforeUnmount(() => {
         :aria-label="title"
         tabindex="-1"
         :class="[
-          'flex max-h-[calc(100vh-48px)] flex-col rounded-[12px] border border-line bg-surface shadow-[var(--shadow)]',
+          'flex max-h-[calc(100vh-48px)] flex-col rounded-overlay border border-line bg-surface shadow-[var(--shadow)]',
           widthClass,
         ]"
         :data-testid="testId"
       >
-        <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
-          <h2 class="truncate text-base font-medium">{{ title }}</h2>
+        <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-5">
+          <h2 class="ui-section-title truncate">{{ title }}</h2>
           <UiIconButton :label="t('关闭（Esc）', 'Close (Esc)')" @click="emit('close')">
             <X :size="16" aria-hidden="true" />
           </UiIconButton>
         </header>
-        <div class="scroll-area min-h-0 flex-1 overflow-auto px-4 py-3">
+        <div class="scroll-area min-h-0 flex-1 overflow-auto p-5">
           <slot />
         </div>
-        <footer v-if="$slots.footer" class="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-line px-4 py-2.5">
+        <footer v-if="$slots.footer" class="flex shrink-0 flex-wrap items-center justify-end gap-2 border-t border-line px-5 py-3">
           <slot name="footer" />
         </footer>
       </section>

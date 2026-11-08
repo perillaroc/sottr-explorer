@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // 文本徽标：形状/符号 + 文字，不只靠颜色区分（业务状态 / 依据 / 定位共用外观）。
+// 中性徽标不再显示无意义符号；success 保留勾，其余使用一致的文本符号。
 import { computed } from "vue";
 import { labelColon } from "../../app/i18n";
 
@@ -25,12 +26,13 @@ const glyph = computed(() => {
     case "accent":
       return "▸";
     default:
-      return "○";
+      return undefined;
   }
 });
 
 const classes = computed(() => {
-  const base = "inline-flex items-center gap-1 rounded-[6px] border px-1.5 py-0.5 text-xs leading-5";
+  const base =
+    "inline-flex h-[22px] items-center gap-1 rounded-control border px-1.5 text-xs leading-none whitespace-nowrap tabular-nums";
   switch (props.tone) {
     case "caution":
       return `${base} border-caution/40 bg-caution-bg text-caution`;
@@ -50,7 +52,7 @@ const classes = computed(() => {
 
 <template>
   <span :class="classes">
-    <span aria-hidden="true">{{ glyph }}</span>
+    <span v-if="glyph" aria-hidden="true">{{ glyph }}</span>
     <span v-if="kindLabel" class="sr-only">{{ kindLabel }}{{ labelColon() }}</span>
     <slot />
   </span>

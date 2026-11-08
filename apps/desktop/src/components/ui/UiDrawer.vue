@@ -141,15 +141,15 @@ onBeforeUnmount(() => {
         ]"
         :style="width === undefined ? undefined : { width: `${width}px` }"
       >
-        <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
-          <h2 class="truncate text-base font-medium">{{ title }}</h2>
+        <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-5">
+          <h2 class="ui-section-title truncate">{{ title }}</h2>
           <UiIconButton :label="t('关闭详情（Esc）', 'Close details (Esc)')" @click="emit('close')">
             <X :size="16" aria-hidden="true" />
           </UiIconButton>
         </header>
         <!-- 调整宽度手柄（阶段一）：绝对定位在抽屉左边缘，放在头部之后使焦点先进入关闭按钮。 -->
         <slot name="handle" />
-        <div :class="flush ? 'min-h-0 flex-1' : 'scroll-area min-h-0 flex-1 px-4 py-3'">
+        <div :class="flush ? 'min-h-0 flex-1' : 'scroll-area min-h-0 flex-1 px-5 py-4'">
           <slot />
         </div>
       </section>
