@@ -97,6 +97,30 @@ describe("收集品详情", () => {
     expect(wrapper.text()).toContain("子关卡指引");
   });
 
+  it("详情标题使用详情字阶，获取分区为浅底，直链与搜索按钮层级分开", async () => {
+    const { store } = await setup();
+    const wrapper = await detailFor(store, CACHES_ITEM);
+    const heading = wrapper.get('[data-testid="detail-heading"]');
+    expect(heading.classes()).toContain("ui-detail-title");
+    expect(heading.classes()).toContain("break-words");
+    expect(wrapper.get('[data-testid="detail-acquisition-section"]').classes()).toContain("bg-raised/50");
+    expect(wrapper.get('[data-testid="external-links"] h3').classes()).toContain("ui-section-title");
+
+    const direct = wrapper.get('[data-testid="link-guide"]');
+    const search = wrapper.get('[data-testid="link-search-text"]');
+    expect(direct.classes()).toContain("border");
+    expect(search.classes()).not.toContain("border");
+  });
+
+  it("相对位置折叠头带 chevron，默认折叠", async () => {
+    const { store } = await setup();
+    const wrapper = await detailFor(store, PAITITI_ITEM);
+    const section = wrapper.get('[data-testid="position-section"]');
+    expect(section.classes()).toContain("ui-disclosure");
+    expect(section.attributes("open")).toBeUndefined();
+    expect(section.find(".ui-chevron").exists()).toBe(true);
+  });
+
   it("相对位置散点默认折叠，展开区保留未校准与「不是导航点位」标注", async () => {
     const { store } = await setup();
     const wrapper = await detailFor(store, PAITITI_ITEM);

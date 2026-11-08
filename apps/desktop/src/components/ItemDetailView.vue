@@ -25,7 +25,7 @@ export interface DetailLinkActionView {
 // 主窗口（CollectionDetail 包装 store）与详情弹窗（DetailWindow）共用同一套区块与样式；
 // 位置是关卡内归一化坐标，未校准；界面不把它写成导航点位。
 import { computed, nextTick, onMounted, ref } from "vue";
-import { Copy, ExternalLink, PanelRightOpen, Search } from "@lucide/vue";
+import { ChevronDown, Copy, ExternalLink, PanelRightOpen, Search } from "@lucide/vue";
 import { t, tFormat } from "../app/i18n";
 import { collectionDisplayName } from "../app/guidance";
 import { copyText } from "../app/clipboard";
@@ -89,6 +89,8 @@ onMounted(() => {
 });
 
 const collected = computed(() => props.item.status === "collected");
+const isWindow = computed(() => props.mode === "window");
+const showTopRow = computed(() => isWindow.value || (props.showPopout && !isWindow.value));
 
 /** 同一子关卡剩余未收集数。 */
 const sameUnitRemaining = computed(() => props.item.same_unit_remaining ?? 0);
@@ -179,18 +181,21 @@ const linkStatusTone = computed(() => {
 </script>
 
 <template>
-  <article class="space-y-4 pb-4" data-testid="item-detail">
-    <header class="space-y-1">
-      <div class="flex items-start justify-between gap-2">
-        <p v-if="mode === 'window'" class="min-w-0 text-xs text-muted">
+  <article class="space-y-5 pb-4" data-testid="item-detail">
+    <header class="space-y-2">
+      <div
+        v-if="showTopRow"
+        class="flex items-start gap-2"
+        :class="isWindow ? 'justify-between' : 'justify-end'"
+      >
+        <p v-if="isWindow" class="min-w-0 text-xs text-muted">
           {{ slotName || t("未选择文件", "No file selected") }}
           <template v-if="snapshotTime">
             · {{ t("快照", "snapshot") }} {{ formatSnapshotTime(snapshotTime) }}
           </template>
         </p>
-        <span v-else />
         <UiIconButton
-          v-if="showPopout && mode !== 'window'"
+          v-if="showPopout && !isWindow"
           :label="t('在新窗口中打开', 'Open in a new window')"
           data-testid="detail-popout"
           @click="emit('popout')"
@@ -198,10 +203,10 @@ const linkStatusTone = computed(() => {
           <PanelRightOpen :size="16" aria-hidden="true" />
         </UiIconButton>
       </div>
-      <h2 ref="heading" tabindex="-1" class="text-base leading-snug font-semibold break-words" data-testid="detail-heading">
+      <h2 ref="heading" tabindex="-1" class="ui-detail-title break-words" data-testid="detail-heading">
         {{ item.display_name }}
       </h2>
-      <p class="mono text-xs text-muted">{{ item.id }}</p>
+      <p class="mono break-all text-xs text-muted">{{ item.id }}</p>
       <div class="flex flex-wrap items-center gap-1.5">
         <UiBadge :tone="collected ? 'success' : 'caution'" :kind-label="t('状态', 'Status')">
           {{ collected ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
@@ -220,23 +225,23 @@ const linkStatusTone = computed(() => {
       </p>
     </header>
 
-    <section class="space-y-1.5">
-      <h3 class="text-sm font-medium">{{ t("如何获取", "How to obtain") }}</h3>
-      <dl class="space-y-1 text-[13px]" data-testid="detail-acquisition">
+    <section class="rounded-section bg-raised/50 px-3 py-3" data-testid="detail-acquisition-section">
+      <h3 class="ui-section-title">{{ t("如何获取", "How to obtain") }}</h3>
+      <dl class="mt-2 space-y-1.5 text-[14px] leading-[22px]" data-testid="detail-acquisition">
         <div class="flex gap-2">
-          <dt class="w-12 shrink-0 text-muted">{{ t("区域", "Region") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("区域", "Region") }}</dt>
           <dd class="min-w-0">{{ regionName }}{{ unitLabel ? ` · ${unitLabel}` : "" }}</dd>
         </div>
         <div v-if="item.collection" class="flex gap-2">
-          <dt class="w-12 shrink-0 text-muted">{{ t("合集", "Collection") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("合集", "Collection") }}</dt>
           <dd class="min-w-0">{{ collectionDisplayName(item.collection) }}</dd>
         </div>
         <div class="flex gap-2">
-          <dt class="w-12 shrink-0 text-muted">{{ acquisitionRowLabel }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ acquisitionRowLabel }}</dt>
           <dd class="min-w-0">{{ item.acquisition_text }}</dd>
         </div>
         <div v-if="item.position" class="flex gap-2">
-          <dt class="w-12 shrink-0 text-muted">{{ t("位置", "Where") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("位置", "Where") }}</dt>
           <dd class="min-w-0">
             {{ t(
               `关卡内相对位置约 (${item.position.x.toFixed(2)}, ${item.position.y.toFixed(2)})`,
@@ -245,37 +250,37 @@ const linkStatusTone = computed(() => {
           </dd>
         </div>
         <div v-if="sameUnitRemaining > 0" class="flex gap-2">
-          <dt class="w-12 shrink-0 text-muted">{{ t("同关卡", "Same level") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("同关卡", "Same level") }}</dt>
           <dd class="min-w-0">{{ t(`还有 ${sameUnitRemaining} 项未收集`, `${sameUnitRemaining} more uncollected`) }}</dd>
         </div>
       </dl>
-      <p class="text-xs text-muted">
+      <p class="mt-1 text-xs text-muted">
         {{ acquisitionSourceLabel }}
       </p>
-      <div class="flex flex-wrap items-center gap-2 pt-1">
+      <div class="mt-2 flex flex-wrap items-center gap-2">
         <UiButton size="sm" variant="ghost" data-testid="copy-lead" @click="copyHint">
           <Copy :size="16" aria-hidden="true" />
           {{ t("复制这条线索", "Copy this hint") }}
         </UiButton>
-        <span v-if="copiedHint" class="text-[13px] text-success">{{ t("已复制到剪贴板。", "Copied to clipboard.") }}</span>
+        <span v-if="copiedHint" class="text-[13px] text-success" role="status" aria-live="polite">{{ t("已复制到剪贴板。", "Copied to clipboard.") }}</span>
         <span v-else-if="leadText" class="text-[13px] text-caution">{{ t("复制失败：可手动选择下方文本。", "Copy failed: select the text below manually.") }}</span>
       </div>
       <pre
         v-if="leadText"
-        class="mono max-h-40 overflow-auto rounded-[6px] border border-line bg-raised px-2 py-1 text-xs whitespace-pre-wrap"
+        class="mono mt-2 max-h-40 overflow-auto rounded-control border border-line bg-surface px-2 py-1 text-xs whitespace-pre-wrap"
         data-testid="lead-text"
         >{{ leadText }}</pre
       >
     </section>
 
-    <section class="space-y-1.5" data-testid="external-links">
-      <h3 class="text-sm font-medium">{{ t("外部参考", "External references") }}</h3>
+    <section class="space-y-2" data-testid="external-links">
+      <h3 class="ui-section-title">{{ t("外部参考", "External references") }}</h3>
       <div class="flex flex-wrap items-center gap-2">
         <UiButton
           v-for="link in links"
           :key="link.key"
           size="sm"
-          variant="ghost"
+          :variant="link.direct ? 'secondary' : 'ghost'"
           :data-testid="link.testId"
           @click="emit('open-link', link.actionId)"
         >
@@ -284,7 +289,7 @@ const linkStatusTone = computed(() => {
           {{ link.label }}
         </UiButton>
       </div>
-      <p v-if="activeLink" class="flex flex-wrap items-center gap-2 text-xs" :class="linkStatusTone" data-testid="link-status">
+      <p v-if="activeLink" class="flex flex-wrap items-center gap-2 text-[12px]" :class="linkStatusTone" data-testid="link-status">
         {{ activeLink.link.label }}：{{ statusText(activeLink.action) }}
         <UiButton
           v-if="activeLink.action.status === 'error'"
@@ -300,12 +305,15 @@ const linkStatusTone = computed(() => {
 
     <details
       v-if="showPosition && item.position"
-      class="rounded-[8px] border border-line bg-raised/60 px-3 py-2"
+      class="ui-disclosure rounded-section border border-line bg-raised/50 px-3 py-2"
       data-testid="position-section"
       :open="positionOpen"
       @toggle="onPositionToggle"
     >
-      <summary class="cursor-pointer text-[13px] font-medium">{{ t("相对位置", "Relative positions") }}</summary>
+      <summary class="flex cursor-pointer items-center justify-between gap-2 text-[13px] font-medium">
+        {{ t("相对位置", "Relative positions") }}
+        <ChevronDown class="ui-chevron" :size="16" aria-hidden="true" />
+      </summary>
       <div class="mt-2 space-y-1.5">
         <MapPanel
           :items="sameUnitItems"

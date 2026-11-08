@@ -246,15 +246,15 @@ const errorHelp = computed(() => {
   >
     <header
       v-if="mode === 'window'"
-      class="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-line px-3"
+      class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-5"
     >
-      <h1 class="truncate text-sm font-medium">{{ t("收集品详情", "Item details") }}</h1>
+      <h1 class="ui-section-title truncate">{{ t("收集品详情", "Item details") }}</h1>
       <UiIconButton :label="t('关闭窗口（Esc）', 'Close window (Esc)')" data-testid="detail-window-close" @click="closeWindow">
         <X :size="16" aria-hidden="true" />
       </UiIconButton>
     </header>
 
-    <div :class="mode === 'window' ? 'scroll-area min-h-0 flex-1 px-4 py-3' : ''">
+    <div :class="mode === 'window' ? 'scroll-area min-h-0 flex-1 px-5 py-4' : ''">
       <div v-if="errorKind" class="flex flex-col items-start gap-2 py-6" data-testid="detail-window-error">
         <p class="text-sm font-medium">{{ errorTitle }}</p>
         <p class="text-[13px] text-muted">{{ errorHelp }}</p>
@@ -284,7 +284,7 @@ const errorHelp = computed(() => {
           @open-link="openLink"
         />
 
-        <details open class="rounded-[8px] border border-line bg-raised/60 px-3 py-2" data-testid="detail-window-list">
+        <details open class="mt-4 rounded-section border border-line bg-raised/50 px-3 py-2" data-testid="detail-window-list">
           <summary class="cursor-pointer text-[13px] font-medium">
             {{ tFormat("本子关卡清单（{count}）", "Items in this sub-level ({count})", { count: items.length }) }}
           </summary>
@@ -292,8 +292,8 @@ const errorHelp = computed(() => {
             <li v-for="item in items" :key="item.id">
               <button
                 type="button"
-                class="flex w-full cursor-pointer items-center gap-2 rounded-[6px] px-1.5 py-1.5 text-left text-[13px] hover:bg-raised"
-                :class="item.id === selectedItem?.id ? 'bg-accent-bg' : ''"
+                class="ui-interactive flex min-h-8 w-full cursor-pointer items-center gap-2 rounded-control px-1.5 py-1.5 text-left text-[13px]"
+                :class="item.id === selectedItem?.id ? 'ui-row-selected font-medium text-accent-strong' : 'hover:bg-raised'"
                 :data-testid="`detail-window-item-${item.id}`"
                 @click="selectedId = item.id"
               >

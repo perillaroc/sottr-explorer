@@ -103,6 +103,24 @@ describe("布局档位（有效内容宽度）", () => {
     expect(drawer?.className ?? "").toContain("max-w-[calc(100vw-24px)]");
   });
 
+  it("连续选中多条清单不丢失列表滚动上下文", async () => {
+    const { wrapper } = await mountApp(1280);
+    const list = wrapper.get('[data-testid="region-list"]');
+    (list.element as HTMLElement).scrollTop = 160;
+
+    const rows = wrapper.findAll('[data-testid^="row-"]');
+    expect(rows.length).toBeGreaterThan(1);
+    await rows[0].trigger("click");
+    await flushPromises();
+    press("Escape");
+    await flushPromises();
+
+    (wrapper.get('[data-testid="region-list"]').element as HTMLElement).scrollTop = 160;
+    await wrapper.findAll('[data-testid^="row-"]')[1].trigger("click");
+    await flushPromises();
+    expect((wrapper.get('[data-testid="region-list"]').element as HTMLElement).scrollTop).toBe(160);
+  });
+
   it("<800：单列，详情页面替换清单，进入聚焦标题、返回恢复滚动位置", async () => {
     const { store, wrapper } = await mountApp(799);
     expect(wrapper.find('[data-testid="app-sidebar"]').exists()).toBe(false);

@@ -32,7 +32,9 @@ describe("区域与收集页", () => {
     store.actions.setRegion("mission_of_san_juan");
     const wrapper = mountWithStore(CollectionPage, store);
     const text = wrapper.text();
-    expect(text).toContain("区域与收集 · 圣胡安教会");
+    // 阶段四：区域名为主标题，“区域与收集”作为页面上文。
+    expect(wrapper.get('[data-testid="page-title"]').text()).toContain("圣胡安教会");
+    expect(wrapper.get('[data-testid="page-context"]').text()).toContain("区域与收集");
     expect(text).toContain("文献");
     expect(text).toContain("未收集");
     // 分组进度是该组真实总数（圣胡安文献共 27 项），不随筛选变化。
@@ -78,6 +80,38 @@ describe("区域与收集页", () => {
     expect(row.element.tagName).toBe("BUTTON");
     await row.trigger("click");
     expect(store.state.selectedRowId).toBe("0x0F28B6EC");
+  });
+
+  it("分组头使用 sticky，保留类别色与子类别", async () => {
+    const store = await collectionStore();
+    store.actions.setRegion("mission_of_san_juan");
+    const wrapper = mountWithStore(CollectionPage, store);
+    const header = wrapper.get('[data-testid="group-header"]');
+    expect(header.classes()).toContain("sticky");
+    expect(header.classes()).toContain("top-0");
+    expect(header.find("h2")?.classes().some((name) => name.startsWith("cat-text-"))).toBe(true);
+    const storyHeader = wrapper
+      .findAll('[data-testid="group-header"]')
+      .find((entry) => entry.text().includes("故事收藏"));
+    expect(storyHeader).toBeTruthy();
+    expect(storyHeader?.find('[data-testid="group-subcategory"]').text()).toContain("文献");
+  });
+
+  it("清单行有状态图形与文字；选中行使用左侧标记与名称加粗", async () => {
+    const store = await collectionStore();
+    store.actions.setRegion("mission_of_san_juan");
+    store.actions.setStatusFilter("all");
+    const wrapper = mountWithStore(CollectionPage, store);
+    const row = wrapper.get('[data-testid="row-0x0F28B6EC"]');
+    expect(row.classes()).toContain("min-h-14");
+    expect(row.find(".ui-status-mark").exists()).toBe(true);
+    expect(row.text()).toContain("已收集");
+
+    await row.trigger("click");
+    await wrapper.vm.$nextTick();
+    const item = wrapper.get('[data-testid="row-0x0F28B6EC"]').element.closest("li");
+    expect(item?.className).toContain("ui-row-selected");
+    expect(wrapper.get('[data-testid="row-0x0F28B6EC"] .line-clamp-2').classes()).toContain("font-medium");
   });
 
   it("分类单独成行并按类别着色：分组头是着色类别名，行内是同一色相的圆点", async () => {
