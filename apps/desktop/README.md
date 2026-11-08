@@ -44,7 +44,9 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 
 | 路径 | 说明 |
 | --- | --- |
+| `src/styles.css` | 视觉令牌（明暗主题、类别色、表面、字阶、控件与动效）与共享表面 / 状态 / 进度 / 折叠样式 |
 | `src/App.vue` | 应用外壳：顶栏 + 侧栏 + 主工作区 + 详情（宽屏常驻 / 抽屉 / 窄窗页面替换）、快捷键、数据源选择、详情窗口兜底浮层 |
+| `src/app/layout.ts` | 页面水平内边距与区域索引 / 摘要栅格口径（按 `store.layout`，不写视口 media query） |
 | `src/app/store.ts` | 单一 reactive store：request_id 隔离、切槽撤销提交资格、刷新失败 stale、筛选回退、导出与链接动作状态、地图选择/筛选、详情弹窗兜底、偏好持久化 |
 | `src/app/catalog.ts` | 界面派生视图：清单行（组行折叠）、区域计数单元格、诊断分组、表位置/参考集/组计数查询 |
 | `src/app/map-view.ts` | 地图视图派生：底图目录、当前图条目/分组/筛选、无坐标与无底图统计、全量覆盖统计 |
@@ -55,6 +57,9 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 | `src/data/tauri.ts` | 真实命令映射（camelCase 参数；命令错误 `{code,message}`） |
 | `src/data/mock.ts` | 模拟实现（含导出路径校验与 `OUTPUT_EXISTS` 恢复语义） |
 | `src/data/basemaps.ts` | 底图数据集索引（按 unit/区域查找、图片地址、坐标投影） |
+| `src/components/AppPageHeader.vue` | 页面骨架：主标题、上下文、说明、页面级动作与工具条插槽 |
+| `src/components/AppBrandMark.vue` | 罗盘品牌标记（Lucide `Compass`，不新增图片资产） |
+| `src/components/RegionProgressRow.vue` | 概览与全部区域共用的区域进度入口 |
 | `src/components/ExportDialog.vue` | 导出对话框：格式、分享脱敏、目标新目录、成功/失败/过期三态与恢复 |
 | `src/components/CollectionDetail.vue` | 详情 store 连接层（区域/类别文案、直链与搜索地址、外链动作、弹出窗口） |
 | `src/components/ItemDetailView.vue` | 详情纯展示层（主窗口与弹窗共用）：状态/徽标、合集、如何获取/指引、外部参考、相对位置 |
@@ -64,9 +69,21 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 | `src/components/map/MapRail.vue` | 「详情 / 清单」标签页（各自保留滚动位置）、清单底部无坐标/无底图说明 |
 | `src/components/map/MapLegend.vue` | 类别图标图例，兼类别筛选 |
 | `src/components/ui/UiResizeHandle.vue` | 面板宽度手柄（指针拖动、←/→、Home/End、双击复位） |
+| `src/components/ui/UiStatusMark.vue` | 收集状态图形（已收集实心勾 / 未收集空心 / 未知虚线），配文字或 `aria-label`，不单靠颜色 |
+| `src/components/ui/UiProgressBar.vue` | 可访问进度条（4px / 6px、accent / 旧金、`role="progressbar"` 与 `aria-valuetext`） |
 | `src/components/ui/UiDialog.vue` | 居中模态（与抽屉相同的焦点规则：进入/限制/Esc/恢复） |
 | `tests/` | Vitest：tauri-source（命令映射）、export、map-view/map-canvas/map-page、detail-window、end-to-end（假后端 IPC 全流程）、real-data（真实输出绑定，环境变量触发）等 |
 | `src-tauri/` | 命令层（11 条命令、两个 capability、CSP 与 IPC/权限集成测试） |
+
+## 视觉结构（2026-11-05 界面美化）
+
+- **令牌**：`src/styles.css` 定义 `data-theme="light|dark"` 的表面、文字、主操作、旧金、状态与 12 个类别色，并映射为 Tailwind 主题；类别色按新表面微调明度，明暗对比核算见 `doc/2026-11-05-界面美化/对比度记录.md`。
+- **表面**：页面 `canvas` 无外框；工作面 `surface`；筛选槽 / hover / 折叠区 `raised`；只有菜单、抽屉、对话框使用阴影。
+- **字阶**：页面标题 22/30、详情标题 20/28、区块标题 15/22、正文 14/22、辅助 13/20、元信息 12/18；ID 与 hash 使用等宽字体并允许断行。
+- **选中语言**：导航与清单行使用「3px 左侧标记 + `accent-bg` + 文字加重」；地图点位使用 2px 外环 + 4px 偏移；收集状态另用 `UiStatusMark` 的形状 + 文字，不只靠颜色。
+- **页面结构**：清单 / 地图工具头固定，其余页面随内容滚动；`AppPageHeader` 统一标题、上下文、说明与页面级动作。内容宽度：设置 840px，诊断 / 关于 960px，表格型概览与清单最多 1120px，地图不设固定最大宽度。
+- **地图**：画布使用 `--map-stage`，底图原色显示、不加滤镜；工具条在右下角（32px 按钮组 + 缩放读数）；右栏「详情 / 清单」44px 标签栏，选中为底部 2px accent。
+- **设置 / 关于**：设置按「显示 / 布局 / 外部链接」分区，标签 128px、窄窗独占一行，原生 radio 视觉为 36/28px 分段选择；关于页使用 32px 罗盘、键值面板与 12px 等宽许可长文（仍按需动态加载）。
 
 ## 布局档位与详情宽度
 
@@ -80,7 +97,7 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 - 入口：侧栏「地图查询」（需要已分析报告）。一张底图 = 一个子关卡，不做跨子关卡拼图。
 - 页头固定说明覆盖范围（当前数据：42 张底图 · 24/65 个子关卡 · 291/470 条可上图），并显示校准状态（7 张 `calibrated` / 35 张 `approximate`）与过期快照警告。
 - 标记：类别图标 + 已收集（实心）/未收集（描边）/选中（外圈置顶）；点击标记选中并自动切到右栏「详情」，点击清单项选中并聚焦地图、停留在「清单」。
-- 缩放/平移：滚轮以指针为锚点 1×–4×、按钮 +/−/重置、双击放大；缩放后拖拽平移；标记不随缩放变大。键盘/读屏等价路径是「清单」标签页。
+- 缩放/平移：滚轮以指针为锚点 1×–4×、右下角工具条 +/−/重置与缩放读数、双击放大；缩放后拖拽平移；标记不随缩放变大。键盘/读屏等价路径是「清单」标签页。
 - 筛选：状态（默认全部）、类别（图例即筛选）、搜索；与区域清单互不影响，地图区域选择不回写区域清单。
 - 响应式：≥1100 双栏（右栏可拖动调宽）；800–1099 右栏为右侧浮层；<800 地图 + 折叠清单，条目详情用地图页自己的全宽浮层。
 - 底图来源：vi7ual（个人非商业使用，见 `THIRD_PARTY_NOTICES.md`）。
@@ -113,5 +130,4 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 - 地图点位只是同子关卡内的**相对位置参考**，不是导航路线；多数底图是近似校准（全局误差估计）。
 - 地图覆盖不完整：291/470 条可上图；3 个特殊区域与 41 个无底图子关卡请在区域清单查看。
 - 详情弹窗 payload 为打开时快照（不含完整路径、证据与诊断数据）；刷新后需重新打开。
-- 真实 WebView2 内的原生选择器/外部浏览器/动态窗口/CSP 强制与 Windows DPI、对比度、
-  辅助技术实测属于 SX-017；应用图标已更新（SX-018）。
+- 真实 WebView2 的动态详情窗口、关闭联动与偏好重启保留已在界面美化阶段六验收；原生文件选择器、外部浏览器打开、Windows 系统 DPI / 高对比度与辅助技术实测仍属 SX-017；应用图标已更新（SX-018）。
