@@ -9,8 +9,10 @@ withDefaults(
     context?: string;
     /** 仅必要的业务口径说明。 */
     description?: string;
+    /** 标题 id，供页面 section 的 aria-labelledby 使用。 */
+    titleId?: string;
   }>(),
-  { context: undefined, description: undefined },
+  { context: undefined, description: undefined, titleId: undefined },
 );
 </script>
 
@@ -21,7 +23,7 @@ withDefaults(
         <p v-if="context" class="ui-meta mb-1 truncate" :title="context" data-testid="page-context">
           {{ context }}
         </p>
-        <h1 class="ui-page-title line-clamp-2 break-words" data-testid="page-title">{{ title }}</h1>
+        <h1 :id="titleId" class="ui-page-title line-clamp-2 break-words" data-testid="page-title">{{ title }}</h1>
         <p
           v-if="description"
           class="mt-1 max-w-[76ch] text-[13px] leading-5 text-muted"
@@ -30,7 +32,7 @@ withDefaults(
           {{ description }}
         </p>
       </div>
-      <div v-if="$slots.actions" class="flex shrink-0 flex-wrap items-center gap-2">
+      <div v-if="$slots.actions" class="flex min-w-0 flex-wrap items-center gap-2">
         <slot name="actions" />
       </div>
     </div>

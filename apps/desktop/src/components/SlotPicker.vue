@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 导入与槽位选择（SX-015）：候选目录 → 文件行 → 用途确认 → 开始分析/取消。
+// 导入与槽位选择（SX-015；2026-11-05 界面美化阶段三）：候选目录 → 文件行 → 用途确认 → 开始分析/取消。
 //
 // 文案与门禁遵循开发方案：修改时间按系统本地时间显示并注明时区；不把最新时间
 // 当作正确存档；未选文件或用途时开始分析禁用并有就地说明；模式声明不是格式识别证明。
@@ -8,6 +8,8 @@ import { FolderOpen, RefreshCw, Search } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { fileNameOf, formatBytes, formatLocalTime, formatPercent } from "../app/format";
+import { pagePaddingClass } from "../app/layout";
+import AppPageHeader from "./AppPageHeader.vue";
 import UiButton from "./ui/UiButton.vue";
 import UiEmptyState from "./ui/UiEmptyState.vue";
 import CoverageNotice from "./CoverageNotice.vue";
@@ -20,6 +22,8 @@ const candidates = computed(() => store.state.candidates);
 const discovery = computed(() => store.state.discovery);
 const analyzing = computed(() => store.state.analysis !== null);
 const selected = computed(() => store.state.selectedPath);
+const layout = computed(() => store.layout.value);
+const pageX = computed(() => pagePaddingClass(layout.value));
 
 /**
  * 候选文件分组：真实存档位于 `Shadow of the Tomb Raider\<账户数字>\saveN.dat`，
@@ -139,6 +143,23 @@ function isActiveCandidate(candidate: { path: string }): boolean {
   return store.state.activeRoot === root;
 }
 
+function rootRowClass(candidate: { path: string; status: string }): string {
+  const active = isActiveCandidate(candidate) && candidate.status === "game_found";
+  const available = candidate.status === "game_found";
+  return [
+    "ui-interactive flex w-full flex-wrap items-center gap-x-3 gap-y-1 border-b border-line/60 px-3 py-2.5 text-left text-[13px] last:border-b-0",
+    active
+      ? "ui-row-selected text-accent-strong"
+      : available
+        ? "text-ink enabled:hover:bg-raised"
+        : "cursor-not-allowed text-muted",
+  ].join(" ");
+}
+
+function rootStatusTone(status: string): string {
+  return status === "game_found" ? "text-muted" : "text-caution";
+}
+
 const canStart = computed(
   () => selected.value !== null && store.state.purpose !== null && !analyzing.value && !store.state.loadingCandidates,
 );
@@ -216,12 +237,41 @@ function rowStatus(candidate: CandidateFileDto): { text: string; tone: "muted" |
   return { text: t("待分析", "Not analyzed"), tone: "muted" };
 }
 
+function statusToneClass(tone: "muted" | "info" | "caution" | "danger"): string {
+  switch (tone) {
+    case "danger":
+      return "text-danger";
+    case "caution":
+      return "text-caution";
+    case "info":
+      return "text-info";
+    default:
+      return "text-muted";
+  }
+}
+
 function toggleDetail(path: string): void {
   expandedPath.value = expandedPath.value === path ? null : path;
 }
 
 function displayName(candidate: CandidateFileDto): string {
   return candidate.name || fileNameOf(candidate.path);
+}
+
+function purposeClass(value: "campaign" | "unknown"): string {
+  const active = store.state.purpose === value;
+  const base =
+    "ui-interactive flex min-h-9 cursor-pointer items-center gap-2 rounded-control border px-3 py-1.5 text-[13px]";
+  if (analyzing.value) {
+    return `${base} cursor-not-allowed border-line bg-surface text-muted opacity-60`;
+  }
+  return active
+    ? `${base} border-accent bg-accent-bg text-accent-strong`
+    : `${base} border-line bg-surface text-ink hover:bg-raised`;
+}
+
+function isSelectedFile(path: string): boolean {
+  return selected.value === path;
 }
 
 /** 行详情：完整路径、备注（如同内容关系）与已分析快照摘要。 */
@@ -249,26 +299,33 @@ function rowSummary(candidate: CandidateFileDto) {
 </script>
 
 <template>
-  <section class="scroll-area min-h-0 flex-1 px-6 py-6" aria-labelledby="import-title">
-    <div class="mx-auto max-w-5xl space-y-4">
-      <header>
-        <h1 id="import-title" class="text-lg font-semibold">{{ t("打开存档", "Open a save") }}</h1>
-      </header>
-
-      <div class="flex flex-wrap items-center gap-2">
-        <UiButton variant="primary" @click="store.actions.pickInput('save-file')">
-          <FolderOpen :size="16" aria-hidden="true" />
-          {{ t("选择文件", "Choose file") }}
-        </UiButton>
-        <UiButton @click="store.actions.pickInput('save-directory')">
-          <Search :size="16" aria-hidden="true" />
-          {{ t("选择文件夹", "Choose folder") }}
-        </UiButton>
-        <UiButton :disabled="analyzing" :title="t('重新扫描受限候选位置（不做全盘扫描）', 'Rescan limited candidate locations (no full-disk scan)')" @click="store.actions.rescan()">
-          <RefreshCw :size="16" aria-hidden="true" />
-          {{ t("重新查找默认目录", "Rescan default folders") }}
-        </UiButton>
-      </div>
+  <section class="scroll-area min-h-0 flex-1" aria-labelledby="import-title">
+    <div class="mx-auto w-full max-w-[1120px] space-y-6 pb-8" :class="pageX">
+      <AppPageHeader
+        title-id="import-title"
+        :title="t('打开存档', 'Open a save')"
+        :description="t('选择 Steam 版战役存档；分析只读取文件，不会修改原始存档。', 'Choose a Steam campaign save; analysis only reads the file and never modifies the original.')"
+      >
+        <template #actions>
+          <UiButton variant="primary" @click="store.actions.pickInput('save-file')">
+            <FolderOpen :size="16" aria-hidden="true" />
+            {{ t("选择文件", "Choose file") }}
+          </UiButton>
+          <UiButton @click="store.actions.pickInput('save-directory')">
+            <Search :size="16" aria-hidden="true" />
+            {{ t("选择文件夹", "Choose folder") }}
+          </UiButton>
+          <UiButton
+            variant="ghost"
+            :disabled="analyzing"
+            :title="t('重新扫描受限候选位置（不做全盘扫描）', 'Rescan limited candidate locations (no full-disk scan)')"
+            @click="store.actions.rescan()"
+          >
+            <RefreshCw :size="16" aria-hidden="true" />
+            {{ t("重新查找默认目录", "Rescan default folders") }}
+          </UiButton>
+        </template>
+      </AppPageHeader>
 
       <CoverageNotice
         v-if="store.state.discoveryError"
@@ -281,37 +338,37 @@ function rowSummary(candidate: CandidateFileDto) {
       />
 
       <div v-if="discovery" class="space-y-2">
-        <h2 class="text-base font-medium">{{ t("候选目录", "Candidate folders") }}</h2>
-        <ul class="space-y-1">
-          <li v-for="(candidate, index) in discovery.candidates" :key="candidate.path">
-            <button
-              type="button"
-              class="flex w-full flex-wrap items-center gap-2 rounded-[8px] border px-3 py-2 text-left text-[13px]"
-              :class="
-                isActiveCandidate(candidate) && candidate.status === 'game_found'
-                  ? 'border-accent bg-accent-bg text-accent-strong'
-                  : candidate.status === 'game_found'
-                    ? 'cursor-pointer border-line bg-surface text-ink hover:bg-raised'
-                    : 'cursor-not-allowed border-line bg-raised text-muted'
-              "
-              :disabled="candidate.status !== 'game_found' || analyzing"
-              :data-testid="`root-${index}`"
-              :title="listRootForCandidate.get(candidate.path) ?? candidate.path"
-              @click="openCandidate(candidate)"
-            >
-              <span class="font-medium break-all">{{ candidate.path }}</span>
-              <span class="text-muted">· {{ candidate.source_label }}</span>
-              <span class="ml-auto">{{ rootStatusText(candidate.status, candidate.detail) }}</span>
-            </button>
-          </li>
-        </ul>
-        <p v-if="discovery.game_roots.length === 0" class="text-[13px] text-muted">
-          {{ t("未找到可读取的存档。可尝试“选择文件/文件夹”，或确认游戏是否安装在本机。", "No readable saves found. Try “Choose file/folder”, or check whether the game is installed on this computer.") }}
-        </p>
+        <h2 class="ui-section-title">{{ t("候选目录", "Candidate folders") }}</h2>
+        <div class="ui-panel overflow-hidden" data-testid="candidate-roots">
+          <button
+            v-for="(candidate, index) in discovery.candidates"
+            :key="candidate.path"
+            type="button"
+            :class="rootRowClass(candidate)"
+            :disabled="candidate.status !== 'game_found' || analyzing"
+            :data-testid="`root-${index}`"
+            :title="listRootForCandidate.get(candidate.path) ?? candidate.path"
+            @click="openCandidate(candidate)"
+          >
+            <span class="min-w-0 flex-1 break-all text-[13px] font-medium text-ink">{{ candidate.path }}</span>
+            <span class="text-xs text-muted">{{ candidate.source_label }}</span>
+            <span class="ml-auto text-xs" :class="rootStatusTone(candidate.status)">
+              {{ rootStatusText(candidate.status, candidate.detail) }}
+            </span>
+          </button>
+        </div>
+        <UiEmptyState
+          v-if="discovery.game_roots.length === 0"
+          :title="t('未找到可读取的存档', 'No readable saves found')"
+          :description="t('可尝试“选择文件/文件夹”，或确认游戏是否安装在本机。', 'Try “Choose file/folder”, or check whether the game is installed on this computer.')"
+        >
+          <UiButton size="sm" @click="store.actions.pickInput('save-file')">{{ t("选择文件", "Choose file") }}</UiButton>
+          <UiButton size="sm" variant="ghost" @click="store.actions.pickInput('save-directory')">{{ t("选择文件夹", "Choose folder") }}</UiButton>
+        </UiEmptyState>
       </div>
 
       <div v-if="candidates.length > 0" class="space-y-2">
-        <h2 class="text-base font-medium">{{ t("文件", "Files") }}</h2>
+        <h2 class="ui-section-title">{{ t("文件", "Files") }}</h2>
         <p v-if="candidateGroups.length > 1" class="text-xs text-muted" data-testid="candidate-group-hint">
           {{
             t(
@@ -320,99 +377,95 @@ function rowSummary(candidate: CandidateFileDto) {
             )
           }}
         </p>
-        <table class="w-full border-collapse text-[13px]">
-          <caption class="sr-only">{{ t("候选存档文件与读取状态", "Candidate save files and read status") }}</caption>
-          <thead>
-            <tr class="border-b border-line text-left text-muted">
-              <th scope="col" class="w-8 py-1 font-normal">
-                <span class="sr-only">{{ t("选择", "Select") }}</span>
-              </th>
-              <th scope="col" class="py-1 font-normal">{{ t("文件", "File") }}</th>
-              <th scope="col" class="py-1 font-normal">{{ t("修改时间", "Modified") }}</th>
-              <th scope="col" class="py-1 font-normal">{{ t("大小", "Size") }}</th>
-              <th scope="col" class="py-1 font-normal">{{ t("状态", "Status") }}</th>
-              <th scope="col" class="w-16 py-1 font-normal">
-                <span class="sr-only">{{ t("详情", "Details") }}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody v-for="group in candidateGroups" :key="group.key" data-testid="candidate-group">
-            <tr v-if="candidateGroups.length > 1" class="border-b border-line bg-raised/60" data-testid="candidate-group-title">
-              <th colspan="6" scope="colgroup" class="py-1.5 text-left text-xs font-medium text-ink" :title="group.dir">
-                <span class="break-all">{{ groupLabel(group) }}</span>
-                <span class="ml-2 font-normal text-muted">· {{ groupFileCount(group) }}</span>
-              </th>
-            </tr>
-            <template v-for="candidate in group.files" :key="candidate.path">
-              <tr class="border-b border-line/60 align-top">
-                <td class="py-2">
-                  <input
-                    type="radio"
-                    name="candidate"
-                    :value="candidate.path"
-                    :checked="selected === candidate.path"
-                    :disabled="analyzing"
-                    :aria-label="t(`选择 ${displayName(candidate)}`, `Select ${displayName(candidate)}`)"
-                    @change="store.actions.selectCandidate(candidate.path)"
-                  />
-                </td>
-                <td class="py-2 pr-3">
-                  <button
-                    type="button"
-                    class="cursor-pointer break-all text-left hover:underline"
-                    @click="store.actions.selectCandidate(candidate.path)"
-                  >
-                    {{ displayName(candidate) }}
-                  </button>
-                  <p v-if="candidate.note" class="text-xs text-muted">{{ candidate.note }}</p>
-                </td>
-                <td class="py-2 pr-3 whitespace-nowrap">{{ formatLocalTime(candidate.modified_millis) }}</td>
-                <td class="py-2 pr-3 whitespace-nowrap">{{ formatBytes(candidate.size_bytes) }}</td>
-                <td class="py-2 pr-3">
-                  <span
-                    :class="
-                      rowStatus(candidate).tone === 'danger'
-                        ? 'text-danger'
-                        : rowStatus(candidate).tone === 'caution'
-                          ? 'text-caution'
-                          : rowStatus(candidate).tone === 'info'
-                            ? 'text-info'
-                            : 'text-muted'
-                    "
-                    >{{ rowStatus(candidate).text }}</span
-                  >
-                </td>
-                <td class="py-2">
-                  <button
-                    type="button"
-                    class="cursor-pointer text-xs text-muted hover:text-ink hover:underline"
-                    :aria-expanded="expandedPath === candidate.path"
-                    @click="toggleDetail(candidate.path)"
-                  >
-                    {{ t("详情", "Details") }}
-                  </button>
-                </td>
+        <div class="ui-panel overflow-x-auto" data-testid="file-table">
+          <table class="w-full min-w-[760px] border-collapse text-[13px]">
+            <caption class="sr-only">{{ t("候选存档文件与读取状态", "Candidate save files and read status") }}</caption>
+            <thead>
+              <tr class="border-b border-line bg-surface text-left text-xs text-muted">
+                <th scope="col" class="h-9 w-10 px-2 font-medium">
+                  <span class="sr-only">{{ t("选择", "Select") }}</span>
+                </th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("文件", "File") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("修改时间", "Modified") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("大小", "Size") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("状态", "Status") }}</th>
+                <th scope="col" class="h-9 w-16 px-2 font-medium">
+                  <span class="sr-only">{{ t("详情", "Details") }}</span>
+                </th>
               </tr>
-              <tr v-if="expandedPath === candidate.path" class="border-b border-line/60 bg-raised/60">
-                <td />
-                <td colspan="5" class="py-2 text-xs text-muted">
-                  <p class="break-all">{{ t("完整路径", "Full path") }}：<span class="mono">{{ rowSummary(candidate).path }}</span></p>
-                  <p v-if="rowSummary(candidate).note">{{ t("备注", "Note") }}：{{ rowSummary(candidate).note }}</p>
-                  <p v-if="rowSummary(candidate).snapshotTime">
-                    {{ t("已分析快照", "Analyzed snapshot") }}：{{ formatLocalTime(Date.parse(rowSummary(candidate).snapshotTime ?? "")) }}；{{ t("摘要前缀", "digest prefix") }}
-                    <span class="mono">{{ rowSummary(candidate).digestPrefix }}…</span>
-                  </p>
-                  <p v-if="rowSummary(candidate).capabilities">
-                    {{ t("能力摘要", "Capabilities") }}：{{ rowSummary(candidate).capabilities?.join(t("；", "; ")) }}
-                  </p>
-                  <p v-if="!rowSummary(candidate).snapshotTime">
-                    {{ t("尚未分析：状态为“待分析”，不提前显示占位百分比。", "Not analyzed yet: shown as “Not analyzed”, with no placeholder percentage.") }}
-                  </p>
-                </td>
+            </thead>
+            <tbody v-for="group in candidateGroups" :key="group.key" data-testid="candidate-group">
+              <tr v-if="candidateGroups.length > 1" class="border-b border-line bg-raised" data-testid="candidate-group-title">
+                <th colspan="6" scope="colgroup" class="px-3 py-2 text-left text-xs font-medium text-ink" :title="group.dir">
+                  <span class="break-all">{{ groupLabel(group) }}</span>
+                  <span class="ml-2 font-normal text-muted">· {{ groupFileCount(group) }}</span>
+                </th>
               </tr>
-            </template>
-          </tbody>
-        </table>
+              <template v-for="candidate in group.files" :key="candidate.path">
+                <tr class="h-11 border-b border-line/60 align-top" :class="isSelectedFile(candidate.path) ? 'bg-accent-bg' : 'hover:bg-raised'">
+                  <td
+                    class="border-l-[3px] py-2 pl-2"
+                    :class="isSelectedFile(candidate.path) ? 'border-accent' : 'border-transparent'"
+                  >
+                    <input
+                      type="radio"
+                      name="candidate"
+                      :value="candidate.path"
+                      :checked="selected === candidate.path"
+                      :disabled="analyzing"
+                      :aria-label="t(`选择 ${displayName(candidate)}`, `Select ${displayName(candidate)}`)"
+                      @change="store.actions.selectCandidate(candidate.path)"
+                    />
+                  </td>
+                  <td class="px-2 py-2">
+                    <button
+                      type="button"
+                      class="cursor-pointer break-all text-left font-medium text-ink hover:underline"
+                      @click="store.actions.selectCandidate(candidate.path)"
+                    >
+                      {{ displayName(candidate) }}
+                    </button>
+                    <p v-if="candidate.note" class="text-xs text-muted">{{ candidate.note }}</p>
+                  </td>
+                  <td class="px-2 py-2 whitespace-nowrap">{{ formatLocalTime(candidate.modified_millis) }}</td>
+                  <td class="px-2 py-2 whitespace-nowrap">{{ formatBytes(candidate.size_bytes) }}</td>
+                  <td class="px-2 py-2 text-xs" :class="statusToneClass(rowStatus(candidate).tone)">
+                    {{ rowStatus(candidate).text }}
+                  </td>
+                  <td class="px-2 py-2">
+                    <button
+                      type="button"
+                      class="ui-interactive inline-flex h-8 cursor-pointer items-center rounded-control px-2 text-xs text-muted enabled:hover:bg-raised enabled:hover:text-ink"
+                      :aria-expanded="expandedPath === candidate.path"
+                      @click="toggleDetail(candidate.path)"
+                    >
+                      {{ t("详情", "Details") }}
+                    </button>
+                  </td>
+                </tr>
+                <tr v-if="expandedPath === candidate.path" class="border-b border-line/60 bg-raised/60">
+                  <td class="border-l-[3px] border-transparent" />
+                  <td colspan="5" class="px-3 py-2 text-xs text-muted">
+                    <p class="break-all">
+                      {{ t("完整路径", "Full path") }}：<span class="mono">{{ rowSummary(candidate).path }}</span>
+                    </p>
+                    <p v-if="rowSummary(candidate).note">{{ t("备注", "Note") }}：{{ rowSummary(candidate).note }}</p>
+                    <p v-if="rowSummary(candidate).snapshotTime">
+                      {{ t("已分析快照", "Analyzed snapshot") }}：{{ formatLocalTime(Date.parse(rowSummary(candidate).snapshotTime ?? "")) }}；{{ t("摘要前缀", "digest prefix") }}
+                      <span class="mono">{{ rowSummary(candidate).digestPrefix }}…</span>
+                    </p>
+                    <p v-if="rowSummary(candidate).capabilities">
+                      {{ t("能力摘要", "Capabilities") }}：{{ rowSummary(candidate).capabilities?.join(t("；", "; ")) }}
+                    </p>
+                    <p v-if="!rowSummary(candidate).snapshotTime">
+                      {{ t("尚未分析：状态为“待分析”，不提前显示占位百分比。", "Not analyzed yet: shown as “Not analyzed”, with no placeholder percentage.") }}
+                    </p>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <UiEmptyState
@@ -421,10 +474,10 @@ function rowSummary(candidate: CandidateFileDto) {
         :description="t('发现层只列出 *.dat（最多 128 个、深度 4 层）；可用“选择文件”手动选择其他位置。', 'Discovery lists only *.dat files (up to 128, depth 4); use “Choose file” to pick another location manually.')"
       />
 
-      <div class="space-y-2">
-        <h2 class="text-base font-medium">{{ t("这个文件用于", "This file is used for") }}</h2>
-        <div class="flex flex-col gap-1 text-[13px]">
-          <label class="inline-flex cursor-pointer items-center gap-2">
+      <section class="ui-panel p-4" data-testid="purpose-panel">
+        <h2 class="ui-section-title">{{ t("这个文件用于", "This file is used for") }}</h2>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <label :class="purposeClass('campaign')">
             <input
               type="radio"
               name="purpose"
@@ -434,9 +487,9 @@ function rowSummary(candidate: CandidateFileDto) {
               data-testid="purpose-campaign"
               @change="store.actions.setPurpose('campaign')"
             />
-            {{ t("普通战役存档", "Campaign save") }}
+            <span>{{ t("普通战役存档", "Campaign save") }}</span>
           </label>
-          <label class="inline-flex cursor-pointer items-center gap-2">
+          <label :class="purposeClass('unknown')">
             <input
               type="radio"
               name="purpose"
@@ -446,33 +499,43 @@ function rowSummary(candidate: CandidateFileDto) {
               data-testid="purpose-unknown"
               @change="store.actions.setPurpose('unknown')"
             />
-            {{ t("不确定，仅查看可用观察", "Not sure; view available observations only") }}
+            <span>{{ t("不确定，仅查看可用观察", "Not sure; view available observations only") }}</span>
           </label>
         </div>
-      </div>
 
-      <div class="space-y-2">
-        <div v-if="analyzing" class="flex flex-wrap items-center gap-3" data-testid="analysis-progress">
-          <span class="text-[13px]">
-            {{ t(`正在分析 ${fileNameOf(store.state.analysis?.path ?? "")}…（模拟：不定进度）`, `Analyzing ${fileNameOf(store.state.analysis?.path ?? "")}… (mock: indeterminate progress)`) }}
-          </span>
-          <UiButton variant="danger" size="sm" @click="store.actions.cancelAnalysis()">{{ t("取消", "Cancel") }}</UiButton>
+        <div class="mt-4 border-t border-line pt-3">
+          <div v-if="analyzing" class="space-y-2" data-testid="analysis-progress">
+            <p class="text-[13px]">
+              {{ t(`正在分析 ${fileNameOf(store.state.analysis?.path ?? "")}…（模拟：不定进度）`, `Analyzing ${fileNameOf(store.state.analysis?.path ?? "")}… (mock: indeterminate progress)`) }}
+            </p>
+            <div
+              class="ui-progress ui-progress--indeterminate"
+              role="progressbar"
+              :aria-label="t('正在分析存档', 'Analyzing save')"
+            >
+              <div class="ui-progress__fill ui-progress__fill--indeterminate"></div>
+            </div>
+            <UiButton variant="danger" size="sm" @click="store.actions.cancelAnalysis()">{{ t("取消", "Cancel") }}</UiButton>
+          </div>
+          <template v-else>
+            <div class="flex flex-wrap items-center gap-3">
+              <UiButton
+                variant="primary"
+                :disabled="!canStart"
+                :title="canStart ? t('开始分析（只读）', 'Start analysis (read-only)') : (startHint ?? '')"
+                data-testid="start-analysis"
+                @click="store.actions.startAnalysis()"
+              >
+                {{ t("开始分析", "Start analysis") }}
+              </UiButton>
+              <p v-if="startHint" class="text-xs text-muted" data-testid="start-hint">{{ startHint }}</p>
+            </div>
+          </template>
         </div>
-        <template v-else>
-          <UiButton
-            variant="primary"
-            :disabled="!canStart"
-            :title="canStart ? t('开始分析（只读）', 'Start analysis (read-only)') : (startHint ?? '')"
-            data-testid="start-analysis"
-            @click="store.actions.startAnalysis()"
-          >
-            {{ t("开始分析", "Start analysis") }}
-          </UiButton>
-          <p v-if="startHint" class="text-xs text-muted" data-testid="start-hint">{{ startHint }}</p>
-        </template>
 
         <CoverageNotice
           v-if="startError"
+          class="mt-3"
           tone="danger"
           :title="t('分析失败', 'Analysis failed')"
           :lines="[
@@ -485,7 +548,7 @@ function rowSummary(candidate: CandidateFileDto) {
           <UiButton size="sm" @click="store.actions.startAnalysis()">{{ t("重试分析", "Retry analysis") }}</UiButton>
           <UiButton size="sm" variant="ghost" @click="store.actions.setView('diagnostics')">{{ t("展开诊断", "Open Diagnostics") }}</UiButton>
         </CoverageNotice>
-      </div>
+      </section>
     </div>
   </section>
 </template>

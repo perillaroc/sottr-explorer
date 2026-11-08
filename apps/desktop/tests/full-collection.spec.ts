@@ -2,6 +2,7 @@
 import { describe, expect, it } from "vitest";
 
 import FullCollectionPage from "../src/components/FullCollectionPage.vue";
+import { copy } from "../src/app/labels";
 import { analyzeCandidate, createTestStore, mountWithStore } from "./helpers";
 
 describe("FullCollectionPage", () => {
@@ -53,6 +54,25 @@ describe("FullCollectionPage", () => {
     const { store } = await createTestStore();
     const wrapper = mountWithStore(FullCollectionPage, store);
     expect(wrapper.text()).toContain("先分析一个存档文件");
+    wrapper.unmount();
+  });
+
+  it("资料文件显示无收集品清单，不把空表当作全缺失", async () => {
+    const { store } = await createTestStore();
+    await analyzeCandidate(store, "profile.dat");
+    const wrapper = mountWithStore(FullCollectionPage, store);
+    expect(wrapper.text()).toContain("资料文件没有收集品清单");
+    expect(wrapper.find('[data-testid="required-band"]').exists()).toBe(false);
+    wrapper.unmount();
+  });
+
+  it("旧快照保留提示与数据，不隐藏缺失口径", async () => {
+    const { store } = await createTestStore();
+    await analyzeCandidate(store, "save1.dat");
+    await store.actions.refresh(); // 第一次刷新模拟失败 → stale
+    const wrapper = mountWithStore(FullCollectionPage, store);
+    expect(wrapper.get('[data-testid="stale-banner"]').text()).toContain(copy.stale);
+    expect(wrapper.find('[data-testid="required-band"]').exists()).toBe(true);
     wrapper.unmount();
   });
 });

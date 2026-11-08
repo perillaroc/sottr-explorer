@@ -10,12 +10,14 @@ import { MapPin, X } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat, localizedName } from "../app/i18n";
 import { copy } from "../app/labels";
-import { categoriesOfRegion, categoryNameOf, countRegion, groupDisplayName, regionName } from "../app/collection";
+import { categoriesOfRegion, categoryNameOf, groupDisplayName, regionName } from "../app/collection";
 import { categoryClass, categoryDotClass } from "../app/category-style";
+import { regionGridClass } from "../app/layout";
 import { regionHasBasemap } from "../app/map-view";
 import { shortId } from "../app/format";
 import type { PlanGroup, PlanItem, PlanRegion } from "../data/atlas";
 import CoverageNotice from "./CoverageNotice.vue";
+import RegionProgressRow from "./RegionProgressRow.vue";
 import UiButton from "./ui/UiButton.vue";
 import UiEmptyState from "./ui/UiEmptyState.vue";
 import UiFilterChips from "./ui/UiFilterChips.vue";
@@ -36,6 +38,7 @@ const totalCounts = computed(() => store.planMainCounts.value);
 
 const mainRegions = computed(() => plan.value.regions.filter((entry) => entry.kind === "main"));
 const specialRegions = computed(() => plan.value.regions.filter((entry) => entry.kind === "special"));
+const regionGrid = computed(() => regionGridClass(store.layout.value));
 
 const isRegionView = computed(() => region.value !== "all" && region.value !== "unknown");
 const regionMapAvailable = computed(
@@ -87,11 +90,6 @@ function categoryLabelOf(categoryId: string): string {
 function subgroupLabelOf(group: PlanGroup): string | null {
   const name = groupDisplayName(group);
   return name === categoryLabelOf(group.category) ? null : name;
-}
-
-function groupPercent(regionEntry: PlanRegion): number {
-  const entry = countRegion(regionEntry);
-  return entry.all === 0 ? 0 : Math.round((entry.collected / entry.all) * 100);
 }
 
 function openRegion(slug: string): void {
@@ -258,81 +256,39 @@ watch(
         <div v-if="region === 'all'" class="mx-auto w-full max-w-5xl space-y-6 pt-4" data-testid="region-overview">
           <section class="space-y-2">
             <h2 class="text-[13px] font-medium text-muted">{{ t("主区域", "Main regions") }}</h2>
-            <div class="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
-              <div
+            <div class="grid gap-3" :class="regionGrid">
+              <RegionProgressRow
                 v-for="entry in mainRegions"
                 :key="entry.slug"
-                class="flex items-stretch rounded-[10px] border border-line bg-surface transition-colors hover:border-accent/60"
-              >
-                <button
-                  type="button"
-                  class="flex min-w-0 flex-1 cursor-pointer flex-col gap-2 rounded-l-[10px] px-4 py-3 text-left hover:bg-raised/60"
-                  :data-testid="`region-card-${entry.slug}`"
-                  @click="openRegion(entry.slug)"
-                >
-                  <div class="flex items-baseline justify-between gap-2">
-                    <span class="truncate text-[13px] font-medium text-ink">{{ regionName(entry) }}</span>
-                    <span class="shrink-0 tabular-nums text-xs text-muted">{{ entry.collected }}/{{ entry.total }}</span>
-                  </div>
-                  <div class="h-1 w-full overflow-hidden rounded-full bg-raised">
-                    <div class="h-full rounded-full bg-accent" :style="{ width: `${groupPercent(entry)}%` }" />
-                  </div>
-                  <span class="text-xs text-muted">
-                    {{ entry.total - entry.collected > 0 ? t(`未收集 ${entry.total - entry.collected} 项`, `${entry.total - entry.collected} uncollected`) : t("已全部收集", "All collected") }}
-                  </span>
-                </button>
-                <button
-                  v-if="regionHasBasemap(plan, entry.slug)"
-                  type="button"
-                  class="flex w-10 shrink-0 cursor-pointer items-center justify-center rounded-r-[10px] border-l border-line/70 text-muted hover:bg-raised hover:text-accent-strong"
-                  :aria-label="tFormat('在地图中查看 {region}', 'View {region} on the map', { region: regionName(entry) })"
-                  :title="t('在地图中查看', 'View on the map')"
-                  :data-testid="`region-map-${entry.slug}`"
-                  @click="openRegionMap(entry.slug)"
-                >
-                  <MapPin :size="15" aria-hidden="true" />
-                </button>
-              </div>
+                :slug="entry.slug"
+                :name="regionName(entry)"
+                :collected="entry.collected"
+                :total="entry.total"
+                :test-id="`region-card-${entry.slug}`"
+                :map-available="regionHasBasemap(plan, entry.slug)"
+                :map-test-id="`region-map-${entry.slug}`"
+                @open="openRegion"
+                @open-map="openRegionMap"
+              />
             </div>
           </section>
 
           <section class="space-y-2">
             <h2 class="text-[13px] font-medium text-muted">{{ t("特殊区域", "Special regions") }}</h2>
-            <div class="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
-              <div
+            <div class="grid gap-3" :class="regionGrid">
+              <RegionProgressRow
                 v-for="entry in specialRegions"
                 :key="entry.slug"
-                class="flex items-stretch rounded-[10px] border border-line bg-surface transition-colors hover:border-accent/60"
-              >
-                <button
-                  type="button"
-                  class="flex min-w-0 flex-1 cursor-pointer flex-col gap-2 rounded-l-[10px] px-4 py-3 text-left hover:bg-raised/60"
-                  :data-testid="`region-card-${entry.slug}`"
-                  @click="openRegion(entry.slug)"
-                >
-                  <div class="flex items-baseline justify-between gap-2">
-                    <span class="truncate text-[13px] font-medium text-ink">{{ regionName(entry) }}</span>
-                    <span class="shrink-0 tabular-nums text-xs text-muted">{{ entry.collected }}/{{ entry.total }}</span>
-                  </div>
-                  <div class="h-1 w-full overflow-hidden rounded-full bg-raised">
-                    <div class="h-full rounded-full bg-accent" :style="{ width: `${groupPercent(entry)}%` }" />
-                  </div>
-                  <span class="text-xs text-muted">
-                    {{ entry.total - entry.collected > 0 ? t(`未收集 ${entry.total - entry.collected} 项`, `${entry.total - entry.collected} uncollected`) : t("已全部收集", "All collected") }}
-                  </span>
-                </button>
-                <button
-                  v-if="regionHasBasemap(plan, entry.slug)"
-                  type="button"
-                  class="flex w-10 shrink-0 cursor-pointer items-center justify-center rounded-r-[10px] border-l border-line/70 text-muted hover:bg-raised hover:text-accent-strong"
-                  :aria-label="tFormat('在地图中查看 {region}', 'View {region} on the map', { region: regionName(entry) })"
-                  :title="t('在地图中查看', 'View on the map')"
-                  :data-testid="`region-map-${entry.slug}`"
-                  @click="openRegionMap(entry.slug)"
-                >
-                  <MapPin :size="15" aria-hidden="true" />
-                </button>
-              </div>
+                :slug="entry.slug"
+                :name="regionName(entry)"
+                :collected="entry.collected"
+                :total="entry.total"
+                :test-id="`region-card-${entry.slug}`"
+                :map-available="regionHasBasemap(plan, entry.slug)"
+                :map-test-id="`region-map-${entry.slug}`"
+                @open="openRegion"
+                @open-map="openRegionMap"
+              />
             </div>
           </section>
         </div>

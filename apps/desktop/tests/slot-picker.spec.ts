@@ -86,8 +86,11 @@ describe("导入与槽位选择", () => {
     await wrapper.findAll('input[type="radio"]')[0].setValue();
     await wrapper.get('[data-testid="purpose-campaign"]').setValue();
     await wrapper.get('[data-testid="start-analysis"]').trigger("click");
-    expect(wrapper.get('[data-testid="analysis-progress"]').text()).toContain("正在分析 save1.dat");
-    expect(wrapper.get('[data-testid="analysis-progress"]').text()).toContain("模拟：不定进度");
+    const progress = wrapper.get('[data-testid="analysis-progress"]');
+    expect(progress.text()).toContain("正在分析 save1.dat");
+    expect(progress.text()).toContain("模拟：不定进度");
+    expect(progress.find('[role="progressbar"]').classes()).toContain("ui-progress--indeterminate");
+    expect(progress.find(".ui-progress__fill--indeterminate").exists()).toBe(true);
     // 不重复提交同一任务：开始按钮被进度状态取代。
     expect(wrapper.find('[data-testid="start-analysis"]').exists()).toBe(false);
 

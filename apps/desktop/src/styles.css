@@ -273,6 +273,7 @@ body {
 /* 表面层级：页面 canvas 无外框；工作面 surface；次级区 raised；浮层 surface + shadow。
    区块优先用标题、留白与细分隔线区分，不默认套圆角卡片。 */
 .ui-panel {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--ui-radius-section);
@@ -327,6 +328,50 @@ body {
 
 .ui-progress__fill--gold {
   background: var(--gold-fill);
+}
+
+/* 不定进度：只表达“正在进行”，不制造百分比；reduced-motion 下退化为静态条。 */
+.ui-progress--indeterminate {
+  overflow: hidden;
+}
+
+.ui-progress__fill--indeterminate {
+  width: 40%;
+  animation: ui-progress-indeterminate 1.4s var(--ui-ease-out) infinite;
+}
+
+@keyframes ui-progress-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(350%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-progress__fill--indeterminate {
+    width: 100%;
+    animation: none;
+    transform: none;
+  }
+}
+
+/* 折叠区：chevron 随 details open 旋转；summary 去掉原生三角。 */
+.ui-disclosure > summary {
+  list-style: none;
+}
+
+.ui-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ui-chevron {
+  transition: transform var(--ui-duration-fast) var(--ui-ease-out);
+}
+
+.ui-disclosure[open] .ui-chevron {
+  transform: rotate(180deg);
 }
 
 /* 收集状态图形：形状 + 可访问文字，不单独依赖颜色。 */

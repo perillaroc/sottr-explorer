@@ -36,6 +36,7 @@ describe("AppPageHeader", () => {
         title: "区域与收集",
         context: "帕依提提 · 快照 2026-11-08 12:43",
         description: "按区域查看收集品；计数来自当前快照。",
+        titleId: "collection-title",
       },
       slots: {
         actions: '<button data-testid="page-action">查看未收集</button>',
@@ -44,6 +45,7 @@ describe("AppPageHeader", () => {
     });
 
     expect(wrapper.get('[data-testid="page-title"]').text()).toBe("区域与收集");
+    expect(wrapper.get('[data-testid="page-title"]').attributes("id")).toBe("collection-title");
     expect(wrapper.get('[data-testid="page-title"]').classes()).toContain("ui-page-title");
     expect(wrapper.get('[data-testid="page-title"]').classes()).toContain("line-clamp-2");
     expect(wrapper.get('[data-testid="page-context"]').text()).toContain("帕依提提");
