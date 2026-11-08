@@ -5,11 +5,12 @@
 // 边界（方案 §2.1）：一张底图 = 一个子关卡，不做跨子关卡拼图；点位只是同子关卡内的
 // 相对位置参考，不是导航；筛选独立于区域清单，`mapRegion` 不回写 `state.region`。
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import { X } from "@lucide/vue";
+import { ChevronDown, X } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat } from "../app/i18n";
 import { copy } from "../app/labels";
 import { categoryNameOf } from "../app/collection";
+import { pagePaddingClass } from "../app/layout";
 import { MAP_RAIL_WIDTH } from "../app/prefs";
 import {
   defaultMapBasemap,
@@ -25,6 +26,7 @@ import {
   type MapFilters,
 } from "../app/map-view";
 import CollectionDetail from "./CollectionDetail.vue";
+import AppPageHeader from "./AppPageHeader.vue";
 import MapCanvas from "./map/MapCanvas.vue";
 import MapLegend, { type MapLegendOption } from "./map/MapLegend.vue";
 import MapRail from "./map/MapRail.vue";
@@ -51,6 +53,7 @@ const offMapIds = ref<string[]>([]);
 const plan = computed(() => store.plan.value);
 const atlas = store.atlas;
 const layout = computed(() => store.layout.value);
+const pageX = computed(() => pagePaddingClass(layout.value));
 const ready = computed(() => store.report.value !== null && store.planAvailable.value);
 
 const inlineRail = computed(() => layout.value === "wide" || layout.value === "medium");
@@ -95,12 +98,15 @@ const filters = computed<MapFilters>(() => ({
 const filteredEntries = computed(() => filterMapEntries(entries.value, filters.value));
 const groups = computed(() => mapGroups(entries.value, filters.value));
 
+/** 有筛选时才显示「清除筛选」，避免空态按钮挤压工具头。 */
+const filtersActive = computed(
+  () =>
+    store.state.mapStatus !== "all" ||
+    store.state.mapCategory !== null ||
+    store.state.mapSearch.trim().length > 0,
+);
+
 const statusOptions = computed<ChipOption[]>(() => [
-  {
-    value: "all",
-    label: t("全部", "All"),
-    count: entries.value.length,
-  },
   {
     value: "missing",
     label: t("未收集", "Uncollected"),
@@ -110,6 +116,11 @@ const statusOptions = computed<ChipOption[]>(() => [
     value: "observed",
     label: t("已收集", "Collected"),
     count: entries.value.filter((entry) => entry.item.status === "collected").length,
+  },
+  {
+    value: "all",
+    label: t("全部", "All"),
+    count: entries.value.length,
   },
 ]);
 
@@ -167,6 +178,11 @@ const canvasLabel = computed(() =>
   currentOption.value
     ? `${currentOption.value.regionName} · ${currentOption.value.unitLabel}`
     : t("地图", "Map"),
+);
+
+/** 页头主标题：当前区域 · 子关卡；没有可用底图时退回页面名。 */
+const mapTitle = computed(() =>
+  ready.value && currentOption.value ? canvasLabel.value : t("地图查询", "Map"),
 );
 
 const unplaced = computed(() =>
@@ -285,112 +301,114 @@ onMounted(() => {
 
 <template>
   <section class="flex min-h-0 flex-1 flex-col" aria-labelledby="map-title">
-    <header class="shrink-0 space-y-2 border-b border-line/70 px-4 pt-4 pb-2.5">
-      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h1 id="map-title" class="text-lg font-semibold">{{ t("地图查询", "Map") }}</h1>
-        <template v-if="ready && currentOption">
-          <span class="text-[13px] tabular-nums text-ink" data-testid="map-counts">
-            {{ t(`已收集 ${currentOption.collected}/${currentOption.itemCount} · 显示 ${filteredEntries.length}`, `Collected ${currentOption.collected}/${currentOption.itemCount} · ${filteredEntries.length} shown`) }}
-          </span>
-          <span
-            class="text-xs text-muted underline decoration-dotted underline-offset-2"
-            :title="calibrationTitle"
-            data-testid="map-calibration"
-          >{{ calibrationShort }}</span>
+    <header class="shrink-0 border-b border-line/70 pb-2.5" :class="pageX">
+      <AppPageHeader title-id="map-title" :title="mapTitle" :context="t('地图查询', 'Map')">
+        <template #actions>
+          <template v-if="ready && currentOption">
+            <span class="text-[13px] tabular-nums text-ink" data-testid="map-counts">
+              {{ t(`已收集 ${currentOption.collected}/${currentOption.itemCount} · 显示 ${filteredEntries.length}`, `Collected ${currentOption.collected}/${currentOption.itemCount} · ${filteredEntries.length} shown`) }}
+            </span>
+            <span
+              class="cursor-help text-xs text-muted underline decoration-dotted underline-offset-2"
+              :title="calibrationTitle"
+              data-testid="map-calibration"
+            >{{ calibrationShort }}</span>
+          </template>
+          <span class="text-xs text-muted">底图 · vi7ual</span>
         </template>
-        <span class="ml-auto text-xs text-muted">底图 · vi7ual</span>
-      </div>
 
-      <template v-if="ready">
-        <div class="flex flex-wrap items-center gap-2">
-          <select
-            id="map-region-select"
-            class="h-8 max-w-[170px] cursor-pointer rounded-[6px] border border-line bg-surface px-2 text-[13px]"
-            :aria-label="t('区域', 'Region')"
-            :value="store.state.mapRegion ?? ''"
-            data-testid="map-region-select"
-            @change="onRegionChange"
-          >
-            <option v-for="region in regionChoices" :key="region.slug" :value="region.slug">
-              {{ region.name }}
-            </option>
-          </select>
+        <div v-if="ready" class="rounded-section bg-raised/60 p-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <select
+              id="map-region-select"
+              class="h-9 max-w-[180px] cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px]"
+              :aria-label="t('区域', 'Region')"
+              :value="store.state.mapRegion ?? ''"
+              data-testid="map-region-select"
+              @change="onRegionChange"
+            >
+              <option v-for="region in regionChoices" :key="region.slug" :value="region.slug">
+                {{ region.name }}
+              </option>
+            </select>
 
-          <select
-            id="map-basemap-select"
-            class="h-8 max-w-[260px] cursor-pointer rounded-[6px] border border-line bg-surface px-2 text-[13px]"
-            :aria-label="t('子关卡', 'Sub-level')"
-            :value="store.state.mapBasemapId ?? ''"
-            data-testid="map-basemap-select"
-            @change="onBasemapChange"
-          >
-            <option v-for="option in basemapChoices" :key="option.basemapId" :value="option.basemapId">
-              {{ basemapLabel(option) }}
-            </option>
-          </select>
+            <select
+              id="map-basemap-select"
+              class="h-9 max-w-[280px] cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px]"
+              :aria-label="t('子关卡', 'Sub-level')"
+              :value="store.state.mapBasemapId ?? ''"
+              data-testid="map-basemap-select"
+              @change="onBasemapChange"
+            >
+              <option v-for="option in basemapChoices" :key="option.basemapId" :value="option.basemapId">
+                {{ basemapLabel(option) }}
+              </option>
+            </select>
 
-          <div class="w-48 max-w-full">
-            <UiSearchInput
-              ref="searchInput"
-              :model-value="store.state.mapSearch"
-              :placeholder="t('搜索名称 / 内部名 / ID / 子关卡', 'Search name / internal name / ID / sub-level')"
-              :ariaLabel="t('搜索地图上的收集品', 'Search collectibles on the map')"
-              :disabled="!ready"
-              @update:model-value="store.actions.setMapSearch($event)"
+            <div class="w-56 max-w-full">
+              <UiSearchInput
+                ref="searchInput"
+                :model-value="store.state.mapSearch"
+                :placeholder="t('搜索名称 / 内部名 / ID / 子关卡', 'Search name / internal name / ID / sub-level')"
+                :ariaLabel="t('搜索地图上的收集品', 'Search collectibles on the map')"
+                :disabled="!ready"
+                @update:model-value="store.actions.setMapSearch($event)"
+              />
+            </div>
+            <UiFilterChips
+              variant="segmented"
+              :options="statusOptions"
+              :model-value="store.state.mapStatus"
+              :ariaLabel="t('按收集状态筛选（地图）', 'Filter by collection status (map)')"
+              @update:model-value="store.actions.setMapStatus($event as 'missing' | 'observed' | 'all')"
+            />
+            <UiIconButton
+              v-if="filtersActive"
+              :label="t('清除筛选', 'Clear filters')"
+              data-testid="map-clear-filters"
+              @click="clearMapFilters"
+            >
+              <X :size="15" aria-hidden="true" />
+            </UiIconButton>
+          </div>
+          <div class="mt-2">
+            <MapLegend
+              :options="categoryOptions"
+              :selected="store.state.mapCategory"
+              :ariaLabel="t('类别图例与筛选', 'Category legend and filter')"
+              @select="store.actions.setMapCategory($event)"
             />
           </div>
-          <UiFilterChips
-            :options="statusOptions"
-            :model-value="store.state.mapStatus"
-            :ariaLabel="t('按收集状态筛选（地图）', 'Filter by collection status (map)')"
-            @update:model-value="store.actions.setMapStatus($event as 'missing' | 'observed' | 'all')"
-          />
-          <UiIconButton
-            :label="t('清除筛选', 'Clear filters')"
-            data-testid="map-clear-filters"
-            @click="clearMapFilters"
-          >
-            <X :size="15" aria-hidden="true" />
-          </UiIconButton>
         </div>
-        <MapLegend
-          :options="categoryOptions"
-          :selected="store.state.mapCategory"
-          :ariaLabel="t('类别图例与筛选', 'Category legend and filter')"
-          @select="store.actions.setMapCategory($event)"
-        />
+
         <CoverageNotice
-          v-if="store.isStale.value"
+          v-if="ready && store.isStale.value"
+          class="mt-2"
           tone="warning"
           test-id="map-stale"
           :title="copy.stale"
           :lines="[t('请刷新后再核对收集状态。', 'Refresh before checking collection status again.')]"
         />
-      </template>
+      </AppPageHeader>
     </header>
 
-    <UiEmptyState
-      v-if="!store.report.value"
-      class="mx-4"
-      :title="copy.noReport"
-      :description="copy.noReportHelp"
-    >
-      <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
-    </UiEmptyState>
-    <UiEmptyState
-      v-else-if="!store.planAvailable.value"
-      class="mx-4"
-      :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
-    >
-      <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
-    </UiEmptyState>
-    <UiEmptyState
-      v-else-if="!currentOption"
-      class="mx-4"
-      :title="t('该区域暂无可用的地图底图', 'No basemap is available for this region')"
-    >
-      <UiButton size="sm" @click="openRegionList">{{ t("在区域清单中查看", "View in regional list") }}</UiButton>
-    </UiEmptyState>
+    <div v-if="!ready || !currentOption" class="pt-2" :class="pageX">
+      <UiEmptyState v-if="!store.report.value" :title="copy.noReport" :description="copy.noReportHelp">
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
+      </UiEmptyState>
+      <UiEmptyState
+        v-else-if="!store.planAvailable.value"
+        :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
+      >
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
+      </UiEmptyState>
+      <UiEmptyState
+        v-else
+        :title="t('该区域暂无可用的地图底图', 'No basemap is available for this region')"
+      >
+        <UiButton size="sm" @click="openRegionList">{{ t("在区域清单中查看", "View in regional list") }}</UiButton>
+      </UiEmptyState>
+    </div>
 
     <div v-else class="flex min-h-0 flex-1 flex-col">
       <div class="relative flex min-h-0 flex-1">
@@ -435,11 +453,12 @@ onMounted(() => {
 
           <details
             v-if="narrow"
-            class="max-h-[45%] shrink-0 overflow-auto border-t border-line"
+            class="ui-disclosure max-h-[45%] shrink-0 overflow-auto border-t border-line bg-surface"
             data-testid="map-narrow-list"
           >
-            <summary class="cursor-pointer px-4 py-2 text-[13px]">
+            <summary class="flex min-h-11 cursor-pointer items-center justify-between gap-2 px-4 py-2 text-[13px] font-medium">
               {{ t(`清单 ${entries.length}`, `List ${entries.length}`) }}
+              <ChevronDown class="ui-chevron" :size="16" aria-hidden="true" />
             </summary>
             <div class="h-[min(320px,45vh)]">
               <MapRail
@@ -495,7 +514,7 @@ onMounted(() => {
         <button
           v-if="overlayRail"
           type="button"
-          class="absolute top-2 left-2 z-20 inline-flex h-9 cursor-pointer items-center gap-1 rounded-[6px] border border-line bg-surface px-3 text-[13px] shadow hover:bg-raised"
+          class="ui-interactive absolute top-2 left-2 z-20 inline-flex h-9 cursor-pointer items-center gap-1 rounded-control border border-line bg-surface px-3 text-[13px] shadow-sm hover:bg-raised"
           data-testid="map-open-rail"
           @click="railOverlayOpen = true"
         >

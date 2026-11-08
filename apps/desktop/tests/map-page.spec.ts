@@ -77,6 +77,21 @@ describe("地图页：目录与默认选择", () => {
     expect(wrapper.get('[data-testid="map-calibration"]').text()).toMatch(/已校准|近似位置/);
   });
 
+  it("页头以区域 · 子关卡为主标题，计数、校准与底图署名同在第一行", async () => {
+    const { wrapper } = await mountMap(1440);
+    expect(wrapper.get('[data-testid="page-title"]').text()).toContain("帕依提提");
+    expect(wrapper.get('[data-testid="page-context"]').text()).toContain("地图查询");
+    expect(wrapper.get('[data-testid="page-header"]').text()).toContain("底图 · vi7ual");
+    expect(wrapper.get('[data-testid="map-counts"]').text()).toContain("显示");
+    // 状态筛选与区域清单一致：未收集 / 已收集 / 全部。
+    const statusButtons = wrapper
+      .get('[aria-label="按收集状态筛选（地图）"]')
+      .findAll("button")
+      .map((button) => button.text());
+    expect(statusButtons[0]).toContain("未收集");
+    expect(statusButtons[1]).toContain("已收集");
+  });
+
   it("切换区域/子关卡只更新地图选择，不回写区域清单的区域", async () => {
     const { store } = await createTestStore({ width: 1440 });
     await analyzeCandidate(store, "save1.dat");
@@ -120,7 +135,15 @@ describe("地图页：标记与清单联动", () => {
     expect(store.state.selectedRowId).toBe(id);
     expect(store.state.mapRailTab).toBe("list");
     expect(wrapper.get('[data-testid="map-tab-list"]').attributes("aria-selected")).toBe("true");
-    expect(row.classes().join(" ")).toContain("bg-accent-bg");
+    // 阶段五：清单行与区域清单共用选中规则（左侧 3px 标记 + 浅底）。
+    expect(row.element.closest("li")?.className).toContain("ui-row-selected");
+  });
+
+  it("清单行使用状态图形与文字（不只靠颜色）", async () => {
+    const { wrapper } = await mountMap(1440);
+    const row = wrapper.get("[data-item-id]");
+    expect(row.find(".ui-status-mark").exists()).toBe(true);
+    expect(row.text()).toMatch(/已收集|未收集/);
   });
 
   it("标签页支持 ←/→ 切换；切换后各自保留滚动位置", async () => {
@@ -153,7 +176,8 @@ describe("地图页：标记与清单联动", () => {
     expect(store.state.selectedRowId).not.toBeNull();
 
     const statusGroup = wrapper.get('[aria-label="按收集状态筛选（地图）"]');
-    await statusGroup.findAll("button")[1].trigger("click");
+    const missingButton = statusGroup.findAll("button").find((button) => button.text().includes("未收集"))!;
+    await missingButton.trigger("click");
     await flushPromises();
     expect(store.state.mapStatus).toBe("missing");
     expect(store.state.selectedRowId).toBeNull();

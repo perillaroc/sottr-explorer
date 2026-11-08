@@ -31,13 +31,12 @@ const emit = defineEmits<{ select: [category: string | null] }>();
       type="button"
       :aria-pressed="(selected ?? '') === option.category"
       :title="option.label"
-      class="inline-flex h-8 shrink-0 cursor-pointer items-center gap-1 rounded-[6px] border px-2 text-[13px]"
-      :class="[
+      class="ui-interactive inline-flex h-8 shrink-0 cursor-pointer items-center gap-1 rounded-control border px-2.5 text-[13px] leading-5"
+      :class="
         (selected ?? '') === option.category
-          ? 'border-accent bg-accent-bg text-accent-strong'
-          : 'border-line bg-surface text-ink hover:bg-raised',
-        option.category ? categoryClass(option.category) : '',
-      ]"
+          ? 'border-accent bg-accent-bg font-medium text-accent-strong'
+          : 'border-line bg-surface text-ink hover:bg-raised'
+      "
       :data-testid="`map-category-${option.category || 'all'}`"
       @click="emit('select', option.category === '' ? null : option.category)"
     >
@@ -45,10 +44,11 @@ const emit = defineEmits<{ select: [category: string | null] }>();
         :is="categoryIcon(option.category || null)"
         v-if="option.category"
         :size="14"
+        :class="categoryClass(option.category)"
         aria-hidden="true"
       />
-      <span>{{ option.label }}</span>
-      <span v-if="option.count !== undefined" class="text-xs text-muted">{{ option.count }}</span>
+      <span :class="option.category ? categoryClass(option.category) : ''">{{ option.label }}</span>
+      <span v-if="option.count !== undefined" class="text-xs tabular-nums text-muted">{{ option.count }}</span>
     </button>
   </div>
 </template>

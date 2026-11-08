@@ -148,3 +148,14 @@ export function groupFilters(filters: FilterState, search: string): GroupFilters
 export function planItemIds(plan: CollectionPlan): string[] {
   return plan.regions.flatMap((region) => region.groups.flatMap((group) => group.items.map((item) => item.id)));
 }
+
+/** 图鉴状态只有 collected / not_collected；转化为状态图形使用的三态。 */
+export function statusMarkOf(item: PlanItem): "collected" | "uncollected" | "unknown" {
+  if (item.status === "collected") {
+    return "collected";
+  }
+  if (item.status === "not_collected") {
+    return "uncollected";
+  }
+  return "unknown";
+}

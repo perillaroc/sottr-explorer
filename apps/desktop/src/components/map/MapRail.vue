@@ -5,11 +5,13 @@
 // - 清单底部说明本图无坐标条目与本区域无底图条目，并提供回到区域清单的入口。
 import { computed, nextTick, ref, watch } from "vue";
 import { t, tFormat, localizedName } from "../../app/i18n";
+import { statusMarkOf } from "../../app/collection";
 import { categoryClass } from "../../app/category-style";
 import { categoryIcon } from "../../app/category-icon";
 import type { MapEntry, MapGroupView } from "../../app/map-view";
 import CollectionDetail from "../CollectionDetail.vue";
 import UiButton from "../ui/UiButton.vue";
+import UiStatusMark from "../ui/UiStatusMark.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -176,16 +178,27 @@ watch(
       </div>
 
       <section v-for="group in groups" :key="`${group.category}-${group.subcategory ?? ''}`" class="mb-3">
-        <header class="mb-1 flex flex-wrap items-baseline gap-2 px-2">
-          <h3 class="text-[13px] font-medium" :class="categoryClass(group.category)">{{ group.label }}</h3>
-          <span class="text-xs text-muted">{{ group.collected }}/{{ group.total }}</span>
+        <header class="mb-1 flex flex-wrap items-baseline gap-1.5 border-b border-line/60 px-2 pb-1">
+          <component
+            :is="categoryIcon(group.category)"
+            :size="14"
+            class="shrink-0 self-center"
+            :class="categoryClass(group.category)"
+            aria-hidden="true"
+          />
+          <h3 class="text-[13px] font-semibold" :class="categoryClass(group.category)">{{ group.label }}</h3>
+          <span class="text-xs tabular-nums text-muted">{{ group.collected }}/{{ group.total }}</span>
         </header>
-        <ul class="divide-y divide-line/70">
-          <li v-for="entry in group.items" :key="entry.item.id" class="flex items-stretch">
+        <ul>
+          <li
+            v-for="entry in group.items"
+            :key="entry.item.id"
+            class="flex items-stretch border-b border-line/50 last:border-b-0"
+            :class="selectedId === entry.item.id ? 'ui-row-selected' : 'hover:bg-raised'"
+          >
             <button
               type="button"
-              class="flex min-w-0 flex-1 cursor-pointer items-start gap-2 rounded-[6px] px-2 py-1.5 text-left hover:bg-raised"
-              :class="selectedId === entry.item.id ? 'bg-accent-bg' : ''"
+              class="flex min-h-10 min-w-0 flex-1 cursor-pointer items-start gap-2 px-2 py-1.5 text-left"
               :data-testid="`map-row-${entry.item.id}`"
               :data-item-id="entry.item.id"
               @click="emit('select', entry.item.id)"
@@ -198,22 +211,26 @@ watch(
                 aria-hidden="true"
               />
               <span class="min-w-0 flex-1">
-                <span class="line-clamp-2 block break-words text-[13px]">{{ entry.item.display_name }}</span>
+                <span
+                  class="line-clamp-2 block break-words text-[13px] leading-5"
+                  :class="selectedId === entry.item.id ? 'font-medium text-ink' : ''"
+                >{{ entry.item.display_name }}</span>
                 <span class="mt-0.5 block text-xs text-muted">
                   {{ entry.item.unit ? localizedName(entry.item.unit.display_zh, entry.item.unit.display_en, entry.item.unit.zone ?? "") : "" }}
                 </span>
               </span>
               <span
-                class="shrink-0 text-xs"
+                class="flex shrink-0 items-center gap-1 self-center text-xs whitespace-nowrap"
                 :class="entry.item.status === 'collected' ? 'text-success' : 'text-caution'"
               >
+                <UiStatusMark :status="statusMarkOf(entry.item)" decorative />
                 {{ entry.item.status === "collected" ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
               </span>
             </button>
             <button
               v-if="showRowDetail"
               type="button"
-              class="shrink-0 cursor-pointer rounded-[6px] px-2 text-xs text-accent-strong hover:bg-raised"
+              class="ui-interactive my-1.5 mr-1 shrink-0 cursor-pointer self-center rounded-control px-2 py-0.5 text-xs text-accent-strong hover:bg-surface/70"
               :aria-label="tFormat('查看详情：{name}', 'View details: {name}', { name: entry.item.display_name })"
               :data-testid="`map-row-detail-${entry.item.id}`"
               @click="emit('open-detail', entry.item.id)"
@@ -224,11 +241,11 @@ watch(
         </ul>
       </section>
 
-      <footer class="mt-2 space-y-1 border-t border-line px-2 pt-2 text-xs text-muted">
-        <p data-testid="map-list-unplaced">
+      <footer class="mt-2 space-y-1.5 border-t border-line px-2 pt-2 text-xs text-muted">
+        <p class="tabular-nums" data-testid="map-list-unplaced">
           {{ t(`本图另有 ${unplaced} 项无坐标`, `${unplaced} more items in this map have no coordinates`) }}
         </p>
-        <p data-testid="map-list-unmapped">
+        <p class="tabular-nums" data-testid="map-list-unmapped">
           {{ t(`本区域另有 ${unmapped} 项无底图（可用文字指引）`, `${unmapped} more items in this region have no basemap (text guidance available)`) }}
         </p>
         <UiButton size="sm" variant="ghost" data-testid="map-open-region" @click="emit('open-region')">

@@ -10,7 +10,7 @@ import { MapPin, X } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t, tFormat, localizedName } from "../app/i18n";
 import { copy } from "../app/labels";
-import { categoriesOfRegion, categoryNameOf, groupDisplayName, regionName } from "../app/collection";
+import { categoriesOfRegion, categoryNameOf, groupDisplayName, regionName, statusMarkOf } from "../app/collection";
 import { categoryIcon } from "../app/category-icon";
 import { categoryClass, categoryDotClass } from "../app/category-style";
 import { pagePaddingClass, regionGridClass } from "../app/layout";
@@ -144,17 +144,6 @@ function onSelectRow(id: string): void {
 
 function isSelected(id: string): boolean {
   return store.state.selectedRowId === id;
-}
-
-/** 图鉴状态只有 collected / not_collected；转化为状态图形使用的三态。 */
-function statusMarkOf(item: PlanItem): "collected" | "uncollected" | "unknown" {
-  if (item.status === "collected") {
-    return "collected";
-  }
-  if (item.status === "not_collected") {
-    return "uncollected";
-  }
-  return "unknown";
 }
 
 function rowClass(id: string): string {

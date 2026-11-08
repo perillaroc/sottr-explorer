@@ -259,4 +259,24 @@ describe("MapCanvas", () => {
     expect(wrapper.get('[data-testid="map-marker-c"]').attributes("aria-label")).toContain("底图留白区");
     expect(wrapper.emitted("off-map")?.at(-1)).toEqual([["c"]]);
   });
+
+  it("选中点位放大到 28px 并留 4px 外环；工具条为 32px 按钮组并显示缩放读数", async () => {
+    const wrapper = await mountCanvas({ selectedId: "b" });
+    const selected = wrapper.get('[data-testid="map-marker-b"]');
+    expect(selected.classes()).toContain("h-7");
+    expect(wrapper.get('[data-testid="map-marker-ring"]').classes()).toContain("-inset-[4px]");
+
+    expect(wrapper.get('[data-testid="map-zoom-level"]').text()).toBe("1.0×");
+    const zoomIn = wrapper.get('[data-testid="map-zoom-in"]');
+    expect(zoomIn.classes()).toContain("h-8");
+    await zoomIn.trigger("click");
+    expect(wrapper.get('[data-testid="map-zoom-level"]').text()).toBe("1.4×");
+  });
+
+  it("地图工作面使用 --map-stage，底图不加滤镜", async () => {
+    const wrapper = await mountCanvas();
+    expect(wrapper.get('[data-testid="map-canvas"]').classes()).toContain("bg-map-stage");
+    const image = wrapper.get('[data-testid="map-image"]');
+    expect(image.classes().some((name) => name.includes("sepia") || name.includes("grayscale") || name.includes("filter"))).toBe(false);
+  });
 });

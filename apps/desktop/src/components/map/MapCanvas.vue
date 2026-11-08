@@ -209,6 +209,9 @@ function zoomBy(factor: number): void {
   applyZoom(zoom.value * factor, viewport.value.width / 2, viewport.value.height / 2);
 }
 
+/** 工具条上的缩放档位文字；不制造额外控件，也不改既有按钮定位。 */
+const zoomLabel = computed(() => `${zoom.value.toFixed(1)}×`);
+
 function onDoubleClick(event: MouseEvent): void {
   if (!usable.value || !fit.value) {
     return;
@@ -403,7 +406,7 @@ defineExpose({ focusItem });
 <template>
   <div
     ref="container"
-    class="relative h-full min-h-0 flex-1 touch-none select-none overflow-hidden bg-raised"
+    class="relative h-full min-h-0 flex-1 touch-none select-none overflow-hidden bg-map-stage"
     role="group"
     :aria-label="ariaLabel"
     data-testid="map-canvas"
@@ -455,7 +458,7 @@ defineExpose({ focusItem });
           "
           class="pointer-events-auto absolute flex cursor-pointer items-center justify-center rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
           :class="[
-            marker.selected ? 'h-[26px] w-[26px]' : 'h-6 w-6',
+            marker.selected ? 'h-7 w-7' : 'h-6 w-6',
             marker.collected
               ? `border-[1.5px] border-[var(--surface)] ${categoryDotClass(marker.category)} text-[var(--canvas)]`
               : `border-2 border-current bg-surface ${categoryClass(marker.category)}`,
@@ -473,20 +476,30 @@ defineExpose({ focusItem });
           />
           <span
             v-if="marker.selected"
-            class="pointer-events-none absolute -inset-[3px] rounded-full border-2 border-[var(--accent)]"
+            class="pointer-events-none absolute -inset-[4px] rounded-full border-2 border-[var(--accent)]"
             data-testid="map-marker-ring"
             aria-hidden="true"
           />
         </button>
       </div>
 
-      <div class="absolute top-2 right-2 z-40 flex flex-col gap-1 rounded-[6px] border border-line bg-surface/95 p-1 shadow">
+      <!-- 地图工具条：右下角纵向 32px 按钮组，1px 边框与轻量阴影；缩放档位只做读数。 -->
+      <div
+        class="absolute right-2 bottom-2 z-40 flex flex-col overflow-hidden rounded-control border border-line bg-surface shadow-sm"
+        data-testid="map-zoom-toolbar"
+      >
+        <span
+          class="flex h-8 w-8 items-center justify-center border-b border-line/60 text-[11px] tabular-nums text-muted"
+          data-testid="map-zoom-level"
+          :title="tFormat('当前缩放 {value}', 'Current zoom {value}', { value: zoomLabel })"
+          aria-hidden="true"
+        >{{ zoomLabel }}</span>
         <button
           type="button"
           :aria-label="t('放大', 'Zoom in')"
           :title="t('放大', 'Zoom in')"
           :disabled="zoom >= 4"
-          class="inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[4px] text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
+          class="ui-interactive inline-flex h-8 w-8 cursor-pointer items-center justify-center border-b border-line/60 text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
           data-testid="map-zoom-in"
           @click="zoomBy(1.35)"
         >
@@ -497,7 +510,7 @@ defineExpose({ focusItem });
           :aria-label="t('缩小', 'Zoom out')"
           :title="t('缩小', 'Zoom out')"
           :disabled="zoom <= 1"
-          class="inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[4px] text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
+          class="ui-interactive inline-flex h-8 w-8 cursor-pointer items-center justify-center border-b border-line/60 text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
           data-testid="map-zoom-out"
           @click="zoomBy(1 / 1.35)"
         >
@@ -508,7 +521,7 @@ defineExpose({ focusItem });
           :aria-label="t('重置缩放（1×）', 'Reset zoom (1×)')"
           :title="t('重置缩放（1×）', 'Reset zoom (1×)')"
           :disabled="zoom <= 1"
-          class="inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[4px] text-xs text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
+          class="ui-interactive inline-flex h-8 w-8 cursor-pointer items-center justify-center text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
           data-testid="map-zoom-reset"
           @click="resetView"
         >
