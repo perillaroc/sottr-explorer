@@ -142,7 +142,7 @@ fn analyze_matches_library_business_report_and_keeps_inputs() {
         report.capabilities.reference_difference.status,
         SupportStatus::Supported
     );
-    assert_eq!(report.metadata_version.as_deref(), Some("0.1.0"));
+    assert_eq!(report.metadata_version.as_deref(), Some("0.2.0"));
     assert_eq!(report.reference_set_version.as_deref(), Some("1.0.0"));
     let likely_collected = report
         .assessments

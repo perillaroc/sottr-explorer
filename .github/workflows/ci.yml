@@ -88,6 +88,9 @@ jobs:
       - name: Catalog guidance coverage
         run: python data/catalog/check_guidance.py
 
+      - name: Catalog guide link coverage
+        run: python data/catalog/check_guides.py
+
   docs:
     name: Docs
     runs-on: ubuntu-latest

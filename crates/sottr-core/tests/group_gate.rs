@@ -16,7 +16,7 @@ use sottr_core::domain::location::{
 use sottr_core::metadata::{MetadataBundle, MetadataFileInput, MetadataLimits};
 use sottr_core::report::{
     ContextSource, EvidenceLevel, Freshness, GroupActionKind, GroupActionability, InputDigest,
-    InventoryObservation, Mode, RegionCounter, SupportStatus,
+    InventoryObservation, MappingKind, Mode, RegionCounter, SupportStatus,
 };
 
 const REFERENCE_SET_ID: &str = "rs:stella-100pct-common";
@@ -406,6 +406,7 @@ fn group_keeps_one_group_level_hint_for_eight_ids() {
         assert!(
             item.location_mappings
                 .iter()
+                .filter(|mapping| mapping.mapping_kind == MappingKind::GuideGroupMembership)
                 .all(|mapping| mapping.guide_item.is_none())
         );
         seen_group_ids.extend(membership.iter().map(|value| value.to_string()));

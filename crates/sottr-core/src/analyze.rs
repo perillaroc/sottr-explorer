@@ -409,6 +409,38 @@ fn build_locations(
         });
     }
 
+    // 精确攻略条目：来自元数据的 exact_guide_item 映射（人工核对），
+    // 每个条目至多一条；只产生到来源页的链接，不产生坐标或地图点位。
+    for item in dataset.items.values() {
+        for mapping in &item.location_mappings {
+            if mapping.mapping_kind != MappingKind::ExactGuideItem {
+                continue;
+            }
+            let Some(guide_item) = mapping.guide_item.clone() else {
+                continue;
+            };
+            hints.push(LocationHint {
+                location_id: format!("loc:item:{}", item.internal_id),
+                precision: LocationPrecision::GuideItem,
+                region_id: mapping.region_id.clone().or_else(|| item.region_id.clone()),
+                guide_group_id: mapping.guide_group_id.clone(),
+                guide_item: Some(guide_item),
+                member_ids: vec![item.internal_id],
+                target_count: Some(1),
+                mapping_kind: MappingKind::ExactGuideItem,
+                source_refs: mapping.source_refs.clone(),
+                reference_set_version: None,
+                applicable_mode: mapping.applicable_mode,
+                applicable_platform: mapping.applicable_platform.clone(),
+                coordinates: None,
+                map_transform: None,
+                group_actionability: None,
+                limitations: vec!["精确攻略条目为人工核对；链接到来源页，不是导航点位".to_string()],
+                reason: None,
+            });
+        }
+    }
+
     // 区域线索：按区域合并为一条组级提示（不逐项复制为精确点位）。
     struct RegionClue {
         members: BTreeSet<InternalId>,

@@ -52,6 +52,24 @@ py -3 data/catalog/check_guidance.py
 注记缺失或覆盖下降都会失败。注记为项目原创整理，基于图鉴的合集/区域/子关卡与
 坐标数据推断，未逐条与游戏内核实，不复制第三方攻略原文。
 
+## 逐条攻略映射（P1-1）
+
+`guides.json` 是逐条攻略映射的**创作数据集**：按图鉴条目 ID 记录来源、来源页内的
+定位（页码/分 P/段落）、粒度与核对状态。构建时 `data/metadata/build_metadata.py`
+读取它，只有 `scope = "item"` 且 `confidence = "verified"` 的引用会合并为元数据
+`exact_guide_item` 定位，最终出现在报告 `locations` 与详情直链；`inferred` /
+`coverage_only` 只保留在创作记录中，不进入产品。
+
+```powershell
+py -3 data/catalog/check_guides.py              # 结构、来源与覆盖计数
+py -3 data/catalog/check_guides.py --worklist   # 打印仍缺逐条链接的必收条目
+py -3 data/catalog/check_guides.py --worklist --text-only  # 先做无地图的 109 条（已覆盖 2 条，余 107）
+```
+
+当前：**301 条** verified item 映射（遗物/文献/壁画/贮藏点/墓穴宝藏/石碑）。
+无地图批次 **109/109** 全部有逐条下落；全量必收剩余 51 条（47 条贮藏点 + 4 条帕依提提石碑）。
+`check_guides.py` 的期望计数需随批次显式更新，不允许静默漂移。
+
 ## 验收（最强的一条）
 
 ```powershell

@@ -114,6 +114,28 @@ function groupLocation(
   };
 }
 
+function exactLocation(itemId: string, guideItem: string, sourceRef: string): LocationHint {
+  return {
+    location_id: `loc:item:${itemId}`,
+    precision: "guide_item",
+    region_id: "mission_of_san_juan",
+    guide_group_id: "stella:san-juan-monolith",
+    guide_item: guideItem,
+    member_ids: [itemId],
+    target_count: 1,
+    mapping_kind: "exact_guide_item",
+    source_refs: [sourceRef],
+    reference_set_version: "1.0.0",
+    applicable_mode: "campaign",
+    applicable_platform: null,
+    coordinates: null,
+    map_transform: null,
+    group_actionability: null,
+    limitations: ["精确攻略条目为人工核对；链接到来源页，不是导航点位（模拟数据）"],
+    reason: null,
+  };
+}
+
 /** 完整且支持的报告（模拟 save1.dat）。 */
 export function buildCompleteReport(seed: ReportSeed): Report {
   const digest = inputDigest(seed);
@@ -175,6 +197,7 @@ export function buildCompleteReport(seed: ReportSeed): Report {
     );
 
   const locations: LocationHint[] = [
+    exactLocation("0x439B19A6", "Monolith", "src:stella-san-juan-monolith"),
     groupLocation("stella:san-juan-caches", cachesGroup?.member_ids ?? [], 8, digest, "ev:counter:san-juan:caches"),
     groupLocation("stella:san-juan-monolith", monolithGroup?.member_ids ?? [], 1, digest, "ev:counter:san-juan:monoliths"),
     groupLocation("stella:san-juan-crypt", cryptGroup?.member_ids ?? [], 1, digest, "ev:counter:san-juan:crypts"),

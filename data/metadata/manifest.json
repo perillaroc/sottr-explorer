@@ -1,5 +1,5 @@
 {
-  "metadata_version": "0.1.0",
+  "metadata_version": "0.2.0",
   "converter": "data/metadata/build_metadata.py",
   "source_inputs": [
     {
@@ -17,23 +17,27 @@
     {
       "file": "data/catalog/collectibles_catalog.json",
       "sha256": "5a8358576a690d2b9a68227da24207cb6be33e9db6d33438f4023e84f765f59b"
+    },
+    {
+      "file": "data/catalog/guides.json",
+      "sha256": "525e7c11fce8e4c0d8182ddd93a69ca78951a4d64f35d17f6a7d77cad164ab9e"
     }
   ],
   "files": [
     {
       "file_id": "collectibles.json",
-      "sha256": "8b7cb2b5efd3a84ed18aebcb72ad2809265e38e5526b6e086fa6f48a59fe27f3",
-      "bytes": 539370
+      "sha256": "796fded2d9ccd862f4c8652b37ca2aeed0a9d767f91a23f598804ab4cdfad87f",
+      "bytes": 692453
     },
     {
       "file_id": "region_counters.json",
-      "sha256": "940600c7296f04b94a5e5d8195ebad9372fd207d61776c652bffc8169b97824e",
-      "bytes": 27180
+      "sha256": "8d1ad57bac5935c054cdff4ebcc555bd6373411bb33b33d75c23c26f33470114",
+      "bytes": 39395
     },
     {
       "file_id": "reference_sets.json",
-      "sha256": "af5e20f6fb20bc34f8763c42142a1a26afaa6f59e3cab17c68f56e491632108d",
-      "bytes": 51977
+      "sha256": "44c93ac13cc77b343b1f022761dcae529d3eb510c1144d17dc3d47e3157a3fda",
+      "bytes": 64192
     }
   ]
 }

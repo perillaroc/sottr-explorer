@@ -90,6 +90,7 @@ const links = computed<DetailExternalLink[]>(() => {
       url: text.url,
       direct: true,
       testId: "link-guide",
+      guideItem: text.guideItem,
     });
   }
   result.push({
@@ -109,6 +110,7 @@ const links = computed<DetailExternalLink[]>(() => {
       url: video.url,
       direct: true,
       testId: "link-video",
+      guideItem: video.guideItem,
     });
   }
   result.push({

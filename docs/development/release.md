@@ -40,12 +40,13 @@ v0.1.x 只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
 3. `pnpm contract:check` 与 `pnpm contract:images`；
 4. `py -3 data/metadata/build_metadata.py --check`；
 5. `py -3 data/catalog/check_guidance.py`（必收指引覆盖 352/352）；
-6. `py -3 data/catalog/build_catalog.py <work_dir> --check`（需要仓库外提取物）；
-7. `py -3 apps/desktop/scripts/build_notices.py`，确认 `THIRD_PARTY_NOTICES.md` 与生成的两份
+6. `py -3 data/catalog/check_guides.py`（逐条攻略映射结构与覆盖计数）；
+7. `py -3 data/catalog/build_catalog.py <work_dir> --check`（需要仓库外提取物）；
+8. `py -3 apps/desktop/scripts/build_notices.py`，确认 `THIRD_PARTY_NOTICES.md` 与生成的两份
    txt 一致；
-8. `cd docs && pnpm docs:build`，确认无死链与一致性错误；
-9. 准备 GitHub Release 的版本说明，确认 `README.md` 的下载链接；
-10. 打并推送 `v*` tag，由 GitHub Actions 构建并创建 Release（产物含 `.exe` 与 `.sha256`）；
+9. `cd docs && pnpm docs:build`，确认无死链与一致性错误；
+10. 准备 GitHub Release 的版本说明，确认 `README.md` 的下载链接；
+11. 打并推送 `v*` tag，由 GitHub Actions 构建并创建 Release（产物含 `.exe` 与 `.sha256`）；
    文档站由 Netlify 从 `main` 构建。
 
 ## 不随包分发

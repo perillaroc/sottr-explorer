@@ -14,7 +14,7 @@ use sottr_core::metadata::{
     CODE_TOO_LARGE, CODE_UNRESOLVED_REFERENCE, CODE_VERSION_CONFLICT, LoadedMetadataFile,
     MetadataBundle, MetadataFileInput, MetadataLimits, load_dataset,
 };
-use sottr_core::report::{Context, ContextSource, InternalId, Mode, SchemaVersion};
+use sottr_core::report::{Context, ContextSource, InternalId, MappingKind, Mode, SchemaVersion};
 
 const COLLECTIBLES: &str = include_str!("../../../data/metadata/collectibles.json");
 const REGION_COUNTERS: &str = include_str!("../../../data/metadata/region_counters.json");
@@ -107,7 +107,7 @@ fn bytes_of(value: &serde_json::Value) -> Vec<u8> {
 #[test]
 fn real_bundle_loads_and_records_content_hashes() {
     let bundle = real_bundle();
-    assert_eq!(bundle.metadata_version(), Some("0.1.0"));
+    assert_eq!(bundle.metadata_version(), Some("0.2.0"));
     assert_eq!(bundle.namespace(), Some("sottr"));
     assert_eq!(bundle.files().len(), 3);
 
@@ -360,27 +360,36 @@ fn reference_view_applicability_is_context_driven() {
 }
 
 #[test]
-fn dataset_contains_no_fake_points_or_exact_mappings() {
+fn dataset_contains_no_fake_points_or_unbacked_exact_mappings() {
     let bundle = real_bundle();
     let dataset = bundle.dataset().unwrap();
     let mut mappings = 0usize;
+    let mut exact = 0usize;
     for item in dataset.items.values() {
         for mapping in &item.location_mappings {
             mappings += 1;
             assert!(mapping.coordinates.is_none(), "不产生坐标");
             assert!(mapping.map_transform.is_none(), "不产生地图变换");
-            assert!(mapping.guide_item.is_none(), "不产生精确条目映射");
-            assert!(matches!(
-                mapping.mapping_kind,
-                sottr_core::report::MappingKind::GuideGroupMembership
-                    | sottr_core::report::MappingKind::RegionClue
-            ));
+            match mapping.mapping_kind {
+                MappingKind::GuideGroupMembership | MappingKind::RegionClue => {
+                    assert!(
+                        mapping.guide_item.is_none(),
+                        "组级/区域线索不产生精确条目映射"
+                    );
+                }
+                MappingKind::ExactGuideItem => {
+                    exact += 1;
+                    assert!(mapping.guide_item.is_some(), "精确映射必须有 guide_item");
+                }
+                _ => panic!("不应出现 {:?} 映射", mapping.mapping_kind),
+            }
         }
     }
     assert_eq!(
-        mappings, 12,
-        "仅有 10 个圣胡安组成员 + 2 个帕伊提提区域线索"
+        mappings, 313,
+        "12 条既有组级/区域线索 + 301 条逐条攻略映射"
     );
+    assert_eq!(exact, 301, "逐条攻略映射数量");
     for group in dataset.guide_groups.values() {
         if group.counter_keys.is_empty() {
             assert!(

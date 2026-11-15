@@ -52,6 +52,8 @@ const validTargets = [
   ["metadata", "../../data/metadata/reference_sets.json"],
   // SX-022：全收集图鉴（schema 2.1.0）同样受契约校验（与 Rust catalog 加载器互补）。
   ["catalog", "../../data/catalog/collectibles_catalog.json"],
+  // 逐条攻略映射（创作数据集；构建时合并进元数据 exact_guide_item）。
+  ["guides", "../../data/catalog/guides.json"],
   // P2-01/P2-05：真实地图基底层同样受契约校验（与 Rust basemap 加载器互补）。
   ["basemap", "valid/basemap.valid.json"],
   ["basemap", "valid/basemap.minimal.json"],

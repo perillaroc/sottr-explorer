@@ -48,7 +48,7 @@ export interface DetailWindowItem {
   sharedNames?: string[];
   searchTextUrl: string;
   searchVideoUrl: string;
-  directLinks: { label: string; url: string }[];
+  directLinks: { label: string; url: string; guideItem: string | null }[];
 }
 
 export interface DetailWindowPayload {
@@ -125,6 +125,7 @@ function itemPayload(
     directLinks: source.directLinksForItem(item).map((link) => ({
       label: link.medium === "video" ? t("视频页", "Video page") : t("攻略页", "Guide page"),
       url: link.url,
+      guideItem: link.guideItem,
     })),
   };
 }

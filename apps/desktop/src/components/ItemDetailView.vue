@@ -10,6 +10,8 @@ export interface DetailExternalLink {
   direct: boolean;
   /** 既有详情测试沿用的定位 ID（弹窗可不传）。 */
   testId?: string;
+  /** 来源页内的定位（页码/分 P/段落）；区域级来源为空。 */
+  guideItem?: string | null;
 }
 
 /** 外链动作的展示状态（宿主导出 store 或弹窗本地状态）。 */
@@ -88,7 +90,14 @@ onMounted(() => {
   }
 });
 
+/** 外部参考按钮文案：有来源页定位时附在「攻略页/视频页」后。 */
+function linkLabel(link: DetailExternalLink): string {
+  return link.guideItem ? `${link.label} · ${link.guideItem}` : link.label;
+}
+
 const collected = computed(() => props.item.status === "collected");
+/** 是否有逐条核对过的来源页定位（按钮文案会附上定位）。 */
+const hasGuideItems = computed(() => props.links.some((link) => Boolean(link.guideItem)));
 const isWindow = computed(() => props.mode === "window");
 const showTopRow = computed(() => isWindow.value || (props.showPopout && !isWindow.value));
 
@@ -275,6 +284,9 @@ const linkStatusTone = computed(() => {
 
     <section class="space-y-2" data-testid="external-links">
       <h3 class="ui-section-title">{{ t("外部参考", "External references") }}</h3>
+      <p v-if="hasGuideItems" class="text-xs text-muted" data-testid="guide-locator-note">
+        {{ t("带「· 定位」的按钮已逐条核对；打开来源页后按定位查找。", "Buttons with “· locator” are manually checked; use the locator on the source page.") }}
+      </p>
       <div class="flex flex-wrap items-center gap-2">
         <UiButton
           v-for="link in links"
@@ -286,7 +298,7 @@ const linkStatusTone = computed(() => {
         >
           <ExternalLink v-if="link.direct" :size="16" aria-hidden="true" />
           <Search v-else :size="16" aria-hidden="true" />
-          {{ link.label }}
+          {{ linkLabel(link) }}
         </UiButton>
       </div>
       <p v-if="activeLink" class="flex flex-wrap items-center gap-2 text-[12px]" :class="linkStatusTone" data-testid="link-status">

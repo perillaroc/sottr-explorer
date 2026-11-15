@@ -178,6 +178,13 @@ describe("收集品详情", () => {
     expect(withoutLinks.find('[data-testid="link-video"]').exists()).toBe(false);
   });
 
+  it("精确条目在攻略按钮上显示来源页定位", async () => {
+    const { store } = await setup();
+    const wrapper = await detailFor(store, "0x439B19A6");
+    const direct = wrapper.get('[data-testid="link-guide"]');
+    expect(direct.text()).toContain("Monolith");
+  });
+
   it("点击「攻略页」打开元数据来源地址并显示已打开", async () => {
     const { store, source } = await setup();
     const wrapper = await detailFor(store, CACHES_ITEM);

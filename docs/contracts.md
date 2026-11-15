@@ -5,7 +5,7 @@
 
 | 载体 | 位置 |
 | --- | --- |
-| JSON Schema | `schemas/report.schema.json`、`schemas/batch.schema.json`、`schemas/desktop-result.schema.json`、`schemas/export.schema.json`、`schemas/metadata.schema.json` |
+| JSON Schema | `schemas/report.schema.json`、`schemas/batch.schema.json`、`schemas/desktop-result.schema.json`、`schemas/export.schema.json`、`schemas/metadata.schema.json`、`schemas/guides.schema.json` |
 | 契约夹具 | `fixtures/contract/{valid,invalid,representation,adapted}/` |
 | Rust 类型 | `crates/sottr-core/src/report/`（Report、信封）、`crates/sottr-core/src/metadata.rs` |
 | 前端类型 | `apps/desktop/src/contract/*.d.ts`（由 schema 生成，勿手改） |
@@ -167,6 +167,18 @@
 `INVENTORY_INCOMPLETE`、`INVENTORY_UNAVAILABLE`、`CONTEXT_NOT_CAMPAIGN`、
 `SNAPSHOT_NOT_CURRENT`（`unavailable`，关闭行动摘要）。输出绑定
 `evaluated_input_digest`，每次刷新/切槽必须重新评估。
+
+## GuidesDataset（`schemas/guides.schema.json`）
+
+逐条攻略映射的创作数据集：`data/catalog/guides.json`，按图鉴条目 ID 记录来源、来源页内的
+定位（页码/分 P/段落）、粒度（`item` / `collection` / `unit`）与核对状态
+（`verified` / `inferred` / `coverage_only`）。
+
+- 只有 `scope = "item"` 且 `confidence = "verified"` 的引用会在
+  `data/metadata/build_metadata.py` 构建时合并为元数据 `exact_guide_item` 定位；
+- 其他引用保留在创作记录中，不进入报告或产品直链；
+- 不复制攻略正文、不产生坐标；URL 仍由元数据 `sources` 的 http/https 规则约束；
+- 校验：`pnpm contract:validate`（schema）与 `py -3 data/catalog/check_guides.py`（引用与覆盖计数）。
 
 ## BasemapDataset（`schemas/basemap.schema.json`）
 
@@ -429,6 +441,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `adapted/*` | Python v0.2 适配输入与输出形状示例 |
 | `crates/sottr-core/tests/parity/fixtures/*.json` | 差分回归夹具清单（SX-010）：私有五文件期望值（不含哈希）与公开 20 样本来源/哈希清单 |
 | `data/metadata/*.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/metadata.schema.json` 校验；Rust 加载测试另行核对数量、哈希与交叉一致性 |
+| `data/catalog/guides.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/guides.schema.json` 校验；`check_guides.py` 另核对条目、来源与覆盖计数 |
 | `valid/basemap.valid.json`、`valid/basemap.minimal.json` | 基底层合法夹具：三种状态、`bundled`/`external` 根目录；同时由 Rust 加载器复核 |
 | `invalid/basemap.*` | 矩阵元素数不足、`unverified` 带误差、`calibrated` 误差为 `null`、未知字段、图片路径含父目录 |
 | `data/map/basemaps.json`（真实数据） | 由 `pnpm contract:validate` 与 `crates/sottr-core/tests/basemap_dataset.rs` 双层校验 |

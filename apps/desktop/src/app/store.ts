@@ -160,6 +160,8 @@ export interface DirectLink {
   sourceRef: string;
   url: string;
   medium: LinkMedium;
+  /** 来源页内的定位（如页码/分 P/段落）；区域级来源为 null。 */
+  guideItem: string | null;
 }
 
 export interface AppState {
@@ -943,7 +945,22 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
    * 研究记录）只作证据，不产生候选——界面据此隐藏对应按钮，不置灰。
    */
   function directLinksForItem(item: PlanItem): DirectLink[] {
-    const locations = report.value?.locations ?? [];
+    // 精确条目定位优先于组级/区域级线索；同一 URL 只保留首个（更精确）来源。
+    const priority = (precision: string): number => {
+      switch (precision) {
+        case "guide_item":
+          return 3;
+        case "guide_group":
+          return 2;
+        case "region":
+          return 1;
+        default:
+          return 0;
+      }
+    };
+    const locations = [...(report.value?.locations ?? [])].sort(
+      (left, right) => priority(right.precision) - priority(left.precision),
+    );
     const links: DirectLink[] = [];
     const seen = new Set<string>();
     for (const location of locations) {
@@ -964,6 +981,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
           sourceRef,
           url: source.url,
           medium: source.medium,
+          guideItem: location.guide_item ?? null,
         });
       }
     }

@@ -11,7 +11,7 @@ use sottr_core::domain::context::DeclaredContext;
 use sottr_core::limits::Limits;
 use sottr_core::metadata::{MetadataBundle, MetadataFileInput, MetadataLimits};
 use sottr_core::report::{
-    AssessmentKind, ContextSource, GroupActionKind, InternalId, Mode, ObservationKind,
+    AssessmentKind, ContextSource, GroupActionKind, InternalId, MappingKind, Mode, ObservationKind,
     SupportStatus,
 };
 use sottr_core::synthetic::{SampleBuilder, compress};
@@ -85,7 +85,7 @@ fn campaign_pipeline_produces_full_report_with_whole_group_check() {
 
     assert_eq!(report.parser_profile_id, PARSER_PROFILE_ID);
     assert_eq!(report.tool_version, env!("CARGO_PKG_VERSION"));
-    assert_eq!(report.metadata_version.as_deref(), Some("0.1.0"));
+    assert_eq!(report.metadata_version.as_deref(), Some("0.2.0"));
     assert_eq!(report.reference_set_version.as_deref(), Some("1.0.0"));
     assert_eq!(report.input_digest.compressed_sha256.len(), 64);
     assert_eq!(report.input_digest.expanded_bytes, Some(4_194_304));
@@ -148,11 +148,29 @@ fn campaign_pipeline_produces_full_report_with_whole_group_check() {
             "{group_id}"
         );
     }
-    assert!(
-        report
-            .locations
-            .iter()
-            .all(|location| { location.coordinates.is_none() && location.guide_item.is_none() })
+    let exact_locations: Vec<_> = report
+        .locations
+        .iter()
+        .filter(|location| location.mapping_kind == MappingKind::ExactGuideItem)
+        .collect();
+    assert_eq!(exact_locations.len(), 301, "逐条攻略映射");
+    for location in &report.locations {
+        assert!(location.coordinates.is_none());
+        if location.mapping_kind == MappingKind::ExactGuideItem {
+            assert!(location.guide_item.is_some(), "精确映射缺少 guide_item");
+            assert_eq!(location.member_ids.len(), 1);
+        } else {
+            assert!(location.guide_item.is_none(), "非精确映射不应有 guide_item");
+        }
+    }
+    let monolith_exact = exact_locations
+        .iter()
+        .find(|location| location.location_id == "loc:item:0x439B19A6")
+        .expect("圣胡安石碑精确映射");
+    assert_eq!(monolith_exact.guide_item.as_deref(), Some("Monolith"));
+    assert_eq!(
+        monolith_exact.source_refs,
+        vec!["src:stella-san-juan-monolith".to_string()]
     );
     // 2 个帕伊提提 ID 只有区域线索（一条区域提示）。
     let region_hint = report

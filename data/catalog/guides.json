@@ -1,0 +1,3298 @@
+{
+  "schema_version": "1.0.0",
+  "guide_version": "0.8.0",
+  "generated_from": "manual curation; Stella collectible pages, 2026-11-15 batch",
+  "sources": {
+    "src:stella-all-artifacts": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/all-artifacts.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "全部遗物/文献/壁画按故事/方言索引（含获得地点）",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-cenote-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/10-cenote-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "灰岩坑收集品页（遗物/文献/壁画/贮藏点）",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-kuwaq-yaku-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/04-kuwaq-yaku-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "库阿克雅库收集品页（遗物/文献/壁画/贮藏点）",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-caches": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/06-hidden-city-caches.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提贮藏点页（含挑战古墓与墓穴内贮藏点）",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-chests-relics": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/06-hidden-city-chests-relics.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提宝箱与遗物页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-documents": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/06-hidden-city-documents.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提文献页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-murals": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/06-hidden-city-murals.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提壁画页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-peruvian-jungle-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/02-jungle-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "秘鲁丛林收集品页（遗物/文献/壁画/贮藏点）",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-san-juan-chest-relics": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-chest-relics.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安宝箱与遗物页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-san-juan-documents": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/13-san-juan-documents.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "圣胡安文献页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-kuwaq-yaku-crypt": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/kuwaq-yaku-crypt-1.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "库阿克雅库唯一墓穴的快速指南",
+      "review": "2026-11-15 核对页面标题；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-jungle-crypt-first": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/jungle-crypt-1.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "秘鲁丛林 First Crypt（Urqu, The Scout）快速指南",
+      "review": "2026-11-15 核对页面标题与 unit 条目集合；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-jungle-crypt-second": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/jungle-crypt-2.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "秘鲁丛林 Second Crypt（Rimak, The Storyteller）快速指南",
+      "review": "2026-11-15 核对页面标题与 unit 条目集合；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-crypt-chuki": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/hidden-city-crypt-1.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提 Crypt of Chuki, The Weaver 快速指南",
+      "review": "2026-11-15 核对页面标题与 unit 条目集合；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-crypt-uturunku": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/hidden-city-crypt-3.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提 Crypt of Uturunku, The Ferryman 快速指南",
+      "review": "2026-11-15 核对页面标题与 unit 条目集合；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-crypt-qispi": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/hidden-city-crypt-4.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提 Crypt of Qispi, The Merchant 快速指南",
+      "review": "2026-11-15 核对页面标题与 unit 条目集合；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-crypt-ollanta": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/hidden-city-crypt-5.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提 Crypt of Ollanta, The Potter 快速指南",
+      "review": "2026-11-15 核对页面标题与 unit 条目集合；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-porvenir-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/12-porvenir-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "波文尼尔石油田收集品页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-eagle-trial-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/05-eagle-trial-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "猎鹰的试炼收集品页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-serpent-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/07-08-serpent-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "巨蛇之首收集品页",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-cozumel-collectibles": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/01-cozumel-collectibles.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "科祖梅尔收集品页（遗物/文献/壁画/贮藏点）",
+      "review": "2026-11-15 核对页面标题、条目名与段落；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-paititi-monoliths": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/collectibles/06-hidden-city-monoliths.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "帕依提提石碑页",
+      "review": "2026-11-15 核对页面标题/段落与 unit 位置；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-kuwaq-yaku-walkthrough": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/04-kuwaq-yaku.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "库阿克雅库主流程（含第二墓穴）",
+      "review": "2026-11-15 核对页面标题/段落与 unit 位置；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    },
+    "src:stella-manko-crypt": {
+      "url": "https://tombraiders.net/stella/walks/TR11walk/details/hidden-city-mission-2B.html",
+      "fixed_revision": null,
+      "accessed": "2026-11-15",
+      "license": "站点保留权利；仅链接与事实引用",
+      "redistributable": "pending",
+      "method": "Manko's Crypt 支线流程（Hearts and Minds Part 2）",
+      "review": "2026-11-15 核对页面标题/段落与 unit 位置；不复制正文",
+      "medium": "text",
+      "role": "guide"
+    }
+  },
+  "items": {
+    "0x439B19A6": [
+      {
+        "source_id": "src:stella-san-juan-monolith",
+        "region_id": "mission_of_san_juan",
+        "locator": "Monolith",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "圣胡安唯一石碑；来源页为石碑段落（Proficient Yucatec）。"
+      }
+    ],
+    "0xBA3B0D06": [
+      {
+        "source_id": "src:stella-san-juan-crypt",
+        "region_id": "mission_of_san_juan",
+        "locator": "Crypt sarcophagus",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "圣胡安墓穴唯一宝藏；来源页为 Crypt of Huascar 流程中的石棺。"
+      }
+    ],
+    "0xAE1A2E7A": [
+      {
+        "source_id": "src:stella-san-juan",
+        "region_id": "mission_of_san_juan",
+        "locator": "Survival Cache 3",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "生命之树挑战古墓内；圣胡安页面的 Survival Cache 3 段落，与 unit 3418（生命之树通道）一致。"
+      }
+    ],
+    "0xF97006F6": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #1 · Hidden City Riddle",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xBEC00A0C": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #2 · Hydra Constellation",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x5165F3B4": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · Maya Date",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x01A96640": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #4 · Key of Chak Chel",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x0DC43D80": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #5 · Path to the Hidden City",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x1D7C0331": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Silver Statuette",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xF41482BF": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #7 · Stone Cup",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xB4D95866": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #8 · Silver Box of Ix Chel",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x3CD1C908": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #1 · Trinity Badge",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xC4F4FA41": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #2 · Doctor Dominguez",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x1A19B4E3": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · Ix Chel and Chak Chel",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x3E97117B": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #4 · The Silver Box of Ix Chel",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xCBE41351": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #5 · The Cult of Kukulkan",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xC65253E3": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Queen Unuratu",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x30DC3B0C": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #7 · Amaru",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x34ED39BC": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #8 · Jonah Maiava",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x94AA3CBF": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #9 · Commander Rourke",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xACE98451": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #10 · The Crimson Fire",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xF9CDBC99": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #11 · Andres Lopez",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x668739AE": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 3 - Wheel-Lock Pistol (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x65321863": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 4 - Grave Marker (Expedition Unknown)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x44ADFEB7": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · Copal",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x4F8EE97C": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · Gold Mask",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x659672E5": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 15 - Lord and Lady of the Dead (Pantheon of Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x29B519FB": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 7 - A King's Ransom (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x65B54978": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "DOCUMENT 3 - Captain's Note (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0xDBA47FC6": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "RELIC 4 - Rusty Sword (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0x0322ED0C": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #5 · Ear Spools",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x69A11CF9": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Silver Mirror",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xC65BA16D": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · Inti Statuette",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xE3539118": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 37 - Reconnaissance (The Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xDE835BF6": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Unuratu's Amulet",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xF744CC5B": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 41 - Merchant Sacrifice (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x4128D9F2": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #4 · Skull",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x79BFDBD5": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 16 - Secret Winds (Legends of the Maya)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x60649B7C": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 11 - Surprise Witness (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xABD9B4C8": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #1 · Airplane",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x5E6F0756": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #7 · Mask of the Nahual",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xFAA76BB3": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 5 - Elongated Skull (Myth, Magic & Monsters)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x090D83BE": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #5 · The Savior's Amulet",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x62148211": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 8 - At the Gate (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xDDC1710D": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 9 - Finger Length Away (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xC14AD971": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 11 - Mirrors (Secrets and Lies)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x74D6B48B": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #7 · Seven Steps Closer to God",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x09A53C76": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 10 - Jack's Journal (Expedition Unknown 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x9E17CFFB": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 2 - Jack's Journal 2 (Expedition Unknown 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x72A130AC": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 9 - Primitive Doll (Handmade Dolls)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x743AA36A": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "RELIC 3 - Primitive Doll (Handmade Dolls)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0x18155E52": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 25 - Primitive Doll (Handmade Dolls)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xEF35DE29": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 9 - Primitive Doll (Handmade Dolls)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xFE4F7B24": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 9 - Primitive Doll (Handmade Dolls)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xD80A5713": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 22 - Mother Deity (Pantheon of Gods 3)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xCCE614A4": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 13 - Fertility God (Pantheon of Gods 3)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xF2B65ADD": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 6 - God of Death (Pantheon of Gods 3)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xE37CEF20": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · God of Cocoa",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xECFCF324": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · Ceremonial Fire Drill",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x08A8054E": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Warrior Pendant",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0xC6B98286": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 38 - Crime and Punishment (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x2B2FC7E7": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 42 - Warriors of Kukulkan (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x9118AD01": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 8 - Believer's Journal",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x83E53135": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 17 - Last Words (Cult of de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x5814FAFA": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 10 - Pure of Heart (all Cult of de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x5F17B019": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 9 - Hubris",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xF285063D": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 11 - Demons (Cult of de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x49B7C6F0": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 18 - Testament of T. Serrano (Cult of de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x24D0344D": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 19 - Alux (Legends of the Maya)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xCBDCD9FB": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 16 - The Monkey Twins (Legends of the Maya)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x62B5AB49": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 17 - The Paddler Gods (Legends of the Maya)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xCCD225DD": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 14 - Chechen and Chaka Trees",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x937D3868": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 17 - Votan (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x8834B6B2": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 15 - World Tree (Legends of the Maya)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xB1629AF4": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 7 - Judges' Gaze (Trials of the Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xD656004F": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #2 · Thirsty Gods",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x56AB3FD1": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 5 - Underworld Gate (Trials of the Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x6D914037": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 17 - Ancient Aqueduct (Trials of the Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x4F2135BC": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 12 - Temple of the Sun (Trials of the Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x9D56C3FE": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Tree of Life",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x5DB360F6": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 23 - Path of Battle (Trials of the Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xEF88D7ED": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 8 - Howling Caves (Trials of the Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x5D96F89C": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 1 - Urqu, the Scout (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xCB3F79FB": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 2 - Rimak, The Storyteller (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x6FA48E97": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 2 - Wayta, the Tyrant (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xB3E072E4": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 14 - Chuki, The Weaver (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x22E3B207": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 20 - Qispi, the Merchant (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xFF54AE20": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 21 - Ollanta, The Potter (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xDD9CA99B": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #8 · Huascar, The Syncretist",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xC062C7B3": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "SURVIVAL CACHE 8",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Underworld Gate Challenge Tomb；具体点位见该段落。",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xB47DDD90": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "SURVIVAL CACHE 12",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Howling Caves Challenge Tomb；具体点位见该段落。",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xFD9DCD84": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "locator": "SURVIVAL CACHES 32-34",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Path of Battle Challenge Tomb；具体点位见该段落。",
+        "region_id": "paititi"
+      }
+    ],
+    "0xFD9DCD87": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "locator": "SURVIVAL CACHES 32-34",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Path of Battle Challenge Tomb；具体点位见该段落。",
+        "region_id": "paititi"
+      }
+    ],
+    "0xA5F6A32F": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "locator": "SURVIVAL CACHE 17",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Temple of the Sun Challenge Tomb；具体点位见该段落。",
+        "region_id": "paititi"
+      }
+    ],
+    "0xDD26A1BC": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "locator": "SURVIVAL CACHES 26-27",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Ancient Aqueduct Challenge Tomb；具体点位见该段落。",
+        "region_id": "paititi"
+      }
+    ],
+    "0xDD26A1BD": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "locator": "SURVIVAL CACHES 26-27",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Ancient Aqueduct Challenge Tomb；具体点位见该段落。",
+        "region_id": "paititi"
+      }
+    ],
+    "0xFF9EAC79": [
+      {
+        "source_id": "src:stella-san-juan",
+        "locator": "SURVIVAL CACHES 7 & 8",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Thirsty Gods Challenge Tomb；具体点位见该段落。",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xFF9EAC6E": [
+      {
+        "source_id": "src:stella-san-juan",
+        "locator": "SURVIVAL CACHES 7 & 8",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Thirsty Gods Challenge Tomb；具体点位见该段落。",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xD2E4E3EE": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "SURVIVAL CACHES 4-6",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "San Cordoba Challenge Tomb；具体点位见该段落。",
+        "region_id": "cenote"
+      }
+    ],
+    "0xD2E4E3F1": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "SURVIVAL CACHES 4-6",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "San Cordoba Challenge Tomb；具体点位见该段落。",
+        "region_id": "cenote"
+      }
+    ],
+    "0x7289AC8C": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-crypt",
+        "region_id": "kuwaq_yaku",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "库阿克雅库唯一墓穴宝藏；来源页为该区域唯一墓穴的快速指南。"
+      }
+    ],
+    "0x32E820D8": [
+      {
+        "source_id": "src:stella-jungle-crypt-second",
+        "region_id": "peruvian_jungle",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 2284 含 Rimak 壁画/文献/遗物，对应 Second Crypt (Rimak)。"
+      }
+    ],
+    "0xE66D0DA5": [
+      {
+        "source_id": "src:stella-jungle-crypt-first",
+        "region_id": "peruvian_jungle",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 2302 含 Urqu 壁画/文献，对应 First Crypt (Urqu)。"
+      }
+    ],
+    "0x02A67B91": [
+      {
+        "source_id": "src:stella-paititi-crypt-chuki",
+        "region_id": "paititi",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 1071 含 Chuki 壁画，对应 Crypt of Chuki。"
+      }
+    ],
+    "0xD6992534": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHES 20-21 (Crypt of Chuki)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 1071 含 Chuki 壁画；两个贮藏点在 Chuki 墓穴及其入口通道。"
+      }
+    ],
+    "0xD6992537": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHES 20-21 (Crypt of Chuki)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 1071 含 Chuki 壁画；两个贮藏点在 Chuki 墓穴及其入口通道。"
+      }
+    ],
+    "0x48C378CA": [
+      {
+        "source_id": "src:stella-paititi-crypt-uturunku",
+        "region_id": "paititi",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 2289 为剩余帕依提提墓穴；同名贮藏点 28 在 Crypt of Uturunku。"
+      }
+    ],
+    "0x5C4C9AC2": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 28 (Crypt of Uturunku)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 2289 为 Crypt of Uturunku；该页明确写到此墓穴。"
+      }
+    ],
+    "0x8A28E2C7": [
+      {
+        "source_id": "src:stella-paititi-crypt-qispi",
+        "region_id": "paititi",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 2301 含 Qispi 壁画，对应 Crypt of Qispi。"
+      }
+    ],
+    "0xEE11B0D3": [
+      {
+        "source_id": "src:stella-paititi-crypt-ollanta",
+        "region_id": "paititi",
+        "locator": "Crypt treasure (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 4906 含 Ollanta 壁画，对应 Crypt of Ollanta。"
+      }
+    ],
+    "0xBA47343A": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 15 - Journal of T. Serrano (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xD37AD539": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 11 - Journal of T. Serrano 3 (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x8FCFCADA": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "DOCUMENT 1 - Journal of T. Serrano 2 (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0xF4B46500": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "RELIC 5 - Brigittine Rosary (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0xCAA74459": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 5 - Old Tome (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x9847F367": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 4 - Decorated Crucifix (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xC98FDFC1": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 2 - Faded Writing (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xE5EEB8F4": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 12 - Journal of T. Serrano 4 (The Missionary)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xBCCB866C": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "DOCUMENT 2 - A Warning (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0xCF99CA42": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "RELIC 2 - Knight's Morion (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0x3597BA77": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "DOCUMENT 6 - Journal of T. Serrano 6 (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0x40673C84": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "DOCUMENT 5 - Journal of T. Serrano 7 (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0xC8FCA6A1": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 20 - Journal of T. Serrano 8 (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x527EBACF": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "DOCUMENT 4 - Journal of T. Serrano 5 (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0x164FB06D": [
+      {
+        "source_id": "src:stella-porvenir-collectibles",
+        "locator": "DOCUMENT 1 - Journal of T. Serrano 9 (Gates of Hell)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "porvenir_oil_fields"
+      }
+    ],
+    "0xEBA6791E": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 26 - De la Cruz Arrives (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xFAC1CB6F": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 21 - De la Cruz Leaves (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x0E3859C1": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 22 - Journal of T. Serrano 10 (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x4571AB24": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 23 - Journal of T. Serrano 11 (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xB125462A": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 6 - Journal of T. Serrano 12 (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x26B79773": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 12 - Journal of T. Serrano 13 (Angel de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x23FB0D7E": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 6 - Bowl of Powder (Day in the Life of the Inca)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xF18281A5": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 10 - Chaki Taklla (Day in the Life of the Inca)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x5C78EA34": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 7 - Llama Figurine (Day in the Life of the Inca)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x4AC568AC": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 14 - Ch'arki and Chuños (Day in the Life of a Paititian)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x12DABFF7": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 11 - Urpu (Quechua/Day in the Life of the Inca)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x043E391D": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 2 - Chuspas (Day in the Life of the Inca)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x07E76E24": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 9 - Urcuchillay (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x489FB5F6": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 1 - Suppay (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x484AA8C8": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 7 - Pachamama (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x6741FDF6": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #4 · Mama Zara",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "porvenir_oil_fields"
+      }
+    ],
+    "0xF96E3E50": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 3 - Inti (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x52A30513": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 8 - Viracocha (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x8B86224A": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 4 - Coniraya (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x5A58F5AB": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 3 - Kon (Pantheon of Gods 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x02784A71": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 2 - Handkerchief (Expedition Unknown)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x371C81F4": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 3 - Jack's Journal 6 (Expedition Unknown)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x65E3935A": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 13 - Fawcett's Last Letter (Expedition Unknown)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xEDBA6F35": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 8 - Pistol Parts (Expedition Unknown)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x96E1C872": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 3 - Sextant (Expedition Unknown)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x8712DACD": [
+      {
+        "source_id": "src:stella-eagle-trial-collectibles",
+        "locator": "DOCUMENT 1 - A Proverb (A Community in Need)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "trial_of_the_eagle"
+      }
+    ],
+    "0x724B9CF7": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 2 - Fuel for the Future (A Community in Need)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x8412840E": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 4 - Trinity's Offer (A Community in Need)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x60BF8840": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 3 - Family Tree (A Community in Need)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x7E613762": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 22 - Bloodletter (Pantheon of Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xD85F7B97": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 7 - Deadly Earth Mother (Pantheon of Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xE60DB5BB": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 24 - Mask of Tezcatlipoca (Pantheon of Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x0D40E76F": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 18 - The Winged Serpent (Pantheon of Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x22889CE2": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Antique Knife",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15"
+      }
+    ],
+    "0x9D37D10B": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 20 - Tlaloc Vase (Pantheon of Gods)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x2389359E": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 2 - First Contact (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x783457B3": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 1 - Slave Collar (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xF9BA2199": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 7 - Epidemic (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xC8B66BA8": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 1 - Struggle for Power (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xCC4A7C40": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 16 - Missionary Work (Conquerors)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xEE8F45DD": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 13 - Contract (Day in the Life of a Paititian)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xB7605AD5": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 4 - Whistle (Day in the Life of a Paititian)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x462B1085": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 5 - Incense Burner (Day in the Life of a Paititian)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x0095B5A7": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 6 - Patolli Mat (Day in the Life of a Paititian)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xE8794A7C": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 13 - Metatl (Day in the Life of a Paititian)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xEDACACC3": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "RELIC 2 - Burial Doll Replica (Fortune and Glory)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xC6F2A6A0": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 1 - Company Town (Fortune and Glory)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x6F328B11": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "RELIC 4 - Promotional Toy (Fortune and Glory)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x80AFF5C0": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "RELIC 1 - Tumi Knife (Fortune and Glory)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x39551DDB": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 6 - Water Quality Report (Fortune and Glory)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x5F844AE1": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "RELIC 3 - Cone Mold (Fortune and Glory)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xDDAB23B2": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 34 - In Name Only (The Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x9865801A": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 25 - Resist! (The Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x6E55AAF3": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #5 · The Prophecy",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x93F50AAD": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 23 - Mama Quilla Mask (The Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xAA344AC4": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 24 - Protection (Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xDD657071": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 18 - Copper Mace (The Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x8E78816C": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "locator": "RELIC 2 - Carved Bowl (Exodus Story)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cozumel"
+      }
+    ],
+    "0x44DF69A7": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "locator": "MURAL 1 - Heart of the Serpent (Exodus Story)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cozumel"
+      }
+    ],
+    "0xA7FF8298": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "locator": "RELIC 1 - Ceramic Jar (Exodus Story)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cozumel"
+      }
+    ],
+    "0xF99B54F1": [
+      {
+        "source_id": "src:stella-eagle-trial-collectibles",
+        "locator": "MURAL 1 - Crumbling (Exodus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "trial_of_the_eagle"
+      }
+    ],
+    "0x018F6D1C": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 10 - Temple of Death (Exodus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x6C489221": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 5 - Temple of Life (Exodus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x7117BC06": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "locator": "MURAL 2 - Temple of the Moon (Exodus Story)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cozumel"
+      }
+    ],
+    "0x56DB72EA": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 3 - Burial Mask (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xE1751116": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 3 - Silver-Crowned Mountain (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x31FBC663": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "locator": "DOCUMENT 1 - Rearguard Report (Metamorphosis Story)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cozumel"
+      }
+    ],
+    "0xDD726C24": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 12 - Birthing the Serpent (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x9B746347": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 1 - Shielding the Serpent (Metamorphosis)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x8ED45A4D": [
+      {
+        "source_id": "src:stella-serpent-collectibles",
+        "locator": "MURAL 1 - Awaits (Homecoming)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "head_of_the_serpent"
+      }
+    ],
+    "0x9C3AA4AF": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 4 - Bound to Wander (Homecoming)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x47154F56": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 13 - The Hills Are Alive (Homecoming)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xCEF8084E": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "locator": "RELIC 1 - Crucified Figure (Homecoming)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "cenote"
+      }
+    ],
+    "0x902F8AC3": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 25 - Repelling the Demons (Homecoming)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xC7AAC40A": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 6 - Devils in the Dark (Homecoming)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x10889D70": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 1 - Flight Log (Myth, Magic & Monsters)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xFC3A73B2": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 5 - A Haunting (Myth, Magic & Monsters )",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xDA615056": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 12 - Plastic Penguin (Myth, Magic & Monsters)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xBA19BA13": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 4 - Sisimite (Myth, Magic & Monsters)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xE73BB718": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Yaaxil",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xF23B3644": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 9 - Founding of Paititi (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x4345EA40": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 8 - The First Emperor (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x2B36100B": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 4 - Two Peoples as One (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xEEE8EE49": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 3 - Rebirth and Resettlement (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x9F2D0D69": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 21 - Troubled Lands (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xF2D25297": [
+      {
+        "source_id": "src:stella-eagle-trial-collectibles",
+        "locator": "MURAL 2 - Golden Days (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "trial_of_the_eagle"
+      }
+    ],
+    "0xB574659B": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 6 - Civil War (Founding Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x7B95CAEA": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 22 - Trinity Arrives (Subjugating Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xD78E5B56": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 14 - Disease and Death (Subjugating Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x472701B9": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #3 · The Cult's Promise",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x0EA8B2F4": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #4 · A King Sacrificed",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x90851695": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 16 - The Peasant Savior (Subjugating Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x9DFB313D": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 19 - Lopez's Arrival (Subjugating Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x12B626FF": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 23 - The Cult's Control (Subjugating Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xB931BAD2": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 10 - Famine (Rebellion of Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x29D696EC": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 15 - Unuratu's Uprising (Rebellion of Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xF89DAA0F": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 5 - Unuratu's Coronation (Rebellion of Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x329459A4": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 2 - Amaru's Grip (Rebellion of Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x344A0F7A": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 10 - Birth (Rebellion of Paititi)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xDF933EEC": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #6 · Trinity Recruits Amaru",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x7D18BFDB": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 9 - El Dorado (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xA9A2B053": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "RELIC 9 - Video Camera (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x403EEB8E": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 1 - Fawcett's Legacy (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x6B6628FF": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 13 - Misdirection (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xC384CBC3": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 20 - Covering the Tracks (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xBD971FD3": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 18 - Fever Dreams (Search for the Hidden City)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xF1FAE49A": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 8 - Ceremonial Torch (Secrets and Lies)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x89524837": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #2 · No One In, No One Out",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x085A83D1": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 9 - Dismantled Radio (Secrets and Lies)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xCE0734DD": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #4 · Conspiracy",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x960A2A78": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #5 · Guidelines",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x9C9925D6": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 27 - Beast Effigy (Secrets and Lies)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xBBFEEBDB": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 3 - The Miracle Club (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xF0FEB3C5": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 5 - On This Spot (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x42DE17F5": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 4 - Damage Repair (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x2F1764FD": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 2 - Mission of Saint John (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x584E2E20": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 1 - Disaster Upon Disaster (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xBC594CE9": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 24 - John the Apostle (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x83D4065F": [
+      {
+        "source_id": "src:stella-san-juan-chest-relics",
+        "locator": "RELIC 6 - Mission San Juan (Miracle Mission)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x25A6AF2F": [
+      {
+        "source_id": "src:stella-porvenir-collectibles",
+        "locator": "DOCUMENT 4 - A Lost World (Inside Out)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "porvenir_oil_fields"
+      }
+    ],
+    "0xA3B16D2F": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 28 - Arrow (Inside Out)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xA2F185C7": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 39 - Warning (The Resistance)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xF50E7CCE": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 18 - Expedition Report (Inside Out)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x06D38407": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 21 - Wooden Rifle (Inside Out)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x4A4C37BB": [
+      {
+        "source_id": "src:stella-porvenir-collectibles",
+        "locator": "RELIC 1 - Hardhat (Inside Out)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "porvenir_oil_fields"
+      }
+    ],
+    "0xA2B5625F": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 40 - More Questions (Inside Out)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x0D6ADEF8": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 7 - End Times (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x37E6E210": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 14 - Operation Update (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xB44239F9": [
+      {
+        "source_id": "src:stella-porvenir-collectibles",
+        "locator": "DOCUMENT 3 - The Truth (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "porvenir_oil_fields"
+      }
+    ],
+    "0xE0410A37": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 27 - Ranting (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0x78D55FD2": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 26 - Map of Search Areas (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x8E1F420B": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 9 - Site Scrubbed (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x101EBDED": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 15 - Scouring the Globe (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x4F357588": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 10 - Temple Survey (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x2F0F0683": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 8 - Croft Report (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xBF1247FD": [
+      {
+        "source_id": "src:stella-porvenir-collectibles",
+        "locator": "DOCUMENT 2 - Not Yet? (Trinity)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "porvenir_oil_fields"
+      }
+    ],
+    "0xA59C602F": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 5 - Jack's Journal 3 (Expedition Unknown 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xD03FC71A": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 12 - Jack's Journal 4 (Expedition Unknown 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x7CDCD0DC": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "DOCUMENT 6 - Jack's Journal 5 (Expedition Unknown 2)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0xE437D5D8": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "locator": "MURAL 4 - Death Lords (Trials of the Gods Story)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "peruvian_jungle"
+      }
+    ],
+    "0x24E6FFE5": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 5 - God of Learning (Pantheon of Gods 3)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x039F63E5": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "MURAL 6 - God of Suicides (Pantheon of Gods 3)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0x085190BF": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 19 - Year Bundle (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x162D9BD8": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 16 - Macuahuitl (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x0D9C63E9": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 7 - Mask of the Fire God (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x57447BC8": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 1 - Ceremonial Pipe (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xC399ADA1": [
+      {
+        "source_id": "src:stella-paititi-chests-relics",
+        "locator": "RELIC 17 - Golden Effigy (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xA648BD25": [
+      {
+        "source_id": "src:stella-all-artifacts",
+        "locator": "Artifacts #8 · Cult of Kukulkan",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x16C7C314": [
+      {
+        "source_id": "src:stella-paititi-documents",
+        "locator": "DOCUMENT 28 - Priests of the Sun (Cult of Kukulkan)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0x3327D835": [
+      {
+        "source_id": "src:stella-san-juan-documents",
+        "locator": "DOCUMENT 7 - The Chosen One (Cult of de la Cruz)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "mission_of_san_juan"
+      }
+    ],
+    "0xEF19D1FF": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "locator": "DOCUMENT 11 - Balams (Legends of the Maya)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "kuwaq_yaku"
+      }
+    ],
+    "0xC0AF0E59": [
+      {
+        "source_id": "src:stella-paititi-murals",
+        "locator": "MURAL 19 - Uturunku, The Ferryman (Resting Places)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "region_id": "paititi"
+      }
+    ],
+    "0xB47679E9": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "MONOLITH (Proficient Quechua)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "秘鲁丛林唯一石碑。"
+      }
+    ],
+    "0xBEF19DB3": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "MONOLITH 1 (Proficient Quechua)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "内部名 inca_intermediate；inca=Quechua、intermediate=Proficient。"
+      }
+    ],
+    "0xB02F0961": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "MONOLITH 2 - (Proficient Mam)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "内部名 mayan_intermediate；mayan=Mam、intermediate=Proficient。"
+      }
+    ],
+    "0xAF9AD9D4": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "MONOLITH 3 (Fluent Quechua)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "内部名 inca_advanced；inca=Quechua、advanced=Fluent。"
+      }
+    ],
+    "0x33BAC64B": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 2 (Fluent Mam)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "内部名 middle_island；与页面 MONOLITH 2 的北端小岛位置一致。"
+      }
+    ],
+    "0x5BB0EF4C": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 3 (Fluent Mam)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 243 位置在梯田水池南端；与页面 MONOLITH 3 描述一致。"
+      }
+    ],
+    "0xE17A9FED": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 7 - (Fluent Yucatec)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 241 峡谷岛屿；与页面 MONOLITH 7 描述一致。"
+      }
+    ],
+    "0xC508D278": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-walkthrough",
+        "region_id": "kuwaq_yaku",
+        "locator": "Second Crypt (sarcophagus)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 2287 主关卡；Kuwaq 有两个 crypt，First Crypt 已对应 unit 2288，此处为 Second Crypt。"
+      }
+    ],
+    "0xBDE170C6": [
+      {
+        "source_id": "src:stella-manko-crypt",
+        "region_id": "paititi",
+        "locator": "Manko's Crypt - sarcophagus",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "Hearts and Minds Part 2：Retrieve the Savior's Amulet；Manko's Crypt 石棺。"
+      }
+    ],
+    "0xB275438A": [
+      {
+        "source_id": "src:stella-eagle-trial-collectibles",
+        "region_id": "trial_of_the_eagle",
+        "locator": "SURVIVAL CACHE 1",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "猎鹰的试炼唯一贮藏点。"
+      }
+    ],
+    "0x7D3D1068": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "region_id": "cozumel",
+        "locator": "SURVIVAL CACHE 3",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 982 为 Tidal Caverns 金字塔大厅；该区域唯一贮藏点。"
+      }
+    ],
+    "0x7D3D1069": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "region_id": "cozumel",
+        "locator": "SURVIVAL CACHES 1 & 2 (Cozumel Cliffs)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 648 为 Cozumel Cliffs 水池区域；页面 CACHE 1/2 都在此区域。"
+      }
+    ],
+    "0x7D3D1067": [
+      {
+        "source_id": "src:stella-cozumel-collectibles",
+        "region_id": "cozumel",
+        "locator": "SURVIVAL CACHES 1 & 2 (Cozumel Cliffs)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 648 为 Cozumel Cliffs 水池区域；页面 CACHE 1/2 都在此区域。"
+      }
+    ],
+    "0xD8CD8257": [
+      {
+        "source_id": "src:stella-san-juan",
+        "region_id": "mission_of_san_juan",
+        "locator": "SURVIVAL CACHE 4 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "稀有贮藏点；内部名与 San Juan 石碑同属 incan_advanced_2，对应 Monolith Riches。"
+      }
+    ],
+    "0xFAAECCB0": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 11",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "内部名与已核对的 MONOLITH 2（middle_island）相同后缀；页面写明 M2 指向 CACHE 11。"
+      }
+    ],
+    "0xCC47BB91": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 29",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 241 与已核对的 MONOLITH 7（return_02_mayan_advanced_2）同后缀；页面写明 M7 指向 CACHE 29。"
+      }
+    ],
+    "0x0F28B6EF": [
+      {
+        "source_id": "src:stella-san-juan",
+        "region_id": "mission_of_san_juan",
+        "locator": "SURVIVAL CACHE 1",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 318 坐标落在标注地图的狼穴图标与橙色 1 号标记旁；与“狼穴、Huascar 墓穴南侧”一致。"
+      }
+    ],
+    "0x0F28B6EE": [
+      {
+        "source_id": "src:stella-san-juan",
+        "region_id": "mission_of_san_juan",
+        "locator": "SURVIVAL CACHE 2",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 318 坐标位于大水池东侧高地，对应页面 CACHE 2 的“池上岩架”。"
+      }
+    ],
+    "0x0F28B6EC": [
+      {
+        "source_id": "src:stella-san-juan",
+        "region_id": "mission_of_san_juan",
+        "locator": "SURVIVAL CACHE 5",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 318 坐标位于稀有 CACHE 4 南侧水池底部，对应页面 CACHE 5。"
+      }
+    ],
+    "0x0F28B6ED": [
+      {
+        "source_id": "src:stella-san-juan",
+        "region_id": "mission_of_san_juan",
+        "locator": "SURVIVAL CACHE 6",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 318 坐标落在标注地图齿轮 6 号标记与水池东北洞口旁，对应页面 CACHE 6。"
+      }
+    ],
+    "0xE871F8D6": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 7",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 638 投影点位于水轮后的淹没通道，标注地图齿轮 7 号标记就在其下方。"
+      }
+    ],
+    "0xE871F8D5": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 8",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 949 投影点位于 Cenote Tomb 营地旁的圆石门大厅，齿轮 8 号标记紧邻。"
+      }
+    ],
+    "0xE871F8D4": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 3",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 1294 投影点位于起点水池与洞窟之间的淹没通道，齿轮 3 号标记在旁。"
+      }
+    ],
+    "0xE871F8DB": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 2",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "unit 931 投影点位于 Cenote Vista 水池南岸，齿轮 2 号标记在岸边。"
+      }
+    ]
+  }
+}

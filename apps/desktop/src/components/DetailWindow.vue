@@ -151,6 +151,7 @@ const links = computed<DetailExternalLink[]>(() => {
     label: link.label,
     url: link.url,
     direct: true,
+    guideItem: link.guideItem,
   }));
   result.push({
     key: `url:${item.searchTextUrl}`,

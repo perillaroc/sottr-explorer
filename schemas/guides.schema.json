@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GuidesDataset",
+  "description": "逐条攻略映射的创作数据集。只记录来源、定位与核对状态；不复制攻略正文，不产生坐标。构建时把 scope=item 且 confidence=verified 的引用合并为元数据的 exact_guide_item 定位。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "guide_version", "items"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "guide_version": { "type": "string", "minLength": 1 },
+    "generated_from": { "type": ["string", "null"] },
+    "sources": {
+      "type": "object",
+      "description": "本数据集新增或覆盖的来源；未在此声明的 source_id 必须已存在于元数据 sources。",
+      "additionalProperties": { "$ref": "metadata.schema.json#/$defs/Source" }
+    },
+    "items": {
+      "type": "object",
+      "propertyNames": { "pattern": "^0x[0-9A-F]{8}$" },
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": { "$ref": "#/$defs/GuideRef" }
+      }
+    }
+  },
+  "$defs": {
+    "GuideRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "locator", "scope", "confidence", "verified_at"],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^src:[a-z0-9][a-z0-9-]*$",
+          "description": "来源 ID；必须在元数据 sources 或本文件 sources 中声明"
+        },
+        "region_id": {
+          "type": ["string", "null"],
+          "description": "区域 ID；为空时使用图鉴条目的区域"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "来源页内的定位（页码、分 P、时间点或段落标题）；不复制正文"
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["item", "collection", "unit"],
+          "description": "定位粒度；只有 item 才可能合并为 exact_guide_item"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["verified", "inferred", "coverage_only"],
+          "description": "核对状态；只有 verified 且 scope=item 才合并为精确映射"
+        },
+        "verified_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "人工核对说明；可写与 unit/名称的交叉验证，不写攻略正文"
+        }
+      }
+    }
+  }
+}

@@ -135,16 +135,19 @@ describe("store：直链候选", () => {
     expect(new Set(links.map((link) => link.url)).size).toBe(links.length);
   });
 
-  it("同一载体的多个 guide 来源按 source_refs 顺序返回，首个在前", async () => {
+  it("精确条目定位优先于组级来源，并保留来源页定位", async () => {
     const { store } = await storeWithReport();
     const links = store.directLinksForItem(item("0x439B19A6"));
 
-    // 圣胡安石碑组的 source_refs 顺序：stella-san-juan → stella-san-juan-monolith。
-    expect(links.slice(0, 2).map((link) => link.sourceRef)).toEqual([
-      "src:stella-san-juan",
-      "src:stella-san-juan-monolith",
-    ]);
-    expect(links.slice(0, 2).every((link) => link.medium === "text")).toBe(true);
+    expect(links[0]).toMatchObject({
+      locationId: "loc:item:0x439B19A6",
+      sourceRef: "src:stella-san-juan-monolith",
+      medium: "text",
+      guideItem: "Monolith",
+    });
+    // 其后是石碑组的组级来源；再往后是区域×类别攻略组。
+    expect(links[1].sourceRef).toBe("src:stella-san-juan");
+    expect(new Set(links.map((link) => link.url)).size).toBe(links.length);
   });
 
   it("不在任何线索里的条目没有候选", async () => {

@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data" / "metadata"
 RESEARCH_DIR = ROOT / "research" / "save-inspector" / "data"
 
-METADATA_VERSION = "0.1.0"
+METADATA_VERSION = "0.2.0"
 SCHEMA_VERSION = "1.0.0"
 NAMESPACE = "sottr"
 REVIEW_DATE = "2026-10-14"
@@ -376,6 +376,7 @@ GUIDE_GROUPS = [
 # 阶段 C：区域 × 类别攻略组（成员来自全收集图鉴）
 # ---------------------------------------------------------------------------
 CATALOG_PATH = ROOT / "data" / "catalog" / "collectibles_catalog.json"
+GUIDES_PATH = ROOT / "data" / "catalog" / "guides.json"
 
 GUIDE_REGION_IDS = [
     "paititi",
@@ -503,7 +504,7 @@ def item_review(item_id: str):
     return None
 
 
-def build_items(dictionary, reference_ids_by_category):
+def build_items(dictionary, reference_ids_by_category, guides):
     """构建 items 表：全部候选名称保留；类别与区域仅在证据支持时填入。"""
     category_of = {}
     for category_id, ids in reference_ids_by_category.items():
@@ -583,6 +584,28 @@ def build_items(dictionary, reference_ids_by_category):
                 }
             ]
 
+        for ref in guides.get("items", {}).get(item_id, []):
+            if ref.get("scope") != "item" or ref.get("confidence") != "verified":
+                continue
+            locator = ref.get("locator")
+            source_id = ref.get("source_id")
+            assert isinstance(locator, str) and locator.strip(), item_id
+            assert isinstance(source_id, str) and source_id, item_id
+            mappings.append(
+                {
+                    "mapping_kind": "exact_guide_item",
+                    "region_id": ref.get("region_id") or region_id,
+                    "guide_group_id": None,
+                    "guide_item": locator,
+                    "target_count": 1,
+                    "coordinates": None,
+                    "map_transform": None,
+                    "applicable_mode": "campaign",
+                    "applicable_platform": None,
+                    "source_refs": [source_id],
+                }
+            )
+
         if category_id is not None:
             source_refs = ["src:trrebootmodtools-dict", "src:stella-saves"]
         note = item_note(item_id)
@@ -614,6 +637,47 @@ def build_items(dictionary, reference_ids_by_category):
             "review": item_review(item_id),
         }
     return items
+
+
+def merge_guide_sources(guides):
+    """把 guides.json 新增的来源并入元数据来源表；冲突直接失败。"""
+    sources = dict(SOURCES)
+    for source_id, source in guides.get("sources", {}).items():
+        existing = sources.get(source_id)
+        if existing is not None and existing != source:
+            raise SystemExit(f"guides.json 来源 {source_id} 与元数据来源冲突")
+        sources[source_id] = source
+    return sources
+
+
+def validate_guides(guides, dictionary, sources):
+    """校验攻略映射的引用；只在构建期失败，不把问题带到产品数据。"""
+    if guides.get("schema_version") != "1.0.0":
+        raise SystemExit(f"guides.json schema_version={guides.get('schema_version')!r}")
+    seen = set()
+    for item_id, refs in guides.get("items", {}).items():
+        if item_id not in dictionary:
+            raise SystemExit(f"guides.json 条目 {item_id} 不在候选字典中")
+        exact = 0
+        for ref in refs:
+            source_id = ref.get("source_id")
+            if source_id not in sources:
+                raise SystemExit(f"guides.json {item_id} 引用了未知来源 {source_id!r}")
+            if ref.get("scope") not in ("item", "collection", "unit"):
+                raise SystemExit(f"guides.json {item_id} scope 非法")
+            if ref.get("confidence") not in ("verified", "inferred", "coverage_only"):
+                raise SystemExit(f"guides.json {item_id} confidence 非法")
+            locator = ref.get("locator")
+            if not isinstance(locator, str) or not locator.strip():
+                raise SystemExit(f"guides.json {item_id} locator 为空")
+            key = (item_id, source_id, locator)
+            if key in seen:
+                raise SystemExit(f"guides.json {item_id} 重复引用 {key}")
+            seen.add(key)
+            if ref.get("scope") == "item" and ref.get("confidence") == "verified":
+                exact += 1
+        if exact > 1:
+            raise SystemExit(f"guides.json {item_id} 有多个精确映射；当前实现只支持一个")
 
 
 def build_categories():
@@ -764,12 +828,12 @@ def build_guide_groups(region_counters, catalog):
     return groups
 
 
-def build_documents(dictionary, counter_entries, reference_groups, catalog):
+def build_documents(dictionary, counter_entries, reference_groups, catalog, guides, sources):
     reference_ids_by_category = {
         category_id: sorted(set(reference_groups[group_name]["reference_ids"]))
         for group_name, category_id in REFERENCE_CATEGORY.items()
     }
-    items = build_items(dictionary, reference_ids_by_category)
+    items = build_items(dictionary, reference_ids_by_category, guides)
     categories = build_categories()
     regions = build_regions(
         REGION_ID_FROM_SOURCE[e["region_as_spelled_in_source"]] for e in counter_entries
@@ -786,7 +850,7 @@ def build_documents(dictionary, counter_entries, reference_groups, catalog):
             "guide_groups": {},
             "reference_sets": {},
             "region_counters": {},
-            "sources": dict(SOURCES),
+            "sources": dict(sources),
         }
 
     collectibles = {
@@ -819,7 +883,7 @@ def build_documents(dictionary, counter_entries, reference_groups, catalog):
     return collectibles, counters, references
 
 
-def validate(dictionary, counter_entries, reference_groups, documents):
+def validate(dictionary, counter_entries, reference_groups, documents, guides):
     collectibles, counters, references = documents
 
     assert len(dictionary) == EXPECTED_ITEM_COUNT, (
@@ -905,12 +969,32 @@ def validate(dictionary, counter_entries, reference_groups, documents):
         else:
             assert group["target_count"] is None, group_id
 
-    # 不产生精确点位或条目映射的假数据
+    # 不产生坐标或假点位；精确攻略映射必须来自 guides.json 的 verified item 引用。
+    exact_expected = sum(
+        1
+        for refs in guides.get("items", {}).values()
+        for ref in refs
+        if ref.get("scope") == "item" and ref.get("confidence") == "verified"
+    )
+    exact_seen = 0
     for item_id, item in collectibles["items"].items():
         for mapping in item["location_mappings"]:
-            assert mapping["mapping_kind"] in ("guide_group_membership", "region_clue"), item_id
+            assert mapping["mapping_kind"] in (
+                "guide_group_membership",
+                "region_clue",
+                "exact_guide_item",
+            ), item_id
             assert mapping["coordinates"] is None, item_id
-            assert mapping["guide_item"] is None, item_id
+            if mapping["mapping_kind"] == "exact_guide_item":
+                exact_seen += 1
+                assert mapping["guide_item"], item_id
+                assert mapping["target_count"] == 1, item_id
+                assert len(mapping["source_refs"]) == 1, item_id
+            else:
+                assert mapping["guide_item"] is None, item_id
+    assert exact_seen == exact_expected, (
+        f"精确攻略映射 {exact_seen} != guides.json verified item 引用 {exact_expected}"
+    )
 
     print("校验通过：")
     print(f"  items={len(collectibles['items'])} aliases={name_count}")
@@ -927,9 +1011,14 @@ def main() -> int:
     counter_entries = load_json(RESEARCH_DIR / "region_counter_candidates.json")["entries"]
     reference_groups = load_json(RESEARCH_DIR / "reference_category_ids.json")["groups"]
     catalog = load_json(CATALOG_PATH)
+    guides = load_json(GUIDES_PATH)
+    sources = merge_guide_sources(guides)
+    validate_guides(guides, dictionary, sources)
 
-    documents = build_documents(dictionary, counter_entries, reference_groups, catalog)
-    validate(dictionary, counter_entries, reference_groups, documents)
+    documents = build_documents(
+        dictionary, counter_entries, reference_groups, catalog, guides, sources
+    )
+    validate(dictionary, counter_entries, reference_groups, documents, guides)
 
     file_names = ["collectibles.json", "region_counters.json", "reference_sets.json"]
     if not check_only:
@@ -955,7 +1044,11 @@ def main() -> int:
             {
                 "file": "data/catalog/collectibles_catalog.json",
                 "sha256": sha256_file(CATALOG_PATH),
-            }
+            },
+            {
+                "file": "data/catalog/guides.json",
+                "sha256": sha256_file(GUIDES_PATH),
+            },
         ],
         "files": [
             {

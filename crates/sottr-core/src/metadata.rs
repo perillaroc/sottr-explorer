@@ -1251,6 +1251,12 @@ fn validate_bundle(dataset: &MetadataDataset) -> Result<(), MetadataError> {
                     format!("{owner} 的已验证坐标映射缺少 coordinates"),
                 ));
             }
+            if mapping.mapping_kind == MappingKind::ExactGuideItem && mapping.guide_item.is_none() {
+                return Err(MetadataError::new(
+                    CODE_INVALID_VALUE,
+                    format!("{owner} 的精确攻略映射缺少 guide_item"),
+                ));
+            }
             require_sources(&mapping.source_refs, &owner)?;
         }
     }
