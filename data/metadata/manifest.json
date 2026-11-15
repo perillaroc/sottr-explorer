@@ -20,14 +20,14 @@
     },
     {
       "file": "data/catalog/guides.json",
-      "sha256": "525e7c11fce8e4c0d8182ddd93a69ca78951a4d64f35d17f6a7d77cad164ab9e"
+      "sha256": "1c8717d2af0cefbf970485b99b261999692347b94940238c5c6b57a8cff148b5"
     }
   ],
   "files": [
     {
       "file_id": "collectibles.json",
-      "sha256": "796fded2d9ccd862f4c8652b37ca2aeed0a9d767f91a23f598804ab4cdfad87f",
-      "bytes": 692453
+      "sha256": "c4a330ea1dac937cd780b7cf60a4ff178e9ba3e2b2ac27678c6ad87d48b15ffe",
+      "bytes": 715313
     },
     {
       "file_id": "region_counters.json",

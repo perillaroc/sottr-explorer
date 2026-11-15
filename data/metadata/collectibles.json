@@ -1277,7 +1277,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 5 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -1595,7 +1610,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "MONOLITH 4 (Proficient Mam)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-monoliths"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -1643,7 +1673,7 @@
           "mapping_kind": "exact_guide_item",
           "region_id": "mission_of_san_juan",
           "guide_group_id": null,
-          "guide_item": "SURVIVAL CACHE 5",
+          "guide_item": "SURVIVAL CACHE 2",
           "target_count": 1,
           "coordinates": null,
           "map_transform": null,
@@ -1767,7 +1797,7 @@
           "mapping_kind": "exact_guide_item",
           "region_id": "mission_of_san_juan",
           "guide_group_id": null,
-          "guide_item": "SURVIVAL CACHE 2",
+          "guide_item": "SURVIVAL CACHE 5",
           "target_count": 1,
           "coordinates": null,
           "map_transform": null,
@@ -3276,7 +3306,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 4 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -4142,7 +4187,7 @@
           "mapping_kind": "exact_guide_item",
           "region_id": "paititi",
           "guide_group_id": null,
-          "guide_item": "MONOLITH 2 (Fluent Mam)",
+          "guide_item": "MONOLITH 6 (Proficient Yucatec)",
           "target_count": 1,
           "coordinates": null,
           "map_transform": null,
@@ -4325,7 +4370,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 9",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -4353,7 +4413,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 2",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -4381,7 +4456,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 7",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -4409,7 +4499,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 3",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -4437,7 +4542,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 1",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -4465,7 +4585,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 5",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -7511,7 +7646,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "MONOLITH 1 (Proficient Yucatec)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-monoliths"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -9977,7 +10127,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 4",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10095,7 +10260,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 14 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10351,7 +10531,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 11",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10379,7 +10574,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 3",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10407,7 +10617,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 13",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10435,7 +10660,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 5",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10463,7 +10703,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 1",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10491,7 +10746,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 2",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10519,7 +10789,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 7",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10547,7 +10832,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 8",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10575,7 +10875,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 10",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -10603,7 +10918,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 6",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11825,7 +12155,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 1",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11853,7 +12198,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 10",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11881,7 +12241,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 9",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11909,7 +12284,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 15",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11937,7 +12327,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 7",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11965,7 +12370,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 4",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -11993,7 +12413,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 12",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -12021,7 +12456,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 16",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -12049,7 +12499,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 3",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -12077,7 +12542,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 31",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -12120,6 +12600,20 @@
             "src:research-evidence",
             "src:plan-doc"
           ]
+        },
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 32",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
         }
       ],
       "source_refs": [
@@ -12153,7 +12647,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 2",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -12181,7 +12690,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 8",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -12209,7 +12733,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 6",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -16821,7 +17360,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 14 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -17369,7 +17923,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "peruvian_jungle",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 6 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-peruvian-jungle-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -17645,7 +18214,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 23 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -18649,6 +19233,20 @@
             "src:research-evidence",
             "src:plan-doc"
           ]
+        },
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 24",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
         }
       ],
       "source_refs": [
@@ -18682,7 +19280,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 25",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -18710,7 +19323,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 30",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -19365,7 +19993,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 22 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -19393,7 +20036,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 13 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -19421,7 +20079,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "kuwaq_yaku",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 9 (Monolith Riches)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-kuwaq-yaku-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -20073,7 +20746,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "MONOLITH 2 (Fluent Mam)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-monoliths"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -20281,7 +20969,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 19",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -20309,7 +21012,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 18",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-caches"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -22169,7 +22887,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "paititi",
+          "guide_group_id": null,
+          "guide_item": "MONOLITH 5 (Fluent Yucatec)",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-paititi-monoliths"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -23895,7 +24628,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "cenote",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 2",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-cenote-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -23923,7 +24671,22 @@
           "类别来自参考集分组转录；区域未解决"
         ]
       },
-      "location_mappings": [],
+      "location_mappings": [
+        {
+          "mapping_kind": "exact_guide_item",
+          "region_id": "cenote",
+          "guide_group_id": null,
+          "guide_item": "SURVIVAL CACHE 4",
+          "target_count": 1,
+          "coordinates": null,
+          "map_transform": null,
+          "applicable_mode": "campaign",
+          "applicable_platform": null,
+          "source_refs": [
+            "src:stella-cenote-collectibles"
+          ]
+        }
+      ],
       "source_refs": [
         "src:trrebootmodtools-dict",
         "src:stella-saves"
@@ -23956,7 +24719,7 @@
           "mapping_kind": "exact_guide_item",
           "region_id": "cenote",
           "guide_group_id": null,
-          "guide_item": "SURVIVAL CACHE 2",
+          "guide_item": "SURVIVAL CACHE 1",
           "target_count": 1,
           "coordinates": null,
           "map_transform": null,

@@ -153,7 +153,7 @@ fn campaign_pipeline_produces_full_report_with_whole_group_check() {
         .iter()
         .filter(|location| location.mapping_kind == MappingKind::ExactGuideItem)
         .collect();
-    assert_eq!(exact_locations.len(), 301, "逐条攻略映射");
+    assert_eq!(exact_locations.len(), 352, "逐条攻略映射");
     for location in &report.locations {
         assert!(location.coordinates.is_none());
         if location.mapping_kind == MappingKind::ExactGuideItem {

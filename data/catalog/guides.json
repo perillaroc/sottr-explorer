@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "guide_version": "0.8.0",
+  "guide_version": "1.0.0",
   "generated_from": "manual curation; Stella collectible pages, 2026-11-15 batch",
   "sources": {
     "src:stella-all-artifacts": {
@@ -3078,11 +3078,11 @@
       {
         "source_id": "src:stella-paititi-monoliths",
         "region_id": "paititi",
-        "locator": "MONOLITH 2 (Fluent Mam)",
+        "locator": "MONOLITH 6 (Proficient Yucatec)",
         "scope": "item",
         "confidence": "verified",
         "verified_at": "2026-11-15",
-        "note": "内部名 middle_island；与页面 MONOLITH 2 的北端小岛位置一致。"
+        "note": "全局配准距离 87px；内部名 middle_island_aztec_intermediate_2 的 intermediate=Proficient，对应 M6。"
       }
     ],
     "0x5BB0EF4C": [
@@ -3221,22 +3221,22 @@
       {
         "source_id": "src:stella-san-juan",
         "region_id": "mission_of_san_juan",
-        "locator": "SURVIVAL CACHE 2",
+        "locator": "SURVIVAL CACHE 5",
         "scope": "item",
         "confidence": "verified",
         "verified_at": "2026-11-15",
-        "note": "unit 318 坐标位于大水池东侧高地，对应页面 CACHE 2 的“池上岩架”。"
+        "note": "unit 318 坐标位于大水池南侧齿轮 5 号标记旁；对应 cache 4 南侧池底的 CACHE 5。"
       }
     ],
     "0x0F28B6EC": [
       {
         "source_id": "src:stella-san-juan",
         "region_id": "mission_of_san_juan",
-        "locator": "SURVIVAL CACHE 5",
+        "locator": "SURVIVAL CACHE 2",
         "scope": "item",
         "confidence": "verified",
         "verified_at": "2026-11-15",
-        "note": "unit 318 坐标位于稀有 CACHE 4 南侧水池底部，对应页面 CACHE 5。"
+        "note": "unit 318 坐标位于大水池西侧齿轮 2 号标记旁；对应“池上岩架”的 CACHE 2。"
       }
     ],
     "0x0F28B6ED": [
@@ -3287,11 +3287,572 @@
       {
         "source_id": "src:stella-cenote-collectibles",
         "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 1",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "点位距齿轮 1 约 64 px、距齿轮 2 约 80 px；Cenote Vista 水池底部，对应 CACHE 1。"
+      }
+    ],
+    "0x752CBB47": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 1",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 1 号 + 配准距离 77.4 px。"
+      }
+    ],
+    "0x752CBB48": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
         "locator": "SURVIVAL CACHE 2",
         "scope": "item",
         "confidence": "verified",
         "verified_at": "2026-11-15",
-        "note": "unit 931 投影点位于 Cenote Vista 水池南岸，齿轮 2 号标记在岸边。"
+        "note": "OCR 标注地图齿轮 2 号 + 配准距离 35.9 px。"
+      }
+    ],
+    "0x752CBAE7": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 3",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 3 号 + 配准距离 40.5 px。"
+      }
+    ],
+    "0x25EF128C": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 4 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 4 号 + 配准距离 80.6 px；稀有贮藏点，限定为 Monolith Riches 4/9/14。"
+      }
+    ],
+    "0x752CBB4D": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 6",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 6 号 + 配准距离 81.5 px。"
+      }
+    ],
+    "0x752CBB49": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 7",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 7 号 + 配准距离 33.1 px。"
+      }
+    ],
+    "0x752CBB4A": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 8",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 8 号 + 配准距离 11.5 px。"
+      }
+    ],
+    "0xBB70E605": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 9 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 9 号 + 配准距离 31.0 px；稀有贮藏点，限定为 Monolith Riches 4/9/14。"
+      }
+    ],
+    "0x752CBB4C": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 10",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 10 号 + 配准距离 33.8 px。"
+      }
+    ],
+    "0x752CBAE6": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 11",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 11 号 + 配准距离 24.8 px。"
+      }
+    ],
+    "0x752CBB45": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 13",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 13 号 + 配准距离 47.1 px。"
+      }
+    ],
+    "0x9FFEA926": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 14 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "OCR 标注地图齿轮 14 号 + 配准距离 46.5 px；稀有贮藏点，限定为 Monolith Riches 4/9/14。"
+      }
+    ],
+    "0x36725372": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 1",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 点位最近齿轮 1（约 87 px）；自动分配。"
+      }
+    ],
+    "0x3672536F": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 2",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 点位最近齿轮 2（约 67 px）；自动分配。"
+      }
+    ],
+    "0x3672536E": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 9",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 点位裁剪确认齿轮 9（约 22 px）。"
+      }
+    ],
+    "0x6FBA9596": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 4",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 点位裁剪确认齿轮 4（约 14 px）。"
+      }
+    ],
+    "0x5BBA136D": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 1 (Proficient Yucatec)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "剩余唯一标记；配准距离 157px；aztec_advanced 与 M1 等级不完全一致，按全局唯一分配。"
+      }
+    ],
+    "0xC283486E": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 2 (Fluent Mam)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "配准距离 75px；maya_advanced=Fluent Mam。"
+      }
+    ],
+    "0x0EC13AE8": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 4 (Proficient Mam)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "配准距离 83px；maya_intermediate=Proficient Mam。"
+      }
+    ],
+    "0xD7F7674C": [
+      {
+        "source_id": "src:stella-paititi-monoliths",
+        "region_id": "paititi",
+        "locator": "MONOLITH 5 (Fluent Yucatec)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "配准距离 43px；按全局唯一分配。"
+      }
+    ],
+    "0x752CBB46": [
+      {
+        "source_id": "src:stella-kuwaq-yaku-collectibles",
+        "region_id": "kuwaq_yaku",
+        "locator": "SURVIVAL CACHE 5",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "其余 12 条已占用 1-4、6-11、13-14；Howling Caves 12 已映射；按排除法为 5。点位落在图外，未用距离判定。"
+      }
+    ],
+    "0xA3B42DAD": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 6 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "唯一剩余稀有贮藏点；编号 1/2/4/8/9 已被其他条目占用；按排除法为 6。"
+      }
+    ],
+    "0x36725371": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 3",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "剩余编号 3/5/7；最近齿轮 3 约 135 px；按排除法与区域分配。"
+      }
+    ],
+    "0x36725373": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 5",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "剩余编号 3/5/7；点位在 Crypt of Rimak 一带；按排除法与区域分配。"
+      }
+    ],
+    "0x36725370": [
+      {
+        "source_id": "src:stella-peruvian-jungle-collectibles",
+        "region_id": "peruvian_jungle",
+        "locator": "SURVIVAL CACHE 7",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "剩余编号 3/5/7；按排除法与区域分配。"
+      }
+    ],
+    "0xE871F8D9": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 2",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "点位距齿轮 2 约 56 px；Cenote Vista 水池南岸，对应 CACHE 2。"
+      }
+    ],
+    "0xE871F8DA": [
+      {
+        "source_id": "src:stella-cenote-collectibles",
+        "region_id": "cenote",
+        "locator": "SURVIVAL CACHE 4",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "点位距齿轮 4 约 24 px；Collapsed Temple 下方溪流，对应 CACHE 4。"
+      }
+    ],
+    "0x0B3F2EC1": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 5 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 81.4 px；稀有贮藏点，限定为 Monolith Riches 5/13/14/22/23。"
+      }
+    ],
+    "0xBB000659": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 22 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 71.2 px；稀有贮藏点，限定为 Monolith Riches 5/13/14/22/23。"
+      }
+    ],
+    "0x72112A9C": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 14 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 396.6 px；稀有贮藏点，限定为 Monolith Riches 5/13/14/22/23。"
+      }
+    ],
+    "0xA794E81D": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 23 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 340.8 px；稀有贮藏点，限定为 Monolith Riches 5/13/14/22/23。"
+      }
+    ],
+    "0xBB00065A": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 13 (Monolith Riches)",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 78.4 px；稀有贮藏点，限定为 Monolith Riches 5/13/14/22/23。"
+      }
+    ],
+    "0x851B48F5": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 7",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 80.9 px。"
+      }
+    ],
+    "0x851B48FA": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 16",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 82.3 px。"
+      }
+    ],
+    "0x851B48FB": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 3",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 63.9 px。"
+      }
+    ],
+    "0x851B48F8": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 4",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 74.0 px。"
+      }
+    ],
+    "0x851B48F9": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 12",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 74.2 px。"
+      }
+    ],
+    "0x851B48EE": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 9",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 72.7 px。"
+      }
+    ],
+    "0x851B48EF": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 15",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 80.1 px。"
+      }
+    ],
+    "0x851B48EC": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 1",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 75.3 px。"
+      }
+    ],
+    "0x851B48ED": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 10",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 69.4 px。"
+      }
+    ],
+    "0x851B491B": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 6",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 83.7 px。"
+      }
+    ],
+    "0x851B491A": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 8",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 75.2 px。"
+      }
+    ],
+    "0x851B4919": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 2",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 72.2 px。"
+      }
+    ],
+    "0x851B4915": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 32",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 46.9 px。"
+      }
+    ],
+    "0x851B4914": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 31",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 73.3 px。"
+      }
+    ],
+    "0xB419E702": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 25",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 10.0 px。"
+      }
+    ],
+    "0xB419E703": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 30",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 7.7 px。"
+      }
+    ],
+    "0xB419E6FE": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 24",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 13.4 px。"
+      }
+    ],
+    "0xC3DEB9BC": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 19",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 59.5 px。"
+      }
+    ],
+    "0xC3DEB9C2": [
+      {
+        "source_id": "src:stella-paititi-caches",
+        "region_id": "paititi",
+        "locator": "SURVIVAL CACHE 18",
+        "scope": "item",
+        "confidence": "verified",
+        "verified_at": "2026-11-15",
+        "note": "LLM 整图编号 + 配准距离 71.3 px。"
       }
     ]
   }

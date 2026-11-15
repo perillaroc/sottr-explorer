@@ -27,7 +27,7 @@
 `data/catalog/guides.json` 是逐条攻略映射的创作数据集：按条目 ID 记录来源、来源页定位、
 粒度与核对状态。只有 `scope = item` 且 `confidence = verified` 的引用会在
 `build_metadata.py` 构建时合并为元数据 `exact_guide_item`，界面据此在详情里显示
-「攻略页 · 定位」。当前已收录 301 条 verified item 映射；`py -3 data/catalog/check_guides.py`
+「攻略页 · 定位」。当前已收录 352 条 verified item 映射，覆盖全部必收条目；`py -3 data/catalog/check_guides.py`
 校验结构、来源与覆盖计数；加 `--worklist` 可打印仍缺逐条链接的必收条目。
 
 ## 位置口径

@@ -25,10 +25,10 @@ GUIDES_PATH = HERE / "guides.json"
 
 # Deliberate coverage gate: update these numbers only when a new batch is committed.
 EXPECTED = {
-    "items": 301,
-    "refs": 301,
-    "verified_item": 301,
-    "required_with_refs": 301,
+    "items": 352,
+    "refs": 352,
+    "verified_item": 352,
+    "required_with_refs": 352,
 }
 
 SCOPES = {"item", "collection", "unit"}

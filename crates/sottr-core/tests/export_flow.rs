@@ -267,7 +267,7 @@ fn export_csv_keeps_identity_and_item_semantics() {
         );
     }
 
-    // 逐项语义：present 贮藏点 → likely_collected；组定位为 guide_group。
+    // 逐项语义：present 贮藏点 → likely_collected；精确 item 定位优先于组级。
     let cache_row = rows[1..]
         .iter()
         .find(|row| row[6] == "0x0F28B6EC")
@@ -277,11 +277,8 @@ fn export_csv_keeps_identity_and_item_semantics() {
     assert_eq!(cache_row[10], "community_correlated");
     assert_eq!(cache_row[11], "refdiff.v1.likely_collected");
     assert!(cache_row[12].contains("参考"), "规则描述：{cache_row:?}");
-    assert_eq!(
-        cache_row[13],
-        "loc:guide:mission_of_san_juan:survival_caches"
-    );
-    assert_eq!(cache_row[14], "guide_group");
+    assert_eq!(cache_row[13], "loc:item:0x0F28B6EC");
+    assert_eq!(cache_row[14], "guide_item");
     let names: Vec<String> = serde_json::from_str(&cache_row[7]).unwrap();
     assert!(
         names
@@ -298,13 +295,13 @@ fn export_csv_keeps_identity_and_item_semantics() {
     assert_eq!(missing_row[9], "likely_missing");
     assert_eq!(missing_row[11], "refdiff.v1.likely_missing");
 
-    // 帕伊提提线索 ID 现在属于区域×类别攻略组，导出取更精确的 guide_group 定位。
+    // 帕伊提提贮藏点同样优先使用精确 item 定位。
     let region_row = rows[1..]
         .iter()
         .find(|row| row[6] == "0x851B4915")
         .expect("帕伊提提线索条目必须在 CSV 中");
-    assert_eq!(region_row[13], "loc:guide:paititi:survival_caches");
-    assert_eq!(region_row[14], "guide_group");
+    assert_eq!(region_row[13], "loc:item:0x851B4915");
+    assert_eq!(region_row[14], "guide_item");
 
     // 全表无危险前缀单元格（公式保护在整表范围成立）。
     for row in &rows[1..] {

@@ -66,9 +66,8 @@ py -3 data/catalog/check_guides.py --worklist   # 打印仍缺逐条链接的必
 py -3 data/catalog/check_guides.py --worklist --text-only  # 先做无地图的 109 条（已覆盖 2 条，余 107）
 ```
 
-当前：**301 条** verified item 映射（遗物/文献/壁画/贮藏点/墓穴宝藏/石碑）。
-无地图批次 **109/109** 全部有逐条下落；全量必收剩余 51 条（47 条贮藏点 + 4 条帕依提提石碑）。
-`check_guides.py` 的期望计数需随批次显式更新，不允许静默漂移。
+当前：**352 条** verified item 映射，覆盖全部必收条目（352/352）。
+每条必收都有地图、合集/子关卡指引或逐条攻略来源；`check_guides.py` 的期望计数需随批次显式更新，不允许静默漂移。
 
 ## 验收（最强的一条）
 

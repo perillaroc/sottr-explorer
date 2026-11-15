@@ -386,10 +386,10 @@ fn dataset_contains_no_fake_points_or_unbacked_exact_mappings() {
         }
     }
     assert_eq!(
-        mappings, 313,
-        "12 条既有组级/区域线索 + 301 条逐条攻略映射"
+        mappings, 364,
+        "12 条既有组级/区域线索 + 352 条逐条攻略映射"
     );
-    assert_eq!(exact, 301, "逐条攻略映射数量");
+    assert_eq!(exact, 352, "逐条攻略映射数量");
     for group in dataset.guide_groups.values() {
         if group.counter_keys.is_empty() {
             assert!(
