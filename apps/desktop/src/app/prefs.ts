@@ -11,6 +11,7 @@ export type ViewId =
   | "import"
   | "overview"
   | "full"
+  | "plan"
   | "regions"
   | "map"
   | "diagnostics"

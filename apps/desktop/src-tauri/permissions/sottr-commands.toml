@@ -40,6 +40,16 @@ description = "允许 export_report：把当前快照导出为新目录中的 JS
 commands.allow = ["export_report"]
 
 [[permission]]
+identifier = "allow-export-plan"
+description = "允许 export_plan：把界面按当前筛选生成的收集清单写入新目录（plan.html / plan.csv；快照绑定、大小上限、分享脱敏，不覆盖存档或既有目录）"
+commands.allow = ["export_plan"]
+
+[[permission]]
+identifier = "allow-open-export-folder"
+description = "允许 open_export_folder：用系统文件管理器打开本进程刚刚导出过的目录（只接受后端记录的路径，不打开任意位置）"
+commands.allow = ["open_export_folder"]
+
+[[permission]]
 identifier = "allow-resolve-guide-link"
 description = "允许 resolve_guide_link：按稳定 ID 解析元数据来源链接（仅 http/https，不打开浏览器；供“复制已核验链接”）"
 commands.allow = ["resolve_guide_link"]

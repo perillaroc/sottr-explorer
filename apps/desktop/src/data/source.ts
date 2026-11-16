@@ -106,7 +106,30 @@ export interface ExportOutcomeDto {
   freshness: "current" | "refreshing" | "stale" | "none";
   last_refresh_error_code: string | null;
   share: boolean;
+  /** 实际写出的新目录（后端记录；“打开导出目录”只接受记录过的目录）。 */
+  output_dir: string;
   artifacts: ExportArtifactDto[];
+}
+
+/** 收集计划清单的导出格式（P1-2）：可打印 HTML / CSV / 两者。 */
+export type PlanExportFormat = "html" | "csv" | "both";
+
+/**
+ * 计划清单导出请求（P1-2）：内容由界面按当前筛选生成，后端只做参数、
+ * 大小、路径与脱敏校验后写入新目录（固定文件名 `plan.html` / `plan.csv`）。
+ */
+export interface PlanExportRequest {
+  snapshotId: string;
+  inputRef: string;
+  /** 必须是尚不存在的新目录（导出不覆盖任何内容）。 */
+  outputDir: string;
+  format: PlanExportFormat;
+  /** 分享脱敏（默认开启；关闭需要用户显式取消勾选）。 */
+  share: boolean;
+  /** `format` 含 html 时必填。 */
+  html: string | null;
+  /** `format` 含 csv 时必填。 */
+  csv: string | null;
 }
 
 /** 攻略链接请求（同 SX-014 `resolve_guide_link`/`open_guide_link` 参数）。 */
@@ -143,6 +166,13 @@ export interface DataSource {
   cancel(requestId: string): void | Promise<void>;
   /** 把当前快照导出为新目录中的 JSON/CSV（不覆盖存档或既有报告）。 */
   exportReport(request: ExportRequest): Promise<ExportOutcomeDto>;
+  /** 把收集计划清单导出为新目录中的 HTML/CSV（P1-2）。 */
+  exportPlan(request: PlanExportRequest): Promise<ExportOutcomeDto>;
+  /**
+   * 在系统文件管理器中打开**本进程刚刚导出**的目录（P1-2）。
+   * 后端只接受自己记录过的导出目录，返回实际打开的路径。
+   */
+  openExportFolder(path: string): Promise<string>;
   /** 仅解析（校验）攻略来源链接，不打开系统浏览器。 */
   resolveGuideLink(request: GuideLinkRequest): Promise<GuideLinkDto>;
   /** 解析并交给系统外部浏览器（WebView 不加载网页）。 */

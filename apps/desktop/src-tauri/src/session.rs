@@ -30,7 +30,7 @@ use sottr_core::report::{Freshness, GroupActionKind, InputError, Report};
 
 use serde::Serialize;
 
-use crate::commands::CommandError;
+use crate::commands::{CODE_EXPORT_OPEN_FAILED, CommandError};
 
 /// 内嵌元数据文件（`file_id` 与仓库 `data/metadata/` 同名；`manifest.json` 不是数据集）。
 pub const EMBEDDED_METADATA_FILES: &[(&str, &str)] = &[
@@ -60,6 +60,10 @@ pub type UrlOpener = Arc<dyn Fn(&str) -> Result<(), String> + Send + Sync>;
 ///
 /// 参数为稳定种类字符串（`file` / `directory`），返回所选路径（取消为 `None`）。
 pub type FilePicker = Arc<dyn Fn(&str) -> Result<Option<PathBuf>, String> + Send + Sync>;
+
+/// 目录打开器：生产环境用系统文件管理器打开**本进程导出过**的目录；
+/// 测试注入记录器，避免真的启动资源管理器。
+pub type PathOpener = Arc<dyn Fn(&Path) -> Result<(), String> + Send + Sync>;
 
 /// 加载内嵌元数据（错误文本可直接展示；不提供任何兜底字典）。
 pub fn embedded_metadata() -> Result<MetadataBundle, String> {
@@ -428,8 +432,12 @@ pub struct DesktopState {
     session: Arc<Mutex<Session>>,
     url_opener: Arc<Mutex<Option<UrlOpener>>>,
     file_picker: Arc<Mutex<Option<FilePicker>>>,
+    path_opener: Arc<Mutex<Option<PathOpener>>>,
     /// 详情弹窗最近一次 payload（只读内存，不落盘；窗口关闭不清除，下次打开覆盖）。
     detail_payload: Arc<Mutex<Option<String>>>,
+    /// 本进程成功写出的导出目录（规范化路径 → 实际路径）。
+    /// `open_export_folder` 只接受这里的目录，前端不能指定任意路径打开。
+    export_dirs: Arc<Mutex<BTreeMap<PathBuf, PathBuf>>>,
 }
 
 impl DesktopState {
@@ -439,7 +447,9 @@ impl DesktopState {
             session: Arc::new(Mutex::new(Session::new())),
             url_opener: Arc::new(Mutex::new(None)),
             file_picker: Arc::new(Mutex::new(None)),
+            path_opener: Arc::new(Mutex::new(None)),
             detail_payload: Arc::new(Mutex::new(None)),
+            export_dirs: Arc::new(Mutex::new(BTreeMap::new())),
         }
     }
 
@@ -456,6 +466,37 @@ impl DesktopState {
     /// 注入文件/目录选择器（生产：dialog 插件；测试：固定值）。
     pub fn set_file_picker(&self, picker: FilePicker) {
         *lock(&self.file_picker) = Some(picker);
+    }
+
+    /// 注入目录打开器（生产：opener 插件的 `open_path`；测试：记录器）。
+    pub fn set_path_opener(&self, opener: PathOpener) {
+        *lock(&self.path_opener) = Some(opener);
+    }
+
+    /// 记录一次成功导出的目录（提交成功后才调用）。
+    pub fn record_export_dir(&self, dir: &Path) {
+        let key = std::fs::canonicalize(dir).unwrap_or_else(|_| dir.to_path_buf());
+        let value = dir.to_path_buf();
+        lock(&self.export_dirs).insert(key, value);
+    }
+
+    /// 已记录的导出目录：只返回本进程导出过、且真实存在的目录。
+    pub fn recorded_export_dir(&self, requested: &Path) -> Option<PathBuf> {
+        let key = std::fs::canonicalize(requested).ok()?;
+        lock(&self.export_dirs).get(&key).cloned()
+    }
+
+    /// 用系统文件管理器打开已记录的导出目录（失败映射 `EXPORT_OPEN_FAILED`）。
+    pub fn open_path(&self, path: &Path) -> Result<(), CommandError> {
+        let opener = lock(&self.path_opener)
+            .clone()
+            .ok_or_else(|| CommandError::internal("目录打开器未初始化"))?;
+        opener(path).map_err(|error| {
+            CommandError::new(
+                CODE_EXPORT_OPEN_FAILED,
+                format!("无法打开导出目录 {}：{error}", path.display()),
+            )
+        })
     }
 
     /// 取文件选择器；未注入时返回 `INTERNAL`（生产不出现）。

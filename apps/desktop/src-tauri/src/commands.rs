@@ -20,7 +20,7 @@ use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use tauri::{Emitter, Manager, State};
 
 use sottr_core::analyze::analyze_bytes;
@@ -53,6 +53,12 @@ pub const CODE_METADATA_UNAVAILABLE: &str = "METADATA_UNAVAILABLE";
 pub const CODE_SNAPSHOT_UNKNOWN: &str = "SNAPSHOT_UNKNOWN";
 /// 快照与输入槽位不匹配（跨槽导出/动作被拒绝）。
 pub const CODE_SNAPSHOT_MISMATCH: &str = "SNAPSHOT_MISMATCH";
+/// 只能打开本应用导出过的目录（P1-2；前端不能指定任意路径）。
+pub const CODE_EXPORT_DIR_UNKNOWN: &str = "EXPORT_DIR_UNKNOWN";
+/// 系统文件管理器未能打开导出目录（P1-2）。
+pub const CODE_EXPORT_OPEN_FAILED: &str = "EXPORT_OPEN_FAILED";
+/// 计划清单导出的内容上限（单次 HTML + CSV 合计字节数）。
+pub const MAX_PLAN_EXPORT_BYTES: usize = 4 * 1024 * 1024;
 /// 定位线索不属于该快照的报告。
 pub const CODE_LINK_LOCATION_UNKNOWN: &str = "LINK_LOCATION_UNKNOWN";
 /// 来源不属于该定位线索（自造目标被拒绝）。
@@ -207,6 +213,41 @@ pub fn parse_export_format(format: Option<&str>) -> Result<ExportFormat, Command
         "both" => Ok(ExportFormat::Both),
         other => Err(CommandError::invalid_params(format!(
             "format 仅支持 json、csv 或 both，收到 {other:?}"
+        ))),
+    }
+}
+
+/// 收集计划清单的导出格式（P1-2）。
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PlanExportFormat {
+    /// 仅可打印 HTML。
+    Html,
+    /// 仅 CSV。
+    Csv,
+    /// HTML + CSV。
+    Both,
+}
+
+impl PlanExportFormat {
+    /// 是否写出 HTML。
+    pub fn includes_html(self) -> bool {
+        matches!(self, PlanExportFormat::Html | PlanExportFormat::Both)
+    }
+
+    /// 是否写出 CSV。
+    pub fn includes_csv(self) -> bool {
+        matches!(self, PlanExportFormat::Csv | PlanExportFormat::Both)
+    }
+}
+
+/// 解析计划清单导出格式；缺省为 `both`。
+pub fn parse_plan_export_format(format: Option<&str>) -> Result<PlanExportFormat, CommandError> {
+    match format.unwrap_or("both") {
+        "html" => Ok(PlanExportFormat::Html),
+        "csv" => Ok(PlanExportFormat::Csv),
+        "both" => Ok(PlanExportFormat::Both),
+        other => Err(CommandError::invalid_params(format!(
+            "format 仅支持 html、csv 或 both，收到 {other:?}"
         ))),
     }
 }
@@ -717,7 +758,7 @@ pub fn cancel_analysis(
 /// 导出产物。
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct ExportArtifact {
-    /// 文件名（`report.json` / `report.csv`）。
+    /// 文件名（`report.json` / `report.csv` / `plan.html` / `plan.csv`）。
     pub name: String,
     /// 实际写出路径。
     pub path: String,
@@ -736,8 +777,28 @@ pub struct ExportOutcome {
     pub last_refresh_error_code: Option<String>,
     /// 是否分享脱敏。
     pub share: bool,
+    /// 实际写出的新目录（“打开导出目录”只接受记录过的目录）。
+    pub output_dir: String,
     /// 产物清单。
     pub artifacts: Vec<ExportArtifact>,
+}
+
+/// 导出目标与输入的路径规则（报告导出与计划清单导出复用）。
+///
+/// 输入仍可解析时用文件本身（解析链接与真实大小写）；输入已被移走或锁定
+/// （旧结果导出场景）时退回其父目录，规则等价（输出仍不得位于存档目录内），
+/// 且不需要打开输入。
+fn validate_export_output(stored: &StoredSnapshot, output: &Path) -> Result<(), CommandError> {
+    let overlap_input = if stored.input_path.is_file() {
+        stored.input_path.clone()
+    } else {
+        stored
+            .input_path
+            .parent()
+            .map(Path::to_path_buf)
+            .unwrap_or_else(|| stored.input_path.clone())
+    };
+    path_policy::validate_output(output, &[overlap_input.as_path()]).map_err(map_output_path_error)
 }
 
 /// 把当前快照导出为 JSON 信封与/或 CSV；引用同一 `input_digest` 与元数据版本。
@@ -766,20 +827,7 @@ pub async fn export_report(
         ));
     }
     let output = PathBuf::from(&output_dir);
-    // 输入与输出不得重叠：输入仍可解析时用文件本身（解析链接与真实大小写）；
-    // 输入已被移走或锁定（旧结果导出场景）时退回其父目录，规则等价（输出仍不得
-    // 位于存档目录内），且不需要打开输入。
-    let overlap_input = if stored.input_path.is_file() {
-        stored.input_path.clone()
-    } else {
-        stored
-            .input_path
-            .parent()
-            .map(Path::to_path_buf)
-            .unwrap_or_else(|| stored.input_path.clone())
-    };
-    path_policy::validate_output(&output, &[overlap_input.as_path()])
-        .map_err(map_output_path_error)?;
+    validate_export_output(&stored, &output)?;
 
     let refresh_error_code = stored.last_refresh_error_code();
     let document = export_document(
@@ -823,19 +871,22 @@ pub async fn export_report(
     }
 
     let artifact_names: Vec<String> = artifacts.iter().map(|(name, _)| name.clone()).collect();
+    let output_for_commit = output.clone();
     let paths = tauri::async_runtime::spawn_blocking(move || {
-        output_commit::prepare(&output, &artifacts).and_then(|staging| staging.commit())
+        output_commit::prepare(&output_for_commit, &artifacts).and_then(|staging| staging.commit())
     })
     .await
     .map_err(|error| CommandError::internal(format!("导出任务异常结束：{error}")))?
     .map_err(|error| CommandError::new(error.code.as_str(), error.message))?;
 
+    state.record_export_dir(&output);
     Ok(ExportOutcome {
         snapshot_id: stored.snapshot_id,
         input_ref: stored.input_ref,
         freshness: stored.freshness,
         last_refresh_error_code: refresh_error_code,
         share,
+        output_dir: output.to_string_lossy().into_owned(),
         artifacts: artifact_names
             .into_iter()
             .zip(paths)
@@ -845,6 +896,176 @@ pub async fn export_report(
             })
             .collect(),
     })
+}
+
+// ---------------------------------------------------------------------------
+// 命令：收集计划清单导出（P1-2）
+// ---------------------------------------------------------------------------
+
+/// 计划清单导出的 IPC 载荷（P1-2）：字段与前端请求一一对应，拒绝未知字段。
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PlanExportPayload {
+    /// 当前快照标识（必须属于当前输入）。
+    pub snapshot_id: String,
+    /// 输入引用（文件名），必须与快照一致。
+    pub input_ref: String,
+    /// 尚不存在的新目录。
+    pub output_dir: String,
+    /// `html` / `csv` / `both`（缺省 both）。
+    #[serde(default)]
+    pub format: Option<String>,
+    /// 分享脱敏（缺省开启）。
+    #[serde(default)]
+    pub share: Option<bool>,
+    /// HTML 内容（format 含 html 时必填）。
+    #[serde(default)]
+    pub html: Option<String>,
+    /// CSV 内容（format 含 csv 时必填）。
+    #[serde(default)]
+    pub csv: Option<String>,
+}
+
+/// 把界面按当前筛选生成的收集清单写入新目录（`plan.html` / `plan.csv`）。
+///
+/// 内容由界面生成（必须与页面所见一致），后端仍做完整校验：快照身份、
+/// 格式与内容配套、大小上限、分享模式的路径扫描，以及同报告导出一致的
+/// 新目录 / 不覆盖 / 不与输入重叠规则。成功后记录目录，供“打开导出目录”使用。
+#[tauri::command]
+pub async fn export_plan(
+    state: State<'_, DesktopState>,
+    request: PlanExportPayload,
+) -> Result<ExportOutcome, CommandError> {
+    let PlanExportPayload {
+        snapshot_id,
+        input_ref,
+        output_dir,
+        format,
+        share,
+        html,
+        csv,
+    } = request;
+    if snapshot_id.trim().is_empty() {
+        return Err(CommandError::invalid_params("snapshot_id 不能为空"));
+    }
+    let format = parse_plan_export_format(format.as_deref())?;
+    let share = share.unwrap_or(true);
+    let stored = state.with_session(|session| session.snapshot(&snapshot_id))?;
+    if stored.input_ref != input_ref {
+        return Err(CommandError::snapshot_mismatch(
+            &stored.input_ref,
+            &input_ref,
+        ));
+    }
+
+    let html = match (format.includes_html(), html) {
+        (true, Some(contents)) if !contents.trim().is_empty() => Some(contents),
+        (true, _) => {
+            return Err(CommandError::invalid_params(
+                "format 含 html 时必须提供非空 html 内容",
+            ));
+        }
+        (false, _) => None,
+    };
+    let csv = match (format.includes_csv(), csv) {
+        (true, Some(contents)) if !contents.trim().is_empty() => Some(contents),
+        (true, _) => {
+            return Err(CommandError::invalid_params(
+                "format 含 csv 时必须提供非空 csv 内容",
+            ));
+        }
+        (false, _) => None,
+    };
+    let total = html.as_ref().map_or(0, String::len) + csv.as_ref().map_or(0, String::len);
+    if total > MAX_PLAN_EXPORT_BYTES {
+        return Err(CommandError::invalid_params(format!(
+            "清单内容超过上限（{total} > {MAX_PLAN_EXPORT_BYTES} 字节）"
+        )));
+    }
+    if share {
+        for (name, contents) in [("plan.html", html.as_deref()), ("plan.csv", csv.as_deref())] {
+            let Some(contents) = contents else {
+                continue;
+            };
+            let findings = scan_private_material(contents);
+            if !findings.is_empty() {
+                return Err(CommandError::internal(format!(
+                    "分享导出自检失败（{name} 仍含路径样片段）：{}",
+                    findings.join("；")
+                )));
+            }
+        }
+    }
+
+    let output = PathBuf::from(&output_dir);
+    validate_export_output(&stored, &output)?;
+
+    let mut artifacts: Vec<(String, String)> = Vec::new();
+    if let Some(html) = html {
+        artifacts.push(("plan.html".to_string(), html));
+    }
+    if let Some(csv) = csv {
+        artifacts.push(("plan.csv".to_string(), csv));
+    }
+    let artifact_names: Vec<String> = artifacts.iter().map(|(name, _)| name.clone()).collect();
+    let output_for_commit = output.clone();
+    let paths = tauri::async_runtime::spawn_blocking(move || {
+        output_commit::prepare(&output_for_commit, &artifacts).and_then(|staging| staging.commit())
+    })
+    .await
+    .map_err(|error| CommandError::internal(format!("导出任务异常结束：{error}")))?
+    .map_err(|error| CommandError::new(error.code.as_str(), error.message))?;
+
+    let refresh_error_code = stored.last_refresh_error_code();
+    state.record_export_dir(&output);
+    Ok(ExportOutcome {
+        snapshot_id: stored.snapshot_id,
+        input_ref: stored.input_ref,
+        freshness: stored.freshness,
+        last_refresh_error_code: refresh_error_code,
+        share,
+        output_dir: output.to_string_lossy().into_owned(),
+        artifacts: artifact_names
+            .into_iter()
+            .zip(paths)
+            .map(|(name, path)| ExportArtifact {
+                name,
+                path: path.to_string_lossy().into_owned(),
+            })
+            .collect(),
+    })
+}
+
+/// 在系统文件管理器中打开本次会话写出过的导出目录。
+///
+/// 只接受 [`DesktopState::recorded_export_dir`] 记录过的目录（不存在的、未被
+/// 本进程导出的、UNC/设备路径一律拒绝），前端不能借它打开任意位置。
+#[tauri::command]
+pub fn open_export_folder(
+    state: State<'_, DesktopState>,
+    path: String,
+) -> Result<String, CommandError> {
+    if path.trim().is_empty() {
+        return Err(CommandError::invalid_params("path 不能为空"));
+    }
+    let requested = PathBuf::from(&path);
+    match path_policy::classify(&requested) {
+        path_policy::PathClass::Unc | path_policy::PathClass::Device => {
+            return Err(CommandError::new(
+                CODE_UNSUPPORTED_LOCATION,
+                format!("暂不支持网络（UNC）或设备命名空间位置：{path}"),
+            ));
+        }
+        path_policy::PathClass::Local | path_policy::PathClass::VerbatimLocal => {}
+    }
+    let dir = state.recorded_export_dir(&requested).ok_or_else(|| {
+        CommandError::new(
+            CODE_EXPORT_DIR_UNKNOWN,
+            format!("只能打开本应用刚刚导出的目录：{path}"),
+        )
+    })?;
+    state.open_path(&dir)?;
+    Ok(dir.to_string_lossy().into_owned())
 }
 
 // ---------------------------------------------------------------------------
@@ -1061,6 +1282,34 @@ mod tests {
         assert_eq!(
             parse_export_format(Some("xlsx")).unwrap_err().code,
             CODE_INVALID_PARAMS
+        );
+        // 计划清单导出格式（P1-2）：html / csv / both，缺省 both。
+        assert_eq!(
+            parse_plan_export_format(None).unwrap(),
+            PlanExportFormat::Both
+        );
+        assert_eq!(
+            parse_plan_export_format(Some("html")).unwrap(),
+            PlanExportFormat::Html
+        );
+        assert_eq!(
+            parse_plan_export_format(Some("csv")).unwrap(),
+            PlanExportFormat::Csv
+        );
+        assert!(
+            parse_plan_export_format(Some("html"))
+                .unwrap()
+                .includes_html()
+        );
+        assert!(
+            !parse_plan_export_format(Some("html"))
+                .unwrap()
+                .includes_csv()
+        );
+        assert_eq!(
+            parse_plan_export_format(Some("json")).unwrap_err().code,
+            CODE_INVALID_PARAMS,
+            "报告导出格式不能复用到计划清单"
         );
     }
 

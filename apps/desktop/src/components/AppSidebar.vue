@@ -5,6 +5,7 @@
 import { computed } from "vue";
 import {
   Activity,
+  ClipboardList,
   FolderOpen,
   Info,
   LayoutDashboard,
@@ -58,7 +59,7 @@ function itemClass(active: boolean, region = false): string {
   return `${base} ${state} ${collapsed}`;
 }
 
-function go(view: "import" | "overview" | "full" | "regions" | "map" | "diagnostics" | "settings" | "about"): void {
+function go(view: "import" | "overview" | "full" | "plan" | "regions" | "map" | "diagnostics" | "settings" | "about"): void {
   store.actions.setView(view);
 }
 
@@ -115,6 +116,20 @@ function goRegion(region: string): void {
           <Trophy :size="18" class="shrink-0" aria-hidden="true" />
           <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("全收集（100%）", "Full collection (100%)") }}</span>
           <span v-else class="sr-only">{{ t("全收集（100%）", "Full collection (100%)") }}</span>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          :class="itemClass(store.state.view === 'plan')"
+          :disabled="!hasResult"
+          :title="hasResult ? t('收集计划（这次去哪里收）', 'Collection plan (where to go next)') : t('收集计划：先分析一个存档文件', 'Collection plan: analyze a save file first')"
+          :aria-current="store.state.view === 'plan' ? 'page' : undefined"
+          @click="go('plan')"
+        >
+          <ClipboardList :size="18" class="shrink-0" aria-hidden="true" />
+          <span v-if="props.expanded" class="min-w-0 flex-1 truncate">{{ t("收集计划", "Collection plan") }}</span>
+          <span v-else class="sr-only">{{ t("收集计划", "Collection plan") }}</span>
         </button>
       </li>
       <li>

@@ -17,6 +17,7 @@ import type {
   GuideLinkDto,
   GuideLinkRequest,
   PickKind,
+  PlanExportRequest,
 } from "./source";
 
 /** 是否运行在 Tauri（WebView）内；浏览器开发/测试环境返回 false。 */
@@ -67,6 +68,24 @@ export class TauriDataSource implements DataSource {
       format: request.format,
       share: request.share,
     });
+  }
+
+  exportPlan(request: PlanExportRequest): Promise<ExportOutcomeDto> {
+    return invoke<ExportOutcomeDto>("export_plan", {
+      request: {
+        snapshotId: request.snapshotId,
+        inputRef: request.inputRef,
+        outputDir: request.outputDir,
+        format: request.format,
+        share: request.share,
+        html: request.html,
+        csv: request.csv,
+      },
+    });
+  }
+
+  openExportFolder(path: string): Promise<string> {
+    return invoke<string>("open_export_folder", { path });
   }
 
   resolveGuideLink(request: GuideLinkRequest): Promise<GuideLinkDto> {

@@ -71,6 +71,8 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             commands::analyze_file,
             commands::cancel_analysis,
             commands::export_report,
+            commands::export_plan,
+            commands::open_export_folder,
             commands::resolve_guide_link,
             commands::open_guide_link,
             commands::open_external_url,
@@ -103,6 +105,16 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
                     dialog.blocking_pick_folder()
                 };
                 Ok(picked.and_then(|path| path.into_path().ok()))
+            }));
+            // 生产：用系统文件管理器打开**本进程导出过**的目录；命令层只接受
+            // 后端记录的导出目录，前端无法用它打开任意位置。
+            let path_opener_handle = app.handle().clone();
+            state.set_path_opener(Arc::new(move |path: &std::path::Path| {
+                use tauri_plugin_opener::OpenerExt;
+                path_opener_handle
+                    .opener()
+                    .open_path(path.to_string_lossy().into_owned(), None::<&str>)
+                    .map_err(|error| error.to_string())
             }));
             Ok(())
         })

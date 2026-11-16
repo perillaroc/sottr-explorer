@@ -8,7 +8,7 @@
 // - 取消导出静默返回；写盘失败给原因与重试；成功后显示实际目标；
 // - 旧报告只可在明确标记快照身份与 stale 的情况下导出（结果区常驻标记）。
 import { computed } from "vue";
-import { FolderOpen, HardDriveDownload } from "@lucide/vue";
+import { FolderOpen, FolderOpenDot, HardDriveDownload } from "@lucide/vue";
 import { useStore } from "../app/inject";
 import { t } from "../app/i18n";
 import { recoveryHint } from "../data/errors";
@@ -171,6 +171,10 @@ function close(): void {
             {{ artifact.name }}：{{ artifact.path }}
           </li>
         </ul>
+        <UiButton size="sm" data-testid="export-open-folder" @click="store.actions.openExportFolder(exportState.outcome.output_dir)">
+          <FolderOpenDot :size="15" aria-hidden="true" />
+          {{ t("打开导出目录", "Open export folder") }}
+        </UiButton>
         <p class="text-xs text-muted">{{ t("产物已写入上述目标目录；本应用不会修改或删除既有文件。", "The artifacts were written to the target folder above; this app never modifies or deletes existing files.") }}</p>
       </section>
     </div>

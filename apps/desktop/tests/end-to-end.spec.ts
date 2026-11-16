@@ -17,7 +17,7 @@ import { TauriDataSource } from "../src/data/tauri";
 import { createAppStore } from "../src/app/store";
 import { demoObservedIds } from "../src/data/atlas";
 import { buildCompleteReport, buildDegradedReport, buildNonzeroReport, buildProfileReport } from "../src/data/mockReports";
-import { mockCandidates, mockDiscovery, MOCK_ROOT_A } from "../src/data/mockInputs";
+import { mockCandidates, mockDiscovery, mockPickedExportParent, MOCK_ROOT_A } from "../src/data/mockInputs";
 import { mount } from "@vue/test-utils";
 import type { DesktopResult } from "../src/contract/desktop-result";
 import type { Report } from "../src/contract/report";
@@ -36,6 +36,9 @@ class FakeDesktopBackend {
   readonly calls: Call[] = [];
   readonly snapshots = new Map<string, { result: DesktopResult; inputPath: string }>();
   readonly createdDirs = new Set<string>();
+  readonly exportDirs = new Map<string, string>();
+  readonly openedExportDirs: string[] = [];
+  readonly planExports: Record<string, unknown>[] = [];
   readonly openedUrls: string[] = [];
   failOpen = false;
   private attempts = new Map<string, number>();
@@ -64,6 +67,10 @@ class FakeDesktopBackend {
         return { request_id: payload.requestId, cancelled: true };
       case "export_report":
         return this.exportReport(payload);
+      case "export_plan":
+        return this.exportPlan((payload.request ?? payload) as Record<string, unknown>);
+      case "open_export_folder":
+        return this.openExportFolder(payload);
       case "resolve_guide_link":
         return this.guideLink(payload);
       case "open_guide_link": {
@@ -175,6 +182,7 @@ class FakeDesktopBackend {
       throw { code: "OUTPUT_EXISTS", message: `目标目录已存在：${outputDir}` };
     }
     this.createdDirs.add(outputDir.toLowerCase());
+    this.exportDirs.set(outputDir.toLowerCase(), outputDir);
     const artifacts: { name: string; path: string }[] = [];
     if (payload.format === "json" || payload.format === "both") {
       artifacts.push({ name: "report.json", path: `${outputDir}\\report.json` });
@@ -188,8 +196,53 @@ class FakeDesktopBackend {
       freshness: stored.result.freshness,
       last_refresh_error_code: stored.result.last_refresh_error?.code ?? null,
       share: payload.share === true,
+      output_dir: outputDir,
       artifacts,
     };
+  }
+
+  private exportPlan(payload: Record<string, unknown>) {
+    const snapshotId = String(payload.snapshotId);
+    const stored = this.snapshots.get(snapshotId);
+    if (!stored) {
+      throw { code: "SNAPSHOT_UNKNOWN", message: "未知快照" };
+    }
+    if (stored.result.input_ref !== payload.inputRef) {
+      throw { code: "SNAPSHOT_MISMATCH", message: "导出与槽位不一致" };
+    }
+    const outputDir = String(payload.outputDir);
+    if (this.createdDirs.has(outputDir.toLowerCase())) {
+      throw { code: "OUTPUT_EXISTS", message: `目标目录已存在：${outputDir}` };
+    }
+    this.createdDirs.add(outputDir.toLowerCase());
+    this.exportDirs.set(outputDir.toLowerCase(), outputDir);
+    this.planExports.push(payload);
+    const artifacts: { name: string; path: string }[] = [];
+    if (payload.format === "html" || payload.format === "both") {
+      artifacts.push({ name: "plan.html", path: `${outputDir}\\plan.html` });
+    }
+    if (payload.format === "csv" || payload.format === "both") {
+      artifacts.push({ name: "plan.csv", path: `${outputDir}\\plan.csv` });
+    }
+    return {
+      snapshot_id: snapshotId,
+      input_ref: stored.result.input_ref,
+      freshness: stored.result.freshness,
+      last_refresh_error_code: stored.result.last_refresh_error?.code ?? null,
+      share: payload.share === true,
+      output_dir: outputDir,
+      artifacts,
+    };
+  }
+
+  private openExportFolder(payload: Record<string, unknown>) {
+    const path = String(payload.path);
+    const recorded = this.exportDirs.get(path.toLowerCase());
+    if (!recorded) {
+      throw { code: "EXPORT_DIR_UNKNOWN", message: `不是本会话导出的目录：${path}` };
+    }
+    this.openedExportDirs.push(recorded);
+    return recorded;
   }
 
   private guideLink(payload: Record<string, unknown>) {
@@ -492,5 +545,48 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     store.actions.setView("diagnostics");
     await flushPromises();
     expect(wrapper.text()).toContain("不计入收集品数");
+  });
+
+  it("收集计划：区域筛选 → 导出清单 → 打开导出目录（真实命令层）", async () => {
+    const { wrapper, store } = mountApp();
+    await flushPromises();
+    await flushPromises();
+    store.actions.selectCandidate(`${MOCK_ROOT_A}\\save1.dat`);
+    store.actions.setPurpose("campaign");
+    await store.actions.startAnalysis();
+    await flushPromises();
+
+    // 1) 计划页与区域筛选（数据来自 buildPlan，与 CLI plan 同一镜像）。
+    store.actions.setView("plan");
+    store.actions.setPlanRegion("mission_of_san_juan");
+    await flushPromises();
+    expect(wrapper.find('[data-testid="plan-page"]').exists()).toBe(true);
+    const checklist = store.planChecklist.value;
+    expect(checklist.items).toBeGreaterThan(0);
+    expect(checklist.regions).toHaveLength(1);
+    expect(wrapper.findAll('[data-testid^="plan-item-"]')).toHaveLength(checklist.items);
+
+    // 2) 导出：真实 TauriDataSource → export_plan，内容按当前筛选生成。
+    store.actions.openPlanExportDialog();
+    store.actions.setPlanExportParent(mockPickedExportParent);
+    store.actions.setPlanExportFolder("计划-e2e");
+    await store.actions.runPlanExport();
+    await settle();
+    expect(store.state.planExportState.status).toBe("success");
+    const call = lastCall(backend, "export_plan");
+    const requestArgs = call?.args.request as Record<string, unknown> | undefined;
+    expect(requestArgs?.format).toBe("both");
+    expect(requestArgs?.share).toBe(true);
+    expect(String(requestArgs?.html)).toContain(checklist.regions[0].label);
+    expect(String(requestArgs?.csv)).toContain(checklist.regions[0].units[0].groups[0].items[0].id);
+    expect(String(requestArgs?.html)).not.toContain("save1.dat");
+
+    // 3) 打开导出目录：只传后端返回的 output_dir，由命令校验记录。
+    const outputDir = store.state.planExportState.outcome?.output_dir ?? "";
+    expect(outputDir).toBe(`${mockPickedExportParent}\\计划-e2e`);
+    await store.actions.openExportFolder(outputDir);
+    await settle();
+    expect(lastCall(backend, "open_export_folder")?.args).toEqual({ path: outputDir });
+    expect(backend.openedExportDirs).toEqual([outputDir]);
   });
 });

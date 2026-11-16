@@ -66,6 +66,7 @@ describe("TauriDataSource：命令映射", () => {
       freshness: "current",
       last_refresh_error_code: null,
       share: true,
+      output_dir: "C:\\out\\new-dir",
       artifacts: [],
     });
     await source.exportReport({
@@ -82,6 +83,44 @@ describe("TauriDataSource：命令映射", () => {
       format: "both",
       share: true,
     });
+  });
+
+  it("计划清单导出：参数映射到 export_plan（含 html/csv 内容）", async () => {
+    invokeMock.mockResolvedValueOnce({
+      snapshot_id: "snap-1",
+      input_ref: "save1.dat",
+      freshness: "current",
+      last_refresh_error_code: null,
+      share: true,
+      output_dir: "C:\\out\\plan-dir",
+      artifacts: [],
+    });
+    await source.exportPlan({
+      snapshotId: "snap-1",
+      inputRef: "save1.dat",
+      outputDir: "C:\\out\\plan-dir",
+      format: "both",
+      share: true,
+      html: "<html></html>",
+      csv: "a,b\r\n",
+    });
+    expect(invokeMock).toHaveBeenCalledWith("export_plan", {
+      request: {
+        snapshotId: "snap-1",
+        inputRef: "save1.dat",
+        outputDir: "C:\\out\\plan-dir",
+        format: "both",
+        share: true,
+        html: "<html></html>",
+        csv: "a,b\r\n",
+      },
+    });
+  });
+
+  it("打开导出目录：只把路径交给 open_export_folder", async () => {
+    invokeMock.mockResolvedValueOnce("C:\\out\\plan-dir");
+    await expect(source.openExportFolder("C:\\out\\plan-dir")).resolves.toBe("C:\\out\\plan-dir");
+    expect(invokeMock).toHaveBeenCalledWith("open_export_folder", { path: "C:\\out\\plan-dir" });
   });
 
   it("攻略链接：解析与打开分别映射到 resolve/open 命令", async () => {

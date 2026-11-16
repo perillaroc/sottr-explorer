@@ -19,10 +19,12 @@ import type { DataSource } from "./data/source";
 import AppSidebar from "./components/AppSidebar.vue";
 import AppTopBar from "./components/AppTopBar.vue";
 import ExportDialog from "./components/ExportDialog.vue";
+import PlanExportDialog from "./components/PlanExportDialog.vue";
 import MockBanner from "./components/MockBanner.vue";
 import SlotPicker from "./components/SlotPicker.vue";
 import OverviewPage from "./components/OverviewPage.vue";
 import FullCollectionPage from "./components/FullCollectionPage.vue";
+import PlanPage from "./components/PlanPage.vue";
 import CollectionPage from "./components/CollectionPage.vue";
 import MapPage from "./components/MapPage.vue";
 import DiagnosticsPage from "./components/DiagnosticsPage.vue";
@@ -84,6 +86,8 @@ const pageComponent = computed(() => {
       return OverviewPage;
     case "full":
       return FullCollectionPage;
+    case "plan":
+      return PlanPage;
     case "regions":
       return CollectionPage;
     case "map":
@@ -430,6 +434,8 @@ onBeforeUnmount(() => {
 
     <!-- 导出对话框（SX-016）：任何视图/布局下都可打开；模态焦点规则同抽屉 -->
     <ExportDialog />
+    <!-- 收集计划清单导出（P1-2）：只从计划页打开，写入新目录 -->
+    <PlanExportDialog />
 
     <!-- 详情独立窗口失败时的应用内兜底（阶段三）：同一份只读 payload，模态焦点规则同对话框 -->
     <UiDialog

@@ -39,6 +39,7 @@ import type {
   GuideLinkRequest,
   InputError,
   PickKind,
+  PlanExportRequest,
   Purpose,
 } from "./source";
 
@@ -59,6 +60,12 @@ const FILE_SEEDS: Record<string, FileSeed> = {
 };
 
 const SCHEMA_VERSION = "1.0.0" as const;
+
+/** 计划清单导出的内容上限（与后端命令一致：单次合计 4 MiB）。 */
+const MAX_PLAN_EXPORT_BYTES = 4 * 1024 * 1024;
+
+/** 分享模式的路径样片段（与后端 `scan_private_material` 的意图一致，模拟用）。 */
+const PRIVATE_PATH_PATTERN = /[A-Za-z]:[\\/]|\\\\[^\\]/;
 
 function basename(path: string): string {
   const parts = path.split(/[\\/]/);
@@ -147,9 +154,15 @@ export class MockDataSource implements DataSource {
   private readonly lastResults = new Map<string, DesktopResult>();
   private readonly snapshots = new Map<string, StoredSnapshot>();
   private readonly createdExportDirs = new Set<string>();
+  /** 创建过的导出目录：规范化路径 → 原始路径（“打开导出目录”只接受这些）。 */
+  private readonly exportDirs = new Map<string, string>();
   private readonly cancelled = new Set<string>();
   /** 已“打开”的链接（供测试断言不加载 WebView）。 */
   readonly openedUrls: string[] = [];
+  /** 已提交的计划清单导出（供测试检查生成内容）。 */
+  readonly planExports: PlanExportRequest[] = [];
+  /** 已“打开”的导出目录（供测试断言只打开记录过的目录）。 */
+  readonly openedExportDirs: string[] = [];
 
   constructor(options: MockOptions = {}) {
     this.delayMs = options.delayMs ?? 0;
@@ -218,19 +231,9 @@ export class MockDataSource implements DataSource {
    * 返回约定产物路径；不落盘、不覆盖任何内容。同一目标第二次导出报
    * `OUTPUT_EXISTS`（与真实行为一致，便于演示恢复路径）。
    */
-  async exportReport(request: ExportRequest): Promise<ExportOutcomeDto> {
-    await this.wait();
-    const stored = this.snapshots.get(request.snapshotId);
-    if (!stored) {
-      throw mockCommandError("SNAPSHOT_UNKNOWN", "模拟：当前报告的快照已不可用，请重新分析");
-    }
-    if (stored.result.input_ref !== request.inputRef) {
-      throw mockCommandError(
-        "SNAPSHOT_MISMATCH",
-        `模拟：导出请求与当前槽位不一致（快照属于 ${stored.result.input_ref}）`,
-      );
-    }
-    const output = request.outputDir.replace(/\/+$/, "");
+  /** 导出目标的模拟校验：新目录、父目录存在、与存档目录不重叠（SX-014 同规则）。 */
+  private validateExportTarget(outputDir: string, inputPath: string): string {
+    const output = outputDir.replace(/[\\/]+$/, "");
     const folder = basename(output);
     const nameProblem = invalidFolderName(folder);
     if (nameProblem) {
@@ -249,16 +252,43 @@ export class MockDataSource implements DataSource {
       }
       throw mockCommandError("PATH_MISSING", `模拟：目标父级不存在：${parent}`);
     }
-    const inputDir = dirname(stored.inputPath);
+    const inputDir = dirname(inputPath);
     if (isWithin(output, inputDir) || isWithin(inputDir, output)) {
       throw mockCommandError(
         "INPUT_OUTPUT_OVERLAP",
         `模拟：导出目标不能与存档目录重叠（${output} 与 ${inputDir}）`,
       );
     }
+    return output;
+  }
 
+  /** 快照校验：未知快照与跨槽导出都按 SX-014 的稳定码拒绝。 */
+  private storedSnapshot(snapshotId: string, inputRef: string): StoredSnapshot {
+    const stored = this.snapshots.get(snapshotId);
+    if (!stored) {
+      throw mockCommandError("SNAPSHOT_UNKNOWN", "模拟：当前报告的快照已不可用，请重新分析");
+    }
+    if (stored.result.input_ref !== inputRef) {
+      throw mockCommandError(
+        "SNAPSHOT_MISMATCH",
+        `模拟：导出请求与当前槽位不一致（快照属于 ${stored.result.input_ref}）`,
+      );
+    }
+    return stored;
+  }
+
+  private recordExportDir(output: string): void {
     this.createdExportDirs.add(normalizePath(output));
+    this.exportDirs.set(normalizePath(output), output);
     MOCK_DIRECTORIES.push(output);
+  }
+
+  async exportReport(request: ExportRequest): Promise<ExportOutcomeDto> {
+    await this.wait();
+    const stored = this.storedSnapshot(request.snapshotId, request.inputRef);
+    const output = this.validateExportTarget(request.outputDir, stored.inputPath);
+
+    this.recordExportDir(output);
     const artifacts: { name: string; path: string }[] = [];
     if (request.format === "json" || request.format === "both") {
       artifacts.push({ name: "report.json", path: `${output}\\report.json` });
@@ -272,8 +302,67 @@ export class MockDataSource implements DataSource {
       freshness: stored.result.freshness,
       last_refresh_error_code: stored.result.last_refresh_error?.code ?? null,
       share: request.share,
+      output_dir: output,
       artifacts,
     };
+  }
+
+  /**
+   * 模拟计划清单导出（P1-2）：与真实命令同样的校验（快照、新目录、大小上限、
+   * 分享模式路径扫描），并记录请求内容供测试断言；不落盘。
+   */
+  async exportPlan(request: PlanExportRequest): Promise<ExportOutcomeDto> {
+    await this.wait();
+    const stored = this.storedSnapshot(request.snapshotId, request.inputRef);
+    const output = this.validateExportTarget(request.outputDir, stored.inputPath);
+    const includesHtml = request.format === "html" || request.format === "both";
+    const includesCsv = request.format === "csv" || request.format === "both";
+    const html = includesHtml ? request.html : null;
+    const csv = includesCsv ? request.csv : null;
+    if ((includesHtml && (html === null || html.length === 0)) || (includesCsv && (csv === null || csv.length === 0))) {
+      throw mockCommandError("INVALID_PARAMS", "模拟：请求的格式缺少对应内容");
+    }
+    const total = (html?.length ?? 0) + (csv?.length ?? 0);
+    if (total > MAX_PLAN_EXPORT_BYTES) {
+      throw mockCommandError("INVALID_PARAMS", "模拟：清单内容超过大小上限");
+    }
+    if (request.share) {
+      for (const content of [html, csv]) {
+        if (content !== null && PRIVATE_PATH_PATTERN.test(content)) {
+          throw mockCommandError("INTERNAL", "模拟：分享导出自检失败（内容仍含路径样片段）");
+        }
+      }
+    }
+
+    this.recordExportDir(output);
+    this.planExports.push(request);
+    const artifacts: { name: string; path: string }[] = [];
+    if (includesHtml) {
+      artifacts.push({ name: "plan.html", path: `${output}\\plan.html` });
+    }
+    if (includesCsv) {
+      artifacts.push({ name: "plan.csv", path: `${output}\\plan.csv` });
+    }
+    return {
+      snapshot_id: stored.result.snapshot_id ?? request.snapshotId,
+      input_ref: stored.result.input_ref,
+      freshness: stored.result.freshness,
+      last_refresh_error_code: stored.result.last_refresh_error?.code ?? null,
+      share: request.share,
+      output_dir: output,
+      artifacts,
+    };
+  }
+
+  /** 模拟“打开导出目录”：只接受本会话记录过的导出目录。 */
+  async openExportFolder(path: string): Promise<string> {
+    await this.wait();
+    const original = this.exportDirs.get(normalizePath(path));
+    if (!original) {
+      throw mockCommandError("EXPORT_DIR_UNKNOWN", `模拟：不是本会话导出的目录：${path}`);
+    }
+    this.openedExportDirs.push(original);
+    return original;
   }
 
   /** 模拟解析：返回元数据中的已校验 URL；错误码与 SX-014 一致。 */

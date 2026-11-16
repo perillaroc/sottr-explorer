@@ -22,9 +22,9 @@ use sottr_core::report::{
     ContextSource, DesktopResult, ExportDocument, Freshness, InputDigest, Mode,
 };
 use sottr_desktop_lib::commands::{
-    CODE_INVALID_PARAMS, CODE_LINK_LOCATION_UNKNOWN, CODE_LINK_SOURCE_UNKNOWN,
-    CODE_LINK_URL_UNSUPPORTED, CODE_SNAPSHOT_MISMATCH, CODE_SNAPSHOT_UNKNOWN,
-    CODE_UNSUPPORTED_LOCATION,
+    CODE_EXPORT_DIR_UNKNOWN, CODE_INVALID_PARAMS, CODE_LINK_LOCATION_UNKNOWN,
+    CODE_LINK_SOURCE_UNKNOWN, CODE_LINK_URL_UNSUPPORTED, CODE_SNAPSHOT_MISMATCH,
+    CODE_SNAPSHOT_UNKNOWN, CODE_UNSUPPORTED_LOCATION,
 };
 use sottr_desktop_lib::session::{
     CommitOutcome, DesktopState, Session, StoredSnapshot, UrlOpener, embedded_metadata,
@@ -76,6 +76,7 @@ struct TestApp {
     app: tauri::App<MockRuntime>,
     webview: MockWebview,
     opened_urls: Arc<Mutex<Vec<String>>>,
+    opened_paths: Arc<Mutex<Vec<PathBuf>>>,
 }
 
 fn build_app() -> TestApp {
@@ -95,10 +96,21 @@ fn build_app() -> TestApp {
         Ok(())
     });
     app.state::<DesktopState>().set_url_opener(opener);
+    let opened_paths = Arc::new(Mutex::new(Vec::new()));
+    let path_recorder = opened_paths.clone();
+    app.state::<DesktopState>()
+        .set_path_opener(Arc::new(move |path: &Path| {
+            path_recorder
+                .lock()
+                .unwrap_or_else(|poisoned| poisoned.into_inner())
+                .push(path.to_path_buf());
+            Ok(())
+        }));
     TestApp {
         app,
         webview,
         opened_urls,
+        opened_paths,
     }
 }
 
@@ -684,6 +696,127 @@ fn export_binds_snapshot_and_rejects_cross_slot_or_overlapping_targets() {
     )
     .unwrap_err();
     assert_eq!(error_code(&error), CODE_INVALID_PARAMS);
+}
+
+#[test]
+fn export_plan_writes_checklist_and_opens_only_recorded_dirs() {
+    let temp = TempDir::new("plan");
+    let outputs = TempDir::new("plan-out-root");
+    let path = temp.join("save1.dat");
+    write_campaign_fixture(&path, &[0x0F28B6EC]);
+    let app = build_app();
+
+    let result = analyze(&app.webview, "req-plan", &path, "campaign");
+    let snapshot_id = result.snapshot_id.clone().expect("快照标识");
+
+    // 未导出前不能打开任意目录（前端只能传路径，后端只认记录过的导出目录）。
+    let error = invoke(
+        &app.webview,
+        "open_export_folder",
+        json!({ "path": outputs.display() }),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_EXPORT_DIR_UNKNOWN);
+    assert!(
+        app.opened_paths
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner())
+            .is_empty(),
+        "未记录目录不得触发打开器"
+    );
+
+    // 请求的格式缺内容 → 参数错误（不创建目录）。
+    let output = outputs.join("plan-out");
+    let output_text = output.to_string_lossy().into_owned();
+    let error = invoke(
+        &app.webview,
+        "export_plan",
+        json!({ "request": {
+            "snapshotId": snapshot_id,
+            "inputRef": "save1.dat",
+            "outputDir": output_text,
+            "format": "html",
+        }}),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_INVALID_PARAMS);
+    assert!(!output.exists(), "参数错误不得创建目标目录");
+
+    // 正常导出：固定文件名 plan.html / plan.csv，返回实际目录。
+    let html = "<!DOCTYPE html><html><body><p>收集计划</p></body></html>";
+    let csv = "区域,名称,已收取\r\n圣胡安,测试条目,\r\n";
+    let value = invoke(
+        &app.webview,
+        "export_plan",
+        json!({ "request": {
+            "snapshotId": snapshot_id,
+            "inputRef": "save1.dat",
+            "outputDir": output_text,
+            "format": "both",
+            "share": true,
+            "html": html,
+            "csv": csv,
+        }}),
+    )
+    .expect("计划清单导出应成功");
+    assert_eq!(value["share"], json!(true));
+    assert_eq!(value["output_dir"], json!(output_text));
+    let artifacts = value["artifacts"].as_array().expect("产物清单");
+    assert_eq!(artifacts.len(), 2);
+    assert_eq!(artifacts[0]["name"], json!("plan.html"));
+    assert_eq!(artifacts[1]["name"], json!("plan.csv"));
+    assert_eq!(
+        std::fs::read_to_string(output.join("plan.html")).unwrap(),
+        html
+    );
+    assert_eq!(
+        std::fs::read_to_string(output.join("plan.csv")).unwrap(),
+        csv
+    );
+
+    // 分享模式自检：内容含路径样片段时拒绝写出。
+    let leaky = outputs.join("plan-leaky");
+    let error = invoke(
+        &app.webview,
+        "export_plan",
+        json!({ "request": {
+            "snapshotId": snapshot_id,
+            "inputRef": "save1.dat",
+            "outputDir": leaky.to_string_lossy(),
+            "format": "csv",
+            "share": true,
+            "csv": "路径\r\nC:\\Users\\me\\save1.dat\r\n",
+        }}),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), "INTERNAL");
+    assert!(!leaky.exists(), "自检失败不得留下产物");
+
+    // 成功导出的目录可以打开，且实际调用打开的路径与导出目录一致。
+    let opened = invoke(
+        &app.webview,
+        "open_export_folder",
+        json!({ "path": output_text }),
+    )
+    .expect("刚导出的目录应可打开");
+    assert_eq!(opened.as_str(), Some(output_text.as_str()));
+    let paths = app
+        .opened_paths
+        .lock()
+        .unwrap_or_else(|poisoned| poisoned.into_inner())
+        .clone();
+    assert_eq!(paths, vec![output.clone()]);
+
+    // 已存在但不是导出目录 → 仍被拒绝。
+    let other = outputs.join("other");
+    std::fs::create_dir_all(&other).expect("创建普通目录");
+    let error = invoke(
+        &app.webview,
+        "open_export_folder",
+        json!({ "path": other.to_string_lossy() }),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_EXPORT_DIR_UNKNOWN);
 }
 
 #[test]

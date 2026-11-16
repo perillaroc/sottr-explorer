@@ -21,6 +21,8 @@ import type {
   ExportOutcomeDto,
   InputError,
   PickKind,
+  PlanExportFormat,
+  PlanExportRequest,
   Purpose,
 } from "../data/source";
 import { toCommandError } from "../data/errors";
@@ -47,6 +49,17 @@ import {
   type CollectionCounts,
 } from "./collection";
 import {
+  buildChecklist,
+  checklistCategories,
+  checklistRegions,
+  renderPlanCsv,
+  renderPlanHtml,
+  type PlanChecklist,
+  type PlanFilters,
+  type PlanScope,
+  type PlanSort,
+} from "./plan-checklist";
+import {
   defaultMapBasemap,
   mapOptions,
   mapOptionsForRegion,
@@ -58,7 +71,7 @@ import {
   openDetailWindow as openDetailWindowNative,
   type DetailWindowPayload,
 } from "./detail-window";
-import { fileNameOf } from "./format";
+import { fileNameOf, formatSnapshotTime } from "./format";
 import { applyTheme, onSystemThemeChange, type ThemePreference } from "./theme";
 import {
   languageRef,
@@ -117,6 +130,19 @@ export interface ExportState {
   outcome: ExportOutcomeDto | null;
   error: CommandErrorDto | null;
   /** 失败后可一键采用的替代目录名（如 OUTPUT_EXISTS）。 */
+  suggestedFolder: string | null;
+}
+
+/** 计划清单导出对话框状态（P1-2）：HTML/CSV、分享脱敏、目标新目录与结果/错误。 */
+export interface PlanExportState {
+  open: boolean;
+  format: PlanExportFormat;
+  share: boolean;
+  parent: string | null;
+  folder: string;
+  status: "edit" | "exporting" | "success" | "error";
+  outcome: ExportOutcomeDto | null;
+  error: CommandErrorDto | null;
   suggestedFolder: string | null;
 }
 
@@ -223,6 +249,13 @@ export interface AppState {
   searchFocusToken: number;
   /** 导出对话框（SX-016）。 */
   exportState: ExportState;
+  /** 收集计划清单的筛选（P1-2；与区域/地图筛选互不影响，会话内保留）。 */
+  planScope: PlanScope;
+  planRegion: string;
+  planCategory: string | null;
+  planSort: PlanSort;
+  /** 计划清单导出对话框（P1-2）。 */
+  planExportState: PlanExportState;
   /** 详情内的攻略链接动作（SX-016；null 表示无进行中的动作）。 */
   linkAction: LinkActionState | null;
   /** 独立详情窗口失败时的应用内兜底浮层（阶段三）。 */
@@ -309,6 +342,21 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     listScrollTop: 0,
     searchFocusToken: 0,
     exportState: {
+      open: false,
+      format: "both",
+      share: true,
+      parent: null,
+      folder: "",
+      status: "edit",
+      outcome: null,
+      error: null,
+      suggestedFolder: null,
+    },
+    planScope: "required",
+    planRegion: "all",
+    planCategory: null,
+    planSort: "unit",
+    planExportState: {
       open: false,
       format: "both",
       share: true,
@@ -478,6 +526,53 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   const planItemCount = computed(() => planCounts.value.all);
 
   // -------------------------------------------------------------------------
+  // 收集计划清单（P1-2）：区域 → 子关卡 → 类别；只列未收集条目。
+  // 状态全部来自 `buildPlan`（与 CLI `plan` 黄金一致），这里只做筛选与分组。
+  // -------------------------------------------------------------------------
+
+  const planFilters = computed<PlanFilters>(() => ({
+    scope: state.planScope,
+    region: state.planRegion,
+    category: state.planCategory,
+    sort: state.planSort,
+  }));
+
+  const planChecklist = computed<PlanChecklist>(() => {
+    // 名称随语言变化：读取语言引用让清单重新求值。
+    void languageRef.value;
+    return planAvailable.value
+      ? buildChecklist(plan.value, planFilters.value)
+      : { regions: [], items: 0, required: 0, regionCount: 0, filters: planFilters.value };
+  });
+
+  const planCategoryOptions = computed(() =>
+    planAvailable.value ? checklistCategories(plan.value, planFilters.value) : [],
+  );
+
+  const planRegionOptions = computed(() =>
+    planAvailable.value ? checklistRegions(plan.value, planFilters.value) : [],
+  );
+
+  /** 当前筛选的人话说明（页面与导出产物共用，避免两处口径漂移）。 */
+  const planScopeText = computed<string>(() => {
+    void languageRef.value;
+    const scope = state.planScope === "required" ? t("仅必收", "Required only") : t("全部未收集", "All uncollected");
+    const region =
+      state.planRegion === "all"
+        ? t("全部区域", "All regions")
+        : (planRegionOptions.value.find((entry) => entry.slug === state.planRegion)?.label ?? state.planRegion);
+    const category =
+      state.planCategory === null
+        ? t("全部类别", "All categories")
+        : (planCategoryOptions.value.find((entry) => entry.id === state.planCategory)?.label ?? state.planCategory);
+    return tFormat("范围：{scope} · {region} · {category}", "Scope: {scope} · {region} · {category}", {
+      scope,
+      region,
+      category,
+    });
+  });
+
+  // -------------------------------------------------------------------------
   // 请求隔离与提交
   // -------------------------------------------------------------------------
 
@@ -545,8 +640,30 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     if (state.selectedRowId && !selectedEntry.value) {
       state.selectedRowId = null;
     }
+    ensurePlanFilterValid();
     if (state.view === "map") {
       ensureMapSelection();
+    }
+  }
+
+  /** 计划清单筛选校验：区域必须在当前图鉴里，类别必须在当前口径下仍有未收集条目。 */
+  function ensurePlanFilterValid(): void {
+    if (
+      state.planRegion !== "all" &&
+      !plan.value.regions.some((region) => region.slug === state.planRegion)
+    ) {
+      state.planRegion = "all";
+    }
+    if (state.planCategory !== null) {
+      const available = checklistCategories(plan.value, {
+        scope: state.planScope,
+        region: state.planRegion,
+        category: null,
+        sort: state.planSort,
+      });
+      if (!available.some((category) => category.id === state.planCategory)) {
+        state.planCategory = null;
+      }
     }
   }
 
@@ -850,6 +967,165 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.exportState.suggestedFolder = null;
     state.exportState.error = null;
     state.exportState.status = "edit";
+  }
+
+  // -------------------------------------------------------------------------
+  // 收集计划清单导出（P1-2）：内容按当前筛选生成（HTML/CSV），后端写入新目录
+  // -------------------------------------------------------------------------
+
+  const planExportTargetPath = computed<string | null>(() => {
+    const { parent, folder } = state.planExportState;
+    if (!parent || folder.trim().length === 0) {
+      return null;
+    }
+    return `${parent.replace(/[\\/]+$/, "")}\\${folder.trim()}`;
+  });
+
+  function defaultPlanExportFolder(): string {
+    const now = new Date();
+    const pad = (value: number) => String(value).padStart(2, "0");
+    const stamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    return `sottr-plan-${stamp}`;
+  }
+
+  function openPlanExportDialog(): void {
+    if (!state.selectedPath || !currentSlot.value?.result) {
+      notify("warning", t("没有可导出的报告：请先分析当前槽位。", "No report to export: analyze the current slot first."));
+      return;
+    }
+    if (state.analysis) {
+      notify("warning", t("分析/刷新进行中：完成后再导出，避免导出与快照不一致。", "Analysis/refresh is in progress: export after it finishes so the export matches the snapshot."));
+      return;
+    }
+    if (planChecklist.value.items === 0) {
+      notify("info", t("当前筛选下没有未收集条目，清单为空。", "No uncollected items under the current filters; the checklist is empty."));
+    }
+    state.planExportState = {
+      open: true,
+      format: "both",
+      share: true,
+      parent: state.planExportState.parent,
+      folder: state.planExportState.folder || defaultPlanExportFolder(),
+      status: "edit",
+      outcome: null,
+      error: null,
+      suggestedFolder: null,
+    };
+  }
+
+  function closePlanExportDialog(): void {
+    state.planExportState.open = false;
+  }
+
+  function setPlanExportFormat(format: PlanExportFormat): void {
+    state.planExportState.format = format;
+  }
+
+  function setPlanExportShare(share: boolean): void {
+    state.planExportState.share = share;
+  }
+
+  function setPlanExportFolder(folder: string): void {
+    state.planExportState.folder = folder;
+  }
+
+  function setPlanExportParent(parent: string | null): void {
+    state.planExportState.parent = parent;
+  }
+
+  async function pickPlanExportParent(): Promise<void> {
+    const picked = await source.pick("export-directory");
+    if (picked) {
+      state.planExportState.parent = picked;
+    }
+  }
+
+  /** 按当前筛选生成清单并导出；分享模式下不写输入文件名与快照时间。 */
+  async function runPlanExport(): Promise<void> {
+    const result = currentSlot.value?.result ?? null;
+    if (!result || !result.snapshot_id) {
+      notify("warning", t("没有可导出的报告：请先分析当前槽位。", "No report to export: analyze the current slot first."));
+      return;
+    }
+    if (state.analysis) {
+      notify("warning", t("分析/刷新进行中，暂不能导出。", "Analysis/refresh is in progress; export is unavailable for now."));
+      return;
+    }
+    const target = planExportTargetPath.value;
+    if (!target) {
+      state.planExportState.status = "error";
+      state.planExportState.error = {
+        code: "INVALID_PARAMS",
+        message: t("请先选择目标位置并填写新目录名", "Choose a target location and enter a new folder name first"),
+      };
+      return;
+    }
+
+    const exportState = state.planExportState;
+    const includesHtml = exportState.format === "html" || exportState.format === "both";
+    const includesCsv = exportState.format === "csv" || exportState.format === "both";
+    const meta = {
+      catalogVersion: atlas.catalog_version,
+      generatedAt: formatSnapshotTime(new Date().toISOString()),
+      snapshotTime: exportState.share ? null : formatSnapshotTime(result.snapshot_time),
+      inputRef: exportState.share ? null : result.input_ref,
+      share: exportState.share,
+      scopeText: planScopeText.value,
+    };
+    const checklist = planChecklist.value;
+    const request: PlanExportRequest = {
+      snapshotId: result.snapshot_id,
+      inputRef: result.input_ref,
+      outputDir: target,
+      format: exportState.format,
+      share: exportState.share,
+      html: includesHtml ? renderPlanHtml(checklist, meta) : null,
+      csv: includesCsv ? renderPlanCsv(checklist) : null,
+    };
+
+    exportState.status = "exporting";
+    exportState.error = null;
+    exportState.outcome = null;
+    try {
+      const outcome = await source.exportPlan(request);
+      exportState.status = "success";
+      exportState.outcome = outcome;
+      exportState.suggestedFolder = null;
+      notify(
+        "success",
+        tFormat("已导出收集清单：{path}", "Collection checklist exported: {path}", {
+          path: outcome.artifacts.map((artifact) => artifact.path).join(t("；", "; ")),
+        }),
+      );
+    } catch (error) {
+      const commandError = toCommandError(error);
+      exportState.status = "error";
+      exportState.error = commandError;
+      if (commandError.code === "OUTPUT_EXISTS") {
+        exportState.suggestedFolder = defaultPlanExportFolder();
+      }
+    }
+  }
+
+  function applySuggestedPlanExportFolder(): void {
+    if (!state.planExportState.suggestedFolder) {
+      return;
+    }
+    state.planExportState.folder = state.planExportState.suggestedFolder;
+    state.planExportState.suggestedFolder = null;
+    state.planExportState.error = null;
+    state.planExportState.status = "edit";
+  }
+
+  /** 在文件管理器中打开导出目录（只接受后端记录过的导出目录）。 */
+  async function openExportFolder(path: string): Promise<void> {
+    try {
+      const opened = await source.openExportFolder(path);
+      notify("success", tFormat("已在文件管理器中打开：{path}", "Opened in the file manager: {path}", { path: opened }));
+    } catch (error) {
+      const commandError = toCommandError(error);
+      notify("error", tFormat("无法打开导出目录：{message}", "Could not open the export folder: {message}", { message: commandError.message }));
+    }
   }
 
   // -------------------------------------------------------------------------
@@ -1235,6 +1511,25 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     persistNow();
   }
 
+  // 收集计划清单筛选（P1-2）：与区域清单/地图筛选互不影响，会话内保留。
+  function setPlanScope(scope: PlanScope): void {
+    state.planScope = scope;
+    ensurePlanFilterValid();
+  }
+
+  function setPlanRegion(region: string): void {
+    state.planRegion = region;
+    ensurePlanFilterValid();
+  }
+
+  function setPlanCategory(category: string | null): void {
+    state.planCategory = category;
+  }
+
+  function setPlanSort(sort: PlanSort): void {
+    state.planSort = sort;
+  }
+
   function setStatusFilter(status: StatusFilter): void {
     state.filters.status = status;
     state.selectedRowId = null;
@@ -1412,6 +1707,11 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     planCountsForRegion,
     planFilterCounts,
     planItemCount,
+    planChecklist,
+    planCategoryOptions,
+    planRegionOptions,
+    planScopeText,
+    planExportTargetPath,
     selectedEntry,
     metadataVersion: metadata.metadata_version,
     canExport,
@@ -1443,6 +1743,16 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       pickExportParent,
       runExport,
       applySuggestedExportFolder,
+      openPlanExportDialog,
+      closePlanExportDialog,
+      setPlanExportFormat,
+      setPlanExportShare,
+      setPlanExportFolder,
+      setPlanExportParent,
+      pickPlanExportParent,
+      runPlanExport,
+      applySuggestedPlanExportFolder,
+      openExportFolder,
       openGuideLink,
       openExternalLink,
       clearLinkAction,
@@ -1450,6 +1760,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       closeDetailWindowFallback,
       setView,
       setRegion,
+      setPlanScope,
+      setPlanRegion,
+      setPlanCategory,
+      setPlanSort,
       setMapRegion,
       setMapBasemap,
       setMapStatus,

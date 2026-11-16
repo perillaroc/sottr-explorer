@@ -14,6 +14,8 @@
     "allow-analyze-file",
     "allow-cancel-analysis",
     "allow-export-report",
+    "allow-export-plan",
+    "allow-open-export-folder",
     "allow-resolve-guide-link",
     "allow-open-guide-link",
     "allow-open-external-url",

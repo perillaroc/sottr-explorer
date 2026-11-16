@@ -97,6 +97,14 @@ export class ControlledSource implements DataSource {
     throw new Error("ControlledSource 不支持导出");
   }
 
+  async exportPlan(): Promise<never> {
+    throw new Error("ControlledSource 不支持计划导出");
+  }
+
+  async openExportFolder(): Promise<never> {
+    throw new Error("ControlledSource 不支持打开导出目录");
+  }
+
   async resolveGuideLink(): Promise<never> {
     throw new Error("ControlledSource 不支持链接解析");
   }
