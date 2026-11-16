@@ -32,6 +32,7 @@ use sottr_core::report::{
     export_document, render_export_csv, render_export_json, scan_private_material,
     share_export_document,
 };
+use sottr_platform::read_snapshot::InspectOutcome;
 use sottr_platform::{discovery, output_commit, path_policy, read_snapshot, time};
 
 use crate::session::{
@@ -748,6 +749,78 @@ pub fn cancel_analysis(
     Ok(CancelOutcome {
         request_id,
         cancelled,
+    })
+}
+
+// ---------------------------------------------------------------------------
+// 命令：存档监视指纹（P1-4）
+// ---------------------------------------------------------------------------
+
+/// 存档监视用的只读指纹：不读取内容、不建立写锁、不修改文件。
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
+pub struct InputFingerprint {
+    /// `present` / `missing` / `unreadable`。
+    pub status: &'static str,
+    /// 文件大小（字节）；非 `present` 为 null。
+    pub size_bytes: Option<u64>,
+    /// 最后写入时间原始值（Windows FILETIME，100ns；其他平台 Unix 毫秒）。
+    pub last_write_time: Option<u64>,
+    /// 文件身份（`卷:索引`），用于识别原子替换；平台不支持时为 null。
+    pub file_identity: Option<String>,
+    /// 不可读时的稳定错误码（如 `INPUT_UNREADABLE`）。
+    pub code: Option<String>,
+    /// 不可读时的说明（可能含路径；界面不导出）。
+    pub message: Option<String>,
+}
+
+/// 只读检查当前输入的指纹，供界面判断“是否提示刷新”。
+///
+/// 不读取内容、不建立写锁、不修改文件；路径不存在返回 `missing` 而不是错误，
+/// 便于监视器区分“删除/原子替换间隙”与“暂不可读”。
+#[tauri::command]
+pub fn input_fingerprint(path: String) -> Result<InputFingerprint, CommandError> {
+    if path.trim().is_empty() {
+        return Err(CommandError::invalid_params("path 不能为空"));
+    }
+    let requested = PathBuf::from(&path);
+    match path_policy::classify(&requested) {
+        path_policy::PathClass::Unc | path_policy::PathClass::Device => {
+            return Err(CommandError::new(
+                CODE_UNSUPPORTED_LOCATION,
+                format!(
+                    "暂不支持网络（UNC）或设备命名空间位置：{path}；请选择本地磁盘上的存档文件"
+                ),
+            ));
+        }
+        path_policy::PathClass::Local | path_policy::PathClass::VerbatimLocal => {}
+    }
+    Ok(match read_snapshot::inspect(&requested) {
+        InspectOutcome::Present(fingerprint) => InputFingerprint {
+            status: "present",
+            size_bytes: Some(fingerprint.size),
+            last_write_time: Some(fingerprint.last_write_time),
+            file_identity: fingerprint
+                .identity
+                .map(|identity| format!("{}:{}", identity.volume, identity.file_index)),
+            code: None,
+            message: None,
+        },
+        InspectOutcome::Missing => InputFingerprint {
+            status: "missing",
+            size_bytes: None,
+            last_write_time: None,
+            file_identity: None,
+            code: None,
+            message: None,
+        },
+        InspectOutcome::Unreadable(error) => InputFingerprint {
+            status: "unreadable",
+            size_bytes: None,
+            last_write_time: None,
+            file_identity: None,
+            code: Some(error.code),
+            message: Some(error.message),
+        },
     })
 }
 

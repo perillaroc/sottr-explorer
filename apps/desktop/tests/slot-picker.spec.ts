@@ -31,6 +31,9 @@ class NoGameSource implements DataSource {
     throw new Error("不应调用");
   }
   cancel(): void {}
+  async fingerprintInput(): Promise<never> {
+    throw new Error("不应调用");
+  }
   async exportReport(): Promise<never> {
     throw new Error("不应调用");
   }

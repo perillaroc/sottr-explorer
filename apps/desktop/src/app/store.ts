@@ -20,6 +20,7 @@ import type {
   ExportFormat,
   ExportOutcomeDto,
   InputError,
+  InputFingerprintDto,
   PickKind,
   PlanExportFormat,
   PlanExportRequest,
@@ -141,8 +142,21 @@ export interface ExportState {
   suggestedFolder: string | null;
 }
 
-/** 计划清单导出对话框状态（P1-2）：HTML/CSV、分享脱敏、目标新目录与结果/错误。 */
-export interface PlanExportState {
+/** 存档监视状态（P1-4）：只提示，不自动分析。 */
+export interface InputWatchState {
+  status: "idle" | "watching" | "changed" | "missing" | "unreadable";
+  /** 当前监视的完整路径（仅内存；不在界面显示，也不导出）。 */
+  path: string | null;
+  /** 不可读原因码（如 `INPUT_UNREADABLE`）。 */
+  code: string | null;
+  /** 首次确认变化的时间（毫秒）。 */
+  detectedAt: number | null;
+}
+
+/** 存档监视轮询间隔；连续两次采样一致才提示（去抖约 500ms）。 */
+export const INPUT_WATCH_INTERVAL_MS = 500;
+
+/** 计划清单导出对话框状态（P1-2）：HTML/CSV、分享脱敏、目标新目录与结果/错误。 */export interface PlanExportState {
   open: boolean;
   format: PlanExportFormat;
   share: boolean;
@@ -271,6 +285,8 @@ export interface AppState {
   progressHistory: Record<string, ProgressSnapshot[]>;
   /** 每个槽位选中的对比基线快照 ID；null 表示“上一次分析”。 */
   progressBaseline: Record<string, string | null>;
+  /** 当前存档的只读监视状态（P1-4）；只提示变化，不自动分析。 */
+  inputWatch: InputWatchState;
   /** 详情内的攻略链接动作（SX-016；null 表示无进行中的动作）。 */
   linkAction: LinkActionState | null;
   /** 独立详情窗口失败时的应用内兜底浮层（阶段三）。 */
@@ -293,6 +309,11 @@ export interface CreateStoreOptions {
   persist?: boolean;
   /** 初始视口宽度（测试直接指定，避免依赖窗口尺寸）。 */
   layoutWidth?: number;
+  /**
+   * 是否监视当前存档（P1-4）。默认仅在 Tauri 真实运行时开启；
+   * 测试与浏览器模拟默认关闭，避免后台定时器干扰。
+   */
+  watchInput?: boolean;
 }
 
 export function layoutFor(width: number): LayoutMode {
@@ -313,8 +334,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   const persist = options.persist !== false;
   const preferences = persist ? loadPreferences() : null;
 
-  const state = reactive<AppState>({
-    booted: false,
+  const state = reactive<AppState>({    booted: false,
     sourceKind: source.kind,
     discovery: null,
     discoveryError: null,
@@ -384,6 +404,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     },
     progressHistory: {},
     progressBaseline: {},
+    inputWatch: { status: "idle", path: null, code: null, detectedAt: null },
     linkAction: null,
     detailWindowFallback: { open: false, payload: null },
   });
@@ -648,6 +669,187 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   });
 
   // -------------------------------------------------------------------------
+  // 存档监视（P1-4）：约 500ms 轮询只读指纹；连续两次采样一致才提示，
+  // 只提示“是否刷新”，绝不自动分析；关闭应用/切槽/重新分析时重置监视器。
+  // -------------------------------------------------------------------------
+
+  const watchInputEnabled = options.watchInput ?? source.kind === "tauri";
+  let inputWatchTimer: ReturnType<typeof setInterval> | null = null;
+  let inputWatchPath: string | null = null;
+  let inputWatchGeneration = 0;
+  let inputWatchBaseline: string | null = null;
+  let inputWatchLastPresent: string | null = null;
+  let inputWatchPending: string | null = null;
+  let inputWatchPolling = false;
+
+  function presentKey(fingerprint: InputFingerprintDto): string {
+    return `${fingerprint.size_bytes ?? ""}:${fingerprint.last_write_time ?? ""}:${fingerprint.file_identity ?? ""}`;
+  }
+
+  function fingerprintKey(fingerprint: InputFingerprintDto): string {
+    return fingerprint.status === "present"
+      ? `present:${presentKey(fingerprint)}`
+      : `${fingerprint.status}:${fingerprint.code ?? ""}`;
+  }
+
+  function stopInputWatch(): void {
+    inputWatchGeneration += 1;
+    if (inputWatchTimer !== null) {
+      clearInterval(inputWatchTimer);
+      inputWatchTimer = null;
+    }
+    inputWatchPath = null;
+    inputWatchBaseline = null;
+    inputWatchLastPresent = null;
+    inputWatchPending = null;
+    inputWatchPolling = false;
+    state.inputWatch = { status: "idle", path: null, code: null, detectedAt: null };
+  }
+
+  function handleWatchSample(fingerprint: InputFingerprintDto): void {
+    const path = inputWatchPath;
+    if (!path) {
+      return;
+    }
+    const key = fingerprintKey(fingerprint);
+    const present = fingerprint.status === "present" ? presentKey(fingerprint) : null;
+    if (inputWatchBaseline === null) {
+      inputWatchBaseline = key;
+      if (present !== null) {
+        inputWatchLastPresent = present;
+      }
+      return;
+    }
+    // 指纹未变（或恢复可读且内容未变）：不提示。
+    if (present !== null && present === inputWatchLastPresent) {
+      inputWatchBaseline = key;
+      inputWatchPending = null;
+      // “已更新”提示保留到用户刷新/稍后；只有从暂不可读/缺失恢复时才回到 watching。
+      if (state.inputWatch.status === "missing" || state.inputWatch.status === "unreadable") {
+        state.inputWatch = { status: "watching", path, code: null, detectedAt: null };
+      }
+      return;
+    }
+    if (key === inputWatchBaseline) {
+      inputWatchPending = null;
+      return;
+    }
+    // 去抖：同一新状态连续两次采样才提示，避开原子替换/临时文件间隙。
+    if (inputWatchPending === key) {
+      inputWatchPending = null;
+      inputWatchBaseline = key;
+      if (present !== null) {
+        inputWatchLastPresent = present;
+      }
+      state.inputWatch = {
+        status: fingerprint.status === "present" ? "changed" : fingerprint.status,
+        path,
+        code: fingerprint.code,
+        detectedAt: Date.now(),
+      };
+      return;
+    }
+    inputWatchPending = key;
+  }
+
+  async function pollInputWatch(): Promise<void> {
+    if (!watchInputEnabled || inputWatchTimer === null || inputWatchPolling) {
+      return;
+    }
+    const path = inputWatchPath;
+    // 分析/刷新进行中不判定：报告中立更新时刷新的结果才是权威。
+    if (!path || state.analysis) {
+      return;
+    }
+    const generation = inputWatchGeneration;
+    inputWatchPolling = true;
+    try {
+      let fingerprint: InputFingerprintDto;
+      try {
+        fingerprint = await source.fingerprintInput(path);
+      } catch {
+        // 命令失败（非法/不支持）：下一轮再试；不改变当前提示。
+        return;
+      }
+      if (generation !== inputWatchGeneration || inputWatchPath !== path) {
+        return;
+      }
+      handleWatchSample(fingerprint);
+    } finally {
+      inputWatchPolling = false;
+    }
+  }
+
+  /** 重新开始监视当前存档（无结果或未启用时只清理）。 */
+  function restartInputWatch(): void {
+    stopInputWatch();
+    if (!watchInputEnabled) {
+      return;
+    }
+    const path = state.selectedPath;
+    if (!path || !state.slots[path]?.result) {
+      return;
+    }
+    inputWatchPath = path;
+    state.inputWatch = { status: "watching", path, code: null, detectedAt: null };
+    const generation = inputWatchGeneration;
+    void (async () => {
+      let fingerprint: InputFingerprintDto;
+      try {
+        fingerprint = await source.fingerprintInput(path);
+      } catch {
+        if (generation === inputWatchGeneration) {
+          stopInputWatch();
+        }
+        return;
+      }
+      if (generation !== inputWatchGeneration || inputWatchPath !== path) {
+        return;
+      }
+      inputWatchBaseline = fingerprintKey(fingerprint);
+      if (fingerprint.status === "present") {
+        inputWatchLastPresent = presentKey(fingerprint);
+      }
+      inputWatchPending = null;
+      inputWatchTimer = setInterval(() => {
+        void pollInputWatch();
+      }, INPUT_WATCH_INTERVAL_MS);
+    })();
+  }
+
+  /** 用户选择“稍后”：保持当前基线，下一次真实变化再提示。 */
+  function dismissInputWatch(): void {
+    if (inputWatchPath === null) {
+      return;
+    }
+    state.inputWatch = {
+      status: "watching",
+      path: inputWatchPath,
+      code: null,
+      detectedAt: null,
+    };
+  }
+
+  /** 用户确认刷新：清掉提示并刷新当前槽位；刷新走原有快照门禁。 */
+  async function refreshFromWatch(): Promise<void> {
+    if (inputWatchPath !== null) {
+      state.inputWatch = {
+        status: "watching",
+        path: inputWatchPath,
+        code: null,
+        detectedAt: null,
+      };
+    }
+    await refresh();
+  }
+
+  /** 文件已不存在：停止监视并回到导入页重新选择。 */
+  function reselectFromWatch(): void {
+    stopInputWatch();
+    state.view = "import";
+  }
+
+  // -------------------------------------------------------------------------
   // 请求隔离与提交
   // -------------------------------------------------------------------------
 
@@ -663,6 +865,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.analysis = { requestId: request.requestId, path, kind, startedAt: Date.now() };
     const result = await source.analyze(request);
     commitResult(request.requestId, kind, result);
+    // 分析完成（成功/取消/失败）后以当前结果重新设定监视基线。
+    restartInputWatch();
   }
 
   /**
@@ -833,6 +1037,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   function selectCandidate(path: string): void {
     state.selectedPath = path;
     state.lastCancelledPath = null;
+    restartInputWatch();
   }
 
   function setPurpose(purpose: Purpose): void {
@@ -900,6 +1105,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.analysis = null;
     state.lastCancelledPath = analysis.path;
     notify("info", t("已取消：保留原视图，未产生新报告。", "Cancelled: the current view is kept and no new report was produced."));
+    restartInputWatch();
   }
 
   async function refresh(): Promise<void> {
@@ -922,6 +1128,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.selectedRowId = null;
     state.lastCancelledPath = null;
     ensureFilterValid();
+    restartInputWatch();
     if (state.slots[path]?.result) {
       // 已分析过的槽位：回到上一视图（筛选已重新校验）。
       if (state.view === "import") {
@@ -1806,6 +2013,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   }
 
   function dispose(): void {
+    stopInputWatch();
     systemThemeListener.value?.();
     systemThemeListener.value = null;
   }
@@ -1890,6 +2098,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       setPlanCategory,
       setPlanSort,
       setProgressBaseline,
+      restartInputWatch,
+      dismissInputWatch,
+      refreshFromWatch,
+      reselectFromWatch,
       setMapRegion,
       setMapBasemap,
       setMapStatus,

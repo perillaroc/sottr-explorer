@@ -16,6 +16,7 @@ import type {
   ExportRequest,
   GuideLinkDto,
   GuideLinkRequest,
+  InputFingerprintDto,
   PickKind,
   PlanExportRequest,
 } from "./source";
@@ -58,6 +59,10 @@ export class TauriDataSource implements DataSource {
     return invoke("cancel_analysis", { requestId })
       .then(() => undefined)
       .catch(() => undefined);
+  }
+
+  fingerprintInput(path: string): Promise<InputFingerprintDto> {
+    return invoke<InputFingerprintDto>("input_fingerprint", { path });
   }
 
   exportReport(request: ExportRequest): Promise<ExportOutcomeDto> {

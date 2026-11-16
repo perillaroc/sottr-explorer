@@ -280,6 +280,7 @@ function mountApp(width = 1280) {
     persist: false,
     layoutWidth: width,
     observedIds: () => demoObservedIds,
+    watchInput: false,
   });
   const wrapper = mount(App, {
     props: { source, store, layoutWidth: width } as never,

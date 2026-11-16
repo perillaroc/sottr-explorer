@@ -13,6 +13,7 @@
     "allow-select-input",
     "allow-analyze-file",
     "allow-cancel-analysis",
+    "allow-input-fingerprint",
     "allow-export-report",
     "allow-export-plan",
     "allow-open-export-folder",

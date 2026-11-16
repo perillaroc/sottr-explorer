@@ -4,7 +4,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { ArrowLeft, CircleAlert, CircleCheck, Info, TriangleAlert, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
-import { t } from "./app/i18n";
+import { t, tFormat } from "./app/i18n";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
 import {
   DETAIL_COMPACT_WIDTH,
@@ -31,6 +31,7 @@ import DiagnosticsPage from "./components/DiagnosticsPage.vue";
 import SettingsPage from "./components/SettingsPage.vue";
 import AboutPage from "./components/AboutPage.vue";
 import CollectionDetail from "./components/CollectionDetail.vue";
+import CoverageNotice from "./components/CoverageNotice.vue";
 import DetailWindow from "./components/DetailWindow.vue";
 import UiButton from "./components/ui/UiButton.vue";
 import UiDialog from "./components/ui/UiDialog.vue";
@@ -104,6 +105,42 @@ const pageComponent = computed(() => {
 });
 
 const selectedEntry = computed(() => store.selectedEntry.value);
+
+// 存档监视提示（P1-4）：只提示“是否刷新”，不自动分析。
+const inputWatchAlert = computed(() => {
+  switch (store.state.inputWatch.status) {
+    case "changed":
+      return {
+        tone: "warning" as const,
+        title: t("当前存档已更新", "The current save has changed"),
+        lines: [
+          t("检测到存档文件发生变化；是否刷新？应用不会自动分析。", "A change was detected. Refresh now? The app never analyzes automatically."),
+        ],
+        action: "refresh" as const,
+      };
+    case "missing":
+      return {
+        tone: "danger" as const,
+        title: t("当前存档已不在原位置", "The current save is no longer at its path"),
+        lines: [
+          t("文件可能被移动、删除，或仍在原子替换中；请重新选择存档文件。", "The file may have been moved, deleted, or is still being replaced atomically. Choose the save file again."),
+        ],
+        action: "reselect" as const,
+      };
+    case "unreadable":
+      return {
+        tone: "warning" as const,
+        title: t("当前存档暂时不可读", "The current save is temporarily unreadable"),
+        lines: [
+          t("可能正在保存或被其他程序占用；应用会继续只读重试，不会自动刷新。", "It may be saving or locked by another program. The app keeps retrying read-only and never refreshes automatically."),
+          tFormat("原因码：{code}", "Code: {code}", { code: store.state.inputWatch.code ?? t("未知", "unknown") }),
+        ],
+        action: "retry" as const,
+      };
+    default:
+      return null;
+  }
+});
 
 // 全局通知条（阶段二）：状态图标 + 文本 + 关闭，保持 live region；不使用自动消失 toast。
 const noticeTone = computed(() => {
@@ -328,6 +365,36 @@ onBeforeUnmount(() => {
 
       <div class="relative flex min-h-0 min-w-0 flex-1">
         <main class="flex min-h-0 min-w-0 flex-1 flex-col">
+          <CoverageNotice
+            v-if="inputWatchAlert"
+            class="mx-3 mt-3"
+            :tone="inputWatchAlert.tone"
+            test-id="input-watch-alert"
+            :title="inputWatchAlert.title"
+            :lines="inputWatchAlert.lines"
+          >
+            <UiButton
+              v-if="inputWatchAlert.action === 'refresh'"
+              size="sm"
+              variant="primary"
+              data-testid="input-watch-refresh"
+              @click="store.actions.refreshFromWatch()"
+            >{{ t("刷新", "Refresh") }}</UiButton>
+            <UiButton
+              v-if="inputWatchAlert.action === 'reselect'"
+              size="sm"
+              variant="primary"
+              data-testid="input-watch-reselect"
+              @click="store.actions.reselectFromWatch()"
+            >{{ t("重新选择", "Choose another file") }}</UiButton>
+            <UiButton
+              size="sm"
+              variant="ghost"
+              data-testid="input-watch-dismiss"
+              @click="store.actions.dismissInputWatch()"
+            >{{ t("稍后", "Later") }}</UiButton>
+          </CoverageNotice>
+
           <div
             v-if="store.state.notice"
             class="flex items-start gap-2 border-b px-4 py-1.5 text-[13px]"

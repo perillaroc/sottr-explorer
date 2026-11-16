@@ -14,6 +14,7 @@ const EXPECTED_COMMANDS: &[&str] = &[
     "select_input",
     "analyze_file",
     "cancel_analysis",
+    "input_fingerprint",
     "export_report",
     "export_plan",
     "open_export_folder",

@@ -70,6 +70,7 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             commands::select_input,
             commands::analyze_file,
             commands::cancel_analysis,
+            commands::input_fingerprint,
             commands::export_report,
             commands::export_plan,
             commands::open_export_folder,

@@ -35,6 +35,11 @@ description = "允许 cancel_analysis：取消在飞分析请求（被取消的�
 commands.allow = ["cancel_analysis"]
 
 [[permission]]
+identifier = "allow-input-fingerprint"
+description = "允许 input_fingerprint：只读检查当前存档的身份/大小/写入时间（不读取内容、不建立写锁），供界面提示“存档已更新，是否刷新”"
+commands.allow = ["input_fingerprint"]
+
+[[permission]]
 identifier = "allow-export-report"
 description = "允许 export_report：把当前快照导出为新目录中的 JSON/CSV（默认分享脱敏，不覆盖存档或既有报告）"
 commands.allow = ["export_report"]

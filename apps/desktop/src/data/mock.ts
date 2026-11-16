@@ -38,6 +38,7 @@ import type {
   GuideLinkDto,
   GuideLinkRequest,
   InputError,
+  InputFingerprintDto,
   PickKind,
   PlanExportRequest,
   Purpose,
@@ -84,6 +85,19 @@ function normalizePath(path: string): string {
 
 function seedOf(path: string): FileSeed {
   return FILE_SEEDS[basename(path)] ?? { sha: "0".repeat(64), size: 0 };
+}
+
+/** 模拟存档的默认指纹（测试可用 `setFingerprint` 覆盖成更新/替换/删除/占用）。 */
+function defaultFingerprint(path: string): InputFingerprintDto {
+  const seed = seedOf(path);
+  return {
+    status: "present",
+    size_bytes: seed.size,
+    last_write_time: 1_760_000_000_000,
+    file_identity: `mock-volume:${basename(path)}`,
+    code: null,
+    message: null,
+  };
 }
 
 /** 模拟文件系统：候选文件所在目录、候选文件本身，以及本次会话创建过的导出目录。 */
@@ -163,6 +177,8 @@ export class MockDataSource implements DataSource {
   readonly planExports: PlanExportRequest[] = [];
   /** 已“打开”的导出目录（供测试断言只打开记录过的目录）。 */
   readonly openedExportDirs: string[] = [];
+  /** 存档监视指纹覆盖（测试模拟更新/替换/删除/占用）。 */
+  readonly fingerprints = new Map<string, InputFingerprintDto>();
 
   constructor(options: MockOptions = {}) {
     this.delayMs = options.delayMs ?? 0;
@@ -224,6 +240,17 @@ export class MockDataSource implements DataSource {
 
   cancel(requestId: string): void {
     this.cancelled.add(requestId);
+  }
+
+  /** 模拟指纹检查：默认稳定；测试可覆盖为更新/替换/删除/占用。 */
+  async fingerprintInput(path: string): Promise<InputFingerprintDto> {
+    await this.wait();
+    return this.fingerprints.get(normalizePath(path)) ?? defaultFingerprint(path);
+  }
+
+  /** 测试辅助：设置某路径的模拟指纹。 */
+  setFingerprint(path: string, fingerprint: InputFingerprintDto): void {
+    this.fingerprints.set(normalizePath(path), fingerprint);
   }
 
   /**

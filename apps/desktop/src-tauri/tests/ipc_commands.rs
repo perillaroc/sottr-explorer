@@ -820,6 +820,52 @@ fn export_plan_writes_checklist_and_opens_only_recorded_dirs() {
 }
 
 #[test]
+fn input_fingerprint_is_read_only_and_distinguishes_missing() {
+    let temp = TempDir::new("watch");
+    let path = temp.join("save1.dat");
+    write_campaign_fixture(&path, &[0x0F28B6EC]);
+    let app = build_app();
+    let before = std::fs::read(&path).expect("读取夹具用于对照");
+
+    let present = invoke(
+        &app.webview,
+        "input_fingerprint",
+        json!({ "path": path.to_string_lossy() }),
+    )
+    .expect("存在的文件应返回指纹");
+    assert_eq!(present["status"], json!("present"));
+    assert_eq!(present["size_bytes"], json!(before.len() as u64));
+    assert!(
+        present["last_write_time"].as_u64().unwrap_or(0) > 0,
+        "最后写入时间必须可读：{present:?}"
+    );
+    assert!(present["code"].is_null());
+
+    // 只读检查不修改文件。
+    assert_eq!(std::fs::read(&path).expect("再次读取"), before);
+
+    // 不存在 → missing（不是命令错误，便于监视器区分删除/替换间隙）。
+    let missing = invoke(
+        &app.webview,
+        "input_fingerprint",
+        json!({ "path": temp.join("missing.dat").to_string_lossy() }),
+    )
+    .expect("缺失路径应返回 missing");
+    assert_eq!(missing["status"], json!("missing"));
+
+    // 参数与位置类别仍是命令错误。
+    let error = invoke(&app.webview, "input_fingerprint", json!({ "path": "  " })).unwrap_err();
+    assert_eq!(error_code(&error), CODE_INVALID_PARAMS);
+    let error = invoke(
+        &app.webview,
+        "input_fingerprint",
+        json!({ "path": r"\\server\share\save1.dat" }),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_UNSUPPORTED_LOCATION);
+}
+
+#[test]
 fn failed_refresh_keeps_stale_report_with_error_code() {
     let temp = TempDir::new("stale");
     // 输出必须与输入不重叠：输出用独立的目录树。

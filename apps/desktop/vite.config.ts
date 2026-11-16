@@ -119,6 +119,9 @@ export default defineConfig(({ mode }) => {
       include: ["tests/**/*.spec.ts"],
       setupFiles: ["tests/setup.ts"],
       restoreMocks: true,
+      // 单测本身多在数百毫秒内；并行 jsdom 环境在 CI/开发机上偶发排队，
+      // 5s 默认值会把个别重量级用例误判为超时（功能断言仍独立）。
+      testTimeout: 10_000,
     },
   };
 });

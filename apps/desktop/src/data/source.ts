@@ -132,8 +132,21 @@ export interface PlanExportRequest {
   csv: string | null;
 }
 
-/** 攻略链接请求（同 SX-014 `resolve_guide_link`/`open_guide_link` 参数）。 */
-export interface GuideLinkRequest {
+/** 存档监视的只读指纹（P1-4；不读取内容、不锁定文件）。 */
+export interface InputFingerprintDto {
+  /** `present` / `missing` / `unreadable`。 */
+  status: "present" | "missing" | "unreadable";
+  size_bytes: number | null;
+  last_write_time: number | null;
+  /** 文件身份（`卷:索引`）；用于识别原子替换。 */
+  file_identity: string | null;
+  /** 不可读时的稳定错误码。 */
+  code: string | null;
+  /** 不可读时的说明（界面显示，不导出）。 */
+  message: string | null;
+}
+
+/** 攻略链接请求（同 SX-014 `resolve_guide_link`/`open_guide_link` 参数）。 */export interface GuideLinkRequest {
   snapshotId: string;
   locationId: string;
   sourceRef: string;
@@ -164,6 +177,8 @@ export interface DataSource {
   analyze(request: AnalyzeRequest): Promise<DesktopResult>;
   /** 取消在飞请求（幂等；被取消的请求不产生成功报告）。 */
   cancel(requestId: string): void | Promise<void>;
+  /** 只读检查存档指纹，供存档监视提示“已更新，是否刷新”。 */
+  fingerprintInput(path: string): Promise<InputFingerprintDto>;
   /** 把当前快照导出为新目录中的 JSON/CSV（不覆盖存档或既有报告）。 */
   exportReport(request: ExportRequest): Promise<ExportOutcomeDto>;
   /** 把收集计划清单导出为新目录中的 HTML/CSV（P1-2）。 */

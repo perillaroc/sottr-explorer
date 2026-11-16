@@ -22,6 +22,8 @@ export interface TestStoreOptions {
    * 默认：模拟模式使用 demoObservedIds，真实模式读取报告。
    */
   observedIds?: () => string[] | null;
+  /** 是否启用存档监视（默认关闭，避免测试残留定时器）。 */
+  watchInput?: boolean;
 }
 
 /** 创建测试 store（默认持久化关闭、MockDataSource 无延迟）。 */
@@ -33,6 +35,7 @@ export async function createTestStore(
     persist: false,
     layoutWidth: options.width ?? 1280,
     observedIds: options.observedIds,
+    watchInput: options.watchInput ?? false,
   });
   if (options.boot !== false) {
     await store.actions.boot();
@@ -90,6 +93,17 @@ export class ControlledSource implements DataSource {
 
   cancel(requestId: string): void {
     this.cancelledIds.push(requestId);
+  }
+
+  async fingerprintInput() {
+    return {
+      status: "present" as const,
+      size_bytes: 597_590,
+      last_write_time: 1_760_000_000_000,
+      file_identity: "controlled:save1",
+      code: null,
+      message: null,
+    };
   }
 
   /** 受控源不提供导出/链接（SX-016 的端到端用例使用 MockDataSource 或 Tauri 桩）。 */

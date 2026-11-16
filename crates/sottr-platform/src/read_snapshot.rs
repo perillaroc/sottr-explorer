@@ -19,7 +19,9 @@
 //!   `INPUT_CHANGED`（读取前后不一致）、`RESOURCE_LIMIT`（超限）；
 //! - 保留旧报告时必须标记 stale 并显示旧 `input_digest`（桌面接线在 SX-014）；
 //!   本模块提供快照摘要（[`FileSnapshot::compressed_sha256`]）供其使用；
-//! - 默认**手动刷新**，不监视文件；未来加入文件监视必须复用本快照门禁；
+//! - 默认**手动刷新**；桌面端的存档监视按约 500ms 轮询 [`inspect`]（只读指纹，
+//!   不读取内容、不以共享读锁占用文件），确认变化后仍由用户手动刷新，
+//!   刷新走 [`read_stable`] 的同一门禁；
 //! - 其他平台只做指纹与摘要复核，不声称同等共享约束；
 //! - 残余边界：不阻止其他进程在我们打开**之前**替换文件（读到的即打开时的
 //!   内容，由指纹与路径复核保证自洽）；本模块不把路径检查称为绝对隔离。
@@ -110,6 +112,33 @@ pub fn read_stable(path: &Path, limits: &Limits) -> Result<FileSnapshot, InputEr
         fingerprint: before,
         write_denied_during_read: cfg!(windows),
     })
+}
+
+/// 存档监视的只读检查结果。
+#[derive(Debug, Clone, PartialEq)]
+pub enum InspectOutcome {
+    /// 路径可读：返回当前指纹（未读取内容）。
+    Present(FileFingerprint),
+    /// 路径当前不存在（可能被移动、删除，或正处于原子替换的间隙）。
+    Missing,
+    /// 路径存在但暂不可读（被占用、权限或 I/O 失败）；可稍后重试。
+    Unreadable(InputError),
+}
+
+/// 只读检查路径当前指纹：普通只读打开（默认共享模式，不锁定、不写入），
+/// 读取身份/大小/最后写入时间后立即释放。
+///
+/// 供桌面端存档监视轮询使用；真正读取内容仍走 [`read_stable`] 的稳定快照门禁。
+pub fn inspect(path: &Path) -> InspectOutcome {
+    let file = match fs::File::open(path) {
+        Ok(file) => file,
+        Err(error) if error.kind() == io::ErrorKind::NotFound => return InspectOutcome::Missing,
+        Err(error) => return InspectOutcome::Unreadable(map_open_error(path, &error)),
+    };
+    match fingerprint_of_file(&file) {
+        Ok(fingerprint) => InspectOutcome::Present(fingerprint),
+        Err(error) => InspectOutcome::Unreadable(map_read_error(path, &error)),
+    }
 }
 
 /// 校验路径仍解析到 `expected` 指纹所指的文件（目录/链接被替换、文件被删除时失败）。
@@ -327,6 +356,33 @@ mod tests {
             "空文件摘要必须是合法 SHA-256"
         );
         assert_eq!(snapshot.fingerprint.size, 0);
+        fs::remove_dir_all(&root).unwrap();
+    }
+
+    #[test]
+    fn inspect_reports_present_missing_and_replacement() {
+        let root = temp_dir("inspect");
+        let path = root.join("save1.dat");
+        write(&path, b"first");
+
+        let InspectOutcome::Present(first) = inspect(&path) else {
+            panic!("存在的文件必须可检查");
+        };
+        assert_eq!(first.size, 5);
+
+        fs::remove_file(&path).unwrap();
+        assert_eq!(inspect(&path), InspectOutcome::Missing);
+
+        write(&path, b"second");
+        let InspectOutcome::Present(second) = inspect(&path) else {
+            panic!("重建后必须可检查");
+        };
+        assert!(
+            second.size != first.size
+                || second.last_write_time != first.last_write_time
+                || second.identity != first.identity,
+            "替换后的文件指纹必须与原来不同"
+        );
         fs::remove_dir_all(&root).unwrap();
     }
 
