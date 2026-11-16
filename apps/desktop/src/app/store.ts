@@ -60,6 +60,14 @@ import {
   type PlanSort,
 } from "./plan-checklist";
 import {
+  appendProgressSnapshot,
+  computeProgressDelta,
+  defaultBaselineId,
+  progressSnapshotOf,
+  type ProgressDelta,
+  type ProgressSnapshot,
+} from "./progress";
+import {
   defaultMapBasemap,
   mapOptions,
   mapOptionsForRegion,
@@ -256,6 +264,13 @@ export interface AppState {
   planSort: PlanSort;
   /** 计划清单导出对话框（P1-2）。 */
   planExportState: PlanExportState;
+  /**
+   * 会话内进度历史（P1-3）：按槽位保存每次成功分析的摘要（条目 ID 与计数）。
+   * 只存内存、不落盘、不含路径；磁盘持久化受 D5 约束，本轮不实现。
+   */
+  progressHistory: Record<string, ProgressSnapshot[]>;
+  /** 每个槽位选中的对比基线快照 ID；null 表示“上一次分析”。 */
+  progressBaseline: Record<string, string | null>;
   /** 详情内的攻略链接动作（SX-016；null 表示无进行中的动作）。 */
   linkAction: LinkActionState | null;
   /** 独立详情窗口失败时的应用内兜底浮层（阶段三）。 */
@@ -367,6 +382,8 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       error: null,
       suggestedFolder: null,
     },
+    progressHistory: {},
+    progressBaseline: {},
     linkAction: null,
     detailWindowFallback: { open: false, payload: null },
   });
@@ -573,6 +590,64 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
   });
 
   // -------------------------------------------------------------------------
+  // 进度增量（P1-3）：当前槽位在本次会话中的两次分析 → 总/区域/条目差异。
+  // 历史只存内存（条目 ID 与计数），不落盘、不含路径。
+  // -------------------------------------------------------------------------
+
+  const progressHistoryForCurrent = computed<ProgressSnapshot[]>(() => {
+    const path = state.selectedPath;
+    return path ? (state.progressHistory[path] ?? []) : [];
+  });
+
+  /** 本次会话内的全部快照（跨槽位；用于“槽位对比”选择）。 */
+  const progressAllSnapshots = computed<ProgressSnapshot[]>(() =>
+    Object.values(state.progressHistory).flat(),
+  );
+
+  /** 可选的对比基线（排除当前槽位最新一次；按时间倒序）。 */
+  const progressBaselineOptions = computed<ProgressSnapshot[]>(() => {
+    const latest = progressHistoryForCurrent.value[progressHistoryForCurrent.value.length - 1]?.snapshotId ?? null;
+    return progressAllSnapshots.value
+      .filter((snapshot) => snapshot.snapshotId !== latest)
+      .sort((left, right) => right.snapshotTime.localeCompare(left.snapshotTime));
+  });
+
+  /** 当前选中的基线；失效或等于最新一次时回退到“上一次分析”。 */
+  const progressBaselineId = computed<string | null>(() => {
+    const path = state.selectedPath;
+    if (!path) {
+      return null;
+    }
+    const history = state.progressHistory[path] ?? [];
+    const selected = state.progressBaseline[path] ?? null;
+    const latest = history[history.length - 1]?.snapshotId ?? null;
+    if (
+      selected !== null &&
+      selected !== latest &&
+      progressAllSnapshots.value.some((entry) => entry.snapshotId === selected)
+    ) {
+      return selected;
+    }
+    return defaultBaselineId(history);
+  });
+
+  const progressComparison = computed<ProgressDelta | null>(() => {
+    // 名称随语言变化：读取语言引用让差分重新求值。
+    void languageRef.value;
+    const history = progressHistoryForCurrent.value;
+    const baselineId = progressBaselineId.value;
+    if (history.length === 0 || baselineId === null) {
+      return null;
+    }
+    const after = history[history.length - 1];
+    const before = progressAllSnapshots.value.find((entry) => entry.snapshotId === baselineId);
+    if (!before) {
+      return null;
+    }
+    return computeProgressDelta(before, after, atlas);
+  });
+
+  // -------------------------------------------------------------------------
   // 请求隔离与提交
   // -------------------------------------------------------------------------
 
@@ -588,6 +663,42 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.analysis = { requestId: request.requestId, path, kind, startedAt: Date.now() };
     const result = await source.analyze(request);
     commitResult(request.requestId, kind, result);
+  }
+
+  /**
+   * 记录一次成功分析的进度摘要（P1-3）。
+   *
+   * 只记录当前（非 stale）快照；资料文件没有收集品清单，不进入历史。
+   * 观察集合与界面一致：模拟/测试可注入，真实模式读取报告物品表。
+   */
+  function recordProgressSnapshot(path: string, result: DesktopResult): void {
+    const report = result.report;
+    if (!report || result.freshness !== "current" || !result.snapshot_id) {
+      return;
+    }
+    if (report.context.mode === "profile") {
+      return;
+    }
+    const injected = observedSource?.();
+    const ids =
+      injected ??
+      report.observations.inventory.records.map((record) => record.internal_id);
+    const snapshot = progressSnapshotOf(
+      {
+        inputRef: result.input_ref,
+        snapshotId: result.snapshot_id,
+        snapshotTime: result.snapshot_time ?? "",
+      },
+      report,
+      ids,
+      atlas,
+    );
+    state.progressHistory[path] = appendProgressSnapshot(
+      state.progressHistory[path] ?? [],
+      snapshot,
+    );
+    // 新快照到达后回到“与上一次相比”，避免沿用很久以前的基线造成误解。
+    state.progressBaseline[path] = null;
   }
 
   function commitResult(requestId: string, kind: "start" | "refresh", result: DesktopResult): void {
@@ -610,6 +721,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     if (result.report !== null && result.freshness !== "none") {
       slot.result = result;
       slot.startError = null;
+      recordProgressSnapshot(path, result);
       if (result.freshness === "stale") {
         notify("warning", t("刷新失败：已保留旧快照并标记过期（未反映本次读取）。", "Refresh failed: the previous snapshot is kept and marked stale (it does not reflect this read)."));
       } else if (kind === "start") {
@@ -1530,6 +1642,15 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.planSort = sort;
   }
 
+  /** 选择进度对比基线；传 null 回到默认的“上一次分析”。 */
+  function setProgressBaseline(snapshotId: string | null): void {
+    const path = state.selectedPath;
+    if (!path) {
+      return;
+    }
+    state.progressBaseline[path] = snapshotId;
+  }
+
   function setStatusFilter(status: StatusFilter): void {
     state.filters.status = status;
     state.selectedRowId = null;
@@ -1712,6 +1833,10 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     planRegionOptions,
     planScopeText,
     planExportTargetPath,
+    progressHistoryForCurrent,
+    progressBaselineId,
+    progressBaselineOptions,
+    progressComparison,
     selectedEntry,
     metadataVersion: metadata.metadata_version,
     canExport,
@@ -1764,6 +1889,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       setPlanRegion,
       setPlanCategory,
       setPlanSort,
+      setProgressBaseline,
       setMapRegion,
       setMapBasemap,
       setMapStatus,
