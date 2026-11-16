@@ -132,6 +132,15 @@ export interface PlanExportRequest {
   csv: string | null;
 }
 
+/** 分享报告导出请求（P1-5；固定分享口径，不含路径/用户名/哈希）。 */
+export interface ShareReportRequest {
+  snapshotId: string;
+  inputRef: string;
+  /** 必须是尚不存在的新目录（导出不覆盖任何内容）。 */
+  outputDir: string;
+  html: string;
+}
+
 /** 存档监视的只读指纹（P1-4；不读取内容、不锁定文件）。 */
 export interface InputFingerprintDto {
   /** `present` / `missing` / `unreadable`。 */
@@ -183,6 +192,8 @@ export interface DataSource {
   exportReport(request: ExportRequest): Promise<ExportOutcomeDto>;
   /** 把收集计划清单导出为新目录中的 HTML/CSV（P1-2）。 */
   exportPlan(request: PlanExportRequest): Promise<ExportOutcomeDto>;
+  /** 把自包含的进度分享报告导出为新目录中的 share.html（P1-5）。 */
+  exportShareReport(request: ShareReportRequest): Promise<ExportOutcomeDto>;
   /**
    * 在系统文件管理器中打开**本进程刚刚导出**的目录（P1-2）。
    * 后端只接受自己记录过的导出目录，返回实际打开的路径。

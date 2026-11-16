@@ -19,6 +19,7 @@ import type {
   InputFingerprintDto,
   PickKind,
   PlanExportRequest,
+  ShareReportRequest,
 } from "./source";
 
 /** 是否运行在 Tauri（WebView）内；浏览器开发/测试环境返回 false。 */
@@ -91,6 +92,17 @@ export class TauriDataSource implements DataSource {
 
   openExportFolder(path: string): Promise<string> {
     return invoke<string>("open_export_folder", { path });
+  }
+
+  exportShareReport(request: ShareReportRequest): Promise<ExportOutcomeDto> {
+    return invoke<ExportOutcomeDto>("export_share_report", {
+      request: {
+        snapshotId: request.snapshotId,
+        inputRef: request.inputRef,
+        outputDir: request.outputDir,
+        html: request.html,
+      },
+    });
   }
 
   resolveGuideLink(request: GuideLinkRequest): Promise<GuideLinkDto> {

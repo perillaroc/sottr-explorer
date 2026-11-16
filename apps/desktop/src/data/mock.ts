@@ -42,6 +42,7 @@ import type {
   PickKind,
   PlanExportRequest,
   Purpose,
+  ShareReportRequest,
 } from "./source";
 
 interface FileSeed {
@@ -175,6 +176,8 @@ export class MockDataSource implements DataSource {
   readonly openedUrls: string[] = [];
   /** 已提交的计划清单导出（供测试检查生成内容）。 */
   readonly planExports: PlanExportRequest[] = [];
+  /** 已提交的分享报告导出（供测试检查生成内容）。 */
+  readonly shareReports: ShareReportRequest[] = [];
   /** 已“打开”的导出目录（供测试断言只打开记录过的目录）。 */
   readonly openedExportDirs: string[] = [];
   /** 存档监视指纹覆盖（测试模拟更新/替换/删除/占用）。 */
@@ -381,9 +384,39 @@ export class MockDataSource implements DataSource {
     };
   }
 
-  /** 模拟“打开导出目录”：只接受本会话记录过的导出目录。 */
-  async openExportFolder(path: string): Promise<string> {
+  /**
+   * 模拟分享报告导出（P1-5）：快照/新目录/大小/路径自检与真实命令一致，
+   * 固定产物 `share.html`，并记录请求内容供测试断言；不落盘。
+   */
+  async exportShareReport(request: ShareReportRequest): Promise<ExportOutcomeDto> {
     await this.wait();
+    const stored = this.storedSnapshot(request.snapshotId, request.inputRef);
+    const output = this.validateExportTarget(request.outputDir, stored.inputPath);
+    if (request.html.trim().length === 0) {
+      throw mockCommandError("INVALID_PARAMS", "模拟：分享报告内容不能为空");
+    }
+    if (request.html.length > MAX_PLAN_EXPORT_BYTES) {
+      throw mockCommandError("INVALID_PARAMS", "模拟：分享报告超过大小上限");
+    }
+    if (PRIVATE_PATH_PATTERN.test(request.html)) {
+      throw mockCommandError("INTERNAL", "模拟：分享报告自检失败（内容仍含路径样片段）");
+    }
+
+    this.recordExportDir(output);
+    this.shareReports.push(request);
+    return {
+      snapshot_id: stored.result.snapshot_id ?? request.snapshotId,
+      input_ref: stored.result.input_ref,
+      freshness: stored.result.freshness,
+      last_refresh_error_code: stored.result.last_refresh_error?.code ?? null,
+      share: true,
+      output_dir: output,
+      artifacts: [{ name: "share.html", path: `${output}\\share.html` }],
+    };
+  }
+
+  /** 模拟“打开导出目录”：只接受本会话记录过的导出目录。 */
+  async openExportFolder(path: string): Promise<string> {    await this.wait();
     const original = this.exportDirs.get(normalizePath(path));
     if (!original) {
       throw mockCommandError("EXPORT_DIR_UNKNOWN", `模拟：不是本会话导出的目录：${path}`);

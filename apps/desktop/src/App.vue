@@ -20,6 +20,7 @@ import AppSidebar from "./components/AppSidebar.vue";
 import AppTopBar from "./components/AppTopBar.vue";
 import ExportDialog from "./components/ExportDialog.vue";
 import PlanExportDialog from "./components/PlanExportDialog.vue";
+import ShareReportDialog from "./components/ShareReportDialog.vue";
 import MockBanner from "./components/MockBanner.vue";
 import SlotPicker from "./components/SlotPicker.vue";
 import OverviewPage from "./components/OverviewPage.vue";
@@ -503,6 +504,8 @@ onBeforeUnmount(() => {
     <ExportDialog />
     <!-- 收集计划清单导出（P1-2）：只从计划页打开，写入新目录 -->
     <PlanExportDialog />
+    <!-- 分享报告（P1-5）：自包含 HTML，固定分享口径 -->
+    <ShareReportDialog />
 
     <!-- 详情独立窗口失败时的应用内兜底（阶段三）：同一份只读 payload，模态焦点规则同对话框 -->
     <UiDialog

@@ -1109,6 +1109,87 @@ pub async fn export_plan(
     })
 }
 
+/// 分享报告导出的 IPC 载荷（P1-5）：固定分享口径，不做“完整本地信息”模式。
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ShareReportPayload {
+    pub snapshot_id: String,
+    pub input_ref: String,
+    pub output_dir: String,
+    pub html: String,
+}
+
+/// 把界面生成的自包含分享报告写入新目录（`share.html`）。
+///
+/// 分享口径固定：内容必须通过路径样片段自检；不提供关闭脱敏的选项。
+/// 目标目录与报告导出同规则（新目录、不覆盖、不与输入重叠），成功后记录目录
+/// 供“打开导出目录”使用。
+#[tauri::command]
+pub async fn export_share_report(
+    state: State<'_, DesktopState>,
+    request: ShareReportPayload,
+) -> Result<ExportOutcome, CommandError> {
+    let ShareReportPayload {
+        snapshot_id,
+        input_ref,
+        output_dir,
+        html,
+    } = request;
+    if snapshot_id.trim().is_empty() {
+        return Err(CommandError::invalid_params("snapshot_id 不能为空"));
+    }
+    if html.trim().is_empty() {
+        return Err(CommandError::invalid_params("html 不能为空"));
+    }
+    if html.len() > MAX_PLAN_EXPORT_BYTES {
+        return Err(CommandError::invalid_params(format!(
+            "分享报告超过上限（{} > {MAX_PLAN_EXPORT_BYTES} 字节）",
+            html.len()
+        )));
+    }
+    let stored = state.with_session(|session| session.snapshot(&snapshot_id))?;
+    if stored.input_ref != input_ref {
+        return Err(CommandError::snapshot_mismatch(&stored.input_ref, &input_ref));
+    }
+
+    let findings = scan_private_material(&html);
+    if !findings.is_empty() {
+        return Err(CommandError::internal(format!(
+            "分享报告自检失败（仍含路径样片段）：{}",
+            findings.join("；")
+        )));
+    }
+
+    let output = PathBuf::from(&output_dir);
+    validate_export_output(&stored, &output)?;
+    let artifacts = vec![("share.html".to_string(), html)];
+    let output_for_commit = output.clone();
+    let paths = tauri::async_runtime::spawn_blocking(move || {
+        output_commit::prepare(&output_for_commit, &artifacts).and_then(|staging| staging.commit())
+    })
+    .await
+    .map_err(|error| CommandError::internal(format!("导出任务异常结束：{error}")))?
+    .map_err(|error| CommandError::new(error.code.as_str(), error.message))?;
+
+    let refresh_error_code = stored.last_refresh_error_code();
+    state.record_export_dir(&output);
+    Ok(ExportOutcome {
+        snapshot_id: stored.snapshot_id,
+        input_ref: stored.input_ref,
+        freshness: stored.freshness,
+        last_refresh_error_code: refresh_error_code,
+        share: true,
+        output_dir: output.to_string_lossy().into_owned(),
+        artifacts: paths
+            .into_iter()
+            .map(|path| ExportArtifact {
+                name: "share.html".to_string(),
+                path: path.to_string_lossy().into_owned(),
+            })
+            .collect(),
+    })
+}
+
 /// 在系统文件管理器中打开本次会话写出过的导出目录。
 ///
 /// 只接受 [`DesktopState::recorded_export_dir`] 记录过的目录（不存在的、未被

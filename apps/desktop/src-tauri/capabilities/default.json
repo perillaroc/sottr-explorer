@@ -16,6 +16,7 @@
     "allow-input-fingerprint",
     "allow-export-report",
     "allow-export-plan",
+    "allow-export-share-report",
     "allow-open-export-folder",
     "allow-resolve-guide-link",
     "allow-open-guide-link",

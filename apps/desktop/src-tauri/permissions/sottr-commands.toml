@@ -50,6 +50,11 @@ description = "允许 export_plan：把界面按当前筛选生成的收集清�
 commands.allow = ["export_plan"]
 
 [[permission]]
+identifier = "allow-export-share-report"
+description = "允许 export_share_report：把自包含的进度分享报告写入新目录（share.html；固定分享口径，路径样片段自检，不覆盖存档或既有目录）"
+commands.allow = ["export_share_report"]
+
+[[permission]]
 identifier = "allow-open-export-folder"
 description = "允许 open_export_folder：用系统文件管理器打开本进程刚刚导出过的目录（只接受后端记录的路径，不打开任意位置）"
 commands.allow = ["open_export_folder"]

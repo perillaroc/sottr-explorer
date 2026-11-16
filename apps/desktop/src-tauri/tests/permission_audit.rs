@@ -17,6 +17,7 @@ const EXPECTED_COMMANDS: &[&str] = &[
     "input_fingerprint",
     "export_report",
     "export_plan",
+    "export_share_report",
     "open_export_folder",
     "resolve_guide_link",
     "open_guide_link",

@@ -117,6 +117,32 @@ describe("TauriDataSource：命令映射", () => {
     });
   });
 
+  it("分享报告导出：参数映射到 export_share_report", async () => {
+    invokeMock.mockResolvedValueOnce({
+      snapshot_id: "snap-1",
+      input_ref: "save1.dat",
+      freshness: "current",
+      last_refresh_error_code: null,
+      share: true,
+      output_dir: "C:\\out\\share-dir",
+      artifacts: [],
+    });
+    await source.exportShareReport({
+      snapshotId: "snap-1",
+      inputRef: "save1.dat",
+      outputDir: "C:\\out\\share-dir",
+      html: "<html></html>",
+    });
+    expect(invokeMock).toHaveBeenCalledWith("export_share_report", {
+      request: {
+        snapshotId: "snap-1",
+        inputRef: "save1.dat",
+        outputDir: "C:\\out\\share-dir",
+        html: "<html></html>",
+      },
+    });
+  });
+
   it("打开导出目录：只把路径交给 open_export_folder", async () => {
     invokeMock.mockResolvedValueOnce("C:\\out\\plan-dir");
     await expect(source.openExportFolder("C:\\out\\plan-dir")).resolves.toBe("C:\\out\\plan-dir");

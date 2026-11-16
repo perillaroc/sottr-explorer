@@ -39,6 +39,7 @@ class FakeDesktopBackend {
   readonly exportDirs = new Map<string, string>();
   readonly openedExportDirs: string[] = [];
   readonly planExports: Record<string, unknown>[] = [];
+  readonly shareReports: Record<string, unknown>[] = [];
   readonly openedUrls: string[] = [];
   failOpen = false;
   private attempts = new Map<string, number>();
@@ -69,6 +70,8 @@ class FakeDesktopBackend {
         return this.exportReport(payload);
       case "export_plan":
         return this.exportPlan((payload.request ?? payload) as Record<string, unknown>);
+      case "export_share_report":
+        return this.exportShareReport((payload.request ?? payload) as Record<string, unknown>);
       case "open_export_folder":
         return this.openExportFolder(payload);
       case "resolve_guide_link":
@@ -235,8 +238,34 @@ class FakeDesktopBackend {
     };
   }
 
-  private openExportFolder(payload: Record<string, unknown>) {
-    const path = String(payload.path);
+  private exportShareReport(payload: Record<string, unknown>) {
+    const snapshotId = String(payload.snapshotId);
+    const stored = this.snapshots.get(snapshotId);
+    if (!stored) {
+      throw { code: "SNAPSHOT_UNKNOWN", message: "未知快照" };
+    }
+    if (stored.result.input_ref !== payload.inputRef) {
+      throw { code: "SNAPSHOT_MISMATCH", message: "导出与槽位不一致" };
+    }
+    const outputDir = String(payload.outputDir);
+    if (this.createdDirs.has(outputDir.toLowerCase())) {
+      throw { code: "OUTPUT_EXISTS", message: `目标目录已存在：${outputDir}` };
+    }
+    this.createdDirs.add(outputDir.toLowerCase());
+    this.exportDirs.set(outputDir.toLowerCase(), outputDir);
+    this.shareReports.push(payload);
+    return {
+      snapshot_id: snapshotId,
+      input_ref: stored.result.input_ref,
+      freshness: stored.result.freshness,
+      last_refresh_error_code: stored.result.last_refresh_error?.code ?? null,
+      share: true,
+      output_dir: outputDir,
+      artifacts: [{ name: "share.html", path: `${outputDir}\\share.html` }],
+    };
+  }
+
+  private openExportFolder(payload: Record<string, unknown>) {    const path = String(payload.path);
     const recorded = this.exportDirs.get(path.toLowerCase());
     if (!recorded) {
       throw { code: "EXPORT_DIR_UNKNOWN", message: `不是本会话导出的目录：${path}` };
@@ -546,6 +575,38 @@ describe("端到端（真实命令层 + 假后端 IPC）", () => {
     store.actions.setView("diagnostics");
     await flushPromises();
     expect(wrapper.text()).toContain("不计入收集品数");
+  });
+
+  it("分享报告：概览入口 → 导出 share.html → 打开目录（真实命令层）", async () => {
+    const { wrapper, store } = mountApp();
+    await flushPromises();
+    await flushPromises();
+    store.actions.selectCandidate(`${MOCK_ROOT_A}\\save1.dat`);
+    store.actions.setPurpose("campaign");
+    await store.actions.startAnalysis();
+    await flushPromises();
+
+    store.actions.setView("overview");
+    await flushPromises();
+    await wrapper.get('[data-testid="open-share-report"]').trigger("click");
+    expect(store.state.shareReportState.open).toBe(true);
+    store.actions.setShareReportParent(mockPickedExportParent);
+    store.actions.setShareReportFolder("分享-e2e");
+    await store.actions.runShareReport();
+    await settle();
+    expect(store.state.shareReportState.status).toBe("success");
+
+    const call = lastCall(backend, "export_share_report");
+    const request = call?.args.request as Record<string, unknown> | undefined;
+    expect(String(request?.html)).toContain("进度分享");
+    expect(String(request?.html)).not.toContain("save1.dat");
+    expect(String(request?.html)).not.toContain(`${MOCK_ROOT_A}`);
+
+    const outputDir = store.state.shareReportState.outcome?.output_dir ?? "";
+    expect(outputDir).toBe(`${mockPickedExportParent}\\分享-e2e`);
+    await store.actions.openExportFolder(outputDir);
+    await settle();
+    expect(backend.openedExportDirs).toEqual([outputDir]);
   });
 
   it("收集计划：区域筛选 → 导出清单 → 打开导出目录（真实命令层）", async () => {

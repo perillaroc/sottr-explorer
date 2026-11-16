@@ -137,6 +137,13 @@ function browseAll(): void {
         <template #actions>
           <UiButton
             v-if="report && store.planAvailable.value"
+            data-testid="open-share-report"
+            @click="store.actions.openShareReportDialog()"
+          >
+            {{ t("分享报告", "Share report") }}
+          </UiButton>
+          <UiButton
+            v-if="report && store.planAvailable.value"
             variant="primary"
             data-testid="view-missing"
             @click="openAllUncollected"

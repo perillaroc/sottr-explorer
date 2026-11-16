@@ -10,8 +10,11 @@
 
 import { regionDisplayName, type CollectionPlan, type PlanItem, type PlanRegion } from "../data/atlas";
 import { basemapForUnit } from "../data/basemaps";
+import { escapeHtml } from "./html";
 import { localizedName, t } from "./i18n";
 import { categoryLabel, subcategoryLabel } from "./labels";
+
+export { escapeHtml } from "./html";
 
 /** 清单口径：仅必收条目 / 全部未收集条目（含可选与未闭合）。 */
 export type PlanScope = "required" | "all";
@@ -349,14 +352,6 @@ export function renderPlanCsv(checklist: PlanChecklist): string {
 }
 
 /** HTML 转义（导出文件可被浏览器直接打开，动态文本一律转义）。 */
-export function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 const HTML_STYLE = `
 :root { color-scheme: light; }

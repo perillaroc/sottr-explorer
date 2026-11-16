@@ -115,6 +115,10 @@ export class ControlledSource implements DataSource {
     throw new Error("ControlledSource 不支持计划导出");
   }
 
+  async exportShareReport(): Promise<never> {
+    throw new Error("ControlledSource 不支持分享报告");
+  }
+
   async openExportFolder(): Promise<never> {
     throw new Error("ControlledSource 不支持打开导出目录");
   }

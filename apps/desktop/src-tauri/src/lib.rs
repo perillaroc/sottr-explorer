@@ -73,6 +73,7 @@ pub fn configure<R: tauri::Runtime>(builder: tauri::Builder<R>) -> tauri::Builde
             commands::input_fingerprint,
             commands::export_report,
             commands::export_plan,
+            commands::export_share_report,
             commands::open_export_folder,
             commands::resolve_guide_link,
             commands::open_guide_link,

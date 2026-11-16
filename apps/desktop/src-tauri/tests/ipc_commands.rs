@@ -866,6 +866,70 @@ fn input_fingerprint_is_read_only_and_distinguishes_missing() {
 }
 
 #[test]
+fn export_share_report_writes_self_contained_html_and_rejects_paths() {
+    let temp = TempDir::new("share");
+    let outputs = TempDir::new("share-out-root");
+    let path = temp.join("save1.dat");
+    write_campaign_fixture(&path, &[0x0F28B6EC]);
+    let app = build_app();
+    let result = analyze(&app.webview, "req-share", &path, "campaign");
+    let snapshot_id = result.snapshot_id.clone().expect("快照标识");
+
+    let output = outputs.join("share-out");
+    let output_text = output.to_string_lossy().into_owned();
+    let html = "<!DOCTYPE html><html><body><h1>进度分享</h1></body></html>";
+    let value = invoke(
+        &app.webview,
+        "export_share_report",
+        json!({ "request": {
+            "snapshotId": snapshot_id,
+            "inputRef": "save1.dat",
+            "outputDir": output_text,
+            "html": html,
+        }}),
+    )
+    .expect("分享报告应导出成功");
+    assert_eq!(value["share"], json!(true), "分享口径固定为开启");
+    assert_eq!(value["output_dir"], json!(output_text));
+    assert_eq!(value["artifacts"].as_array().expect("产物").len(), 1);
+    assert_eq!(value["artifacts"][0]["name"], json!("share.html"));
+    assert_eq!(
+        std::fs::read_to_string(output.join("share.html")).unwrap(),
+        html
+    );
+
+    // 路径样片段自检：拒绝写出（固定分享口径，不提供关闭选项）。
+    let leaky = outputs.join("share-leaky");
+    let error = invoke(
+        &app.webview,
+        "export_share_report",
+        json!({ "request": {
+            "snapshotId": snapshot_id,
+            "inputRef": "save1.dat",
+            "outputDir": leaky.to_string_lossy(),
+            "html": "<html>C:\\Users\\me\\save1.dat</html>",
+        }}),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), "INTERNAL");
+    assert!(!leaky.exists(), "自检失败不得留下产物");
+
+    // 跨槽导出仍被拒绝。
+    let error = invoke(
+        &app.webview,
+        "export_share_report",
+        json!({ "request": {
+            "snapshotId": snapshot_id,
+            "inputRef": "save202.dat",
+            "outputDir": outputs.join("share-cross").to_string_lossy(),
+            "html": html,
+        }}),
+    )
+    .unwrap_err();
+    assert_eq!(error_code(&error), CODE_SNAPSHOT_MISMATCH);
+}
+
+#[test]
 fn failed_refresh_keeps_stale_report_with_error_code() {
     let temp = TempDir::new("stale");
     // 输出必须与输入不重叠：输出用独立的目录树。

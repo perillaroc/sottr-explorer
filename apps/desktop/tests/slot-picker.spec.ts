@@ -40,6 +40,9 @@ class NoGameSource implements DataSource {
   async exportPlan(): Promise<never> {
     throw new Error("不应调用");
   }
+  async exportShareReport(): Promise<never> {
+    throw new Error("不应调用");
+  }
   async openExportFolder(): Promise<never> {
     throw new Error("不应调用");
   }

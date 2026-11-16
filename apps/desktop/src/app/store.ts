@@ -68,6 +68,7 @@ import {
   type ProgressDelta,
   type ProgressSnapshot,
 } from "./progress";
+import { renderShareReport } from "./share-report";
 import {
   defaultMapBasemap,
   mapOptions,
@@ -139,6 +140,17 @@ export interface ExportState {
   outcome: ExportOutcomeDto | null;
   error: CommandErrorDto | null;
   /** 失败后可一键采用的替代目录名（如 OUTPUT_EXISTS）。 */
+  suggestedFolder: string | null;
+}
+
+/** 分享报告导出状态（P1-5）：固定分享口径，只选择目标新目录。 */
+export interface ShareReportState {
+  open: boolean;
+  parent: string | null;
+  folder: string;
+  status: "edit" | "exporting" | "success" | "error";
+  outcome: ExportOutcomeDto | null;
+  error: CommandErrorDto | null;
   suggestedFolder: string | null;
 }
 
@@ -287,6 +299,8 @@ export interface AppState {
   progressBaseline: Record<string, string | null>;
   /** 当前存档的只读监视状态（P1-4）；只提示变化，不自动分析。 */
   inputWatch: InputWatchState;
+  /** 分享报告导出对话框（P1-5）。 */
+  shareReportState: ShareReportState;
   /** 详情内的攻略链接动作（SX-016；null 表示无进行中的动作）。 */
   linkAction: LinkActionState | null;
   /** 独立详情窗口失败时的应用内兜底浮层（阶段三）。 */
@@ -405,6 +419,15 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     progressHistory: {},
     progressBaseline: {},
     inputWatch: { status: "idle", path: null, code: null, detectedAt: null },
+    shareReportState: {
+      open: false,
+      parent: null,
+      folder: "",
+      status: "edit",
+      outcome: null,
+      error: null,
+      suggestedFolder: null,
+    },
     linkAction: null,
     detailWindowFallback: { open: false, payload: null },
   });
@@ -1436,9 +1459,138 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     state.planExportState.status = "edit";
   }
 
-  /** 在文件管理器中打开导出目录（只接受后端记录过的导出目录）。 */
-  async function openExportFolder(path: string): Promise<void> {
+  // -------------------------------------------------------------------------
+  // 分享报告（P1-5）：自包含 HTML，固定分享口径（不含路径/用户名/哈希）
+  // -------------------------------------------------------------------------
+
+  const shareReportTargetPath = computed<string | null>(() => {
+    const { parent, folder } = state.shareReportState;
+    if (!parent || folder.trim().length === 0) {
+      return null;
+    }
+    return `${parent.replace(/[\\/]+$/, "")}\\${folder.trim()}`;
+  });
+
+  function defaultShareReportFolder(): string {
+    const now = new Date();
+    const pad = (value: number) => String(value).padStart(2, "0");
+    const stamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+    return `sottr-share-${stamp}`;
+  }
+
+  function openShareReportDialog(): void {
+    if (!state.selectedPath || !currentSlot.value?.result || !report.value) {
+      notify("warning", t("没有可导出的报告：请先分析当前槽位。", "No report to export: analyze the current slot first."));
+      return;
+    }
+    if (!planAvailable.value) {
+      notify("info", t("资料文件没有收集品清单，无法生成分享报告。", "Profile files have no collectible list; a share report cannot be generated."));
+      return;
+    }
+    if (state.analysis) {
+      notify("warning", t("分析/刷新进行中：完成后再导出。", "Analysis/refresh is in progress: export after it finishes."));
+      return;
+    }
+    state.shareReportState = {
+      open: true,
+      parent: state.shareReportState.parent,
+      folder: state.shareReportState.folder || defaultShareReportFolder(),
+      status: "edit",
+      outcome: null,
+      error: null,
+      suggestedFolder: null,
+    };
+  }
+
+  function closeShareReportDialog(): void {
+    state.shareReportState.open = false;
+  }
+
+  function setShareReportFolder(folder: string): void {
+    state.shareReportState.folder = folder;
+  }
+
+  function setShareReportParent(parent: string | null): void {
+    state.shareReportState.parent = parent;
+  }
+
+  async function pickShareReportParent(): Promise<void> {
+    const picked = await source.pick("export-directory");
+    if (picked) {
+      state.shareReportState.parent = picked;
+    }
+  }
+
+  async function runShareReport(): Promise<void> {
+    const result = currentSlot.value?.result ?? null;
+    if (!result?.snapshot_id || !report.value) {
+      notify("warning", t("没有可导出的报告：请先分析当前槽位。", "No report to export: analyze the current slot first."));
+      return;
+    }
+    if (!planAvailable.value) {
+      notify("info", t("资料文件没有收集品清单，无法生成分享报告。", "Profile files have no collectible list; a share report cannot be generated."));
+      return;
+    }
+    if (state.analysis) {
+      notify("warning", t("分析/刷新进行中，暂不能导出。", "Analysis/refresh is in progress; export is unavailable for now."));
+      return;
+    }
+    const target = shareReportTargetPath.value;
+    if (!target) {
+      state.shareReportState.status = "error";
+      state.shareReportState.error = {
+        code: "INVALID_PARAMS",
+        message: t("请先选择目标位置并填写新目录名", "Choose a target location and enter a new folder name first"),
+      };
+      return;
+    }
+
+    const html = renderShareReport(plan.value, report.value, {
+      catalogVersion: atlas.catalog_version,
+      generatedAt: formatSnapshotTime(new Date().toISOString()),
+    });
+    const exportState = state.shareReportState;
+    exportState.status = "exporting";
+    exportState.error = null;
+    exportState.outcome = null;
     try {
+      const outcome = await source.exportShareReport({
+        snapshotId: result.snapshot_id,
+        inputRef: result.input_ref,
+        outputDir: target,
+        html,
+      });
+      exportState.status = "success";
+      exportState.outcome = outcome;
+      exportState.suggestedFolder = null;
+      notify(
+        "success",
+        tFormat("已导出分享报告：{path}", "Share report exported: {path}", {
+          path: outcome.artifacts.map((artifact) => artifact.path).join(t("；", "; ")),
+        }),
+      );
+    } catch (error) {
+      const commandError = toCommandError(error);
+      exportState.status = "error";
+      exportState.error = commandError;
+      if (commandError.code === "OUTPUT_EXISTS") {
+        exportState.suggestedFolder = defaultShareReportFolder();
+      }
+    }
+  }
+
+  function applySuggestedShareReportFolder(): void {
+    if (!state.shareReportState.suggestedFolder) {
+      return;
+    }
+    state.shareReportState.folder = state.shareReportState.suggestedFolder;
+    state.shareReportState.suggestedFolder = null;
+    state.shareReportState.error = null;
+    state.shareReportState.status = "edit";
+  }
+
+  /** 在文件管理器中打开导出目录（只接受后端记录过的导出目录）。 */
+  async function openExportFolder(path: string): Promise<void> {    try {
       const opened = await source.openExportFolder(path);
       notify("success", tFormat("已在文件管理器中打开：{path}", "Opened in the file manager: {path}", { path: opened }));
     } catch (error) {
@@ -2041,6 +2193,7 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
     planRegionOptions,
     planScopeText,
     planExportTargetPath,
+    shareReportTargetPath,
     progressHistoryForCurrent,
     progressBaselineId,
     progressBaselineOptions,
@@ -2085,6 +2238,13 @@ export function createAppStore(source: DataSource, options: CreateStoreOptions =
       pickPlanExportParent,
       runPlanExport,
       applySuggestedPlanExportFolder,
+      openShareReportDialog,
+      closeShareReportDialog,
+      setShareReportFolder,
+      setShareReportParent,
+      pickShareReportParent,
+      runShareReport,
+      applySuggestedShareReportFolder,
       openExportFolder,
       openGuideLink,
       openExternalLink,
