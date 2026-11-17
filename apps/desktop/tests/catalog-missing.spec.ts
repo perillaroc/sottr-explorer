@@ -9,6 +9,7 @@ import analysisFixture from "./fixtures/missing/analysis.json";
 import catalogFixture from "./fixtures/missing/catalog.json";
 import expectedFixture from "./fixtures/missing/expected.json";
 import {
+  catalogScopeNotes,
   computeMissing,
   dlcCollectionProgress,
   productionCatalog,
@@ -88,5 +89,16 @@ describe("computeMissing（与 Rust 核心一致）", () => {
     expect(optionalReferenceStatus("archivist_maps")).toBe("unknown");
     expect(optionalReferenceStatus("crypt_entrances")).toBe("unknown");
     expect(optionalReferenceStatus("gym_training")).toBe("not_applicable");
+  });
+
+  it("P2-5 口径：_special 57 条与挑战古墓 12 名 / 8 ID", () => {
+    const notes = catalogScopeNotes(productionCatalog);
+    expect(notes.specialTotal).toBe(57);
+    expect(notes.specialWithUnit).toBe(23);
+    expect(notes.specialWithoutUnit).toBe(34);
+    expect(notes.challengeTombIds).toBe(8);
+    expect(notes.challengeTombNames).toBe(12);
+    expect(notes.sharedChallengeId).toBe("0xC9D62DEE");
+    expect(notes.sharedChallengeNames).toHaveLength(5);
   });
 });

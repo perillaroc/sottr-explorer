@@ -5,12 +5,13 @@
 import { computed } from "vue";
 import { CircleAlert, Info, TriangleAlert } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t } from "../app/i18n";
+import { t, tFormat } from "../app/i18n";
 import { capabilityLabel, categoryLabel, copy, reasonLabel, severityLabel } from "../app/labels";
 import { formatBytes, formatSnapshotTime } from "../app/format";
 import { pagePaddingClass } from "../app/layout";
 import { regionName } from "../app/collection";
 import { diagnosticGroups, unclassifiedRecords } from "../app/catalog";
+import { catalogScopeNotes, productionCatalog } from "../data/catalog";
 import AppPageHeader from "./AppPageHeader.vue";
 import CoverageNotice from "./CoverageNotice.vue";
 import UiBadge from "./ui/UiBadge.vue";
@@ -51,6 +52,9 @@ const capabilityRows = computed(() => {
 
 const groups = computed(() => (report.value ? diagnosticGroups(report.value) : []));
 const records = computed(() => (report.value ? unclassifiedRecords(store.metadata, report.value) : []));
+
+/** 图鉴口径（P2-5）：特殊区域与挑战古墓共用 ID 的静态说明。 */
+const scopeNotes = catalogScopeNotes(productionCatalog);
 
 // 当前选中条目的原始证据（从详情面板移入；详情只保留「如何获取」与外部参考）。
 const selected = computed(() => store.selectedEntry.value);
@@ -190,6 +194,38 @@ function severityClass(severity: "info" | "warning" | "error"): string {
             <p class="text-[13px] leading-5 break-words text-muted">
               {{ t("参考覆盖类别：", "Reference coverage categories: ") }}{{ report.coverage.reference_category_ids.join(t("、", ", ")) || t("无", "none") }}；{{ t("未满足原因：", "Unmet reasons: ") }}{{ (report.coverage.unavailable_reason_codes ?? []).map(reasonLabel).join(t("、", ", ")) || "—" }}
             </p>
+          </section>
+
+          <section class="space-y-2" data-testid="diagnostics-catalog-scope">
+            <h2 class="ui-section-title">{{ t("图鉴口径", "Catalog scope") }}</h2>
+            <ul class="ui-panel divide-y divide-line/60 text-[13px] leading-5">
+              <li class="px-3 py-2 break-words">
+                <span class="font-medium">{{ t("特殊区域 _special", "Special region _special") }}</span>：
+                {{ tFormat(
+                  "{total} 条（{withUnit} 条有子关卡，{withoutUnit} 条无 unit）",
+                  "{total} items ({withUnit} with a sub-level, {withoutUnit} without a unit)",
+                  { total: scopeNotes.specialTotal, withUnit: scopeNotes.specialWithUnit, withoutUnit: scopeNotes.specialWithoutUnit },
+                ) }}
+                {{ t(
+                  "。这些是跨区域合集条目（Path of the Stars、Lara's Notebook 等），不属于 26 区主表；产品保留原区域，不改写为宿主区域。",
+                  ". These are cross-region collection items (Path of the Stars, Lara's Notebook, etc.); they are not part of the 26-region table and are kept as-is rather than rewritten to a host region.",
+                ) }}
+              </li>
+              <li v-if="scopeNotes.sharedChallengeId" class="px-3 py-2 break-words">
+                <span class="font-medium">{{ t("挑战古墓共用 ID", "Shared challenge-tomb ID") }}</span>：
+                {{ tFormat(
+                  "{ids} 个 ID / {names} 个名称；其中 {shared} 个名称共用",
+                  "{ids} IDs / {names} names; {shared} names share",
+                  { ids: scopeNotes.challengeTombIds, names: scopeNotes.challengeTombNames, shared: scopeNotes.sharedChallengeNames.length },
+                ) }}
+                <span class="mono">{{ scopeNotes.sharedChallengeId }}</span>
+                （{{ scopeNotes.sharedChallengeNames.join(" / ") }}）。
+                {{ t(
+                  "按 ID 计数、不逐项拆分；类别保持未闭合，不进入缺失结论。",
+                  "Counted by ID without per-name splitting; the category stays unresolved and is not part of the missing conclusion.",
+                ) }}
+              </li>
+            </ul>
           </section>
 
           <section class="space-y-2" data-testid="diagnostics-locations">

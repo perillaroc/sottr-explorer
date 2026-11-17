@@ -195,7 +195,7 @@
       "required_for_100": null,
       "required_count": 0,
       "acquisition_rule_key": "challenge_tomb",
-      "note": "未闭合（12 名/9 对象/9 唯一 ID，5 个共用占位 ID）；按 T22 不进入缺失结论"
+      "note": "未闭合（12 名/8 个唯一 ID，5 个名称共用占位 ID 0xC9D62DEE）；按 T22 不进入缺失结论"
     },
     {
       "id": "croft_manor_extra",

@@ -16,7 +16,8 @@ export interface CatalogItem {
   is_dlc: boolean;
   required_for_100: boolean | null;
   region_hash?: string;
-  unit?: number;
+  region_slug?: string | null;
+  unit?: number | null;
   category: string;
   shared_id?: boolean;
   shared_names?: string[];
@@ -233,4 +234,35 @@ export function dlcCollectionProgress(
 function dlcLabel(collection: string): string {
   const match = /^DLC(\d+)/i.exec(collection);
   return match === null ? collection : `DLC${match[1]}`;
+}
+
+/** 图鉴口径说明（P2-5）：特殊区域与挑战古墓共用 ID 的静态统计。 */
+export interface CatalogScopeNotes {
+  specialTotal: number;
+  specialWithUnit: number;
+  specialWithoutUnit: number;
+  challengeTombIds: number;
+  challengeTombNames: number;
+  sharedChallengeId: string | null;
+  sharedChallengeNames: string[];
+}
+
+export function catalogScopeNotes(catalog: Catalog): CatalogScopeNotes {
+  const special = Object.values(catalog.items).filter(
+    (item) => item.region_slug === "_special",
+  );
+  const challengeTombs = Object.entries(catalog.items).filter(
+    ([, item]) => item.category === "challenge_tombs",
+  );
+  const shared = challengeTombs.find(([, item]) => item.shared_id === true);
+  const sharedNames = shared?.[1].shared_names ?? [];
+  return {
+    specialTotal: special.length,
+    specialWithUnit: special.filter((item) => item.unit != null && item.unit !== 0).length,
+    specialWithoutUnit: special.filter((item) => item.unit == null || item.unit === 0).length,
+    challengeTombIds: challengeTombs.length,
+    challengeTombNames: challengeTombs.length - (shared === undefined ? 0 : 1) + sharedNames.length,
+    sharedChallengeId: shared?.[0] ?? null,
+    sharedChallengeNames: sharedNames,
+  };
 }

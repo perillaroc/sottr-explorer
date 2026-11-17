@@ -48,7 +48,7 @@ CATEGORY_REQUIRED = {
     "monoliths": True,
     "survival_caches": True,
     "crypt_treasures": True,
-    "challenge_tombs": None,   # 未闭合：12 名/9 对象/9 唯一 ID（5 个共用占位 ID），不进入缺失结论
+    "challenge_tombs": None,   # 未闭合：12 名/8 个唯一 ID（5 个名称共用占位 ID），不进入缺失结论
     "explorer_backpacks": False,
     "archivist_maps": False,
     "strongboxes": False,
@@ -403,7 +403,7 @@ def main() -> int:
                     for sub_id in present
                 ]
         if required is None:
-            entry["note"] = "未闭合（12 名/9 对象/9 唯一 ID，5 个共用占位 ID）；按 T22 不进入缺失结论"
+            entry["note"] = "未闭合（12 名/8 个唯一 ID，5 个名称共用占位 ID 0xC9D62DEE）；按 T22 不进入缺失结论"
         categories.append(entry)
 
     acquisition_rules = {

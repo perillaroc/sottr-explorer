@@ -4,6 +4,19 @@ import DiagnosticsPage from "../src/components/DiagnosticsPage.vue";
 import { analyzeCandidate, createTestStore, mountWithStore } from "./helpers";
 
 describe("诊断：当前选中条目的原始证据", () => {
+  it("图鉴口径显示特殊区域与挑战古墓共用 ID", async () => {
+    const { store } = await createTestStore();
+    await analyzeCandidate(store, "save1.dat");
+    const wrapper = mountWithStore(DiagnosticsPage, store);
+    const text = wrapper.get('[data-testid="diagnostics-catalog-scope"]').text();
+    expect(text).toContain("57 条");
+    expect(text).toContain("23 条有子关卡");
+    expect(text).toContain("34 条无 unit");
+    expect(text).toContain("8 个 ID / 12 个名称");
+    expect(text).toContain("0xC9D62DEE");
+    expect(text).toContain("不逐项拆分");
+  });
+
   it("未选中条目时显示空状态提示", async () => {
     const { store } = await createTestStore();
     await analyzeCandidate(store, "save1.dat");

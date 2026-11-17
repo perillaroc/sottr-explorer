@@ -122,7 +122,7 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 
 ## 已知未闭合项（按 T22 不进入缺失结论）
 
-1. **挑战古墓 ID 共用**：12 个古墓名共享 9 个唯一 ID，其中 5 个名共用占位 ID
+1. **挑战古墓 ID 共用**：12 个古墓名共享 8 个唯一 ID，其中 5 个名共用占位 ID
    `0xC9D62DEE`（Pillars/Gift/Gate/Xolotl/Fire_Mountain），gym 中 2 个名共用
    `0x98564B9D`；按 ID 无法逐项判定，类别整体标记 `null`。界面按名称列出，
    但“缺失”只按共用 ID 观察，不拆分假点。
