@@ -85,8 +85,15 @@ fn only_measured_units_are_calibrated() {
         .flat_map(|basemap| basemap.unit_ids.clone())
         .collect();
     calibrated.sort_unstable();
-    // 逐单位抽样验证过的 7 个单位；其余为 approximate（变换解析精确但未逐单位验证）。
-    assert_eq!(calibrated, vec![241, 243, 318, 682, 2287, 2306, 4026]);
+    // 逐单位抽样验证过的 18 个单位（P2-1，2026-11-17）；其余 24 个为 approximate：
+    // 18 个无带位置条目、5 个只有 1–2 条（样本不足）、980 的 P95 未过门槛。
+    assert_eq!(
+        calibrated,
+        vec![
+            222, 241, 243, 318, 648, 672, 682, 931, 949, 982, 1060, 1070, 1294, 1597, 2287, 2306,
+            2486, 4026
+        ]
+    );
 
     let village = dataset.for_unit(318).expect("San Juan 村庄");
     assert_eq!(village.image, "maps/sm_spanish_mission_village.webp");
