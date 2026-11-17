@@ -39,7 +39,25 @@ describe("FullCollectionPage", () => {
     const backpacks = wrapper.find('[data-testid="category-explorer_backpacks"]');
     expect(backpacks.exists()).toBe(true);
     expect(backpacks.text()).toContain("探险者背包");
+    expect(backpacks.text()).toContain("参考数未知");
     expect(wrapper.find('[data-testid="missing-toggle-explorer_backpacks"]').exists()).toBe(false);
+
+    // 保险箱有区域计数器对账，可以显示分母。
+    const strongboxes = wrapper.find('[data-testid="category-strongboxes"]');
+    expect(strongboxes.exists()).toBe(true);
+    expect(strongboxes.text()).toContain("/8");
+    expect(strongboxes.text()).toContain("区域计数器已对账");
+
+    // 训练场等非收集品只展示，不计入必收。
+    const gym = wrapper.find('[data-testid="category-gym_training"]');
+    expect(gym.exists()).toBe(true);
+    expect(gym.text()).toContain("仅展示");
+
+    // DLC 故事条目：7 个包、合计 42 条，并明确不计入 100%。
+    expect(text).toContain("DLC 故事条目（不计入 100%）");
+    expect(text).toContain("/42");
+    expect(wrapper.findAll('[data-testid^="dlc-group-"]')).toHaveLength(7);
+    expect(wrapper.find('[data-testid="dlc-group-DLC01"]').exists()).toBe(true);
 
     // 未闭合类别：给出观察计数但不显示缺失数或清单。
     const tombs = wrapper.find('[data-testid="category-challenge_tombs"]');

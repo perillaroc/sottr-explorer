@@ -15,10 +15,13 @@ import { collectionDisplayName, guidanceCoverage, guidanceScopeForId } from "../
 import { groupDisplayName, regionName } from "../app/collection";
 import {
   computeMissing,
+  dlcCollectionProgress,
   productionCatalog,
   type CategoryMissing,
+  type DlcCollectionProgress,
   type MissingItem,
 } from "../data/catalog";
+import { optionalReferenceStatus } from "../data/optional-references";
 import AppPageHeader from "./AppPageHeader.vue";
 import CoverageNotice from "./CoverageNotice.vue";
 import UiBadge from "./ui/UiBadge.vue";
@@ -79,6 +82,24 @@ const optional = computed<CategoryMissing[]>(
 const unresolved = computed<CategoryMissing[]>(
   () => missing.value?.categories.filter((category) => category.required_for_100 === null) ?? [],
 );
+
+/** DLC 故事条目按 7 个包分组；仅展示，不进入必收 352。 */
+const dlcGroups = computed<DlcCollectionProgress[]>(() => {
+  const report = store.report.value;
+  if (!report) {
+    return [];
+  }
+  const ids = report.observations.inventory.records.map((record) => record.internal_id);
+  return dlcCollectionProgress(productionCatalog, ids);
+});
+const dlcTotals = computed(() => {
+  const totals = { total: 0, observed: 0 };
+  for (const group of dlcGroups.value) {
+    totals.total += group.total;
+    totals.observed += group.observed;
+  }
+  return totals;
+});
 
 const requiredTotals = computed(() => {
   const totals = { total: 0, observed: 0, missing: 0 };
@@ -296,6 +317,12 @@ function guidanceLabel(id: string): string {
         </ul>
 
         <h2 class="mt-6 mb-2 ui-section-title">{{ t("可选类别", "Optional categories") }}</h2>
+        <p class="mb-2 text-xs text-muted">
+          {{ t(
+            "可选类别不进入必收 352。只有能对上存档区域计数器的类别给出总数；其余只显示已观察数，参考数标“未知”。",
+            "Optional categories are not part of the required 352. A total is shown only when it matches save region counters; otherwise only the observed count is shown and the reference count is marked unknown.",
+          ) }}
+        </p>
         <ul class="space-y-1.5">
           <li
             v-for="category in optional"
@@ -305,7 +332,44 @@ function guidanceLabel(id: string): string {
           >
             <span class="cat-dot" :class="categoryDotClass(category.id)" aria-hidden="true"></span>
             <span class="text-ink">{{ categoryName(category.id, category.name) }}</span>
-            <span class="text-xs tabular-nums text-muted">{{ category.observed }}/{{ category.total }}</span>
+            <template v-if="optionalReferenceStatus(category.id) === 'verified'">
+              <span class="text-xs tabular-nums text-muted">{{ category.observed }}/{{ category.total }}</span>
+              <span class="text-xs text-muted">· {{ t("区域计数器已对账", "matched to region counters") }}</span>
+            </template>
+            <span
+              v-else-if="optionalReferenceStatus(category.id) === 'unknown'"
+              class="text-xs tabular-nums text-muted"
+            >
+              {{ tFormat("已观察 {n} · 参考数未知", "Observed {n} · reference count unknown", { n: category.observed }) }}
+            </span>
+            <span v-else class="text-xs tabular-nums text-muted">
+              {{ tFormat("仅展示 {n} 条 · 不计入必收", "Display only · {n} items · not counted", { n: category.observed }) }}
+            </span>
+          </li>
+        </ul>
+
+        <h2 class="mt-6 mb-2 ui-section-title">{{ t("DLC 故事条目（不计入 100%）", "DLC story items (not part of 100%)") }}</h2>
+        <p class="mb-2 text-xs text-muted">
+          {{ tFormat(
+            "按 7 个 DLC 包分组，DLC 合计 {observed}/{total}；仅展示，不进入必收 352 或全收集结论。",
+            "Grouped into 7 DLC packs; {observed}/{total} observed in total. Display only: not part of the required 352 or the full-collection result.",
+            { observed: dlcTotals.observed, total: dlcTotals.total },
+          ) }}
+        </p>
+        <ul class="space-y-1.5" data-testid="dlc-groups">
+          <li
+            v-for="group in dlcGroups"
+            :key="group.id"
+            class="ui-panel grid grid-cols-[4.5rem_minmax(0,1fr)_auto] items-center gap-3 px-3 py-2.5 text-[13px]"
+            :data-testid="`dlc-group-${group.label}`"
+          >
+            <span class="text-ink">{{ group.label }}</span>
+            <UiProgressBar
+              :value="group.observed"
+              :total="group.total"
+              :label="tFormat('{label} 故事条目进度', '{label} story item progress', { label: group.label })"
+            />
+            <span class="text-xs tabular-nums text-muted">{{ group.observed }}/{{ group.total }}</span>
           </li>
         </ul>
 

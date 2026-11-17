@@ -10,11 +10,13 @@ import catalogFixture from "./fixtures/missing/catalog.json";
 import expectedFixture from "./fixtures/missing/expected.json";
 import {
   computeMissing,
+  dlcCollectionProgress,
   productionCatalog,
   REASON_OPTIONAL,
   REASON_UNRESOLVED,
   type Catalog,
 } from "../src/data/catalog";
+import { optionalReferenceStatus } from "../src/data/optional-references";
 
 describe("computeMissing（与 Rust 核心一致）", () => {
   it("对黄金夹具输出与 CLI missing 完全一致", () => {
@@ -56,5 +58,35 @@ describe("computeMissing（与 Rust 核心一致）", () => {
     expect(report.observed_not_in_catalog).toContain("0xDEADBEEF");
     expect(report.observed_not_in_catalog).toContain("BAD-ID");
     expect(report.observed_items).toBe(1);
+  });
+
+  it("DLC 故事条目按 7 个合集分组，不计入必收", () => {
+    const groups = dlcCollectionProgress(productionCatalog, []);
+    expect(groups.map((group) => group.label)).toEqual([
+      "DLC01",
+      "DLC02",
+      "DLC03",
+      "DLC04",
+      "DLC05",
+      "DLC06",
+      "DLC07",
+    ]);
+    expect(groups.reduce((sum, group) => sum + group.total, 0)).toBe(42);
+    expect(groups.every((group) => group.observed === 0)).toBe(true);
+
+    const dlc01 = Object.entries(productionCatalog.items).find(
+      ([, item]) => item.is_dlc && item.collection === "DLC01_COLLECT_STORY",
+    );
+    expect(dlc01).toBeDefined();
+    const withOne = dlcCollectionProgress(productionCatalog, [dlc01![0]]);
+    expect(withOne.find((group) => group.label === "DLC01")?.observed).toBe(1);
+  });
+
+  it("可选类别参考状态：只有保险箱有区域计数器", () => {
+    expect(optionalReferenceStatus("strongboxes")).toBe("verified");
+    expect(optionalReferenceStatus("explorer_backpacks")).toBe("unknown");
+    expect(optionalReferenceStatus("archivist_maps")).toBe("unknown");
+    expect(optionalReferenceStatus("crypt_entrances")).toBe("unknown");
+    expect(optionalReferenceStatus("gym_training")).toBe("not_applicable");
   });
 });

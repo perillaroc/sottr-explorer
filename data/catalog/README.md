@@ -18,6 +18,26 @@
 | `regions` | 26 个游戏区域 + 特殊区域；每条带 `slug` / `name_en` / `name_zh` / `item_count` / `binding`（签名匹配证据）与挑战古墓、营地、挑战、任务目标列表（`missions` 语义未定，不用于缺失） |
 | `items` | 每条：内部候选名 `name`、游戏中英名 `name_en`/`name_zh`、类别、子类别、`region_hash`/`region_slug`、`unit`、`position`（关卡内相对位置，**未校准**）、`is_dlc`、必收标记、`acquisition_note`（中文注记）、`acquisition_note_en`（英文注记）、`acquisition_note_scope`（`item` / `collection` / `unit`）、`acquisition_note_source`（`curated` / `game_data`）；共用 ID 见 `shared_id`/`shared_names` |
 
+## 可选类别与 DLC（P2-4，2026-11-17）
+
+**D3 已决定：仅展示。** 可选类别与 DLC 都不进入必收 352，也不参与个人完成度。
+
+| 可选类别 | 条目 | 参考状态 | 依据 |
+| --- | --- | --- | --- |
+| `strongboxes` 保险箱 | 8 | **已对账** | 存档区域计数器 `Strongboxes`（5 个区域，合计 8）；`validate_region_counters.py` 通过 |
+| `explorer_backpacks` 探险者背包 | 15 | **未知** | 无区域计数器，也无 100% 参考集合；15 只是目录条目数 |
+| `archivist_maps` 档案图 | 19 | **未知** | 同上 |
+| `crypt_entrances` 墓穴入口 | 9 | **未知** | 同上（区域计数器 `Crypts` 对应的是墓穴宝藏 10 条，不是入口） |
+| `gym_training` / `test_items` / `croft_manor_extra` | 8 / 2 / 7 | 不适用 | 训练场、测试项与庄园额外记录，不计入收集品 |
+
+界面（`FullCollectionPage`）只对 **已对账** 的类别显示 `已收/总数`；其余可选类别只显示
+已观察数并标「参考数未知」，不把目录条目数当分母。实现表见
+`apps/desktop/src/data/optional-references.ts`。
+
+**DLC 故事条目**：42 条，按 7 个合集（`DLC01_COLLECT_STORY`–`DLC07_COLLECT_STORY`）分组，
+在全收集页显示每组已收/总数与进度条，并明确标「不计入 100%」；不进入必收 352 或全收集结论。
+公开的 DLC 包名未在数据中核实，界面用 `DLC01`–`DLC07` 中性标签。
+
 ## 生成与校验
 
 ```powershell

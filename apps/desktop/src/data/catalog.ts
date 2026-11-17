@@ -183,3 +183,54 @@ export function computeMissing(catalog: Catalog, observedIds: Iterable<string>):
     categories,
   };
 }
+
+/** 一个 DLC 故事包（7 组）的进度。 */
+export interface DlcCollectionProgress {
+  /** 合集键，如 `DLC01_COLLECT_STORY`。 */
+  id: string;
+  /** 短标签，如 `DLC01`。 */
+  label: string;
+  total: number;
+  observed: number;
+}
+
+/** 按合集把 DLC 故事条目分组；DLC 不进入必收 352，也不参与全收集结论。 */
+export function dlcCollectionProgress(
+  catalog: Catalog,
+  observedIds: Iterable<string>,
+): DlcCollectionProgress[] {
+  const normalized = new Set<string>();
+  for (const raw of observedIds) {
+    const id = normalizeObserved(raw);
+    if (id !== null) {
+      normalized.add(id);
+    }
+  }
+  const totals = new Map<string, { total: number; observed: number }>();
+  for (const [id, item] of Object.entries(catalog.items)) {
+    if (!item.is_dlc) {
+      continue;
+    }
+    const collection = item.collection ?? "DLC_UNKNOWN";
+    const row = totals.get(collection) ?? { total: 0, observed: 0 };
+    row.total += 1;
+    if (normalized.has(id)) {
+      row.observed += 1;
+    }
+    totals.set(collection, row);
+  }
+  return [...totals.entries()]
+    .sort(([left], [right]) => (left < right ? -1 : left > right ? 1 : 0))
+    .map(([id, row]) => ({
+      id,
+      label: dlcLabel(id),
+      total: row.total,
+      observed: row.observed,
+    }));
+}
+
+/** `DLC01_COLLECT_STORY` → `DLC01`；无法识别时保留原键。 */
+function dlcLabel(collection: string): string {
+  const match = /^DLC(\d+)/i.exec(collection);
+  return match === null ? collection : `DLC${match[1]}`;
+}
