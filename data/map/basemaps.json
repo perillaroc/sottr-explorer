@@ -1323,7 +1323,8 @@
       "version": "0.1.0",
       "region_id": "paititi",
       "unit_ids": [
-        1340
+        1340,
+        10541
       ],
       "map_path": "map\\pa_hub_paititi_kings_tomb",
       "level_drm": "pa_hub_paititi_kings_tomb",
@@ -1351,7 +1352,7 @@
       ],
       "review": {
         "state": "draft",
-        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经逐单位验证",
+        "note": "变换由 gameflow 取景框解析而来（归一化坐标即取景框），未经逐单位验证；10541 的取景框与此图逐位相同，共用该图（P2-3）",
         "date": "2026-11-17"
       },
       "median_error_px": 5.0,

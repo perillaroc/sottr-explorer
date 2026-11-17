@@ -114,18 +114,18 @@ describe("底图目录（真实数据集）", () => {
   it("无底图特殊区域：regionHasBasemap 为 false，绝大多数条目计入无底图", () => {
     expect(regionHasBasemap(plan, "_special")).toBe(false);
     const special = plan.regions.find((entry) => entry.slug === "_special")!;
-    // 57 项中 2 项位于同时属于主区域的挑战古墓 unit，其余 55 项无底图。
+    // 57 项中 5 项有底图（2 项主区域挑战古墓 + 3 项 DLC2 国王墓共用底图），其余 52 项无底图。
     expect(special.total).toBe(57);
-    expect(unmappedInRegion(plan, "_special")).toBe(55);
+    expect(unmappedInRegion(plan, "_special")).toBe(52);
   });
 
-  it("全量覆盖统计：42 张底图 · 24/65 个子关卡 · 291/470 条可上图", () => {
+  it("全量覆盖统计：42 张底图 · 25/65 个子关卡 · 294/470 条可上图", () => {
     const coverage = mapCoverage(plan, atlas);
     expect(coverage).toEqual({
       basemaps: 42,
       units: 65,
-      unitsWithBasemap: 24,
-      mappable: 291,
+      unitsWithBasemap: 25,
+      mappable: 294,
       items: 470,
     });
   });

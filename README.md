@@ -42,7 +42,7 @@
 - 42 个子关卡配有游戏内地图底图。点位按每张图自己的变换绘制：其中 7 个单位经过抽样验证，
   界面标「已校准」并给出中位误差与 P95；其余标「近似位置」。
 - 没有底图的区域显示散点，并给出子关卡文字指引。
-- 少数条目（291 条中的 14 条）坐标落在底图透明留白里（多为地下、隧道或地图边缘），
+- 少数条目（294 条中的 14 条）坐标落在底图透明留白里（多为地下、隧道或地图边缘），
   界面用虚线外环标出并在图下说明，不隐藏、也不改写坐标。
 - 底图只在你展开「同一子关卡内的相对位置」时才加载。
 
@@ -56,7 +56,7 @@
 ## 数据与来源
 
 - 全收集图鉴（区域 / 子关卡 / 中英名 / 获取方式 / 相对位置）：[data/catalog/README.md](data/catalog/README.md)
-- 真实地图基底层（42 个单位、坐标与状态口径）：[data/map/README.md](data/map/README.md)
+- 真实地图基底层（43 个单位、坐标与状态口径）：[data/map/README.md](data/map/README.md)
 - 收集品元数据：[data/metadata/README.md](data/metadata/README.md)
 - 第三方来源与许可：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)；依赖许可全文见 [THIRD_PARTY_LICENSES.txt](THIRD_PARTY_LICENSES.txt)（应用内「关于」页可展开）
 - 地图底图来自 spriters-resource 作者 **vi7ual**（投稿 502127 / 502132 / 502133，2025-12-18 提交），
