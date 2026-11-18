@@ -10,7 +10,7 @@
 | 异常 type28 导致表不完整 | 不能推断“缺席” | `inventory_complete = false`，缺席推断阻断 |
 | 挑战古墓 ID 共用（12 个名共享 8 个 ID） | 无法逐项判定 | 类别整体标 `null`，只按共用 ID 观察 |
 | `profile.dat` 不参与战役语义 | 资料文件只做容器观察 | 单独标记，不进入进度 |
-| 只覆盖 4 MiB 战役家族与已支持布局 | 未知布局不给结论 | `UNSUPPORTED_LAYOUT` / `UNSUPPORTED_CONTEXT` |
+| 只覆盖 4 MiB 战役家族与已支持布局 | 2026-11-18 P3-5 盘点：40 个样本中 35 个为 4 MiB 战役布局、5 个为 profile（25,600 字节），没有其他布局；未知尺寸不给结论 | `UNSUPPORTED_LAYOUT` / `UNSUPPORTED_CONTEXT`（“Unrecognized sample-family size”） |
 
 ## 数据
 

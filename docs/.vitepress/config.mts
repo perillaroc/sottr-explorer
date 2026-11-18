@@ -115,6 +115,7 @@ export default defineConfig({
             { text: 'DTP 64 位文本键', link: '/data/research/text-keys' },
             { text: 'missions 语义', link: '/data/research/missions' },
             { text: '用 mesh 生成缺失底图', link: '/data/research/mesh-basemaps' },
+            { text: '存档布局扩展', link: '/data/research/save-layouts' },
             { text: '派生表口径', link: '/data/research/derived-tables' },
           ],
         },
