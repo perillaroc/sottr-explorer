@@ -25,6 +25,7 @@
 | [全收集对账（SX-020）](/data/research/reconciliation) | 100% 口径对账与否定结果 |
 | [整体完成度百分比（P3-1）](/data/research/completion) | 0x28 的公式结构、已验证部分与未闭合项 |
 | [DTP 64 位文本键（P3-2）](/data/research/text-keys) | 文本键映射的否证结果与产品的替代路径 |
+| [missions 语义（P3-3）](/data/research/missions) | 20 条 missions 是目标级标记，不是支线任务清单 |
 | [派生表口径（SX-022）](/data/research/derived-tables) | 区域、单位、中英名、位置与 43 行验收 |
 
 ## 公开版做了什么处理

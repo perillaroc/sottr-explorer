@@ -101,7 +101,7 @@
 | 10 Crypts（石棺） | type 6 CryptTreasure | 10 ✓ |
 | 9 Challenge Tombs（石碑） | type 9 的 CT_ 基底部分 | 9/12（12 含 DLC/训练场） |
 | Artifacts（~253 必需） | 故事收集品集合 | 302（含 DLC/变体，口径待细化） |
-| 8 支线 / 15 挑战 | gameflow RegionData 的 missions/challenges 列表 | 未逐一核对 |
+| 8 支线 / 15 挑战 | gameflow RegionData 的 missions/challenges 列表 | 20 条 missions 已确认是目标级标记，不是 8 条支线（[P3-3](/data/research/missions)） |
 | 不要求：探险者背包 / 档案图 / 营地 | type 5 / type 7 / campsites | 与来源一致（非必需） |
 
 结论（假说级）：成就“全收集”与地图完成度都是**组合口径**，不是单一集合；
