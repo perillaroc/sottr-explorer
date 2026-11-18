@@ -111,6 +111,7 @@ export default defineConfig({
             { text: '提取与容器格式', link: '/data/research/extraction' },
             { text: '研究发现', link: '/data/research/findings' },
             { text: '全收集对账', link: '/data/research/reconciliation' },
+            { text: '整体完成度百分比', link: '/data/research/completion' },
             { text: '派生表口径', link: '/data/research/derived-tables' },
           ],
         },
