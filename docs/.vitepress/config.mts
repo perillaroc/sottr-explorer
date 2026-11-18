@@ -114,6 +114,7 @@ export default defineConfig({
             { text: '整体完成度百分比', link: '/data/research/completion' },
             { text: 'DTP 64 位文本键', link: '/data/research/text-keys' },
             { text: 'missions 语义', link: '/data/research/missions' },
+            { text: '用 mesh 生成缺失底图', link: '/data/research/mesh-basemaps' },
             { text: '派生表口径', link: '/data/research/derived-tables' },
           ],
         },
