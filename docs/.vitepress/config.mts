@@ -86,7 +86,20 @@ export default defineConfig({
         },
         {
           text: '决策记录',
-          items: [{ text: '索引', link: '/development/decisions/' }],
+          items: [
+            { text: '索引', link: '/development/decisions/' },
+            { text: '0001 平台范围', link: '/development/decisions/0001-platform-scope' },
+            { text: '0002 只读', link: '/development/decisions/0002-read-only' },
+            { text: '0003 未知表达', link: '/development/decisions/0003-unknown-as-null' },
+            { text: '0004 证据分层', link: '/development/decisions/0004-evidence-layers' },
+            { text: '0005 不做概率', link: '/development/decisions/0005-no-probabilities' },
+            { text: '0006 参考集合', link: '/development/decisions/0006-reference-set-exactly-one' },
+            { text: '0007 坐标空间', link: '/development/decisions/0007-unit-local-coordinates' },
+            { text: '0008 地图分发', link: '/development/decisions/0008-bundled-basemaps' },
+            { text: '0009 双数据集', link: '/development/decisions/0009-dual-datasets' },
+            { text: '0010 契约形态', link: '/development/decisions/0010-strict-contract' },
+            { text: '0011 Python 参照', link: '/development/decisions/0011-python-oracle' },
+          ],
         },
       ],
 
