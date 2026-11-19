@@ -6,6 +6,7 @@
 import { computed } from "vue";
 import { useStore } from "../app/inject";
 import { t, type LanguagePreference } from "../app/i18n";
+import { LANGUAGE_OPTIONS } from "../app/locales";
 import { pagePaddingClass } from "../app/layout";
 import type { LinkOpenMode, SearchEngine } from "../app/prefs";
 import type { ThemePreference } from "../app/theme";
@@ -18,39 +19,42 @@ const layout = computed(() => store.layout.value);
 const pageX = computed(() => pagePaddingClass(layout.value));
 const narrow = computed(() => layout.value === "narrow");
 
-const languageOptions: { value: LanguagePreference; label: string; hint: string }[] = [
-  { value: "zh", label: t("中文", "Chinese"), hint: t("仅显示中文", "Show Chinese only") },
-  { value: "en", label: "English", hint: t("仅显示英文", "Show English only") },
-  { value: "both", label: t("中英对照", "Bilingual"), hint: t("中文与英文并列显示", "Show Chinese and English side by side") },
-];
+// 语言选项来自注册表：新增语言只需改 locales/index.ts，这里不写死。
+const languageOptions = computed<{ value: LanguagePreference; label: string; hint: string }[]>(() =>
+  LANGUAGE_OPTIONS.map((option) => ({
+    value: option.value,
+    label: option.labelKey ? t(option.labelKey) : (option.label ?? option.value),
+    hint: t(option.hintKey),
+  })),
+);
 
 const themeOptions = computed<{ value: ThemePreference; label: string; hint: string }[]>(() => [
-  { value: "system", label: t("跟随系统", "System"), hint: t("随系统浅色 / 深色设置切换", "Follow the system light / dark setting") },
-  { value: "light", label: t("浅色", "Light"), hint: t("始终使用浅色主题", "Always use the light theme") },
-  { value: "dark", label: t("深色", "Dark"), hint: t("始终使用深色主题", "Always use the dark theme") },
+  { value: "system", label: t("settingsPage.system"), hint: t("settingsPage.follow-the-system-light-dark-setting") },
+  { value: "light", label: t("settingsPage.light"), hint: t("settingsPage.always-use-the-light-theme") },
+  { value: "dark", label: t("settingsPage.dark"), hint: t("settingsPage.always-use-the-dark-theme") },
 ]);
 
 const searchEngineOptions = computed<{ value: SearchEngine; label: string }[]>(() => [
   { value: "bing", label: "Bing" },
   { value: "google", label: "Google" },
-  { value: "baidu", label: t("百度", "Baidu") },
+  { value: "baidu", label: t("settingsPage.baidu") },
 ]);
 
 const linkOpenModeOptions = computed<{ value: LinkOpenMode; label: string; hint: string }[]>(() => [
   {
     value: "open",
-    label: t("打开浏览器", "Open browser"),
-    hint: t("交给系统默认浏览器打开", "Open in the system default browser"),
+    label: t("settingsPage.open-browser"),
+    hint: t("settingsPage.open-in-the-system-default-browser"),
   },
   {
     value: "copy",
-    label: t("仅复制链接", "Copy link only"),
-    hint: t("只把地址复制到剪贴板", "Copy the address to the clipboard only"),
+    label: t("settingsPage.copy-link-only"),
+    hint: t("settingsPage.copy-the-address-to-the-clipboard-only"),
   },
 ]);
 
 const languageHint = computed(
-  () => languageOptions.find((option) => option.value === store.state.language)?.hint ?? "",
+  () => languageOptions.value.find((option) => option.value === store.state.language)?.hint ?? "",
 );
 const themeHint = computed(
   () => themeOptions.value.find((option) => option.value === store.state.theme)?.hint ?? "",
@@ -81,16 +85,16 @@ function segmentClass(active: boolean): string {
 <template>
   <section class="scroll-area min-h-0 flex-1" aria-labelledby="settings-title">
     <div class="mx-auto w-full max-w-[840px] pb-8" :class="pageX">
-      <AppPageHeader title-id="settings-title" :title="t('设置', 'Settings')" />
+      <AppPageHeader title-id="settings-title" :title="t('common.settings')" />
 
       <div class="ui-panel mt-4">
         <section class="border-b border-line px-4 py-3">
-          <h2 class="ui-section-title">{{ t("显示", "Display") }}</h2>
+          <h2 class="ui-section-title">{{ t("settingsPage.display") }}</h2>
           <div class="mt-1 divide-y divide-line/50">
             <div :class="rowClass" data-testid="language-settings">
-              <span :class="labelClass">{{ t("语言", "Language") }}</span>
+              <span :class="labelClass">{{ t("settingsPage.language") }}</span>
               <div class="min-w-0 flex-1">
-                <div :class="segmentGroup" role="radiogroup" :aria-label="t('界面语言', 'Interface language')">
+                <div :class="segmentGroup" role="radiogroup" :aria-label="t('settingsPage.interface-language')">
                   <label
                     v-for="option in languageOptions"
                     :key="option.value"
@@ -114,9 +118,9 @@ function segmentClass(active: boolean): string {
             </div>
 
             <div :class="rowClass">
-              <span :class="labelClass">{{ t("主题", "Theme") }}</span>
+              <span :class="labelClass">{{ t("settingsPage.theme") }}</span>
               <div class="min-w-0 flex-1">
-                <div :class="segmentGroup" role="radiogroup" :aria-label="t('主题', 'Theme')">
+                <div :class="segmentGroup" role="radiogroup" :aria-label="t('settingsPage.theme')">
                   <label
                     v-for="option in themeOptions"
                     :key="option.value"
@@ -142,16 +146,16 @@ function segmentClass(active: boolean): string {
         </section>
 
         <section class="border-b border-line px-4 py-3">
-          <h2 class="ui-section-title">{{ t("布局", "Layout") }}</h2>
+          <h2 class="ui-section-title">{{ t("settingsPage.layout") }}</h2>
           <div class="mt-1">
             <div :class="rowClass">
-              <span :class="labelClass">{{ t("导航与详情", "Navigation & details") }}</span>
+              <span :class="labelClass">{{ t("settingsPage.navigation-details") }}</span>
               <div class="min-w-0 flex-1 space-y-1">
                 <UiButton size="sm" data-testid="reset-layout" @click="store.actions.resetLayout()">
-                  {{ t("恢复默认布局", "Restore default layout") }}
+                  {{ t("settingsPage.restore-default-layout") }}
                 </UiButton>
                 <p class="text-xs text-muted">
-                  {{ t("恢复导航展开状态、详情宽度与地图右栏宽度；不改变主题、语言和外部链接偏好。", "Restores the expanded navigation, detail width and map rail width; theme, language and external-link preferences are unchanged.") }}
+                  {{ t("settingsPage.restores-the-expanded-navigation-detail-width") }}
                 </p>
               </div>
             </div>
@@ -159,12 +163,12 @@ function segmentClass(active: boolean): string {
         </section>
 
         <section class="px-4 py-3" data-testid="external-links-settings">
-          <h2 class="ui-section-title">{{ t("外部链接", "External links") }}</h2>
+          <h2 class="ui-section-title">{{ t("settingsPage.external-links") }}</h2>
           <div class="mt-1 divide-y divide-line/50">
             <div :class="rowClass">
-              <span :class="labelClass">{{ t("搜索引擎", "Search engine") }}</span>
+              <span :class="labelClass">{{ t("settingsPage.search-engine") }}</span>
               <div class="min-w-0 flex-1">
-                <div :class="segmentGroup" role="radiogroup" :aria-label="t('搜索引擎', 'Search engine')">
+                <div :class="segmentGroup" role="radiogroup" :aria-label="t('settingsPage.search-engine')">
                   <label
                     v-for="option in searchEngineOptions"
                     :key="option.value"
@@ -186,9 +190,9 @@ function segmentClass(active: boolean): string {
             </div>
 
             <div :class="rowClass">
-              <span :class="labelClass">{{ t("链接打开方式", "Link behavior") }}</span>
+              <span :class="labelClass">{{ t("settingsPage.link-behavior") }}</span>
               <div class="min-w-0 flex-1">
-                <div :class="segmentGroup" role="radiogroup" :aria-label="t('打开方式', 'Open mode')">
+                <div :class="segmentGroup" role="radiogroup" :aria-label="t('settingsPage.open-mode')">
                   <label
                     v-for="option in linkOpenModeOptions"
                     :key="option.value"

@@ -15,7 +15,7 @@ import { isTauriRuntime } from "../data/tauri";
 import { buildSearchUrl, textSearchQuery, videoSearchQuery } from "./external-links";
 import { categoryNameOf } from "./collection";
 import { subcategoryLabel } from "./labels";
-import { localizedName, t } from "./i18n";
+import { localizedName, t, tFormatPair } from "./i18n";
 import type { LinkOpenMode, SearchEngine } from "./prefs";
 import type { DirectLink } from "./store";
 
@@ -91,7 +91,7 @@ function unitLabelOf(item: PlanItem): string {
   if (!unit) {
     return "—";
   }
-  return localizedName(unit.display_zh, unit.display_en, unit.zone ?? t(`子关卡 ${unit.unit}`, `Sub-level ${unit.unit}`));
+  return localizedName(unit.display_zh, unit.display_en, unit.zone ?? tFormatPair(`common.sub-level`, { v0: unit.unit }));
 }
 
 function itemPayload(
@@ -123,7 +123,7 @@ function itemPayload(
     searchTextUrl: buildSearchUrl(source.searchEngine, textSearchQuery(item, regionLabel)),
     searchVideoUrl: buildSearchUrl(source.searchEngine, videoSearchQuery(item, regionLabel)),
     directLinks: source.directLinksForItem(item).map((link) => ({
-      label: link.medium === "video" ? t("视频页", "Video page") : t("攻略页", "Guide page"),
+      label: link.medium === "video" ? t("detailWindow.video-page") : t("detailWindow.guide-page"),
       url: link.url,
       guideItem: link.guideItem,
     })),
@@ -240,7 +240,7 @@ export async function openDetailWindow(payload: DetailWindowPayload): Promise<vo
   const url = `${location.pathname}${location.search}${DETAIL_POPUP_HASH}`;
   popupWindow = window.open(url, "_blank", "popup,width=560,height=780");
   if (!popupWindow) {
-    throw new Error(t("无法打开新窗口（可能被浏览器拦截）", "Cannot open a new window (it may be blocked)"));
+    throw new Error(t("detailWindow.cannot-open-a-new-window"));
   }
 }
 

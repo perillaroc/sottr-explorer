@@ -13,7 +13,7 @@ import {
   TriangleAlert,
 } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t } from "../app/i18n";
+import { t, tFormatPair } from "../app/i18n";
 import { copy } from "../app/labels";
 import { fileNameOf, formatSnapshotTime } from "../app/format";
 import AppBrandMark from "./AppBrandMark.vue";
@@ -32,7 +32,7 @@ const showDividers = computed(() => layout.value !== "narrow");
 
 const currentName = computed(() => {
   const path = store.state.selectedPath;
-  return path ? fileNameOf(path) : t("未选择文件", "No file selected");
+  return path ? fileNameOf(path) : t("appTopBar.no-file-selected");
 });
 
 const fileMaxClass = computed(() => {
@@ -86,40 +86,40 @@ const statusText = computed(() => {
   if (analysis) {
     const name = fileNameOf(analysis.path);
     return analysis.kind === "refresh"
-      ? t(`正在刷新 ${name}（保留上次结果）`, `Refreshing ${name} (previous result kept)`)
-      : t(`正在分析 ${name}…`, `Analyzing ${name}…`);
+      ? tFormatPair(`appTopBar.refreshing-previous-result-kept`, { v0: name })
+      : tFormatPair(`appTopBar.analyzing`, { v0: name });
   }
   if (store.state.lastCancelledPath === store.state.selectedPath && store.state.selectedPath) {
-    return t("已取消", "Cancelled");
+    return t("appTopBar.cancelled");
   }
   const slot = store.currentSlot.value;
   if (slot?.result) {
     if (slot.result.freshness === "stale") {
-      return t(`旧快照（${formatSnapshotTime(slot.result.snapshot_time)}）`, `Stale snapshot (${formatSnapshotTime(slot.result.snapshot_time)})`);
+      return tFormatPair(`appTopBar.stale-snapshot`, { v0: formatSnapshotTime(slot.result.snapshot_time) });
     }
-    return t(`分析完成（快照 ${formatSnapshotTime(slot.result.snapshot_time)}）`, `Analysis complete (snapshot ${formatSnapshotTime(slot.result.snapshot_time)})`);
+    return tFormatPair(`appTopBar.analysis-complete-snapshot`, { v0: formatSnapshotTime(slot.result.snapshot_time) });
   }
   if (slot?.startError) {
-    return t(`分析失败：${slot.startError.code}`, `Analysis failed: ${slot.startError.code}`);
+    return tFormatPair(`appTopBar.analysis-failed`, { v0: slot.startError.code });
   }
-  return t("尚未分析", "Not analyzed yet");
+  return t("appTopBar.not-analyzed-yet");
 });
 
 /** 当前档位下的简短状态；完整信息保留在 title。 */
 const statusShort = computed(() => {
   switch (statusKind.value) {
     case "analysis":
-      return store.state.analysis?.kind === "refresh" ? t("刷新中", "Refreshing") : t("分析中", "Analyzing");
+      return store.state.analysis?.kind === "refresh" ? t("appTopBar.refreshing") : t("appTopBar.analyzing-2");
     case "cancelled":
-      return t("已取消", "Cancelled");
+      return t("appTopBar.cancelled");
     case "stale":
-      return t("旧快照", "Stale snapshot");
+      return t("appTopBar.stale-snapshot-2");
     case "complete":
-      return isCompactStatus.value ? t("完成", "Done") : t("分析完成", "Analysis complete");
+      return isCompactStatus.value ? t("appTopBar.done") : t("appTopBar.analysis-complete");
     case "failed":
-      return isCompactStatus.value ? t("失败", "Failed") : t("分析失败", "Analysis failed");
+      return isCompactStatus.value ? t("appTopBar.failed") : t("appTopBar.analysis-failed-2");
     default:
-      return isCompactStatus.value ? t("未分析", "Not analyzed") : t("尚未分析", "Not analyzed yet");
+      return isCompactStatus.value ? t("appTopBar.not-analyzed") : t("appTopBar.not-analyzed-yet");
   }
 });
 
@@ -155,25 +155,25 @@ const statusToneClass = computed(() => {
 
 const refreshLabel = computed(() =>
   hasResult.value
-    ? t("手动刷新（F5）", "Refresh manually (F5)")
-    : t("尚未分析，无法刷新", "Not analyzed yet; cannot refresh"),
+    ? t("appTopBar.refresh-manually-f5")
+    : t("appTopBar.not-analyzed-yet-cannot-refresh"),
 );
 
 const moreItems = computed<MenuItem[]>(() => [
   store.canExport.value
-    ? { id: "export", label: t("导出当前快照（JSON/CSV）…", "Export current snapshot (JSON/CSV)…") }
+    ? { id: "export", label: t("appTopBar.export-current-snapshot-json-csv") }
     : {
         id: "export",
-        label: t("导出当前快照（JSON/CSV）…", "Export current snapshot (JSON/CSV)…"),
+        label: t("appTopBar.export-current-snapshot-json-csv"),
         disabled: true,
         reason: store.state.analysis
-          ? t("分析/刷新进行中：完成后再导出", "Analysis/refresh in progress: export after it finishes")
-          : t("没有可导出的报告：请先分析当前槽位", "No report to export: analyze the current slot first"),
+          ? t("appTopBar.analysis-refresh-in-progress-export-after")
+          : t("appTopBar.no-report-to-export-analyze-the-current"),
       },
-  { id: "rescan", label: t("重新查找默认目录", "Rescan default folders") },
-  { id: "diagnostics", label: t("诊断", "Diagnostics") },
-  { id: "settings", label: t("设置", "Settings") },
-  { id: "about", label: t("关于", "About") },
+  { id: "rescan", label: t("appTopBar.rescan-default-folders") },
+  { id: "diagnostics", label: t("common.diagnostics") },
+  { id: "settings", label: t("common.settings") },
+  { id: "about", label: t("common.about") },
 ]);
 
 function onMore(id: string): void {
@@ -208,7 +208,7 @@ function onMore(id: string): void {
     <div class="flex min-w-0 shrink-0 items-center gap-2">
       <UiIconButton
         v-if="isNarrow"
-        :label="t('打开导航菜单', 'Open navigation menu')"
+        :label="t('appTopBar.open-navigation-menu')"
         :pressed="store.state.navOverlayOpen"
         @click="store.actions.toggleNav()"
       >
@@ -218,11 +218,11 @@ function onMore(id: string): void {
         v-else
         size="sm"
         variant="ghost"
-        :title="store.state.navCollapsed ? t('展开导航', 'Expand navigation') : t('折叠导航', 'Collapse navigation')"
+        :title="store.state.navCollapsed ? t('appTopBar.expand-navigation') : t('appTopBar.collapse-navigation')"
         @click="store.actions.toggleNav()"
       >
         <Menu :size="18" aria-hidden="true" />
-        <span class="sr-only">{{ store.state.navCollapsed ? t("展开导航", "Expand navigation") : t("折叠导航", "Collapse navigation") }}</span>
+        <span class="sr-only">{{ store.state.navCollapsed ? t("appTopBar.expand-navigation") : t("appTopBar.collapse-navigation") }}</span>
       </UiButton>
       <AppBrandMark :size="24" />
       <div class="flex min-w-0 items-baseline gap-1.5">
@@ -236,7 +236,7 @@ function onMore(id: string): void {
     <span v-if="showDividers" class="h-5 w-px shrink-0 bg-line" aria-hidden="true"></span>
 
     <!-- 中：当前存档 -->
-    <div class="flex min-w-0 items-center gap-0.5" role="group" :aria-label="t('当前存档', 'Current save')">
+    <div class="flex min-w-0 items-center gap-0.5" role="group" :aria-label="t('appTopBar.current-save')">
       <span
         class="truncate text-[13px] font-medium"
         :class="fileMaxClass"
@@ -244,7 +244,7 @@ function onMore(id: string): void {
         :title="store.state.selectedPath ?? ''"
       >{{ currentName }}</span>
       <UiIconButton
-        :label="t('切换存档（打开导入页）', 'Switch save (open import page)')"
+        :label="t('appTopBar.switch-save-open-import-page')"
         @click="store.actions.openImport()"
       >
         <ChevronDown :size="16" aria-hidden="true" />
@@ -273,10 +273,10 @@ function onMore(id: string): void {
         v-if="store.state.analysis"
         size="sm"
         variant="danger"
-        :title="t('取消当前分析（不产生新报告）', 'Cancel the current analysis (no new report)')"
+        :title="t('appTopBar.cancel-the-current-analysis-no-new-report')"
         @click="store.actions.cancelAnalysis()"
       >
-        {{ t("取消", "Cancel") }}
+        {{ t("common.cancel") }}
       </UiButton>
       <UiButton
         v-if="!isNarrow"
@@ -287,7 +287,7 @@ function onMore(id: string): void {
         @click="store.actions.refresh()"
       >
         <RefreshCw :size="16" aria-hidden="true" />
-        {{ t("刷新", "Refresh") }}
+        {{ t("app.refresh") }}
       </UiButton>
       <UiIconButton
         v-else
@@ -298,14 +298,14 @@ function onMore(id: string): void {
       >
         <RefreshCw :size="16" aria-hidden="true" />
       </UiIconButton>
-      <UiMenu :label="t('更多', 'More')" :items="moreItems" @select="onMore">
+      <UiMenu :label="t('appTopBar.more')" :items="moreItems" @select="onMore">
         <template #trigger>
           <span v-if="!isNarrow" class="inline-flex items-center gap-1">
-            {{ t("更多", "More") }}<ChevronDown :size="14" aria-hidden="true" />
+            {{ t("appTopBar.more") }}<ChevronDown :size="14" aria-hidden="true" />
           </span>
           <template v-else>
             <ChevronDown :size="16" aria-hidden="true" />
-            <span class="sr-only">{{ t("更多", "More") }}</span>
+            <span class="sr-only">{{ t("appTopBar.more") }}</span>
           </template>
         </template>
       </UiMenu>

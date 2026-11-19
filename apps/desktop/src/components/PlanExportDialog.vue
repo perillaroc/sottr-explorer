@@ -7,7 +7,7 @@
 import { computed } from "vue";
 import { FolderOpen, FolderOpenDot, HardDriveDownload } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t } from "../app/i18n";
+import { t, tFormatPair } from "../app/i18n";
 import { recoveryHint } from "../data/errors";
 import { formatSnapshotTime } from "../app/format";
 import type { PlanExportFormat } from "../data/source";
@@ -27,9 +27,9 @@ const errorHint = computed(() =>
 );
 
 const formatOptions = computed<{ value: PlanExportFormat; label: string }[]>(() => [
-  { value: "both", label: t("HTML + CSV", "HTML + CSV") },
-  { value: "html", label: t("仅 HTML（可打印清单）", "HTML only (printable checklist)") },
-  { value: "csv", label: t("仅 CSV（表格）", "CSV only (table)") },
+  { value: "both", label: t("planExportDialog.html-csv") },
+  { value: "html", label: t("planExportDialog.html-only-printable-checklist") },
+  { value: "csv", label: t("planExportDialog.csv-only-table") },
 ]);
 
 function close(): void {
@@ -41,19 +41,19 @@ function close(): void {
   <UiDialog
     v-if="exportState.open"
     :open="true"
-    :title="t('导出收集清单', 'Export collection checklist')"
+    :title="t('planExportDialog.export-collection-checklist')"
     @close="close"
   >
     <div class="space-y-4">
       <p class="text-[13px] text-muted">
-        {{ t("导出的是当前筛选下的未收集条目；写入新目录，不覆盖原存档或已有报告。取消不会产生任何文件。", "The export contains uncollected items under the current filters. It is written to a new folder and never overwrites the save or existing reports. Cancelling creates no files.") }}
+        {{ t("planExportDialog.the-export-contains-uncollected-items-under") }}
       </p>
 
       <section class="rounded-[6px] border border-line bg-raised/40 px-3 py-2 text-[13px]">
-        <p class="font-medium text-ink">{{ t("本次范围", "Current scope") }}</p>
+        <p class="font-medium text-ink">{{ t("planExportDialog.current-scope") }}</p>
         <p class="mt-0.5 text-muted" data-testid="plan-export-scope">{{ store.planScopeText.value }}</p>
         <p class="mt-0.5 text-xs text-muted" data-testid="plan-export-count">
-          {{ t(`未收集 ${checklist.items} 项（其中必收 ${checklist.required}）`, `${checklist.items} uncollected (${checklist.required} required)`) }}
+          {{ tFormatPair(`planExportDialog.uncollected-required`, { v0: checklist.items, v1: checklist.required }) }}
         </p>
       </section>
 
@@ -61,16 +61,16 @@ function close(): void {
         v-if="currentResult?.freshness === 'stale'"
         tone="warning"
         test-id="plan-export-stale-notice"
-        :title="t('当前是旧快照：清单可能不反映最新状态', 'The current snapshot is stale: the checklist may not reflect the latest state')"
+        :title="t('planExportDialog.the-current-snapshot-is-stale-the-checklist')"
         :lines="[
-          t(`快照时间：${formatSnapshotTime(currentResult.snapshot_time)}`, `Snapshot time: ${formatSnapshotTime(currentResult.snapshot_time)}`),
-          t('请先刷新/重新分析，或接受清单可能过期。', 'Refresh or re-analyze first, or accept that the checklist may be out of date.'),
+          tFormatPair(`common.snapshot-time`, { v0: formatSnapshotTime(currentResult.snapshot_time) }),
+          t('planExportDialog.refresh-or-re-analyze-first-or-accept'),
         ]"
       />
 
       <section class="space-y-2">
-        <h3 class="text-sm font-medium">{{ t("格式", "Format") }}</h3>
-        <div class="flex flex-wrap items-center gap-2" role="radiogroup" :aria-label="t('导出格式', 'Export format')">
+        <h3 class="text-sm font-medium">{{ t("exportDialog.format") }}</h3>
+        <div class="flex flex-wrap items-center gap-2" role="radiogroup" :aria-label="t('exportDialog.export-format')">
           <label
             v-for="option in formatOptions"
             :key="option.value"
@@ -96,7 +96,7 @@ function close(): void {
       </section>
 
       <section class="space-y-2">
-        <h3 class="text-sm font-medium">{{ t("分享脱敏", "Share redaction") }}</h3>
+        <h3 class="text-sm font-medium">{{ t("exportDialog.share-redaction") }}</h3>
         <label class="flex cursor-pointer items-start gap-2 text-[13px]">
           <input
             type="checkbox"
@@ -107,22 +107,22 @@ function close(): void {
             @change="store.actions.setPlanExportShare(($event.target as HTMLInputElement).checked)"
           />
           <span>
-            {{ t("不写输入文件名、快照时间与任何路径，产物可直接发给别人（默认开启）。", "Omit the input file name, snapshot time and all paths so the artifacts can be shared directly (enabled by default).") }}
+            {{ t("planExportDialog.omit-the-input-file-name-snapshot-time") }}
             <span class="block text-xs text-muted">
-              {{ t("取消勾选会写入存档文件名与快照时间；导出仍不等于内容可公开。", "Unchecking writes the save file name and snapshot time; an export still does not mean the content is safe to publish.") }}
+              {{ t("planExportDialog.unchecking-writes-the-save-file-name") }}
             </span>
           </span>
         </label>
       </section>
 
       <section class="space-y-2">
-        <h3 class="text-sm font-medium">{{ t("目标位置（新目录，不覆盖）", "Target location (new folder, no overwrite)") }}</h3>
+        <h3 class="text-sm font-medium">{{ t("common.target-location-new-folder-no-overwrite") }}</h3>
         <div class="flex flex-wrap items-center gap-2">
           <input
             :value="exportState.parent ?? ''"
             type="text"
-            :placeholder="t('选择目标位置的父目录', 'Choose the parent folder for the target')"
-            :aria-label="t('目标位置父目录', 'Target parent folder')"
+            :placeholder="t('common.choose-the-parent-folder-for-the-target')"
+            :aria-label="t('common.target-parent-folder')"
             data-testid="plan-export-parent"
             :disabled="busy"
             class="h-9 min-w-64 flex-1 rounded-[6px] border border-line bg-surface px-3 text-[13px] text-ink mono"
@@ -130,11 +130,11 @@ function close(): void {
           />
           <UiButton :disabled="busy" @click="store.actions.pickPlanExportParent()">
             <FolderOpen :size="16" aria-hidden="true" />
-            {{ t("选择位置", "Choose location") }}
+            {{ t("common.choose-location") }}
           </UiButton>
         </div>
         <label class="block space-y-1 text-[13px]">
-          <span>{{ t("新目录名", "New folder name") }}</span>
+          <span>{{ t("common.new-folder-name") }}</span>
           <input
             :value="exportState.folder"
             type="text"
@@ -145,7 +145,7 @@ function close(): void {
           />
         </label>
         <p class="mono text-xs break-all text-muted" data-testid="plan-export-target">
-          {{ t("实际目标：", "Actual target: ") }}{{ target ?? t("（待填写）", "(to be filled)") }}
+          {{ t("common.actual-target") }}{{ target ?? t("common.to-be-filled") }}
         </p>
       </section>
 
@@ -153,22 +153,22 @@ function close(): void {
         v-if="exportState.status === 'error' && exportState.error"
         tone="danger"
         test-id="plan-export-error"
-        :title="t(`导出失败：${exportState.error.code}`, `Export failed: ${exportState.error.code}`)"
+        :title="tFormatPair(`common.export-failed`, { v0: exportState.error.code })"
         :lines="[
           exportState.error.message,
-          errorHint ?? t('可修正后重试；取消不会产生文件。', 'Fix the issue and retry; cancelling creates no files.'),
+          errorHint ?? t('common.fix-the-issue-and-retry-cancelling-creates'),
         ]"
       >
         <UiButton v-if="exportState.suggestedFolder" size="sm" @click="store.actions.applySuggestedPlanExportFolder()">
-          {{ t(`采用建议目录名 ${exportState.suggestedFolder}`, `Use suggested folder name ${exportState.suggestedFolder}`) }}
+          {{ tFormatPair(`common.use-suggested-folder-name`, { v0: exportState.suggestedFolder }) }}
         </UiButton>
-        <UiButton size="sm" variant="ghost" :disabled="busy" @click="store.actions.runPlanExport()">{{ t("重试导出", "Retry export") }}</UiButton>
+        <UiButton size="sm" variant="ghost" :disabled="busy" @click="store.actions.runPlanExport()">{{ t("common.retry-export") }}</UiButton>
       </CoverageNotice>
 
       <section v-if="exportState.status === 'success' && exportState.outcome" class="space-y-1" data-testid="plan-export-success">
-        <h3 class="text-sm font-medium">{{ t("导出完成", "Export complete") }}</h3>
+        <h3 class="text-sm font-medium">{{ t("common.export-complete") }}</h3>
         <p class="text-[13px] text-muted">
-          {{ t(`分享脱敏：${exportState.outcome.share ? "开启" : "关闭"}；条目数：${checklist.items}`, `Share redaction: ${exportState.outcome.share ? "on" : "off"}; items: ${checklist.items}`) }}
+          {{ tFormatPair(`planExportDialog.share-redaction-items`, { v0: exportState.outcome.share ? "开启" : "关闭", v1: checklist.items }) }}
         </p>
         <ul class="space-y-0.5 text-[13px]">
           <li v-for="artifact in exportState.outcome.artifacts" :key="artifact.path" class="mono break-all">
@@ -177,25 +177,25 @@ function close(): void {
         </ul>
         <UiButton size="sm" data-testid="plan-export-open-folder" @click="store.actions.openExportFolder(exportState.outcome.output_dir)">
           <FolderOpenDot :size="15" aria-hidden="true" />
-          {{ t("打开导出目录", "Open export folder") }}
+          {{ t("common.open-export-folder") }}
         </UiButton>
-        <p class="text-xs text-muted">{{ t("HTML 可直接用浏览器打开或打印；本应用不会修改或删除既有文件。", "The HTML opens or prints directly in a browser; this app never modifies or deletes existing files.") }}</p>
+        <p class="text-xs text-muted">{{ t("planExportDialog.the-html-opens-or-prints-directly") }}</p>
       </section>
     </div>
 
     <template #footer>
       <span v-if="busy" class="mr-auto flex items-center gap-2 text-[13px] text-muted">
         <HardDriveDownload :size="16" aria-hidden="true" />
-        {{ t("正在写出清单…", "Writing the checklist…") }}
+        {{ t("planExportDialog.writing-the-checklist") }}
       </span>
-      <UiButton :disabled="busy" @click="close">{{ exportState.status === "success" ? t("关闭", "Close") : t("取消", "Cancel") }}</UiButton>
+      <UiButton :disabled="busy" @click="close">{{ exportState.status === "success" ? t("common.close") : t("common.cancel") }}</UiButton>
       <UiButton
         variant="primary"
         :disabled="busy || exportState.status === 'success'"
         data-testid="plan-export-submit"
         @click="store.actions.runPlanExport()"
       >
-        {{ t("开始导出", "Start export") }}
+        {{ t("common.start-export") }}
       </UiButton>
     </template>
   </UiDialog>

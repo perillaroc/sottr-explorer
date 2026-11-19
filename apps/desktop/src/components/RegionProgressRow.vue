@@ -4,7 +4,7 @@
 // 不只把进度条变绿。地图按钮是可选的第二动作，业务动作由父级通过事件执行。
 import { computed } from "vue";
 import { Check, MapPin } from "@lucide/vue";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import UiProgressBar from "./ui/UiProgressBar.vue";
 
 const props = withDefaults(
@@ -30,19 +30,19 @@ const emit = defineEmits<{
 const remaining = computed(() => Math.max(0, props.total - props.collected));
 const complete = computed(() => props.total > 0 && remaining.value === 0);
 const progressLabel = computed(() =>
-  tFormat("{region} 收集进度", "{region} collection progress", { region: props.name }),
+  tFormat("regionProgressRow.collection-progress",  { region: props.name }),
 );
 const mapLabel = computed(() =>
-  tFormat("在地图中查看 {region}", "View {region} on the map", { region: props.name }),
+  tFormat("regionProgressRow.view-on-the-map",  { region: props.name }),
 );
 
 const remainingLabel = computed(() => {
   if (props.total === 0) {
-    return t("无条目", "No items");
+    return t("regionProgressRow.no-items");
   }
   return remaining.value > 0
-    ? t(`未收集 ${remaining.value} 项`, `${remaining.value} uncollected`)
-    : t("已全部收集", "All collected");
+    ? tFormatPair(`regionProgressRow.uncollected`, { v0: remaining.value })
+    : t("regionProgressRow.all-collected");
 });
 </script>
 
@@ -71,7 +71,7 @@ const remainingLabel = computed(() => {
       type="button"
       class="ui-interactive flex w-10 shrink-0 cursor-pointer items-center justify-center border-l border-line text-muted enabled:hover:bg-raised enabled:hover:text-accent-strong"
       :aria-label="mapLabel"
-      :title="t('在地图中查看', 'View on the map')"
+      :title="t('regionProgressRow.view-on-the-map-2')"
       :data-testid="mapTestId"
       @click="emit('openMap', slug)"
     >

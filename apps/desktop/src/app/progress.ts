@@ -148,7 +148,7 @@ function itemDeltaOf(id: string, atlas: Atlas, labels: Map<string, string>): Pro
     category: item?.category ?? "unknown",
     categoryLabel: categoryLabel(item?.category ?? null, null),
     regionSlug: slug,
-    regionLabel: slug ? (labels.get(slug) ?? slug) : t("未确定区域", "Unknown region"),
+    regionLabel: slug ? (labels.get(slug) ?? slug) : t("progress.unknown-region"),
     required: item?.required_for_100 ?? null,
   };
 }

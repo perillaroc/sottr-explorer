@@ -6,7 +6,7 @@
 import { computed, ref } from "vue";
 import { FolderOpen, RefreshCw, Search } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { fileNameOf, formatBytes, formatLocalTime, formatPercent } from "../app/format";
 import { pagePaddingClass } from "../app/layout";
 import AppPageHeader from "./AppPageHeader.vue";
@@ -96,22 +96,19 @@ const candidateGroups = computed<CandidateGroup[]>(() => {
 /** 分组标题：纯数字子目录按“账户”标注，其余按子目录显示。 */
 function groupLabel(group: CandidateGroup): string {
   if (group.relative === null) {
-    return t(`根目录之外：${group.dir}`, `Outside the root folder: ${group.dir}`);
+    return tFormatPair(`slotPicker.outside-the-root-folder`, { v0: group.dir });
   }
   if (group.relative === "") {
-    return t("游戏根目录（不在账户子目录内）", "Game root folder (not inside an account subfolder)");
+    return t("slotPicker.game-root-folder-not-inside-an-account");
   }
   if (/^\d+$/.test(group.relative)) {
-    return t(`账户 ${group.relative}`, `Account ${group.relative}`);
+    return tFormatPair(`slotPicker.account`, { v0: group.relative });
   }
-  return t(`子目录 ${group.relative}`, `Subfolder ${group.relative}`);
+  return tFormatPair(`slotPicker.subfolder`, { v0: group.relative });
 }
 
 function groupFileCount(group: CandidateGroup): string {
-  return t(
-    `${group.files.length} 个文件`,
-    `${group.files.length} ${group.files.length === 1 ? "file" : "files"}`,
-  );
+  return tFormatPair(`slotPicker.text`, { v0: group.files.length });
 }
 
 /**
@@ -166,16 +163,13 @@ const canStart = computed(
 
 const startHint = computed(() => {
   if (store.state.loadingCandidates) {
-    return t("正在列出候选文件…", "Listing candidate files…");
+    return t("slotPicker.listing-candidate-files");
   }
   if (!selected.value) {
-    return t("请选择一个候选文件（或使用“选择文件”）。", "Select a candidate file (or use “Choose file”).");
+    return t("slotPicker.select-a-candidate-file-or-use-choose");
   }
   if (!store.state.purpose) {
-    return t(
-      "请确认这个文件用于：普通战役存档 / 不确定，仅查看可用观察。",
-      "Confirm how this file is used: campaign save / unsure, view available observations only.",
-    );
+    return t("slotPicker.confirm-how-this-file-is-used-campaign");
   }
   return null;
 });
@@ -191,50 +185,47 @@ const startError = computed(() => {
 function rootStatusText(status: string, detail: string | null): string {
   switch (status) {
     case "game_found":
-      return t("发现游戏目录", "Game folder found");
+      return t("slotPicker.game-folder-found");
     case "no_game_dir":
-      return t("未发现游戏目录（可能未安装或未使用该位置）", "No game folder found (not installed, or not using this location)");
+      return t("slotPicker.no-game-folder-found-not-installed");
     case "link_not_followed":
-      return t(
-        "目录是链接/重解析点，发现层不跟随；可用“选择文件夹”手动选择",
-        "The folder is a link/reparse point, which discovery does not follow; use “Choose folder” to select it manually",
-      );
+      return t("slotPicker.the-folder-is-a-link-reparse-point");
     case "missing":
-      return t("目录不存在", "Folder does not exist");
+      return t("slotPicker.folder-does-not-exist");
     case "not_directory":
-      return t("路径不是目录", "Path is not a folder");
+      return t("slotPicker.path-is-not-a-folder");
     case "unreadable":
-      return tFormat("无法读取：{detail}", "Cannot read: {detail}", { detail: detail ?? t("权限等", "permissions, etc.") });
+      return tFormat("slotPicker.cannot-read",  { detail: detail ?? t("slotPicker.permissions-etc") });
     default:
-      return t("不支持的位置（UNC/设备命名空间）", "Unsupported location (UNC/device namespace)");
+      return t("slotPicker.unsupported-location-unc-device-namespace");
   }
 }
 
 function rowStatus(candidate: CandidateFileDto): { text: string; tone: "muted" | "info" | "caution" | "danger" } {
   const slot = store.state.slots[candidate.path];
   if (store.state.analysis?.path === candidate.path) {
-    return { text: t("分析中…", "Analyzing…"), tone: "info" };
+    return { text: t("slotPicker.analyzing"), tone: "info" };
   }
   if (slot?.result) {
     const overall = slot.result.report?.observations.overall_completion.value ?? null;
     if (slot.result.freshness === "stale") {
-      return { text: t("旧快照（刷新失败）", "Stale snapshot (refresh failed)"), tone: "caution" };
+      return { text: t("slotPicker.stale-snapshot-refresh-failed"), tone: "caution" };
     }
     if (overall === null) {
-      return { text: t("已分析（整体候选不可用）", "Analyzed (overall candidate unavailable)"), tone: "info" };
+      return { text: t("slotPicker.analyzed-overall-candidate-unavailable"), tone: "info" };
     }
     return {
-      text: t(`已分析（整体推定 ${formatPercent(overall)}）`, `Analyzed (overall estimate ${formatPercent(overall)})`),
+      text: tFormatPair(`slotPicker.analyzed-overall-estimate`, { v0: formatPercent(overall) }),
       tone: "info",
     };
   }
   if (slot?.startError) {
-    return { text: t(`失败（${slot.startError.code}）`, `Failed (${slot.startError.code})`), tone: "danger" };
+    return { text: tFormatPair(`slotPicker.failed`, { v0: slot.startError.code }), tone: "danger" };
   }
   if (candidate.note?.includes("资料文件")) {
-    return { text: t("资料文件（待分析）", "Profile file (not analyzed)"), tone: "muted" };
+    return { text: t("slotPicker.profile-file-not-analyzed"), tone: "muted" };
   }
-  return { text: t("待分析", "Not analyzed"), tone: "muted" };
+  return { text: t("slotPicker.not-analyzed"), tone: "muted" };
 }
 
 function statusToneClass(tone: "muted" | "info" | "caution" | "danger"): string {
@@ -286,12 +277,9 @@ function rowSummary(candidate: CandidateFileDto) {
     digestPrefix: result?.report?.input_digest.compressed_sha256.slice(0, 16) ?? null,
     capabilities: result?.report
       ? [
-          t(
-            `物品表：${result.report.observations.inventory.inventory_complete ? "完整" : "不完整"}`,
-            `Inventory: ${result.report.observations.inventory.inventory_complete ? "complete" : "incomplete"}`,
-          ),
-          t(`参考差集：${result.report.capabilities.reference_difference.status}`, `Reference difference: ${result.report.capabilities.reference_difference.status}`),
-          t(`定位：${result.report.capabilities.location.status}`, `Location: ${result.report.capabilities.location.status}`),
+          tFormatPair(`slotPicker.inventory`, { v0: result.report.observations.inventory.inventory_complete ? "完整" : "不完整" }),
+          tFormatPair(`slotPicker.reference-difference`, { v0: result.report.capabilities.reference_difference.status }),
+          tFormatPair(`slotPicker.location`, { v0: result.report.capabilities.location.status }),
         ]
       : null,
   };
@@ -303,26 +291,26 @@ function rowSummary(candidate: CandidateFileDto) {
     <div class="mx-auto w-full max-w-[1120px] space-y-6 pb-8" :class="pageX">
       <AppPageHeader
         title-id="import-title"
-        :title="t('打开存档', 'Open a save')"
-        :description="t('选择 Steam 版战役存档；分析只读取文件，不会修改原始存档。', 'Choose a Steam campaign save; analysis only reads the file and never modifies the original.')"
+        :title="t('common.open-a-save')"
+        :description="t('slotPicker.choose-a-steam-campaign-save-analysis-only')"
       >
         <template #actions>
           <UiButton variant="primary" @click="store.actions.pickInput('save-file')">
             <FolderOpen :size="16" aria-hidden="true" />
-            {{ t("选择文件", "Choose file") }}
+            {{ t("slotPicker.choose-file") }}
           </UiButton>
           <UiButton @click="store.actions.pickInput('save-directory')">
             <Search :size="16" aria-hidden="true" />
-            {{ t("选择文件夹", "Choose folder") }}
+            {{ t("slotPicker.choose-folder") }}
           </UiButton>
           <UiButton
             variant="ghost"
             :disabled="analyzing"
-            :title="t('重新扫描受限候选位置（不做全盘扫描）', 'Rescan limited candidate locations (no full-disk scan)')"
+            :title="t('slotPicker.rescan-limited-candidate-locations-no-full-disk')"
             @click="store.actions.rescan()"
           >
             <RefreshCw :size="16" aria-hidden="true" />
-            {{ t("重新查找默认目录", "Rescan default folders") }}
+            {{ t("appTopBar.rescan-default-folders") }}
           </UiButton>
         </template>
       </AppPageHeader>
@@ -330,15 +318,15 @@ function rowSummary(candidate: CandidateFileDto) {
       <CoverageNotice
         v-if="store.state.discoveryError"
         tone="danger"
-        :title="t('目录发现失败', 'Folder discovery failed')"
+        :title="t('slotPicker.folder-discovery-failed')"
         :lines="[
           store.state.discoveryError.message,
-          t('本工具不会提权或修改权限；可用“选择文件/文件夹”手动指定。', 'This tool never elevates privileges or changes permissions; use “Choose file/folder” to specify a location manually.'),
+          t('slotPicker.this-tool-never-elevates-privileges-or-changes'),
         ]"
       />
 
       <div v-if="discovery" class="space-y-2">
-        <h2 class="ui-section-title">{{ t("候选目录", "Candidate folders") }}</h2>
+        <h2 class="ui-section-title">{{ t("slotPicker.candidate-folders") }}</h2>
         <div class="ui-panel overflow-hidden" data-testid="candidate-roots">
           <button
             v-for="(candidate, index) in discovery.candidates"
@@ -359,38 +347,35 @@ function rowSummary(candidate: CandidateFileDto) {
         </div>
         <UiEmptyState
           v-if="discovery.game_roots.length === 0"
-          :title="t('未找到可读取的存档', 'No readable saves found')"
-          :description="t('可尝试“选择文件/文件夹”，或确认游戏是否安装在本机。', 'Try “Choose file/folder”, or check whether the game is installed on this computer.')"
+          :title="t('slotPicker.no-readable-saves-found')"
+          :description="t('slotPicker.try-choose-file-folder-or-check-whether')"
         >
-          <UiButton size="sm" @click="store.actions.pickInput('save-file')">{{ t("选择文件", "Choose file") }}</UiButton>
-          <UiButton size="sm" variant="ghost" @click="store.actions.pickInput('save-directory')">{{ t("选择文件夹", "Choose folder") }}</UiButton>
+          <UiButton size="sm" @click="store.actions.pickInput('save-file')">{{ t("slotPicker.choose-file") }}</UiButton>
+          <UiButton size="sm" variant="ghost" @click="store.actions.pickInput('save-directory')">{{ t("slotPicker.choose-folder") }}</UiButton>
         </UiEmptyState>
       </div>
 
       <div v-if="candidates.length > 0" class="space-y-2">
-        <h2 class="ui-section-title">{{ t("文件", "Files") }}</h2>
+        <h2 class="ui-section-title">{{ t("slotPicker.files") }}</h2>
         <p v-if="candidateGroups.length > 1" class="text-xs text-muted" data-testid="candidate-group-hint">
           {{
-            t(
-              "按子目录（账户）分组显示：不同账户下的同名存档各自独立，不会合并或自动选定。",
-              "Grouped by subfolder (account): same-named saves in different accounts stay separate and are never merged or auto-selected.",
-            )
+            t("slotPicker.grouped-by-subfolder-account-same-named-saves")
           }}
         </p>
         <div class="ui-panel overflow-x-auto" data-testid="file-table">
           <table class="w-full min-w-[760px] border-collapse text-[13px]">
-            <caption class="sr-only">{{ t("候选存档文件与读取状态", "Candidate save files and read status") }}</caption>
+            <caption class="sr-only">{{ t("slotPicker.candidate-save-files-and-read-status") }}</caption>
             <thead>
               <tr class="border-b border-line bg-surface text-left text-xs text-muted">
                 <th scope="col" class="h-9 w-10 px-2 font-medium">
-                  <span class="sr-only">{{ t("选择", "Select") }}</span>
+                  <span class="sr-only">{{ t("slotPicker.select") }}</span>
                 </th>
-                <th scope="col" class="h-9 px-2 font-medium">{{ t("文件", "File") }}</th>
-                <th scope="col" class="h-9 px-2 font-medium">{{ t("修改时间", "Modified") }}</th>
-                <th scope="col" class="h-9 px-2 font-medium">{{ t("大小", "Size") }}</th>
-                <th scope="col" class="h-9 px-2 font-medium">{{ t("状态", "Status") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("slotPicker.file") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("slotPicker.modified") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("slotPicker.size") }}</th>
+                <th scope="col" class="h-9 px-2 font-medium">{{ t("common.status") }}</th>
                 <th scope="col" class="h-9 w-16 px-2 font-medium">
-                  <span class="sr-only">{{ t("详情", "Details") }}</span>
+                  <span class="sr-only">{{ t("common.details") }}</span>
                 </th>
               </tr>
             </thead>
@@ -413,7 +398,7 @@ function rowSummary(candidate: CandidateFileDto) {
                       :value="candidate.path"
                       :checked="selected === candidate.path"
                       :disabled="analyzing"
-                      :aria-label="t(`选择 ${displayName(candidate)}`, `Select ${displayName(candidate)}`)"
+                      :aria-label="tFormatPair(`slotPicker.select-2`, { v0: displayName(candidate) })"
                       @change="store.actions.selectCandidate(candidate.path)"
                     />
                   </td>
@@ -439,7 +424,7 @@ function rowSummary(candidate: CandidateFileDto) {
                       :aria-expanded="expandedPath === candidate.path"
                       @click="toggleDetail(candidate.path)"
                     >
-                      {{ t("详情", "Details") }}
+                      {{ t("common.details") }}
                     </button>
                   </td>
                 </tr>
@@ -447,18 +432,18 @@ function rowSummary(candidate: CandidateFileDto) {
                   <td class="border-l-[3px] border-transparent" />
                   <td colspan="5" class="px-3 py-2 text-xs text-muted">
                     <p class="break-all">
-                      {{ t("完整路径", "Full path") }}：<span class="mono">{{ rowSummary(candidate).path }}</span>
+                      {{ t("slotPicker.full-path") }}：<span class="mono">{{ rowSummary(candidate).path }}</span>
                     </p>
-                    <p v-if="rowSummary(candidate).note">{{ t("备注", "Note") }}：{{ rowSummary(candidate).note }}</p>
+                    <p v-if="rowSummary(candidate).note">{{ t("slotPicker.note") }}：{{ rowSummary(candidate).note }}</p>
                     <p v-if="rowSummary(candidate).snapshotTime">
-                      {{ t("已分析快照", "Analyzed snapshot") }}：{{ formatLocalTime(Date.parse(rowSummary(candidate).snapshotTime ?? "")) }}；{{ t("摘要前缀", "digest prefix") }}
+                      {{ t("slotPicker.analyzed-snapshot") }}：{{ formatLocalTime(Date.parse(rowSummary(candidate).snapshotTime ?? "")) }}；{{ t("slotPicker.digest-prefix") }}
                       <span class="mono">{{ rowSummary(candidate).digestPrefix }}…</span>
                     </p>
                     <p v-if="rowSummary(candidate).capabilities">
-                      {{ t("能力摘要", "Capabilities") }}：{{ rowSummary(candidate).capabilities?.join(t("；", "; ")) }}
+                      {{ t("slotPicker.capabilities") }}：{{ rowSummary(candidate).capabilities?.join(t("common.path-separator")) }}
                     </p>
                     <p v-if="!rowSummary(candidate).snapshotTime">
-                      {{ t("尚未分析：状态为“待分析”，不提前显示占位百分比。", "Not analyzed yet: shown as “Not analyzed”, with no placeholder percentage.") }}
+                      {{ t("slotPicker.not-analyzed-yet-shown-as-not-analyzed") }}
                     </p>
                   </td>
                 </tr>
@@ -470,12 +455,12 @@ function rowSummary(candidate: CandidateFileDto) {
 
       <UiEmptyState
         v-else-if="discovery && discovery.game_roots.length > 0 && !store.state.loadingCandidates"
-        :title="t('该目录下没有可列出的候选文件', 'No candidate files to list in this folder')"
-        :description="t('发现层只列出 *.dat（最多 128 个、深度 4 层）；可用“选择文件”手动选择其他位置。', 'Discovery lists only *.dat files (up to 128, depth 4); use “Choose file” to pick another location manually.')"
+        :title="t('slotPicker.no-candidate-files-to-list')"
+        :description="t('slotPicker.discovery-lists-only-dat-files-up')"
       />
 
       <section class="ui-panel p-4" data-testid="purpose-panel">
-        <h2 class="ui-section-title">{{ t("这个文件用于", "This file is used for") }}</h2>
+        <h2 class="ui-section-title">{{ t("slotPicker.this-file-is-used") }}</h2>
         <div class="mt-3 flex flex-wrap gap-2">
           <label :class="purposeClass('campaign')">
             <input
@@ -487,7 +472,7 @@ function rowSummary(candidate: CandidateFileDto) {
               data-testid="purpose-campaign"
               @change="store.actions.setPurpose('campaign')"
             />
-            <span>{{ t("普通战役存档", "Campaign save") }}</span>
+            <span>{{ t("slotPicker.campaign-save") }}</span>
           </label>
           <label :class="purposeClass('unknown')">
             <input
@@ -499,34 +484,34 @@ function rowSummary(candidate: CandidateFileDto) {
               data-testid="purpose-unknown"
               @change="store.actions.setPurpose('unknown')"
             />
-            <span>{{ t("不确定，仅查看可用观察", "Not sure; view available observations only") }}</span>
+            <span>{{ t("slotPicker.not-sure-view-available-observations-only") }}</span>
           </label>
         </div>
 
         <div class="mt-4 border-t border-line pt-3">
           <div v-if="analyzing" class="space-y-2" data-testid="analysis-progress">
             <p class="text-[13px]">
-              {{ t(`正在分析 ${fileNameOf(store.state.analysis?.path ?? "")}…（模拟：不定进度）`, `Analyzing ${fileNameOf(store.state.analysis?.path ?? "")}… (mock: indeterminate progress)`) }}
+              {{ tFormatPair(`slotPicker.analyzing-mock-indeterminate-progress`, { v0: fileNameOf(store.state.analysis?.path ?? "") }) }}
             </p>
             <div
               class="ui-progress ui-progress--indeterminate"
               role="progressbar"
-              :aria-label="t('正在分析存档', 'Analyzing save')"
+              :aria-label="t('slotPicker.analyzing-save')"
             >
               <div class="ui-progress__fill ui-progress__fill--indeterminate"></div>
             </div>
-            <UiButton variant="danger" size="sm" @click="store.actions.cancelAnalysis()">{{ t("取消", "Cancel") }}</UiButton>
+            <UiButton variant="danger" size="sm" @click="store.actions.cancelAnalysis()">{{ t("common.cancel") }}</UiButton>
           </div>
           <template v-else>
             <div class="flex flex-wrap items-center gap-3">
               <UiButton
                 variant="primary"
                 :disabled="!canStart"
-                :title="canStart ? t('开始分析（只读）', 'Start analysis (read-only)') : (startHint ?? '')"
+                :title="canStart ? t('slotPicker.start-analysis-read-only') : (startHint ?? '')"
                 data-testid="start-analysis"
                 @click="store.actions.startAnalysis()"
               >
-                {{ t("开始分析", "Start analysis") }}
+                {{ t("slotPicker.start-analysis") }}
               </UiButton>
               <p v-if="startHint" class="text-xs text-muted" data-testid="start-hint">{{ startHint }}</p>
             </div>
@@ -537,16 +522,16 @@ function rowSummary(candidate: CandidateFileDto) {
           v-if="startError"
           class="mt-3"
           tone="danger"
-          :title="t('分析失败', 'Analysis failed')"
+          :title="t('appTopBar.analysis-failed-2')"
           :lines="[
             `${startError.code}：${startError.message}`,
             startError.retryable
-              ? t('可重试：稍后再次开始分析，或选择稳定副本。', 'Retryable: start the analysis again later, or choose a stable copy.')
-              : t('该输入不可重试；可另选文件或展开诊断查看原因。', 'This input is not retryable; choose another file or open Diagnostics for details.'),
+              ? t('slotPicker.retryable-start-the-analysis-again-later')
+              : t('slotPicker.this-input-is-not-retryable-choose-another'),
           ]"
         >
-          <UiButton size="sm" @click="store.actions.startAnalysis()">{{ t("重试分析", "Retry analysis") }}</UiButton>
-          <UiButton size="sm" variant="ghost" @click="store.actions.setView('diagnostics')">{{ t("展开诊断", "Open Diagnostics") }}</UiButton>
+          <UiButton size="sm" @click="store.actions.startAnalysis()">{{ t("slotPicker.retry-analysis") }}</UiButton>
+          <UiButton size="sm" variant="ghost" @click="store.actions.setView('diagnostics')">{{ t("slotPicker.open-diagnostics") }}</UiButton>
         </CoverageNotice>
       </section>
     </div>

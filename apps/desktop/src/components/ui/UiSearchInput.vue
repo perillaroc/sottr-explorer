@@ -3,7 +3,7 @@
 // 空值时显示清除按钮，左侧搜索图标不挤压输入文字。
 import { ref } from "vue";
 import { Search, X } from "@lucide/vue";
-import { t } from "../../app/i18n";
+import { t, tFormatPair } from "../../app/i18n";
 
 const props = withDefaults(
   defineProps<{
@@ -44,7 +44,7 @@ defineExpose({ focus });
       ref="input"
       type="search"
       :value="props.modelValue"
-      :placeholder="props.placeholder ?? t('搜索', 'Search')"
+      :placeholder="props.placeholder ?? t('uiSearchInput.search')"
       :aria-label="ariaLabel"
       :disabled="disabled"
       class="ui-interactive h-9 w-full rounded-control border border-line bg-surface pr-9 pl-9 text-[13px] leading-5 text-ink placeholder:text-muted enabled:hover:border-accent/50 disabled:opacity-60"
@@ -53,8 +53,8 @@ defineExpose({ focus });
     <button
       v-if="props.modelValue"
       type="button"
-      :aria-label="t(`清除搜索：${props.modelValue}`, `Clear search: ${props.modelValue}`)"
-      :title="t('清除搜索', 'Clear search')"
+      :aria-label="tFormatPair(`uiSearchInput.clear-search`, { v0: props.modelValue })"
+      :title="t('uiSearchInput.clear-search-2')"
       class="ui-interactive absolute right-1 inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-[4px] text-muted enabled:hover:bg-raised enabled:hover:text-ink"
       @click="clear"
     >

@@ -11,7 +11,7 @@
 // 全部来自版本化数据集 `data/catalog/collectibles_catalog.json`。
 
 import raw from "../../../../data/catalog/collectibles_catalog.json";
-import { localizedName, t } from "../app/i18n";
+import { localizedName, tFormatPair } from "../app/i18n";
 
 export interface AtlasPosition {
   x: number;
@@ -258,16 +258,10 @@ function locationHint(
   }
   let text = parts.join(" · ");
   if (position) {
-    text += t(
-      `；关卡内相对位置约 (${position.x.toFixed(2)}, ${position.y.toFixed(2)})（未校准，仅供同关卡内相对参照）`,
-      `; in-level relative position ≈ (${position.x.toFixed(2)}, ${position.y.toFixed(2)}) (uncalibrated; relative reference within the same level only)`,
-    );
+    text += tFormatPair(`atlas.in-level-relative-position-uncalibrated-relative-reference`, { v0: position.x.toFixed(2), v1: position.y.toFixed(2) });
   }
   if (othersUncollected !== undefined && othersUncollected > 0) {
-    text += t(
-      `；该子关卡还有 ${othersUncollected} 项未收集`,
-      `; ${othersUncollected} more uncollected in this sub-level`,
-    );
+    text += tFormatPair(`atlas.more-uncollected-in-this-sub-level`, { v0: othersUncollected });
   }
   return text;
 }
@@ -392,7 +386,7 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
         : undefined;
       const ruleKey = sub?.acquisition_rule_key ?? category?.acquisition_rule_key ?? "";
       const rule = atlas.acquisition_rules[ruleKey];
-      const ruleText = rule ? t(rule.text_zh, rule.text_en) : "";
+      const ruleText = rule ? localizedName(rule.text_zh, rule.text_en) : "";
       // 分组名保持目录原始值（与 Rust 核心/CLI 黄金输出一致）；界面按类别/子类别 id
       // 做双语映射，见 `app/collection.ts` 的 `groupDisplayName`。
       const groupName = sub?.name ?? category?.name ?? bucket.category;
@@ -416,7 +410,7 @@ export function buildPlan(atlas: Atlas, observedIds: Iterable<string>): Collecti
               : total;
         const noteZh = item.acquisition_note ?? null;
         const noteEn = item.acquisition_note_en ?? noteZh;
-        const note = noteZh !== null ? t(noteZh, noteEn ?? noteZh) : null;
+        const note = noteZh !== null ? localizedName(noteZh, noteEn ?? noteZh) : null;
         const acquisitionSource: PlanItem["acquisition_source"] =
           note === null
             ? "category_rule"

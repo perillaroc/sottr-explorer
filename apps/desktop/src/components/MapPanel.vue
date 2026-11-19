@@ -7,7 +7,7 @@
 //
 // 点位坐标来自基底层矩阵（首版为 u = x·W、v = y·H），不做任何前端拟合。
 import { computed, onBeforeUnmount, ref, watch } from "vue";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { pointOnMap, readMapMask, type MapMask } from "../app/map-mask";
 import type { PlanItem } from "../data/atlas";
 import { basemapImageUrl, projectToImage, resolveBasemapMode, type Basemap } from "../data/basemaps";
@@ -135,11 +135,8 @@ const orderedDots = computed<Dot[]>(() => [
 ]);
 
 const ariaLabel = computed(() =>
-  tFormat(
-    `同一子关卡内 {n} 个收集品在地图底图上的位置`,
-    `Positions of {n} collectibles on the sub-level map`,
-    { n: dots.value.length },
-  ),
+  tFormat(`mapPanel.positions-of-collectibles-on-the-sub-level`, 
+    { n: dots.value.length }),
 );
 
 /** 误差像素值保留一位小数；缺失时给占位符而不是编造数字。 */
@@ -157,36 +154,24 @@ const caption = computed(() => {
     // 只有 status = calibrated 才允许出现「已校准」字样。
     const main =
       entry.status === "calibrated"
-        ? tFormat(
-            "已校准 · 中位误差 {median} px，P95 {p95} px",
-            "Calibrated · median {median} px, P95 {p95} px",
-            { median, p95 },
-          )
-        : tFormat(
-            "近似位置 · 中位误差 {median} px{estimated}",
-            "Approximate · median {median} px{estimated}",
-            { median, estimated: estimated ? t("（全局估计）", " (global estimate)") : "" },
-          );
+        ? tFormat("mapPanel.calibrated-median-px-p95-px", 
+            { median, p95 })
+        : tFormat("mapPanel.approximate-median-px", 
+            { median, estimated: estimated ? t("mapPanel.global-estimate") : "" });
     return {
       main,
-      legend: t("实心 = 已收集，空心 = 未收集。", "Filled = collected, hollow = uncollected."),
-      caution: t("不是导航路线。", "Not a navigation route."),
+      legend: t("mapPanel.filled-collected-hollow-uncollected"),
+      caution: t("mapPanel.not-a-navigation-route"),
       blank:
         blank > 0
-          ? t(
-              `另有 ${blank} 个点位于底图留白区（多为地下、隧道或地图边缘）。`,
-              `${blank} point(s) fall in blank areas of the basemap (often underground, in tunnels, or at the map edge).`,
-            )
+          ? tFormatPair(`mapPanel.point-s-fall-in-blank-areas`, { v0: blank })
           : "",
     };
   }
   return {
-    main: t(
-      "实心 = 已收集，空心 = 未收集；同一子关卡内的相对位置。",
-      "Filled = collected, hollow = uncollected; relative positions within the same sub-level.",
-    ),
+    main: t("mapPanel.filled-collected-hollow-uncollected-relative-positions-withi"),
     legend: "",
-    caution: t("坐标未校准，不是导航点位。", "Coordinates are uncalibrated and are not navigation waypoints."),
+    caution: t("mapPanel.coordinates-are-uncalibrated-and-are-not-navigation"),
     blank: "",
   };
 });
@@ -244,7 +229,7 @@ const caption = computed(() => {
           class="pointer-events-none absolute -inset-[4px] rounded-full border-2 border-[var(--accent-strong)]"
           data-testid="basemap-dot-ring"
         />
-        <title>{{ dot.label }}（{{ dot.collected ? t("已收集", "collected") : t("未收集", "uncollected") }}）</title>
+        <title>{{ dot.label }}（{{ dot.collected ? t("common.collected-2") : t("common.uncollected-2") }}）</title>
         </span>
       </template>
     </div>

@@ -103,16 +103,16 @@ export function displayNameOf(
       return {
         text: item.display_name,
         kind: "curated",
-        note: t("人工简名，不是游戏正式名称", "Curated short name, not the official in-game name"),
+        note: t("catalog.curated-short-name-not-the-official"),
         aliases,
       };
     }
     return { text: item.display_name, kind: "localized", note: null, aliases };
   }
   return {
-    text: tFormat("{category}（名称待确认）", "{category} (name to be confirmed)", { category }),
+    text: tFormat("catalog.name-to-be-confirmed",  { category }),
     kind: "fallback",
-    note: tFormat("短 ID {id}", "short ID {id}", { id: shortIdOf(id) }),
+    note: tFormat("catalog.short-id",  { id: shortIdOf(id) }),
     aliases,
   };
 }
@@ -324,17 +324,17 @@ function categoryRank(rank: number): number {
 
 /** 定位精度筛选选项（含“无定位”）。 */
 export const PRECISION_OPTIONS = [
-  { value: "region", get label() { return t("区域线索", "Region clue"); } },
-  { value: "guide_group", get label() { return t("攻略组", "Guide group"); } },
-  { value: "guide_item", get label() { return t("精确条目", "Exact item"); } },
-  { value: "verified_coordinates", get label() { return t("已验证坐标", "Verified coordinates"); } },
-  { value: "none", get label() { return t("无定位", "No location"); } },
+  { value: "region", get label() { return t("catalog.region-clue"); } },
+  { value: "guide_group", get label() { return t("catalog.guide-group"); } },
+  { value: "guide_item", get label() { return t("catalog.exact-item"); } },
+  { value: "verified_coordinates", get label() { return t("catalog.verified-coordinates"); } },
+  { value: "none", get label() { return t("catalog.no-location"); } },
 ] as const;
 
 export const EVIDENCE_OPTIONS = [
-  { value: "observed", get label() { return t("原始观察", "Raw observation"); } },
-  { value: "community_correlated", get label() { return t("社区关联", "Community-correlated"); } },
-  { value: "game_validated", get label() { return t("游戏内验证", "In-game validated"); } },
+  { value: "observed", get label() { return t("catalog.raw-observation"); } },
+  { value: "community_correlated", get label() { return t("catalog.community-correlated"); } },
+  { value: "game_validated", get label() { return t("catalog.in-game-validated"); } },
 ] as const;
 
 /** 区域计数单元格（概览与区域页共用）。 */
@@ -368,10 +368,7 @@ export function regionCells(
         value: null,
         target: null,
         rawValue: null,
-        reason: t(
-          "该区域/类别没有已映射的区域计数（43 项稀疏映射之外）",
-          "No mapped region counter for this region/category (outside the 43 sparse mappings)",
-        ),
+        reason: t("catalog.no-mapped-region-counter-for-this-region"),
         mergedNote: null,
       };
     }
@@ -385,10 +382,7 @@ export function regionCells(
         value: null,
         target: mapping.source_total,
         rawValue: null,
-        reason: t(
-          "已映射计数，但本次快照未提供读数（未知不是 0）",
-          "The counter is mapped, but this snapshot provided no reading (unknown is not zero)",
-        ),
+        reason: t("catalog.the-counter-is-mapped-but-this-snapshot"),
         mergedNote: spec.mergedNote ?? null,
       };
     }
@@ -403,10 +397,7 @@ export function regionCells(
         rawValue: reading.raw_value,
         reason:
           reading.reason ??
-          t(
-            "原始读数超出来源目标，保留原始值",
-            "The raw reading exceeds the source target; the raw value is kept",
-          ),
+          t("catalog.the-raw-reading-exceeds-the-source-target"),
         mergedNote: spec.mergedNote ?? null,
       };
     }
@@ -457,10 +448,10 @@ export interface DiagnosticGroup {
 }
 
 export function diagnosticGroups(report: Report): DiagnosticGroup[] {
-  const inputTitle = t("输入与解析", "Input & parsing");
-  const capabilityTitle = t("支持能力", "Supported capabilities");
-  const counterTitle = t("计数与参考", "Counters & reference");
-  const locationTitle = t("定位与元数据", "Location & metadata");
+  const inputTitle = t("catalog.input-parsing");
+  const capabilityTitle = t("catalog.supported-capabilities");
+  const counterTitle = t("catalog.counters-reference");
+  const locationTitle = t("catalog.location-metadata");
   const groups: Record<string, Report["diagnostics"]> = {
     [inputTitle]: [],
     [capabilityTitle]: [],

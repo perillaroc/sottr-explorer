@@ -4,7 +4,7 @@
 import { computed } from "vue";
 import { ChevronDown } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { copy } from "../app/labels";
 import { formatPercent, formatSnapshotTime } from "../app/format";
 import { countPlan, regionName } from "../app/collection";
@@ -44,7 +44,7 @@ const progressLatest = computed(() => progressHistory.value[progressHistory.valu
 const progressBaselineChoices = computed(() =>
   store.progressBaselineOptions.value.map((snapshot) => ({
     id: snapshot.snapshotId,
-    label: tFormat("{name} · {time}", "{name} · {time}", {
+    label: tFormat("overviewPage.text",  {
       name: snapshot.inputRef,
       time: formatSnapshotTime(snapshot.snapshotTime),
     }),
@@ -58,21 +58,12 @@ const progressStatusText = computed(() => {
   }
   switch (delta.status) {
     case "different_save":
-      return tFormat(
-        "两次分析来自不同存档（{before} / {after}），不计算增量。",
-        "The two analyses come from different saves ({before} / {after}); no delta is computed.",
-        { before: delta.before.inputRef, after: delta.after.inputRef },
-      );
+      return tFormat("overviewPage.the-two-analyses-come-from-different-saves", 
+        { before: delta.before.inputRef, after: delta.after.inputRef });
     case "not_campaign":
-      return t(
-        "含非战役上下文（unknown / profile / unsupported），不计算增量。",
-        "A non-campaign context is involved (unknown / profile / unsupported); no delta is computed.",
-      );
+      return t("overviewPage.a-non-campaign-context-is-involved-unknown");
     case "inventory_incomplete":
-      return t(
-        "物品表不完整（type28 降级），不推断新增或丢失。",
-        "The inventory table is incomplete (type28 degradation); additions and losses are not inferred.",
-      );
+      return t("overviewPage.the-inventory-table-is-incomplete-type28-degradation");
     default:
       return null;
   }
@@ -96,14 +87,11 @@ function onBaselineChange(event: Event): void {
 
 const contextText = computed(() => {
   if (slot.value?.result) {
-    return tFormat(
-      "当前文件：{name} · 快照 {time}",
-      "Current file: {name} · snapshot {time}",
+    return tFormat("overviewPage.current-file-snapshot", 
       {
         name: slot.value.name,
         time: formatSnapshotTime(slot.value.result.snapshot_time),
-      },
-    );
+      });
   }
   return copy.noReport;
 });
@@ -131,7 +119,7 @@ function browseAll(): void {
     <div class="mx-auto w-full max-w-[1120px] pb-8" :class="pageX">
       <AppPageHeader
         title-id="overview-title"
-        :title="t('概览', 'Overview')"
+        :title="t('appSidebar.overview')"
         :context="contextText"
       >
         <template #actions>
@@ -140,7 +128,7 @@ function browseAll(): void {
             data-testid="open-share-report"
             @click="store.actions.openShareReportDialog()"
           >
-            {{ t("分享报告", "Share report") }}
+            {{ t("overviewPage.share-report") }}
           </UiButton>
           <UiButton
             v-if="report && store.planAvailable.value"
@@ -148,62 +136,62 @@ function browseAll(): void {
             data-testid="view-missing"
             @click="openAllUncollected"
           >
-            {{ t("查看未收集清单", "View uncollected list") }}
+            {{ t("overviewPage.view-uncollected-list") }}
           </UiButton>
         </template>
       </AppPageHeader>
 
       <UiEmptyState v-if="!report" :title="copy.noReport" :description="copy.noReportHelp">
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.open-a-save") }}</UiButton>
       </UiEmptyState>
 
       <template v-else>
         <section class="ui-panel grid" :class="summaryClass" data-testid="overview-summary">
           <div class="px-4 py-3">
-            <p class="ui-meta">{{ t("主区域收集品", "Main-region collectibles") }}</p>
+            <p class="ui-meta">{{ t("shareReport.main-region-collectibles") }}</p>
             <p v-if="store.planAvailable.value" class="mt-1 flex items-baseline gap-1" data-testid="collection-summary">
               <span class="ui-stat-large">{{ counts.collected }}</span>
               <span class="text-[18px] leading-[38px] text-muted">/ {{ counts.all }}</span>
             </p>
             <p v-else class="mt-1 text-[13px] text-muted" data-testid="collection-summary">
-              {{ t("不适用", "Not applicable") }}
+              {{ t("overviewPage.not-applicable") }}
             </p>
-            <p class="mt-0.5 ui-meta">{{ t("已收集", "Collected") }}</p>
+            <p class="mt-0.5 ui-meta">{{ t("common.collected") }}</p>
           </div>
 
           <div class="px-4 py-3">
-            <p class="ui-meta">{{ t("未收集", "Uncollected") }}</p>
+            <p class="ui-meta">{{ t("common.uncollected") }}</p>
             <p class="mt-1" data-testid="uncollected-value">
               <span v-if="store.planAvailable.value" class="ui-stat-large text-accent-strong">
-                {{ counts.uncollected }} <span class="text-sm font-normal">{{ t("项", "items") }}</span>
+                {{ counts.uncollected }} <span class="text-sm font-normal">{{ t("overviewPage.items") }}</span>
               </span>
-              <span v-else class="text-[13px] text-muted">{{ t("不适用", "Not applicable") }}</span>
+              <span v-else class="text-[13px] text-muted">{{ t("overviewPage.not-applicable") }}</span>
             </p>
             <p class="mt-0.5 ui-meta">
-              {{ t(`特殊区域另计 ${specialCounts.uncollected} 项`, `Special regions add ${specialCounts.uncollected}`) }}
+              {{ tFormatPair(`overviewPage.special-regions-add`, { v0: specialCounts.uncollected }) }}
             </p>
           </div>
 
           <div class="px-4 py-3">
-            <p class="ui-meta">{{ t("游戏内完成度", "In-game completion") }}</p>
+            <p class="ui-meta">{{ t("shareReport.in-game-completion") }}</p>
             <p class="mt-1 flex flex-wrap items-baseline gap-2">
               <span v-if="overallText" class="ui-stat-large" data-testid="overall-value">{{ overallText }}</span>
               <span v-else class="text-[13px]" data-testid="overall-value">
-                {{ tFormat("不可用（{reason}）", "Unavailable ({reason})", { reason: overall?.reason ?? t("原因见诊断", "see Diagnostics for the reason") }) }}
+                {{ tFormat("overviewPage.unavailable",  { reason: overall?.reason ?? t("overviewPage.see-diagnostics-for-the-reason") }) }}
               </span>
-              <UiBadge tone="caution" :kind-label="t('证据', 'Evidence')">{{ t("推定", "Estimated") }}</UiBadge>
+              <UiBadge tone="caution" :kind-label="t('overviewPage.evidence')">{{ t("overviewPage.estimated") }}</UiBadge>
             </p>
-            <p class="mt-0.5 ui-meta">{{ t("社区校准候选", "Community-calibrated candidate") }}</p>
+            <p class="mt-0.5 ui-meta">{{ t("overviewPage.community-calibrated-candidate") }}</p>
           </div>
         </section>
 
         <UiEmptyState
           v-if="!store.planAvailable.value"
           class="mt-4"
-          :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
-          :description="t('整体完成度仍按报告显示；收集品计数与区域索引不适用。', 'Overall completion still follows the report; collectible counts and the region index do not apply.')"
+          :title="t('common.profile-files-have-no-collectible-list')"
+          :description="t('overviewPage.overall-completion-still-follows-the-report-collectible')"
         >
-          <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
+          <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.choose-a-save-file") }}</UiButton>
         </UiEmptyState>
 
         <CoverageNotice
@@ -213,27 +201,27 @@ function browseAll(): void {
           test-id="stale-banner"
           :title="copy.stale"
           :lines="[
-            t(`快照时间：${formatSnapshotTime(slot?.result?.snapshot_time ?? null)}`, `Snapshot time: ${formatSnapshotTime(slot?.result?.snapshot_time ?? null)}`),
-            t(`刷新错误：${slot?.result?.last_refresh_error?.code ?? '未知'}`, `Refresh error: ${slot?.result?.last_refresh_error?.code ?? 'unknown'}`),
-            t('请刷新后再核对收集状态。', 'Refresh before checking collection status again.'),
+            tFormatPair(`common.snapshot-time`, { v0: formatSnapshotTime(slot?.result?.snapshot_time ?? null) }),
+            tFormatPair(`exportDialog.refresh-error`, { v0: slot?.result?.last_refresh_error?.code ?? '未知' }),
+            t('common.refresh-before-checking-collection-status-again'),
           ]"
         />
 
         <section v-if="store.planAvailable.value" class="mt-6" data-testid="progress-delta">
           <div class="mb-2 flex flex-wrap items-center gap-2">
-            <h2 class="ui-section-title">{{ t("进度增量", "Progress delta") }}</h2>
-            <UiBadge tone="info" :kind-label="t('范围', 'Scope')">{{ t("本次会话", "This session") }}</UiBadge>
+            <h2 class="ui-section-title">{{ t("overviewPage.progress-delta") }}</h2>
+            <UiBadge tone="info" :kind-label="t('overviewPage.scope')">{{ t("overviewPage.this-session") }}</UiBadge>
           </div>
 
           <div class="ui-panel px-4 py-3">
             <p v-if="progressBaselineChoices.length === 0" class="text-[13px] text-muted" data-testid="progress-empty">
-              {{ t("本会话还没有上一次分析。刷新或重新分析同一存档后，这里会显示与上一次的差异。", "No previous analysis in this session yet. Refresh or analyze the same save again to see the difference from the previous run.") }}
+              {{ t("overviewPage.no-previous-analysis-in-this-session-yet") }}
             </p>
 
             <template v-else>
               <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px]">
                 <label class="flex items-center gap-2 text-muted">
-                  {{ t("对比基线", "Baseline") }}
+                  {{ t("overviewPage.baseline") }}
                   <select
                     class="h-9 max-w-[260px] cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px] text-ink"
                     :value="store.progressBaselineId.value ?? ''"
@@ -241,7 +229,7 @@ function browseAll(): void {
                     @change="onBaselineChange"
                   >
                     <option v-if="store.progressBaselineId.value === null" value="">
-                      {{ t("（选择一次分析）", "(choose an analysis)") }}
+                      {{ t("overviewPage.choose-an-analysis") }}
                     </option>
                     <option v-for="choice in progressBaselineChoices" :key="choice.id" :value="choice.id">
                       {{ choice.label }}
@@ -249,7 +237,7 @@ function browseAll(): void {
                   </select>
                 </label>
                 <span class="text-muted" data-testid="progress-latest">
-                  {{ tFormat("→ 最新一次：{time}", "→ Latest: {time}", { time: formatSnapshotTime(progressLatest?.snapshotTime ?? null) }) }}
+                  {{ tFormat("overviewPage.latest",  { time: formatSnapshotTime(progressLatest?.snapshotTime ?? null) }) }}
                 </span>
               </div>
 
@@ -258,7 +246,7 @@ function browseAll(): void {
                 class="mt-2 text-[13px] text-muted"
                 data-testid="progress-single"
               >
-                {{ t("同一存档只分析了一次；可选择其他槽位的快照作对照，或再次分析同一存档。", "This save has been analyzed once only. Pick another slot’s snapshot as a baseline, or analyze the same save again.") }}
+                {{ t("overviewPage.this-save-has-been-analyzed-once-only") }}
               </p>
 
               <p v-if="progressStatusText" class="mt-2 text-[13px] text-caution" data-testid="progress-status">
@@ -268,7 +256,7 @@ function browseAll(): void {
               <template v-if="progress">
                 <div class="mt-3 flex flex-wrap gap-x-8 gap-y-2" data-testid="progress-totals">
                   <div>
-                    <p class="ui-meta">{{ t("主区域收集品", "Main-region collectibles") }}</p>
+                    <p class="ui-meta">{{ t("shareReport.main-region-collectibles") }}</p>
                     <p class="mt-0.5 text-[15px] tabular-nums">
                       {{ progress.before.mainCollected }} → {{ progress.after.mainCollected }}
                       <span
@@ -279,7 +267,7 @@ function browseAll(): void {
                     </p>
                   </div>
                   <div>
-                    <p class="ui-meta">{{ t("其中必收", "Required among them") }}</p>
+                    <p class="ui-meta">{{ t("common.required-among-them") }}</p>
                     <p class="mt-0.5 text-[15px] tabular-nums">
                       {{ progress.before.requiredCollected }} → {{ progress.after.requiredCollected }}
                       <span
@@ -291,11 +279,11 @@ function browseAll(): void {
                   </div>
                   <template v-if="progress.comparable">
                     <div>
-                      <p class="ui-meta">{{ t("新增条目", "Added items") }}</p>
+                      <p class="ui-meta">{{ t("overviewPage.added-items") }}</p>
                       <p class="mt-0.5 text-[15px] font-semibold tabular-nums text-success">{{ progress.added.length }}</p>
                     </div>
                     <div>
-                      <p class="ui-meta">{{ t("不再出现", "No longer present") }}</p>
+                      <p class="ui-meta">{{ t("overviewPage.no-longer-present") }}</p>
                       <p class="mt-0.5 text-[15px] font-semibold tabular-nums" :class="progress.removed.length > 0 ? 'text-caution' : 'text-muted'">
                         {{ progress.removed.length }}
                       </p>
@@ -305,7 +293,7 @@ function browseAll(): void {
 
                 <template v-if="progress.comparable">
                   <div v-if="progress.regions.length > 0" class="mt-3" data-testid="progress-regions">
-                  <p class="text-xs font-medium text-muted">{{ t("区域增量", "Region deltas") }}</p>
+                  <p class="text-xs font-medium text-muted">{{ t("overviewPage.region-deltas") }}</p>
                   <ul class="mt-1 space-y-1">
                     <li
                       v-for="region in progress.regions"
@@ -315,7 +303,7 @@ function browseAll(): void {
                       <span class="text-ink">{{ region.label }}</span>
                       <span class="tabular-nums text-muted">{{ region.before }} → {{ region.after }}</span>
                       <span class="font-medium tabular-nums" :class="deltaClass(region.delta)">{{ signed(region.delta) }}</span>
-                      <span v-if="region.kind === 'special'" class="text-xs text-muted">{{ t("（特殊区域）", "(special)") }}</span>
+                      <span v-if="region.kind === 'special'" class="text-xs text-muted">{{ t("overviewPage.special") }}</span>
                     </li>
                   </ul>
                 </div>
@@ -323,7 +311,7 @@ function browseAll(): void {
                 <div class="mt-3 grid gap-3" :class="layout === 'wide' || layout === 'medium' ? 'grid-cols-2' : 'grid-cols-1'">
                   <details v-if="progress.added.length > 0" class="ui-disclosure" open data-testid="progress-added">
                     <summary class="flex cursor-pointer items-center gap-2 text-[13px]">
-                      {{ tFormat("新增条目（{count}）", "Added items ({count})", { count: progress.added.length }) }}
+                      {{ tFormat("overviewPage.added-items-2",  { count: progress.added.length }) }}
                       <ChevronDown class="ui-chevron" :size="14" aria-hidden="true" />
                     </summary>
                     <ul class="mt-1 max-h-56 space-y-1 overflow-auto">
@@ -338,7 +326,7 @@ function browseAll(): void {
 
                   <details v-if="progress.removed.length > 0" class="ui-disclosure" data-testid="progress-removed">
                     <summary class="flex cursor-pointer items-center gap-2 text-[13px]">
-                      {{ tFormat("不再出现（{count}）", "No longer present ({count})", { count: progress.removed.length }) }}
+                      {{ tFormat("overviewPage.no-longer-present-2",  { count: progress.removed.length }) }}
                       <ChevronDown class="ui-chevron" :size="14" aria-hidden="true" />
                     </summary>
                     <ul class="mt-1 max-h-56 space-y-1 overflow-auto">
@@ -350,7 +338,7 @@ function browseAll(): void {
                       </li>
                     </ul>
                     <p class="mt-1 text-xs text-muted">
-                      {{ t("“不再出现”可能是物品表读取降级或对比了不同存档；不据此判断收集丢失。", "“No longer present” may come from a degraded inventory read or a comparison across saves; it does not imply lost progress.") }}
+                      {{ t("overviewPage.no-longer-present-may-come-from") }}
                     </p>
                   </details>
                 </div>
@@ -359,13 +347,13 @@ function browseAll(): void {
             </template>
 
             <p class="mt-2 text-xs text-muted">
-              {{ t("历史只保留在本次会话内存中（条目 ID 与计数），不写入磁盘，也不含存档路径。", "History stays in this session’s memory (item IDs and counts). It is not written to disk and contains no save paths.") }}
+              {{ t("overviewPage.history-stays-in-this-session-s-memory") }}
             </p>
           </div>
         </section>
 
         <section v-if="store.planAvailable.value" class="mt-6 space-y-3">
-          <h2 class="ui-section-title">{{ t("区域索引", "Region index") }}</h2>
+          <h2 class="ui-section-title">{{ t("overviewPage.region-index") }}</h2>
           <div class="grid gap-3" :class="regionGrid" data-testid="region-progress">
             <RegionProgressRow
               v-for="region in mainRegions"
@@ -381,7 +369,7 @@ function browseAll(): void {
 
           <details class="ui-disclosure pt-1">
             <summary class="flex cursor-pointer items-center gap-2 text-[13px] text-muted">
-              {{ t(`特殊区域（${specialRegions.length}）`, `Special regions (${specialRegions.length})`) }}
+              {{ tFormatPair(`overviewPage.special-regions`, { v0: specialRegions.length }) }}
               <ChevronDown class="ui-chevron" :size="14" aria-hidden="true" />
             </summary>
             <div class="mt-2 grid gap-3" :class="regionGrid">
@@ -400,7 +388,7 @@ function browseAll(): void {
         </section>
 
         <section v-if="store.planAvailable.value" class="mt-6 flex flex-wrap items-center gap-2">
-          <UiButton @click="browseAll">{{ t("浏览全部收集品", "Browse all collectibles") }}</UiButton>
+          <UiButton @click="browseAll">{{ t("overviewPage.browse-all-collectibles") }}</UiButton>
         </section>
       </template>
     </div>

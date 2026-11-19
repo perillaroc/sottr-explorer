@@ -11,7 +11,7 @@
 import { regionDisplayName, type CollectionPlan, type PlanItem, type PlanRegion } from "../data/atlas";
 import { basemapForUnit } from "../data/basemaps";
 import { escapeHtml } from "./html";
-import { localizedName, t } from "./i18n";
+import { localizedName, t, tFormatPair } from "./i18n";
 import { categoryLabel, subcategoryLabel } from "./labels";
 
 export { escapeHtml } from "./html";
@@ -95,19 +95,19 @@ export interface PlanChecklist {
 function unitLabel(item: PlanItem): string {
   const unit = item.unit;
   if (!unit) {
-    return t("未指定子关卡", "No sub-level");
+    return t("planChecklist.no-sub-level");
   }
   return localizedName(unit.display_zh, unit.display_en, unit.zone ?? `#${unit.unit}`);
 }
 
 function requiredLabel(required: boolean | null): string {
   if (required === true) {
-    return t("必收", "Required");
+    return t("common.required");
   }
   if (required === false) {
-    return t("可选", "Optional");
+    return t("common.optional");
   }
-  return t("未闭合", "Unresolved");
+  return t("common.unresolved");
 }
 
 function matchesScope(required: boolean | null, scope: PlanScope): boolean {
@@ -300,7 +300,7 @@ function csvRow(cells: string[]): string {
 }
 
 function yesNo(value: boolean): string {
-  return value ? t("是", "Yes") : t("否", "No");
+  return value ? t("planChecklist.yes") : t("planChecklist.no");
 }
 
 /** 收集清单 CSV（UTF-8，带 BOM 便于 Excel 识别中文）。 */
@@ -308,19 +308,19 @@ export function renderPlanCsv(checklist: PlanChecklist): string {
   const lines: string[] = [];
   lines.push(
     csvRow([
-      t("区域", "Region"),
-      t("区域类型", "Region type"),
-      t("子关卡", "Sub-level"),
-      t("类别", "Category"),
-      t("名称", "Name"),
-      t("内部 ID", "Internal ID"),
-      t("口径", "Scope"),
-      t("DLC", "DLC"),
-      t("底图", "Basemap"),
-      t("文字下落", "Text guidance"),
-      t("位置线索", "Location hint"),
-      t("获取方式", "Acquisition"),
-      t("已收取", "Checked"),
+      t("common.region"),
+      t("planChecklist.region-type"),
+      t("common.sub-level-2"),
+      t("common.category"),
+      t("planChecklist.name"),
+      t("planChecklist.internal-id"),
+      t("planChecklist.scope"),
+      t("planChecklist.dlc"),
+      t("planChecklist.basemap"),
+      t("planChecklist.text-guidance"),
+      t("planChecklist.location-hint"),
+      t("planChecklist.acquisition"),
+      t("planChecklist.checked"),
     ]),
   );
   for (const region of checklist.regions) {
@@ -330,7 +330,7 @@ export function renderPlanCsv(checklist: PlanChecklist): string {
           lines.push(
             csvRow([
               region.label,
-              region.kind === "special" ? t("特殊区域", "Special") : t("主区域", "Main"),
+              region.kind === "special" ? t("common.special") : t("planChecklist.main"),
               unit.label,
               group.label,
               item.name,
@@ -385,47 +385,47 @@ footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #e4dfd5; col
 
 /** 可打印的收集清单 HTML（自包含，无外部资源）。 */
 export function renderPlanHtml(checklist: PlanChecklist, meta: PlanExportMeta): string {
-  const title = t("古墓丽影：暗影 · 收集计划", "Shadow of the Tomb Raider · Collection plan");
-  const scopeNote = t("清单只列出当前筛选下仍未收集的条目。", "Only items still uncollected under the current filters are listed.");
+  const title = t("planChecklist.shadow-of-the-tomb-raider-collection-plan");
+  const scopeNote = t("planChecklist.only-items-still-uncollected-under-the-current");
   const metaParts = [
-    `${t("图鉴版本", "Catalog")} ${meta.catalogVersion}`,
-    `${t("生成时间", "Generated")} ${meta.generatedAt}`,
-    meta.inputRef !== null ? `${t("输入", "Input")} ${meta.inputRef}` : null,
-    meta.snapshotTime !== null ? `${t("快照", "Snapshot")} ${meta.snapshotTime}` : null,
-    meta.share ? t("分享模式：不包含个人路径", "Share mode: no personal paths") : null,
+    `${t("planChecklist.catalog")} ${meta.catalogVersion}`,
+    `${t("planChecklist.generated")} ${meta.generatedAt}`,
+    meta.inputRef !== null ? `${t("planChecklist.input")} ${meta.inputRef}` : null,
+    meta.snapshotTime !== null ? `${t("planChecklist.snapshot")} ${meta.snapshotTime}` : null,
+    meta.share ? t("planChecklist.share-mode-no-personal-paths") : null,
   ].filter((part): part is string => part !== null);
 
   const rows: string[] = [];
   for (const region of checklist.regions) {
     const kindBadge =
-      region.kind === "special" ? `<span class="badge">${escapeHtml(t("特殊区域", "Special"))}</span>` : "";
+      region.kind === "special" ? `<span class="badge">${escapeHtml(t("common.special"))}</span>` : "";
     rows.push(
       `<h2>${escapeHtml(region.label)}${kindBadge}<span class="tag">${escapeHtml(
-        t(`未收集 ${region.remaining}`, `${region.remaining} uncollected`),
+        tFormatPair(`planChecklist.uncollected`, { v0: region.remaining }),
       )}</span></h2>`,
     );
     for (const unit of region.units) {
       rows.push(
         `<h3>${escapeHtml(unit.label)}<span class="tag">${escapeHtml(
-          t(`${unit.remaining} 项`, `${unit.remaining} item(s)`),
+          tFormatPair(`planChecklist.item-s`, { v0: unit.remaining }),
         )}</span></h3>`,
       );
       rows.push("<table><thead><tr>");
-      rows.push(`<th></th><th>${escapeHtml(t("名称", "Name"))}</th><th>${escapeHtml(t("类别", "Category"))}</th>`);
-      rows.push(`<th>${escapeHtml(t("口径", "Scope"))}</th><th>${escapeHtml(t("下落", "Guidance"))}</th>`);
-      rows.push(`<th>${escapeHtml(t("位置线索 / 获取方式", "Location / acquisition"))}</th>`);
+      rows.push(`<th></th><th>${escapeHtml(t("planChecklist.name"))}</th><th>${escapeHtml(t("common.category"))}</th>`);
+      rows.push(`<th>${escapeHtml(t("planChecklist.scope"))}</th><th>${escapeHtml(t("planChecklist.guidance"))}</th>`);
+      rows.push(`<th>${escapeHtml(t("planChecklist.location-acquisition"))}</th>`);
       rows.push("</tr></thead><tbody>");
       for (const group of unit.groups) {
         for (const item of group.items) {
           const requiredBadge =
             item.required === true
-              ? `<span class="badge req">${escapeHtml(t("必收", "Required"))}</span>`
+              ? `<span class="badge req">${escapeHtml(t("common.required"))}</span>`
               : item.required === false
-                ? `<span class="badge">${escapeHtml(t("可选", "Optional"))}</span>`
-                : `<span class="badge">${escapeHtml(t("未闭合", "Unresolved"))}</span>`;
+                ? `<span class="badge">${escapeHtml(t("common.optional"))}</span>`
+                : `<span class="badge">${escapeHtml(t("common.unresolved"))}</span>`;
           const guidance = [
-            item.hasBasemap ? t("底图", "Basemap") : null,
-            item.hasText ? t("文字", "Text") : null,
+            item.hasBasemap ? t("planChecklist.basemap") : null,
+            item.hasText ? t("planChecklist.text") : null,
           ]
             .filter((part): part is string => part !== null)
             .join(" · ");
@@ -449,11 +449,11 @@ export function renderPlanHtml(checklist: PlanChecklist, meta: PlanExportMeta): 
 
   const body =
     checklist.regions.length === 0
-      ? `<p class="empty">${escapeHtml(t("当前筛选下没有未收集条目。", "No uncollected items under the current filters."))}</p>`
+      ? `<p class="empty">${escapeHtml(t("planChecklist.no-uncollected-items-under-the-current-filters"))}</p>`
       : rows.join("\n");
 
   return `<!DOCTYPE html>
-<html lang="${escapeHtml(t("zh-CN", "en"))}">
+<html lang="${escapeHtml(t("planChecklist.en"))}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -465,17 +465,14 @@ export function renderPlanHtml(checklist: PlanChecklist, meta: PlanExportMeta): 
 <h1>${escapeHtml(title)}</h1>
 <p class="meta">${metaParts.map(escapeHtml).join(" · ")}</p>
 <section class="summary">
-<div><span>${escapeHtml(t("未收集（当前筛选）", "Uncollected (filtered)"))}</span><b>${checklist.items}</b></div>
-<div><span>${escapeHtml(t("其中必收", "Required among them"))}</span><b>${checklist.required}</b></div>
-<div><span>${escapeHtml(t("涉及区域", "Regions"))}</span><b>${checklist.regionCount}</b></div>
+<div><span>${escapeHtml(t("planChecklist.uncollected-filtered"))}</span><b>${checklist.items}</b></div>
+<div><span>${escapeHtml(t("common.required-among-them"))}</span><b>${checklist.required}</b></div>
+<div><span>${escapeHtml(t("planChecklist.regions"))}</span><b>${checklist.regionCount}</b></div>
 </section>
 <p class="meta">${escapeHtml(meta.scopeText)} · ${escapeHtml(scopeNote)}</p>
 ${body}
 <footer>${escapeHtml(
-    t(
-      "由 SOTTR Explorer 生成。坐标与名称来自项目图鉴数据；底图仅表示该子关卡可打开地图，不代表位置已校准。",
-      "Generated by SOTTR Explorer. Names and coordinates come from the project catalog; a basemap means the sub-level has a map, not that positions are calibrated.",
-    ),
+    t("planChecklist.generated-by-sottr-explorer-names-and-coordinates"),
   )}</footer>
 </main>
 </body>

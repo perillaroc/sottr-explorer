@@ -156,14 +156,14 @@ const links = computed<DetailExternalLink[]>(() => {
   result.push({
     key: `url:${item.searchTextUrl}`,
     actionId: "search-text",
-    label: t("搜索图文攻略", "Search text guides"),
+    label: t("collectionDetail.search-text-guides"),
     url: item.searchTextUrl,
     direct: false,
   });
   result.push({
     key: `url:${item.searchVideoUrl}`,
     actionId: "search-video",
-    label: t("搜索视频", "Search videos"),
+    label: t("collectionDetail.search-videos"),
     url: item.searchVideoUrl,
     direct: false,
   });
@@ -178,7 +178,7 @@ async function openLink(actionId: string): Promise<void> {
   // 与主窗口一致：设置页选「仅复制链接」时只复制地址，不唤起浏览器。
   if (current.value?.linkOpenMode === "copy") {
     const copied = await copyText(link.url);
-    linkAction.value = { key: link.key, status: copied ? "copied" : "error", message: copied ? null : t("复制失败", "Copy failed") };
+    linkAction.value = { key: link.key, status: copied ? "copied" : "error", message: copied ? null : t("detailWindow.copy-failed") };
     return;
   }
   linkAction.value = { key: link.key, status: "opening", message: null };
@@ -188,7 +188,7 @@ async function openLink(actionId: string): Promise<void> {
     } else {
       const opened = window.open(link.url, "_blank");
       if (!opened) {
-        throw new Error(t("无法打开浏览器窗口（可能被拦截）", "Cannot open a browser window (it may be blocked)"));
+        throw new Error(t("detailWindow.cannot-open-a-browser-window"));
       }
     }
     linkAction.value = { key: link.key, status: "opened", message: null };
@@ -220,22 +220,22 @@ async function closeWindow(): Promise<void> {
 const errorTitle = computed(() => {
   switch (errorKind.value) {
     case "missing":
-      return t("没有可显示的详情", "No details to show");
+      return t("detailWindow.no-details-to-show");
     case "version":
-      return t("详情数据版本不兼容", "Incompatible details data");
+      return t("detailWindow.incompatible-details-data");
     default:
-      return t("详情数据读取失败", "Failed to read details data");
+      return t("detailWindow.failed-to-read-details-data");
   }
 });
 
 const errorHelp = computed(() => {
   switch (errorKind.value) {
     case "missing":
-      return t("请从主窗口选择条目并重新打开。", "Select an item in the main window and open it again.");
+      return t("detailWindow.select-an-item-in-the-main-window");
     case "version":
-      return t("弹窗数据来自其他版本；请从主窗口重新打开。", "This window has data from another version; reopen it from the main window.");
+      return t("detailWindow.this-window-has-data-from-another-version");
     default:
-      return t("请从主窗口重新打开；关闭本窗口不会影响主窗口的分析。", "Reopen from the main window; closing this window does not affect analysis there.");
+      return t("detailWindow.reopen-from-the-main-window-closing");
   }
 });
 </script>
@@ -249,8 +249,8 @@ const errorHelp = computed(() => {
       v-if="mode === 'window'"
       class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-5"
     >
-      <h1 class="ui-section-title truncate">{{ t("收集品详情", "Item details") }}</h1>
-      <UiIconButton :label="t('关闭窗口（Esc）', 'Close window (Esc)')" data-testid="detail-window-close" @click="closeWindow">
+      <h1 class="ui-section-title truncate">{{ t("app.item-details-2") }}</h1>
+      <UiIconButton :label="t('detailWindow.close-window-esc')" data-testid="detail-window-close" @click="closeWindow">
         <X :size="16" aria-hidden="true" />
       </UiIconButton>
     </header>
@@ -259,7 +259,7 @@ const errorHelp = computed(() => {
       <div v-if="errorKind" class="flex flex-col items-start gap-2 py-6" data-testid="detail-window-error">
         <p class="text-sm font-medium">{{ errorTitle }}</p>
         <p class="text-[13px] text-muted">{{ errorHelp }}</p>
-        <UiIconButton v-if="mode === 'window'" :label="t('关闭窗口（Esc）', 'Close window (Esc)')" @click="closeWindow">
+        <UiIconButton v-if="mode === 'window'" :label="t('detailWindow.close-window-esc')" @click="closeWindow">
           <X :size="16" aria-hidden="true" />
         </UiIconButton>
       </div>
@@ -287,7 +287,7 @@ const errorHelp = computed(() => {
 
         <details open class="mt-4 rounded-section border border-line bg-raised/50 px-3 py-2" data-testid="detail-window-list">
           <summary class="cursor-pointer text-[13px] font-medium">
-            {{ tFormat("本子关卡清单（{count}）", "Items in this sub-level ({count})", { count: items.length }) }}
+            {{ tFormat("detailWindow.items-in-this-sub-level",  { count: items.length }) }}
           </summary>
           <ul class="mt-2 max-h-64 divide-y divide-line/70 overflow-auto">
             <li v-for="item in items" :key="item.id">
@@ -300,8 +300,8 @@ const errorHelp = computed(() => {
               >
                 <component :is="categoryIcon(item.category)" :size="14" :class="categoryClass(item.category)" aria-hidden="true" />
                 <span class="min-w-0 flex-1 truncate">{{ item.displayName }}</span>
-                <UiBadge :tone="item.status === 'collected' ? 'success' : 'caution'" :kind-label="t('状态', 'Status')">
-                  {{ item.status === "collected" ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
+                <UiBadge :tone="item.status === 'collected' ? 'success' : 'caution'" :kind-label="t('common.status')">
+                  {{ item.status === "collected" ? t("common.collected") : t("common.uncollected") }}
                 </UiBadge>
               </button>
             </li>

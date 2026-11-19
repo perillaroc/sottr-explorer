@@ -4,7 +4,7 @@
 // - 详情复用 CollectionDetail，并隐藏「相对位置」段落（地图本身已展示位置）；
 // - 清单底部说明本图无坐标条目与本区域无底图条目，并提供回到区域清单的入口。
 import { computed, nextTick, ref, watch } from "vue";
-import { t, tFormat, localizedName } from "../../app/i18n";
+import { t, tFormat, localizedName, tFormatPair } from "../../app/i18n";
 import { statusMarkOf } from "../../app/collection";
 import { categoryClass } from "../../app/category-style";
 import { categoryIcon } from "../../app/category-icon";
@@ -95,7 +95,7 @@ watch(
     <div
       v-if="!listOnly"
       role="tablist"
-      :aria-label="t('地图详情与清单', 'Map details and list')"
+      :aria-label="t('mapPage.map-details-and-list')"
       class="flex h-11 shrink-0 items-stretch border-b border-line"
     >
       <button
@@ -112,7 +112,7 @@ watch(
         @click="selectTab('detail')"
         @keydown="onTabKeydown"
       >
-        {{ t("详情", "Details") }}
+        {{ t("common.details") }}
       </button>
       <button
         id="map-tab-list"
@@ -128,7 +128,7 @@ watch(
         @click="selectTab('list')"
         @keydown="onTabKeydown"
       >
-        {{ t(`清单 ${entries.length}`, `List ${entries.length}`) }}
+        {{ tFormatPair(`mapPage.list`, { v0: entries.length }) }}
       </button>
     </div>
 
@@ -151,12 +151,12 @@ watch(
       />
       <div v-else-if="selectedEntry" class="space-y-2" data-testid="map-detail-filtered">
         <p class="text-[13px] text-muted">
-          {{ t("该项当前被筛选隐藏。", "This item is currently hidden by the filters.") }}
+          {{ t("mapRail.this-item-is-currently-hidden") }}
         </p>
-        <UiButton size="sm" @click="emit('clear-filters')">{{ t("清除筛选", "Clear filters") }}</UiButton>
+        <UiButton size="sm" @click="emit('clear-filters')">{{ t("common.clear-filters") }}</UiButton>
       </div>
       <p v-else class="text-[13px] text-muted" data-testid="map-detail-empty">
-        {{ t("点击地图上的图标或清单中的条目查看详情。", "Select a marker on the map or an item in the list to see details.") }}
+        {{ t("mapRail.select-a-marker-on-the-map") }}
       </p>
     </div>
 
@@ -170,11 +170,11 @@ watch(
       data-testid="map-list-panel"
     >
       <div v-if="entries.length === 0" class="space-y-2 px-2 py-3" data-testid="map-list-empty">
-        <p class="text-[13px]">{{ t("本子关卡没有带坐标的收集品。", "This sub-level has no collectibles with coordinates.") }}</p>
+        <p class="text-[13px]">{{ t("mapPage.this-sub-level-has-no-collectibles") }}</p>
       </div>
       <div v-else-if="groups.length === 0" class="space-y-2 px-2 py-3" data-testid="map-list-filtered-empty">
-        <p class="text-[13px]">{{ t("当前筛选没有条目。", "No items match the current filters.") }}</p>
-        <UiButton size="sm" @click="emit('clear-filters')">{{ t("清除筛选", "Clear filters") }}</UiButton>
+        <p class="text-[13px]">{{ t("mapRail.no-items-match-the-current-filters") }}</p>
+        <UiButton size="sm" @click="emit('clear-filters')">{{ t("common.clear-filters") }}</UiButton>
       </div>
 
       <section v-for="group in groups" :key="`${group.category}-${group.subcategory ?? ''}`" class="mb-3">
@@ -224,18 +224,18 @@ watch(
                 :class="entry.item.status === 'collected' ? 'text-success' : 'text-caution'"
               >
                 <UiStatusMark :status="statusMarkOf(entry.item)" decorative />
-                {{ entry.item.status === "collected" ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
+                {{ entry.item.status === "collected" ? t("common.collected") : t("common.uncollected") }}
               </span>
             </button>
             <button
               v-if="showRowDetail"
               type="button"
               class="ui-interactive my-1.5 mr-1 shrink-0 cursor-pointer self-center rounded-control px-2 py-0.5 text-xs text-accent-strong hover:bg-surface/70"
-              :aria-label="tFormat('查看详情：{name}', 'View details: {name}', { name: entry.item.display_name })"
+              :aria-label="tFormat('mapRail.view-details',  { name: entry.item.display_name })"
               :data-testid="`map-row-detail-${entry.item.id}`"
               @click="emit('open-detail', entry.item.id)"
             >
-              {{ t("详情", "Details") }}
+              {{ t("common.details") }}
             </button>
           </li>
         </ul>
@@ -243,13 +243,13 @@ watch(
 
       <footer class="mt-2 space-y-1.5 border-t border-line px-2 pt-2 text-xs text-muted">
         <p class="tabular-nums" data-testid="map-list-unplaced">
-          {{ t(`本图另有 ${unplaced} 项无坐标`, `${unplaced} more items in this map have no coordinates`) }}
+          {{ tFormatPair(`mapRail.more-items-in-this-map-have-no`, { v0: unplaced }) }}
         </p>
         <p class="tabular-nums" data-testid="map-list-unmapped">
-          {{ t(`本区域另有 ${unmapped} 项无底图（可用文字指引）`, `${unmapped} more items in this region have no basemap (text guidance available)`) }}
+          {{ tFormatPair(`mapRail.more-items-in-this-region-have-no`, { v0: unmapped }) }}
         </p>
         <UiButton size="sm" variant="ghost" data-testid="map-open-region" @click="emit('open-region')">
-          {{ t("在区域清单中查看本区域", "View this region in the regional list") }}
+          {{ t("mapRail.view-this-region-in-the-regional-list") }}
         </UiButton>
       </footer>
     </div>

@@ -68,6 +68,8 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 | `src/styles.css` | 视觉令牌（明暗主题、类别色、表面、字阶、控件与动效）与共享表面 / 状态 / 进度 / 折叠样式 |
 | `src/App.vue` | 应用外壳：顶栏 + 侧栏 + 主工作区 + 详情（宽屏常驻 / 抽屉 / 窄窗页面替换）、快捷键、数据源选择、详情窗口兜底浮层 |
 | `src/app/layout.ts` | 页面水平内边距与区域索引 / 摘要栅格口径（按 `store.layout`，不写视口 media query） |
+| `src/app/locales/` | 文案资源：`zh-CN.ts`（权威键表）、`en.ts`、`index.ts` 注册表（语言列表与设置页选项） |
+| `src/app/i18n.ts` | 语言偏好、`t` / `tFormat` / `tFormatPair` 键查找、英文缺失回退与记录、`localizedName` |
 | `src/app/store.ts` | 单一 reactive store：request_id 隔离、切槽撤销提交资格、刷新失败 stale、筛选回退、导出与链接动作状态、地图选择/筛选、详情弹窗兜底、偏好持久化 |
 | `src/app/catalog.ts` | 界面派生视图：清单行（组行折叠）、区域计数单元格、诊断分组、表位置/参考集/组计数查询 |
 | `src/app/map-view.ts` | 地图视图派生：底图目录、当前图条目/分组/筛选、无坐标与无底图统计、全量覆盖统计 |

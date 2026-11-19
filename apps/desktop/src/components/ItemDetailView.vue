@@ -28,7 +28,7 @@ export interface DetailLinkActionView {
 // 位置是关卡内归一化坐标，未校准；界面不把它写成导航点位。
 import { computed, nextTick, onMounted, ref } from "vue";
 import { ChevronDown, Copy, ExternalLink, PanelRightOpen, Search } from "@lucide/vue";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { collectionDisplayName } from "../app/guidance";
 import { copyText } from "../app/clipboard";
 import { formatSnapshotTime } from "../app/format";
@@ -106,38 +106,38 @@ const sameUnitRemaining = computed(() => props.item.same_unit_remaining ?? 0);
 
 /** 「如何获取」行标签：子关卡指引不是获取方式，避免写成「获取」。 */
 const acquisitionRowLabel = computed(() =>
-  props.item.acquisition_source === "unit_note" ? t("指引", "Guidance") : t("获取", "How"),
+  props.item.acquisition_source === "unit_note" ? t("itemDetailView.guidance") : t("itemDetailView.how"),
 );
 
 /** 注记来源标签。 */
 const acquisitionSourceLabel = computed(() => {
   switch (props.item.acquisition_source) {
     case "item_note":
-      return t("逐项注记", "Per-item note");
+      return t("itemDetailView.per-item-note");
     case "collection_note":
-      return t("合集指引", "Collection guidance");
+      return t("itemDetailView.collection-guidance");
     case "unit_note":
-      return t("子关卡指引", "Sub-level guidance");
+      return t("itemDetailView.sub-level-guidance");
     default:
-      return t("类别规则", "Category rule");
+      return t("itemDetailView.category-rule");
   }
 });
 
 const copyLines = computed(() =>
   [
     `${props.item.display_name}`,
-    t(`状态：${collected.value ? "已收集" : "未收集"}`, `Status: ${collected.value ? "collected" : "uncollected"}`),
-    tFormat("区域：{value}", "Region: {value}", {
+    tFormatPair(`itemDetailView.status`, { v0: collected.value ? "已收集" : "未收集" }),
+    tFormat("itemDetailView.region",  {
       value: `${props.regionName}${props.unitLabel ? ` · ${props.unitLabel}` : ""}`,
     }),
     ...(props.item.collection
       ? [
-          tFormat("合集：{value}", "Collection: {value}", {
+          tFormat("fullCollectionPage.collection-2",  {
             value: collectionDisplayName(props.item.collection),
           }),
         ]
       : []),
-    tFormat("{label}：{value}", "{label}: {value}", {
+    tFormat("itemDetailView.text",  {
       label: acquisitionRowLabel.value,
       value: props.item.acquisition_text,
     }),
@@ -165,16 +165,16 @@ const activeLink = computed(() => {
 function statusText(action: DetailLinkActionView): string {
   switch (action.status) {
     case "resolving":
-      return t("正在解析链接…", "Resolving link…");
+      return t("itemDetailView.resolving-link");
     case "opening":
-      return t("正在打开…", "Opening…");
+      return t("itemDetailView.opening");
     case "opened":
-      return t("已在浏览器打开", "Opened in browser");
+      return t("itemDetailView.opened-in-browser");
     case "copied":
-      return t("已复制链接", "Link copied");
+      return t("itemDetailView.link-copied");
     case "error":
-      return tFormat("失败：{message}", "Failed: {message}", {
-        message: action.message ?? t("未知错误", "unknown error"),
+      return tFormat("itemDetailView.failed",  {
+        message: action.message ?? t("itemDetailView.unknown-error"),
       });
   }
 }
@@ -198,14 +198,14 @@ const linkStatusTone = computed(() => {
         :class="isWindow ? 'justify-between' : 'justify-end'"
       >
         <p v-if="isWindow" class="min-w-0 text-xs text-muted">
-          {{ slotName || t("未选择文件", "No file selected") }}
+          {{ slotName || t("appTopBar.no-file-selected") }}
           <template v-if="snapshotTime">
-            · {{ t("快照", "snapshot") }} {{ formatSnapshotTime(snapshotTime) }}
+            · {{ t("itemDetailView.snapshot") }} {{ formatSnapshotTime(snapshotTime) }}
           </template>
         </p>
         <UiIconButton
           v-if="showPopout && !isWindow"
-          :label="t('在新窗口中打开', 'Open in a new window')"
+          :label="t('itemDetailView.open-in-a-new-window')"
           data-testid="detail-popout"
           @click="emit('popout')"
         >
@@ -217,32 +217,32 @@ const linkStatusTone = computed(() => {
       </h2>
       <p class="mono break-all text-xs text-muted">{{ item.id }}</p>
       <div class="flex flex-wrap items-center gap-1.5">
-        <UiBadge :tone="collected ? 'success' : 'caution'" :kind-label="t('状态', 'Status')">
-          {{ collected ? t("已收集", "Collected") : t("未收集", "Uncollected") }}
+        <UiBadge :tone="collected ? 'success' : 'caution'" :kind-label="t('common.status')">
+          {{ collected ? t("common.collected") : t("common.uncollected") }}
         </UiBadge>
-        <UiBadge v-if="stale" tone="caution" :kind-label="t('快照', 'Snapshot')">{{ t("旧快照", "Stale snapshot") }}</UiBadge>
-        <UiBadge tone="neutral" :kind-label="t('类别', 'Category')" :class="categoryClass(categoryId)">
+        <UiBadge v-if="stale" tone="caution" :kind-label="t('planChecklist.snapshot')">{{ t("appTopBar.stale-snapshot-2") }}</UiBadge>
+        <UiBadge tone="neutral" :kind-label="t('common.category')" :class="categoryClass(categoryId)">
           {{ categoryLabel }}
         </UiBadge>
-        <UiBadge v-if="subgroupLabel" tone="neutral" :kind-label="t('子类别', 'Subcategory')">{{ subgroupLabel }}</UiBadge>
-        <UiBadge v-if="item.is_dlc" tone="neutral" :kind-label="t('版本', 'Edition')">DLC</UiBadge>
-        <UiBadge v-if="item.required_for_100 === false" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("可选", "Optional") }}</UiBadge>
-        <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" :kind-label="t('口径', 'Scope')">{{ t("未闭合", "Unresolved") }}</UiBadge>
+        <UiBadge v-if="subgroupLabel" tone="neutral" :kind-label="t('itemDetailView.subcategory')">{{ subgroupLabel }}</UiBadge>
+        <UiBadge v-if="item.is_dlc" tone="neutral" :kind-label="t('itemDetailView.edition')">DLC</UiBadge>
+        <UiBadge v-if="item.required_for_100 === false" tone="neutral" :kind-label="t('planChecklist.scope')">{{ t("common.optional") }}</UiBadge>
+        <UiBadge v-else-if="item.required_for_100 === null" tone="neutral" :kind-label="t('planChecklist.scope')">{{ t("common.unresolved") }}</UiBadge>
       </div>
       <p v-if="item.shared_names && item.shared_names.length > 1" class="text-xs text-caution">
-        {{ tFormat("该 ID 对应 {count} 个名称：{names}（按 ID 计数，不拆分判定）", "This ID maps to {count} names: {names} (counted by ID; not split for assessment)", { count: item.shared_names.length, names: item.shared_names.join(" / ") }) }}
+        {{ tFormat("itemDetailView.this-id-maps-to-names-counted",  { count: item.shared_names.length, names: item.shared_names.join(" / ") }) }}
       </p>
     </header>
 
     <section class="rounded-section bg-raised/50 px-3 py-3" data-testid="detail-acquisition-section">
-      <h3 class="ui-section-title">{{ t("如何获取", "How to obtain") }}</h3>
+      <h3 class="ui-section-title">{{ t("itemDetailView.how-to-obtain") }}</h3>
       <dl class="mt-2 space-y-1.5 text-[14px] leading-[22px]" data-testid="detail-acquisition">
         <div class="flex gap-2">
-          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("区域", "Region") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("common.region") }}</dt>
           <dd class="min-w-0">{{ regionName }}{{ unitLabel ? ` · ${unitLabel}` : "" }}</dd>
         </div>
         <div v-if="item.collection" class="flex gap-2">
-          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("合集", "Collection") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("fullCollectionPage.collection") }}</dt>
           <dd class="min-w-0">{{ collectionDisplayName(item.collection) }}</dd>
         </div>
         <div class="flex gap-2">
@@ -250,17 +250,14 @@ const linkStatusTone = computed(() => {
           <dd class="min-w-0">{{ item.acquisition_text }}</dd>
         </div>
         <div v-if="item.position" class="flex gap-2">
-          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("位置", "Where") }}</dt>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("itemDetailView.where") }}</dt>
           <dd class="min-w-0">
-            {{ t(
-              `关卡内相对位置约 (${item.position.x.toFixed(2)}, ${item.position.y.toFixed(2)})`,
-              `Approx. in-level position (${item.position.x.toFixed(2)}, ${item.position.y.toFixed(2)})`,
-            ) }}
+            {{ tFormatPair(`itemDetailView.approx-in-level-position`, { v0: item.position.x.toFixed(2), v1: item.position.y.toFixed(2) }) }}
           </dd>
         </div>
         <div v-if="sameUnitRemaining > 0" class="flex gap-2">
-          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("同关卡", "Same level") }}</dt>
-          <dd class="min-w-0">{{ t(`还有 ${sameUnitRemaining} 项未收集`, `${sameUnitRemaining} more uncollected`) }}</dd>
+          <dt class="w-14 shrink-0 text-[13px] leading-[22px] text-muted">{{ t("itemDetailView.same-level") }}</dt>
+          <dd class="min-w-0">{{ tFormatPair(`itemDetailView.more-uncollected`, { v0: sameUnitRemaining }) }}</dd>
         </div>
       </dl>
       <p class="mt-1 text-xs text-muted">
@@ -269,10 +266,10 @@ const linkStatusTone = computed(() => {
       <div class="mt-2 flex flex-wrap items-center gap-2">
         <UiButton size="sm" variant="ghost" data-testid="copy-lead" @click="copyHint">
           <Copy :size="16" aria-hidden="true" />
-          {{ t("复制这条线索", "Copy this hint") }}
+          {{ t("itemDetailView.copy-this-hint") }}
         </UiButton>
-        <span v-if="copiedHint" class="text-[13px] text-success" role="status" aria-live="polite">{{ t("已复制到剪贴板。", "Copied to clipboard.") }}</span>
-        <span v-else-if="leadText" class="text-[13px] text-caution">{{ t("复制失败：可手动选择下方文本。", "Copy failed: select the text below manually.") }}</span>
+        <span v-if="copiedHint" class="text-[13px] text-success" role="status" aria-live="polite">{{ t("itemDetailView.copied-to-clipboard") }}</span>
+        <span v-else-if="leadText" class="text-[13px] text-caution">{{ t("itemDetailView.copy-failed-select-the-text-below-manually") }}</span>
       </div>
       <pre
         v-if="leadText"
@@ -283,9 +280,9 @@ const linkStatusTone = computed(() => {
     </section>
 
     <section class="space-y-2" data-testid="external-links">
-      <h3 class="ui-section-title">{{ t("外部参考", "External references") }}</h3>
+      <h3 class="ui-section-title">{{ t("itemDetailView.external-references") }}</h3>
       <p v-if="hasGuideItems" class="text-xs text-muted" data-testid="guide-locator-note">
-        {{ t("带「· 定位」的按钮已逐条核对；打开来源页后按定位查找。", "Buttons with “· locator” are manually checked; use the locator on the source page.") }}
+        {{ t("itemDetailView.buttons-with-locator-are-manually-checked-use") }}
       </p>
       <div class="flex flex-wrap items-center gap-2">
         <UiButton
@@ -310,7 +307,7 @@ const linkStatusTone = computed(() => {
           data-testid="link-retry"
           @click="emit('open-link', activeLink.link.actionId)"
         >
-          {{ t("重试", "Retry") }}
+          {{ t("itemDetailView.retry") }}
         </UiButton>
       </p>
     </section>
@@ -323,7 +320,7 @@ const linkStatusTone = computed(() => {
       @toggle="onPositionToggle"
     >
       <summary class="flex cursor-pointer items-center justify-between gap-2 text-[13px] font-medium">
-        {{ t("相对位置", "Relative positions") }}
+        {{ t("itemDetailView.relative-positions") }}
         <ChevronDown class="ui-chevron" :size="16" aria-hidden="true" />
       </summary>
       <div class="mt-2 space-y-1.5">

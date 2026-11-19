@@ -7,7 +7,7 @@
 // - 底图 `region_id` 不在当前计划的区域里（如数据集里的 `unnamed`）不展示；
 // - 条目必须 `item.unit` 在 `basemap.unit_ids` 内且 `position` 存在，才画在地图上；
 // - 排序保持计划顺序（区域 → 类别 → 子类别 → 条目），不按名称重排。
-import { localizedName, t } from "./i18n";
+import { localizedName, tFormatPair } from "./i18n";
 import { categoryLabel, subcategoryLabel } from "./labels";
 import { itemHaystack } from "./collection";
 import { allBasemaps, basemapForUnit, basemapsForRegion, type Basemap } from "../data/basemaps";
@@ -77,7 +77,7 @@ function unitLabelOf(atlas: Atlas, basemap: Basemap): string {
       label ||
         basemap.level_drm ||
         basemap.map_path ||
-        t(`子关卡 ${unit}`, `Sub-level ${unit}`),
+        tFormatPair(`common.sub-level`, { v0: unit }),
     );
   }
   return labels.join(" · ");

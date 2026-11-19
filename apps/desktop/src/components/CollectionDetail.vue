@@ -4,7 +4,7 @@
 // 调用外链动作与「在新窗口中打开」，再把数据交给 ItemDetailView 渲染。
 import { computed } from "vue";
 import { useStore } from "../app/inject";
-import { localizedName, t } from "../app/i18n";
+import { localizedName, t, tFormatPair } from "../app/i18n";
 import { categoryNameOf, groupDisplayName, regionName } from "../app/collection";
 import { buildSearchUrl, textSearchQuery, videoSearchQuery } from "../app/external-links";
 import { externalLinkKey, guideLinkKey } from "../app/store";
@@ -48,7 +48,7 @@ const unitText = computed(() => {
   if (!unit) {
     return null;
   }
-  return localizedName(unit.display_zh, unit.display_en, unit.zone ?? t(`子关卡 ${unit.unit}`, `Sub-level ${unit.unit}`));
+  return localizedName(unit.display_zh, unit.display_en, unit.zone ?? tFormatPair(`common.sub-level`, { v0: unit.unit }));
 });
 
 /** 同一子关卡内的条目（含跨区域共享 unit 的条目）。 */
@@ -86,7 +86,7 @@ const links = computed<DetailExternalLink[]>(() => {
     result.push({
       key: guideLinkKey(text.locationId, text.sourceRef),
       actionId: "guide-text",
-      label: t("攻略页", "Guide page"),
+      label: t("detailWindow.guide-page"),
       url: text.url,
       direct: true,
       testId: "link-guide",
@@ -96,7 +96,7 @@ const links = computed<DetailExternalLink[]>(() => {
   result.push({
     key: externalLinkKey(searchTextUrl.value),
     actionId: "search-text",
-    label: t("搜索图文攻略", "Search text guides"),
+    label: t("collectionDetail.search-text-guides"),
     url: searchTextUrl.value,
     direct: false,
     testId: "link-search-text",
@@ -106,7 +106,7 @@ const links = computed<DetailExternalLink[]>(() => {
     result.push({
       key: guideLinkKey(video.locationId, video.sourceRef),
       actionId: "guide-video",
-      label: t("视频页", "Video page"),
+      label: t("detailWindow.video-page"),
       url: video.url,
       direct: true,
       testId: "link-video",
@@ -116,7 +116,7 @@ const links = computed<DetailExternalLink[]>(() => {
   result.push({
     key: externalLinkKey(searchVideoUrl.value),
     actionId: "search-video",
-    label: t("搜索视频", "Search videos"),
+    label: t("collectionDetail.search-videos"),
     url: searchVideoUrl.value,
     direct: false,
     testId: "link-search-video",

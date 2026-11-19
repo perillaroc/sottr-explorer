@@ -7,7 +7,7 @@
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { ChevronDown, X } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { copy } from "../app/labels";
 import { categoryNameOf } from "../app/collection";
 import { pagePaddingClass } from "../app/layout";
@@ -109,17 +109,17 @@ const filtersActive = computed(
 const statusOptions = computed<ChipOption[]>(() => [
   {
     value: "missing",
-    label: t("未收集", "Uncollected"),
+    label: t("common.uncollected"),
     count: entries.value.filter((entry) => entry.item.status === "not_collected").length,
   },
   {
     value: "observed",
-    label: t("已收集", "Collected"),
+    label: t("common.collected"),
     count: entries.value.filter((entry) => entry.item.status === "collected").length,
   },
   {
     value: "all",
-    label: t("全部", "All"),
+    label: t("collectionPage.all"),
     count: entries.value.length,
   },
 ]);
@@ -130,7 +130,7 @@ const categoryOptions = computed<MapLegendOption[]>(() => {
     counts.set(entry.group.category, (counts.get(entry.group.category) ?? 0) + 1);
   }
   const list: MapLegendOption[] = [
-    { category: "", label: t("全部类别", "All categories"), count: entries.value.length },
+    { category: "", label: t("common.all-categories"), count: entries.value.length },
   ];
   for (const [category, count] of counts) {
     list.push({ category, label: categoryNameOf(atlas, category), count });
@@ -143,7 +143,7 @@ const calibrationShort = computed(() => {
   if (!option) {
     return "";
   }
-  return option.basemap.status === "calibrated" ? t("已校准", "Calibrated") : t("近似位置", "Approximate");
+  return option.basemap.status === "calibrated" ? t("mapPage.calibrated") : t("mapPage.approximate");
 });
 
 const calibrationTitle = computed(() => {
@@ -155,18 +155,18 @@ const calibrationTitle = computed(() => {
   const formatPx = (value: number | null | undefined) =>
     typeof value === "number" && Number.isFinite(value) ? value.toFixed(1) : "—";
   return basemap.status === "calibrated"
-    ? tFormat("中位误差 {median} px，P95 {p95} px", "Median error {median} px, P95 {p95} px", {
+    ? tFormat("mapPage.median-error-px-p95-px",  {
         median: formatPx(basemap.median_error_px),
         p95: formatPx(basemap.p95_error_px),
       })
-    : tFormat("中位误差 {median} px", "Median error {median} px", {
+    : tFormat("mapPage.median-error-px",  {
         median: formatPx(basemap.median_error_px),
       });
 });
 
 const basemapLabel = (option: MapBasemapOption): string => {
-  const status = option.status === "calibrated" ? t("已校准", "calibrated") : t("近似", "approximate");
-  return tFormat("{unit} · {collected}/{total} · {status}", "{unit} · {collected}/{total} · {status}", {
+  const status = option.status === "calibrated" ? t("mapPage.calibrated-2") : t("mapPage.approximate-2");
+  return tFormat("mapPage.text",  {
     unit: option.unitLabel,
     collected: option.collected,
     total: option.itemCount,
@@ -177,12 +177,12 @@ const basemapLabel = (option: MapBasemapOption): string => {
 const canvasLabel = computed(() =>
   currentOption.value
     ? `${currentOption.value.regionName} · ${currentOption.value.unitLabel}`
-    : t("地图", "Map"),
+    : t("common.map"),
 );
 
 /** 页头主标题：当前区域 · 子关卡；没有可用底图时退回页面名。 */
 const mapTitle = computed(() =>
-  ready.value && currentOption.value ? canvasLabel.value : t("地图查询", "Map"),
+  ready.value && currentOption.value ? canvasLabel.value : t("appSidebar.map"),
 );
 
 const unplaced = computed(() =>
@@ -302,11 +302,11 @@ onMounted(() => {
 <template>
   <section class="flex min-h-0 flex-1 flex-col" aria-labelledby="map-title">
     <header class="shrink-0 border-b border-line/70 pb-2.5" :class="pageX">
-      <AppPageHeader title-id="map-title" :title="mapTitle" :context="t('地图查询', 'Map')">
+      <AppPageHeader title-id="map-title" :title="mapTitle" :context="t('appSidebar.map')">
         <template #actions>
           <template v-if="ready && currentOption">
             <span class="text-[13px] tabular-nums text-ink" data-testid="map-counts">
-              {{ t(`已收集 ${currentOption.collected}/${currentOption.itemCount} · 显示 ${filteredEntries.length}`, `Collected ${currentOption.collected}/${currentOption.itemCount} · ${filteredEntries.length} shown`) }}
+              {{ tFormatPair(`mapPage.collected-shown`, { v0: currentOption.collected, v1: currentOption.itemCount, v2: filteredEntries.length }) }}
             </span>
             <span
               class="cursor-help text-xs text-muted underline decoration-dotted underline-offset-2"
@@ -322,7 +322,7 @@ onMounted(() => {
             <select
               id="map-region-select"
               class="h-9 max-w-[180px] cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px]"
-              :aria-label="t('区域', 'Region')"
+              :aria-label="t('common.region')"
               :value="store.state.mapRegion ?? ''"
               data-testid="map-region-select"
               @change="onRegionChange"
@@ -335,7 +335,7 @@ onMounted(() => {
             <select
               id="map-basemap-select"
               class="h-9 max-w-[280px] cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px]"
-              :aria-label="t('子关卡', 'Sub-level')"
+              :aria-label="t('common.sub-level-2')"
               :value="store.state.mapBasemapId ?? ''"
               data-testid="map-basemap-select"
               @change="onBasemapChange"
@@ -349,8 +349,8 @@ onMounted(() => {
               <UiSearchInput
                 ref="searchInput"
                 :model-value="store.state.mapSearch"
-                :placeholder="t('搜索名称 / 内部名 / ID / 子关卡', 'Search name / internal name / ID / sub-level')"
-                :ariaLabel="t('搜索地图上的收集品', 'Search collectibles on the map')"
+                :placeholder="t('mapPage.search-name-internal-name-id-sub-level')"
+                :ariaLabel="t('mapPage.search-collectibles-on-the-map')"
                 :disabled="!ready"
                 @update:model-value="store.actions.setMapSearch($event)"
               />
@@ -359,12 +359,12 @@ onMounted(() => {
               variant="segmented"
               :options="statusOptions"
               :model-value="store.state.mapStatus"
-              :ariaLabel="t('按收集状态筛选（地图）', 'Filter by collection status (map)')"
+              :ariaLabel="t('mapPage.filter-by-collection-status-map')"
               @update:model-value="store.actions.setMapStatus($event as 'missing' | 'observed' | 'all')"
             />
             <UiIconButton
               v-if="filtersActive"
-              :label="t('清除筛选', 'Clear filters')"
+              :label="t('common.clear-filters')"
               data-testid="map-clear-filters"
               @click="clearMapFilters"
             >
@@ -375,7 +375,7 @@ onMounted(() => {
             <MapLegend
               :options="categoryOptions"
               :selected="store.state.mapCategory"
-              :ariaLabel="t('类别图例与筛选', 'Category legend and filter')"
+              :ariaLabel="t('mapPage.category-legend-and-filter')"
               @select="store.actions.setMapCategory($event)"
             />
           </div>
@@ -387,26 +387,26 @@ onMounted(() => {
           tone="warning"
           test-id="map-stale"
           :title="copy.stale"
-          :lines="[t('请刷新后再核对收集状态。', 'Refresh before checking collection status again.')]"
+          :lines="[t('common.refresh-before-checking-collection-status-again')]"
         />
       </AppPageHeader>
     </header>
 
     <div v-if="!ready || !currentOption" class="pt-2" :class="pageX">
       <UiEmptyState v-if="!store.report.value" :title="copy.noReport" :description="copy.noReportHelp">
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.open-a-save") }}</UiButton>
       </UiEmptyState>
       <UiEmptyState
         v-else-if="!store.planAvailable.value"
-        :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
+        :title="t('common.profile-files-have-no-collectible-list')"
       >
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.choose-a-save-file") }}</UiButton>
       </UiEmptyState>
       <UiEmptyState
         v-else
-        :title="t('该区域暂无可用的地图底图', 'No basemap is available for this region')"
+        :title="t('mapPage.no-basemap-is-available-for-this-region')"
       >
-        <UiButton size="sm" @click="openRegionList">{{ t("在区域清单中查看", "View in regional list") }}</UiButton>
+        <UiButton size="sm" @click="openRegionList">{{ t("mapPage.view-in-regional-list") }}</UiButton>
       </UiEmptyState>
     </div>
 
@@ -424,7 +424,7 @@ onMounted(() => {
               @off-map="onOffMap"
             >
               <template #error>
-                <UiButton size="sm" @click="openRegionList">{{ t("在区域清单中查看", "View in regional list") }}</UiButton>
+                <UiButton size="sm" @click="openRegionList">{{ t("mapPage.view-in-regional-list") }}</UiButton>
               </template>
             </MapCanvas>
             <div
@@ -433,7 +433,7 @@ onMounted(() => {
               data-testid="map-empty-items"
             >
               <p class="rounded-[6px] border border-line bg-surface/95 px-3 py-2 text-[13px]">
-                {{ t("本子关卡没有带坐标的收集品。", "This sub-level has no collectibles with coordinates.") }}
+                {{ t("mapPage.this-sub-level-has-no-collectibles") }}
               </p>
             </div>
           </div>
@@ -444,10 +444,7 @@ onMounted(() => {
             data-testid="map-off-map-note"
           >
             {{
-              t(
-                `地图上有 ${offMapIds.length} 个点位落在底图留白区（多为地下、隧道或地图边缘），已用虚线外环标出。`,
-                `${offMapIds.length} marker(s) fall in blank areas of the basemap (often underground, in tunnels, or at the map edge); they are marked with a dashed ring.`,
-              )
+              tFormatPair(`mapPage.marker-s-fall-in-blank-areas`, { v0: offMapIds.length })
             }}
           </p>
 
@@ -457,7 +454,7 @@ onMounted(() => {
             data-testid="map-narrow-list"
           >
             <summary class="flex min-h-11 cursor-pointer items-center justify-between gap-2 px-4 py-2 text-[13px] font-medium">
-              {{ t(`清单 ${entries.length}`, `List ${entries.length}`) }}
+              {{ tFormatPair(`mapPage.list`, { v0: entries.length }) }}
               <ChevronDown class="ui-chevron" :size="16" aria-hidden="true" />
             </summary>
             <div class="h-[min(320px,45vh)]">
@@ -483,7 +480,7 @@ onMounted(() => {
           v-if="inlineRail"
           class="relative shrink-0 border-l border-line"
           :style="{ width: `${railWidth}px` }"
-          :aria-label="t('地图详情与清单', 'Map details and list')"
+          :aria-label="t('mapPage.map-details-and-list')"
           data-testid="map-rail-inline"
         >
           <UiResizeHandle
@@ -492,7 +489,7 @@ onMounted(() => {
             :min="MAP_RAIL_WIDTH.min"
             :max="railMaxWidth"
             :default-width="MAP_RAIL_WIDTH.default"
-            :label="t('调整右栏宽度（拖动、方向键或双击复位）', 'Resize the map panel (drag, arrow keys, or double-click to reset)')"
+            :label="t('mapPage.resize-the-map-panel-drag-arrow-keys')"
             @resize="railDraft = $event"
             @commit="commitRailWidth"
           />
@@ -518,7 +515,7 @@ onMounted(() => {
           data-testid="map-open-rail"
           @click="railOverlayOpen = true"
         >
-          {{ t("详情与清单", "Details & list") }}
+          {{ t("mapPage.details-list") }}
         </button>
       </div>
     </div>
@@ -526,7 +523,7 @@ onMounted(() => {
     <UiDrawer
       v-if="overlayRail && railOverlayOpen && currentOption"
       :open="true"
-      :title="t('详情与清单', 'Details & list')"
+      :title="t('mapPage.details-list')"
       :width="overlayRailWidth"
       flush
       @close="railOverlayOpen = false"

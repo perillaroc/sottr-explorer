@@ -31,10 +31,10 @@ const kind = computed<"collected" | "uncollected" | "unknown">(() => {
 const text = computed(() =>
   props.label ??
   (kind.value === "collected"
-    ? t("已收集", "Collected")
+    ? t("common.collected")
     : kind.value === "uncollected"
-      ? t("未收集", "Uncollected")
-      : t("未知", "Unknown")),
+      ? t("common.uncollected")
+      : t("labels.unknown")),
 );
 </script>
 

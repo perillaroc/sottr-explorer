@@ -7,7 +7,7 @@
 import { computed } from "vue";
 import { ChevronDown } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { categoryLabel, copy } from "../app/labels";
 import { categoryClass, categoryDotClass } from "../app/category-style";
 import { pagePaddingClass } from "../app/layout";
@@ -127,13 +127,13 @@ const guidanceCovered =
 function guidanceLabel(id: string): string {
   switch (guidanceScopeForId(id)) {
     case "map":
-      return t("地图", "Map");
+      return t("common.map");
     case "collection":
-      return t("合集", "Collection");
+      return t("fullCollectionPage.collection");
     case "unit":
-      return t("子关卡", "Sub-level");
+      return t("common.sub-level-2");
     case "item":
-      return t("指引", "Guide");
+      return t("fullCollectionPage.guide");
     default:
       return "";
   }
@@ -145,8 +145,8 @@ function guidanceLabel(id: string): string {
     <div class="mx-auto w-full max-w-[1120px] pb-8" :class="pageX">
       <AppPageHeader
         title-id="full-collection-title"
-        :title="t('全收集（100%）', 'Full collection (100%)')"
-        :description="t('按必收子集列出缺失清单；地图 / 合集 / 子关卡是指引来源，不代表地图覆盖全部必收。', 'Missing items are listed for the required subset; map / collection / sub-level are guidance sources, not proof that the map covers all required items.')"
+        :title="t('appSidebar.full-collection-100')"
+        :description="t('fullCollectionPage.missing-items-are-listed-for-the-required')"
       />
 
       <CoverageNotice
@@ -155,22 +155,22 @@ function guidanceLabel(id: string): string {
         tone="warning"
         test-id="stale-banner"
         :title="copy.stale"
-        :lines="[t('请刷新后再核对收集状态。', 'Refresh before checking collection status again.')]"
+        :lines="[t('common.refresh-before-checking-collection-status-again')]"
       />
 
       <UiEmptyState
         v-if="!missing"
-        :title="t('先分析一个存档文件，再查看全收集缺失清单。', 'Analyze a save file first to view the full-collection missing list.')"
+        :title="t('fullCollectionPage.analyze-a-save-file-first-to-view')"
       >
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.open-a-save") }}</UiButton>
       </UiEmptyState>
 
       <UiEmptyState
         v-else-if="!store.planAvailable.value"
-        :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
-        :description="t('全收集缺失清单只适用于普通战役存档；请选择存档文件。', 'The full-collection missing list only applies to campaign saves; choose a save file.')"
+        :title="t('common.profile-files-have-no-collectible-list')"
+        :description="t('fullCollectionPage.the-full-collection-missing-list-only-applies')"
       >
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.choose-a-save-file") }}</UiButton>
       </UiEmptyState>
 
       <template v-else>
@@ -178,53 +178,50 @@ function guidanceLabel(id: string): string {
         <section class="rounded-section border border-gold/40 bg-gold-bg px-4 py-3" data-testid="required-band">
           <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
             <div>
-              <p class="text-xs text-gold">{{ t("必收", "Required") }}</p>
+              <p class="text-xs text-gold">{{ t("common.required") }}</p>
               <p class="mt-0.5 text-[22px] leading-[30px] font-semibold tabular-nums text-gold">
                 {{ requiredTotals.observed }}/{{ requiredTotals.total }}
               </p>
             </div>
             <div>
-              <p class="text-xs text-gold">{{ t("缺失", "Missing") }}</p>
+              <p class="text-xs text-gold">{{ t("fullCollectionPage.missing") }}</p>
               <p class="mt-0.5 text-[22px] leading-[30px] font-semibold tabular-nums text-gold">
                 {{ requiredTotals.missing }}
               </p>
             </div>
             <div class="min-w-56 flex-1" data-testid="guidance-coverage">
               <p class="text-xs text-gold">
-                {{ t("必收指引", "Required guidance") }} {{ guidanceCovered }}/{{ guidance.required }}
+                {{ t("fullCollectionPage.required-guidance") }} {{ guidanceCovered }}/{{ guidance.required }}
               </p>
               <UiProgressBar
                 class="mt-1"
                 :value="guidanceCovered"
                 :total="guidance.required"
                 tone="gold"
-                :label="t('必收指引覆盖', 'Required guidance coverage')"
+                :label="t('fullCollectionPage.required-guidance-coverage')"
               />
               <p class="mt-1 text-xs text-muted">
-                {{ tFormat(
-                  "地图 {mapped} · 合集 {collection} · 子关卡 {unit}",
-                  "map {mapped} · collection {collection} · sub-level {unit}",
-                  { mapped: guidance.mapped, collection: guidance.collection, unit: guidance.unit },
-                ) }}
+                {{ tFormat("fullCollectionPage.map-collection-sub-level", 
+                  { mapped: guidance.mapped, collection: guidance.collection, unit: guidance.unit }) }}
               </p>
             </div>
           </div>
           <p v-if="missing.observed_not_in_catalog.length > 0" class="mt-2 text-xs text-muted">
-            {{ t(`目录外 ID ${missing.observed_not_in_catalog.length}（不计入必收）`, `Off-catalog IDs ${missing.observed_not_in_catalog.length} (not part of required)`) }}
+            {{ tFormatPair(`fullCollectionPage.off-catalog-ids-not-part-of-required`, { v0: missing.observed_not_in_catalog.length }) }}
           </p>
         </section>
 
-        <h2 class="mt-6 mb-2 ui-section-title">{{ t("必收类别 · 按区域", "Required categories · by region") }}</h2>
+        <h2 class="mt-6 mb-2 ui-section-title">{{ t("fullCollectionPage.required-categories-by-region") }}</h2>
         <p v-if="isNarrow" class="mb-1 text-xs text-muted">
-          {{ t("左右滚动查看完整矩阵。", "Scroll horizontally to see the full matrix.") }}
+          {{ t("fullCollectionPage.scroll-horizontally-to-see-the-full-matrix") }}
         </p>
         <div class="ui-panel overflow-x-auto">
           <table class="w-full min-w-[720px] border-collapse text-[13px]" data-testid="required-region-matrix">
             <thead>
               <tr class="border-b border-line text-left text-xs text-muted">
-                <th class="h-9 px-3 font-medium">{{ t("区域", "Region") }}</th>
-                <th class="h-9 px-3 font-medium">{{ t("必收进度", "Required progress") }}</th>
-                <th class="h-9 px-3 font-medium">{{ t("类别（已收集/总数）", "Categories (collected/total)") }}</th>
+                <th class="h-9 px-3 font-medium">{{ t("common.region") }}</th>
+                <th class="h-9 px-3 font-medium">{{ t("fullCollectionPage.required-progress") }}</th>
+                <th class="h-9 px-3 font-medium">{{ t("fullCollectionPage.categories-collected-total") }}</th>
               </tr>
             </thead>
             <tbody>
@@ -237,7 +234,7 @@ function guidanceLabel(id: string): string {
                 <td class="px-3 py-2">
                   <span class="text-ink">{{ row.label }}</span>
                   <span v-if="row.kind === 'special'" class="ml-1 rounded-control bg-raised px-1.5 py-0.5 text-xs text-muted">
-                    {{ t("特殊", "Special") }}
+                    {{ t("fullCollectionPage.special") }}
                   </span>
                 </td>
                 <td class="px-3 py-2">
@@ -247,7 +244,7 @@ function guidanceLabel(id: string): string {
                       class="mt-1"
                       :value="row.collected"
                       :total="row.total"
-                      :label="tFormat('{region} 必收进度', '{region} required progress', { region: row.label })"
+                      :label="tFormat('fullCollectionPage.required-progress-2',  { region: row.label })"
                     />
                   </div>
                 </td>
@@ -270,7 +267,7 @@ function guidanceLabel(id: string): string {
           </table>
         </div>
 
-        <h2 class="mt-6 mb-2 ui-section-title">{{ t("必收类别", "Required categories") }}</h2>
+        <h2 class="mt-6 mb-2 ui-section-title">{{ t("fullCollectionPage.required-categories") }}</h2>
         <ul class="space-y-2">
           <li v-for="category in required" :key="category.id" :data-testid="`category-${category.id}`">
             <details class="ui-disclosure ui-panel overflow-hidden" :data-testid="`missing-toggle-${category.id}`">
@@ -279,14 +276,14 @@ function guidanceLabel(id: string): string {
                 <span class="font-medium" :class="categoryClass(category.id)">{{ categoryName(category.id, category.name) }}</span>
                 <span class="text-xs tabular-nums text-muted">{{ category.observed }}/{{ category.total }}</span>
                 <UiBadge v-if="(category.missing ?? 0) > 0" tone="accent">
-                  {{ t(`缺失 ${category.missing}`, `Missing ${category.missing}`) }}
+                  {{ tFormatPair(`fullCollectionPage.missing-2`, { v0: category.missing ?? 0 }) }}
                 </UiBadge>
-                <span v-else class="text-xs text-muted">{{ t("已全部观察到", "All observed") }}</span>
+                <span v-else class="text-xs text-muted">{{ t("fullCollectionPage.all-observed") }}</span>
                 <span
                   v-if="(category.items?.length ?? 0) > 0"
                   class="ml-auto inline-flex items-center gap-1 text-xs text-accent-strong"
                 >
-                  {{ t(`查看缺失清单（${category.items?.length}）`, `View missing list (${category.items?.length})`) }}
+                  {{ tFormatPair(`fullCollectionPage.view-missing-list`, { v0: category.items?.length ?? 0 }) }}
                   <ChevronDown class="ui-chevron" :size="16" aria-hidden="true" />
                 </span>
               </summary>
@@ -301,13 +298,13 @@ function guidanceLabel(id: string): string {
                   <span class="mono text-xs text-muted">{{ item.id }}</span>
                   <div class="col-span-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
                     <span v-if="item.collection">
-                      {{ tFormat("合集：{value}", "Collection: {value}", { value: collectionDisplayName(item.collection) }) }}
+                      {{ tFormat("fullCollectionPage.collection-2",  { value: collectionDisplayName(item.collection) }) }}
                     </span>
                     <span v-if="guidanceLabel(item.id)" class="inline-flex items-center rounded-control bg-raised px-1.5 py-0.5">
-                      {{ tFormat("指引：{value}", "Guide: {value}", { value: guidanceLabel(item.id) }) }}
+                      {{ tFormat("fullCollectionPage.guide-2",  { value: guidanceLabel(item.id) }) }}
                     </span>
                     <span v-if="item.shared_names">
-                      {{ tFormat("共用 ID：{names}（按 ID 计数，不拆分判定）", "Shared ID: {names} (counted by ID; not split for assessment)", { names: item.shared_names.join(" / ") }) }}
+                      {{ tFormat("fullCollectionPage.shared-id-counted-by-id-not-split",  { names: item.shared_names.join(" / ") }) }}
                     </span>
                   </div>
                 </li>
@@ -316,12 +313,9 @@ function guidanceLabel(id: string): string {
           </li>
         </ul>
 
-        <h2 class="mt-6 mb-2 ui-section-title">{{ t("可选类别", "Optional categories") }}</h2>
+        <h2 class="mt-6 mb-2 ui-section-title">{{ t("fullCollectionPage.optional-categories") }}</h2>
         <p class="mb-2 text-xs text-muted">
-          {{ t(
-            "可选类别不进入必收 352。只有能对上存档区域计数器的类别给出总数；其余只显示已观察数，参考数标“未知”。",
-            "Optional categories are not part of the required 352. A total is shown only when it matches save region counters; otherwise only the observed count is shown and the reference count is marked unknown.",
-          ) }}
+          {{ t("fullCollectionPage.optional-categories-are-not-part") }}
         </p>
         <ul class="space-y-1.5">
           <li
@@ -334,27 +328,24 @@ function guidanceLabel(id: string): string {
             <span class="text-ink">{{ categoryName(category.id, category.name) }}</span>
             <template v-if="optionalReferenceStatus(category.id) === 'verified'">
               <span class="text-xs tabular-nums text-muted">{{ category.observed }}/{{ category.total }}</span>
-              <span class="text-xs text-muted">· {{ t("区域计数器已对账", "matched to region counters") }}</span>
+              <span class="text-xs text-muted">· {{ t("fullCollectionPage.matched-to-region-counters") }}</span>
             </template>
             <span
               v-else-if="optionalReferenceStatus(category.id) === 'unknown'"
               class="text-xs tabular-nums text-muted"
             >
-              {{ tFormat("已观察 {n} · 参考数未知", "Observed {n} · reference count unknown", { n: category.observed }) }}
+              {{ tFormat("fullCollectionPage.observed-reference-count-unknown",  { n: category.observed }) }}
             </span>
             <span v-else class="text-xs tabular-nums text-muted">
-              {{ tFormat("仅展示 {n} 条 · 不计入必收", "Display only · {n} items · not counted", { n: category.observed }) }}
+              {{ tFormat("fullCollectionPage.display-only-items-not-counted",  { n: category.observed }) }}
             </span>
           </li>
         </ul>
 
-        <h2 class="mt-6 mb-2 ui-section-title">{{ t("DLC 故事条目（不计入 100%）", "DLC story items (not part of 100%)") }}</h2>
+        <h2 class="mt-6 mb-2 ui-section-title">{{ t("fullCollectionPage.dlc-story-items-not-part-of-100") }}</h2>
         <p class="mb-2 text-xs text-muted">
-          {{ tFormat(
-            "按 7 个 DLC 包分组，DLC 合计 {observed}/{total}；仅展示，不进入必收 352 或全收集结论。",
-            "Grouped into 7 DLC packs; {observed}/{total} observed in total. Display only: not part of the required 352 or the full-collection result.",
-            { observed: dlcTotals.observed, total: dlcTotals.total },
-          ) }}
+          {{ tFormat("fullCollectionPage.grouped-into-7-dlc-packs-observed", 
+            { observed: dlcTotals.observed, total: dlcTotals.total }) }}
         </p>
         <ul class="space-y-1.5" data-testid="dlc-groups">
           <li
@@ -367,13 +358,13 @@ function guidanceLabel(id: string): string {
             <UiProgressBar
               :value="group.observed"
               :total="group.total"
-              :label="tFormat('{label} 故事条目进度', '{label} story item progress', { label: group.label })"
+              :label="tFormat('fullCollectionPage.story-item-progress',  { label: group.label })"
             />
             <span class="text-xs tabular-nums text-muted">{{ group.observed }}/{{ group.total }}</span>
           </li>
         </ul>
 
-        <h2 class="mt-6 mb-2 ui-section-title">{{ t("未闭合类别", "Unresolved categories") }}</h2>
+        <h2 class="mt-6 mb-2 ui-section-title">{{ t("fullCollectionPage.unresolved-categories") }}</h2>
         <ul class="space-y-1.5">
           <li
             v-for="category in unresolved"

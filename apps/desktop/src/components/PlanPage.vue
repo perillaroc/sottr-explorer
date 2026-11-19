@@ -10,7 +10,7 @@
 import { computed } from "vue";
 import { ExternalLink, ListChecks, MapPinned, Printer } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t, tFormat } from "../app/i18n";
+import { t, tFormat, tFormatPair } from "../app/i18n";
 import { pagePaddingClass } from "../app/layout";
 import { copy } from "../app/labels";
 import type { ChecklistItem, PlanSort } from "../app/plan-checklist";
@@ -31,15 +31,15 @@ const isNarrow = computed(() => layout.value === "narrow");
 const checklist = computed(() => store.planChecklist.value);
 
 const scopeOptions = computed(() => [
-  { value: "required", label: t("仅必收", "Required only") },
-  { value: "all", label: t("全部未收集", "All uncollected") },
+  { value: "required", label: t("store.required-only") },
+  { value: "all", label: t("store.all-uncollected") },
 ]);
 
 const categoryOptions = computed(() => [
   {
     value: "",
     // “全部类别”的计数与类别筛选无关（清空类别后的总未收集数）。
-    label: t("全部类别", "All categories"),
+    label: t("common.all-categories"),
     count: buildChecklist(store.plan.value, {
       scope: store.state.planScope,
       region: store.state.planRegion,
@@ -55,8 +55,8 @@ const categoryOptions = computed(() => [
 ]);
 
 const sortOptions = computed<{ value: PlanSort; label: string }[]>(() => [
-  { value: "unit", label: t("关卡顺序", "Sub-level order") },
-  { value: "remaining", label: t("未收集数", "Uncollected count") },
+  { value: "unit", label: t("planPage.sub-level-order") },
+  { value: "remaining", label: t("planPage.uncollected-count") },
 ]);
 
 function onRegionChange(event: Event): void {
@@ -88,9 +88,9 @@ function firstGuideLink(item: ChecklistItem) {
 function guideLabel(item: ChecklistItem): string {
   const link = firstGuideLink(item);
   if (!link) {
-    return t("攻略页", "Guide");
+    return t("planPage.guide");
   }
-  return link.guideItem ? tFormat("攻略页 · {locator}", "Guide · {locator}", { locator: link.guideItem }) : t("攻略页", "Guide");
+  return link.guideItem ? tFormat("planPage.guide-2",  { locator: link.guideItem }) : t("planPage.guide");
 }
 
 function openGuide(item: ChecklistItem): void {
@@ -113,13 +113,13 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
     <div class="mx-auto w-full max-w-[1120px] pb-8" :class="pageX">
       <AppPageHeader
         title-id="collection-plan-title"
-        :title="t('收集计划', 'Collection plan')"
-        :description="t('只列还没收集的条目，按区域 → 子关卡 → 类别聚合；回答“这次去哪里收”。全收集页回答“还差什么”。', 'Lists uncollected items grouped by region → sub-level → category: where to go next. The full-collection page answers what is still missing.')"
+        :title="t('appSidebar.collection-plan')"
+        :description="t('planPage.lists-uncollected-items-grouped-by-region-sub')"
       >
         <template #actions>
           <UiButton data-testid="plan-export" :disabled="!store.planAvailable.value" @click="onExport">
             <Printer :size="16" aria-hidden="true" />
-            {{ t("导出清单", "Export checklist") }}
+            {{ t("planPage.export-checklist") }}
           </UiButton>
         </template>
       </AppPageHeader>
@@ -130,47 +130,47 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
         tone="warning"
         test-id="plan-stale-banner"
         :title="copy.stale"
-        :lines="[t('请刷新后再生成收集计划。', 'Refresh before generating a collection plan.')]"
+        :lines="[t('planPage.refresh-before-generating-a-collection-plan')]"
       />
 
       <UiEmptyState
         v-if="!store.report.value"
-        :title="t('先分析一个存档文件，再生成收集计划。', 'Analyze a save file first to build a collection plan.')"
+        :title="t('planPage.analyze-a-save-file-first-to-build')"
       >
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("打开存档", "Open a save") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.open-a-save") }}</UiButton>
       </UiEmptyState>
 
       <UiEmptyState
         v-else-if="!store.planAvailable.value"
-        :title="t('资料文件没有收集品清单', 'Profile files have no collectible list')"
-        :description="t('收集计划只适用于普通战役存档；请选择存档文件。', 'The collection plan only applies to campaign saves; choose a save file.')"
+        :title="t('common.profile-files-have-no-collectible-list')"
+        :description="t('planPage.the-collection-plan-only-applies-to-campaign')"
       >
-        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("选择存档文件", "Choose a save file") }}</UiButton>
+        <UiButton variant="primary" @click="store.actions.setView('import')">{{ t("common.choose-a-save-file") }}</UiButton>
       </UiEmptyState>
 
       <template v-else>
         <section class="mt-4 rounded-section border border-gold/40 bg-gold-bg px-4 py-3" data-testid="plan-summary">
           <div class="flex flex-wrap items-end gap-x-8 gap-y-3">
             <div>
-              <p class="text-xs text-gold">{{ t("未收集（当前筛选）", "Uncollected (filtered)") }}</p>
+              <p class="text-xs text-gold">{{ t("planChecklist.uncollected-filtered") }}</p>
               <p class="mt-0.5 text-[22px] leading-[30px] font-semibold tabular-nums text-gold">
                 {{ checklist.items }}
               </p>
             </div>
             <div>
-              <p class="text-xs text-gold">{{ t("其中必收", "Required among them") }}</p>
+              <p class="text-xs text-gold">{{ t("common.required-among-them") }}</p>
               <p class="mt-0.5 text-[22px] leading-[30px] font-semibold tabular-nums text-gold">
                 {{ checklist.required }}
               </p>
             </div>
             <div>
-              <p class="text-xs text-gold">{{ t("涉及区域", "Regions") }}</p>
+              <p class="text-xs text-gold">{{ t("planChecklist.regions") }}</p>
               <p class="mt-0.5 text-[22px] leading-[30px] font-semibold tabular-nums text-gold">
                 {{ checklist.regionCount }}
               </p>
             </div>
             <p class="min-w-56 flex-1 text-xs text-muted">
-              {{ t("清单只列未收集条目；已收集的条目视为完成，不再出现在这次计划里。", "Only uncollected items are listed; collected items count as done and leave the plan.") }}
+              {{ t("planPage.only-uncollected-items-are-listed-collected-items") }}
               <span class="block">{{ store.planScopeText.value }}</span>
             </p>
           </div>
@@ -180,26 +180,26 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
           <UiFilterChips
             :options="scopeOptions"
             :model-value="store.state.planScope"
-            :ariaLabel="t('清单口径', 'Checklist scope')"
+            :ariaLabel="t('planPage.checklist-scope')"
             variant="segmented"
             @update:model-value="store.actions.setPlanScope($event as 'required' | 'all')"
           />
           <label class="flex items-center gap-2 text-[13px] text-muted">
-            {{ t("区域", "Region") }}
+            {{ t("common.region") }}
             <select
               class="h-9 max-w-[200px] cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px] text-ink"
               :value="store.state.planRegion"
               data-testid="plan-region-select"
               @change="onRegionChange"
             >
-              <option value="all">{{ t("全部区域", "All regions") }}</option>
+              <option value="all">{{ t("common.all-regions") }}</option>
               <option v-for="region in store.planRegionOptions.value" :key="region.slug" :value="region.slug">
                 {{ region.label }}{{ region.count > 0 ? `（${region.count}）` : "" }}
               </option>
             </select>
           </label>
           <label class="flex items-center gap-2 text-[13px] text-muted">
-            {{ t("排序", "Sort") }}
+            {{ t("planPage.sort") }}
             <select
               class="h-9 cursor-pointer rounded-control border border-line bg-surface px-2 text-[13px] text-ink"
               :value="store.state.planSort"
@@ -215,7 +215,7 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
           <UiFilterChips
             :options="categoryOptions"
             :model-value="store.state.planCategory ?? ''"
-            :ariaLabel="t('类别', 'Category')"
+            :ariaLabel="t('common.category')"
             @update:model-value="onCategoryChange"
           />
         </div>
@@ -223,22 +223,22 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
         <UiEmptyState
           v-if="checklist.regions.length === 0"
           class="mt-6"
-          :title="t('当前筛选下没有未收集条目。', 'No uncollected items under the current filters.')"
-          :description="t('可以放宽口径（全部未收集）或清空区域/类别筛选。', 'Widen the scope (all uncollected) or clear the region/category filters.')"
+          :title="t('planChecklist.no-uncollected-items-under-the-current-filters')"
+          :description="t('planPage.widen-the-scope-all-uncollected-or-clear')"
         >
           <UiButton
             v-if="store.state.planScope === 'required'"
             @click="store.actions.setPlanScope('all')"
-          >{{ t("改为全部未收集", "Switch to all uncollected") }}</UiButton>
+          >{{ t("planPage.switch-to-all-uncollected") }}</UiButton>
           <UiButton
             v-else
             @click="store.actions.setPlanRegion('all'); store.actions.setPlanCategory(null)"
-          >{{ t("清空筛选", "Clear filters") }}</UiButton>
+          >{{ t("planPage.clear-filters") }}</UiButton>
         </UiEmptyState>
 
         <template v-else>
           <p v-if="isNarrow" class="mt-3 text-xs text-muted">
-            {{ t("窄窗下条目按单列排列；按钮仍可用 Tab 访问。", "In narrow windows items stack in one column; all buttons remain reachable with Tab.") }}
+            {{ t("planPage.in-narrow-windows-items-stack-in-one") }}
           </p>
 
           <section
@@ -249,8 +249,8 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
           >
             <div class="mb-2 flex flex-wrap items-center gap-2">
               <h2 class="ui-section-title">{{ region.label }}</h2>
-              <UiBadge tone="accent">{{ t(`未收集 ${region.remaining}`, `${region.remaining} uncollected`) }}</UiBadge>
-              <UiBadge v-if="region.kind === 'special'" tone="neutral">{{ t("特殊区域", "Special") }}</UiBadge>
+              <UiBadge tone="accent">{{ tFormatPair(`planChecklist.uncollected`, { v0: region.remaining }) }}</UiBadge>
+              <UiBadge v-if="region.kind === 'special'" tone="neutral">{{ t("common.special") }}</UiBadge>
             </div>
 
             <div class="space-y-3">
@@ -263,11 +263,11 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
                 <header class="flex flex-wrap items-center gap-2 border-b border-line bg-raised/50 px-3 py-1.5">
                   <span class="text-[13px] font-medium text-ink">{{ unit.label }}</span>
                   <span class="text-xs tabular-nums text-muted">
-                    {{ t(`${unit.remaining} 项未收集`, `${unit.remaining} uncollected`) }}
+                    {{ tFormatPair(`planPage.uncollected`, { v0: unit.remaining }) }}
                   </span>
                   <span v-if="unitHasMap(unit.unit)" class="inline-flex items-center gap-1 text-xs text-muted">
                     <MapPinned :size="13" aria-hidden="true" />
-                    {{ t("有底图", "Basemap") }}
+                    {{ t("planPage.basemap") }}
                   </span>
                 </header>
 
@@ -284,7 +284,7 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
                         <div class="flex flex-wrap items-center gap-1.5 text-[13px]">
                           <span class="text-ink">{{ item.name }}</span>
                           <UiBadge :tone="item.required === true ? 'accent' : 'neutral'">
-                            {{ item.required === true ? t("必收", "Required") : item.required === false ? t("可选", "Optional") : t("未闭合", "Unresolved") }}
+                            {{ item.required === true ? t("common.required") : item.required === false ? t("common.optional") : t("common.unresolved") }}
                           </UiBadge>
                           <UiBadge v-if="item.isDlc" tone="info">DLC</UiBadge>
                           <span class="mono text-xs text-muted">{{ item.id }}</span>
@@ -297,17 +297,17 @@ const unitHasMap = (unit: number | null): boolean => unit !== null && basemapFor
                       <div class="flex shrink-0 flex-wrap items-center gap-1.5">
                         <span v-if="item.hasBasemap" class="inline-flex items-center gap-1 rounded-control bg-raised px-1.5 py-0.5 text-xs text-muted">
                           <MapPinned :size="12" aria-hidden="true" />
-                          {{ t("底图", "Map") }}
+                          {{ t("planPage.map") }}
                         </span>
                         <span v-if="item.hasText" class="inline-flex items-center rounded-control bg-raised px-1.5 py-0.5 text-xs text-muted">
                           <ListChecks :size="12" aria-hidden="true" />
-                          {{ t("文字下落", "Text") }}
+                          {{ t("planPage.text") }}
                         </span>
                         <UiButton v-if="item.hasBasemap" size="sm" variant="ghost" @click="openMap(item)">
-                          {{ t("地图", "Map") }}
+                          {{ t("common.map") }}
                         </UiButton>
                         <UiButton size="sm" variant="ghost" @click="openDetail(region.slug, item)">
-                          {{ t("详情", "Details") }}
+                          {{ t("common.details") }}
                         </UiButton>
                         <UiButton v-if="firstGuideLink(item)" size="sm" variant="ghost" @click="openGuide(item)">
                           <ExternalLink :size="14" aria-hidden="true" />

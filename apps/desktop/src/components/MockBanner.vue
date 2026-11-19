@@ -4,14 +4,14 @@
 import { computed } from "vue";
 import { FlaskConical } from "@lucide/vue";
 import { useStore } from "../app/inject";
-import { t } from "../app/i18n";
+import { t, tFormatPair } from "../app/i18n";
 import { copy } from "../app/labels";
 
 const store = useStore();
 
 const message = computed(() =>
   store.layout.value === "narrow"
-    ? t("模拟数据：演示输入，不代表真实存档。", "Mock data: demo input, not a real save.")
+    ? t("mockBanner.mock-data-demo-input-not-a-real")
     : copy.mockBanner,
 );
 </script>
@@ -25,7 +25,7 @@ const message = computed(() =>
     <FlaskConical :size="14" class="shrink-0" aria-hidden="true" />
     <span>{{ message }}</span>
     <span v-if="store.state.mockWidth" class="rounded-control border border-caution/40 px-1.5">
-      {{ t(`演示视口宽度 ${store.state.mockWidth}px`, `Demo viewport width ${store.state.mockWidth}px`) }}
+      {{ tFormatPair(`mockBanner.demo-viewport-width-px`, { v0: store.state.mockWidth }) }}
     </span>
   </div>
 </template>

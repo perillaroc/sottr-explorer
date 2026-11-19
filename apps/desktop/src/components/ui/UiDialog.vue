@@ -140,7 +140,7 @@ onBeforeUnmount(() => {
       >
         <header class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-line px-5">
           <h2 class="ui-section-title truncate">{{ title }}</h2>
-          <UiIconButton :label="t('关闭（Esc）', 'Close (Esc)')" @click="emit('close')">
+          <UiIconButton :label="t('uiDialog.close-esc')" @click="emit('close')">
             <X :size="16" aria-hidden="true" />
           </UiIconButton>
         </header>

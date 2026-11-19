@@ -5,6 +5,7 @@
 import type { FilterState } from "./catalog";
 import { DEFAULT_FILTERS, type RegionScope, type StatusFilter } from "./catalog";
 import type { LanguagePreference } from "./i18n";
+import { LANGUAGE_OPTIONS } from "./locales";
 import type { ThemePreference } from "./theme";
 
 export type ViewId =
@@ -163,7 +164,7 @@ function isViewId(value: unknown): value is ViewId {
 }
 
 function isLanguagePreference(value: unknown): value is LanguagePreference {
-  return value === "zh" || value === "en" || value === "both";
+  return typeof value === "string" && LANGUAGE_OPTIONS.some((option) => option.value === value);
 }
 
 function isSearchEngine(value: unknown): value is SearchEngine {

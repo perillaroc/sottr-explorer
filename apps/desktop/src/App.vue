@@ -4,7 +4,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from "vue";
 import { ArrowLeft, CircleAlert, CircleCheck, Info, TriangleAlert, X } from "@lucide/vue";
 import { provideStore } from "./app/inject";
-import { t, tFormat } from "./app/i18n";
+import { t, tFormat, tFormatPair } from "./app/i18n";
 import { createAppStore, type AppStore, type LayoutMode } from "./app/store";
 import {
   DETAIL_COMPACT_WIDTH,
@@ -113,28 +113,28 @@ const inputWatchAlert = computed(() => {
     case "changed":
       return {
         tone: "warning" as const,
-        title: t("当前存档已更新", "The current save has changed"),
+        title: t("app.the-current-save-has-changed"),
         lines: [
-          t("检测到存档文件发生变化；是否刷新？应用不会自动分析。", "A change was detected. Refresh now? The app never analyzes automatically."),
+          t("app.a-change-was-detected-refresh-now"),
         ],
         action: "refresh" as const,
       };
     case "missing":
       return {
         tone: "danger" as const,
-        title: t("当前存档已不在原位置", "The current save is no longer at its path"),
+        title: t("app.the-current-save-is-no-longer"),
         lines: [
-          t("文件可能被移动、删除，或仍在原子替换中；请重新选择存档文件。", "The file may have been moved, deleted, or is still being replaced atomically. Choose the save file again."),
+          t("app.the-file-may-have-been-moved-deleted"),
         ],
         action: "reselect" as const,
       };
     case "unreadable":
       return {
         tone: "warning" as const,
-        title: t("当前存档暂时不可读", "The current save is temporarily unreadable"),
+        title: t("app.the-current-save-is-temporarily-unreadable"),
         lines: [
-          t("可能正在保存或被其他程序占用；应用会继续只读重试，不会自动刷新。", "It may be saving or locked by another program. The app keeps retrying read-only and never refreshes automatically."),
-          tFormat("原因码：{code}", "Code: {code}", { code: store.state.inputWatch.code ?? t("未知", "unknown") }),
+          t("app.it-may-be-saving-or-locked"),
+          tFormat("app.code",  { code: store.state.inputWatch.code ?? t("app.unknown") }),
         ],
         action: "retry" as const,
       };
@@ -380,20 +380,20 @@ onBeforeUnmount(() => {
               variant="primary"
               data-testid="input-watch-refresh"
               @click="store.actions.refreshFromWatch()"
-            >{{ t("刷新", "Refresh") }}</UiButton>
+            >{{ t("app.refresh") }}</UiButton>
             <UiButton
               v-if="inputWatchAlert.action === 'reselect'"
               size="sm"
               variant="primary"
               data-testid="input-watch-reselect"
               @click="store.actions.reselectFromWatch()"
-            >{{ t("重新选择", "Choose another file") }}</UiButton>
+            >{{ t("app.choose-another-file") }}</UiButton>
             <UiButton
               size="sm"
               variant="ghost"
               data-testid="input-watch-dismiss"
               @click="store.actions.dismissInputWatch()"
-            >{{ t("稍后", "Later") }}</UiButton>
+            >{{ t("app.later") }}</UiButton>
           </CoverageNotice>
 
           <div
@@ -406,7 +406,7 @@ onBeforeUnmount(() => {
           >
             <component :is="noticeIcon" :size="16" :stroke-width="2" class="mt-0.5 shrink-0" aria-hidden="true" />
             <span class="min-w-0 flex-1">{{ store.state.notice.text }}</span>
-            <UiIconButton :label="t('关闭提示', 'Dismiss notice')" @click="store.actions.dismissNotice()">
+            <UiIconButton :label="t('app.dismiss-notice')" @click="store.actions.dismissNotice()">
               <X :size="14" aria-hidden="true" />
             </UiIconButton>
           </div>
@@ -415,7 +415,7 @@ onBeforeUnmount(() => {
             <header class="flex h-12 shrink-0 items-center gap-2 border-b border-line px-4">
               <UiButton size="sm" variant="ghost" data-testid="detail-back" @click="store.actions.closeDetail()">
                 <ArrowLeft :size="16" aria-hidden="true" />
-                {{ t("返回清单", "Back to list") }}
+                {{ t("app.back-to-list") }}
               </UiButton>
               <span class="truncate text-xs text-muted">{{ store.currentSlot.value?.name ?? "" }}</span>
             </header>
@@ -435,7 +435,7 @@ onBeforeUnmount(() => {
           v-if="showPersistentPane && selectedEntry"
           class="relative shrink-0 border-l border-line bg-surface"
           :style="{ width: `${detailPaneWidth}px` }"
-          :aria-label="t('条目详情', 'Item details')"
+          :aria-label="t('app.item-details')"
           data-testid="detail-pane"
         >
           <UiResizeHandle
@@ -444,7 +444,7 @@ onBeforeUnmount(() => {
             :min="DETAIL_PANE_WIDTH.min"
             :max="paneMaxWidth"
             :default-width="DETAIL_PANE_WIDTH.default"
-            :label="t('调整详情宽度（拖动、方向键或双击复位）', 'Resize details (drag, arrow keys, or double-click to reset)')"
+            :label="t('app.resize-details-drag-arrow-keys-or-double')"
             @resize="paneDraft = $event"
             @commit="commitPaneWidth"
           />
@@ -476,7 +476,7 @@ onBeforeUnmount(() => {
     <UiDrawer
       v-if="showDrawer && selectedEntry"
       :open="true"
-      :title="store.currentSlot.value?.name ? t(`详情 · ${store.currentSlot.value.name}`, `Details · ${store.currentSlot.value.name}`) : t('详情', 'Details')"
+      :title="store.currentSlot.value?.name ? tFormatPair(`app.details`, { v0: store.currentSlot.value.name }) : t('common.details')"
       :width="detailDrawerWidth"
       @close="store.actions.closeDetail()"
     >
@@ -487,7 +487,7 @@ onBeforeUnmount(() => {
           :min="DETAIL_DRAWER_WIDTH.min"
           :max="drawerMaxWidth"
           :default-width="drawerDefaultWidth"
-          :label="t('调整详情宽度（拖动、方向键或双击复位）', 'Resize details (drag, arrow keys, or double-click to reset)')"
+          :label="t('app.resize-details-drag-arrow-keys-or-double')"
           @resize="drawerDraft = $event"
           @commit="commitDrawerWidth"
         />
@@ -511,7 +511,7 @@ onBeforeUnmount(() => {
     <UiDialog
       v-if="store.state.detailWindowFallback.open && store.state.detailWindowFallback.payload"
       :open="true"
-      :title="t('收集品详情', 'Item details')"
+      :title="t('app.item-details-2')"
       width-class="w-[640px] max-w-[calc(100vw-24px)]"
       test-id="detail-fallback-dialog"
       @close="store.actions.closeDetailWindowFallback()"

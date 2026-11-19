@@ -50,15 +50,12 @@ const usable = computed(
 
 const errorText = computed(() => {
   if (props.basemap.status === "unverified") {
-    return t("该子关卡底图未经验证，地图视图不显示。", "The basemap for this sub-level is unverified, so it is not shown.");
+    return t("mapCanvas.the-basemap-for-this-sub-level");
   }
   if (!imageUrl.value) {
-    return t(
-      "底图素材未随本次构建配置，地图视图不可用。",
-      "Basemap images are not configured in this build, so the map view is unavailable.",
-    );
+    return t("mapCanvas.basemap-images-are-not-configured");
   }
-  return t("底图加载失败。", "The basemap image failed to load.");
+  return t("mapCanvas.the-basemap-image-failed-to-load");
 });
 
 const fit = computed(() => {
@@ -340,8 +337,8 @@ const markers = computed<Marker[]>(() => {
       category,
       label: categoryName,
       offMap,
-      ariaLabel: `${entry.item.display_name}，${categoryName}，${collected ? t("已收集", "collected") : t("未收集", "uncollected")}${
-        offMap ? t("，位于底图留白区", ", in a blank area of the basemap") : ""
+      ariaLabel: `${entry.item.display_name}，${categoryName}，${collected ? t("common.collected-2") : t("common.uncollected-2")}${
+        offMap ? t("mapCanvas.in-a-blank-area-of-the-basemap") : ""
       }`,
     });
   }
@@ -362,7 +359,7 @@ const orderedMarkers = computed(() => [
 ]);
 
 const ariaLabel = computed(() =>
-  tFormat("{label}：{count} 个收集品标记", "{label}: {count} collectible markers", {
+  tFormat("mapCanvas.collectible-markers",  {
     label: props.label,
     count: markers.value.length,
   }),
@@ -453,7 +450,7 @@ defineExpose({ focusItem });
           :aria-pressed="marker.selected"
           :title="
             marker.offMap
-              ? `${marker.entry.item.display_name}（${t('底图留白区', 'blank area of the basemap')}）`
+              ? `${marker.entry.item.display_name}（${t('mapCanvas.blank-area-of-the-basemap')}）`
               : marker.entry.item.display_name
           "
           class="pointer-events-auto absolute flex cursor-pointer items-center justify-center rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.35)]"
@@ -491,13 +488,13 @@ defineExpose({ focusItem });
         <span
           class="flex h-8 w-8 items-center justify-center border-b border-line/60 text-[11px] tabular-nums text-muted"
           data-testid="map-zoom-level"
-          :title="tFormat('当前缩放 {value}', 'Current zoom {value}', { value: zoomLabel })"
+          :title="tFormat('mapCanvas.current-zoom',  { value: zoomLabel })"
           aria-hidden="true"
         >{{ zoomLabel }}</span>
         <button
           type="button"
-          :aria-label="t('放大', 'Zoom in')"
-          :title="t('放大', 'Zoom in')"
+          :aria-label="t('mapCanvas.zoom')"
+          :title="t('mapCanvas.zoom')"
           :disabled="zoom >= 4"
           class="ui-interactive inline-flex h-8 w-8 cursor-pointer items-center justify-center border-b border-line/60 text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
           data-testid="map-zoom-in"
@@ -507,8 +504,8 @@ defineExpose({ focusItem });
         </button>
         <button
           type="button"
-          :aria-label="t('缩小', 'Zoom out')"
-          :title="t('缩小', 'Zoom out')"
+          :aria-label="t('mapCanvas.zoom-out')"
+          :title="t('mapCanvas.zoom-out')"
           :disabled="zoom <= 1"
           class="ui-interactive inline-flex h-8 w-8 cursor-pointer items-center justify-center border-b border-line/60 text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
           data-testid="map-zoom-out"
@@ -518,8 +515,8 @@ defineExpose({ focusItem });
         </button>
         <button
           type="button"
-          :aria-label="t('重置缩放（1×）', 'Reset zoom (1×)')"
-          :title="t('重置缩放（1×）', 'Reset zoom (1×)')"
+          :aria-label="t('mapCanvas.reset-zoom-1')"
+          :title="t('mapCanvas.reset-zoom-1')"
           :disabled="zoom <= 1"
           class="ui-interactive inline-flex h-8 w-8 cursor-pointer items-center justify-center text-ink hover:bg-raised disabled:cursor-not-allowed disabled:opacity-50"
           data-testid="map-zoom-reset"

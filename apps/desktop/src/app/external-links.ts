@@ -8,7 +8,7 @@ import type { SearchEngine } from "./prefs";
 
 /** 游戏名常用写法（随界面语言切换搜索词）。 */
 function gameTerm(): string {
-  return t("古墓丽影暗影", "Shadow of the Tomb Raider");
+  return t("externalLinks.shadow-of-the-tomb-raider");
 }
 
 /** 搜索引擎表（设置页三选一）；`{q}` 为查询词占位符。 */
@@ -28,12 +28,12 @@ export function buildSearchUrl(engine: SearchEngine, query: string): string {
 
 /** 图文攻略搜索词：条目名（中英）+ 区域名 + 游戏名 + 攻略。 */
 export function textSearchQuery(item: PlanItem, regionName: string): string {
-  return joinQuery([item.display_name, item.name_en, regionName, gameTerm(), t("攻略", "guide")]);
+  return joinQuery([item.display_name, item.name_en, regionName, gameTerm(), t("externalLinks.guide")]);
 }
 
 /** 视频攻略搜索词：条目名 + 区域名 + 游戏名 + 视频攻略。 */
 export function videoSearchQuery(item: PlanItem, regionName: string): string {
-  return joinQuery([item.display_name, regionName, gameTerm(), t("视频攻略", "video walkthrough")]);
+  return joinQuery([item.display_name, regionName, gameTerm(), t("externalLinks.video-walkthrough")]);
 }
 
 /** 拼查询词：丢掉缺失项（条目未必有英文名），空格分隔。 */

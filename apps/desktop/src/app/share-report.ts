@@ -10,7 +10,7 @@
 import type { Report } from "../contract/report";
 import type { CollectionPlan } from "../data/atlas";
 import { escapeHtml } from "./html";
-import { localizedName, t } from "./i18n";
+import { localizedName, t, tFormatPair } from "./i18n";
 import { categoryLabel, subcategoryLabel } from "./labels";
 
 export const SHARE_REPORT_FILE = "share.html";
@@ -153,26 +153,26 @@ export function renderShareReport(
   meta: ShareReportMeta,
 ): string {
   const model = shareReportModel(plan, report);
-  const title = t("古墓丽影：暗影 · 进度分享", "Shadow of the Tomb Raider · Progress report");
+  const title = t("shareReport.shadow-of-the-tomb-raider-progress-report");
 
   const overallText =
     model.overallPercent === null
-      ? t("不可用", "Unavailable")
+      ? t("shareReport.unavailable")
       : `${model.overallPercent.toFixed(2)}%`;
   const overallNote =
-    model.overallReason === null ? t("推定（社区校准候选）", "Estimated (community-calibrated candidate)") : model.overallReason;
+    model.overallReason === null ? t("shareReport.estimated-community-calibrated-candidate") : model.overallReason;
 
   const regionRows = model.regions
     .map((region) => {
       const badge =
-        region.kind === "special" ? `<span class="badge">${escapeHtml(t("特殊区域", "Special"))}</span>` : "";
+        region.kind === "special" ? `<span class="badge">${escapeHtml(t("common.special"))}</span>` : "";
       return `<tr><td>${escapeHtml(region.label)}${badge}</td><td class="num">${region.collected} / ${region.total}</td><td class="num">${region.requiredCollected} / ${region.requiredTotal}</td></tr>`;
     })
     .join("\n");
 
   const missingBlocks =
     model.missing.length === 0
-      ? `<p class="empty">${escapeHtml(t("必收条目已全部观察到。", "All required items have been observed."))}</p>`
+      ? `<p class="empty">${escapeHtml(t("shareReport.all-required-items-have-been-observed"))}</p>`
       : model.missing
           .map((group) => {
             const rows = group.items
@@ -182,18 +182,18 @@ export function renderShareReport(
               )
               .join("\n");
             return `<h2>${escapeHtml(group.regionLabel)}<span class="badge">${escapeHtml(
-              t(`缺失 ${group.items.length}`, `${group.items.length} missing`),
+              tFormatPair(`shareReport.missing`, { v0: group.items.length }),
             )}</span></h2>
-<table><thead><tr><th>${escapeHtml(t("名称", "Name"))}</th><th>${escapeHtml(
-              t("类别", "Category"),
-            )}</th><th>${escapeHtml(t("内部 ID", "Internal ID"))}</th></tr></thead><tbody>
+<table><thead><tr><th>${escapeHtml(t("planChecklist.name"))}</th><th>${escapeHtml(
+              t("common.category"),
+            )}</th><th>${escapeHtml(t("planChecklist.internal-id"))}</th></tr></thead><tbody>
 ${rows}
 </tbody></table>`;
           })
           .join("\n");
 
   return `<!DOCTYPE html>
-<html lang="${escapeHtml(t("zh-CN", "en"))}">
+<html lang="${escapeHtml(t("planChecklist.en"))}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -203,39 +203,33 @@ ${rows}
 <body>
 <main>
 <h1>${escapeHtml(title)}</h1>
-<p class="meta">${escapeHtml(t("图鉴版本", "Catalog"))} ${escapeHtml(meta.catalogVersion)} · ${escapeHtml(
-    t("生成时间", "Generated"),
+<p class="meta">${escapeHtml(t("planChecklist.catalog"))} ${escapeHtml(meta.catalogVersion)} · ${escapeHtml(
+    t("planChecklist.generated"),
   )} ${escapeHtml(meta.generatedAt)}</p>
 
 <section class="cards">
-<div class="card"><span>${escapeHtml(t("主区域收集品", "Main-region collectibles"))}</span><b>${model.mainCollected} / ${model.mainTotal}</b></div>
-<div class="card"><span>${escapeHtml(t("必收", "Required"))}</span><b>${model.requiredCollected} / ${model.requiredTotal}</b></div>
-<div class="card"><span>${escapeHtml(t("缺失必收", "Required missing"))}</span><b>${model.missingRequired}</b></div>
-<div class="card"><span>${escapeHtml(t("游戏内完成度", "In-game completion"))}</span><b>${escapeHtml(overallText)}</b><span>${escapeHtml(overallNote)}</span></div>
+<div class="card"><span>${escapeHtml(t("shareReport.main-region-collectibles"))}</span><b>${model.mainCollected} / ${model.mainTotal}</b></div>
+<div class="card"><span>${escapeHtml(t("common.required"))}</span><b>${model.requiredCollected} / ${model.requiredTotal}</b></div>
+<div class="card"><span>${escapeHtml(t("shareReport.required-missing"))}</span><b>${model.missingRequired}</b></div>
+<div class="card"><span>${escapeHtml(t("shareReport.in-game-completion"))}</span><b>${escapeHtml(overallText)}</b><span>${escapeHtml(overallNote)}</span></div>
 </section>
 
-<h2>${escapeHtml(t("区域进度", "Region progress"))}</h2>
-<table><thead><tr><th>${escapeHtml(t("区域", "Region"))}</th><th>${escapeHtml(
-    t("已收集 / 总数", "Collected / total"),
-  )}</th><th>${escapeHtml(t("必收", "Required"))}</th></tr></thead><tbody>
+<h2>${escapeHtml(t("shareReport.region-progress"))}</h2>
+<table><thead><tr><th>${escapeHtml(t("common.region"))}</th><th>${escapeHtml(
+    t("shareReport.collected-total"),
+  )}</th><th>${escapeHtml(t("common.required"))}</th></tr></thead><tbody>
 ${regionRows}
 </tbody></table>
 
-<h2>${escapeHtml(t("必收缺失清单", "Required missing list"))}</h2>
+<h2>${escapeHtml(t("shareReport.required-missing-list"))}</h2>
 ${missingBlocks}
 
 <footer>
 <p>${escapeHtml(
-    t(
-      "由 SOTTR Explorer 生成。只读分析，不含存档路径、用户名或存档哈希。",
-      "Generated by SOTTR Explorer. Read-only analysis; no save paths, user names or save hashes are included.",
-    ),
+    t("shareReport.generated-by-sottr-explorer-read-only-analysis"),
   )}</p>
 <p>${escapeHtml(
-    t(
-      "名称、区域与坐标来自项目图鉴；游戏内完成度为推定值。地图缩略图未包含（D7 已决定暂不包含）。",
-      "Names, regions and coordinates come from the project catalog; in-game completion is an estimate. Map thumbnails are not included (D7 decided: not for now).",
-    ),
+    t("shareReport.names-regions-and-coordinates-come-from"),
   )}</p>
 </footer>
 </main>
