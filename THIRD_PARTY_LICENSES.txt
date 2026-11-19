@@ -133,10 +133,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ==============================================================================
-1. 依赖包自带的许可文本（去重后 229 份）
+1. 依赖包自带的许可文本（去重后 236 份）
 ==============================================================================
 
-[1/229] Apache-2.0 · 文件：COPYING
+[1/236] Apache-2.0 · 文件：COPYING
 使用方：
   - Rust: siphasher 1.0.4 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -148,9 +148,9 @@ http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
 <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
 option.
 
-[2/229] Apache-2.0 · 文件：LICENSE, LICENSE-APACHE, LICENSE-APACHE-2.0, LICENSE-APACHE.md, LICENSE-Apache, LICENSE_APACHE-2.0
+[2/236] Apache-2.0 · 文件：LICENSE, LICENSE-APACHE, LICENSE-APACHE-2.0, LICENSE-APACHE.md, LICENSE-Apache, LICENSE_APACHE-2.0
 使用方：
-  - JavaScript: @tauri-apps/api 2.12.3 — Apache-2.0 OR MIT
+  - JavaScript: @tauri-apps/api 2.12.5 — Apache-2.0 OR MIT
   - Rust: fdeflate 0.3.7 — MIT OR Apache-2.0
   - Rust: field-offset 0.3.6 — MIT OR Apache-2.0
   - Rust: miniz_oxide 0.8.9 — MIT OR Zlib OR Apache-2.0
@@ -161,16 +161,16 @@ option.
   - Rust: portable-atomic-util 0.2.8 — Apache-2.0 OR MIT
   - Rust: raw-window-handle 0.6.2 — MIT OR Apache-2.0 OR Zlib
   - Rust: sync_wrapper 1.0.2 — Apache-2.0
-  - Rust: tauri 2.12.3 — Apache-2.0 OR MIT
-  - Rust: tauri-build 2.7.2 — Apache-2.0 OR MIT
-  - Rust: tauri-codegen 2.7.2 — Apache-2.0 OR MIT
-  - Rust: tauri-macros 2.7.2 — Apache-2.0 OR MIT
-  - Rust: tauri-plugin-dialog 2.8.3 — Apache-2.0 OR MIT
+  - Rust: tauri 2.12.7 — Apache-2.0 OR MIT
+  - Rust: tauri-build 2.7.6 — Apache-2.0 OR MIT
+  - Rust: tauri-codegen 2.7.6 — Apache-2.0 OR MIT
+  - Rust: tauri-macros 2.7.6 — Apache-2.0 OR MIT
+  - Rust: tauri-plugin-dialog 2.8.4 — Apache-2.0 OR MIT
   - Rust: tauri-plugin-fs 2.7.1 — Apache-2.0 OR MIT
-  - Rust: tauri-plugin-opener 2.7.1 — Apache-2.0 OR MIT
-  - Rust: tauri-runtime 2.12.1 — Apache-2.0 OR MIT
-  - Rust: tauri-runtime-wry 2.12.1 — Apache-2.0 OR MIT
-  - Rust: tauri-utils 2.10.1 — Apache-2.0 OR MIT
+  - Rust: tauri-plugin-opener 2.7.3 — Apache-2.0 OR MIT
+  - Rust: tauri-runtime 2.12.4 — Apache-2.0 OR MIT
+  - Rust: tauri-runtime-wry 2.12.5 — Apache-2.0 OR MIT
+  - Rust: tauri-utils 2.10.4 — Apache-2.0 OR MIT
   - Rust: time 0.3.55 — MIT OR Apache-2.0
   - Rust: time-core 0.1.9 — MIT OR Apache-2.0
   - Rust: time-macros 0.2.32 — MIT OR Apache-2.0
@@ -352,7 +352,7 @@ Apache License
 
    END OF TERMS AND CONDITIONS
 
-[3/229] Apache-2.0 · 文件：LICENSE
+[3/236] Apache-2.0 · 文件：LICENSE
 使用方：
   - Rust: cargo_toml 1.0.1 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -559,10 +559,10 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[4/229] Apache-2.0 · 文件：LICENSE, LICENSE-APACHE
+[4/236] Apache-2.0 · 文件：LICENSE, LICENSE-APACHE
 使用方：
-  - Rust: crc32fast 1.5.2 — MIT OR Apache-2.0
-  - Rust: ctor 1.0.13 — Apache-2.0 OR MIT
+  - Rust: crc32fast 1.5.5 — MIT OR Apache-2.0
+  - Rust: ctor 1.0.14 — Apache-2.0 OR MIT
   - Rust: dpi 0.1.2 — Apache-2.0 AND MIT
   - Rust: foreign-types 0.5.0 — MIT/Apache-2.0
   - Rust: foreign-types-macros 0.2.4 — MIT/Apache-2.0
@@ -571,8 +571,9 @@ DEALINGS IN THE SOFTWARE.
   - Rust: jni-sys 0.3.1 — MIT OR Apache-2.0
   - Rust: jni-sys 0.4.1 — MIT OR Apache-2.0
   - Rust: json-patch 4.2.0 — MIT/Apache-2.0
+  - Rust: link-section 0.19.4 — Apache-2.0 OR MIT
   - Rust: serde_spanned 0.6.9 — MIT OR Apache-2.0
-  - Rust: tao 0.37.1 — Apache-2.0
+  - Rust: tao 0.37.3 — Apache-2.0
   - Rust: toml 0.8.2 — MIT OR Apache-2.0
   - Rust: toml_edit 0.19.15 — MIT OR Apache-2.0
   - Rust: toml_edit 0.20.2 — MIT OR Apache-2.0
@@ -780,10 +781,10 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[5/229] Apache-2.0 · 文件：LICENSE, LICENSE-Apache-2.0_WITH_LLVM-exception
+[5/236] Apache-2.0 · 文件：LICENSE, LICENSE-Apache-2.0_WITH_LLVM-exception
 使用方：
   - Rust: linux-raw-sys 0.12.1 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-  - Rust: rustix 1.1.5 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+  - Rust: rustix 1.1.6 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: target-lexicon 0.12.16 — Apache-2.0 WITH LLVM-exception
   - Rust: wasi 0.11.1+wasi-snapshot-preview1 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: wasip2 1.0.4+wasi-0.2.12 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
@@ -1008,7 +1009,7 @@ prospectively choose to deem waived or otherwise exclude such Section(s) of
 the License, but only in their entirety and only with respect to the Combined
 Software.
 
-[6/229] Apache-2.0 · 文件：LICENSE-APACHE
+[6/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: android_system_properties 0.1.6 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -1026,7 +1027,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[7/229] Apache-2.0 · 文件：LICENSE-APACHE
+[7/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: shlex 2.0.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -1044,7 +1045,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[8/229] Apache-2.0 · 文件：LICENSE-APACHE
+[8/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: dirs 7.0.0 — MIT OR Apache-2.0
   - Rust: dirs-sys 0.5.0 — MIT OR Apache-2.0
@@ -1224,15 +1225,15 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
    incurred by, or claims asserted against, such Contributor by reason
    of your accepting any such warranty or additional liability.
 
-[9/229] Apache-2.0 · 文件：LICENSE-APACHE
+[9/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: anyhow 1.0.104 — MIT OR Apache-2.0
   - Rust: async-trait 0.1.92 — MIT OR Apache-2.0
   - Rust: dtoa 1.0.11 — MIT OR Apache-2.0
   - Rust: dyn-clone 1.0.20 — MIT OR Apache-2.0
-  - Rust: erased-serde 0.4.10 — MIT OR Apache-2.0
-  - Rust: itoa 1.0.18 — MIT OR Apache-2.0
-  - Rust: libc 0.2.190 — MIT OR Apache-2.0
+  - Rust: erased-serde 0.4.11 — MIT OR Apache-2.0
+  - Rust: itoa 1.0.19 — MIT OR Apache-2.0
+  - Rust: libc 0.2.191 — MIT OR Apache-2.0
   - Rust: num_enum 0.7.6 — BSD-3-Clause OR MIT OR Apache-2.0
   - Rust: num_enum_derive 0.7.6 — BSD-3-Clause OR MIT OR Apache-2.0
   - Rust: proc-macro2 1.0.107 — MIT OR Apache-2.0
@@ -1250,7 +1251,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
   - Rust: serde_json 1.0.154 — MIT OR Apache-2.0
   - Rust: serde_repr 0.1.21 — MIT OR Apache-2.0
   - Rust: syn 2.0.119 — MIT OR Apache-2.0
-  - Rust: syn 3.0.9 — MIT OR Apache-2.0
+  - Rust: syn 3.0.10 — MIT OR Apache-2.0
   - Rust: thiserror 1.0.69 — MIT OR Apache-2.0
   - Rust: thiserror 2.0.21 — MIT OR Apache-2.0
   - Rust: thiserror-impl 1.0.69 — MIT OR Apache-2.0
@@ -1436,7 +1437,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
 END OF TERMS AND CONDITIONS
 
-[10/229] Apache-2.0 · 文件：LICENSE-APACHE
+[10/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: enumflags2_derive 0.7.12 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -1509,7 +1510,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[11/229] Apache-2.0 · 文件：LICENSE-APACHE
+[11/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: enumflags2 0.7.12 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -1582,9 +1583,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[12/229] Apache-2.0 · 文件：LICENSE-APACHE
+[12/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: bytemuck 1.25.2 — Zlib OR Apache-2.0 OR MIT
+  - Rust: static_vcruntime 3.0.0 — MIT OR Apache-2.0 OR Zlib
 ------------------------------------------------------------------------------
 Apache License
 Version 2.0, January 2004
@@ -1648,7 +1650,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[13/229] Apache-2.0 · 文件：LICENSE-APACHE
+[13/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: async-broadcast 0.7.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -1843,7 +1845,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[14/229] Apache-2.0 · 文件：LICENSE-APACHE
+[14/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: iana-time-zone 0.1.65 — MIT OR Apache-2.0
   - Rust: iana-time-zone-haiku 0.1.2 — MIT OR Apache-2.0
@@ -2050,7 +2052,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[15/229] Apache-2.0 · 文件：LICENSE-APACHE
+[15/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: reqwest 0.13.5 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -2256,7 +2258,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[16/229] Apache-2.0 · 文件：LICENSE-APACHE
+[16/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: http 1.5.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -2462,7 +2464,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[17/229] Apache-2.0 · 文件：LICENSE-APACHE
+[17/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: typenum 1.20.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -2668,12 +2670,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[18/229] Apache-2.0 · 文件：LICENSE-APACHE
+[18/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: async-channel 2.5.0 — Apache-2.0 OR MIT
-  - Rust: async-executor 1.14.0 — Apache-2.0 OR MIT
+  - Rust: async-executor 1.14.1 — Apache-2.0 OR MIT
   - Rust: async-io 2.6.0 — Apache-2.0 OR MIT
-  - Rust: async-lock 3.4.2 — Apache-2.0 OR MIT
+  - Rust: async-lock 3.5.0 — Apache-2.0 OR MIT
   - Rust: async-process 2.5.0 — Apache-2.0 OR MIT
   - Rust: async-recursion 1.2.0 — MIT OR Apache-2.0
   - Rust: async-signal 0.2.14 — Apache-2.0 OR MIT
@@ -2681,15 +2683,14 @@ limitations under the License.
   - Rust: atomic-waker 1.1.2 — Apache-2.0 OR MIT
   - Rust: autocfg 1.5.1 — Apache-2.0 OR MIT
   - Rust: base64 0.21.7 — MIT OR Apache-2.0
-  - Rust: base64 0.22.1 — MIT OR Apache-2.0
   - Rust: base64 0.23.1 — MIT OR Apache-2.0
   - Rust: bitflags 1.3.2 — MIT/Apache-2.0
   - Rust: bitflags 2.13.2 — MIT OR Apache-2.0
   - Rust: blocking 1.7.0 — Apache-2.0 OR MIT
   - Rust: bs58 0.5.1 — MIT/Apache-2.0
-  - Rust: bumpalo 3.20.3 — MIT OR Apache-2.0
+  - Rust: bumpalo 3.20.4 — MIT OR Apache-2.0
   - Rust: camino 1.2.6 — MIT OR Apache-2.0
-  - Rust: cc 1.8.0 — MIT OR Apache-2.0
+  - Rust: cc 1.11.2 — MIT OR Apache-2.0
   - Rust: cfg-if 1.0.5 — MIT OR Apache-2.0
   - Rust: concurrent-queue 2.5.0 — Apache-2.0 OR MIT
   - Rust: core-foundation 0.10.1 — MIT OR Apache-2.0
@@ -2699,13 +2700,13 @@ limitations under the License.
   - Rust: crossbeam-channel 0.5.17 — MIT OR Apache-2.0
   - Rust: crossbeam-utils 0.8.23 — MIT OR Apache-2.0
   - Rust: displaydoc 0.2.7 — MIT OR Apache-2.0
-  - Rust: equivalent 1.0.2 — Apache-2.0 OR MIT
-  - Rust: errno 0.3.14 — MIT OR Apache-2.0
+  - Rust: equivalent 1.0.3 — Apache-2.0 OR MIT
+  - Rust: errno 0.3.15 — MIT OR Apache-2.0
   - Rust: event-listener 5.4.2 — Apache-2.0 OR MIT
   - Rust: event-listener-strategy 0.5.4 — Apache-2.0 OR MIT
   - Rust: fastrand 2.5.0 — Apache-2.0 OR MIT
-  - Rust: find-msvc-tools 0.1.14 — MIT OR Apache-2.0
-  - Rust: flate2 1.1.10 — MIT OR Apache-2.0
+  - Rust: find-msvc-tools 0.1.15 — MIT OR Apache-2.0
+  - Rust: flate2 1.1.11 — MIT OR Apache-2.0
   - Rust: fnv 1.0.7 — Apache-2.0 / MIT
   - Rust: form_urlencoded 1.2.2 — MIT OR Apache-2.0
   - Rust: futures-lite 2.6.1 — Apache-2.0 OR MIT
@@ -2716,20 +2717,22 @@ limitations under the License.
   - Rust: heck 0.5.0 — MIT OR Apache-2.0
   - Rust: hermit-abi 0.5.3 — MIT OR Apache-2.0
   - Rust: html5ever 0.39.0 — MIT OR Apache-2.0
+  - Rust: html5ever 0.40.1 — MIT OR Apache-2.0
   - Rust: httparse 1.10.1 — MIT OR Apache-2.0
   - Rust: idna 1.1.0 — MIT OR Apache-2.0
   - Rust: idna_adapter 1.2.2 — Apache-2.0 OR MIT
   - Rust: indexmap 1.9.3 — Apache-2.0 OR MIT
   - Rust: indexmap 2.14.2 — Apache-2.0 OR MIT
   - Rust: jni 0.21.1 — MIT/Apache-2.0
-  - Rust: js-sys 0.3.106 — MIT OR Apache-2.0
+  - Rust: js-sys 0.3.107 — MIT OR Apache-2.0
   - Rust: keyboard-types 0.8.3 — MIT OR Apache-2.0
   - Rust: libappindicator 0.9.0 — Apache-2.0 OR MIT
   - Rust: linux-raw-sys 0.12.1 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: lock_api 0.4.14 — MIT OR Apache-2.0
-  - Rust: log 0.4.34 — MIT OR Apache-2.0
+  - Rust: log 0.4.35 — MIT OR Apache-2.0
   - Rust: markup5ever 0.39.0 — MIT OR Apache-2.0
-  - Rust: mime 0.3.17 — MIT OR Apache-2.0
+  - Rust: markup5ever 0.40.0 — MIT OR Apache-2.0
+  - Rust: mime 0.3.18 — MIT OR Apache-2.0
   - Rust: muda 0.20.0 — Apache-2.0 OR MIT
   - Rust: num-traits 0.2.19 — MIT OR Apache-2.0
   - Rust: once_cell 1.21.4 — MIT OR Apache-2.0
@@ -2740,23 +2743,25 @@ limitations under the License.
   - Rust: percent-encoding 2.3.2 — MIT OR Apache-2.0
   - Rust: piper 0.2.5 — MIT OR Apache-2.0
   - Rust: pkg-config 0.3.34 — MIT OR Apache-2.0
-  - Rust: png 0.17.16 — MIT OR Apache-2.0
   - Rust: png 0.18.1 — MIT OR Apache-2.0
   - Rust: polling 3.11.0 — Apache-2.0 OR MIT
-  - Rust: regex 1.13.1 — MIT OR Apache-2.0
-  - Rust: regex-automata 0.4.18 — MIT OR Apache-2.0
-  - Rust: regex-syntax 0.8.11 — MIT OR Apache-2.0
+  - Rust: regex 1.13.2 — MIT OR Apache-2.0
+  - Rust: regex-automata 0.4.19 — MIT OR Apache-2.0
+  - Rust: regex-syntax 0.8.12 — MIT OR Apache-2.0
   - Rust: rustc_version 0.4.1 — MIT OR Apache-2.0
-  - Rust: rustix 1.1.5 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+  - Rust: rustix 1.1.6 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: scopeguard 1.2.0 — MIT OR Apache-2.0
   - Rust: serde_with 3.24.0 — MIT OR Apache-2.0
   - Rust: serde_with_macros 3.24.0 — MIT OR Apache-2.0
   - Rust: servo_arc 0.4.3 — MIT OR Apache-2.0
+  - Rust: servo_arc 0.5.0 — MIT OR Apache-2.0
   - Rust: signal-hook-registry 1.4.8 — MIT OR Apache-2.0
-  - Rust: smallvec 1.16.3 — MIT OR Apache-2.0
+  - Rust: smallvec 1.16.6 — MIT OR Apache-2.0
   - Rust: socket2 0.6.5 — MIT OR Apache-2.0
   - Rust: stable_deref_trait 1.2.1 — MIT OR Apache-2.0
+  - Rust: string_cache 0.11.0 — MIT OR Apache-2.0
   - Rust: string_cache 0.9.0 — MIT OR Apache-2.0
+  - Rust: string_cache_codegen 0.11.2 — MIT OR Apache-2.0
   - Rust: string_cache_codegen 0.6.1 — MIT OR Apache-2.0
   - Rust: syn 1.0.109 — MIT OR Apache-2.0
   - Rust: system-deps 6.2.2 — MIT OR Apache-2.0
@@ -2767,20 +2772,21 @@ limitations under the License.
   - Rust: tray-icon 0.25.1 — MIT OR Apache-2.0
   - Rust: unicode-segmentation 1.13.3 — MIT OR Apache-2.0
   - Rust: url 2.5.8 — MIT OR Apache-2.0
-  - Rust: uuid 1.28.0 — Apache-2.0 OR MIT
+  - Rust: uuid 1.29.3 — Apache-2.0 OR MIT
   - Rust: version_check 0.9.5 — MIT/Apache-2.0
   - Rust: wasi 0.11.1+wasi-snapshot-preview1 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: wasip2 1.0.4+wasi-0.2.12 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-  - Rust: wasm-bindgen 0.2.129 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-futures 0.4.79 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-macro 0.2.129 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-macro-support 0.2.129 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-shared 0.2.129 — MIT OR Apache-2.0
-  - Rust: web-sys 0.3.106 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen 0.2.130 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-futures 0.4.80 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-macro 0.2.130 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-macro-support 0.2.130 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-shared 0.2.130 — MIT OR Apache-2.0
+  - Rust: web-sys 0.3.107 — MIT OR Apache-2.0
   - Rust: web_atoms 0.2.6 — MIT OR Apache-2.0
+  - Rust: web_atoms 0.3.0 — MIT OR Apache-2.0
   - Rust: window-vibrancy 0.8.1 — Apache-2.0 OR MIT
   - Rust: wit-bindgen 0.57.1 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-  - Rust: wry 0.57.0 — Apache-2.0 OR MIT
+  - Rust: wry 0.57.3 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Apache License
                         Version 2.0, January 2004
@@ -2984,13 +2990,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[19/229] Apache-2.0 · 文件：LICENSE-APACHE
+[19/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: block-buffer 0.10.4 — MIT OR Apache-2.0
+  - Rust: block-buffer 0.12.1 — MIT OR Apache-2.0
+  - Rust: const-oid 0.10.3 — Apache-2.0 OR MIT
   - Rust: cpufeatures 0.2.17 — MIT OR Apache-2.0
+  - Rust: cpufeatures 0.3.1 — MIT OR Apache-2.0
   - Rust: crypto-common 0.1.7 — MIT OR Apache-2.0
+  - Rust: crypto-common 0.2.2 — MIT OR Apache-2.0
   - Rust: digest 0.10.7 — MIT OR Apache-2.0
+  - Rust: digest 0.11.3 — MIT OR Apache-2.0
+  - Rust: hybrid-array 0.4.15 — MIT OR Apache-2.0
   - Rust: sha2 0.10.9 — MIT OR Apache-2.0
+  - Rust: sha2 0.11.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Apache License
                         Version 2.0, January 2004
@@ -3194,7 +3207,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[20/229] Apache-2.0 · 文件：LICENSE-APACHE
+[20/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: getrandom 0.3.4 — MIT OR Apache-2.0
   - Rust: getrandom 0.4.3 — MIT OR Apache-2.0
@@ -3401,13 +3414,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[21/229] Apache-2.0 · 文件：LICENSE-APACHE
+[21/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
+  - Rust: bit-set 0.11.1 — Apache-2.0 OR MIT
   - Rust: bit-set 0.8.0 — Apache-2.0 OR MIT
+  - Rust: bit-vec 0.10.2 — Apache-2.0 OR MIT
   - Rust: bit-vec 0.8.0 — Apache-2.0 OR MIT
   - Rust: cfg-expr 0.15.8 — MIT OR Apache-2.0
-  - Rust: defmt 1.1.1 — MIT OR Apache-2.0
-  - Rust: defmt-macros 1.1.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Apache License
                         Version 2.0, January 2004
@@ -3611,7 +3624,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[22/229] Apache-2.0 · 文件：LICENSE-APACHE
+[22/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: adler2 2.0.1 — 0BSD OR MIT OR Apache-2.0
   - Rust: cargo-platform 0.1.9 — MIT OR Apache-2.0
@@ -3821,7 +3834,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[23/229] Apache-2.0 · 文件：LICENSE-APACHE
+[23/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: cookie 0.18.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -4028,7 +4041,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[24/229] Apache-2.0 · 文件：LICENSE-APACHE
+[24/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: jsonptr 0.7.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -4234,7 +4247,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[25/229] Apache-2.0 · 文件：LICENSE-APACHE
+[25/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: proc-macro-error 1.0.4 — MIT OR Apache-2.0
   - Rust: proc-macro-error-attr 1.0.4 — MIT OR Apache-2.0
@@ -4441,7 +4454,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[26/229] Apache-2.0 · 文件：LICENSE-APACHE
+[26/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: futures-channel 0.3.34 — MIT OR Apache-2.0
   - Rust: futures-core 0.3.34 — MIT OR Apache-2.0
@@ -4655,7 +4668,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[27/229] Apache-2.0 · 文件：LICENSE-APACHE
+[27/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: web-time 1.1.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -4861,7 +4874,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[28/229] Apache-2.0 · 文件：LICENSE-APACHE
+[28/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: softbuffer 0.4.8 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -5067,7 +5080,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[29/229] Apache-2.0 · 文件：LICENSE-Apache
+[29/236] Apache-2.0 · 文件：LICENSE-Apache
 使用方：
   - Rust: deranged 0.5.9 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -5273,7 +5286,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[30/229] Apache-2.0 · 文件：LICENSE-Apache
+[30/236] Apache-2.0 · 文件：LICENSE-Apache
 使用方：
   - Rust: powerfmt 0.2.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -5479,14 +5492,14 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[31/229] Apache-2.0 · 文件：LICENSE-APACHE
+[31/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
-  - Rust: serde_spanned 1.1.2 — MIT OR Apache-2.0
-  - Rust: toml 1.1.8+spec-1.1.0 — MIT OR Apache-2.0
-  - Rust: toml_datetime 1.1.2+spec-1.1.0 — MIT OR Apache-2.0
-  - Rust: toml_edit 0.25.17+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: serde_spanned 1.1.3 — MIT OR Apache-2.0
+  - Rust: toml 1.2.1+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml_datetime 1.1.3+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml_edit 0.25.19+spec-1.1.0 — MIT OR Apache-2.0
   - Rust: toml_parser 1.1.5+spec-1.1.0 — MIT OR Apache-2.0
-  - Rust: toml_writer 1.1.3+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml_writer 1.2.0+spec-1.1.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Apache License
                            Version 2.0, January 2004
@@ -5690,7 +5703,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[32/229] Apache-2.0 · 文件：LICENSE-APACHE
+[32/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: ipnet 2.12.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -5896,7 +5909,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[33/229] Apache-2.0 · 文件：LICENSE-APACHE
+[33/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: swift-rs 1.0.9 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -6102,14 +6115,15 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[34/229] Apache-2.0 · 文件：LICENSE-APACHE, LICENSE-APACHE.md
+[34/236] Apache-2.0 · 文件：LICENSE-APACHE, LICENSE-APACHE.md
 使用方：
   - Rust: embed_plist 1.2.2 — MIT OR Apache-2.0
   - Rust: serialize-to-javascript 0.1.2 — MIT OR Apache-2.0
   - Rust: serialize-to-javascript-impl 0.1.2 — MIT OR Apache-2.0
   - Rust: siphasher 1.0.4 — MIT OR Apache-2.0
   - Rust: tinyvec 1.13.3 — Zlib OR Apache-2.0 OR MIT
-  - Rust: utf8_iter 1.0.4 — Apache-2.0 OR MIT
+  - Rust: utf8_iter 1.1.0 — Apache-2.0 OR MIT
+  - Rust: utf_types 1.0.0 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Apache License
                            Version 2.0, January 2004
@@ -6313,7 +6327,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[35/229] Apache-2.0 · 文件：LICENSE-APACHE
+[35/236] Apache-2.0 · 文件：LICENSE-APACHE
 使用方：
   - Rust: dbus 0.9.12 — Apache-2.0/MIT
   - Rust: libdbus-sys 0.2.7 — Apache-2.0/MIT
@@ -6520,7 +6534,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[36/229] Apache-2.0 · 文件：license-apache-2.0
+[36/236] Apache-2.0 · 文件：license-apache-2.0
 使用方：
   - Rust: windows 0.62.2 — MIT OR Apache-2.0
   - Rust: windows-collections 0.3.2 — MIT OR Apache-2.0
@@ -6533,27 +6547,17 @@ Apache License
   - Rust: windows-result 0.4.1 — MIT OR Apache-2.0
   - Rust: windows-strings 0.5.1 — MIT OR Apache-2.0
   - Rust: windows-sys 0.45.0 — MIT OR Apache-2.0
-  - Rust: windows-sys 0.60.2 — MIT OR Apache-2.0
   - Rust: windows-sys 0.61.2 — MIT OR Apache-2.0
   - Rust: windows-targets 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows-targets 0.53.5 — MIT OR Apache-2.0
   - Rust: windows-threading 0.2.1 — MIT OR Apache-2.0
   - Rust: windows-version 0.1.7 — MIT OR Apache-2.0
   - Rust: windows_aarch64_gnullvm 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_aarch64_gnullvm 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_aarch64_msvc 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_aarch64_msvc 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_i686_gnu 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_i686_gnu 0.53.1 — MIT OR Apache-2.0
-  - Rust: windows_i686_gnullvm 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_i686_msvc 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_i686_msvc 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_x86_64_gnu 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_x86_64_gnu 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_x86_64_gnullvm 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_x86_64_gnullvm 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_x86_64_msvc 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_x86_64_msvc 0.53.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Apache License
                            Version 2.0, January 2004
@@ -6757,7 +6761,7 @@ Apache License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-[37/229] Apache-2.0 · 文件：LICENSE-THIRD-PARTY
+[37/236] Apache-2.0 · 文件：LICENSE-THIRD-PARTY
 使用方：
   - Rust: parking 2.2.1 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -6771,7 +6775,7 @@ http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
 option. All files in the project carrying such notice may not be
 copied, modified, or distributed except according to those terms.
 
-[38/229] Apache-2.0 · 文件：LICENSE-THIRD-PARTY
+[38/236] Apache-2.0 · 文件：LICENSE-THIRD-PARTY
 使用方：
   - Rust: atomic-waker 1.1.2 — Apache-2.0 OR MIT
   - Rust: futures-lite 2.6.1 — Apache-2.0 OR MIT
@@ -6822,7 +6826,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[39/229] Apache-2.0 · 文件：LICENSE-THIRD-PARTY
+[39/236] Apache-2.0 · 文件：LICENSE-THIRD-PARTY
 使用方：
   - Rust: crossbeam-channel 0.5.17 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -7420,7 +7424,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[40/229] Apache-2.0 · 文件：LICENSE.txt
+[40/236] Apache-2.0 · 文件：LICENSE.txt
 使用方：
   - JavaScript: typescript 6.0.3 — Apache-2.0
 ------------------------------------------------------------------------------
@@ -7480,7 +7484,7 @@ If the Work includes a "NOTICE" text file as part of its distribution, then any 
 
 END OF TERMS AND CONDITIONS
 
-[41/229] Apache-2.0 · 文件：LICENSE.txt
+[41/236] Apache-2.0 · 文件：LICENSE.txt
 使用方：
   - Rust: chrono 0.4.45 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -7724,7 +7728,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ~~~~
 
-[42/229] MPL-2.0 · 文件：LICENSE
+[42/236] MPL-2.0 · 文件：LICENSE
 使用方：
   - Rust: dtoa-short 0.3.5 — MPL-2.0
 ------------------------------------------------------------------------------
@@ -8102,9 +8106,10 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
 
-[43/229] MPL-2.0 · 文件：LICENSE
+[43/236] MPL-2.0 · 文件：LICENSE
 使用方：
   - Rust: cssparser 0.37.0 — MPL-2.0
+  - Rust: cssparser 0.38.0 — MPL-2.0
   - Rust: cssparser-macros 0.7.1 — MPL-2.0
 ------------------------------------------------------------------------------
 Mozilla Public License Version 2.0
@@ -8481,7 +8486,7 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
 
-[44/229] MPL-2.0 · 文件：LICENSE.txt
+[44/236] MPL-2.0 · 文件：LICENSE.txt
 使用方：
   - Rust: option-ext 0.2.0 — MPL-2.0
 ------------------------------------------------------------------------------
@@ -8859,9 +8864,9 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
 
-[45/229] MIT · 文件：LICENCE
+[45/236] MIT · 文件：LICENCE
 使用方：
-  - Rust: plist 1.10.1 — MIT
+  - Rust: plist 1.10.4 — MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2015 Edward Barnard
 
@@ -8883,14 +8888,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[46/229] MIT · 文件：LICENSE, LICENSE-MIT
+[46/236] MIT · 文件：LICENSE, LICENSE-MIT
 使用方：
   - Rust: adler2 2.0.1 — 0BSD OR MIT OR Apache-2.0
   - Rust: anyhow 1.0.104 — MIT OR Apache-2.0
   - Rust: async-channel 2.5.0 — Apache-2.0 OR MIT
-  - Rust: async-executor 1.14.0 — Apache-2.0 OR MIT
+  - Rust: async-executor 1.14.1 — Apache-2.0 OR MIT
   - Rust: async-io 2.6.0 — Apache-2.0 OR MIT
-  - Rust: async-lock 3.4.2 — Apache-2.0 OR MIT
+  - Rust: async-lock 3.5.0 — Apache-2.0 OR MIT
   - Rust: async-process 2.5.0 — Apache-2.0 OR MIT
   - Rust: async-recursion 1.2.0 — MIT OR Apache-2.0
   - Rust: async-signal 0.2.14 — Apache-2.0 OR MIT
@@ -8906,13 +8911,13 @@ SOFTWARE.
   - Rust: dtoa 1.0.11 — MIT OR Apache-2.0
   - Rust: dyn-clone 1.0.20 — MIT OR Apache-2.0
   - Rust: endi 1.1.1 — MIT
-  - Rust: erased-serde 0.4.10 — MIT OR Apache-2.0
+  - Rust: erased-serde 0.4.11 — MIT OR Apache-2.0
   - Rust: event-listener 5.4.2 — Apache-2.0 OR MIT
   - Rust: event-listener-strategy 0.5.4 — Apache-2.0 OR MIT
   - Rust: fastrand 2.5.0 — Apache-2.0 OR MIT
   - Rust: futures-lite 2.6.1 — Apache-2.0 OR MIT
   - Rust: hermit-abi 0.5.3 — MIT OR Apache-2.0
-  - Rust: itoa 1.0.18 — MIT OR Apache-2.0
+  - Rust: itoa 1.0.19 — MIT OR Apache-2.0
   - Rust: linux-raw-sys 0.12.1 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: num_enum 0.7.6 — BSD-3-Clause OR MIT OR Apache-2.0
   - Rust: num_enum_derive 0.7.6 — BSD-3-Clause OR MIT OR Apache-2.0
@@ -8932,7 +8937,7 @@ SOFTWARE.
   - Rust: ref-cast 1.0.27 — MIT OR Apache-2.0
   - Rust: ref-cast-impl 1.0.27 — MIT OR Apache-2.0
   - Rust: rustc-hash 2.1.3 — Apache-2.0 OR MIT
-  - Rust: rustix 1.1.5 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+  - Rust: rustix 1.1.6 — Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
   - Rust: rustversion 1.0.23 — MIT OR Apache-2.0
   - Rust: semver 1.0.28 — MIT OR Apache-2.0
   - Rust: serde 1.0.229 — MIT OR Apache-2.0
@@ -8943,9 +8948,10 @@ SOFTWARE.
   - Rust: serde_json 1.0.154 — MIT OR Apache-2.0
   - Rust: serde_repr 0.1.21 — MIT OR Apache-2.0
   - Rust: servo_arc 0.4.3 — MIT OR Apache-2.0
+  - Rust: servo_arc 0.5.0 — MIT OR Apache-2.0
   - Rust: syn 1.0.109 — MIT OR Apache-2.0
   - Rust: syn 2.0.119 — MIT OR Apache-2.0
-  - Rust: syn 3.0.9 — MIT OR Apache-2.0
+  - Rust: syn 3.0.10 — MIT OR Apache-2.0
   - Rust: system-deps 6.2.2 — MIT OR Apache-2.0
   - Rust: thiserror 1.0.69 — MIT OR Apache-2.0
   - Rust: thiserror 2.0.21 — MIT OR Apache-2.0
@@ -8986,7 +8992,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[47/229] MIT · 文件：LICENSE, LICENSE-MIT
+[47/236] MIT · 文件：LICENSE, LICENSE-MIT
 使用方：
   - Rust: atk 0.18.2 — MIT
   - Rust: atk-sys 0.18.2 — MIT
@@ -9030,7 +9036,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[48/229] MIT · 文件：LICENSE
+[48/236] MIT · 文件：LICENSE
 使用方：
   - Rust: ident_case 1.0.1 — MIT/Apache-2.0
 ------------------------------------------------------------------------------
@@ -9054,7 +9060,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[49/229] MIT · 文件：LICENSE
+[49/236] MIT · 文件：LICENSE
 使用方：
   - JavaScript: magic-string 0.30.21 — MIT
 ------------------------------------------------------------------------------
@@ -9066,7 +9072,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[50/229] MIT · 文件：LICENSE
+[50/236] MIT · 文件：LICENSE
 使用方：
   - Rust: synstructure 0.14.0 — MIT
 ------------------------------------------------------------------------------
@@ -9078,7 +9084,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[51/229] MIT · 文件：LICENSE
+[51/236] MIT · 文件：LICENSE
 使用方：
   - Rust: version-compare 0.2.1 — MIT
 ------------------------------------------------------------------------------
@@ -9102,7 +9108,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[52/229] MIT · 文件：LICENSE
+[52/236] MIT · 文件：LICENSE
 使用方：
   - Rust: winreg 0.56.0 — MIT
 ------------------------------------------------------------------------------
@@ -9126,9 +9132,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[53/229] MIT · 文件：LICENSE
+[53/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: bytes 1.12.1 — MIT
+  - Rust: bytes 1.12.2 — MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2018 Carl Lerche
 
@@ -9156,7 +9162,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[54/229] MIT · 文件：LICENSE
+[54/236] MIT · 文件：LICENSE
 使用方：
   - Rust: slab 0.4.12 — MIT
 ------------------------------------------------------------------------------
@@ -9186,7 +9192,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[55/229] MIT · 文件：LICENSE
+[55/236] MIT · 文件：LICENSE
 使用方：
   - Rust: memoffset 0.9.1 — MIT
 ------------------------------------------------------------------------------
@@ -9210,7 +9216,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[56/229] MIT · 文件：LICENSE
+[56/236] MIT · 文件：LICENSE
 使用方：
   - Rust: hyper 1.12.0 — MIT
 ------------------------------------------------------------------------------
@@ -9234,9 +9240,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[57/229] MIT · 文件：LICENSE
+[57/236] MIT · 文件：LICENSE
 使用方：
-  - JavaScript: csstype 3.2.3 — MIT
+  - JavaScript: csstype 3.2.4 — MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2017-2018 Fredrik Nicol
 
@@ -9258,7 +9264,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[58/229] MIT · 文件：LICENSE
+[58/236] MIT · 文件：LICENSE
 使用方：
   - Rust: want 0.3.2 — MIT
 ------------------------------------------------------------------------------
@@ -9282,7 +9288,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[59/229] MIT · 文件：LICENSE
+[59/236] MIT · 文件：LICENSE
 使用方：
   - Rust: tracing 0.1.44 — MIT
   - Rust: tracing-attributes 0.1.31 — MIT
@@ -9314,7 +9320,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[60/229] MIT · 文件：LICENSE
+[60/236] MIT · 文件：LICENSE
 使用方：
   - Rust: tower 0.5.3 — MIT
   - Rust: tower-layer 0.3.3 — MIT
@@ -9346,7 +9352,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[61/229] MIT · 文件：LICENSE
+[61/236] MIT · 文件：LICENSE
 使用方：
   - Rust: hyper-util 0.1.21 — MIT
 ------------------------------------------------------------------------------
@@ -9370,7 +9376,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[62/229] MIT · 文件：LICENSE
+[62/236] MIT · 文件：LICENSE
 使用方：
   - Rust: infer 0.22.0 — MIT
 ------------------------------------------------------------------------------
@@ -9396,7 +9402,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[63/229] MIT · 文件：LICENSE
+[63/236] MIT · 文件：LICENSE
 使用方：
   - Rust: libredox 0.1.25 — MIT
 ------------------------------------------------------------------------------
@@ -9422,7 +9428,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[64/229] MIT · 文件：LICENSE
+[64/236] MIT · 文件：LICENSE
 使用方：
   - Rust: tower-http 0.6.11 — MIT
 ------------------------------------------------------------------------------
@@ -9452,7 +9458,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[65/229] MIT · 文件：LICENSE
+[65/236] MIT · 文件：LICENSE
 使用方：
   - Rust: darling 0.24.1 — MIT
   - Rust: darling_core 0.24.1 — MIT
@@ -9480,7 +9486,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[66/229] MIT · 文件：LICENSE
+[66/236] MIT · 文件：LICENSE
 使用方：
   - Rust: schemars 0.8.22 — MIT
   - Rust: schemars 0.9.0 — MIT
@@ -9509,7 +9515,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[67/229] MIT · 文件：LICENSE
+[67/236] MIT · 文件：LICENSE
 使用方：
   - Rust: is-docker 0.2.0 — MIT
   - Rust: is-wsl 0.4.0 — MIT
@@ -9536,9 +9542,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[68/229] MIT · 文件：LICENSE
+[68/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: tokio 1.53.2 — MIT
+  - Rust: tokio 1.54.1 — MIT
   - Rust: tokio-util 0.7.20 — MIT
 ------------------------------------------------------------------------------
 MIT License
@@ -9563,7 +9569,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[69/229] MIT · 文件：LICENSE
+[69/236] MIT · 文件：LICENSE
 使用方：
   - Rust: urlpattern 0.6.0 — MIT
 ------------------------------------------------------------------------------
@@ -9589,7 +9595,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[70/229] MIT · 文件：LICENSE
+[70/236] MIT · 文件：LICENSE
 使用方：
   - Rust: cfb 0.14.0 — MIT
 ------------------------------------------------------------------------------
@@ -9615,9 +9621,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[71/229] MIT · 文件：LICENSE
+[71/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: ico 0.5.0 — MIT
+  - Rust: ico 0.6.0 — MIT
 ------------------------------------------------------------------------------
 MIT License
 
@@ -9641,7 +9647,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[72/229] MIT · 文件：LICENSE
+[72/236] MIT · 文件：LICENSE
 使用方：
   - Rust: redox_syscall 0.5.18 — MIT
 ------------------------------------------------------------------------------
@@ -9668,7 +9674,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[73/229] MIT · 文件：LICENSE
+[73/236] MIT · 文件：LICENSE
 使用方：
   - Rust: precomputed-hash 0.1.1 — MIT
 ------------------------------------------------------------------------------
@@ -9694,9 +9700,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[74/229] MIT · 文件：LICENSE
+[74/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: rfd 0.16.0 — MIT
+  - Rust: rfd 0.17.2 — MIT
 ------------------------------------------------------------------------------
 MIT License
 
@@ -9720,7 +9726,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[75/229] MIT · 文件：LICENSE
+[75/236] MIT · 文件：LICENSE
 使用方：
   - Rust: webkit2gtk-sys 2.0.2 — MIT
 ------------------------------------------------------------------------------
@@ -9743,7 +9749,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[76/229] MIT · 文件：LICENSE
+[76/236] MIT · 文件：LICENSE
 使用方：
   - Rust: redox_users 0.5.3 — MIT
 ------------------------------------------------------------------------------
@@ -9769,13 +9775,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[77/229] MIT · 文件：LICENSE
+[77/236] MIT · 文件：LICENSE
 使用方：
   - Rust: zbus 5.19.0 — MIT
   - Rust: zbus_macros 5.19.0 — MIT
-  - Rust: zbus_names 4.3.4 — MIT
-  - Rust: zvariant 5.15.0 — MIT
-  - Rust: zvariant_derive 5.15.0 — MIT
+  - Rust: zbus_names 4.3.5 — MIT
+  - Rust: zvariant 5.15.1 — MIT
+  - Rust: zvariant_derive 5.15.1 — MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2024 Zeeshan Ali Khan & zbus contributors
 
@@ -9803,7 +9809,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[78/229] MIT · 文件：LICENSE
+[78/236] MIT · 文件：LICENSE
 使用方：
   - JavaScript: @jridgewell/sourcemap-codec 1.6.0 — MIT
 ------------------------------------------------------------------------------
@@ -9827,7 +9833,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[79/229] MIT · 文件：LICENSE
+[79/236] MIT · 文件：LICENSE
 使用方：
   - Rust: derive_more 2.1.1 — MIT
   - Rust: derive_more-impl 2.1.1 — MIT
@@ -9854,7 +9860,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[80/229] MIT · 文件：LICENSE
+[80/236] MIT · 文件：LICENSE
 使用方：
   - Rust: embed-resource 3.0.12 — MIT
 ------------------------------------------------------------------------------
@@ -9880,7 +9886,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[81/229] MIT · 文件：LICENSE
+[81/236] MIT · 文件：LICENSE
 使用方：
   - Rust: vswhom 0.1.0 — MIT
   - Rust: vswhom-sys 0.1.3 — MIT
@@ -9907,9 +9913,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[82/229] MIT · 文件：LICENSE
+[82/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: mio 1.2.4 — MIT
+  - Rust: mio 1.2.5 — MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2014 Carl Lerche and other MIO contributors
 
@@ -9931,7 +9937,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[83/229] MIT · 文件：LICENSE
+[83/236] MIT · 文件：LICENSE
 使用方：
   - Rust: http-body 1.1.0 — MIT
   - Rust: http-body-util 0.1.5 — MIT
@@ -9962,9 +9968,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[84/229] MIT · 文件：LICENSE
+[84/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: combine 4.6.8 — MIT
+  - Rust: combine 4.6.9 — MIT
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -9988,9 +9994,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[85/229] MIT · 文件：LICENSE
+[85/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: zcheapstr 1.1.0 — MIT
+  - Rust: zcheapstr 1.2.0 — MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2026 Zeeshan Ali Khan & zcheapstr contributors
 
@@ -10018,9 +10024,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[86/229] MIT · 文件：LICENSE
+[86/236] MIT · 文件：LICENSE
 使用方：
-  - JavaScript: @babel/parser 7.29.9 — MIT
+  - JavaScript: @babel/parser 7.29.14 — MIT
 ------------------------------------------------------------------------------
 Copyright (C) 2012-2014 by various contributors (see AUTHORS)
 
@@ -10042,7 +10048,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[87/229] MIT · 文件：LICENSE
+[87/236] MIT · 文件：LICENSE
 使用方：
   - Rust: generic-array 0.14.7 — MIT
 ------------------------------------------------------------------------------
@@ -10068,18 +10074,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[88/229] MIT · 文件：LICENSE
+[88/236] MIT · 文件：LICENSE
 使用方：
-  - JavaScript: @vue/compiler-core 3.5.44 — MIT
-  - JavaScript: @vue/compiler-dom 3.5.44 — MIT
-  - JavaScript: @vue/compiler-sfc 3.5.44 — MIT
-  - JavaScript: @vue/compiler-ssr 3.5.44 — MIT
-  - JavaScript: @vue/reactivity 3.5.44 — MIT
-  - JavaScript: @vue/runtime-core 3.5.44 — MIT
-  - JavaScript: @vue/runtime-dom 3.5.44 — MIT
-  - JavaScript: @vue/server-renderer 3.5.44 — MIT
-  - JavaScript: @vue/shared 3.5.44 — MIT
-  - JavaScript: vue 3.5.44 — MIT
+  - JavaScript: @vue/compiler-core 3.5.45 — MIT
+  - JavaScript: @vue/compiler-dom 3.5.45 — MIT
+  - JavaScript: @vue/compiler-sfc 3.5.45 — MIT
+  - JavaScript: @vue/compiler-ssr 3.5.45 — MIT
+  - JavaScript: @vue/reactivity 3.5.45 — MIT
+  - JavaScript: @vue/runtime-core 3.5.45 — MIT
+  - JavaScript: @vue/runtime-dom 3.5.45 — MIT
+  - JavaScript: @vue/server-renderer 3.5.45 — MIT
+  - JavaScript: @vue/shared 3.5.45 — MIT
+  - JavaScript: vue 3.5.45 — MIT
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -10103,7 +10109,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[89/229] MIT · 文件：LICENSE
+[89/236] MIT · 文件：LICENSE
 使用方：
   - Rust: try-lock 0.2.5 — MIT
 ------------------------------------------------------------------------------
@@ -10128,9 +10134,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[90/229] MIT · 文件：LICENSE
+[90/236] MIT · 文件：LICENSE
 使用方：
-  - JavaScript: postcss 8.5.30 — MIT
+  - JavaScript: postcss 8.5.33 — MIT
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -10153,7 +10159,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[91/229] MIT · 文件：LICENSE
+[91/236] MIT · 文件：LICENSE
 使用方：
   - JavaScript: nanoid 3.3.20 — MIT
 ------------------------------------------------------------------------------
@@ -10178,13 +10184,18 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[92/229] MIT · 文件：LICENSE
+[92/236] MIT · 文件：LICENSE
 使用方：
   - Rust: phf 0.13.1 — MIT
+  - Rust: phf 0.14.0 — MIT
   - Rust: phf_codegen 0.13.1 — MIT
+  - Rust: phf_codegen 0.14.0 — MIT
   - Rust: phf_generator 0.13.1 — MIT
+  - Rust: phf_generator 0.14.0 — MIT
   - Rust: phf_macros 0.13.1 — MIT
+  - Rust: phf_macros 0.14.0 — MIT
   - Rust: phf_shared 0.13.1 — MIT
+  - Rust: phf_shared 0.14.0 — MIT
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -10207,7 +10218,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[93/229] MIT · 文件：LICENSE
+[93/236] MIT · 文件：LICENSE
 使用方：
   - Rust: javascriptcore-rs-sys 1.1.1 — MIT
   - Rust: soup3 0.5.0 — MIT
@@ -10235,11 +10246,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[94/229] MIT · 文件：LICENSE
+[94/236] MIT · 文件：LICENSE
 使用方：
-  - JavaScript: @babel/helper-string-parser 7.29.7 — MIT
+  - JavaScript: @babel/helper-string-parser 7.29.14 — MIT
   - JavaScript: @babel/helper-validator-identifier 7.29.7 — MIT
-  - JavaScript: @babel/types 7.29.8 — MIT
+  - JavaScript: @babel/types 7.29.14 — MIT
 ------------------------------------------------------------------------------
 MIT License
 
@@ -10264,7 +10275,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[95/229] MIT · 文件：LICENSE
+[95/236] MIT · 文件：LICENSE
 使用方：
   - JavaScript: estree-walker 2.0.2 — MIT
 ------------------------------------------------------------------------------
@@ -10276,9 +10287,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[96/229] MIT · 文件：LICENSE
+[96/236] MIT · 文件：LICENSE
 使用方：
-  - Rust: tauri-winres 0.3.6 — MIT
+  - Rust: tauri-winres 0.3.7 — MIT
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -10309,7 +10320,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[97/229] MIT · 文件：LICENSE
+[97/236] MIT · 文件：LICENSE
 使用方：
   - Rust: uds_windows 1.2.1 — MIT
 ------------------------------------------------------------------------------
@@ -10335,7 +10346,7 @@ MIT License
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 
-[98/229] MIT · 文件：LICENSE
+[98/236] MIT · 文件：LICENSE
 使用方：
   - Rust: strsim 0.11.1 — MIT
 ------------------------------------------------------------------------------
@@ -10363,7 +10374,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[99/229] MIT · 文件：LICENSE
+[99/236] MIT · 文件：LICENSE
 使用方：
   - Rust: javascriptcore-rs 1.1.2 — MIT
 ------------------------------------------------------------------------------
@@ -10390,7 +10401,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[100/229] MIT · 文件：LICENSE
+[100/236] MIT · 文件：LICENSE
 使用方：
   - Rust: webkit2gtk 2.0.2 — MIT
 ------------------------------------------------------------------------------
@@ -10415,7 +10426,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[101/229] MIT · 文件：LICENSE
+[101/236] MIT · 文件：LICENSE
 使用方：
   - Rust: miniz_oxide 0.8.9 — MIT OR Zlib OR Apache-2.0
   - Rust: miniz_oxide 0.9.1 — MIT OR Zlib OR Apache-2.0
@@ -10446,9 +10457,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[102/229] MIT · 文件：LICENSE
+[102/236] MIT · 文件：LICENSE
 使用方：
   - Rust: dom_query 0.28.0 — MIT
+  - Rust: dom_query 0.29.0 — MIT
 ------------------------------------------------------------------------------
 MIT License
 
@@ -10478,9 +10490,9 @@ This project contains portions of code and architectural concepts originally
 derived from the "nipper" project (https://github.com/importcjj/nipper), 
 developed by Chen Jiaju, licensed under the MIT License and the Apache License 2.0 (dual licensed).
 
-[103/229] MIT · 文件：LICENSE
+[103/236] MIT · 文件：LICENSE
 使用方：
-  - JavaScript: @lucide/vue 1.58.0 — ISC
+  - JavaScript: @lucide/vue 1.76.0 — ISC
 ------------------------------------------------------------------------------
 ISC License
 
@@ -10526,7 +10538,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[104/229] MIT · 文件：LICENSE-LIBM-MIT
+[104/236] MIT · 文件：LICENSE-LIBM-MIT
 使用方：
   - Rust: dpi 0.1.2 — Apache-2.0 AND MIT
 ------------------------------------------------------------------------------
@@ -10582,10 +10594,10 @@ and labelled as such in comments in the individual source files. All
 have been licensed under extremely permissive terms.
 ------------------------------------------------------------------------------
 
-[105/229] MIT · 文件：LICENSE-MIT
+[105/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: winnow 0.5.40 — MIT
-  - Rust: winnow 1.0.4 — MIT
+  - Rust: winnow 1.0.5 — MIT
 ------------------------------------------------------------------------------
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -10606,9 +10618,10 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[106/229] MIT · 文件：LICENSE-MIT, LICENSE-MIT.md
+[106/236] MIT · 文件：LICENSE-MIT, LICENSE-MIT.md
 使用方：
-  - Rust: ctor 1.0.13 — Apache-2.0 OR MIT
+  - Rust: ctor 1.0.14 — Apache-2.0 OR MIT
+  - Rust: link-section 0.19.4 — Apache-2.0 OR MIT
   - Rust: tinyvec 1.13.3 — Zlib OR Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10617,7 +10630,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[107/229] MIT · 文件：LICENSE-MIT
+[107/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: fdeflate 0.3.7 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -10647,7 +10660,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[108/229] MIT · 文件：LICENSE-MIT
+[108/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: serde_with 3.24.0 — MIT OR Apache-2.0
   - Rust: serde_with_macros 3.24.0 — MIT OR Apache-2.0
@@ -10678,9 +10691,8 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[109/229] MIT · 文件：LICENSE-MIT
+[109/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: png 0.17.16 — MIT OR Apache-2.0
   - Rust: png 0.18.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2015 nwin
@@ -10709,7 +10721,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[110/229] MIT · 文件：LICENSE-MIT
+[110/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: indexmap 1.9.3 — Apache-2.0 OR MIT
   - Rust: indexmap 2.14.2 — Apache-2.0 OR MIT
@@ -10740,9 +10752,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[111/229] MIT · 文件：LICENSE-MIT
+[111/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: equivalent 1.0.2 — Apache-2.0 OR MIT
+  - Rust: equivalent 1.0.3 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2016--2023
 
@@ -10770,7 +10782,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[112/229] MIT · 文件：LICENSE-MIT
+[112/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: num-conv 0.2.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -10794,7 +10806,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[113/229] MIT · 文件：LICENSE-MIT
+[113/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: keyboard-types 0.8.3 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -10818,9 +10830,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[114/229] MIT · 文件：LICENSE-MIT
+[114/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: utf8_iter 1.0.4 — Apache-2.0 OR MIT
+  - Rust: utf8_iter 1.1.0 — Apache-2.0 OR MIT
+  - Rust: utf_types 1.0.0 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Copyright Mozilla Foundation
 
@@ -10848,9 +10861,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[115/229] MIT · 文件：LICENSE-MIT
+[115/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: errno 0.3.14 — MIT OR Apache-2.0
+  - Rust: errno 0.3.15 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2014 Chris Wong
 
@@ -10878,7 +10891,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[116/229] MIT · 文件：LICENSE-MIT
+[116/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: enumflags2_derive 0.7.12 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -10908,7 +10921,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[117/229] MIT · 文件：LICENSE-MIT
+[117/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: autocfg 1.5.1 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -10938,38 +10951,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[118/229] MIT · 文件：LICENSE-MIT
-使用方：
-  - Rust: defmt 1.1.1 — MIT OR Apache-2.0
-  - Rust: defmt-macros 1.1.1 — MIT OR Apache-2.0
-------------------------------------------------------------------------------
-Copyright (c) Ferrous Systems
-
-Permission is hereby granted, free of charge, to any
-person obtaining a copy of this software and associated
-documentation files (the "Software"), to deal in the
-Software without restriction, including without
-limitation the rights to use, copy, modify, merge,
-publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software
-is furnished to do so, subject to the following
-conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions
-of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
-ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
-SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
-
-[119/229] MIT · 文件：LICENSE-MIT
+[118/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: softbuffer 0.4.8 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -10993,7 +10975,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[120/229] MIT · 文件：LICENSE-MIT
+[119/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: tempfile 3.27.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11023,7 +11005,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[121/229] MIT · 文件：LICENSE-MIT
+[120/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: fnv 1.0.7 — Apache-2.0 / MIT
 ------------------------------------------------------------------------------
@@ -11053,21 +11035,21 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[122/229] MIT · 文件：LICENSE-MIT
+[121/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: cc 1.8.0 — MIT OR Apache-2.0
+  - Rust: cc 1.11.2 — MIT OR Apache-2.0
   - Rust: cfg-if 1.0.5 — MIT OR Apache-2.0
-  - Rust: find-msvc-tools 0.1.14 — MIT OR Apache-2.0
-  - Rust: js-sys 0.3.106 — MIT OR Apache-2.0
+  - Rust: find-msvc-tools 0.1.15 — MIT OR Apache-2.0
+  - Rust: js-sys 0.3.107 — MIT OR Apache-2.0
   - Rust: pkg-config 0.3.34 — MIT OR Apache-2.0
   - Rust: socket2 0.6.5 — MIT OR Apache-2.0
   - Rust: toml_datetime 0.6.3 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen 0.2.129 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-futures 0.4.79 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-macro 0.2.129 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-macro-support 0.2.129 — MIT OR Apache-2.0
-  - Rust: wasm-bindgen-shared 0.2.129 — MIT OR Apache-2.0
-  - Rust: web-sys 0.3.106 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen 0.2.130 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-futures 0.4.80 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-macro 0.2.130 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-macro-support 0.2.130 — MIT OR Apache-2.0
+  - Rust: wasm-bindgen-shared 0.2.130 — MIT OR Apache-2.0
+  - Rust: web-sys 0.3.107 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2014 Alex Crichton
 
@@ -11095,9 +11077,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[123/229] MIT · 文件：LICENSE-MIT
+[122/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: mime 0.3.17 — MIT OR Apache-2.0
+  - Rust: mime 0.3.18 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2014 Sean McArthur
 
@@ -11119,7 +11101,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[124/229] MIT · 文件：LICENSE-MIT
+[123/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: new_debug_unreachable 1.0.6 — MIT
 ------------------------------------------------------------------------------
@@ -11149,7 +11131,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[125/229] MIT · 文件：LICENSE-MIT
+[124/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: digest 0.10.7 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11179,7 +11161,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[126/229] MIT · 文件：LICENSE-MIT
+[125/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: stable_deref_trait 1.2.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11209,7 +11191,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[127/229] MIT · 文件：LICENSE-MIT
+[126/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: time 0.3.55 — MIT OR Apache-2.0
   - Rust: time-core 0.1.9 — MIT OR Apache-2.0
@@ -11235,7 +11217,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[128/229] MIT · 文件：LICENSE-MIT
+[127/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: cfg-expr 0.15.8 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11265,7 +11247,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[129/229] MIT · 文件：LICENSE-MIT
+[128/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: http 1.5.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11295,9 +11277,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[130/229] MIT · 文件：LICENSE-MIT
+[129/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: bumpalo 3.20.3 — MIT OR Apache-2.0
+  - Rust: bumpalo 3.20.4 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2019 Nick Fitzgerald
 
@@ -11325,7 +11307,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[131/229] MIT · 文件：LICENSE-MIT
+[130/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: iana-time-zone 0.1.65 — MIT OR Apache-2.0
   - Rust: iana-time-zone-haiku 0.1.2 — MIT OR Apache-2.0
@@ -11356,7 +11338,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[132/229] MIT · 文件：LICENSE-MIT
+[131/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: hashbrown 0.12.3 — MIT OR Apache-2.0
   - Rust: hashbrown 0.17.1 — MIT OR Apache-2.0
@@ -11387,7 +11369,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[133/229] MIT · 文件：LICENSE-MIT
+[132/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: tendril 0.5.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11417,9 +11399,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[134/229] MIT · 文件：LICENSE-MIT
+[133/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: flate2 1.1.10 — MIT OR Apache-2.0
+  - Rust: flate2 1.1.11 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2014-2026 Alex Crichton
 
@@ -11447,7 +11429,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[135/229] MIT · 文件：LICENSE-MIT
+[134/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: httparse 1.10.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11471,7 +11453,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[136/229] MIT · 文件：LICENSE-MIT
+[135/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: reqwest 0.13.5 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11495,7 +11477,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[137/229] MIT · 文件：LICENSE-MIT
+[136/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: powerfmt 0.2.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11519,7 +11501,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[138/229] MIT · 文件：LICENSE-MIT
+[137/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: deranged 0.5.9 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11543,18 +11525,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[139/229] MIT · 文件：LICENSE-MIT
+[138/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: serde_spanned 0.6.9 — MIT OR Apache-2.0
-  - Rust: serde_spanned 1.1.2 — MIT OR Apache-2.0
+  - Rust: serde_spanned 1.1.3 — MIT OR Apache-2.0
   - Rust: toml 0.8.2 — MIT OR Apache-2.0
-  - Rust: toml 1.1.8+spec-1.1.0 — MIT OR Apache-2.0
-  - Rust: toml_datetime 1.1.2+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml 1.2.1+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml_datetime 1.1.3+spec-1.1.0 — MIT OR Apache-2.0
   - Rust: toml_edit 0.19.15 — MIT OR Apache-2.0
   - Rust: toml_edit 0.20.2 — MIT OR Apache-2.0
-  - Rust: toml_edit 0.25.17+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml_edit 0.25.19+spec-1.1.0 — MIT OR Apache-2.0
   - Rust: toml_parser 1.1.5+spec-1.1.0 — MIT OR Apache-2.0
-  - Rust: toml_writer 1.1.3+spec-1.1.0 — MIT OR Apache-2.0
+  - Rust: toml_writer 1.2.0+spec-1.1.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) Individual contributors
 
@@ -11576,7 +11558,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[140/229] MIT · 文件：LICENSE-MIT
+[139/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: idna_adapter 1.2.2 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -11606,7 +11588,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[141/229] MIT · 文件：LICENSE-MIT
+[140/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: ipnet 2.12.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11618,7 +11600,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[142/229] MIT · 文件：LICENSE-MIT
+[141/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: crypto-common 0.1.7 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11648,7 +11630,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[143/229] MIT · 文件：LICENSE-MIT
+[142/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: web-time 1.1.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11674,9 +11656,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[144/229] MIT · 文件：LICENSE-MIT
+[143/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: libc 0.2.190 — MIT OR Apache-2.0
+  - Rust: libc 0.2.191 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) The Rust Project Developers
 
@@ -11704,7 +11686,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[145/229] MIT · 文件：LICENSE-MIT
+[144/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: serialize-to-javascript 0.1.2 — MIT OR Apache-2.0
   - Rust: serialize-to-javascript-impl 0.1.2 — MIT OR Apache-2.0
@@ -11731,13 +11713,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[146/229] MIT · 文件：LICENSE-MIT
+[145/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: core-foundation 0.10.1 — MIT OR Apache-2.0
   - Rust: core-foundation-sys 0.8.7 — MIT OR Apache-2.0
   - Rust: core-graphics 0.25.0 — MIT OR Apache-2.0
   - Rust: core-graphics-types 0.2.0 — MIT OR Apache-2.0
+  - Rust: string_cache 0.11.0 — MIT OR Apache-2.0
   - Rust: string_cache 0.9.0 — MIT OR Apache-2.0
+  - Rust: string_cache_codegen 0.11.2 — MIT OR Apache-2.0
   - Rust: string_cache_codegen 0.6.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2012-2013 Mozilla Foundation
@@ -11766,7 +11750,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[147/229] MIT · 文件：LICENSE-MIT
+[146/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: swift-rs 1.0.9 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11790,7 +11774,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[148/229] MIT · 文件：LICENSE-MIT
+[147/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: signal-hook-registry 1.4.8 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -11820,7 +11804,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[149/229] MIT · 文件：LICENSE-MIT
+[148/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: json-patch 4.2.0 — MIT/Apache-2.0
 ------------------------------------------------------------------------------
@@ -11846,7 +11830,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[150/229] MIT · 文件：LICENSE-MIT
+[149/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: dirs 7.0.0 — MIT OR Apache-2.0
   - Rust: dirs-sys 0.5.0 — MIT OR Apache-2.0
@@ -11871,16 +11855,46 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[151/229] MIT · 文件：LICENSE-MIT
+[150/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: crypto-common 0.2.2 — MIT OR Apache-2.0
+------------------------------------------------------------------------------
+Copyright (c) 2021-2026 RustCrypto Developers
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+[151/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: bitflags 1.3.2 — MIT/Apache-2.0
   - Rust: bitflags 2.13.2 — MIT OR Apache-2.0
   - Rust: glob 0.3.4 — MIT OR Apache-2.0
-  - Rust: log 0.4.34 — MIT OR Apache-2.0
+  - Rust: log 0.4.35 — MIT OR Apache-2.0
   - Rust: num-traits 0.2.19 — MIT OR Apache-2.0
-  - Rust: regex 1.13.1 — MIT OR Apache-2.0
-  - Rust: regex-automata 0.4.18 — MIT OR Apache-2.0
-  - Rust: regex-syntax 0.8.11 — MIT OR Apache-2.0
+  - Rust: regex 1.13.2 — MIT OR Apache-2.0
+  - Rust: regex-automata 0.4.19 — MIT OR Apache-2.0
+  - Rust: regex-syntax 0.8.12 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2014 The Rust Project Developers
 
@@ -11908,7 +11922,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[152/229] MIT · 文件：LICENSE-MIT
+[152/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: heck 0.4.1 — MIT OR Apache-2.0
   - Rust: heck 0.5.0 — MIT OR Apache-2.0
@@ -11940,7 +11954,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[153/229] MIT · 文件：LICENSE-MIT
+[153/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: jni-sys 0.3.1 — MIT OR Apache-2.0
   - Rust: jni-sys 0.4.1 — MIT OR Apache-2.0
@@ -11965,7 +11979,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[154/229] MIT · 文件：LICENSE-MIT
+[154/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: lock_api 0.4.14 — MIT OR Apache-2.0
   - Rust: parking_lot 0.12.5 — MIT OR Apache-2.0
@@ -11998,9 +12012,11 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[155/229] MIT · 文件：LICENSE-MIT
+[155/236] MIT · 文件：LICENSE-MIT
 使用方：
+  - Rust: bit-set 0.11.1 — Apache-2.0 OR MIT
   - Rust: bit-set 0.8.0 — Apache-2.0 OR MIT
+  - Rust: bit-vec 0.10.2 — Apache-2.0 OR MIT
   - Rust: bit-vec 0.8.0 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2023 The Rust Project Developers
@@ -12029,7 +12045,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[156/229] MIT · 文件：LICENSE-MIT
+[156/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: jsonptr 0.7.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12055,7 +12071,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[157/229] MIT · 文件：LICENSE-MIT
+[157/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: form_urlencoded 1.2.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12085,7 +12101,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[158/229] MIT · 文件：LICENSE-MIT
+[158/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: idna 1.1.0 — MIT OR Apache-2.0
   - Rust: percent-encoding 2.3.2 — MIT OR Apache-2.0
@@ -12117,7 +12133,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[159/229] MIT · 文件：LICENSE-MIT
+[159/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: foreign-types 0.5.0 — MIT/Apache-2.0
   - Rust: foreign-types-macros 0.2.4 — MIT/Apache-2.0
@@ -12143,9 +12159,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[160/229] MIT · 文件：LICENSE-MIT
+[160/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: smallvec 1.16.3 — MIT OR Apache-2.0
+  - Rust: smallvec 1.16.6 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2018 The Servo Project Developers
 
@@ -12173,7 +12189,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[161/229] MIT · 文件：LICENSE-MIT
+[161/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: embed_plist 1.2.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12199,7 +12215,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[162/229] MIT · 文件：LICENSE-MIT
+[162/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: winapi 0.3.9 — MIT/Apache-2.0
 ------------------------------------------------------------------------------
@@ -12223,7 +12239,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[163/229] MIT · 文件：LICENSE-MIT
+[163/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: enumflags2 0.7.12 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12253,11 +12269,14 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[164/229] MIT · 文件：LICENSE-MIT
+[164/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: html5ever 0.39.0 — MIT OR Apache-2.0
+  - Rust: html5ever 0.40.1 — MIT OR Apache-2.0
   - Rust: markup5ever 0.39.0 — MIT OR Apache-2.0
+  - Rust: markup5ever 0.40.0 — MIT OR Apache-2.0
   - Rust: web_atoms 0.2.6 — MIT OR Apache-2.0
+  - Rust: web_atoms 0.3.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 Copyright (c) 2014 The html5ever Project Developers
 
@@ -12285,7 +12304,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[165/229] MIT · 文件：LICENSE-MIT
+[165/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: proc-macro-error 1.0.4 — MIT OR Apache-2.0
   - Rust: proc-macro-error-attr 1.0.4 — MIT OR Apache-2.0
@@ -12312,10 +12331,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[166/229] MIT · 文件：LICENSE-MIT
+[166/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: base64 0.21.7 — MIT OR Apache-2.0
-  - Rust: base64 0.22.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 
@@ -12339,7 +12357,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[167/229] MIT · 文件：LICENSE-MIT
+[167/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: async-broadcast 0.7.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12365,7 +12383,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[168/229] MIT · 文件：LICENSE-MIT
+[168/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: android_system_properties 0.1.6 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12390,14 +12408,14 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[169/229] MIT · 文件：LICENSE-MIT
+[169/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: aho-corasick 1.1.5 — Unlicense OR MIT
   - Rust: byteorder 1.5.0 — Unlicense OR MIT
-  - Rust: jiff 0.2.38 — Unlicense OR MIT
-  - Rust: jiff-core 0.1.1 — Unlicense OR MIT
-  - Rust: jiff-static 0.2.38 — Unlicense OR MIT
-  - Rust: jiff-tzdb 0.1.9 — Unlicense OR MIT
+  - Rust: jiff 0.2.46 — Unlicense OR MIT
+  - Rust: jiff-core 0.1.8 — Unlicense OR MIT
+  - Rust: jiff-static 0.2.46 — Unlicense OR MIT
+  - Rust: jiff-tzdb 0.1.10 — Unlicense OR MIT
   - Rust: jiff-tzdb-platform 0.1.3 — Unlicense OR MIT
   - Rust: memchr 2.8.3 — Unlicense OR MIT
   - Rust: walkdir 2.5.0 — Unlicense/MIT
@@ -12424,7 +12442,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[170/229] MIT · 文件：LICENSE-MIT
+[170/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: same-file 1.0.6 — Unlicense/MIT
   - Rust: winapi-util 0.1.11 — Unlicense OR MIT
@@ -12451,7 +12469,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[171/229] MIT · 文件：LICENSE-MIT
+[171/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: block-buffer 0.10.4 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12481,7 +12499,37 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[172/229] MIT · 文件：LICENSE-MIT
+[172/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: block-buffer 0.12.1 — MIT OR Apache-2.0
+------------------------------------------------------------------------------
+Copyright (c) 2018-2025 The RustCrypto Project Developers
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+[173/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: cpufeatures 0.2.17 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12511,7 +12559,68 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[173/229] MIT · 文件：LICENSE-MIT
+[174/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: const-oid 0.10.3 — Apache-2.0 OR MIT
+  - Rust: cpufeatures 0.3.1 — MIT OR Apache-2.0
+------------------------------------------------------------------------------
+Copyright (c) 2020-2026 The RustCrypto Project Developers
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+[175/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: hybrid-array 0.4.15 — MIT OR Apache-2.0
+------------------------------------------------------------------------------
+Copyright (c) 2022-2026 The RustCrypto Project Developers
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+[176/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: bs58 0.5.1 — MIT/Apache-2.0
 ------------------------------------------------------------------------------
@@ -12536,7 +12645,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[174/229] MIT · 文件：LICENSE-MIT
+[177/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: typenum 1.20.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12562,7 +12671,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[175/229] MIT · 文件：LICENSE-MIT
+[178/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: version_check 0.9.5 — MIT/Apache-2.0
 ------------------------------------------------------------------------------
@@ -12586,19 +12695,19 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[176/229] MIT · 文件：LICENSE-MIT, LICENSE_MIT
+[179/236] MIT · 文件：LICENSE-MIT, LICENSE_MIT
 使用方：
-  - JavaScript: @tauri-apps/api 2.12.3 — Apache-2.0 OR MIT
-  - Rust: tauri 2.12.3 — Apache-2.0 OR MIT
-  - Rust: tauri-build 2.7.2 — Apache-2.0 OR MIT
-  - Rust: tauri-codegen 2.7.2 — Apache-2.0 OR MIT
-  - Rust: tauri-macros 2.7.2 — Apache-2.0 OR MIT
-  - Rust: tauri-plugin-dialog 2.8.3 — Apache-2.0 OR MIT
+  - JavaScript: @tauri-apps/api 2.12.5 — Apache-2.0 OR MIT
+  - Rust: tauri 2.12.7 — Apache-2.0 OR MIT
+  - Rust: tauri-build 2.7.6 — Apache-2.0 OR MIT
+  - Rust: tauri-codegen 2.7.6 — Apache-2.0 OR MIT
+  - Rust: tauri-macros 2.7.6 — Apache-2.0 OR MIT
+  - Rust: tauri-plugin-dialog 2.8.4 — Apache-2.0 OR MIT
   - Rust: tauri-plugin-fs 2.7.1 — Apache-2.0 OR MIT
-  - Rust: tauri-plugin-opener 2.7.1 — Apache-2.0 OR MIT
-  - Rust: tauri-runtime 2.12.1 — Apache-2.0 OR MIT
-  - Rust: tauri-runtime-wry 2.12.1 — Apache-2.0 OR MIT
-  - Rust: tauri-utils 2.10.1 — Apache-2.0 OR MIT
+  - Rust: tauri-plugin-opener 2.7.3 — Apache-2.0 OR MIT
+  - Rust: tauri-runtime 2.12.4 — Apache-2.0 OR MIT
+  - Rust: tauri-runtime-wry 2.12.5 — Apache-2.0 OR MIT
+  - Rust: tauri-utils 2.10.4 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 MIT License
 
@@ -12622,7 +12731,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[177/229] MIT · 文件：LICENSE-MIT
+[180/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: tao-macros 0.1.4 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12648,7 +12757,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[178/229] MIT · 文件：LICENSE-MIT
+[181/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: cookie 0.18.2 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12679,7 +12788,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[179/229] MIT · 文件：LICENSE-MIT
+[182/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: shlex 2.0.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12705,7 +12814,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[180/229] MIT · 文件：LICENSE-MIT
+[183/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: base64 0.23.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12731,7 +12840,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[181/229] MIT · 文件：LICENSE-MIT
+[184/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: futures-channel 0.3.34 — MIT OR Apache-2.0
   - Rust: futures-core 0.3.34 — MIT OR Apache-2.0
@@ -12769,7 +12878,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[182/229] MIT · 文件：LICENSE-MIT
+[185/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: scopeguard 1.2.0 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12799,9 +12908,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[183/229] MIT · 文件：LICENSE-MIT
+[186/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: crc32fast 1.5.2 — MIT OR Apache-2.0
+  - Rust: crc32fast 1.5.5 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 MIT License
 
@@ -12825,7 +12934,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[184/229] MIT · 文件：LICENSE-MIT
+[187/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: crossbeam-channel 0.5.17 — MIT OR Apache-2.0
   - Rust: crossbeam-utils 0.8.23 — MIT OR Apache-2.0
@@ -12858,7 +12967,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[185/229] MIT · 文件：LICENSE-MIT
+[188/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: field-offset 0.3.6 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -12884,7 +12993,52 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[186/229] MIT · 文件：LICENSE-MIT
+[189/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: static_vcruntime 3.0.0 — MIT OR Apache-2.0 OR Zlib
+------------------------------------------------------------------------------
+MIT License
+
+Copyright (c) 2021 Chris Denton.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice (including the next paragraph) shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[190/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: digest 0.11.3 — MIT OR Apache-2.0
+------------------------------------------------------------------------------
+Copyright (c) 2017-2025 RustCrypto Developers
+Copyright (c) 2017 Artyom Pavlov
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+[191/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: jni 0.21.1 — MIT/Apache-2.0
 ------------------------------------------------------------------------------
@@ -12910,7 +13064,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[187/229] MIT · 文件：LICENSE-MIT
+[192/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: dbus 0.9.12 — Apache-2.0/MIT
   - Rust: libdbus-sys 0.2.7 — Apache-2.0/MIT
@@ -12935,7 +13089,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[188/229] MIT · 文件：LICENSE-MIT
+[193/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: window-vibrancy 0.8.1 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -12961,7 +13115,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[189/229] MIT · 文件：LICENSE-MIT
+[194/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: muda 0.20.0 — Apache-2.0 OR MIT
   - Rust: tray-icon 0.25.1 — MIT OR Apache-2.0
@@ -12988,7 +13142,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[190/229] MIT · 文件：LICENSE-MIT
+[195/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: libappindicator 0.9.0 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -13015,7 +13169,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[191/229] MIT · 文件：LICENSE-MIT
+[196/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: bytemuck 1.25.2 — Zlib OR Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -13029,9 +13183,9 @@ The above copyright notice and this permission notice (including the next paragr
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[192/229] MIT · 文件：LICENSE-MIT
+[197/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: wry 0.57.0 — Apache-2.0 OR MIT
+  - Rust: wry 0.57.3 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 MIT License
 
@@ -13055,7 +13209,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[193/229] MIT · 文件：LICENSE-MIT
+[198/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: hex 0.4.3 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -13080,7 +13234,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[194/229] MIT · 文件：LICENSE-MIT
+[199/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: getrandom 0.3.4 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -13111,7 +13265,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[195/229] MIT · 文件：LICENSE-MIT
+[200/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: getrandom 0.4.3 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -13142,7 +13296,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[196/229] MIT · 文件：license-mit
+[201/236] MIT · 文件：license-mit
 使用方：
   - Rust: windows 0.62.2 — MIT OR Apache-2.0
   - Rust: windows-collections 0.3.2 — MIT OR Apache-2.0
@@ -13155,27 +13309,17 @@ DEALINGS IN THE SOFTWARE.
   - Rust: windows-result 0.4.1 — MIT OR Apache-2.0
   - Rust: windows-strings 0.5.1 — MIT OR Apache-2.0
   - Rust: windows-sys 0.45.0 — MIT OR Apache-2.0
-  - Rust: windows-sys 0.60.2 — MIT OR Apache-2.0
   - Rust: windows-sys 0.61.2 — MIT OR Apache-2.0
   - Rust: windows-targets 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows-targets 0.53.5 — MIT OR Apache-2.0
   - Rust: windows-threading 0.2.1 — MIT OR Apache-2.0
   - Rust: windows-version 0.1.7 — MIT OR Apache-2.0
   - Rust: windows_aarch64_gnullvm 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_aarch64_gnullvm 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_aarch64_msvc 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_aarch64_msvc 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_i686_gnu 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_i686_gnu 0.53.1 — MIT OR Apache-2.0
-  - Rust: windows_i686_gnullvm 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_i686_msvc 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_i686_msvc 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_x86_64_gnu 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_x86_64_gnu 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_x86_64_gnullvm 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_x86_64_gnullvm 0.53.1 — MIT OR Apache-2.0
   - Rust: windows_x86_64_msvc 0.42.2 — MIT OR Apache-2.0
-  - Rust: windows_x86_64_msvc 0.53.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 MIT License
 
@@ -13199,7 +13343,7 @@ MIT License
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 
-[197/229] MIT · 文件：LICENSE-MIT
+[202/236] MIT · 文件：LICENSE-MIT
 使用方：
   - Rust: sha2 0.10.9 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -13231,9 +13375,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[198/229] MIT · 文件：LICENSE-MIT
+[203/236] MIT · 文件：LICENSE-MIT
 使用方：
-  - Rust: uuid 1.28.0 — Apache-2.0 OR MIT
+  - Rust: uuid 1.29.3 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2014 The Rust Project Developers
 Copyright (c) 2018 Ashley Mannix, Christopher Armstrong, Dylan DPC, Hunar Roop Kahlon
@@ -13262,7 +13406,40 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
-[199/229] MIT · 文件：LICENSE-MIT.md
+[204/236] MIT · 文件：LICENSE-MIT
+使用方：
+  - Rust: sha2 0.11.1 — MIT OR Apache-2.0
+------------------------------------------------------------------------------
+Copyright (c) 2016-2026 The RustCrypto Project Developers
+Copyright (c) 2016 Artyom Pavlov
+Copyright (c) 2009-2013 Mozilla Foundation
+Copyright (c) 2006-2009 Graydon Hoare
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+[205/236] MIT · 文件：LICENSE-MIT.md
 使用方：
   - Rust: raw-window-handle 0.6.2 — MIT OR Apache-2.0 OR Zlib
 ------------------------------------------------------------------------------
@@ -13288,7 +13465,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[200/229] MIT · 文件：LICENSE-MIT.md
+[206/236] MIT · 文件：LICENSE-MIT.md
 使用方：
   - Rust: quick-xml 0.42.0 — MIT
 ------------------------------------------------------------------------------
@@ -13316,7 +13493,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[201/229] MIT · 文件：LICENSE-MIT.md
+[207/236] MIT · 文件：LICENSE-MIT.md
 使用方：
   - Rust: miniz_oxide 0.8.9 — MIT OR Zlib OR Apache-2.0
   - Rust: miniz_oxide 0.9.1 — MIT OR Zlib OR Apache-2.0
@@ -13346,7 +13523,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[202/229] MIT · 文件：LICENSE.md
+[208/236] MIT · 文件：LICENSE.md
 使用方：
   - Rust: simd-adler32 0.3.10 — MIT
 ------------------------------------------------------------------------------
@@ -13372,9 +13549,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[203/229] MIT · 文件：LICENSE.md
+[209/236] MIT · 文件：LICENSE.md
 使用方：
-  - Rust: open 5.4.4 — MIT
+  - Rust: open 5.4.5 — MIT
 ------------------------------------------------------------------------------
 The MIT License (MIT)
 =====================
@@ -13402,9 +13579,9 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-[204/229] MIT · 文件：LICENSE.MIT
+[210/236] MIT · 文件：LICENSE.MIT
 使用方：
-  - Rust: brotli 9.0.0 — BSD-3-Clause AND MIT
+  - Rust: brotli 9.1.3 — BSD-3-Clause AND MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.
 
@@ -13426,11 +13603,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[205/229] BSD-3-Clause · 文件：LICENSE, LICENSE.BSD-3-Clause
+[211/236] BSD-3-Clause · 文件：LICENSE, LICENSE.BSD-3-Clause
 使用方：
   - Rust: alloc-no-stdlib 3.0.0 — BSD-3-Clause
-  - Rust: brotli 9.0.0 — BSD-3-Clause AND MIT
-  - Rust: brotli-decompressor 6.0.1 — BSD-3-Clause/MIT
+  - Rust: brotli 9.1.3 — BSD-3-Clause AND MIT
+  - Rust: brotli-decompressor 6.3.2 — BSD-3-Clause/MIT
 ------------------------------------------------------------------------------
 Copyright (c) 2016 Dropbox, Inc.
 All rights reserved.
@@ -13445,9 +13622,9 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[206/229] BSD-3-Clause · 文件：LICENSE
+[212/236] BSD-3-Clause · 文件：LICENSE
 使用方：
-  - JavaScript: source-map-js 1.2.2 — BSD-3-Clause
+  - JavaScript: source-map-js 1.2.3 — BSD-3-Clause
 ------------------------------------------------------------------------------
 Copyright (c) 2009-2011, Mozilla Foundation and contributors
 All rights reserved.
@@ -13477,7 +13654,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[207/229] BSD-3-Clause · 文件：LICENSE-BSD
+[213/236] BSD-3-Clause · 文件：LICENSE-BSD
 使用方：
   - Rust: num_enum 0.7.6 — BSD-3-Clause OR MIT OR Apache-2.0
   - Rust: num_enum_derive 0.7.6 — BSD-3-Clause OR MIT OR Apache-2.0
@@ -13510,7 +13687,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[208/229] BSD-2-Clause · 文件：LICENSE
+[214/236] BSD-2-Clause · 文件：LICENSE
 使用方：
   - JavaScript: entities 7.0.1 — BSD-2-Clause
 ------------------------------------------------------------------------------
@@ -13526,7 +13703,7 @@ Redistributions in binary form must reproduce the above copyright notice, this l
 THIS IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[209/229] Zlib · 文件：LICENSE
+[215/236] Zlib · 文件：LICENSE
 使用方：
   - Rust: zlib-rs 0.6.8 — Zlib
 ------------------------------------------------------------------------------
@@ -13550,7 +13727,7 @@ freely, subject to the following restrictions:
 
 3. This notice may not be removed or altered from any source distribution.
 
-[210/229] Zlib · 文件：LICENSE
+[216/236] Zlib · 文件：LICENSE
 使用方：
   - Rust: foldhash 0.2.0 — Zlib
 ------------------------------------------------------------------------------
@@ -13574,7 +13751,23 @@ the following restrictions:
 
 3. This notice may not be removed or altered from any source distribution.
 
-[211/229] Zlib · 文件：LICENSE-ZLIB, LICENSE-ZLIB.md
+[217/236] Zlib · 文件：LICENSE-ZLIB
+使用方：
+  - Rust: static_vcruntime 3.0.0 — MIT OR Apache-2.0 OR Zlib
+------------------------------------------------------------------------------
+Copyright (c) 2021 Chris Denton.
+
+This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held liable for any damages arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it and redistribute it freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+
+[218/236] Zlib · 文件：LICENSE-ZLIB, LICENSE-ZLIB.md
 使用方：
   - Rust: bytemuck 1.25.2 — Zlib OR Apache-2.0 OR MIT
   - Rust: tinyvec 1.13.3 — Zlib OR Apache-2.0 OR MIT
@@ -13591,7 +13784,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 3. This notice may not be removed or altered from any source distribution.
 
-[212/229] Zlib · 文件：LICENSE-ZLIB.md
+[219/236] Zlib · 文件：LICENSE-ZLIB.md
 使用方：
   - Rust: raw-window-handle 0.6.2 — MIT OR Apache-2.0 OR Zlib
 ------------------------------------------------------------------------------
@@ -13607,7 +13800,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 3. This notice may not be removed or altered from any source distribution.
 
-[213/229] Zlib · 文件：LICENSE-ZLIB.md
+[220/236] Zlib · 文件：LICENSE-ZLIB.md
 使用方：
   - Rust: miniz_oxide 0.8.9 — MIT OR Zlib OR Apache-2.0
   - Rust: miniz_oxide 0.9.1 — MIT OR Zlib OR Apache-2.0
@@ -13627,7 +13820,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 3. This notice may not be removed or altered from any source distribution.
 
-[214/229] ISC · 文件：LICENSE
+[221/236] ISC · 文件：LICENSE
 使用方：
   - Rust: libloading 0.7.4 — ISC
 ------------------------------------------------------------------------------
@@ -13644,7 +13837,7 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF 
 NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 
-[215/229] ISC · 文件：LICENSE
+[222/236] ISC · 文件：LICENSE
 使用方：
   - JavaScript: picocolors 1.1.1 — ISC
 ------------------------------------------------------------------------------
@@ -13664,7 +13857,7 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-[216/229] 0BSD · 文件：LICENSE-0BSD
+[223/236] 0BSD · 文件：LICENSE-0BSD
 使用方：
   - Rust: adler2 2.0.1 — 0BSD OR MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -13681,7 +13874,7 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
 AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
 OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-[217/229] CC0-1.0 · 文件：LICENSE
+[224/236] CC0-1.0 · 文件：LICENSE
 使用方：
   - Rust: dunce 1.0.5 — CC0-1.0 OR MIT-0 OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -13807,26 +14000,26 @@ express Statement of Purpose.
     party to this document and has no duty or obligation with respect to
     this CC0 or use of the Work.
 
-[218/229] Unicode-3.0 · 文件：LICENSE
+[225/236] Unicode-3.0 · 文件：LICENSE
 使用方：
-  - Rust: icu_collections 2.3.0 — Unicode-3.0
-  - Rust: icu_locale_core 2.3.0 — Unicode-3.0
-  - Rust: icu_normalizer 2.3.0 — Unicode-3.0
-  - Rust: icu_normalizer_data 2.3.0 — Unicode-3.0
-  - Rust: icu_properties 2.3.0 — Unicode-3.0
-  - Rust: icu_properties_data 2.3.0 — Unicode-3.0
-  - Rust: icu_provider 2.3.1 — Unicode-3.0
+  - Rust: icu_collections 2.4.0 — Unicode-3.0
+  - Rust: icu_locale_core 2.4.0 — Unicode-3.0
+  - Rust: icu_normalizer 2.4.0 — Unicode-3.0
+  - Rust: icu_normalizer_data 2.4.0 — Unicode-3.0
+  - Rust: icu_properties 2.4.0 — Unicode-3.0
+  - Rust: icu_properties_data 2.4.0 — Unicode-3.0
+  - Rust: icu_provider 2.4.0 — Unicode-3.0
   - Rust: litemap 0.8.3 — Unicode-3.0
   - Rust: potential_utf 0.1.6 — Unicode-3.0
-  - Rust: tinystr 0.8.4 — Unicode-3.0
+  - Rust: tinystr 0.8.5 — Unicode-3.0
   - Rust: writeable 0.6.4 — Unicode-3.0
-  - Rust: yoke 0.8.3 — Unicode-3.0
+  - Rust: yoke 0.8.4 — Unicode-3.0
   - Rust: yoke-derive 0.8.4 — Unicode-3.0
   - Rust: zerofrom 0.1.8 — Unicode-3.0
   - Rust: zerofrom-derive 0.1.8 — Unicode-3.0
   - Rust: zerotrie 0.2.5 — Unicode-3.0
-  - Rust: zerovec 0.11.8 — Unicode-3.0
-  - Rust: zerovec-derive 0.11.6 — Unicode-3.0
+  - Rust: zerovec 0.11.9 — Unicode-3.0
+  - Rust: zerovec-derive 0.11.7 — Unicode-3.0
 ------------------------------------------------------------------------------
 UNICODE LICENSE V3
 
@@ -13875,7 +14068,7 @@ SPDX-License-Identifier: Unicode-3.0
 Portions of ICU4X may have been adapted from ICU4C and/or ICU4J.
 ICU 1.8.1 to ICU 57.1 © 1995-2016 International Business Machines Corporation and others.
 
-[219/229] Unicode-3.0 · 文件：LICENSE-UNICODE
+[226/236] Unicode-3.0 · 文件：LICENSE-UNICODE
 使用方：
   - Rust: unicode-ident 1.0.27 — (MIT OR Apache-2.0) AND Unicode-3.0
 ------------------------------------------------------------------------------
@@ -13919,14 +14112,14 @@ not be used in advertising or otherwise to promote the sale, use or other
 dealings in these Data Files or Software without prior written
 authorization of the copyright holder.
 
-[220/229] Other · 文件：COPYING
+[227/236] Other · 文件：COPYING
 使用方：
   - Rust: aho-corasick 1.1.5 — Unlicense OR MIT
   - Rust: byteorder 1.5.0 — Unlicense OR MIT
-  - Rust: jiff 0.2.38 — Unlicense OR MIT
-  - Rust: jiff-core 0.1.1 — Unlicense OR MIT
-  - Rust: jiff-static 0.2.38 — Unlicense OR MIT
-  - Rust: jiff-tzdb 0.1.9 — Unlicense OR MIT
+  - Rust: jiff 0.2.46 — Unlicense OR MIT
+  - Rust: jiff-core 0.1.8 — Unlicense OR MIT
+  - Rust: jiff-static 0.2.46 — Unlicense OR MIT
+  - Rust: jiff-tzdb 0.1.10 — Unlicense OR MIT
   - Rust: jiff-tzdb-platform 0.1.3 — Unlicense OR MIT
   - Rust: memchr 2.8.3 — Unlicense OR MIT
   - Rust: same-file 1.0.6 — Unlicense/MIT
@@ -13937,15 +14130,21 @@ This project is dual-licensed under the Unlicense and MIT licenses.
 
 You may use this code under the terms of either license.
 
-[221/229] Other · 文件：LICENSE
+[228/236] Other · 文件：LICENSE
 使用方：
   - Rust: typenum 1.20.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
 MIT OR Apache-2.0
 
-[222/229] Other · 文件：LICENSE.spdx
+[229/236] Other · 文件：LICENSE
 使用方：
-  - Rust: tao 0.37.1 — Apache-2.0
+  - Rust: static_vcruntime 3.0.0 — MIT OR Apache-2.0 OR Zlib
+------------------------------------------------------------------------------
+MIT OR Apache-2.0 OR Zlib
+
+[230/236] Other · 文件：LICENSE.spdx
+使用方：
+  - Rust: tao 0.37.3 — Apache-2.0
 ------------------------------------------------------------------------------
 SPDXVersion: SPDX-2.1
 DataLicense: CC0-1.0
@@ -13966,7 +14165,7 @@ PackageDownloadLocation: git+https://github.com/tauri-apps/tao.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/tao.git
 Creator: Person: Daniel Thompson-Yvetot
 
-[223/229] Other · 文件：LICENSE.spdx
+[231/236] Other · 文件：LICENSE.spdx
 使用方：
   - Rust: muda 0.20.0 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -13990,7 +14189,7 @@ PackageDownloadLocation: git+https://github.com/tauri-apps/muda.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/muda.git
 Creator: Person: Daniel Thompson-Yvetot
 
-[224/229] Other · 文件：LICENSE.spdx
+[232/236] Other · 文件：LICENSE.spdx
 使用方：
   - Rust: tray-icon 0.25.1 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -14014,9 +14213,9 @@ PackageDownloadLocation: git+https://github.com/tauri-apps/tray-icon.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/tray-icon.git
 Creator: Person: Daniel Thompson-Yvetot
 
-[225/229] Other · 文件：LICENSE.spdx
+[233/236] Other · 文件：LICENSE.spdx
 使用方：
-  - Rust: wry 0.57.0 — Apache-2.0 OR MIT
+  - Rust: wry 0.57.3 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 SPDXVersion: SPDX-2.1
 DataLicense: CC0-1.0
@@ -14039,7 +14238,7 @@ PackageDownloadLocation: git+https://github.com/tauri-apps/wry.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/wry.git
 Creator: Person: Daniel Thompson-Yvetot
 
-[226/229] Other · 文件：LICENSE.spdx
+[234/236] Other · 文件：LICENSE.spdx
 使用方：
   - Rust: window-vibrancy 0.8.1 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
@@ -14063,7 +14262,7 @@ PackageDownloadLocation: git+https://github.com/tauri-apps/window-vibrancy.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/window-vibrancy.git
 Creator: Person: Daniel Thompson-Yvetot
 
-[227/229] Other · 文件：LICENSE.spdx
+[235/236] Other · 文件：LICENSE.spdx
 使用方：
   - Rust: tao-macros 0.1.4 — MIT OR Apache-2.0
 ------------------------------------------------------------------------------
@@ -14087,12 +14286,12 @@ PackageDownloadLocation: git+https://github.com/tauri-apps/tao.git
 PackageDownloadLocation: git+ssh://github.com/tauri-apps/tao.git
 Creator: Person: Daniel Thompson-Yvetot
 
-[228/229] Other · 文件：LICENSE.spdx
+[236/236] Other · 文件：LICENSE.spdx
 使用方：
-  - JavaScript: @tauri-apps/plugin-opener 2.7.1 — MIT OR Apache-2.0
-  - Rust: tauri-plugin-dialog 2.8.3 — Apache-2.0 OR MIT
+  - JavaScript: @tauri-apps/plugin-opener 2.7.3 — MIT OR Apache-2.0
+  - Rust: tauri-plugin-dialog 2.8.4 — Apache-2.0 OR MIT
   - Rust: tauri-plugin-fs 2.7.1 — Apache-2.0 OR MIT
-  - Rust: tauri-plugin-opener 2.7.1 — Apache-2.0 OR MIT
+  - Rust: tauri-plugin-opener 2.7.3 — Apache-2.0 OR MIT
 ------------------------------------------------------------------------------
 SPDXVersion: SPDX-2.1
 DataLicense: CC0-1.0
@@ -14103,31 +14302,6 @@ PackageHomePage: https://tauri.app
 PackageLicenseDeclared: Apache-2.0
 PackageLicenseDeclared: MIT
 PackageCopyrightText: 2019-2022, The Tauri Programme in the Commons Conservancy
-PackageSummary: <text>Tauri is a rust project that enables developers to make secure
-and small desktop applications using a web frontend.
-                </text>
-PackageComment: <text>The package includes the following libraries; see
-Relationship information.
-                </text>
-Created: 2019-05-20T09:00:00Z
-PackageDownloadLocation: git://github.com/tauri-apps/tauri
-PackageDownloadLocation: git+https://github.com/tauri-apps/tauri.git
-PackageDownloadLocation: git+ssh://github.com/tauri-apps/tauri.git
-Creator: Person: Daniel Thompson-Yvetot
-
-[229/229] Other · 文件：LICENSE.spdx
-使用方：
-  - JavaScript: @tauri-apps/api 2.12.3 — Apache-2.0 OR MIT
-------------------------------------------------------------------------------
-SPDXVersion: SPDX-2.1
-DataLicense: CC0-1.0
-PackageName: tauri
-DataFormat: SPDXRef-1
-PackageSupplier: Organization: The Tauri Programme in the Commons Conservancy
-PackageHomePage: https://tauri.app
-PackageLicenseDeclared: Apache-2.0
-PackageLicenseDeclared: MIT
-PackageCopyrightText: 2019-2025, The Tauri Programme in the Commons Conservancy
 PackageSummary: <text>Tauri is a rust project that enables developers to make secure
 and small desktop applications using a web frontend.
                 </text>
@@ -14154,7 +14328,6 @@ Creator: Person: Daniel Thompson-Yvetot
 - Rust: alloc-stdlib 0.3.0 — 声明 BSD-3-Clause；Copyright: Daniel Reiter Horn <danielrh@dropbox.com>；仓库: https://github.com/dropbox/rust-alloc-no-stdlib
 - Rust: block2 0.6.2 — 声明 MIT；Copyright: Mads Marquart <mads@marquart.dk>；仓库: https://github.com/madsmtm/objc2
 - Rust: cesu8 1.1.0 — 声明 Apache-2.0/MIT；Copyright: Eric Kidd <git@randomhacks.net>；仓库: https://github.com/emk/cesu8-rs
-- Rust: defmt-parser 1.0.0 — 声明 MIT OR Apache-2.0；Copyright: The Knurling-rs developers；仓库: https://github.com/knurling-rs/defmt
 - Rust: dispatch2 0.3.1 — 声明 Zlib OR Apache-2.0 OR MIT；Copyright: Mads Marquart <mads@marquart.dk>; Mary <mary@mary.zone>；仓库: https://github.com/madsmtm/objc2
 - Rust: dlopen2 0.8.2 — 声明 MIT；Copyright: Szymon Wieloch <szymon.wieloch@gmail.com>; Ahmed Masud <ahmed.masud@saf.ai>; OpenByte <development.openbyte@gmail.com>；仓库: https://github.com/OpenByteDev/dlopen2
 - Rust: dlopen2_derive 0.4.3 — 声明 MIT；Copyright: Szymon Wieloch <szymon.wieloch@gmail.com>; OpenByte <development.openbyte@gmail.com>；仓库: https://github.com/OpenByteDev/dlopen2
@@ -14183,7 +14356,8 @@ Creator: Person: Daniel Thompson-Yvetot
 - Rust: r-efi 5.3.0 — 声明 MIT OR Apache-2.0 OR LGPL-2.1-or-later；Copyright: 见上游仓库 https://github.com/r-efi/r-efi；仓库: https://github.com/r-efi/r-efi
 - Rust: r-efi 6.0.0 — 声明 MIT OR Apache-2.0 OR LGPL-2.1-or-later；Copyright: 见上游仓库 https://github.com/r-efi/r-efi；仓库: https://github.com/r-efi/r-efi
 - Rust: selectors 0.38.0 — 声明 MPL-2.0；Copyright: The Servo Project Developers；仓库: https://github.com/servo/stylo
-- Rust: tauri-plugin 2.7.1 — 声明 Apache-2.0 OR MIT；Copyright: Tauri Programme within The Commons Conservancy；仓库: https://github.com/tauri-apps/tauri
+- Rust: selectors 0.41.0 — 声明 MPL-2.0；Copyright: The Servo Project Developers；仓库: https://github.com/servo/stylo
+- Rust: tauri-plugin 2.7.4 — 声明 Apache-2.0 OR MIT；Copyright: Tauri Programme within The Commons Conservancy；仓库: https://github.com/tauri-apps/tauri
 - Rust: webview2-com 0.39.1 — 声明 MIT；Copyright: 见上游仓库 https://github.com/wravery/webview2-rs；仓库: https://github.com/wravery/webview2-rs
 - Rust: webview2-com-macros 0.8.1 — 声明 MIT；Copyright: 见上游仓库 https://github.com/wravery/webview2-rs；仓库: https://github.com/wravery/webview2-rs
 - Rust: webview2-com-sys 0.39.1 — 声明 MIT；Copyright: 见上游仓库 https://github.com/wravery/webview2-rs；仓库: https://github.com/wravery/webview2-rs
@@ -14191,11 +14365,11 @@ Creator: Person: Daniel Thompson-Yvetot
 - Rust: winapi-x86_64-pc-windows-gnu 0.4.0 — 声明 MIT/Apache-2.0；Copyright: Peter Atashian <retep998@gmail.com>；仓库: https://github.com/retep998/winapi-rs
 
 --- 2.2 只有许可标识/SPDX 指针（1 项） ---
-- JavaScript: @tauri-apps/plugin-opener 2.7.1 — 声明 MIT OR Apache-2.0；Copyright: 2019-2022, The Tauri Programme in the Commons Conservancy；仓库: https://github.com/tauri-apps/plugins-workspace#readme
+- JavaScript: @tauri-apps/plugin-opener 2.7.3 — 声明 MIT OR Apache-2.0；Copyright: 2019-2022, The Tauri Programme in the Commons Conservancy；仓库: https://github.com/tauri-apps/plugins-workspace#readme
 
 --- 2.3 按所选许可转载的完整正文 ---
 
-===== MPL-2.0（用于 1 个包） =====
+===== MPL-2.0（用于 2 个包） =====
 各包版权行见 2.1/2.2 的列表；以下为该项目所选许可的完整正文。
 
 Mozilla Public License Version 2.0
@@ -14572,7 +14746,7 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
 
-===== MIT（用于 37 个包） =====
+===== MIT（用于 36 个包） =====
 各包版权行见 2.1/2.2 的列表；以下为该项目所选许可的完整正文。
 
 Permission is hereby granted, free of charge, to any
@@ -14616,10 +14790,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 3. 生成与复核说明
 ==============================================================================
 
-- Rust registry 包：461 个
+- Rust registry 包：472 个
 - 生产 JavaScript 依赖：27 个
-- 自带许可文件的依赖：450 个
-- 去重后的许可文本：229 份
+- 自带许可文件的依赖：461 个
+- 去重后的许可文本：236 份
 - 包内无许可文件：38 个
 - 只有许可标识/SPDX 指针、无完整正文：1 个
 - 以上按所选许可补全：39 个

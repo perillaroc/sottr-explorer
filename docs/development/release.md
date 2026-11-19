@@ -33,6 +33,14 @@ v0.1.x 只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
   默认 token 权限，需在 Settings → Actions 中允许写权限；
 - 日常检查由 `.github/workflows/ci.yml` 负责，发布工作流只负责构建与上传。
 
+## 依赖审计
+
+发布前运行 `cargo audit`，并在 `apps/desktop` 与 `docs` 各运行 `pnpm audit`：
+
+- 高危/严重项必须处理；无法升级的项要写明范围（例如仅开发期工具、仅 Linux 目标）与理由；
+- 只做 patch/minor 升级；Tauri、Vue、Vite、Tailwind 等大版本单独评估；
+- 依赖变化后重新生成许可文件（见发布前检查第 8 步）。
+
 ## 发布前检查
 
 1. `cargo test`、`cargo clippy --all-targets -- -D warnings`；

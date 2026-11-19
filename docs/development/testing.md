@@ -15,6 +15,7 @@
 | Python 参照 | `python -m unittest discover -s research/save-inspector/tests -v` | 标准库 | 29 项，含可选真实样本 |
 | 文档站 | `cd docs && pnpm docs:build` | Node | 构建失败包含死链 |
 | 文档一致性 | `cd docs && pnpm docs:check` | Node | errors.md 错误码与 glossary 枚举值对照源码与 schema |
+| 依赖审计 | `cargo audit`；`cd apps/desktop && pnpm audit`；`cd docs && pnpm audit` | 网络（RustSec / npm） | 漏洞与撤回；生产与开发依赖分开看 |
 
 ## 跳过不是通过
 

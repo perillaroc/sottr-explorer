@@ -68,9 +68,9 @@ MIT **不覆盖**以下内容，它们各自保留原权利与条款，不因本
 依赖的完整清单（包名、版本、`license` 字段）只在随应用分发的
 [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt) 中维护，由脚本生成：
 
-- Rust registry 包 **461 个**（不含本仓库 workspace 包），全部带 `license` 字段；
+- Rust registry 包 **472 个**（不含本仓库 workspace 包），全部带 `license` 字段；
 - **生产** JavaScript 依赖 **27 个**，全部带 `license` 字段；
-- 其中 **450 个**包自带 LICENSE/COPYING/NOTICE 文件；去重后 **229 份**许可文本；
+- 其中 **461 个**包自带 LICENSE/COPYING/NOTICE 文件；去重后 **236 份**许可文本；
 - **38 个**包在本地 registry / node_modules 中没有许可文件，另有 **1 个**包只有
   SPDX 指针；这些按项目所选许可转载完整正文（优先 MIT，其次 Apache-2.0、BSD、ISC、
   Zlib、MPL-2.0），并附包元数据作者或 SPDX 版权行。
