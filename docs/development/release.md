@@ -21,7 +21,7 @@
 
 ## 分发形态
 
-v0.1.x 只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
+当前版本线（v0.x）只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
 
 - `apps/desktop/src-tauri/tauri.conf.json` 的 `bundle.active` 为 `false`，
   `pnpm tauri build` 只输出 `target/release/sottr-desktop.exe`；

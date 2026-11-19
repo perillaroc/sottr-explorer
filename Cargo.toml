@@ -11,7 +11,7 @@ members = [
 default-members = ["crates/sottr-core", "crates/sottr-cli", "crates/sottr-platform"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 
 [workspace.dependencies]

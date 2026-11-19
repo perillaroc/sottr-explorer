@@ -1,5 +1,5 @@
 SOTTR Explorer — 第三方组件与许可通知（离线副本）
-版本：0.1.0    生成：apps/desktop/scripts/build_notices.py
+版本：0.2.0    生成：apps/desktop/scripts/build_notices.py
 
 支持范围：Windows Steam 普通战役存档的只读分析；全收集（100%）目录与缺失清单。
 

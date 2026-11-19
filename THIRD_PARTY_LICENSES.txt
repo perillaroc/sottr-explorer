@@ -1,5 +1,5 @@
 SOTTR Explorer — 第三方依赖许可全文（离线副本）
-版本：0.1.0    生成：apps/desktop/scripts/build_notices.py
+版本：0.2.0    生成：apps/desktop/scripts/build_notices.py
 
 本文件随应用内嵌分发，并在「关于」页内展开查看。
 包内自带的许可文本按内容去重；同一文本的多个依赖列在同一节。
