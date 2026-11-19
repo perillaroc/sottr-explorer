@@ -358,6 +358,11 @@ onBeforeUnmount(() => {
     data-testid="app-root"
     :data-layout="layout"
   >
+    <a
+      class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-control focus:border focus:border-line focus:bg-surface focus:px-3 focus:py-2 focus:text-sm focus:text-ink focus:shadow-lg"
+      href="#main-content"
+      data-testid="skip-link"
+    >{{ t("app.skip-to-content") }}</a>
     <MockBanner v-if="store.state.sourceKind === 'mock'" />
     <AppTopBar />
 
@@ -365,7 +370,7 @@ onBeforeUnmount(() => {
       <AppSidebar v-if="layout !== 'narrow' && !showNarrowDetail" :expanded="sidebarExpanded" />
 
       <div class="relative flex min-h-0 min-w-0 flex-1">
-        <main class="flex min-h-0 min-w-0 flex-1 flex-col">
+        <main id="main-content" tabindex="-1" class="flex min-h-0 min-w-0 flex-1 flex-col focus:outline-none">
           <CoverageNotice
             v-if="inputWatchAlert"
             class="mx-3 mt-3"

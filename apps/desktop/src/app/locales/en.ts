@@ -39,6 +39,7 @@ export const en: Partial<Record<MessageKey, string>> = {
   "app.later": "Later",
   "app.refresh": "Refresh",
   "app.resize-details-drag-arrow-keys-or-double": "Resize details (drag, arrow keys, or double-click to reset)",
+  "app.skip-to-content": "Skip to content",
   "app.the-current-save-has-changed": "The current save has changed",
   "app.the-current-save-is-no-longer": "The current save is no longer at its path",
   "app.the-current-save-is-temporarily-unreadable": "The current save is temporarily unreadable",

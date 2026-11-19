@@ -133,6 +133,17 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 - 生命周期：关闭详情窗口不取消主窗口在飞分析；关闭主窗口会一并关闭详情窗口并退出应用。
 - 限制：payload 是打开时快照；主窗口刷新后弹窗不自动更新，需重新打开；弹窗不切换主题/语言/搜索引擎（按打开时状态生成）。
 
+## 辅助技术
+
+- **跳到正文**：首个 Tab 焦点是 `#main-content` 链接，`main` 带 `tabindex="-1"`。
+- **名称与标签**：可交互控件都有可访问名称；单选框/复选项由 `<label>` 包裹；图标 `aria-hidden`。
+- **焦点**：抽屉/对话框 `role="dialog"` + 名称，焦点进入、Tab 循环、Esc 关闭并回到触发元素。
+- **对比度与高对比度**：焦点环为 2px `outline`；`@media (forced-colors: active)` 下当前导航项、
+  选中清单行与选中地图标签改用系统 `Highlight` 轮廓。
+- **地图**：标记与缩放按钮有名称；键盘/读屏等价路径是右栏「清单」标签页。
+- **回归**：`tests/accessibility.spec.ts`、`layout-focus.spec.ts`、`theme-contrast.spec.ts`；
+  Narrator 与系统高对比度的人工步骤见 `docs/development/accessibility.md`。
+
 ## 端到端测试
 
 1. **命令层（Rust，真实夹具）**：`SOTTR_DESKTOP_E2E_INPUT`/`_OUT`（必需）、
@@ -153,4 +164,4 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 - 地图点位只是同子关卡内的**相对位置参考**，不是导航路线；多数底图是近似校准（全局误差估计）。
 - 地图覆盖不完整：291/470 条可上图；3 个特殊区域与 41 个无底图子关卡请在区域清单查看。
 - 详情弹窗 payload 为打开时快照（不含完整路径、证据与诊断数据）；刷新后需重新打开。
-- 真实 WebView2 的动态详情窗口、关闭联动与偏好重启保留已在界面美化阶段六验收；原生文件选择器、外部浏览器打开、Windows 系统 DPI / 高对比度与辅助技术实测仍属 SX-017；应用图标已更新（SX-018）。
+- 真实 WebView2 的动态详情窗口、关闭联动与偏好重启保留已在界面美化阶段六验收；原生文件选择器、外部浏览器打开、Windows 系统 DPI 已按阶段六记录；Narrator 与系统高对比度的人工走查与 P5-2 合并，自动化部分见 `docs/development/accessibility.md`；应用图标已更新（SX-018）。

@@ -72,6 +72,7 @@ export default defineConfig({
             { text: '架构总览', link: '/development/architecture' },
             { text: '数据管线', link: '/development/data-pipeline' },
             { text: '界面语言与文案', link: '/development/i18n' },
+            { text: '辅助技术与无障碍', link: '/development/accessibility' },
             { text: '安全模型', link: '/development/security' },
             { text: '已知限制', link: '/development/limitations' },
           ],

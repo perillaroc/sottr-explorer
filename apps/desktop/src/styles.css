@@ -197,6 +197,21 @@ body {
   outline-offset: 2px;
 }
 
+/* Windows 高对比度（forced-colors）：底色与阴影会被系统覆盖，
+   选中态改用系统 Highlight 轮廓表达，避免只剩文字颜色差异。 */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+
+  .ui-row-selected,
+  [aria-current="page"],
+  [aria-selected="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

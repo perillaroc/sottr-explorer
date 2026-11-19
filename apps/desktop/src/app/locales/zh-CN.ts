@@ -39,6 +39,7 @@ export const zhCN = {
   "app.later": "稍后",
   "app.refresh": "刷新",
   "app.resize-details-drag-arrow-keys-or-double": "调整详情宽度（拖动、方向键或双击复位）",
+  "app.skip-to-content": "跳到正文",
   "app.the-current-save-has-changed": "当前存档已更新",
   "app.the-current-save-is-no-longer": "当前存档已不在原位置",
   "app.the-current-save-is-temporarily-unreadable": "当前存档暂时不可读",
