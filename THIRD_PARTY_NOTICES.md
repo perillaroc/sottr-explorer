@@ -119,7 +119,7 @@ py -3 apps/desktop/scripts/build_notices.py
 
 站点 About 页（<https://www.spriters-resource.com/page/about/>）写明素材供
 「personal projects and non-commercial work」。本项目据此以**非商业**方式随包分发
-处理后的 WebP（`data/map/maps/`，42 张，约 48 MB），`sources[*].redistributable`
+处理后的 WebP（`data/map/maps/`，42 张，约 28 MB），`sources[*].redistributable`
 记为 `allowed`；原始 PNG 不入库。
 
 素材版权仍归原权利人。**商业用途需另行取得许可**，MIT 许可不延伸至这些图片。

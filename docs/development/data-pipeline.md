@@ -38,7 +38,7 @@ data/catalog/guidance.json + data/map/basemaps.json
 | `data/catalog/guidance.json` | 手工维护（项目原创文字） | 图鉴合集/区域/子关卡与底图 unit 集合 | 仅 `build_catalog.py` / `guidance.py` / `check_guidance.py` | 由 `guidance.py` 校验 | 否（只把合并结果写进图鉴） |
 | `data/metadata/{collectibles,region_counters,reference_sets}.json` | `data/metadata/build_metadata.py` | `research/save-inspector/data/*` + 图鉴 + `data/catalog/guides.json` | Rust `session.rs`（编译期嵌入）、CLI `--metadata`、测试 | `schemas/metadata.schema.json` | 是（`include_str!`） |
 | `data/catalog/guides.json` | 手工维护（逐条攻略核对） | 元数据 `sources` + 条目 ID + 来源页定位 | 仅 `build_metadata.py` / `check_guides.py` | `schemas/guides.schema.json` | 否（verified item 引用合并进元数据） |
-| `data/map/basemaps.json` + `data/map/maps/*.webp` | 开发工作区的地图处理脚本 | 地图图集 + 游戏内地图定义 | 前端、Rust 加载器 | `schemas/basemap.schema.json` | 是（42 张，约 48 MB） |
+| `data/map/basemaps.json` + `data/map/maps/*.webp` | 开发工作区的地图处理脚本 | 地图图集 + 游戏内地图定义 | 前端、Rust 加载器 | `schemas/basemap.schema.json` | 是（42 张，约 28 MB） |
 | `research/game-data/data/*.json` | `research/game-data/build_derived_tables.py` | 仓库外提取物 | 仅 `build_catalog.py` | 无独立 schema | 否 |
 | `research/save-inspector/data/*.json` | 研究包转录 | 研究交接包 | `build_metadata.py`、`build_catalog.py` | 无独立 schema | 否 |
 | `fixtures/contract/*` | 手工维护 | — | Rust 契约测试、Node 校验、前端模拟数据 | `schemas/*.schema.json` | 否 |

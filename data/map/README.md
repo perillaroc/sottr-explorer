@@ -42,7 +42,11 @@ P2-1 底图校准报告。
 
 ## 图片位置
 
-图片**随包分发**（D4 = A）：处理后放在 `data/map/maps/*.webp`，共 42 张、约 48 MB。
+图片**随包分发**（D4 = A）：处理后放在 `data/map/maps/*.webp`，共 42 张、约 28 MB。
+
+2026-11-19（P4-2）把长边 4096 的 17 张底图缩到 2048（WebP q90），其余 25 张保持原样；
+`image_width/height`、变换矩阵、哈希与字节数已同步。`median/p95/max_error_px` 仍以**当前图片像素**
+为单位：实测条目按 0.5 线性折算，`approximate` 的全局估计值不变；与图片对角线的比例口径不变。
 
 - `image_root.kind = bundled`，`image_root.path = data/map`；`image` 是相对它的 `maps/<名称>.webp`；
 - 开发期由 Vite 中间件把 `/basemaps/maps/*` 映射到该目录，构建期作为 asset 输出到 `dist/basemaps/maps/`；

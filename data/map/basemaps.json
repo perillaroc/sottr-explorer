@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "basemap_version": "0.1.0",
-  "generated": "2026-11-17 by build_basemaps.py",
+  "generated": "2026-11-17 by build_basemaps.py；2026-11-19 P4-2 长边 4096→2048（q90）",
   "image_root": {
     "kind": "bundled",
     "path": "data/map",
@@ -10,7 +10,8 @@
   "notes": [
     "坐标空间：图鉴 position 为每单位归一化 [0,1]，原点在取景框西北角，y 向下增大。",
     "变换为恒等比例：u = x*W, v = y*H，不含平移/旋转/缩放参数。",
-    "status=calibrated 表示有逐单位抽样验证且满足 D5 门槛；approximate 表示未逐单位验证。"
+    "status=calibrated 表示有逐单位抽样验证且满足 D5 门槛；approximate 表示未逐单位验证。",
+    "2026-11-19 P4-2：长边 4096 的 17 张底图缩至 2048；实测误差字段按 0.5 线性折算，approximate 的全局估计值不变。"
   ],
   "sources": {
     "src:spriters-map-502127": {
@@ -537,16 +538,16 @@
       "level_drm": "ch_chamber_of_heaven",
       "source_sheet": "24601",
       "image": "maps/ch_chamber_of_heaven.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -567,8 +568,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "94e6c5cc1ac9abd1ae991f0e8f9f670d7aa7e1ef82b1e9fe08d22f89857f8b9d",
-      "image_bytes": 2625888
+      "image_sha256": "faab1d7f82679e756786d46a8d8fc5dd2374b98bba19a222684dae52f9836176",
+      "image_bytes": 975032
     },
     "bm:trial_of_the_eagle/1072": {
       "basemap_id": "bm:trial_of_the_eagle/1072",
@@ -625,16 +626,16 @@
       "level_drm": "dd_day_of_the_dead_010",
       "source_sheet": "24603",
       "image": "maps/dd_day_of_the_dead_010.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -655,8 +656,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "6c76f85ae2ac954dc75658b0228008245cb8d9fa1d3d49bbd896aa8656937e44",
-      "image_bytes": 2519056
+      "image_sha256": "b7bed72dc8d59fc503bbcf58ef2353865d25db032628cf6a0799a402eaa12483",
+      "image_bytes": 815762
     },
     "bm:cozumel/3744": {
       "basemap_id": "bm:cozumel/3744",
@@ -669,16 +670,16 @@
       "level_drm": "dd_day_of_the_dead_020",
       "source_sheet": "24604",
       "image": "maps/dd_day_of_the_dead_020.webp",
-      "image_width": 2048,
-      "image_height": 4096,
+      "image_width": 1024,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
+          1024.0,
+          0.0,
+          0.0,
+          0.0,
           2048.0,
-          0.0,
-          0.0,
-          0.0,
-          4096.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -699,8 +700,8 @@
       "max_error_px": 36.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "af9a52255194a054f41a9cafba0a37acc60f2ca151c9c365f72e3ee743afd98e",
-      "image_bytes": 1583370
+      "image_sha256": "a6130d677b217fa2871295ba3c304f3abf3af2e1280f0a4f2278512963ce7e66",
+      "image_bytes": 693366
     },
     "bm:cozumel/648": {
       "basemap_id": "bm:cozumel/648",
@@ -713,16 +714,16 @@
       "level_drm": "dd_day_of_the_dead_030",
       "source_sheet": "24605",
       "image": "maps/dd_day_of_the_dead_030.webp",
-      "image_width": 2048,
-      "image_height": 4096,
+      "image_width": 1024,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
+          1024.0,
+          0.0,
+          0.0,
+          0.0,
           2048.0,
-          0.0,
-          0.0,
-          0.0,
-          4096.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -738,13 +739,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 2.28,
-      "p95_error_px": 5.91,
-      "max_error_px": 6.09,
+      "median_error_px": 1.14,
+      "p95_error_px": 2.96,
+      "max_error_px": 3.04,
       "error_source": "measured",
       "validation_samples": 5,
-      "image_sha256": "9a84a0816cd27307f71435795c9c69a7293fa14754d107314c36fa6e2c64130a",
-      "image_bytes": 1259510
+      "image_sha256": "e3615500f7b4c87cb79033737dd7aa09a50afcc69f9faade46b55d6c814facb1",
+      "image_bytes": 503426
     },
     "bm:cozumel/982": {
       "basemap_id": "bm:cozumel/982",
@@ -757,16 +758,16 @@
       "level_drm": "dd_day_of_the_dead_040",
       "source_sheet": "24606",
       "image": "maps/dd_day_of_the_dead_040.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -782,13 +783,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 7.65,
-      "p95_error_px": 10.61,
-      "max_error_px": 11.18,
+      "median_error_px": 3.83,
+      "p95_error_px": 5.3,
+      "max_error_px": 5.59,
       "error_source": "measured",
       "validation_samples": 5,
-      "image_sha256": "6a37727329989fb9bce4eb59bbe9c47bed19330460b3ad4fc5c8049feeb514b9",
-      "image_bytes": 2391492
+      "image_sha256": "198bf1ce4242932db8c1e7d31c1a0d743ea0ca107e2aea40eabcbbd1bcea7812",
+      "image_bytes": 952532
     },
     "bm:cozumel/940": {
       "basemap_id": "bm:cozumel/940",
@@ -801,16 +802,16 @@
       "level_drm": "dd_day_of_the_dead_050",
       "source_sheet": "24607",
       "image": "maps/dd_day_of_the_dead_050.webp",
-      "image_width": 4096,
-      "image_height": 2048,
+      "image_width": 2048,
+      "image_height": 1024,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
-          0.0,
-          0.0,
-          0.0,
           2048.0,
+          0.0,
+          0.0,
+          0.0,
+          1024.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -831,8 +832,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "f083f3cb87b56c2588aa289c79509c3f306a3b356d191f67799db00d6cd1eacc",
-      "image_bytes": 1120740
+      "image_sha256": "e023eb02171938f0f4284fa0f939b1d9fb60d8064a3107c6189bee0af58139b2",
+      "image_bytes": 410386
     },
     "bm:head_of_the_serpent/4028": {
       "basemap_id": "bm:head_of_the_serpent/4028",
@@ -933,16 +934,16 @@
       "level_drm": "hv_hollow_village_v2_02",
       "source_sheet": "24610",
       "image": "maps/hv_hollow_village_02.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -958,13 +959,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 14.04,
-      "p95_error_px": 29.76,
-      "max_error_px": 32.38,
+      "median_error_px": 7.02,
+      "p95_error_px": 14.88,
+      "max_error_px": 16.19,
       "error_source": "measured",
       "validation_samples": 5,
-      "image_sha256": "fe5ce57ed9b78063e8d278e3348506c501c4e39904ef3e728faad01e5df5f5b8",
-      "image_bytes": 1992038
+      "image_sha256": "323359a6af1e90677a629863629bf54e8fd2fa7e315fc6099a2010d2b7253cb7",
+      "image_bytes": 716102
     },
     "bm:kuwaq_yaku/4026": {
       "basemap_id": "bm:kuwaq_yaku/4026",
@@ -1109,16 +1110,16 @@
       "level_drm": "lj_lost_in_the_jungle_v2_02",
       "source_sheet": "24614",
       "image": "maps/lj_lost_in_the_jungle_020.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1134,13 +1135,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 5.05,
-      "p95_error_px": 15.25,
-      "max_error_px": 20.82,
+      "median_error_px": 2.52,
+      "p95_error_px": 7.62,
+      "max_error_px": 10.41,
       "error_source": "measured",
       "validation_samples": 13,
-      "image_sha256": "7037609090375fc2da961f6a8117e2553e0bb0393babb5419caf7d2ccceec496",
-      "image_bytes": 3326412
+      "image_sha256": "8ba07fe4f6d727d762edab4cb7dd560207629fa53e1bf52ec184611f4c66c7cf",
+      "image_bytes": 1471548
     },
     "bm:peruvian_jungle/672": {
       "basemap_id": "bm:peruvian_jungle/672",
@@ -1153,16 +1154,16 @@
       "level_drm": "lj_lost_in_the_jungle_v2_03",
       "source_sheet": "24615",
       "image": "maps/lj_lost_in_the_jungle_030.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1178,13 +1179,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 4.1,
-      "p95_error_px": 10.14,
-      "max_error_px": 11.06,
+      "median_error_px": 2.05,
+      "p95_error_px": 5.07,
+      "max_error_px": 5.53,
       "error_source": "measured",
       "validation_samples": 8,
-      "image_sha256": "8364ef1c31a0021c357e596f095d555fee1ac5f3620c72c89e1208ebd4121c3f",
-      "image_bytes": 3018722
+      "image_sha256": "1b44ef97e9495827507486ff45feefb3e74528c81eccc6f77c2c212ce921dbb2",
+      "image_bytes": 1446386
     },
     "bm:peruvian_jungle/2486": {
       "basemap_id": "bm:peruvian_jungle/2486",
@@ -1197,16 +1198,16 @@
       "level_drm": "lj_lost_in_the_jungle_v2_04",
       "source_sheet": "24616",
       "image": "maps/lj_lost_in_the_jungle_040.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1222,13 +1223,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 4.61,
-      "p95_error_px": 10.1,
-      "max_error_px": 11.22,
+      "median_error_px": 2.31,
+      "p95_error_px": 5.05,
+      "max_error_px": 5.61,
       "error_source": "measured",
       "validation_samples": 8,
-      "image_sha256": "daf587f7deb5fe43cdc4ebbfbb356619d8a4ba0e8f02994341dfdf396ce186b9",
-      "image_bytes": 3127428
+      "image_sha256": "793430bdc01b7c4640819cb68f67e5ec3a5eb73c471b60c7dc406d970f6f2044",
+      "image_bytes": 1474888
     },
     "bm:peruvian_jungle/667": {
       "basemap_id": "bm:peruvian_jungle/667",
@@ -1241,16 +1242,16 @@
       "level_drm": "lj_lost_in_the_jungle_v2_connector_out",
       "source_sheet": "24617",
       "image": "maps/lj_lost_in_the_jungle_connector_out.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1271,8 +1272,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "9104be6f594a7f69fa6c8a2859cd73becb7389cd77b8cf74f36d5d316d2e4813",
-      "image_bytes": 2976126
+      "image_sha256": "baa7955583078b76c27dc4eff14ed3a19304b32224354efe75721e2d8a583ab4",
+      "image_bytes": 1304520
     },
     "bm:cenote/1307": {
       "basemap_id": "bm:cenote/1307",
@@ -1462,16 +1463,16 @@
       "level_drm": "pa_hub_paititi_middle_island",
       "source_sheet": "24623",
       "image": "maps/pa_hub_paititi_middle_island.webp",
-      "image_width": 2048,
-      "image_height": 4096,
+      "image_width": 1024,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
+          1024.0,
+          0.0,
+          0.0,
+          0.0,
           2048.0,
-          0.0,
-          0.0,
-          0.0,
-          4096.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1487,13 +1488,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 2.96,
-      "p95_error_px": 7.53,
-      "max_error_px": 8.06,
+      "median_error_px": 1.48,
+      "p95_error_px": 3.77,
+      "max_error_px": 4.03,
       "error_source": "measured",
       "validation_samples": 15,
-      "image_sha256": "89a91c1000392028143962881a655a98c0fffdace3b3727f2f0f0bb91021471e",
-      "image_bytes": 638324
+      "image_sha256": "72b9c6a180f371166f1dd0b549136ffcc20f1895ca9aa6689ffbf97c2b54488e",
+      "image_bytes": 246484
     },
     "bm:paititi/243": {
       "basemap_id": "bm:paititi/243",
@@ -1506,16 +1507,16 @@
       "level_drm": "pa_hub_paititi",
       "source_sheet": "24624",
       "image": "maps/Paititi_Hub.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1531,13 +1532,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 6.19,
-      "p95_error_px": 35.87,
-      "max_error_px": 141.67,
+      "median_error_px": 3.1,
+      "p95_error_px": 17.93,
+      "max_error_px": 70.83,
       "error_source": "measured",
       "validation_samples": 84,
-      "image_sha256": "eb84afcafb87f998c311ece062ca36898970f2e6de8f364929c01c569dcffd85",
-      "image_bytes": 2742072
+      "image_sha256": "15ebcac158bc0eaf402a77c90ada41ab806d8aaeae9514c3cf97e0f98aba4eb8",
+      "image_bytes": 1086104
     },
     "bm:paititi/241": {
       "basemap_id": "bm:paititi/241",
@@ -1550,16 +1551,16 @@
       "level_drm": "pa_hub_paititi_return_02",
       "source_sheet": "24625",
       "image": "maps/pa_hub_paititi_return_02.webp",
-      "image_width": 4096,
-      "image_height": 4096,
+      "image_width": 2048,
+      "image_height": 2048,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
+          2048.0,
           0.0,
           0.0,
           0.0,
-          4096.0,
+          2048.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1575,13 +1576,13 @@
         "note": "变换由 gameflow 取景框解析而来；误差为图鉴条目到最近摆件网格中心的距离（验证上界，不是拟合残差）",
         "date": "2026-11-17"
       },
-      "median_error_px": 7.41,
-      "p95_error_px": 12.13,
-      "max_error_px": 13.03,
+      "median_error_px": 3.71,
+      "p95_error_px": 6.07,
+      "max_error_px": 6.51,
       "error_source": "measured",
       "validation_samples": 14,
-      "image_sha256": "ee3548f0a3e844e9b357e16406747127c0e1319edf0753de838c06e5ccd6187c",
-      "image_bytes": 1943540
+      "image_sha256": "33966516399eda497f4893de67d45593e5e93adb13d1b4f634a07eede5f7f575",
+      "image_bytes": 759056
     },
     "bm:paititi/1070": {
       "basemap_id": "bm:paititi/1070",
@@ -1638,16 +1639,16 @@
       "level_drm": "pl_prologue",
       "source_sheet": "24627",
       "image": "maps/pl_prologue.webp",
-      "image_width": 4096,
-      "image_height": 2048,
+      "image_width": 2048,
+      "image_height": 1024,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
-          0.0,
-          0.0,
-          0.0,
           2048.0,
+          0.0,
+          0.0,
+          0.0,
+          1024.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1668,8 +1669,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "bc14c83340d005255c0118933c5454001a1482fd53e0ba550386283ba329a3b9",
-      "image_bytes": 1024494
+      "image_sha256": "80a099efa53300db7dfd9a0c3f2138daa5b25392194cedcb32022c9a7762b6c0",
+      "image_bytes": 292338
     },
     "bm:mission_of_san_juan/4030": {
       "basemap_id": "bm:mission_of_san_juan/4030",
@@ -1814,16 +1815,16 @@
       "level_drm": "ta_010_volcano",
       "source_sheet": "24633",
       "image": "maps/ta_to_aztlan.webp",
-      "image_width": 4096,
-      "image_height": 2048,
+      "image_width": 2048,
+      "image_height": 1024,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
-          0.0,
-          0.0,
-          0.0,
           2048.0,
+          0.0,
+          0.0,
+          0.0,
+          1024.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1844,8 +1845,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "c72e4ff51f936b25413c52a03ef4e41a0450a1ad41f169010174699f041a3ec2",
-      "image_bytes": 1114268
+      "image_sha256": "61456bf9bff9b7d534619da89d6100c609d8919af1dc344e5a43e14b02bd18b0",
+      "image_bytes": 402376
     },
     "bm:cozumel/631": {
       "basemap_id": "bm:cozumel/631",
@@ -1858,16 +1859,16 @@
       "level_drm": "tf_the_flood",
       "source_sheet": "24637",
       "image": "maps/tf_the_flood.webp",
-      "image_width": 4096,
-      "image_height": 2048,
+      "image_width": 2048,
+      "image_height": 1024,
       "transform": {
         "kind": "affine",
         "matrix": [
-          4096.0,
-          0.0,
-          0.0,
-          0.0,
           2048.0,
+          0.0,
+          0.0,
+          0.0,
+          1024.0,
           0.0
         ],
         "coordinate_y_axis": "down",
@@ -1888,8 +1889,8 @@
       "max_error_px": 72.0,
       "error_source": "global_estimate",
       "validation_samples": 0,
-      "image_sha256": "75accde2364273319677d97eb55dbaa227e802a76e63133c6037e16ec3185ca3",
-      "image_bytes": 1321862
+      "image_sha256": "1dea798e3cc0158b75bde30f8c3a33a7e93e5d13a6f60856e74617f74f0d879d",
+      "image_bytes": 732798
     }
   }
 }
