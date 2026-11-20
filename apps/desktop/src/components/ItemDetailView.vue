@@ -284,18 +284,20 @@ const linkStatusTone = computed(() => {
       <p v-if="hasGuideItems" class="text-xs text-muted" data-testid="guide-locator-note">
         {{ t("itemDetailView.buttons-with-locator-are-manually-checked-use") }}
       </p>
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-2">
         <UiButton
           v-for="link in links"
           :key="link.key"
           size="sm"
           :variant="link.direct ? 'secondary' : 'ghost'"
           :data-testid="link.testId"
+          :title="linkLabel(link)"
+          class="min-w-0"
           @click="emit('open-link', link.actionId)"
         >
-          <ExternalLink v-if="link.direct" :size="16" aria-hidden="true" />
-          <Search v-else :size="16" aria-hidden="true" />
-          {{ linkLabel(link) }}
+          <ExternalLink v-if="link.direct" :size="16" aria-hidden="true" class="shrink-0" />
+          <Search v-else :size="16" aria-hidden="true" class="shrink-0" />
+          <span class="truncate">{{ linkLabel(link) }}</span>
         </UiButton>
       </div>
       <p v-if="activeLink" class="flex flex-wrap items-center gap-2 text-[12px]" :class="linkStatusTone" data-testid="link-status">
