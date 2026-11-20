@@ -61,6 +61,9 @@ jobs:
 
       - name: Build portable exe
         working-directory: apps/desktop
+        env:
+          # 去掉依赖源码中的编译机用户路径（与 SX-018 打包验收口径一致）。
+          RUSTFLAGS: "--remap-path-prefix=C:\\Users\\runneradmin=/user --remap-path-prefix=D:\\a\\sottr-explorer\\sottr-explorer=/src"
         run: pnpm tauri build
 
       - name: Package assets
