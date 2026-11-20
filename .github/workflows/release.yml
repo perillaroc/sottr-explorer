@@ -70,19 +70,42 @@ jobs:
           if (-not $tag.StartsWith("v")) {
             $tag = "dev-$($env:GITHUB_SHA.Substring(0, 7))"
           }
-          $asset = "SOTTR-Explorer-$tag-windows-x64.exe"
-          Copy-Item "target/release/sottr-desktop.exe" $asset
-          $hash = (Get-FileHash $asset -Algorithm SHA256).Hash.ToLower()
-          "$hash *$asset" | Out-File -Encoding ascii "$asset.sha256"
-          Get-Item $asset, "$asset.sha256" | Format-Table Name, Length
+          $base = "SOTTR-Explorer-$tag-windows-x64"
+          $exe = "$base.exe"
+          Copy-Item "target/release/sottr-desktop.exe" $exe
+
+          # Include the exe hash inside the archive; the published .zip.sha256
+          # is the checksum of the archive itself.
+          $exeHash = (Get-FileHash $exe -Algorithm SHA256).Hash.ToLower()
+          "$exeHash *$exe" | Out-File -Encoding ascii "$exe.sha256"
+
+          $stage = Join-Path $PWD "portable"
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          Copy-Item $exe, "$exe.sha256" $stage
+          @(
+            "SOTTR Explorer $tag - Windows x64 portable"
+            ""
+            "1. Extract this archive to any folder."
+            "2. Run $exe."
+            "3. Verify: $exe.sha256 is the SHA-256 of the exe;"
+            "   the .zip.sha256 next to the archive is the SHA-256 of the archive itself."
+            ""
+            "This build is not code-signed. Windows SmartScreen may warn about an unknown publisher."
+          ) | Set-Content -Encoding ascii (Join-Path $stage "README.txt")
+
+          Compress-Archive -Path (Join-Path $stage "*") -DestinationPath "$base.zip" -CompressionLevel Optimal
+          $zipHash = (Get-FileHash "$base.zip" -Algorithm SHA256).Hash.ToLower()
+          "$zipHash *$base.zip" | Out-File -Encoding ascii "$base.zip.sha256"
+
+          Get-Item "$base.zip", "$base.zip.sha256" | Format-Table Name, Length
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: portable-exe
+          name: portable-zip
           path: |
-            SOTTR-Explorer-*-windows-x64.exe
-            SOTTR-Explorer-*-windows-x64.exe.sha256
+            SOTTR-Explorer-*-windows-x64.zip
+            SOTTR-Explorer-*-windows-x64.zip.sha256
           if-no-files-found: error
 
       - name: Create or update GitHub Release
@@ -92,12 +115,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $tag = $env:GITHUB_REF_NAME
-          $asset = "SOTTR-Explorer-$tag-windows-x64.exe"
+          $zip = "SOTTR-Explorer-$tag-windows-x64.zip"
           gh release view $tag 2>$null
           if ($LASTEXITCODE -eq 0) {
-            gh release upload $tag $asset "$asset.sha256" --clobber
+            # Bare exe assets are no longer published; drop them on re-runs.
+            gh release delete-asset $tag "SOTTR-Explorer-$tag-windows-x64.exe" --yes 2>$null
+            gh release delete-asset $tag "SOTTR-Explorer-$tag-windows-x64.exe.sha256" --yes 2>$null
+            gh release upload $tag $zip "$zip.sha256" --clobber
           } else {
-            gh release create $tag $asset "$asset.sha256" `
+            gh release create $tag $zip "$zip.sha256" `
               --title "SOTTR Explorer $tag" `
               --generate-notes `
               --latest

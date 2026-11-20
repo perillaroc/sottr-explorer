@@ -21,10 +21,13 @@
 
 ## 分发形态
 
-当前版本线（v0.x）只提供单文件便携 exe，不生成 MSI/NSIS 安装包：
+当前版本线（v0.x）只提供 zip 打包的单文件便携 exe，不生成 MSI/NSIS 安装包：
 
 - `apps/desktop/src-tauri/tauri.conf.json` 的 `bundle.active` 为 `false`，
   `pnpm tauri build` 只输出 `target/release/sottr-desktop.exe`；
+- 发布工作流把 exe 打成 `SOTTR-Explorer-<tag>-windows-x64.zip`，包内含 exe、exe 的
+  SHA-256 与 `README.txt`，并为压缩包生成 `.zip.sha256`；
+- Release 只上传 zip 与 `.zip.sha256`，不上传裸 exe：下载端拿到的是压缩包，可先校验再解压运行。
 - 产物未签名，Windows SmartScreen 会提示，发布说明必须写明；
 - 运行需要 WebView2：Windows 11 已内置，Windows 10 可能需单独安装；
 - 推送 `v*` tag 会触发 `.github/workflows/release.yml`：在 `windows-latest` 构建单文件 exe，
@@ -54,7 +57,7 @@
    txt 一致；
 9. `cd docs && pnpm docs:build`，确认无死链与一致性错误；
 10. 准备 GitHub Release 的版本说明，确认 `README.md` 的下载链接；
-11. 打并推送 `v*` tag，由 GitHub Actions 构建并创建 Release（产物含 `.exe` 与 `.sha256`）；
+11. 打并推送 `v*` tag，由 GitHub Actions 构建并创建 Release（产物含 `.zip` 与 `.zip.sha256`）；
    文档站由 Netlify 从 `main` 构建。
 
 ## 不随包分发

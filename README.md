@@ -19,9 +19,10 @@
 ## 下载与运行
 
 从 [Releases](https://github.com/perillaroc/sottr-explorer/releases/latest) 下载
-`SOTTR-Explorer-<版本>-windows-x64.exe`，双击运行，无需安装。
+`SOTTR-Explorer-<版本>-windows-x64.zip`，解压后运行其中的 exe，无需安装。
 
-- 仅提供 64 位 Windows 单文件便携版，不提供 MSI/NSIS 安装包；
+- 压缩包内含 exe、exe 的 SHA-256 与简短说明；同目录的 `.zip.sha256` 是压缩包本身的校验和；
+- 仅提供 64 位 Windows 便携版（zip 内为单文件 exe），不提供 MSI/NSIS 安装包；
 - 可执行文件未签名，首次运行可能出现 SmartScreen 提示，选择「更多信息 → 仍要运行」；
 - 需要 WebView2 运行时：Windows 11 已内置；Windows 10 缺失时请从 Microsoft 官网安装；
 - 系统要求与已知限制见[文档站](https://sottr-explorer.netlify.app/guide/getting-started)。
