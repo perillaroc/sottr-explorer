@@ -150,4 +150,4 @@ pnpm tauri dev      # 桌面调试（真实命令；需要 WebView2 与 MSVC 工
 - 地图覆盖不完整：294/470 条可上图；其余子关卡与特殊区域请在区域清单查看。
 - 详情弹窗 payload 为打开时快照（不含完整路径、证据与诊断数据）；刷新后需重新打开。
 - 真实 WebView2 的动态详情窗口、关闭联动与偏好重启已验收；原生文件选择器、外部浏览器打开、
-  DPI、Narrator 与高对比度的结果见 `docs/development/accessibility.md` 与手工验收记录。
+  DPI、Narrator 与高对比度未做正式人工验收，自动化覆盖见 `docs/development/accessibility.md`。

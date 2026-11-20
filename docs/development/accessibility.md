@@ -62,7 +62,7 @@ pnpm build         # vue-tsc + 产物构建
 - 地图平移只有指针操作；键盘与读屏请使用「清单」标签页。
 - 高对比度下底图本身按系统强制色显示（不做 `forced-color-adjust: none`），
   底图细节可能少于常规主题。
-- 真实 Narrator 与系统 DPI 需在 Windows 会话中按上面的清单检查。
+- Narrator 与系统 DPI 未做正式人工验收；上面的清单供需要时逐项检查。
 
 ## 关联文档
 
