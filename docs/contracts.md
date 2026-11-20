@@ -1,4 +1,4 @@
-# 接口契约 1.0.0（SX-003 冻结）
+# 接口契约 1.0.0
 
 本文件描述 sottr-explorer 的版本化接口契约。契约由以下内容共同冻结，任何字段含义、
 枚举或单位的变更都必须升级 `schema_version`（见文末“版本策略”）：
@@ -22,8 +22,8 @@
 - 内部 32 位 ID 固定 `0x` 加 8 位大写十六进制（`^0x[0-9A-F]{8}$`）。
 - 64 位资源/本地化键一律用字符串往返（十进制或 `0x` 十六进制），禁止经 JavaScript Number。
 - 有界字节偏移用整数并附十六进制显示（`offset` + `offset_hex`）；无偏移为 `null`。
-- JSON 拒绝 `NaN`、`Infinity` 与重复键：schema 无法表达这两条，由解析落点任务
-  （SX-004/SX-008/SX-011，验收矩阵 T10）在读取处强制；契约测试以表示规则夹具固定边界。
+- JSON 拒绝 `NaN`、`Infinity` 与重复键：schema 无法表达这两条，由解析落点在读取处强制；
+  契约测试以表示规则夹具固定边界。
 
 ## Report（`schemas/report.schema.json`）
 
@@ -53,7 +53,7 @@
 - `observations.inventory`：`status`、`inventory_complete`、`completeness_scope`、
   `records`、`record_count`、`unique_id_count`、`duplicate_record_count`。完整性只指当前
   parser profile 下表恢复完整，不代表全游戏全集完备；异常 type28 时必须
-  `inventory_complete = false` 且阻断缺席推断（新产品强化规则，见 SX-005/SX-007）。
+  `inventory_complete = false` 且阻断缺席推断（强化规则）。
 - 物品记录保留 `raw_companion_u32`、`raw_companion_hex`、`raw_low_two_bits`、槽号与偏移；
   重复 ID 保留全部原始记录，未知非零 ID 不丢弃，伴随字不赋状态语义。
 
@@ -108,7 +108,7 @@
 - **导出信封** `ExportDocument`：`document_kind = "report_export"`、快照身份、
   `freshness`（不含 `none`）、`last_refresh_error_code`、`input_digest` 与 `report`。
   过期导出的 JSON 文件本身带 stale 标识；CSV 导出以明确列保留同样的快照身份与刷新错误码
-  （列定义见“导出与分享（SX-011）”，已实现并验收）。普通核心 JSON 与导出信封各自有 schema。
+  （列定义见“导出与分享”）。普通核心 JSON 与导出信封各自有 schema。
 
 ## MetadataDataset（`schemas/metadata.schema.json`）
 
@@ -130,9 +130,9 @@
   参考类别合并口径，如贮藏点计数同时对应普通与稀有贮藏点）。缺项不是 0；偏移必须满足
   `0x10BC + 行号 × 104 + 相对偏移` 恒等式且在 4 MiB 战役家族内（加载器强制）。
 - `sources`（URL 仅允许 http/https、固定提交、访问日期、许可、再分发状态、方法、审核）。
-- 许可状态非 `yes` 的来源数据不得进入发布包（SX-018 复核）；元数据不执行脚本、不自动联网更新。
+- 许可状态非 `yes` 的来源数据不得进入发布包（发布前复核）；元数据不执行脚本、不自动联网更新。
 
-### 元数据加载与校验（SX-008）
+### 元数据加载与校验
 
 加载器位于 `crates/sottr-core/src/metadata.rs`，只处理不可变字节、不访问文件系统；
 仓库内数据集在 `data/metadata/`（三个文件作为一组加载，说明见该目录 README）。
@@ -232,7 +232,7 @@ u = x · W          v = y · H
 即：基底层里的 `transform` 与报告里的 `transform_parameters` 是同一对象的两种载体
 （前者已解析，后者为字符串）。
 
-### 状态与精度门槛（D5）
+### 状态与精度门槛
 
 | `status` | 条件 |
 | --- | --- |
@@ -249,7 +249,7 @@ u = x · W          v = y · H
 - JSON Schema：字段集、类型、枚举、矩阵元素个数、状态与误差字段的搭配
   （`if/then` 条件在类型层被丢弃，故必须由加载器执行）。
 - Rust 加载器：键与 `basemap_id` 一致、unit 全局唯一、矩阵等于 `[W,0,0,0,H,0]`、
-  `source_refs` 可解析、D5 门槛、`bundled` 必须带 `image_sha256`。
+  `source_refs` 可解析、精度门槛、`bundled` 必须带 `image_sha256`。
 - 图片存在性、字节数、SHA-256 与 WebP 实际像素尺寸由 `pnpm contract:images`
   （`apps/desktop/scripts/contract/check-basemap-images.mjs`）校验；
   `image_root.kind = bundled` 时直接校验仓库内 `image_root.path`，
@@ -257,7 +257,7 @@ u = x · W          v = y · H
   加载器只接收字节，不读文件系统。
 - `pnpm contract:check` 不含图片校验：图片体积大且可外置，故单独成命令。
 
-## 分析管线与命令行（SX-009）
+## 分析管线与命令行
 
 `crates/sottr-core/src/analyze.rs` 提供同核心分析管线：
 
@@ -302,7 +302,7 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
 
 ## Python v0.2 适配（显式、不升级语义）
 
-`derived_candidates` 通过显式适配器进入契约的观测层（实现于 SX-010），示例见
+`derived_candidates` 通过显式适配器进入契约的观测层，示例见
 `fixtures/contract/adapted/`。规则：
 
 | Python v0.2 | 契约 1.0.0 | 说明 |
@@ -313,7 +313,7 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
 | `reference_presence_differences` | `assessments[]`（`reference_present_current_absent`） | assessment 是否为 `likely_missing` 由规则决定；差集本身不构成评估 |
 | `validated` 旧模型层 | 不映射 | 任何 `candidate_*` 都不得因改名升级为 `validated` / `verified_*` |
 
-## 差分回归（SX-010）
+## 差分回归
 
 `cargo test -p sottr-core --test parity`：Python v0.2（`research/save-inspector/` 参照副本）
 作为正常已知输入的参照，其原始输出保留在输出目录（`report.json`、CSV、日志）；
@@ -330,15 +330,15 @@ sottr-cli analyze --input <文件或目录> --context <campaign|unknown> \
 - 规范化只处理路径（报告不含绝对路径）、键顺序与展示精度；任何状态/完整性差异都记录为差异，
   范围外字段必须在 `scope.excluded` 中有原因（如 `ascii_strings`、两两比较、候选数值解释、
   元数据侧候选名称）。
-- 设计内强化行为（异常 type28 的表不完整与缺席推断阻断，SX-005）以带 `adjudication` 的差异
+- 设计内强化行为（异常 type28 的表不完整与缺席推断阻断）以带 `adjudication` 的差异
   记录；未解释差异使回归失败，不要求复制旧不安全输出。
 - 夹具清单：`tests/parity/fixtures/public_samples.json`（20 个公开战役样本 + 额外条目；由
   `build_public_inventory.py` 从研究包公开证据生成，`--check` 复核）与
   `tests/parity/fixtures/private_samples.json`（五文件期望值；不含哈希，哈希等式由回归断言）。
-- 对照在核心观测层进行（区段流、记录恢复、计数读数、整体读数、参考集合）；SX-009 报告装配
+- 对照在核心观测层进行（区段流、记录恢复、计数读数、整体读数、参考集合）；报告装配
   的对应字段由 `analyze_pipeline` 测试另行固定。
 
-## 导出与分享（SX-011）
+## 导出与分享
 
 核心导出实现于 `crates/sottr-core/src/report/export.rs`（不访问文件系统）；CLI 负责
 目标校验、快照时钟与两阶段写盘。
@@ -375,7 +375,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
   `--format` 控制是否写出 JSON/CSV。输入级错误（不可读/无法分析）退出码 1，
   用法与配置错误退出码 2。
 
-## 桌面后端命令（SX-014）
+## 桌面后端命令
 
 `apps/desktop/src-tauri` 实现 Tauri 最小权限命令层：分析复用
 `analyze_bytes`（同核心）、读取与写盘复用 `sottr-platform`（稳定快照、路径策略、
@@ -399,7 +399,7 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `open_detail_window` | 打开/复用独立详情窗口 | 只接受 ≤2 MiB 的 JSON 对象 payload；先写 Rust 内存再建窗口；已有 `detail` 窗口时聚焦并广播 `detail-payload-updated` |
 | `read_detail_window_payload` | 详情弹窗读取最近一次 payload | 只读 Rust 进程内存（窗口关闭不清除）；不读存档、不落盘 |
 
-请求与快照语义（开发方案 SX-014 的“界面接线补充”）：
+请求与快照语义：
 
 - 每个分析请求以 `request_id` 隔离；同一输入后发起的请求序号更大，晚到的旧结果
   不写入快照存储；前端只提交当前选定请求的结果（按 `request_id` 比对）。
@@ -434,12 +434,12 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 | `valid/metadata.valid.json` | 本地化名 / 仅别名（`unknown`）/ `region_id` 为空 / 同组多 ID / 许可 `pending` / 稀疏计数与参考 ID |
 | `valid/batch.mixed.json` | 合法 + 降级 + 输入错误三结果并存的批量外层 |
 | `valid/desktop-result.{current,stale,other-slot}.json` | 当前快照 / 旧快照（`stale` + 刷新错误）/ 跨槽晚返回 |
-| `valid/desktop-result.cancelled.json` | 取消的无结果信封（`none`，`report`/`error` 均 `null`；SX-014 补齐） |
+| `valid/desktop-result.cancelled.json` | 取消的无结果信封（`none`，`report`/`error` 均 `null`） |
 | `valid/export.stale.json` | 过期导出信封（stale + 最近刷新错误码） |
 | `invalid/*` | 未确立枚举值、`null` 缺原因、`verified_coordinates` 缺坐标、非法链接协议 |
 | `representation/u64-boundary.json`、`u64-as-number.json` | u64 仅字符串往返；数字形式必须被拒绝 |
 | `adapted/*` | Python v0.2 适配输入与输出形状示例 |
-| `crates/sottr-core/tests/parity/fixtures/*.json` | 差分回归夹具清单（SX-010）：私有五文件期望值（不含哈希）与公开 20 样本来源/哈希清单 |
+| `crates/sottr-core/tests/parity/fixtures/*.json` | 差分回归夹具清单：私有五文件期望值（不含哈希）与公开 20 样本来源/哈希清单 |
 | `data/metadata/*.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/metadata.schema.json` 校验；Rust 加载测试另行核对数量、哈希与交叉一致性 |
 | `data/catalog/guides.json`（真实数据） | 由 `pnpm contract:validate` 与 `schemas/guides.schema.json` 校验；`check_guides.py` 另核对条目、来源与覆盖计数 |
 | `valid/basemap.valid.json`、`valid/basemap.minimal.json` | 基底层合法夹具：三种状态、`bundled`/`external` 根目录；同时由 Rust 加载器复核 |
@@ -450,37 +450,32 @@ sottr-cli export --input <文件> --context <campaign|unknown> \
 
 - 变更字段含义、状态枚举或单位 → 升级 `schema_version` 并保留适配说明与迁移段落。
 - 新增字段：本契约为“全字段显式 + 禁止额外字段”，因此新增字段同样属于版本变更；
-  先评审，再升级。SX-008 在契约发布前补全了 `metadata.schema.json` 的
-  `region_counters`、名称种类与参考/组字段（未发布版本内的补齐，`schema_version`
-  保持 `1.0.0`）；此后对元数据 schema 的字段增删同样受本策略约束。
+  先评审，再升级。`metadata.schema.json` 包含 `region_counters`、名称种类与参考/组字段，
+  此后对元数据 schema 的字段增删同样受本策略约束。
 - 适配旧 Python 输出必须通过显式适配器；原始报告可并存以便追溯差异。
-- 未决事项：报告与导出 JSON 的重复键与 `NaN`/`Infinity` 解析级拒绝落点（SX-004/011，T10；
-  元数据侧已由 SX-008 加载器执行）。
-- 元数据内容与来源许可已由 SX-008 落地（`data/metadata/`）；`redistributable`
-  非 `yes` 的来源在 SX-018 发布复核前不得直接打包。
+- 报告与导出 JSON 的重复键与 `NaN`/`Infinity` 由解析级拒绝；元数据侧由加载器执行。
+- 元数据内容与来源许可随 `data/metadata/` 分发；`redistributable` 非 `yes` 的来源
+  不得直接打包。
 
-## 已知限制（本任务未宣称）
+## 已知限制
 
-- 未运行 `pnpm tauri dev` 实机界面；前端仅以类型检查与构建验证可消费性。
-- schema 校验与 Rust 反序列化双层校验为互补证据，而非形式化证明；夹具覆盖的用例见上表，
-  未出现在夹具中的字段组合仍可能在后续任务中暴露问题（发现即修正并升级契约）。
-- `metadata.bad-url.json` 的 URL 协议规则由 JSON Schema 与 SX-008 加载器双层执行
+- schema 校验与 Rust 反序列化双层校验为互补证据，而非形式化证明；夹具未覆盖的字段组合
+  仍可能出现问题（发现即修正并升级契约）。
+- `metadata.bad-url.json` 的 URL 协议规则由 JSON Schema 与加载器双层执行
   （加载器另校验主机名、空白与长度）。
-- SX-008 加载器按“一组文件”校验引用完整性；单独加载三个数据文件之一会因跨文件引用
-  未解析而失败（见 `data/metadata/README.md`）。
-- 元数据计数作用域合计（`counter_scope_totals`）的交叉检查接线已由 SX-009 的组装逻辑
-  完成（见“分析管线与命令行”一节）；作用域比较依赖元数据 `counts_toward` 定义，
+- 加载器按“一组文件”校验引用完整性；单独加载三个数据文件之一会因跨文件引用未解析而失败
+  （见 `data/metadata/README.md`）。
+- 元数据计数作用域合计（`counter_scope_totals`）的交叉检查依赖 `counts_toward` 定义；
   新增或变更合并口径必须重新评审。
-- CLI 的 Windows 路径安全（ACL、符号链接/重解析点、读取竞态与稳定快照）已按
-  SX-012/SX-013 验收（路径策略、稳定快照与受控输出提交见“平台适配层”；
-  桌面后端与 CLI 共用同一实现）。资源上限为默认值（压缩/解压 64 MiB、
-  128 个批量文件），可按后续任务评审调整。
-- 桌面命令层（SX-014）通过 MockRuntime IPC 集成测试
+- CLI 的 Windows 路径安全（ACL、符号链接/重解析点、读取竞态与稳定快照）已实现并通过测试
+  （见“平台适配层”；桌面后端与 CLI 共用同一实现）。资源上限为默认值（压缩/解压 64 MiB、
+  128 个批量文件），可按需调整。
+- 桌面命令层通过 MockRuntime IPC 集成测试
   （`apps/desktop/src-tauri/tests/{ipc_commands,permission_audit}.rs`）；
-  真实 WebView2 启动、CSP 强制、原生选择器与真实浏览器打开留待 SX-017 实机验收。
+  真实 WebView2 下的 CSP、原生选择器与外部浏览器打开见手工验收记录。
 - 桌面元数据以内嵌 `data/metadata` 三文件（编译期）加载，`manifest.json` 哈希由
-  测试对照；CLI 仍通过 `--metadata` 指定目录。运行时替换/独立升级未在 SX-014 开放。
-- 差分回归（SX-010）的样本不随仓库分发：公开 20 样本需按来源恢复（清单与 ZIP/文件哈希
+  测试对照；CLI 仍通过 `--metadata` 指定目录。运行时替换/独立升级未开放。
+- 差分回归的样本不随仓库分发：公开 20 样本需按来源恢复（清单与 ZIP/文件哈希
   见 `tests/parity/fixtures/public_samples.json`），私有五文件仅存在于开发工作站；
   夹具缺失时回归 skip 并记录覆盖缺口，不记为通过。恢复或归档公开样本时保持来源核对，
   不把样本字节提交进仓库。

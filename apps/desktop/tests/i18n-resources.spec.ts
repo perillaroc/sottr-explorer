@@ -1,4 +1,4 @@
-// P4-1 文案资源化：资源完整性、缺失回退与对照模式语义。
+// 文案资源：资源完整性、缺失回退与对照模式语义。
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { en, LANGUAGE_OPTIONS, LOCALES, localeResources, zhCN } from "../src/app/locales";
 import {

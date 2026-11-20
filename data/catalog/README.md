@@ -1,4 +1,4 @@
-# 全收集图鉴（SX-021 阶段 A；SX-022 schema 2.1.0）
+# 全收集图鉴（schema 2.1.0）
 
 `collectibles_catalog.json`：按“全收集（成就/100% 完成度）”口径整理的收集品图鉴，
 也是界面「区域与收集」与 CLI `plan` 的数据源。
@@ -18,9 +18,9 @@
 | `regions` | 26 个游戏区域 + 特殊区域；每条带 `slug` / `name_en` / `name_zh` / `item_count` / `binding`（签名匹配证据）与挑战古墓、营地、挑战、任务目标列表（`missions` 语义未定，不用于缺失） |
 | `items` | 每条：内部候选名 `name`、游戏中英名 `name_en`/`name_zh`、类别、子类别、`region_hash`/`region_slug`、`unit`、`position`（关卡内相对位置，**未校准**）、`is_dlc`、必收标记、`acquisition_note`（中文注记）、`acquisition_note_en`（英文注记）、`acquisition_note_scope`（`item` / `collection` / `unit`）、`acquisition_note_source`（`curated` / `game_data`）；共用 ID 见 `shared_id`/`shared_names` |
 
-## 可选类别与 DLC（P2-4，2026-11-17）
+## 可选类别与 DLC
 
-**D3 已决定：仅展示。** 可选类别与 DLC 都不进入必收 352，也不参与个人完成度。
+**可选类别与 DLC 仅展示。** 它们都不进入必收 352，也不参与个人完成度。
 
 | 可选类别 | 条目 | 参考状态 | 依据 |
 | --- | --- | --- | --- |
@@ -72,7 +72,7 @@ py -3 data/catalog/check_guidance.py
 注记缺失或覆盖下降都会失败。注记为项目原创整理，基于图鉴的合集/区域/子关卡与
 坐标数据推断，未逐条与游戏内核实，不复制第三方攻略原文。
 
-## 逐条攻略映射（P1-1）
+## 逐条攻略映射
 
 `guides.json` 是逐条攻略映射的**创作数据集**：按图鉴条目 ID 记录来源、来源页内的
 定位（页码/分 P/段落）、粒度与核对状态。构建时 `data/metadata/build_metadata.py`
@@ -130,7 +130,7 @@ sottr-cli missing --catalog data/catalog/collectibles_catalog.json `
 3. **坐标未校准**：只作关卡内相对位置；只有所属 unit 有底图时才画地图，
    其余显示散点并配合集/子关卡文字指引。
 4. **获取方式**：`acquisition_rules` 是人工整理的类别通用说明；
-   `items[].acquisition_note` 已为无坐标/无底图的必收条目补合集或子关卡指引（SX-025），
+   `items[].acquisition_note` 已为无坐标/无底图的必收条目补合集或子关卡指引，
    具体触发点仍未逐条与游戏内核实。
 5. **三个特殊区域**（`_challenge_tombs` / `_special` / `croft_manor`）无存档区域计数器，
    单独成组，不参与主区域进度。

@@ -28,7 +28,7 @@
 - 发布工作流把 exe 打成 `SOTTR-Explorer-<tag>-windows-x64.zip`，包内含 exe、exe 的
   SHA-256 与 `README.txt`，并为压缩包生成 `.zip.sha256`；
 - Release 只上传 zip 与 `.zip.sha256`，不上传裸 exe：下载端拿到的是压缩包，可先校验再解压运行。
-- 产物未签名，Windows SmartScreen 会提示，发布说明必须写明；
+- 产物未签名，Windows SmartScreen 会提示，发布说明必须写明，不声称已通过 SmartScreen；
 - 运行需要 WebView2：Windows 11 已内置，Windows 10 可能需单独安装；
 - 推送 `v*` tag 会触发 `.github/workflows/release.yml`：在 `windows-latest` 构建单文件 exe，
   生成 SHA-256，并创建或更新 GitHub Release；也可手动运行该工作流只检查构建；

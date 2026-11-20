@@ -1,7 +1,7 @@
-// P4-4 辅助技术回归：跨页结构不变量（landmark、可访问名称、表单标签、
+// 辅助技术回归：跨页结构不变量（landmark、可访问名称、表单标签、
 // 跳到正文、对话框命名、强制性颜色样式）。
-// Narrator 与 Windows 系统高对比度仍需人工，步骤与记录见
-// docs/development/accessibility.md 与开发工作区的验收记录。
+// Narrator 与 Windows 系统高对比度需人工检查，步骤见
+// docs/development/accessibility.md。
 import { readFileSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { flushPromises } from "@vue/test-utils";
